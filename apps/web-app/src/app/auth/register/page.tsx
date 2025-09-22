@@ -1,4 +1,4 @@
-import Link from 'next/link';
+
 import RegisterForm from '@/components/auth/RegisterForm';
 
 export default function RegisterPage() {
@@ -7,9 +7,9 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
+          <a href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
             AutaMedica
-          </Link>
+          </a>
           <p className="text-white mt-2">Desarrollado por E.M Medicina - UBA</p>
         </div>
 

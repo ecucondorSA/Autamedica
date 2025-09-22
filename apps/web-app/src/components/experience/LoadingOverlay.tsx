@@ -38,7 +38,7 @@ export default function LoadingOverlay({ onComplete, minDurationMs = 1200 }: Pro
           <div className="loading-fill" style={{ width: `${progress}%` }} />
         </div>
       </div>
-      <style jsx>{`
+      <style>{`
         .loading-screen { position: fixed; inset: 0; background: var(--negro); display: grid; place-items: center; z-index: 9999; }
         .loading-content h1 { font-size: 2rem; color: var(--blanco); margin-bottom: 1rem; font-weight: bold; }
         .loading-bar { width: 220px; height: 4px; background: rgba(255,255,255,.12); border-radius: 2px; overflow: hidden; }

@@ -34,9 +34,27 @@ export default function SystemStatus() {
     const fetchHealth = async () => {
       try {
         const response = await fetch('/api/health')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
         const healthData = await response.json()
-        setHealth(healthData)
-        setLastUpdate(new Date())
+        
+        // Validate the health data structure
+        if (healthData && typeof healthData === 'object') {
+          // Ensure checks object exists with default values
+          if (!healthData.checks) {
+            healthData.checks = {
+              environment_security: false,
+              database: 'unknown',
+              memory_usage: 0,
+              heap_usage: 0
+            }
+          }
+          setHealth(healthData)
+          setLastUpdate(new Date())
+        } else {
+          console.warn('Invalid health data format received')
+        }
 
         // Record page load time
         recordMetric({
@@ -47,6 +65,21 @@ export default function SystemStatus() {
         })
       } catch (error) {
         console.error('Error fetching system health:', error)
+        // Set default health status on error
+        setHealth({
+          status: 'unhealthy',
+          timestamp: new Date().toISOString(),
+          environment: 'unknown',
+          uptime: 0,
+          responseTime: 0,
+          checks: {
+            environment_security: false,
+            database: 'offline',
+            memory_usage: 0,
+            heap_usage: 0
+          },
+          detailed_checks: []
+        })
       } finally {
         setLoading(false)
       }
@@ -148,7 +181,7 @@ export default function SystemStatus() {
 
         <div className="bg-gray-700/50 rounded-lg p-3">
           <p className="text-xs text-gray-400 mb-1">Memoria</p>
-          <p className="text-sm font-medium text-white">{Math.round(health.checks?.memory_usage ?? 0)}MB</p>
+          <p className="text-sm font-medium text-white">{Math.round(health?.checks?.memory_usage ?? 0)}MB</p>
         </div>
 
         <div className="bg-gray-700/50 rounded-lg p-3">
@@ -183,11 +216,11 @@ export default function SystemStatus() {
         {/* Security Check */}
         <div className="flex items-center justify-between py-2 px-3 bg-gray-700/30 rounded-lg">
           <div className="flex items-center space-x-3">
-            <span className="text-lg">{health.checks.environment_security ? '🔒' : '⚠️'}</span>
+            <span className="text-lg">{health?.checks?.environment_security ? '🔒' : '⚠️'}</span>
             <div>
               <p className="text-sm font-medium text-white">Seguridad</p>
-              <p className={`text-xs ${health.checks.environment_security ? 'text-green-400' : 'text-red-400'}`}>
-                {health.checks.environment_security ? 'Seguro' : 'Verificar'}
+              <p className={`text-xs ${health?.checks?.environment_security ? 'text-green-400' : 'text-red-400'}`}>
+                {health?.checks?.environment_security ? 'Seguro' : 'Verificar'}
               </p>
             </div>
           </div>

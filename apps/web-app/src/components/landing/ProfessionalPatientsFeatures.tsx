@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useState, useRef } from 'react';
 import { getAppUrl } from '@/lib/env';
 
@@ -163,15 +163,15 @@ export default function ProfessionalPatientsFeatures() {
       </div>
 
       <div className="cta-buttons">
-        <Link href={getAppUrl('/auth/login?portal=patients', 'patients')} className="btn btn-primary">
+        <a href={getAppUrl('/auth/login?portal=patients', 'patients')} className="btn btn-primary">
           Acceder como Paciente
-        </Link>
-        <Link href={getAppUrl('/auth/login?portal=patients', 'patients')} className="btn btn-secondary">
+        </a>
+        <a href={getAppUrl('/auth/login?portal=patients', 'patients')} className="btn btn-secondary">
           Comenzar Gratis
-        </Link>
+        </a>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .content {
           text-align: center;
           max-width: 900px;

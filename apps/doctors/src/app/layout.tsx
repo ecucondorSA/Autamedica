@@ -11,6 +11,7 @@ import {
   Brain,
   History,
 } from 'lucide-react';
+import { createClient } from '@/lib/supabase';
 import './globals.css';
 
 interface RootLayoutProps {
@@ -19,6 +20,25 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const [activeTab, setActiveTab] = useState('video-call');
+  const [userName, setUserName] = useState('Doctor');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const supabase = createClient();
+      if (supabase) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          // Get user name from metadata or email
+          const name = user.user_metadata?.name || 
+                       user.user_metadata?.full_name || 
+                       user.email?.split('@')[0] || 
+                       'Doctor';
+          setUserName(name);
+        }
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const [sidebarItems] = useState([
     { id: 'patients', icon: Users, label: 'Pacientes', count: 12 },
@@ -51,7 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               </div>
               <span className="ml-4 text-white font-medium">
-                AutaMedica Doctor Portal - Dr. Eduardo Marques
+                AutaMedica Portal Médico - Dr. {userName}
               </span>
             </div>
             <div className="flex items-center space-x-4">

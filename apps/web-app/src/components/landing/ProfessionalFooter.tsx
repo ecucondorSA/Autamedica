@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getAppUrl } from '@/lib/env';
 
 const footerSections = [
@@ -127,7 +127,7 @@ export default function ProfessionalFooter() {
               <ul className="links-list">
                 {section.links.map((link) => (
                   <li key={link.name}>
-                    <Link
+                    <a
                       href={link.href}
                       className="footer-link"
                       target={link.external ? '_blank' : undefined}
@@ -144,7 +144,7 @@ export default function ProfessionalFooter() {
                           />
                         </svg>
                       )}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -194,7 +194,7 @@ export default function ProfessionalFooter() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .footer-professional {
           background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
           color: white;

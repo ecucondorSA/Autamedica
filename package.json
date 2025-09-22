@@ -33,6 +33,7 @@
     "security:check": "node scripts/security-check.mjs",
     "security:audit": "pnpm audit --audit-level moderate",
     "security:full": "pnpm run security:check && pnpm run security:audit",
+    "test:e2e": "node tests/run-playwright.cjs",
     "test:unit": "turbo run test:unit",
     "test": "turbo run test",
     "health": "node scripts/health-check.mjs",
@@ -62,9 +63,10 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.55.0",
     "@typescript-eslint/eslint-plugin": "^8.44.0",
     "@typescript-eslint/parser": "^8.44.0",
-    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/coverage-v8": "^3.2.4",
     "concurrently": "^9.2.1",
     "dependency-cruiser": "^17.0.1",
     "eslint": "^9.35.0",
@@ -87,6 +89,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
     "next": "15.5.2",
     "turbo": "^2.5.6"
   },

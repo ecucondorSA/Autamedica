@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getAppUrl } from '@/lib/env';
 
 export default function ProfessionalDoctorsFeatures() {
@@ -75,15 +75,15 @@ export default function ProfessionalDoctorsFeatures() {
       </div>
 
       <div className="cta-buttons">
-        <Link href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-primary">
+        <a href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-primary">
           Acceder como Médico
-        </Link>
-        <Link href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-secondary">
+        </a>
+        <a href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-secondary">
           Unirse a la Plataforma
-        </Link>
+        </a>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .content {
           text-align: center;
           max-width: 900px;

@@ -14,11 +14,16 @@ export function LoginForm() {
   const supabase = createClient()
   
   // Capturar parámetros de URL para pasarlos al callback
-  const returnTo = searchParams.get('returnTo')
+  const returnTo = searchParams.get('returnTo') ?? searchParams.get('from')
   const portal = searchParams.get('portal')
 
   const buildCallbackUrl = () => {
-    const callbackUrl = new URL('/auth/callback', window.location.origin)
+    // Use the correct callback URL based on environment
+    const baseUrl = window.location.hostname === 'localhost' 
+      ? window.location.origin 
+      : 'https://autamedica-web-app.pages.dev'
+    
+    const callbackUrl = new URL('/auth/callback', baseUrl)
     if (returnTo) callbackUrl.searchParams.set('returnTo', returnTo)
     if (portal) callbackUrl.searchParams.set('portal', portal)
     return callbackUrl
@@ -30,14 +35,16 @@ export function LoginForm() {
     setError(null)
 
     // Check if we're in development mode with dummy credentials
-    const isDummyMode = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://dummy.supabase.co') === 'https://dummy.supabase.co'
+    // Only use dummy mode if explicitly set to dummy URL
+    const isDummyMode = process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://dummy.supabase.co'
 
     if (isDummyMode) {
       // Simulate login in development mode
       setTimeout(() => {
         if (email === 'demo@autamedica.com' && password === 'demo123') {
           setError(null)
-          router.push('/') // Redirect to home
+          // In demo mode, simulate doctor role
+          router.push('/doctors')
         } else {
           setError('Modo demo: Usa email "demo@autamedica.com" y contraseña "demo123"')
         }
@@ -68,8 +75,30 @@ export function LoginForm() {
         return
       }
 
-      // Redirect will be handled by middleware
-      router.push('/')
+      // Get user data to determine portal redirect
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        const role = user.user_metadata?.role
+        console.log('Login successful, user role:', role)
+        
+        // Redirect to external portal URLs based on role
+        switch(role) {
+          case 'doctor':
+            window.location.href = 'https://autamedica-doctors.pages.dev'
+            break
+          case 'patient':
+            window.location.href = 'https://autamedica-patients.pages.dev'
+            break
+          case 'company':
+            window.location.href = 'https://autamedica-companies.pages.dev'
+            break
+          default:
+            router.push('/auth/select-role')
+        }
+      } else {
+        router.push('/auth/select-role')
+      }
     } catch (err) {
       setError('Error inesperado. Por favor intenta nuevamente.')
       setLoading(false)
@@ -81,13 +110,13 @@ export function LoginForm() {
     setLoading(true)
     setError(null)
 
-    const isDummyMode = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://dummy.supabase.co') === 'https://dummy.supabase.co'
+    const isDummyMode = process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://dummy.supabase.co'
 
     if (isDummyMode) {
       setTimeout(() => {
         setError(null)
         alert('Modo demo: Login con Google (simulado)')
-        router.push('/')
+        router.push('/doctors') // Demo mode defaults to doctor portal
         setLoading(false)
       }, 1000)
       return
@@ -105,7 +134,13 @@ export function LoginForm() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: callbackUrl.toString()
+          redirectTo: callbackUrl.toString(),
+          scopes: 'openid profile email',
+          queryParams: {
+            // Use default PKCE flow (code flow) to get both access and refresh tokens
+            access_type: 'offline',
+            prompt: 'consent'
+          }
         }
       })
 
@@ -124,13 +159,13 @@ export function LoginForm() {
     setLoading(true)
     setError(null)
 
-    const isDummyMode = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://dummy.supabase.co') === 'https://dummy.supabase.co'
+    const isDummyMode = process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://dummy.supabase.co'
 
     if (isDummyMode) {
       setTimeout(() => {
         setError(null)
         alert('Modo demo: Login con GitHub (simulado)')
-        router.push('/')
+        router.push('/patients') // Demo mode GitHub defaults to patient portal
         setLoading(false)
       }, 1000)
       return
@@ -148,7 +183,13 @@ export function LoginForm() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
-          redirectTo: callbackUrl.toString()
+          redirectTo: callbackUrl.toString(),
+          scopes: 'read:user user:email',
+          queryParams: {
+            // Use default PKCE flow (code flow) to get both access and refresh tokens
+            access_type: 'offline',
+            prompt: 'consent'
+          }
         }
       })
 

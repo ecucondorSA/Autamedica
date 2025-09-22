@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
 
 export default function RegisterForm() {
@@ -269,13 +269,13 @@ export default function RegisterForm() {
           />
           <label htmlFor="terms" className="text-sm text-gray-300">
             Acepto los{' '}
-            <Link href="/terms" className="text-autamedica-primary hover:text-white underline">
+            <a href="/terms" className="text-autamedica-primary hover:text-white underline">
               Términos de Servicio
-            </Link>{' '}
+            </a>{' '}
             y la{' '}
-            <Link href="/privacy" className="text-autamedica-primary hover:text-white underline">
+            <a href="/privacy" className="text-autamedica-primary hover:text-white underline">
               Política de Privacidad
-            </Link>
+            </a>
           </label>
         </div>
 
@@ -329,9 +329,9 @@ export default function RegisterForm() {
       <div className="mt-6 text-center">
         <p className="text-gray-400 text-sm">
           ¿Ya tienes cuenta?{' '}
-          <Link href="/auth/login" className="text-autamedica-primary hover:text-white font-medium underline">
+          <a href="/auth/login" className="text-autamedica-primary hover:text-white font-medium underline">
             Iniciar sesión
-          </Link>
+          </a>
         </p>
       </div>
     </>

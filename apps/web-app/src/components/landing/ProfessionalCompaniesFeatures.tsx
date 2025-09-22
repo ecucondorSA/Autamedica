@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getAppUrl } from '@/lib/env';
 
 export default function ProfessionalCompaniesFeatures() {
@@ -67,15 +67,15 @@ export default function ProfessionalCompaniesFeatures() {
       </div>
 
       <div className="cta-buttons">
-        <Link href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-primary">
+        <a href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-primary">
           Acceso Empresarial
-        </Link>
-        <Link href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-secondary">
+        </a>
+        <a href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-secondary">
           Solicitar Demo
-        </Link>
+        </a>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .content {
           text-align: center;
           max-width: 900px;

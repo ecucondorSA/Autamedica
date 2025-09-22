@@ -1,18 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import dynamic from 'next/dynamic'
-
-// Dynamic imports for better performance
-const EnhancedLandingExperience = dynamic(() => import('./EnhancedLandingExperience'), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-black flex items-center justify-center"><div className="text-white">Cargando...</div></div>
-})
-
-const MobileExperience = dynamic(() => import('./MobileExperience'), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-black flex items-center justify-center"><div className="text-white">Cargando...</div></div>
-})
+import EnhancedLandingExperience from './EnhancedLandingExperience'
+import MobileExperience from './MobileExperience'
 
 export default function ResponsiveExperience() {
   const [isMobile, setIsMobile] = useState(false)

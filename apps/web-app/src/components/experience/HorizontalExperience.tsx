@@ -91,9 +91,9 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
                   <li key={t}>{t}</li>
                 ))}
               </ul>
-              <Link href={p.ctaHref} className="btn">Ingresar</Link>
+              <a href={p.ctaHref} className="btn">Ingresar</a>
               <div style={{ marginTop: "1rem" }}>
-                <Link href="/model-viewer" className="btn" aria-label="Ver asistente 3D">Ver asistente 3D</Link>
+                <a href="/model-viewer" className="btn" aria-label="Ver asistente 3D">Ver asistente 3D</a>
               </div>
             </div>
           )}
@@ -106,7 +106,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .hx-container {
           display: flex;
           height: 100vh;

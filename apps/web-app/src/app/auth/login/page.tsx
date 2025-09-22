@@ -1,4 +1,4 @@
-import Link from 'next/link';
+
 import { Suspense } from 'react';
 import { LoginForm } from '@/components/auth/LoginForm';
 
@@ -13,9 +13,9 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
+          <a href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
             AutaMedica
-          </Link>
+          </a>
           <p className="text-white mt-2">Desarrollado por E.M Medicina - UBA</p>
         </div>
 
@@ -46,13 +46,13 @@ export default function LoginPage() {
         {/* Footer */}
         <p className="text-center text-xs text-white mt-6">
           Al continuar, aceptas nuestros{' '}
-          <Link href="/terms" className="text-autamedica-primary hover:text-white underline">
+          <a href="/terms" className="text-autamedica-primary hover:text-white underline">
             Términos de Servicio
-          </Link>{' '}
+          </a>{' '}
           y{' '}
-          <Link href="/privacy" className="text-autamedica-primary hover:text-white underline">
+          <a href="/privacy" className="text-autamedica-primary hover:text-white underline">
             Política de Privacidad
-          </Link>
+          </a>
         </p>
       </div>
     </div>

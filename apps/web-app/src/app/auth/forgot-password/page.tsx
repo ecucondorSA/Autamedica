@@ -1,14 +1,12 @@
-import Link from 'next/link';
-
 export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-autamedica-negro via-autamedica-secondary to-autamedica-negro flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
+          <a href="/" className="text-2xl font-bold text-autamedica-blanco hover:text-autamedica-primary transition-colors">
             AutaMedica
-          </Link>
+          </a>
           <p className="text-white mt-2">Desarrollado por E.M Medicina - UBA</p>
         </div>
 
@@ -46,15 +44,15 @@ export default function ForgotPasswordPage() {
           <div className="mt-6 text-center space-y-2">
             <p className="text-white text-sm">
               ¿Recordaste tu contraseña?{' '}
-              <Link href="/auth/login" className="text-autamedica-primary hover:text-white font-medium underline">
+              <a href="/auth/login" className="text-autamedica-primary hover:text-white font-medium underline">
                 Iniciar Sesión
-              </Link>
+              </a>
             </p>
             <p className="text-white text-sm">
               ¿No tienes cuenta?{' '}
-              <Link href="/auth/register" className="text-autamedica-primary hover:text-white font-medium underline">
+              <a href="/auth/register" className="text-autamedica-primary hover:text-white font-medium underline">
                 Registrarse
-              </Link>
+              </a>
             </p>
           </div>
         </div>
@@ -62,13 +60,13 @@ export default function ForgotPasswordPage() {
         {/* Terms */}
         <p className="text-center text-xs text-white mt-6">
           Al continuar, aceptas nuestros{' '}
-          <Link href="/terms" className="text-autamedica-primary hover:text-white underline">
+          <a href="/terms" className="text-autamedica-primary hover:text-white underline">
             Términos de Servicio
-          </Link>{' '}
+          </a>{' '}
           y{' '}
-          <Link href="/privacy" className="text-autamedica-primary hover:text-white underline">
+          <a href="/privacy" className="text-autamedica-primary hover:text-white underline">
             Política de Privacidad
-          </Link>
+          </a>
         </p>
       </div>
     </div>

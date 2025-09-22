@@ -46,27 +46,50 @@ function CallbackHandler() {
           console.log('Auth callback - User:', data.user.email, 'Role:', userRole)
           setStatus('Redirigiendo según rol...')
 
-          // Definir URLs de redirección por rol (URLs de producción)
-          const roleRedirects = {
-            'patient': 'https://patients.autamedica.com/',
-            'doctor': 'https://doctors.autamedica.com/', 
-            'company_admin': 'https://companies.autamedica.com/',
-            'company': 'https://companies.autamedica.com/',
-            'platform_admin': '/admin', // Admin en web-app
-            'admin': '/admin'
+          // Definir URLs de redirección por rol - dinámicas según ambiente
+          const getPortalUrl = (role: string) => {
+            // En desarrollo usar localhost con puertos específicos
+            if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+              const portMap: Record<string, string> = {
+                'patient': 'http://localhost:3002',
+                'doctor': 'http://localhost:3001',
+                'company_admin': 'http://localhost:3003',
+                'company': 'http://localhost:3003',
+                'platform_admin': '/admin',
+                'admin': '/admin'
+              }
+              return portMap[role] || '/'
+            }
+            
+            // En producción usar URLs de Cloudflare Pages
+            const prodMap: Record<string, string> = {
+              'patient': 'https://autamedica-patients.pages.dev',
+              'doctor': 'https://autamedica-doctors.pages.dev',
+              'company_admin': 'https://autamedica-companies.pages.dev',
+              'company': 'https://autamedica-companies.pages.dev',
+              'platform_admin': '/admin',
+              'admin': '/admin'
+            }
+            return prodMap[role] || '/'
           }
 
           // Redireccionar según el rol
-          if (userRole && roleRedirects[userRole as keyof typeof roleRedirects]) {
-            const redirectUrl = roleRedirects[userRole as keyof typeof roleRedirects]
-            console.log('Redirecting to:', redirectUrl)
-            setStatus(`Redirigiendo a ${userRole}...`)
-            
-            // Pequeño delay para mostrar el mensaje
-            setTimeout(() => {
-              window.location.href = redirectUrl
-            }, 1000)
-            return
+          if (userRole) {
+            const redirectUrl = getPortalUrl(userRole)
+            if (redirectUrl) {
+              console.log('Redirecting to:', redirectUrl)
+              setStatus(`Redirigiendo a ${userRole}...`)
+              
+              // Pequeño delay para mostrar el mensaje
+              setTimeout(() => {
+                if (redirectUrl.startsWith('/')) {
+                  router.push(redirectUrl)
+                } else {
+                  window.location.href = redirectUrl
+                }
+              }, 1000)
+              return
+            }
           }
 
           // Si no tiene rol, redirigir a selección de rol

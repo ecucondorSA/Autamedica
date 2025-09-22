@@ -135,7 +135,7 @@ export async function middleware(request: NextRequest) {
       const loginUrl = new URL("/auth/login", request.url);
 
       // Preservar la URL original para redirección post-login
-      loginUrl.searchParams.set("from", pathname);
+      loginUrl.searchParams.set("returnTo", pathname);
 
       // Determinar el portal basado en la ruta
       let portal = "patients"; // por defecto
@@ -180,7 +180,7 @@ export async function middleware(request: NextRequest) {
     // En caso de error, permitir continuar pero redirigir rutas protegidas al login
     if (PROTECTED_ROUTES.some(route => pathname.startsWith(route))) {
       const loginUrl = new URL("/auth/login", request.url);
-      loginUrl.searchParams.set("from", pathname);
+      loginUrl.searchParams.set("returnTo", pathname);
       return NextResponse.redirect(loginUrl);
     }
 

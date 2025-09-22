@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects
+# Redirect auth callbacks to the correct page
+/auth/callback/* /auth/callback/index.html 200
+/auth/callback-client/* /auth/callback-client/index.html 200
+
+# SPA fallback - must be last
+/* /index.html 200

@@ -7,20 +7,18 @@ export function createClient() {
     return null
   }
 
-  // For development/testing, use dummy values if not available
-  let url: string
-  let key: string
+  // Use the Supabase configuration - these should be available in the build
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://gtyvdircfhmdjiaelqkg.supabase.co'
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4'
   
-  try {
-    url = ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL')
-  } catch {
-    url = 'https://dummy.supabase.co'
-  }
-  
-  try {
-    key = ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
-  } catch {
-    key = 'dummy-key'
+  // Ensure we have valid values
+  if (!url || !key || url === 'https://dummy.supabase.co') {
+    console.error('Supabase configuration error: Invalid URL or key')
+    // Use the real values as fallback
+    return createBrowserClient(
+      'https://gtyvdircfhmdjiaelqkg.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4'
+    )
   }
 
   return createBrowserClient(url, key)

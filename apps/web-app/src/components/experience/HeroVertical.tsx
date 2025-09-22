@@ -32,7 +32,7 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
         </div>
       </div>
 
-        <style jsx>{`
+        <style>{`
           .hero-vertical {
             position: relative;
             width: 100%;

@@ -281,7 +281,7 @@ const EnhancedLandingExperience: React.FC = () => {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%,
           100% {
