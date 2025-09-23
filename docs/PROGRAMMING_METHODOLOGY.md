@@ -21,13 +21,13 @@ NEXT_PUBLIC_COMPANIES_URL=https://companies.autamedica.com \
 NODE_ENV=production \
 HUSKY=0 \
 HUSKY_SKIP_INSTALL=1 \
-npx vercel --prod --yes --token <TOKEN>
+pnpm build:cloudflare && wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main
 
 # ❌ INCORRECTO: Múltiples pasos
 export NEXT_PUBLIC_SUPABASE_URL=...
 export NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 cd /root/altamedica-reboot-deploy
-npx vercel --prod --yes
+wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main
 ```
 
 ### **2. Ventajas de la Metodología**
@@ -152,7 +152,7 @@ build_deploy_command() {
     NODE_ENV=$env \
     APP_NAME=$app \
     $(get_env_vars $env) \
-    npx vercel --prod --token $token"
+    wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main"
 }
 
 # Uso
@@ -196,7 +196,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... \
 NEXT_PUBLIC_APP_URL=https://autamedica.com \
 NODE_ENV=production \
 HUSKY=0 \
-npx vercel --prod --yes --token mLKuxgoPUv6h3YdjUXwUC3q1
+wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main --token mLKuxgoPUv6h3YdjUXwUC3q1
 ```
 
 **¿Por qué este comando es perfecto?**

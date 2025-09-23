@@ -1,0 +1,33 @@
+2025-09-22 23:03:04.113 [trace] Sending request 'initialize - (0)'.
+2025-09-22 23:03:04.113 [trace] Received response 'initialize - (0)' in 508ms.
+2025-09-22 23:03:04.113 [trace] Sending notification 'initialized'.
+2025-09-22 23:03:04.113 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.113 [trace] Sending notification 'workspace/didChangeConfiguration'.
+2025-09-22 23:03:04.113 [trace] Sending notification 'json/schemaAssociations'.
+2025-09-22 23:03:04.113 [trace] Received request 'workspace/diagnostic/refresh - (0)'.
+2025-09-22 23:03:04.113 [trace] Sending response 'workspace/diagnostic/refresh - (0)'. Processing request took 1ms
+2025-09-22 23:03:04.114 [trace] Received request 'workspace/diagnostic/refresh - (1)'.
+2025-09-22 23:03:04.114 [trace] Sending response 'workspace/diagnostic/refresh - (1)'. Processing request took 0ms
+2025-09-22 23:03:04.480 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.509 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.547 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.742 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.878 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:04.993 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:05.023 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:05.230 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:05.390 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:06.409 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:06.518 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:06.596 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:07.008 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:07.652 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:07.776 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:07.925 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:08.084 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:08.237 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:08.316 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:31.608 [trace] Sending notification 'textDocument/didOpen'.
+2025-09-22 23:03:31.626 [trace] Sending notification 'textDocument/didClose'.
+2025-09-22 23:03:32.245 [trace] Sending notification 'workspace/didChangeWatchedFiles'.
+2025-09-22 23:03:33.883 [trace] Sending notification 'workspace/didChangeWatchedFiles'.

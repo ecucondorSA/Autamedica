@@ -1,0 +1,69 @@
+2025-09-22 23:02:48.179 [trace] sharedProcess configuration {"machineId":"2ef7c413ff4d4c8727fbde66a1bee4f349dc0f6720cdc95a9763e5cecf8cbccc","sqmId":"","devDeviceId":"b0762f83-8980-4a89-a3fb-0caac41d3bba","codeCachePath":"/root/altamedica-reboot/~/.vscode-root/CachedData/f220831ea2d946c0dcb0f3eaa480eb435a2c1260","profiles":{"home":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/profiles","query":"","fragment":"","_formatted":null,"_fsPath":null},"all":[{"id":"__default__profile__","name":"Default","location":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User","query":"","fragment":"","_formatted":null,"_fsPath":null},"isDefault":true,"globalStorageHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/globalStorage","query":"","fragment":"","_formatted":null,"_fsPath":null},"settingsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/settings.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"keybindingsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/keybindings.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"tasksResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/tasks.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"snippetsHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/snippets","query":"","fragment":"","_formatted":null,"_fsPath":null},"promptsHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/prompts","query":"","fragment":"","_formatted":null,"_fsPath":null},"extensionsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/.vscode/extensions/extensions.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"mcpResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/User/mcp.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"cacheHome":{"scheme":"file","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/CachedProfilesData/__default__profile__","query":"","fragment":"","_formatted":null,"_fsPath":null},"workspaces":[{"scheme":"file","authority":"","path":"/root/altamedica-reboot","query":"","fragment":"","_formatted":"file:///root/altamedica-reboot","_fsPath":null}]}]},"args":{"_":["/root/altamedica-reboot"],"diff":false,"merge":false,"add":false,"remove":false,"goto":false,"new-window":false,"reuse-window":false,"wait":false,"user-data-dir":"~/.vscode-root","help":false,"list-extensions":false,"show-versions":false,"pre-release":false,"update-extensions":false,"version":false,"verbose":true,"status":false,"prof-startup":false,"no-cached-data":false,"prof-v8-extensions":false,"disable-extensions":false,"disable-lcd-text":false,"disable-gpu":true,"disable-chromium-sandbox":true,"sandbox":false,"telemetry":false,"debugRenderer":false,"enable-smoke-test-driver":false,"logExtensionHostCommunication":false,"skip-release-notes":false,"skip-welcome":false,"disable-telemetry":false,"disable-updates":false,"transient":false,"use-inmemory-secretstorage":false,"disable-workspace-trust":false,"disable-crash-reporter":false,"crash-reporter-id":"ad7ab65d-c3a2-46f4-9c5a-19562646e150","skip-add-to-recently-opened":false,"open-url":false,"file-write":false,"file-chmod":false,"force":false,"do-not-sync":false,"do-not-include-pack-dependencies":false,"trace":false,"trace-memory-infra":false,"preserve-env":false,"force-user-env":false,"force-disable-user-env":false,"open-devtools":false,"disable-gpu-sandbox":false,"__enable-file-policy":false,"enable-coi":false,"enable-rdp-display-tracking":false,"disable-layout-restore":false,"disable-experiments":false,"no-proxy-server":false,"no-sandbox":false,"nolazy":false,"force-renderer-accessibility":false,"ignore-certificate-errors":false,"allow-insecure-localhost":false,"disable-dev-shm-usage":false,"profile-temp":false,"logsPath":"/root/altamedica-reboot/~/.vscode-root/logs/20250922T230244"},"logLevel":1,"loggers":[{"resource":{"scheme":"file","authority":"","path":"/root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/main.log","query":"","fragment":"","_formatted":"file:///root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/main.log","_fsPath":"/root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/main.log"},"id":"main","name":"Main"}]}
+2025-09-22 23:02:48.183 [trace] Started scanning system extensions
+2025-09-22 23:02:48.183 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:48.183 [trace] ExtensionManagementService#cleanUp
+2025-09-22 23:02:48.183 [trace] ExtensionManagementService#removeTempDeleteFolders
+2025-09-22 23:02:48.184 [trace] ExtensionManagementService.updateControlCache
+2025-09-22 23:02:48.185 [trace] ExtensionManagementService.refreshControlCache - failed to get extension control manifest No extension gallery service configured.
+2025-09-22 23:02:48.185 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:48.214 [trace] Extension VSIX downloads cache dir does not exist
+2025-09-22 23:02:48.255 [trace] [File Watcher (node.js)] Request to start watching: /root/.vscode/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:48.273 [debug] Writing language packs {}
+2025-09-22 23:02:48.274 [debug] No extensions are marked as removed.
+2025-09-22 23:02:48.513 [trace] [File Watcher (node.js)] Started watching: '/root/.vscode/extensions'
+2025-09-22 23:02:48.963 [debug] ComputeTargetPlatform: linux-x64
+2025-09-22 23:02:48.965 [trace] Scanned user extensions: 7
+2025-09-22 23:02:48.965 [trace] Scanned user extensions: 7
+2025-09-22 23:02:49.014 [trace] Scanned system extensions: 91
+2025-09-22 23:02:49.226 [trace] Started scanning system extensions
+2025-09-22 23:02:49.231 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:49.361 [debug] Writing language packs {}
+2025-09-22 23:02:49.642 [trace] Scanned user extensions: 7
+2025-09-22 23:02:49.747 [trace] Scanned system extensions: 91
+2025-09-22 23:02:50.476 [trace] Started scanning system extensions
+2025-09-22 23:02:50.479 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:50.515 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:50.516 [trace] Scanned system extensions: 91
+2025-09-22 23:02:50.541 [trace] Scanned user extensions: 7
+2025-09-22 23:02:50.721 [trace] Started scanning system extensions
+2025-09-22 23:02:50.721 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:50.748 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:50.748 [trace] Scanned system extensions: 91
+2025-09-22 23:02:50.824 [trace] Scanned user extensions: 7
+2025-09-22 23:02:50.971 [trace] Started scanning system extensions
+2025-09-22 23:02:50.971 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:51.027 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:51.030 [trace] Scanned system extensions: 91
+2025-09-22 23:02:51.073 [trace] Scanned user extensions: 7
+2025-09-22 23:02:51.162 [trace] Started scanning system extensions
+2025-09-22 23:02:51.180 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:51.228 [trace] Started scanning system extensions
+2025-09-22 23:02:51.228 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:51.277 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:51.277 [trace] Scanned system extensions: 91
+2025-09-22 23:02:51.577 [trace] Scanned user extensions: 7
+2025-09-22 23:02:51.667 [debug] ComputeTargetPlatform: linux-x64
+2025-09-22 23:02:51.685 [trace] Scanned user extensions: 7
+2025-09-22 23:02:51.898 [trace] Scanned system extensions: 91
+2025-09-22 23:02:51.924 [trace] AbstractMcpResourceManagementService#populateLocalServers vscode-userdata:/root/altamedica-reboot/~/.vscode-root/User/mcp.json
+2025-09-22 23:02:51.945 [trace] Started scanning system extensions
+2025-09-22 23:02:51.945 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:52.341 [trace] Scanned user extensions: 7
+2025-09-22 23:02:52.482 [trace] Scanned system extensions: 91
+2025-09-22 23:02:52.649 [trace] Started scanning system extensions
+2025-09-22 23:02:52.649 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:52.720 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:52.720 [trace] Scanned system extensions: 91
+2025-09-22 23:02:52.832 [trace] Scanned user extensions: 7
+2025-09-22 23:02:58.049 [trace] Started scanning system extensions
+2025-09-22 23:02:58.050 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.vscode/extensions/extensions.json","path":"/root/.vscode/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:02:58.073 [debug] Using cached extensions scan result system file:///snap/code/206/usr/share/code/resources/app/extensions
+2025-09-22 23:02:58.074 [trace] Scanned system extensions: 91
+2025-09-22 23:02:58.179 [trace] [logs cleanup]: Starting to clean up old logs.
+2025-09-22 23:02:58.191 [trace] Scanned user extensions: 7
+2025-09-22 23:03:18.152 [trace] [code cache cleanup]: Starting to clean up old code cache folders.
+2025-09-22 23:03:18.153 [trace] [storage cleanup]: Starting to clean up workspace storage folders for unused empty workspaces.
+2025-09-22 23:03:28.155 [trace] [language pack cache cleanup]: Starting to clean up unused language packs.
+2025-09-22 23:03:31.667 [debug] User data changed
+2025-09-22 23:03:31.771 [debug] User data changed
+2025-09-22 23:03:34.918 [debug] User data changed

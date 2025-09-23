@@ -1,43 +1,40 @@
 #!/bin/bash
 
 # Script para actualizar URLs de Supabase usando CLI y API directa
-# Soluciona el problema de redirección OAuth
+# Adaptado para deployments en Cloudflare Pages
 
-echo "🔧 Actualizando URLs de Supabase para el deployment..."
+echo "🔧 Actualizando URLs de Supabase para Cloudflare Pages..."
 echo ""
 
 PROJECT_REF="gtyvdircfhmdjiaelqkg"
 ACCESS_TOKEN="sbp_aa74b7707840d07be814d4f92adde20dd35d3c16"
 
-# URLs del deployment de Vercel
-VERCEL_URL1="https://médicos-4vjq1iyi1-ecucondor-gmailcoms-proyectos.vercel.app"
-VERCEL_URL2="https://doctores-ebon.vercel.app"
+# Dominios productivos y previews
+PRIMARY_URL="${WEBAPP_URL:-https://autamedica.com}"
+SECONDARY_URL="${WEBAPP_PREVIEW_URL:-https://autamedica-web-app.pages.dev}"
 
 echo "📍 Proyecto: $PROJECT_REF"
-echo "🔗 URL principal: $VERCEL_URL1"
-echo "🔗 URL alternativa: $VERCEL_URL2"
+echo "🔗 URL principal: $PRIMARY_URL"
+echo "🔗 URL preview: $SECONDARY_URL"
 echo ""
-
-# Intentar múltiples métodos para actualizar la configuración
 
 echo "🔄 Método 1: Actualizando Site URL via API REST..."
 curl -s -X PATCH \
   "https://api.supabase.com/v1/projects/$PROJECT_REF/config/auth" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"SITE_URL\": \"$VERCEL_URL1\"}" || echo "❌ Método 1 falló"
+  -d "{\"SITE_URL\": \"$PRIMARY_URL\"}" || echo "❌ Método 1 falló"
 
 echo ""
 echo "🔄 Método 2: Configurando redirect URLs específicos..."
 
-# Lista completa de URLs permitidas
 REDIRECT_URLS="[
   \"https://autamedica.com/auth/callback\",
   \"https://doctors.autamedica.com/auth/callback\",
   \"https://patients.autamedica.com/auth/callback\",
   \"https://companies.autamedica.com/auth/callback\",
-  \"$VERCEL_URL1/auth/callback\",
-  \"$VERCEL_URL2/auth/callback\",
+  \"$PRIMARY_URL/auth/callback\",
+  \"$SECONDARY_URL/auth/callback\",
   \"http://localhost:3000/auth/callback\",
   \"http://localhost:3001/auth/callback\"
 ]"
@@ -47,23 +44,22 @@ curl -s -X PATCH \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d "{
-    \"SITE_URL\": \"$VERCEL_URL1\",
-    \"URI_ALLOW_LIST\": \"$VERCEL_URL1/**,$VERCEL_URL2/**,https://autamedica.com/**,https://doctors.autamedica.com/**,https://patients.autamedica.com/**,https://companies.autamedica.com/**,http://localhost:3000/**,http://localhost:3001/**\"
+    \"SITE_URL\": \"$PRIMARY_URL\",
+    \"URI_ALLOW_LIST\": \"$PRIMARY_URL/**,$SECONDARY_URL/**,https://autamedica.com/**,https://doctors.autamedica.com/**,https://patients.autamedica.com/**,https://companies.autamedica.com/**,http://localhost:3000/**,http://localhost:3001/**\"
   }" || echo "❌ Método 2 falló"
 
 echo ""
 echo "🔄 Método 3: Usando Management API..."
 
-# Usar el endpoint de management para configuración
 curl -s -X PUT \
   "https://api.supabase.com/v1/projects/$PROJECT_REF" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d "{
-    \"auth_site_url\": \"$VERCEL_URL1\",
+    \"auth_site_url\": \"$PRIMARY_URL\",
     \"auth_additional_redirect_urls\": [
-      \"$VERCEL_URL1/auth/callback\",
-      \"$VERCEL_URL2/auth/callback\",
+      \"$PRIMARY_URL/auth/callback\",
+      \"$SECONDARY_URL/auth/callback\",
       \"https://autamedica.com/auth/callback\",
       \"https://doctors.autamedica.com/auth/callback\",
       \"https://patients.autamedica.com/auth/callback\",
@@ -75,10 +71,10 @@ echo ""
 echo "✅ Intentos de actualización completados."
 echo ""
 echo "🎯 URLs que se intentaron configurar:"
-echo "   Site URL: $VERCEL_URL1"
+echo "   Site URL: $PRIMARY_URL"
 echo "   Callbacks:"
-echo "   - $VERCEL_URL1/auth/callback"
-echo "   - $VERCEL_URL2/auth/callback"
+echo "   - $PRIMARY_URL/auth/callback"
+echo "   - $SECONDARY_URL/auth/callback"
 echo "   - https://autamedica.com/auth/callback"
 echo "   - https://doctors.autamedica.com/auth/callback"
 echo "   - https://patients.autamedica.com/auth/callback"
@@ -88,5 +84,5 @@ echo "⚠️  Si los métodos CLI fallaron, configura manualmente en:"
 echo "   https://supabase.com/dashboard/project/$PROJECT_REF/auth/url-configuration"
 echo ""
 echo "🔍 Después de configurar, prueba el login en:"
-echo "   $VERCEL_URL1"
-echo "   $VERCEL_URL2"
+echo "   $PRIMARY_URL"
+echo "   $SECONDARY_URL"

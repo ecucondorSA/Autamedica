@@ -1,6 +1,5 @@
 'use client';
 
-import { Button, Card, Input } from '@altamedica/ui';
 import React from 'react';
 
 interface NavigationProps {

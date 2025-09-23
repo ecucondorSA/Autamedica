@@ -11,9 +11,9 @@ function HomeContent() {
 
   useEffect(() => {
     // Detectar si hay un código OAuth o tokens en la URL raíz
-    const code = searchParams.get('code')
+    const code = searchParams?.get('code')
     const hash = window.location.hash
-    
+
     // Check for OAuth code (PKCE flow)
     if (code) {
       console.log('OAuth code detected on root page, redirecting to callback')
@@ -22,7 +22,7 @@ function HomeContent() {
     }
     
     // Check for OAuth tokens in hash (implicit flow)
-    if (hash && hash.includes('access_token')) {
+    if (hash?.includes('access_token')) {
       console.log('🚨 OAuth tokens detected in root URL - redirecting to callback')
       // Redirect to callback with both query params and hash
       window.location.href = '/auth/callback' + window.location.search + hash
@@ -30,8 +30,8 @@ function HomeContent() {
     }
     
     // Check for OAuth errors
-    const error = searchParams.get('error')
-    if (error && hash && hash.includes('state=')) {
+    const error = searchParams?.get('error')
+    if (error && hash?.includes('state=')) {
       console.log('OAuth error with state in hash - redirecting to callback')
       window.location.href = '/auth/callback' + window.location.search + hash
       return

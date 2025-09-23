@@ -139,7 +139,7 @@ NODE_ENV=development pnpm build
 ### Staging
 ```bash
 # Deploy to staging
-NODE_ENV=staging vercel deploy --target staging
+NODE_ENV=staging wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch staging
 
 # Build staging bundle
 NODE_ENV=staging pnpm build
@@ -148,7 +148,7 @@ NODE_ENV=staging pnpm build
 ### Production
 ```bash
 # Deploy to production
-NODE_ENV=production vercel deploy --prod
+NODE_ENV=production wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main
 
 # Build production bundle
 NODE_ENV=production pnpm build

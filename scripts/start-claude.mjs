@@ -125,7 +125,7 @@ async function main() {
   console.log('    pnpm check:all             # Validación completa (lint + type + policies)');
   console.log('    pnpm type-check            # Solo TypeScript check');
   console.log('  🚀 Deployment:');
-  console.log('    pnpm vercel:validate       # Validar configuración de deployment');
+  console.log('    pnpm pre-deploy           # Validar configuración de deployment');
   console.log('    pnpm pre-deploy            # Validación pre-deployment completa');
 
   console.log('\n🎯 Claude está listo para desarrollar con validación en tiempo real');

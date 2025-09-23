@@ -1,53 +1,50 @@
-# 🚨 Critical: All 4 AutaMedica Apps Failing to Deploy - Dependabot Queue Congestion
+# 🚨 Critical: Cloudflare Pages Deployments Failing Across AltaMedica Apps
 
 ## 📋 **Affected Apps:**
-- [ ] **Doctors App** - `apps/doctors` 
+- [ ] **Doctors App** - `apps/doctors`
 - [ ] **Patients App** - `apps/patients`
-- [ ] **Companies App** - `apps/companies` 
+- [ ] **Companies App** - `apps/companies`
 - [ ] **Web-App** - `apps/web-app`
 
 ## 🔍 **Problem Description:**
-All 4 AutaMedica production apps are failing to deploy due to Vercel deployment queue congestion caused by excessive Dependabot automation.
+All 4 AltaMedica production apps están atascadas en Cloudflare Pages debido a múltiples despliegues simultáneos disparados por bots automáticos.
 
 ## 📊 **Current Status:**
-- **Build Status**: ✅ All apps build successfully locally
-- **Code Quality**: ✅ No TypeScript errors, clean builds  
-- **Vercel Status**: ❌ 20+ deployments queued, blocking production
-- **Production Access**: ❌ Users cannot access any app
+- **Build Status**: ✅ Builds locales exitosos
+- **Code Quality**: ✅ Sin errores de TypeScript ni lint
+- **Cloudflare Status**: ❌ Deployments en cola (estado `building/queued`)
+- **Production Access**: ❌ Usuarios no pueden acceder a los portales
 
 ## 🤖 **Root Cause:**
-Dependabot created 20+ simultaneous deployment attempts when repository was first connected, causing:
-- Vercel deployment queue overflow
-- Production deployments stuck in QUEUED state
-- Apps showing 404/deployment failed errors
+Dependabot y workflows paralelos dispararon builds concurrentes en todos los proyectos de Cloudflare Pages, saturando la cola y bloqueando releases productivos.
 
 ## ✅ **Actions Taken:**
-1. **Disabled Dependabot** - Commented out `.github/dependabot.yml`
-2. **Verified Local Builds** - All apps compile successfully
-3. **Updated GitHub Token** - Push access working
-4. **Middleware Debug** - Temporary auth bypass for testing
+1. Dependabot deshabilitado temporalmente (`.github/dependabot.yml`)
+2. Builds locales validados (`pnpm check:all`)
+3. `wrangler analytics` revisado para confirmar falla en deploys
+4. Logs de Cloudflare consultados (`wrangler pages deployments list`)
 
 ## 🎯 **Expected Resolution:**
-- **Immediate**: Wait for Vercel queue to process (5-10 minutes)
-- **Short-term**: Manual deployment trigger if queue stalls
-- **Long-term**: Controlled Dependabot re-activation with limits
+- **Inmediato**: Cancelar builds viejos en Cloudflare Dashboard y reintentar manualmente
+- **Corto plazo**: Ejecutar `pnpm deploy:cloudflare` por app, uno a la vez
+- **Largo plazo**: Configurar CI con despliegues secuenciales y rate limiting
 
-## 🔗 **Related URLs:**
-- **Doctors**: https://doctors-drqp597t7-ecucondor-gmailcoms-projects.vercel.app
-- **Patients**: https://autamedica-patients-ecucondor-gmailcoms-projects.vercel.app  
-- **Companies**: https://companies-ecucondor-gmailcoms-projects.vercel.app
-- **Web-App**: https://autamedica-web-app-ecucondor-gmailcoms-projects.vercel.app
+## 🔗 **URLs a monitorear:**
+- **Doctors**: https://autamedica-doctors.pages.dev
+- **Patients**: https://autamedica-patients.pages.dev
+- **Companies**: https://autamedica-companies.pages.dev
+- **Web-App**: https://autamedica-web-app.pages.dev
 
 ## 🤖 **Bot Instructions:**
-- **Priority**: Critical - Production down
-- **Labels**: `bug`, `production`, `vercel`, `deployment`, `critical`
-- **Auto-close**: When all 4 URLs return 200 status
+- **Priority**: Critical - producción caída
+- **Labels**: `bug`, `production`, `cloudflare`, `deployment`, `critical`
+- **Auto-close**: Cuando todas las URLs devuelvan HTTP 200
 
 ## 📋 **Acceptance Criteria:**
-- [ ] All 4 apps accessible in production
-- [ ] No more deployment queue congestion  
-- [ ] Dependabot properly configured with limits
-- [ ] Monitoring in place to prevent recurrence
+- [ ] Deployments completados en Cloudflare Pages para las 4 apps
+- [ ] Subdominios `*.autamedica.com` responden con 200
+- [ ] Dependabot reactivado con límites seguros
+- [ ] Monitoreo de deployments habilitado
 
 ---
 🤖 **Generated with Claude Code** - Auto-tracking deployment health

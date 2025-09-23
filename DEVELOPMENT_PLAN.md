@@ -11,7 +11,7 @@
 | **Frontend** | Next.js 15 + validación | Next.js 15 + React 19 + UI completa |
 | **Backend** | Planificado | Express + Prisma + WebRTC en producción |
 | **Packages** | 4 packages básicos | 30+ packages especializados |
-| **Deploy** | Configurado para Vercel | K8s + Docker + Terraform |
+| **Deploy** | Configurado para Cloudflare Pages | K8s + Docker + Terraform |
 
 ## 🎯 **Estrategia de Desarrollo Recomendada**
 
@@ -248,9 +248,8 @@ spec:
 - **Route53** para DNS y subdominios
 - **CloudFront** para CDN global
 
-#### **Opción B: Vercel + Supabase (Serverless)**
+#### **Opción B: Cloudflare Pages + Supabase (Serverless)**
 ```json
-// vercel.json
 {
   "functions": {
     "apps/api-server/dist/index.js": {
@@ -268,11 +267,11 @@ spec:
 ```
 
 **Componentes serverless:**
-- **Vercel Functions** para API
+- **Cloudflare Workers** para API
 - **Supabase** para base de datos + auth
-- **Vercel Edge** para funciones de edge
+- **Cloudflare Workers/Pages** para edge
 - **Upstash Redis** para caché
-- **Vercel Analytics** para métricas
+- **Cloudflare Analytics** para métricas
 
 ### **CI/CD Pipeline**
 

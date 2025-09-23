@@ -1,10 +1,34 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase';
+
 export default function PatientsHomePage() {
+  const [userName, setUserName] = useState('Paciente');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const supabase = createClient();
+      if (supabase) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const name = user.user_metadata?.name || 
+                       user.user_metadata?.full_name || 
+                       user.email?.split('@')[0] || 
+                       'Paciente';
+          setUserName(name);
+        }
+      }
+    };
+    fetchUserData();
+  }, []);
+
   return (
     <div className="space-y-4">
       {/* Compact Header */}
       <div className="text-center mb-4">
         <h1 className="text-2xl font-bold mb-2 text-white">
-          Portal Médico Personal
+          Portal Médico de {userName}
         </h1>
         <p className="text-sm text-white opacity-80">
           Gestiona tu salud de forma integral y mantente conectado con tu equipo médico.

@@ -283,7 +283,7 @@ pnpm build:all
 
 ### Deploy Strategy
 ```bash
-# Vercel Projects separados
+# Cloudflare Pages projects (uno por app)
 doctors-autamedica    # doctors.autamedica.com
 patients-autamedica   # patients.autamedica.com
 companies-autamedica  # companies.autamedica.com

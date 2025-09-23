@@ -31,7 +31,7 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 - ✅ **Marketplace Médico** - Sistema completo de contratación integrado
 - ✅ **Zero TypeScript Errors** - Compilación limpia en todos los packages y apps
 - ✅ **DevOps Pipeline** - Git hooks + docs sync + validación automática
-- ✅ **Deployment Config** - Configuración Vercel + Turborepo siguiendo mejores prácticas 2025
+- ✅ **Deployment Config** - Configuración Cloudflare Pages + Turborepo siguiendo mejores prácticas 2025
 - ✅ **DEPLOYMENT COMPLETADO** - 4 aplicaciones desplegadas exitosamente en producción
 - ✅ **Metodología Documentada** - Guías de despliegue seguro y programación guardadas
 - 🚀 **Estado**: FULLY DEPLOYED - En producción con metodología probada y documentada
@@ -262,11 +262,11 @@ cp /home/edu/Devaltamedica-Independent/apps/companies/src/components/layout/* \
 
 ## 📚 **Investigación: Mejores Prácticas Oficiales 2024**
 
-### 🏛️ **Estándares GitHub + Turborepo + Vercel**
+### 🏛️ **Estándares GitHub + Turborepo + Cloudflare Pages**
 
 **Fuentes consultadas:**
 - ✅ Documentación oficial Turborepo
-- ✅ Vercel Solutions para Turborepo
+- ✅ Cloudflare Pages Solutions para Turborepo
 - ✅ GitHub monorepo examples (belgattitude/nextjs-monorepo-example)
 - ✅ Next.js 15 + Turborepo integration guides
 
@@ -310,10 +310,10 @@ import { DoctorComponent } from "../../doctors/src/components";
 
 #### ⚡ **Turborepo Performance Features**
 
-**1. Remote Caching (Vercel)**
+**1. Remote Caching (Cloudflare Pages)**
 - Cache compartido entre team y CI/CD
 - Reduce builds de 25 minutos a 5 segundos (caso Chick-fil-A)
-- Configuración automática con Vercel
+- Configuración automática con Cloudflare Pages
 
 **2. Parallel Execution**
 - Builds paralelos por dependencias
@@ -344,7 +344,7 @@ const nextConfig = {
 }
 ```
 
-#### 🚀 **Deployment Vercel OFICIAL**
+#### 🚀 **Deployment Cloudflare Pages OFICIAL**
 - One-click deployment para monorepos
 - Auto-detection de frameworks (Next.js, etc.)
 - Build only affected projects
@@ -358,11 +358,38 @@ const nextConfig = {
 2. **🔄 Namespace requerido** - Cambiar a `@autamedica/` en todos los packages
 3. **⚡ Workspace protocol** - Usar `"workspace:^"` para dependencias internas
 4. **📦 TypeScript transpiling** - Configurar `transpilePackages` en Next.js
-5. **🚀 Remote caching** - Aprovechar Vercel cache automático
+5. **🚀 Remote caching** - Aprovechar Cloudflare Pages cache automático
 
 **SIGUIENTE PASO VALIDADO:** Crear apps específicas siguiendo estos estándares oficiales.
 
 ## 🚨 Reglas Críticas
+
+### 0. **CÓDIGO PARA PRODUCCIÓN - NO DEMOS NI HARDCODE**
+
+**🎯 PRINCIPIO FUNDAMENTAL**:
+- **TODO código generado es para PRODUCCIÓN**
+- **NO generar usuarios hardcodeados** o datos ficticios
+- **Utilizar archivos como guía** (glosarios, docs, referencias)
+- **En caso de duda, CONSULTAR por información precisa**
+- **NO generar código muerto que necesite ajustes posteriores**
+- **ZERO deuda técnica** - cada línea debe ser production-ready
+
+**✅ PERMITIDO**:
+```typescript
+// Usar tipos del glosario
+import { Patient, Doctor } from "@autamedica/types";
+// Consultar DevAltamedica para patterns
+const session = await requireSession("/auth/login");
+```
+
+**❌ PROHIBIDO**:
+```typescript
+// Usuarios hardcodeados
+const testUser = { id: "123", name: "John Doe" };
+// Datos demo sin validación
+const demoPatients = [{ id: "demo-1" }];
+// Código que necesita "ajustes posteriores"
+```
 
 ### 1. DevAltamedica First - Consulta el Mapa
 
@@ -381,9 +408,12 @@ const nextConfig = {
 ### 3. Zero Technical Debt - Reglas ESLint Estrictas
 
 - El usuario enfatizó: **"no generes deuda tecnica por favor"**
+- **TODO código es PRODUCTION-READY desde el primer commit**
+- **NO generar código demo, hardcoded o temporal**
 - **Strict TypeScript, ESLint sin warnings (`--max-warnings=0`)**
-- Tests obligatorios con Vitest
-- Pre-commit hooks con husky + lint-staged
+- **Tests obligatorios con Vitest para funcionalidad nueva**
+- **Pre-commit hooks con husky + lint-staged**
+- **Consultar por datos reales en lugar de generar mocks**
 
 #### 🚫 **Prohibiciones Anti-Deuda Técnica (Implementadas)**
 
@@ -479,7 +509,7 @@ pnpm health               # Health check completo
 ### Deployment y Validación
 
 ```bash
-pnpm vercel:validate        # Validar configuración Vercel deployment
+pnpm pre-deploy               # Validar configuración de deployment
 pnpm pre-deploy            # Validación completa pre-deployment
 pnpm security:check        # Validaciones de seguridad
 pnpm security:full         # Audit + security check completo
@@ -590,7 +620,6 @@ const session = await requirePortalAccess("medico");
 - Reglas personalizadas para monorepo:
   - `no-restricted-imports`: Prohibe deep imports de packages
   - `no-restricted-globals`: Prohibe `process.env` directo (solo en @autamedica/shared)
-  - `vercel-deployment-config/validate-config`: **Valida configuración de Vercel deployment**
 - Auto-validación que previene problemas de deployment
 
 ### TypeScript
@@ -624,16 +653,16 @@ const session = await requirePortalAccess("medico");
 **Estado**: Las 4 aplicaciones están desplegadas y funcionando en producción.
 
 **URLs de Producción Activas:**
-- **Web-App**: https://autamedica-web-app-ecucondor-gmailcoms-projects.vercel.app
-- **Companies**: https://companies-eio296yii-ecucondor-gmailcoms-projects.vercel.app ✅ 
-- **Doctors**: https://doctors-8cp3hr5fy-ecucondor-gmailcoms-projects.vercel.app ✅
-- **Patients**: https://patients-r4n3dkmde-reina08s-projects.vercel.app ✅
+- **Web-App**: https://autamedica-web-app.pages.dev
+- **Companies**: https://autamedica-companies.pages.dev ✅ 
+- **Doctors**: https://autamedica-doctors.pages.dev ✅
+- **Patients**: https://autamedica-patients.pages.dev ✅
 
-### 🎯 **Configuración Vercel Multi-App (2025 Best Practices)**
+### 🎯 **Configuración Cloudflare Pages Multi-App (2025 Best Practices)**
 
-**🔑 REGLA ORO**: **1 Proyecto Vercel = 1 App** con configuración específica
+**🔑 REGLA ORO**: **1 Proyecto Cloudflare Pages = 1 App** con configuración específica
 
-#### **📋 Configuración por App (Vercel Dashboard)**
+#### **📋 Configuración por App (Cloudflare Pages Dashboard)**
 
 **1. Web-App Principal (Landing + Auth)**
 ```
@@ -682,20 +711,20 @@ Framework: Next.js
 npx turbo login
 npx turbo link
 
-# Vercel lo usa automáticamente en builds
+# Cloudflare Pages lo usa automáticamente en builds
 ```
 
 #### **🔗 CLI Link (Opcional)**
 
 ```bash
 # Desde monorepo root - vincula todos los proyectos
-vercel link --repo
+wrangler pages project list
 
 # O desde cada app individualmente
-cd apps/web-app && vercel link
-cd apps/doctors && vercel link
-cd apps/patients && vercel link
-cd apps/companies && vercel link
+cd apps/web-app && wrangler pages project create autamedica-web-app --production-branch main
+cd apps/doctors && wrangler pages project create autamedica-doctors --production-branch main
+cd apps/patients && wrangler pages project create autamedica-patients --production-branch main
+cd apps/companies && wrangler pages project create autamedica-companies --production-branch main
 ```
 
 #### **🌐 Dominio Único (Gateway Pattern)**
@@ -703,7 +732,7 @@ cd apps/companies && vercel link
 Si quieres un solo dominio para todas las apps:
 
 ```json
-// apps/gateway/vercel.json
+# Configuración Cloudflare Pages (wrangler.toml)
 {
   "rewrites": [
     { "source": "/doctors/(.*)", "destination": "https://doctors.autamedica.com/$1" },
@@ -715,7 +744,7 @@ Si quieres un solo dominio para todas las apps:
 
 ### Variables de Entorno
 
-**🚨 CRÍTICO**: Variables por proyecto en Vercel Dashboard
+**🚨 CRÍTICO**: Variables por proyecto en Cloudflare Pages Dashboard
 - **NO** usar .env en root del monorepo
 - Usar .env específico por app/package
 - Evita contaminación entre apps y problemas de cache
@@ -732,7 +761,7 @@ packages/auth/.env
 
 ### Checklist de Verificación Deployment
 
-- [ ] **4 proyectos Vercel** creados (web-app, doctors, patients, companies)
+- [ ] **4 proyectos Cloudflare Pages** creados (web-app, doctors, patients, companies)
 - [ ] **Root Directory** correcto en cada proyecto
 - [ ] **"Include files outside Root Directory"** activado en todos
 - [ ] **Build Command** con filtro específico: `pnpm turbo run build --filter=@autamedica/<app>`
@@ -794,11 +823,11 @@ pnpm health
 ### Deployment Errors
 
 ```bash
-# Validar configuración de Vercel
-pnpm vercel:validate
+# Validar configuración de Cloudflare Pages
+pnpm pre-deploy
 
 # Diagnóstico completo de deployment
-./collect_vercel_diagnostics.sh
+wrangler pages deployments list autamedica-web-app
 
 # Validación pre-deployment
 pnpm pre-deploy
@@ -806,25 +835,29 @@ pnpm pre-deploy
 
 ## ⚠️ Cosas que NUNCA hacer
 
-1. **Deep imports** de packages internos
-2. **process.env** directo (usar `ensureEnv`)
-3. **Exports sin documentar** en GLOSARIO_MAESTRO
-4. **Date objects** en APIs (usar `ISODateString`)
-5. **Warnings en ESLint** (configurado con `--max-warnings=0`)
-6. **Commits sin tests** para nueva funcionalidad
-7. **Breaking changes** sin actualizar GLOSARIO_MAESTRO
-8. **Configuración incorrecta de deployment** (validada por regla ESLint)
+1. **Generar código demo o hardcodeado** - TODO para producción
+2. **Usuarios o datos ficticios** - consultar por datos reales
+3. **Código que necesite "ajustes posteriores"** - production-ready desde commit 1
+4. **Deep imports** de packages internos
+5. **process.env** directo (usar `ensureEnv`)
+6. **Exports sin documentar** en GLOSARIO_MAESTRO
+7. **Date objects** en APIs (usar `ISODateString`)
+8. **Warnings en ESLint** (configurado con `--max-warnings=0`)
+9. **Commits sin tests** para nueva funcionalidad
+10. **Breaking changes** sin actualizar GLOSARIO_MAESTRO
+11. **Deuda técnica** de cualquier tipo
 
 ## 🎯 Flujo de Trabajo Recomendado
 
-1. **Planificar**: Definir contratos en `GLOSARIO_MAESTRO.md`
-2. **Implementar**: Crear types en `@autamedica/types`
-3. **Validar**: `pnpm docs:validate`
-4. **Desarrollar**: Usar types en packages/apps
-5. **Testing**: Escribir tests con Vitest
-6. **Quality**: `pnpm lint && pnpm type-check`
-7. **Build**: `pnpm build`
-8. **Deploy**: Vercel automático en merge
+1. **Consultar**: ¿Cómo lo hace DevAltamedica? ¿Qué datos necesito?
+2. **Planificar**: Definir contratos en `GLOSARIO_MAESTRO.md` con datos REALES
+3. **Implementar**: Crear types en `@autamedica/types` (production-ready)
+4. **Validar**: `pnpm docs:validate`
+5. **Desarrollar**: Usar types en packages/apps (NO hardcode)
+6. **Testing**: Escribir tests con Vitest (con datos válidos)
+7. **Quality**: `pnpm lint && pnpm type-check` (0 warnings)
+8. **Build**: `pnpm build`
+9. **Deploy**: Cloudflare Pages automático en merge
 
 ## 📚 Referencias Clave
 
@@ -873,7 +906,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co \
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh... \
 NODE_ENV=production \
 HUSKY=0 \
-npx vercel --prod --yes --token <TOKEN>
+wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main
 ```
 
 ### **Ventajas Probadas:**

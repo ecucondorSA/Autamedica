@@ -27,9 +27,9 @@ http://localhost:3002
 http://localhost:3003
 ```
 
-### 📱 **Vercel Preview URLs:**
+### 📱 **Cloudflare Pages Preview URLs:**
 ```
-https://*.vercel.app
+https://*.pages.dev
 ```
 
 ---
@@ -55,7 +55,7 @@ http://localhost:3000
 http://localhost:3001
 http://localhost:3002
 http://localhost:3003
-https://*.vercel.app
+https://*.pages.dev
 ```
 
 ### **Authorized redirect URIs:**
@@ -95,7 +95,7 @@ Una vez configurado, podrás hacer OAuth desde:
 
 - **NO cambies** los Authorized redirect URIs (solo Supabase callback)
 - **SÍ agrega** todos los JavaScript origins (donde se inicia el OAuth)
-- **Verifica** que `https://*.vercel.app` esté incluido para previews
+- **Verifica** que `https://*.pages.dev` esté incluido para previews
 
 ---
 

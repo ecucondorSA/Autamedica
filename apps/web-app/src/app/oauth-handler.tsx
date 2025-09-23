@@ -10,7 +10,7 @@ export default function OAuthHandler() {
     // Check if we have OAuth tokens in the hash
     const hash = window.location.hash
     
-    if (hash && hash.includes('access_token')) {
+    if (hash?.includes('access_token')) {
       console.log('🚨 OAuth tokens detected in root URL - redirecting to callback')
       
       // Redirect to callback with the full hash

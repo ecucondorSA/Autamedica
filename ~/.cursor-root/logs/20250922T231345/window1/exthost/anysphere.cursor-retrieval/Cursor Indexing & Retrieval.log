@@ -1,0 +1,7 @@
+2025-09-22 23:14:00.912 [warning] Failed to get symbolic ref: Failed to execute git
+2025-09-22 23:14:01.100 [error] accessToken is undefined. User is not logged in. We shouldn't do any indexing.
+2025-09-22 23:14:01.908 [warning] Failed to get symbolic ref: Failed to execute git
+2025-09-22 23:14:01.910 [warning] Failed to get symbolic ref: Failed to execute git
+2025-09-22 23:14:03.362 [info] Picked default branch from method 1.
+2025-09-22 23:14:03.372 [info] Picked default branch from method 1.
+2025-09-22 23:14:03.373 [info] Picked default branch from method 1.

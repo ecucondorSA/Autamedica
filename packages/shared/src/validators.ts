@@ -1,6 +1,6 @@
 // Validaciones comunes - no en tipos, en utilidades
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^\+?[\d\s\-\(\)]+$/;
+const PHONE_REGEX = /^\+?[\d\s\-()]+$/;
 
 export function validateEmail(email: string): boolean {
   return EMAIL_REGEX.test(email);

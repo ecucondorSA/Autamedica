@@ -7,10 +7,10 @@
 
 import { createServerClient } from "./server";
 import { redirect } from "next/navigation";
-import type { User, UserSession, ISODateString } from "@autamedica/types";
+import type { User, UserSession } from "@autamedica/types";
 import { toISODateString } from "@autamedica/types";
 import type { UserRole, Portal } from "./roles";
-import { canAccessPatientData, getPortalForRole, canAccessPortal } from "./roles";
+import { canAccessPortal } from "./roles";
 
 /**
  * Obtiene la sesión actual del usuario

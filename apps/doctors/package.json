@@ -2,7 +2,7 @@
   "name": "@autamedica/doctors",
   "version": "0.1.0",
   "private": true,
-  "description": "Portal médico especializado para profesionales de la salud",
+  "description": "Portal m\u00e9dico especializado para profesionales de la salud",
   "main": "src/app/page.tsx",
   "scripts": {
     "dev": "next dev -p 3001",

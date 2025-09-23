@@ -3,7 +3,6 @@
  * Handles URL generation for different environments
  */
 
-import { ensureEnv } from "@autamedica/shared";
 
 export function getAppUrl(path: string, subdomain?: string): string {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';

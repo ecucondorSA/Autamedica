@@ -1,0 +1,503 @@
+2025-09-22 23:13:58.075 [info] [main] Log level: Trace
+2025-09-22 23:13:58.075 [info] [main] Validating found git in: "git"
+2025-09-22 23:13:58.075 [info] [main] Using git "2.48.1" from "git"
+2025-09-22 23:13:58.075 [info] [Model][doInitialScan] Initial repository scan started
+2025-09-22 23:13:58.075 [trace] [Model][doInitialScan] Settings: autoRepositoryDetection=openEditors, openRepositoryInParentFolders=prompt
+2025-09-22 23:13:58.075 [trace] [Model][onDidChangeWorkspaceFolders] Workspace folders: [/root/altamedica-reboot]
+2025-09-22 23:13:58.075 [trace] [Model][openRepository] Repository: /root/altamedica-reboot
+2025-09-22 23:13:58.075 [info] > git rev-parse --show-toplevel [54ms]
+2025-09-22 23:13:58.075 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot is: /root/altamedica-reboot
+2025-09-22 23:13:58.075 [info] > git rev-parse --git-dir --git-common-dir [12ms]
+2025-09-22 23:13:58.075 [trace] [Model][open] Repository: /root/altamedica-reboot
+2025-09-22 23:13:58.075 [trace] [Model][open] Automatic detection of git submodules is not enabled.
+2025-09-22 23:13:58.075 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:13:58.075 [info] [Model][openRepository] Opened repository: /root/altamedica-reboot
+2025-09-22 23:13:58.075 [info] [Model][doInitialScan] Initial repository scan completed - repositories (1), closed repositories (0), parent repositories (0), unsafe repositories (0)
+2025-09-22 23:14:00.384 [info] > git config --get commit.template [2291ms]
+2025-09-22 23:14:00.616 [info] > git config --get remote.origin.url [109ms]
+2025-09-22 23:14:00.677 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [32ms]
+2025-09-22 23:14:00.775 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:00.908 [info] > git status -z -uall [180ms]
+2025-09-22 23:14:00.909 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [36ms]
+2025-09-22 23:14:00.909 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:14:00.912 [info] > git rev-parse --show-toplevel [111ms]
+2025-09-22 23:14:00.913 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [138ms]
+2025-09-22 23:14:00.947 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:00.994 [trace] [ActionButton][setState] {"HEAD":{"type":0,"name":"main","upstream":{"name":"main","remote":"origin","commit":"4252ae694fe9a93957d8301c2ebaa99d446e2b47"},"commit":"d2090e8e40a85d36c5df10d426164c22256c4655","ahead":25,"behind":0},"isCheckoutInProgress":false,"isCommitInProgress":false,"isMergeInProgress":false,"isRebaseInProgress":false,"isSyncInProgress":false,"repositoryHasChangesToCommit":true,"repositoryHasUnresolvedConflicts":false}
+2025-09-22 23:14:00.994 [trace] [ActionButton][getButton] {"command":"git.commit","title":"$(check) Commit","enabled":true}
+2025-09-22 23:14:00.994 [trace] [Model][open] Automatic detection of git submodules is not enabled.
+2025-09-22 23:14:01.070 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:14:01.070 [trace] [OperationManager][start] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:01.074 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:14:01.906 [info] > git remote get-url --push origin [277ms]
+2025-09-22 23:14:01.908 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [557ms]
+2025-09-22 23:14:01.908 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:14:01.908 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [584ms]
+2025-09-22 23:14:01.908 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:14:01.910 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [843ms]
+2025-09-22 23:14:01.913 [trace] [OperationManager][end] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:01.954 [trace] [OperationManager][start] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:02.208 [info] > git rev-parse --show-toplevel [7ms]
+2025-09-22 23:14:02.209 [info] > git config --get --local branch.main.vscode-merge-base [256ms]
+2025-09-22 23:14:02.209 [warning] [Git][config] git config failed: Failed to execute git
+2025-09-22 23:14:02.209 [trace] [OperationManager][end] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:02.234 [info] > git rev-parse --abbrev-ref HEAD [341ms]
+2025-09-22 23:14:02.236 [info] > git rev-parse --abbrev-ref HEAD [383ms]
+2025-09-22 23:14:02.236 [info] > git rev-parse --abbrev-ref HEAD [418ms]
+2025-09-22 23:14:02.236 [info] > git rev-parse --abbrev-ref HEAD [435ms]
+2025-09-22 23:14:02.236 [info] > git config --get commit.template [455ms]
+2025-09-22 23:14:02.495 [info] > git remote get-url --push origin [126ms]
+2025-09-22 23:14:02.495 [info] > git reflog main --grep-reflog=branch: Created from *. [261ms]
+2025-09-22 23:14:03.212 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [697ms]
+2025-09-22 23:14:03.212 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:14:03.212 [warning] [Repository][getDefaultBranch] Failed to get default branch details: Failed to execute git.
+2025-09-22 23:14:03.232 [trace] [OperationManager][start] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:14:03.232 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:14:03.232 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:14:03.232 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:14:03.232 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":["refs/heads/main","refs/heads/production","refs/heads/staging","refs/remotes/ecucondor/main","refs/remotes/origin/main"],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:14:03.342 [info] > git rev-parse --show-toplevel [92ms]
+2025-09-22 23:14:03.342 [info] > git merge-base refs/heads/main refs/remotes/origin/main [111ms]
+2025-09-22 23:14:03.342 [trace] [OperationManager][end] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:14:03.362 [trace] [OperationManager][start] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:03.362 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [167ms]
+2025-09-22 23:14:03.362 [info] > git rev-parse --verify origin/main [179ms]
+2025-09-22 23:14:03.372 [info] > git rev-parse --verify origin/main [33ms]
+2025-09-22 23:14:03.373 [info] > git rev-parse --verify origin/main [46ms]
+2025-09-22 23:14:03.462 [info] > git diff --name-status -z --diff-filter=ADMR 4252ae694fe9a93957d8301c2ebaa99d446e2b47...refs/remotes/origin/main [100ms]
+2025-09-22 23:14:03.483 [trace] [OperationManager][end] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:03.539 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:03.590 [info] > git status -z -uall [79ms]
+2025-09-22 23:14:03.593 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [54ms]
+2025-09-22 23:14:03.594 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:03.620 [trace] [Model][open] Automatic detection of git submodules is not enabled.
+2025-09-22 23:14:03.623 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:14:03.623 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:14:03.623 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:14:03.623 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:14:03.623 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":[],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:14:04.442 [info] > git rev-parse --abbrev-ref HEAD [429ms]
+2025-09-22 23:14:04.479 [info] > git rev-parse --show-toplevel [14ms]
+2025-09-22 23:14:07.746 [info] > git config --global user.name [3ms]
+2025-09-22 23:14:07.761 [debug] [git] Failed to get git user.name: Failed to execute git
+2025-09-22 23:14:07.765 [info] > git config --global user.email [4ms]
+2025-09-22 23:14:07.765 [debug] [git] Failed to get git user.email: Failed to execute git
+2025-09-22 23:14:07.766 [info] [main] Stored git author name in global state:  <>
+2025-09-22 23:14:18.100 [trace] [Model][onDidChangeConfiguration] Workspace folders: []
+2025-09-22 23:14:18.152 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json.vsctmp
+2025-09-22 23:14:18.153 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json.vsctmp
+2025-09-22 23:14:18.159 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:18.162 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:18.215 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:18.215 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json.vsctmp
+2025-09-22 23:14:18.228 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:18.228 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json.vsctmp
+2025-09-22 23:14:18.229 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:18.232 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/User/settings.json
+2025-09-22 23:14:19.231 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:14:19.252 [info] > git config --get commit.template [3ms]
+2025-09-22 23:14:19.277 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [6ms]
+2025-09-22 23:14:19.338 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:19.343 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [5ms]
+2025-09-22 23:14:19.345 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:14:19.362 [info] > git status -z -uall [65ms]
+2025-09-22 23:14:19.393 [trace] [Model][open] Automatic detection of git submodules is not enabled.
+2025-09-22 23:14:19.394 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:14:19.394 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:14:19.394 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:14:19.394 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:14:19.394 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":[],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:14:19.430 [info] > git rev-parse --abbrev-ref HEAD [5ms]
+2025-09-22 23:14:19.943 [info] > git rev-parse --show-toplevel [2ms]
+2025-09-22 23:15:14.665 [info] > git remote get-url --push origin [72ms]
+2025-09-22 23:15:14.665 [info] > git rev-parse --show-toplevel [96ms]
+2025-09-22 23:15:23.259 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:23.259 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:23.391 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:23.391 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:23.391 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:23.585 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:23.585 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:23.585 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:23.796 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:23.796 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:23.796 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.004 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.004 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.004 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.194 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.195 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.195 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.394 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.394 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.394 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.561 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.561 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.561 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.758 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.758 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.758 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:24.914 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:24.914 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:24.915 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:25.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:25.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:25.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:25.239 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.337 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:25.338 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.339 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:25.562 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:25.562 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.562 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:25.696 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:25.696 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.697 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:25.876 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:25.876 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:25.876 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:25.876 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:26.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:26.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.238 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:26.238 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:26.238 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.380 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:26.380 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.380 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:26.562 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:26.562 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.692 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:26.692 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:26.692 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:26.692 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:26.829 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:26.829 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.022 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:27.022 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.022 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:27.168 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.168 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:27.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:27.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:27.480 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:27.480 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.686 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:27.686 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.686 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:27.845 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:27.846 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.846 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:27.979 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:27.979 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:28.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:28.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:28.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:28.298 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:28.298 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:28.434 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:28.434 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:28.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:28.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:28.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:28.839 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/6f1eddda08faf303_0
+2025-09-22 23:15:28.839 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:28.839 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:29.042 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:29.042 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:29.328 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/995537e5520156cc_0
+2025-09-22 23:15:29.328 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:29.328 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:29.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/c5ccb4370c618690_0
+2025-09-22 23:15:29.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/995537e5520156cc_0
+2025-09-22 23:15:29.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:29.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:29.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/c5ccb4370c618690_0
+2025-09-22 23:15:29.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:29.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:29.869 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/c5ccb4370c618690_0
+2025-09-22 23:15:29.869 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:29.869 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.081 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/c5ccb4370c618690_0
+2025-09-22 23:15:30.081 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.081 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.261 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.261 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.464 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:30.464 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.464 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.657 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:30.657 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.657 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.819 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:30.819 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.819 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:30.980 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:30.980 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:30.981 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:31.071 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:31.071 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:31.266 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:31.266 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:31.266 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:31.568 [info] > git remote get-url --push origin [67ms]
+2025-09-22 23:15:31.569 [info] > git rev-parse --show-toplevel [97ms]
+2025-09-22 23:15:31.570 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:31.570 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:31.570 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:31.803 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/scripts/download-project.sh
+2025-09-22 23:15:31.803 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/399511509e05b0da_0
+2025-09-22 23:15:31.803 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:31.803 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:31.803 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:32.018 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.018 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.018 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:32.257 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.257 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.257 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:32.411 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.411 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.411 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:32.558 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.559 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.559 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:32.704 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.704 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:32.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:32.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:33.160 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d375a898165b7d28_0
+2025-09-22 23:15:33.160 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:33.160 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:33.303 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:33.303 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:33.479 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/ff78d92ecbc4d6ea_0
+2025-09-22 23:15:33.480 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:33.480 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:33.649 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/ff78d92ecbc4d6ea_0
+2025-09-22 23:15:33.649 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:33.649 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:33.841 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/9ff5dd2bf6ad40bb_0
+2025-09-22 23:15:33.841 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:33.841 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:34.038 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/9ff5dd2bf6ad40bb_0
+2025-09-22 23:15:34.038 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:34.038 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:34.089 [info] > git rev-parse --show-toplevel [2ms]
+2025-09-22 23:15:34.204 [info] > git remote get-url --push origin [94ms]
+2025-09-22 23:15:34.619 [info] > git remote get-url --push origin [133ms]
+2025-09-22 23:15:34.619 [info] > git rev-parse --show-toplevel [172ms]
+2025-09-22 23:15:34.622 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/9ff5dd2bf6ad40bb_0
+2025-09-22 23:15:34.622 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:34.623 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:34.623 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:34.690 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/e8ec8c55b0525aa1_0
+2025-09-22 23:15:34.690 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:34.690 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:34.690 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:34.851 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/e8ec8c55b0525aa1_0
+2025-09-22 23:15:34.851 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:34.851 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:34.851 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:34.997 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:34.997 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:34.997 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:35.176 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:35.177 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.177 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:35.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:35.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:35.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:35.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:35.691 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:35.692 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.831 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.831 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:35.982 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:35.982 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:35.982 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:36.120 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.121 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:36.121 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:36.257 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.401 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:36.402 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.402 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:36.617 [info] > git remote get-url --push origin [42ms]
+2025-09-22 23:15:36.618 [info] > git rev-parse --show-toplevel [63ms]
+2025-09-22 23:15:36.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:36.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:36.788 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:36.788 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/telemetry.log
+2025-09-22 23:15:36.788 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/exthost/exthost.log
+2025-09-22 23:15:36.788 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.788 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:36.994 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:36.994 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:36.994 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:37.199 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:37.199 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:37.199 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:37.403 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:37.403 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:37.403 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:37.610 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:37.610 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:37.610 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:37.801 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:37.801 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:37.801 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:37.988 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:37.988 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:37.988 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:38.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:38.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:38.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:38.308 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:38.460 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:38.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:38.461 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:38.656 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:38.656 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:38.656 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:38.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:38.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:38.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:39.098 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:39.098 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.098 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:39.122 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.339 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:39.339 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.339 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:39.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:39.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.647 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:39.647 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.647 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:39.795 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:39.795 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:39.795 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.033 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.033 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.033 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:40.200 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.200 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.200 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:40.375 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.375 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.375 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:40.599 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.599 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.599 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:40.783 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.783 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.783 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:40.923 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:40.923 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:40.923 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:41.062 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:41.211 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:41.211 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:41.212 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:41.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:41.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:41.374 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:41.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:41.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:41.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:41.785 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:41.785 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:41.785 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:41.924 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.056 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:42.056 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.056 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:42.186 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:42.187 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.187 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:42.316 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.458 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:42.459 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.459 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:42.615 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:42.615 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.615 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:42.822 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:42.822 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:42.822 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:43.021 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:43.021 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.021 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:43.170 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.170 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:43.170 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:43.302 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.448 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:43.448 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.448 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:43.668 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:43.668 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.668 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:43.858 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/ef2671e395fd2b8c_0
+2025-09-22 23:15:43.858 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/a775b53a30f84feb_0
+2025-09-22 23:15:43.858 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:43.858 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.054 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/ef2671e395fd2b8c_0
+2025-09-22 23:15:44.054 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.054 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.214 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.214 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.347 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.347 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.476 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:44.476 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.476 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.663 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:44.663 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.663 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:44.888 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:44.888 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:44.888 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:45.060 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:45.060 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.060 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:45.211 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.211 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:45.211 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:45.340 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.340 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:45.478 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:45.478 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.652 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:45.652 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.652 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:45.652 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/sentry/session.json
+2025-09-22 23:15:45.825 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:45.825 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:45.825 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:46.035 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/SharedStorage
+2025-09-22 23:15:46.035 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/SharedStorage-wal
+2025-09-22 23:15:46.035 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:46.035 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.035 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:46.212 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:46.212 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.212 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:46.341 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.341 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:46.341 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:46.470 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.620 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:46.620 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.620 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log
+2025-09-22 23:15:46.761 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/Cache/Cache_Data/d9da8be023a6d7ba_0
+2025-09-22 23:15:46.762 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/fileWatcher.log
+2025-09-22 23:15:46.762 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/window1/renderer.log

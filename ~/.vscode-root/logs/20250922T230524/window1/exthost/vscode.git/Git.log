@@ -1,0 +1,681 @@
+2025-09-22 23:05:33.454 [info] [main] Log level: Trace
+2025-09-22 23:05:33.454 [info] [main] Validating found git in: "git"
+2025-09-22 23:05:33.454 [info] [main] Using git "2.48.1" from "git"
+2025-09-22 23:05:33.454 [info] [Model][doInitialScan] Initial repository scan started
+2025-09-22 23:05:33.454 [trace] [Model][doInitialScan] Settings: autoRepositoryDetection=true, openRepositoryInParentFolders=prompt
+2025-09-22 23:05:33.454 [trace] [Model][onDidChangeWorkspaceFolders] Workspace folders: [/root/altamedica-reboot]
+2025-09-22 23:05:33.454 [trace] [Model][scanWorkspaceFolders] Workspace folder: /root/altamedica-reboot
+2025-09-22 23:05:33.454 [trace] [Model][openRepository] Repository: /root/altamedica-reboot
+2025-09-22 23:05:33.454 [info] > git rev-parse --show-toplevel [71ms]
+2025-09-22 23:05:33.454 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot is: /root/altamedica-reboot
+2025-09-22 23:05:33.454 [info] > git rev-parse --git-dir --git-common-dir --show-superproject-working-tree [21ms]
+2025-09-22 23:05:33.454 [trace] [Model][open] Repository: /root/altamedica-reboot
+2025-09-22 23:05:33.454 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:05:33.454 [info] [Model][openRepository] Opened repository (path): /root/altamedica-reboot
+2025-09-22 23:05:33.454 [info] [Model][openRepository] Opened repository (real path): /root/altamedica-reboot
+2025-09-22 23:05:33.454 [info] [Model][openRepository] Opened repository (kind): repository
+2025-09-22 23:05:33.549 [info] > git config --get commit.template [60ms]
+2025-09-22 23:05:37.414 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [309ms]
+2025-09-22 23:05:38.120 [trace] [OperationManager][start] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:38.373 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:38.471 [info] > git check-ignore -v -z --stdin [358ms]
+2025-09-22 23:05:38.476 [trace] [OperationManager][end] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:38.487 [info] > git status -z -uall [168ms]
+2025-09-22 23:05:39.583 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [1210ms]
+2025-09-22 23:05:39.585 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:39.609 [trace] [ActionButton][setState] {"HEAD":{"type":0,"name":"main","upstream":{"name":"main","remote":"origin","commit":"4252ae694fe9a93957d8301c2ebaa99d446e2b47"},"commit":"d2090e8e40a85d36c5df10d426164c22256c4655","ahead":25,"behind":0},"isCheckoutInProgress":false,"isCommitInProgress":false,"isMergeInProgress":false,"isRebaseInProgress":false,"isSyncInProgress":false,"repositoryHasChangesToCommit":true,"repositoryHasUnresolvedConflicts":false}
+2025-09-22 23:05:39.609 [trace] [ActionButton][getButton] {"command":"git.commit","title":"$(check) Commit","enabled":true}
+2025-09-22 23:05:39.613 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:05:39.647 [trace] [OperationManager][start] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:39.650 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:05:39.694 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [47ms]
+2025-09-22 23:05:39.695 [trace] [OperationManager][end] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:39.718 [trace] [OperationManager][start] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:39.797 [info] > git config --get --local branch.main.vscode-merge-base [78ms]
+2025-09-22 23:05:39.797 [warning] [Git][config] git config failed: Failed to execute git
+2025-09-22 23:05:39.798 [trace] [OperationManager][end] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:39.817 [info] > git config --get commit.template [126ms]
+2025-09-22 23:05:40.009 [trace] [Model][scanWorkspaceFolders] Workspace scan settings: repositoryScanMaxDepth=1; repositoryScanIgnoredFolders=[node_modules]; scanRepositories=[]
+2025-09-22 23:05:40.009 [trace] [Model][scanWorkspaceFolders] Workspace scan sub folders: [/root/altamedica-reboot/.github, /root/altamedica-reboot/.husky, /root/altamedica-reboot/.turbo, /root/altamedica-reboot/.vscode, /root/altamedica-reboot/.wrangler, /root/altamedica-reboot/apps, /root/altamedica-reboot/database, /root/altamedica-reboot/docs, /root/altamedica-reboot/eslint-rules, /root/altamedica-reboot/observability, /root/altamedica-reboot/packages, /root/altamedica-reboot/scripts, /root/altamedica-reboot/supabase, /root/altamedica-reboot/test-results, /root/altamedica-reboot/tests, /root/altamedica-reboot/visual-snapshots, /root/altamedica-reboot/~]
+2025-09-22 23:05:40.009 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.github
+2025-09-22 23:05:40.049 [info] > git reflog main --grep-reflog=branch: Created from *. [233ms]
+2025-09-22 23:05:40.128 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [50ms]
+2025-09-22 23:05:40.128 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:05:40.128 [warning] [Repository][getDefaultBranch] Failed to get default branch details: Failed to execute git.
+2025-09-22 23:05:40.147 [trace] [OperationManager][start] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:05:40.147 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:05:40.147 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:05:40.147 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:05:40.147 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":["refs/heads/main","refs/heads/production","refs/heads/staging","refs/remotes/ecucondor/main","refs/remotes/origin/main"],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:05:40.153 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [26ms]
+2025-09-22 23:05:40.155 [info] > git rev-parse --show-toplevel [47ms]
+2025-09-22 23:05:40.156 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.github is: /root/altamedica-reboot
+2025-09-22 23:05:40.156 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:40.156 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.husky
+2025-09-22 23:05:40.220 [info] > git merge-base refs/heads/main refs/remotes/origin/main [74ms]
+2025-09-22 23:05:40.220 [trace] [OperationManager][end] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:05:40.297 [trace] [OperationManager][start] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:40.340 [info] > git diff --name-status -z --diff-filter=ADMR 4252ae694fe9a93957d8301c2ebaa99d446e2b47...refs/remotes/origin/main [68ms]
+2025-09-22 23:05:40.341 [trace] [OperationManager][end] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:40.341 [info] > git rev-parse --show-toplevel [122ms]
+2025-09-22 23:05:40.342 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.husky is: /root/altamedica-reboot
+2025-09-22 23:05:40.342 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:40.342 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.turbo
+2025-09-22 23:05:40.453 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:40.508 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [54ms]
+2025-09-22 23:05:40.508 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:05:40.508 [info] > git rev-parse --show-toplevel [145ms]
+2025-09-22 23:05:40.508 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.turbo is: /root/altamedica-reboot
+2025-09-22 23:05:40.508 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:40.508 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.vscode
+2025-09-22 23:05:40.827 [info] > git status -z -uall [416ms]
+2025-09-22 23:05:40.842 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:05:40.842 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:05:40.842 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:05:40.842 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:05:40.842 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":[],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:05:40.866 [info] > git rev-parse --show-toplevel [108ms]
+2025-09-22 23:05:40.871 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.vscode is: /root/altamedica-reboot
+2025-09-22 23:05:40.871 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:40.871 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.wrangler
+2025-09-22 23:05:41.152 [info] > git rev-parse --show-toplevel [232ms]
+2025-09-22 23:05:41.152 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.wrangler is: /root/altamedica-reboot
+2025-09-22 23:05:41.152 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.152 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/apps
+2025-09-22 23:05:41.413 [info] > git rev-parse --show-toplevel [91ms]
+2025-09-22 23:05:41.413 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/apps is: /root/altamedica-reboot
+2025-09-22 23:05:41.413 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.413 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/database
+2025-09-22 23:05:41.520 [info] > git rev-parse --show-toplevel [14ms]
+2025-09-22 23:05:41.520 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/database is: /root/altamedica-reboot
+2025-09-22 23:05:41.520 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.520 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/docs
+2025-09-22 23:05:41.563 [info] > git rev-parse --show-toplevel [20ms]
+2025-09-22 23:05:41.563 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/docs is: /root/altamedica-reboot
+2025-09-22 23:05:41.563 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.563 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/eslint-rules
+2025-09-22 23:05:41.688 [info] > git rev-parse --show-toplevel [31ms]
+2025-09-22 23:05:41.688 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/eslint-rules is: /root/altamedica-reboot
+2025-09-22 23:05:41.688 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.688 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/observability
+2025-09-22 23:05:41.802 [info] > git rev-parse --show-toplevel [23ms]
+2025-09-22 23:05:41.802 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/observability is: /root/altamedica-reboot
+2025-09-22 23:05:41.802 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.802 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/packages
+2025-09-22 23:05:41.918 [info] > git rev-parse --show-toplevel [15ms]
+2025-09-22 23:05:41.918 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/packages is: /root/altamedica-reboot
+2025-09-22 23:05:41.918 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:41.918 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/scripts
+2025-09-22 23:05:42.171 [info] > git rev-parse --show-toplevel [208ms]
+2025-09-22 23:05:42.171 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/scripts is: /root/altamedica-reboot
+2025-09-22 23:05:42.171 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.171 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/supabase
+2025-09-22 23:05:42.265 [info] > git rev-parse --show-toplevel [69ms]
+2025-09-22 23:05:42.265 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/supabase is: /root/altamedica-reboot
+2025-09-22 23:05:42.265 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.265 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/test-results
+2025-09-22 23:05:42.338 [info] > git rev-parse --show-toplevel [13ms]
+2025-09-22 23:05:42.338 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/test-results is: /root/altamedica-reboot
+2025-09-22 23:05:42.338 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.338 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/tests
+2025-09-22 23:05:42.391 [info] > git rev-parse --show-toplevel [3ms]
+2025-09-22 23:05:42.391 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/tests is: /root/altamedica-reboot
+2025-09-22 23:05:42.391 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.391 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/visual-snapshots
+2025-09-22 23:05:42.539 [info] > git rev-parse --show-toplevel [70ms]
+2025-09-22 23:05:42.540 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/visual-snapshots is: /root/altamedica-reboot
+2025-09-22 23:05:42.542 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.542 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/~
+2025-09-22 23:05:42.620 [info] > git rev-parse --show-toplevel [55ms]
+2025-09-22 23:05:42.620 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/~ is: /root/altamedica-reboot
+2025-09-22 23:05:42.620 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:05:42.638 [info] [Model][doInitialScan] Initial repository scan completed - repositories (1), closed repositories (0), parent repositories (0), unsafe repositories (0)
+2025-09-22 23:06:49.753 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:49.753 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:49.753 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:49.900 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.079 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:50.079 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.079 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:50.261 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:50.261 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.261 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:50.446 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:50.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:50.773 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:50.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:50.894 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:50.949 [trace] [OperationManager][start] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:06:50.952 [info] > git check-ignore -v -z --stdin [3ms]
+2025-09-22 23:06:50.953 [trace] [OperationManager][end] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:06:51.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:51.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:51.235 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.405 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:51.406 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.406 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:51.544 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:51.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:51.936 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.954 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:51.954 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:51.954 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:52.086 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.086 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:52.318 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.318 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:52.318 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:52.459 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.741 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:52.741 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.741 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:52.795 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.945 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:52.945 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:52.945 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:53.114 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.115 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:53.115 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:53.250 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.409 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:53.409 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.409 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:53.550 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.683 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:53.684 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.684 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:53.813 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.965 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:53.965 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:53.965 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:54.100 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.192 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:54.192 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.192 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:54.334 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:54.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:54.639 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.639 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:54.639 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:54.777 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:54.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:54.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:55.084 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/telemetry.log
+2025-09-22 23:06:55.084 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.084 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:55.219 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:55.220 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.220 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:55.354 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.508 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:55.511 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.511 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:55.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:55.658 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:55.792 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.966 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:55.966 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:55.966 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:56.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:56.226 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:56.226 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:56.226 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:56.362 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:56.531 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:56.531 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:56.531 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:56.664 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:56.664 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:56.664 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:56.792 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.091 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:57.095 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.096 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:57.131 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/network-shared.log
+2025-09-22 23:06:57.131 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.173 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.305 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/network-shared.log
+2025-09-22 23:06:57.305 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:57.305 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.305 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:57.435 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:57.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:57.705 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.860 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:57.860 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.860 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:57.998 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:57.998 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:57.998 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:58.128 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.308 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:58.308 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.308 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:58.447 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.447 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:58.577 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:58.577 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.577 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:58.707 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.880 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:58.881 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:58.881 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:59.080 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:59.080 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.080 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:59.210 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.358 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:59.359 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.359 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:59.497 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.651 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:59.651 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.653 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:59.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:06:59.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:06:59.830 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:06:59.967 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.113 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:00.113 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.113 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:00.280 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.352 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:00.352 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.352 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:00.508 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.509 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:00.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:00.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.648 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:00.800 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:00.800 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:00.800 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:00.940 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.123 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:01.123 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.123 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:01.283 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.446 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:01.447 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.447 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:01.634 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:01.634 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.634 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:01.784 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.930 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:01.930 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:01.930 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:02.076 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:02.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.161 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:02.298 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.432 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:02.432 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.432 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:02.566 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.700 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:02.700 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.700 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:02.836 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.971 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:02.971 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:02.971 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:03.110 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:03.110 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:03.111 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:03.293 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:03.472 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/telemetry.log
+2025-09-22 23:07:03.472 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:03.472 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:03.472 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:03.601 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:03.730 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:03.730 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:03.730 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:03.880 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.027 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:04.027 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.028 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:04.158 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.158 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:04.158 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:04.297 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.503 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:04.503 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.503 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:04.639 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.781 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:04.781 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:04.781 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:04.913 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.163 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:05.163 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.163 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:05.310 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:05.310 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.310 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:05.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/storage.json
+2025-09-22 23:07:05.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/network-shared.log
+2025-09-22 23:07:05.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:05.473 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/storage.json
+2025-09-22 23:07:05.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:05.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.619 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:05.765 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/network-shared.log
+2025-09-22 23:07:05.765 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.908 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:05.908 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/vscode.json-language-features/JSON Language Server.log
+2025-09-22 23:07:05.908 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:05.908 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:06.089 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:06.089 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.089 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:06.225 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.370 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:06.370 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.370 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:06.534 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.675 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:06.675 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.675 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:06.813 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:06.813 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:06.813 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:06.943 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.074 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.074 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:07.074 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:07.203 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.389 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:07.389 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.390 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:07.527 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.670 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:07.670 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.670 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:07.818 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.960 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:07.960 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:07.960 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:08.097 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.097 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:08.097 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:08.231 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:08.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.469 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:08.606 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.606 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/storage.json
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/state.vscdb
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.809 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:08.829 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/storage.json
+2025-09-22 23:07:08.831 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/state.vscdb
+2025-09-22 23:07:08.831 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb
+2025-09-22 23:07:08.978 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:08.978 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:08.978 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:09.108 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.240 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:09.241 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/vscode.json-language-features/JSON Language Server.log
+2025-09-22 23:07:09.241 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.241 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:09.395 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.538 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:09.538 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.538 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:09.672 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.672 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:09.672 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:09.805 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.943 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:09.944 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:09.944 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:10.086 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.259 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:10.259 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.259 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:10.311 [trace] [OperationManager][start] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:07:10.327 [info] > git check-ignore -v -z --stdin [15ms]
+2025-09-22 23:07:10.330 [trace] [OperationManager][end] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:07:10.512 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:10.512 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.512 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:10.651 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/scripts/setup-monitoring.sh
+2025-09-22 23:07:10.651 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.818 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:10.818 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.818 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:10.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:10.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:10.951 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:11.105 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.105 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb-journal
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/chatEditingSessions/77b75d9d-6553-4f6a-83f2-f54e97ead9d6/state.json
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/chatSessions/77b75d9d-6553-4f6a-83f2-f54e97ead9d6.json
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/GitHub.copilot-chat/GitHub Copilot Chat.log
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.289 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:11.294 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb-journal
+2025-09-22 23:07:11.294 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/chatEditingSessions/77b75d9d-6553-4f6a-83f2-f54e97ead9d6/state.json
+2025-09-22 23:07:11.294 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/chatSessions/77b75d9d-6553-4f6a-83f2-f54e97ead9d6.json
+2025-09-22 23:07:11.428 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb
+2025-09-22 23:07:11.428 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.428 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:11.428 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb-journal
+2025-09-22 23:07:11.436 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb
+2025-09-22 23:07:11.436 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/User/workspaceStorage/602e01651a858412530e82445468fb37/state.vscdb-journal
+2025-09-22 23:07:11.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:11.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.569 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:11.718 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/vscode.json-language-features/JSON Language Server.log
+2025-09-22 23:07:11.718 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.871 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:11.871 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:11.871 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:12.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:12.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.057 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:12.240 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.389 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:12.397 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.397 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:12.596 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:12.596 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.596 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:12.736 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.875 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:12.875 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:12.875 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:13.020 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.020 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:13.020 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:13.150 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.283 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.283 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:13.283 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:13.413 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.625 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:13.625 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.625 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:13.758 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.890 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:13.890 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:13.890 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:14.022 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.159 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:14.159 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.159 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:14.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:14.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:14.437 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.566 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.567 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:14.567 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:14.703 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.897 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:14.898 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:14.898 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:15.032 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.169 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:15.169 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.169 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:15.309 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.406 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:15.406 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.406 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:15.537 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.669 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:15.669 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.669 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:15.798 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.937 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:15.937 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:15.937 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:16.083 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:16.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.174 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:16.306 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.442 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:16.442 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.442 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:16.582 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.668 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:16.669 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.669 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:16.815 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.957 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:16.957 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:16.957 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:17.089 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.223 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:17.223 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.223 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:17.396 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.396 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:17.396 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:17.540 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:17.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.680 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:17.822 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:17.997 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:18.003 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.004 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:18.204 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.204 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:18.204 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:18.335 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:18.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.510 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:18.646 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.646 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:18.789 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:18.789 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:18.789 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:18.940 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:19.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:19.293 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:19.294 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.294 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:19.427 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.565 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:19.565 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.565 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:19.698 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.854 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:19.854 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:19.854 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:20.047 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:20.049 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.049 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:20.199 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.331 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:20.331 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.331 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:20.459 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:20.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.590 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:20.719 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.848 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:20.848 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.848 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:20.979 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:20.979 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:20.979 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:21.107 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.242 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.320 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:21.324 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.324 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:21.454 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.584 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:21.584 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.584 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:21.713 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.843 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:21.843 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:21.843 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:21.973 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.104 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:22.104 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.104 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:22.233 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.390 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:22.390 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.390 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:22.568 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:22.568 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.568 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:22.697 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.826 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:22.826 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:22.826 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:22.960 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:23.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.103 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:23.238 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.342 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:23.342 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.342 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:23.408 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.576 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:23.576 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.576 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:23.704 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.836 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:23.836 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:23.836 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:23.970 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:24.105 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/exthost/exthost.log
+2025-09-22 23:07:24.105 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log
+2025-09-22 23:07:24.105 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/renderer.log
+2025-09-22 23:07:24.256 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/SharedStorage
+2025-09-22 23:07:24.256 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/SharedStorage-wal
+2025-09-22 23:07:24.256 [debug] [FileEventLogger][onWorkspaceWorkingTreeFileChange] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230524/window1/fileWatcher.log

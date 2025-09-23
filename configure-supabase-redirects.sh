@@ -5,11 +5,11 @@
 
 echo "🔧 Configurando URLs de redirección en Supabase..."
 
-# URLs de las aplicaciones desplegadas
-WEB_APP="https://altamedica-reboot-5axhhunde-reina08s-projects.vercel.app"
-DOCTORS="https://doctors-reina08s-projects.vercel.app"
-PATIENTS="https://patients-reina08s-projects.vercel.app"
-COMPANIES="https://companies-reina08s-projects.vercel.app"
+# URLs de las aplicaciones desplegadas (pueden sobreescribirse vía variables de entorno)
+WEB_APP="${WEB_APP_URL:-https://autamedica.com}"
+DOCTORS="${DOCTORS_URL:-https://doctors.autamedica.com}"
+PATIENTS="${PATIENTS_URL:-https://patients.autamedica.com}"
+COMPANIES="${COMPANIES_URL:-https://companies.autamedica.com}"
 
 # URLs de callback que necesitan estar configuradas en Supabase
 REDIRECT_URLS=(
@@ -38,6 +38,5 @@ echo ""
 echo "🚨 IMPORTANTE: Sin estas URLs configuradas, se producirá el error 'flow_state_not_found'"
 echo ""
 
-# También podemos usar la API de Supabase para configurar automáticamente
 echo "💡 Alternativa: Usar API de Supabase para configurar automáticamente"
 echo "   (Requiere configuración adicional de API keys)"

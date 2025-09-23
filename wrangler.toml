@@ -1,0 +1,68 @@
+# Cloudflare Pages Configuration for AutaMedica Platform
+# This is a shared configuration for all apps using Cloudflare Workers/Pages features
+
+name = "autamedica-platform"
+compatibility_date = "2024-01-01"
+
+# Account details
+account_id = "" # Add your Cloudflare account ID here
+
+# Workers/Pages shared configuration
+[vars]
+NEXT_PUBLIC_SUPABASE_URL = "https://gtyvdircfhmdjiaelqkg.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
+
+# Shared bindings for all apps
+[[kv_namespaces]]
+binding = "AUTH_SESSIONS"
+id = "auth_sessions_kv"
+preview_id = "auth_sessions_preview"
+
+[[kv_namespaces]]
+binding = "USER_PROFILES"
+id = "user_profiles_kv"
+preview_id = "user_profiles_preview"
+
+# Durable Objects for session management (optional, for advanced SSO)
+[[durable_objects.bindings]]
+name = "SESSION_MANAGER"
+class_name = "SessionManager"
+script_name = "session-manager"
+
+# R2 bucket for shared assets (if needed)
+[[r2_buckets]]
+binding = "SHARED_ASSETS"
+bucket_name = "autamedica-shared-assets"
+preview_bucket_name = "autamedica-shared-assets-preview"
+
+# Routes configuration for authentication flow
+[routes]
+# Exclude static assets from authentication
+exclude = [
+  "/_next/*",
+  "/static/*",
+  "/*.ico",
+  "/*.png",
+  "/*.jpg",
+  "/*.svg",
+  "/api/health"
+]
+
+# Include authentication check for all other routes
+include = ["/*"]
+
+# Environment-specific configurations
+[env.production]
+vars = { ENVIRONMENT = "production" }
+kv_namespaces = [
+  { binding = "AUTH_SESSIONS", id = "prod_auth_sessions" }
+]
+
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
+kv_namespaces = [
+  { binding = "AUTH_SESSIONS", id = "staging_auth_sessions" }
+]
+
+[env.development]
+vars = { ENVIRONMENT = "development" }

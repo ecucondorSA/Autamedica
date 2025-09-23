@@ -2,18 +2,18 @@
 
 ## 📋 **Problema Identificado**
 
-El error de `ERR_CONNECTION_REFUSED` en `localhost:3000/?code=...` ocurre porque las URLs de redirección en Supabase están configuradas para desarrollo local en lugar de los dominios de producción.
+El error `ERR_CONNECTION_REFUSED` en `localhost:3000/?code=...` aparece cuando Supabase no reconoce los dominios reales (productivos o previews) como URLs autorizadas.
 
 ## 🛠️ **Solución Implementada**
 
 ### 1. **📱 Variables de Entorno Actualizadas**
 
-Hemos agregado variables específicas para callbacks de autenticación en cada app:
+Todas las apps incluyen variables específicas para callbacks de autenticación:
 
 ```env
-# 🔗 Base URL para callbacks de autenticación
-NEXT_PUBLIC_BASE_URL=https://[dominio-app]
-NEXT_PUBLIC_AUTH_CALLBACK_URL=https://[dominio-app]/auth/callback
+NEXT_PUBLIC_SITE_URL=https://<dominio-app>
+NEXT_PUBLIC_APP_URL=https://<dominio-app>
+NEXT_PUBLIC_AUTH_CALLBACK_URL=https://<dominio-app>/auth/callback
 ```
 
 **URLs por app:**
@@ -24,99 +24,83 @@ NEXT_PUBLIC_AUTH_CALLBACK_URL=https://[dominio-app]/auth/callback
 
 ### 2. **🔧 Función OAuth Mejorada**
 
-Creamos `signInWithOAuth()` en `@autamedica/auth` que usa las URLs correctas:
+`signInWithOAuth()` en `@autamedica/auth` usa las URLs correctas automáticamente:
 
 ```typescript
 import { signInWithOAuth } from '@autamedica/auth';
-
-// Usa automáticamente NEXT_PUBLIC_AUTH_CALLBACK_URL
 await signInWithOAuth('google', 'patients');
 ```
 
-### 3. **🌐 Configuración Vercel Completa**
+### 3. **🌐 Configuración Cloudflare Completa**
 
-El script `./scripts/configure-vercel-env.sh` ha configurado todas las variables en Vercel automáticamente.
+Los scripts `scripts/setup-supabase-urls.sh` y `scripts/update-supabase-with-patients.sh` permiten sincronizar Supabase con los dominios de Cloudflare Pages.
 
 ## 🚨 **PASOS CRÍTICOS PENDIENTES**
 
 ### **1️⃣ Configurar Supabase Authentication**
 
-Ve a tu proyecto Supabase → **Authentication** → **URL Configuration**:
+Supabase → **Authentication** → **URL Configuration**:
 
 #### **Site URL**
 ```
 https://autamedica.com
 ```
 
-#### **Additional Redirect URLs** (agregar todas)
+#### **Additional Redirect URLs**
 ```
-https://autamedica.com
 https://autamedica.com/auth/callback
-https://doctors.autamedica.com
 https://doctors.autamedica.com/auth/callback
-https://patients.autamedica.com
 https://patients.autamedica.com/auth/callback
-https://companies.autamedica.com
 https://companies.autamedica.com/auth/callback
-https://*.vercel.app
+https://autamedica-web-app.pages.dev/auth/callback
+https://autamedica-doctors.pages.dev/auth/callback
 ```
 
 ### **2️⃣ Configurar OAuth Providers**
 
-Para cada provider OAuth (Google, GitHub, etc.), actualizar las **Authorized redirect URIs**:
-
+Agregar a cada provider (Google, GitHub, etc.):
 ```
 https://gtyvdircfhmdjiaelqkg.supabase.co/auth/v1/callback
 ```
 
 ### **3️⃣ Verificar Domain Wildcards**
 
-Si usas previews de Vercel, agregar:
+Para soportar previews de Cloudflare Pages:
 ```
-https://*.vercel.app
+https://*.pages.dev
 ```
 
 ## 🔍 **Verificación**
 
-### **Antes del Fix:**
-```
-❌ Login → Redirect a localhost:3000/?code=... → ERR_CONNECTION_REFUSED
-```
+**Antes:** `localhost:3000/?code=...` → `ERR_CONNECTION_REFUSED`
 
-### **Después del Fix:**
-```
-✅ Login → Redirect a https://autamedica.com/auth/callback?code=... → Success
-```
+**Después:** `https://autamedica.com/auth/callback?code=...` → ✅ Login exitoso
 
 ## 🧪 **Testing**
 
-Para probar el flujo completo:
+1. Cerrar sesión y limpiar cookies
+2. Abrir cualquiera de las apps (`patients.autamedica.com`)
+3. Ejecutar login OAuth
+4. Confirmar redirección al dominio correcto
 
-1. **Cerrar sesión** y limpiar cookies
-2. **Ir a cualquier app** (ej: patients.autamedica.com)
-3. **Intentar login** con OAuth
-4. **Verificar redirección** a la URL correcta del dominio
+## 📚 **Archivos Relevantes**
 
-## 📚 **Archivos Modificados**
-
-- ✅ `packages/auth/src/client.ts` - Nueva función `signInWithOAuth`
-- ✅ `packages/auth/src/email.ts` - URLs de callback mejoradas
-- ✅ `apps/*/env.example` - Variables de callback agregadas
-- ✅ `scripts/configure-vercel-env.sh` - Script actualizado
-- ✅ Variables Vercel configuradas automáticamente
+- `packages/auth/src/client.ts` – función `signInWithOAuth`
+- `scripts/setup-supabase-urls.sh`
+- `scripts/update-supabase-with-patients.sh`
+- `scripts/generate-supabase-urls.sh`
 
 ## 🎯 **Estado Actual**
 
-- ✅ **Código actualizado** - Todas las funciones usan URLs de producción
-- ✅ **Variables Vercel configuradas** - Todos los proyectos tienen las URLs correctas
-- 🔄 **Pendiente**: Configuración manual en Supabase Dashboard (Pasos 1-3 arriba)
+- ✅ Código actualizado (usa dominios de producción)
+- ✅ Scripts listos para sincronizar Supabase
+- 🔄 Pendiente: confirmar cambios en Supabase Dashboard
 
 ## 🚀 **Próximos Pasos**
 
-1. **Configurar Supabase** según los pasos arriba
-2. **Trigger redeploys** en Vercel para aplicar las nuevas variables
-3. **Probar autenticación** end-to-end en cada portal
+1. Ejecutar los scripts o configurar manualmente en Supabase
+2. Lanzar nuevos deploys en Cloudflare Pages (`pnpm deploy:cloudflare`)
+3. Probar autenticación end-to-end en cada portal
 
 ---
-
-**Nota**: Una vez completada la configuración de Supabase, el error de `localhost` desaparecerá y todos los logins redirigirán a los dominios de producción correctos.
+Una vez completada la configuración, Supabase reconocerá los dominios de Cloudflare Pages y los flujos OAuth funcionarán sin bucles de redirección.

@@ -1,0 +1,68 @@
+2025-09-22 23:05:24.208 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:05:24.208 [debug] Starting VS Code
+2025-09-22 23:05:24.208 [debug] from: /snap/code/206/usr/share/code/resources/app
+2025-09-22 23:05:24.208 [debug] args: {"_":["/root/altamedica-reboot"],"diff":false,"merge":false,"add":false,"remove":false,"goto":false,"new-window":false,"reuse-window":false,"wait":false,"user-data-dir":"~/.vscode-root","help":false,"list-extensions":false,"show-versions":false,"pre-release":false,"update-extensions":false,"version":false,"verbose":true,"status":false,"prof-startup":false,"no-cached-data":false,"prof-v8-extensions":false,"disable-extensions":false,"disable-lcd-text":false,"disable-gpu":true,"disable-chromium-sandbox":true,"sandbox":false,"telemetry":false,"debugRenderer":false,"enable-smoke-test-driver":false,"logExtensionHostCommunication":false,"skip-release-notes":false,"skip-welcome":false,"disable-telemetry":false,"disable-updates":false,"transient":false,"use-inmemory-secretstorage":false,"disable-workspace-trust":false,"disable-crash-reporter":false,"crash-reporter-id":"ad7ab65d-c3a2-46f4-9c5a-19562646e150","skip-add-to-recently-opened":false,"open-url":false,"file-write":false,"file-chmod":false,"force":false,"do-not-sync":false,"do-not-include-pack-dependencies":false,"trace":false,"trace-memory-infra":false,"preserve-env":false,"force-user-env":false,"force-disable-user-env":false,"open-devtools":false,"disable-gpu-sandbox":false,"__enable-file-policy":false,"enable-coi":false,"enable-rdp-display-tracking":false,"disable-layout-restore":false,"disable-experiments":false,"no-proxy-server":false,"no-sandbox":false,"nolazy":false,"force-renderer-accessibility":false,"ignore-certificate-errors":false,"allow-insecure-localhost":false,"disable-dev-shm-usage":false,"profile-temp":false,"logsPath":"/root/altamedica-reboot/~/.vscode-root/logs/20250922T230524"}
+2025-09-22 23:05:24.208 [trace] Resolving machine identifier...
+2025-09-22 23:05:24.208 [trace] Resolving SQM identifier...
+2025-09-22 23:05:24.208 [trace] Resolving devDevice identifier...
+2025-09-22 23:05:24.208 [trace] Resolved machine identifier: 2ef7c413ff4d4c8727fbde66a1bee4f349dc0f6720cdc95a9763e5cecf8cbccc
+2025-09-22 23:05:24.208 [trace] Resolved SQM identifier: 
+2025-09-22 23:05:24.208 [trace] Resolved devDevice identifier: b0762f83-8980-4a89-a3fb-0caac41d3bba
+2025-09-22 23:05:24.208 [trace] Main->SharedProcess#connect
+2025-09-22 23:05:24.208 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User'
+2025-09-22 23:05:24.208 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User/settings.json'
+2025-09-22 23:05:24.208 [trace] StorageMainService: creating application storage
+2025-09-22 23:05:24.208 [info] update#setState idle
+2025-09-22 23:05:24.208 [trace] ElectronURLListener: waiting for window to be ready to handle URLs...
+2025-09-22 23:05:24.208 [trace] lifecycle (main): phase changed (value: 2)
+2025-09-22 23:05:24.208 [trace] windowsManager#open
+2025-09-22 23:05:24.211 [trace] windowsManager#open pathsToOpen [{"workspace":{"id":"602e01651a858412530e82445468fb37","uri":{"$mid":1,"fsPath":"/root/altamedica-reboot","path":"/root/altamedica-reboot","scheme":"file"}},"type":2,"exists":true}]
+2025-09-22 23:05:24.212 [trace] windowsManager#doOpenFolderOrWorkspace {"folderOrWorkspace":{"workspace":{"id":"602e01651a858412530e82445468fb37","uri":{"$mid":1,"fsPath":"/root/altamedica-reboot","external":"file:///root/altamedica-reboot","path":"/root/altamedica-reboot","scheme":"file"}},"type":2,"exists":true}}
+2025-09-22 23:05:24.217 [trace] IPC Object URL: Registered new channel vscode:f3840e22-cb06-4e74-8040-4c0bfef0b2cf.
+2025-09-22 23:05:24.217 [trace] window#validateWindowState: validating window state on 1 display(s) {"mode":0,"x":0,"y":32,"width":1536,"height":766}
+2025-09-22 23:05:24.218 [trace] window#validateWindowState: single monitor working area {"x":0,"y":32,"width":1536,"height":766}
+2025-09-22 23:05:24.218 [trace] window#ctor: using window state {"mode":0,"x":0,"y":32,"width":1536,"height":766}
+2025-09-22 23:05:24.360 [trace] window#load: attempt to load window (id: 1)
+2025-09-22 23:05:24.371 [trace] StorageMainService: creating workspace storage (602e01651a858412530e82445468fb37)
+2025-09-22 23:05:24.373 [trace] windowsManager#open used window count 1 (workspacesToOpen: 0, foldersToOpen: 1, emptyToRestore: 0, maybeOpenEmptyWindow: false)
+2025-09-22 23:05:24.374 [trace] lifecycle (main): phase changed (value: 3)
+2025-09-22 23:05:24.376 [trace] resolveShellEnv(): skipped (VSCODE_CLI is set)
+2025-09-22 23:05:24.518 [trace] resolveShellEnv(): skipped (VSCODE_CLI is set)
+2025-09-22 23:05:25.828 [trace] window#load: window reported ready (id: 1)
+2025-09-22 23:05:25.828 [trace] ElectronURLListener#flush(): flushing URLs
+2025-09-22 23:05:25.879 [trace] [SharedProcess] onWindowConnection for: vscode:createSharedProcessChannelConnectionResult
+2025-09-22 23:05:25.882 [trace] [UtilityProcess type: shared-process, pid: <none>]: creating new...
+2025-09-22 23:05:25.891 [trace] [UtilityProcess type: shared-process, pid: <none>]: payload sent via postMessage()
+2025-09-22 23:05:25.892 [trace] [UtilityProcessWorker]: createWorker(window: 1, moduleId: vs/platform/files/node/watcher/watcherMain)
+2025-09-22 23:05:25.896 [trace] [UtilityProcess id: 1, type: fileWatcher, pid: <none>]: creating new...
+2025-09-22 23:05:25.914 [trace] [UtilityProcess type: shared-process, pid: 2752519]: successfully created
+2025-09-22 23:05:25.916 [trace] [UtilityProcess id: 1, type: fileWatcher, pid: 2752520]: successfully created
+2025-09-22 23:05:26.524 [trace] [UtilityProcess id: 1, type: extensionHost, pid: <none>]: creating new...
+2025-09-22 23:05:26.590 [trace] [UtilityProcess id: 1, type: extensionHost, pid: 2752551]: successfully created
+2025-09-22 23:05:26.880 [trace] lifecycle (main): phase changed (value: 4)
+2025-09-22 23:05:27.130 [trace] [SharedProcess] IPC ready
+2025-09-22 23:05:27.130 [trace] Main->SharedProcess#connect: connection established
+2025-09-22 23:05:27.183 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:05:27.188 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User'
+2025-09-22 23:05:27.202 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User/settings.json'
+2025-09-22 23:05:27.226 [trace] [SharedProcess] Overall ready
+2025-09-22 23:05:27.357 [trace] [File Watcher (node.js)] Request to start watching: /root/.vscode/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/.vscode/extensions/extensions.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:05:27.364 [trace] [File Watcher (node.js)] Started watching: '/root/.vscode/extensions'
+2025-09-22 23:05:27.365 [trace] [File Watcher (node.js)] Started watching: '/root/.vscode/extensions/extensions.json'
+2025-09-22 23:05:28.162 [trace] resolveShellEnv(): skipped (VSCODE_CLI is set)
+2025-09-22 23:05:28.278 [debug] Terminal profile not validated fish ["fish"]
+2025-09-22 23:05:29.599 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:05:29.601 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/mcp.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/mcp.json')
+2025-09-22 23:05:29.601 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/mcp.json (correlationId: undefined)
+2025-09-22 23:05:30.405 [trace] [File Watcher (node.js)] Request to stop watching: /root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:05:30.406 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:05:30.700 [trace] Setting background throttling for window 1 to 'true'
+2025-09-22 23:05:31.747 [trace] [EncryptionMainService] Checking if encryption is available...
+2025-09-22 23:05:31.749 [trace] [EncryptionMainService] Encryption is available:  false
+2025-09-22 23:05:32.208 [debug] ProxyResolver#loadSystemCertificates count 152
+2025-09-22 23:05:32.225 [debug] ProxyResolver#loadSystemCertificates count filtered 151
+2025-09-22 23:05:33.355 [trace] [EncryptionMainService] Getting selected storage backend...
+2025-09-22 23:05:33.355 [trace] [EncryptionMainService] Selected storage backend:  gnome_libsecret
+2025-09-22 23:05:54.199 [trace] update#checkForUpdates, state =  idle
+2025-09-22 23:05:54.202 [info] update#setState checking for updates
+2025-09-22 23:05:54.216 [info] update#setState idle

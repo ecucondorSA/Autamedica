@@ -173,7 +173,7 @@ pnpm env:validate:production
 
 ### 🔐 Secrets Management
 - **Desarrollo**: `.env.local` (gitignored)
-- **Producción**: Vercel Environment Variables
+- **Producción**: Cloudflare Pages Environment Variables
 - **Servidor**: Solo variables sin `NEXT_PUBLIC_`
 
 ### 🛡️ CORS y Dominios

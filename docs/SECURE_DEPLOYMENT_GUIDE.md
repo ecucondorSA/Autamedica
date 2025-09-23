@@ -1,146 +1,71 @@
-# 🚀 **Guía de Despliegue Seguro - AutaMedica**
+# 🔐 Guía de Deploy Seguro - Cloudflare Pages
 
-## 📋 **Resumen del Sistema Completado**
+## ✅ Objetivos
+- Desplegar cada app del monorepo en Cloudflare Pages con variables y secretos seguros.
+- Garantizar cumplimiento HIPAA con controles de acceso y monitoreo.
 
-✅ **Sistema de autenticación completo** con Supabase que cubre:
-- Login, registro, recuperación y restablecimiento de contraseña
-- Selección de rol y redirección a cada portal
+## 🛡️ Checklist previo al deploy
+1. Ejecutar validaciones:
+   ```bash
+   pnpm check:all
+   pnpm security:check
+   pnpm docs:validate
+   ```
+2. Confirmar que `.open-next/dist` existe para cada app (`pnpm build:cloudflare`).
+3. Verificar variables en Cloudflare Dashboard → Pages → `<proyecto>` → *Environment Variables*.
 
-### 🔧 **Cambios Clave Implementados**
-
-#### **1. Autenticación**
-- `LoginForm` / `RegisterForm` conectados a `supabase.auth` con validaciones reales (modo demo solo si envs son "dummy")
-- Nueva página `reset-password` procesa enlace seguro (hash o code), restaura sesión y ejecuta `supabase.auth.updateUser`
-- `LoginPage` muestra mensajes (`Message`) tras registro/reset e invita al forgot password
-- Pantalla `select-role` actualiza `user_metadata.role` y redirige usando `/auth/callback` a cada dashboard según `getRoleRedirectUrl`
-
-#### **2. Configuración de Construcción**
-- `vercel.json` usa `corepack` y `HUSKY=0 pnpm install --prod=false` necesario para builds en Vercel
-
-## 🛠️ **Comandos de Despliegue Seguro**
-
-### **Preparación del Directorio de Despliegue**
+## 🔑 Gestión de secretos
+Usar `wrangler` para administrar secretos y variables (no se almacenan en repositorio):
 ```bash
-# En la copia sin .git
-cd /root/altamedica-reboot-deploy
-
-# Web principal
-npx vercel --prod --yes --token <TOKEN> --cwd apps/web-app
-
-# Doctors (ya desplegado con envs reales)
-npx vercel --prod --yes --token <TOKEN> --cwd apps/doctors
-
-# Pacientes / Empresas / Admin (tras configurar root y env vars en Vercel)
-npx vercel --prod --yes --token <TOKEN> --cwd apps/patients
-npx vercel --prod --yes --token <TOKEN> --cwd apps/companies
-npx vercel --prod --yes --token <TOKEN> --cwd apps/admin
+cd apps/doctors
+wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY
+wrangler pages secret put JWT_SECRET
+wrangler pages secret put JWT_REFRESH_SECRET
 ```
 
-### **Recuerda antes de cada portal:**
-1. **Establecer Root Directory** (`apps/<portal>`) en Vercel
-2. **Cargar las envs reales** (Supabase URL/keys, URLs de portales, flags, HUSKY=0, HUSKY_SKIP_INSTALL=1)
-3. **Verificar en Supabase** que `https://autamedica.com/auth/reset-password` (y equivalentes por portal) estén en **Allowed Redirect URLs**
-
-## 🔐 **Configuración de Seguridad**
-
-### **Variables de Entorno Críticas**
-```bash
-# Supabase (Producción)
+Variables públicas definidas como `Environment Variables`:
+```
+NEXT_PUBLIC_SITE_URL=https://doctors.autamedica.com
+NEXT_PUBLIC_APP_URL=https://doctors.autamedica.com
+NEXT_PUBLIC_API_URL=https://api.autamedica.com
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-
-# URLs de Portales
-NEXT_PUBLIC_APP_URL=https://autamedica.com
-NEXT_PUBLIC_DOCTORS_URL=https://doctors.autamedica.com
-NEXT_PUBLIC_PATIENTS_URL=https://patients.autamedica.com
-NEXT_PUBLIC_COMPANIES_URL=https://companies.autamedica.com
-
-# Build Configuration
-HUSKY=0
-HUSKY_SKIP_INSTALL=1
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon>
 ```
 
-### **Configuración DNS Post-Despliegue**
-Una vez propaguen los DNS, usar:
+## 🚀 Deploy seguro
+Ejecutar despliegue por app (uno a la vez):
 ```bash
-npx vercel alias <deploy> <dominio> --token <TOKEN>
+cd apps/<app>
+pnpm build:cloudflare
+wrangler pages deploy .open-next/dist --project-name autamedica-<app> --branch main
 ```
 
-Para apuntar:
-- `app.autamedica.com`
-- `doctor.autamedica.com` 
-- `patients.autamedica.com`
-- `companies.autamedica.com`
+### Bloqueo de despliegues accidentales
+- Configura `Required Deployments` en Cloudflare Dashboard → Branch Deployments.
+- Habilita aprobaciones manuales en GitHub Actions (pendiente).
 
-Asegurándote de que cada dominio esté añadido a la cuenta nueva.
-
-## 🔄 **Proceso de Validación**
-
-### **1. Verificar URLs en Supabase**
-- Ir a Supabase Dashboard → Authentication → URL Configuration
-- Verificar que todas las URLs de redirect estén en **Allowed Redirect URLs**:
-  - `https://autamedica.com/auth/reset-password`
-  - `https://doctors.autamedica.com/auth/reset-password`
-  - `https://patients.autamedica.com/auth/reset-password`
-  - `https://companies.autamedica.com/auth/reset-password`
-
-### **2. Probar Flujo Completo**
-1. ✅ Login funcional
-2. ✅ Registro funcional  
-3. ✅ Reset password funcional
-4. ✅ Redirección por roles funcional
-
-## 📚 **Arquitectura de Seguridad**
-
-### **Flujo de Autenticación**
+## 🔍 Validaciones post-deploy
+```bash
+wrangler pages deployments list autamedica-<app>
+wrangler pages deployment tail autamedica-<app>
 ```
-Usuario → Login/Register → Supabase Auth → Select Role → Portal Específico
-                                     ↓
-                              Update user_metadata.role
-                                     ↓
-                              Redirect via /auth/callback
-```
+- Verificar que el estado sea `success`.
+- Revisar Cloudflare Analytics para tráfico anómalo.
 
-### **Estructura de Deployment**
-```
-/root/altamedica-reboot-deploy/  # Sin .git para deployment seguro
-├── apps/
-│   ├── web-app/     # Landing + Auth central
-│   ├── doctors/     # Portal médicos
-│   ├── patients/    # Portal pacientes
-│   └── companies/   # Portal empresarial
-```
+## 🌐 DNS y certificados
+- DNS administrado desde Cloudflare (ver `DOMAIN_CONFIGURATION.md`).
+- Activar Always Use HTTPS y HSTS.
+- Certificados automáticos generados por Cloudflare (no subir certificados manuales).
 
-### **Configuración vercel.json**
-```json
-{
-  "installCommand": "corepack enable && corepack prepare pnpm@9.15.2 --activate && cd ../.. && HUSKY=0 pnpm install --prod=false",
-  "buildCommand": "cd ../.. && pnpm build:packages && pnpm build --filter @autamedica/<app>",
-  "framework": "nextjs",
-  "outputDirectory": ".next"
-}
-```
+## 📡 Alertas y monitoreo
+- Configurar Logpush → almacenamiento seguro (R2/BigQuery).
+- Integrar con Slack/PagerDuty desde Cloudflare Notifications.
+- Automatizar health-checks con `pnpm health` + cron.
 
-## ⚠️ **Consideraciones de Seguridad**
-
-1. **Nunca commitear** tokens o keys reales al repositorio
-2. **Usar siempre** la copia sin `.git` para deployments
-3. **Verificar** que `HUSKY=0` esté configurado en todas las apps
-4. **Validar** URLs de redirect en Supabase antes del deployment
-5. **Probar** flujo completo en ambiente de staging primero
-
-## 🎯 **Checklist de Deployment**
-
-- [ ] Directorio sin .git preparado
-- [ ] Root Directory configurado en Vercel
-- [ ] Variables de entorno cargadas
-- [ ] URLs de redirect verificadas en Supabase
-- [ ] Build commands con HUSKY=0
-- [ ] DNS configurado para dominios personalizados
-- [ ] Flujo de autenticación probado end-to-end
+## 📥 Recuperación ante incidentes
+1. Revertir al deploy anterior: `wrangler pages deployment rollback autamedica-<app> <deployment-id>`
+2. Revocar secretos comprometidos y re-generarlos en Supabase.
+3. Documentar incidentes en `SECURITY_VULNERABILITIES_REPORT.md`.
 
 ---
-
-**Última actualización**: Septiembre 18, 2025
-**Status**: ✅ Methodology probada y documentada
+Mantener esta guía actualizada cada vez que se agregue una app o cambie la configuración de Cloudflare.

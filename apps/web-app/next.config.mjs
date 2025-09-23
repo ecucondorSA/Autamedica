@@ -17,13 +17,13 @@ const nextConfig = {
 
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://vercel.live",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https: blob:",
       "media-src 'self' blob:",
       "connect-src 'self' https://*.supabase.co https://*.supabase.io https://api.autamedica.com https://*.sentry.io wss://*.supabase.co",
-      "frame-src 'self' https://www.google.com https://vercel.live",
+      "frame-src 'self' https://www.google.com",
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
       "form-action 'self'",

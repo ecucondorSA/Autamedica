@@ -1,5 +1,4 @@
 import { createBrowserClient } from '@supabase/ssr'
-import { ensureClientEnv } from '@autamedica/shared'
 
 export function createClient() {
   // Only create client on the client side
@@ -39,27 +38,27 @@ export interface UserProfile {
 export const ROLE_REDIRECTS = {
   patient: {
     development: 'http://localhost:3003/dashboard',
-    production: 'https://patients.autamedica.com/dashboard'
+    production: 'https://autamedica-patients.pages.dev/dashboard'
   },
   doctor: {
     development: 'http://localhost:3002/dashboard',
-    production: 'https://doctors.autamedica.com/dashboard'
+    production: 'https://autamedica-doctors.pages.dev/dashboard'
   },
   company: {
     development: 'http://localhost:3004/dashboard',
-    production: 'https://companies.autamedica.com/dashboard'
+    production: 'https://autamedica-companies.pages.dev/dashboard'
   },
   company_admin: {
     development: 'http://localhost:3004/dashboard',
-    production: 'https://companies.autamedica.com/dashboard'
+    production: 'https://autamedica-companies.pages.dev/dashboard'
   },
   admin: {
     development: 'http://localhost:3005/dashboard',
-    production: 'https://admin.autamedica.com/dashboard'
+    production: 'https://autamedica-admin.pages.dev/dashboard'
   },
   platform_admin: {
     development: 'http://localhost:3000/admin',
-    production: 'https://www.autamedica.com/admin'
+    production: 'https://autamedica-web-app.pages.dev/admin'
   }
 } as const
 

@@ -13,11 +13,17 @@ function findTsconfigs(root) {
         try {
           if (statSync(p).isDirectory()) {
             const cfg = join(p, 'tsconfig.json');
-            try { statSync(cfg); list.push(cfg); } catch {}
+            try { statSync(cfg); list.push(cfg); } catch {
+              // Ignore missing tsconfig.json files
+            }
           }
-        } catch {}
+        } catch {
+          // Ignore inaccessible directories
+        }
       }
-    } catch {}
+    } catch {
+      // Ignore missing base directories
+    }
   }
   return list;
 }

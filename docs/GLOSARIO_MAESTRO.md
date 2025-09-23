@@ -308,7 +308,7 @@ Variables que pueden ser expuestas al cliente (bundle JavaScript):
 // URLs y configuración pública
 NEXT_PUBLIC_API_URL: string;              // URL base de la API
 NEXT_PUBLIC_APP_URL: string;              // URL base de la aplicación web
-NEXT_PUBLIC_VERCEL_URL: string;           // URL de Vercel
+NEXT_PUBLIC_SITE_URL: string;           // URL pública principal
 NEXT_PUBLIC_DOCTORS_URL: string;          // URL de aplicación médicos
 NEXT_PUBLIC_PATIENTS_URL: string;         // URL de aplicación pacientes
 NEXT_PUBLIC_COMPANIES_URL: string;        // URL de aplicación empresas
@@ -448,34 +448,21 @@ export function validateEnvironment(): EnvironmentConfig;
 
 ## 🚀 Deployment y Validaciones
 
-### Validación de Configuración Vercel
+### Validación de Configuración Cloudflare Pages
 
-**Script**: `scripts/validate-vercel-config.mjs`
-
-Valida configuración de deployment para prevenir errores:
-
-```typescript
-interface VercelConfig {
-  installCommand: "pnpm install"; // Requerido para workspace deps
-  buildCommand: "pnpm -w build --filter @autamedica/web-app..."; // Monorepo filter
-  outputDirectory: ".next"; // Relativo a Root Directory
-  framework: "nextjs"; // Framework Next.js
-}
-```
-
-**Comandos disponibles**:
+**Comandos recomendados**:
 
 ```bash
-pnpm vercel:validate     # Validar configuración Vercel
-pnpm pre-deploy         # Validación completa pre-deployment
+pnpm pre-deploy         # Validación general antes de desplegar
+wrangler pages project list
+wrangler pages project settings autamedica-web-app
 ```
 
-**Pre-commit hooks**:
+**Checklist previo al deploy**:
 
-- Validación automática de configuración deployment
-- Security checks y lint
-- TypeScript validation
-- Tests unitarios
+- Variables de entorno configuradas en Cloudflare Pages
+- Build local (`pnpm build:cloudflare`) sin errores
+- DNS y certificates activos (ver `DOMAIN_CONFIGURATION.md`)
 
 ### Scripts de Automatización
 
@@ -493,7 +480,7 @@ pnpm security:full      // security:check + pnpm audit
 pnpm docs:validate      // scripts/validate-exports.mjs
 
 // Diagnóstico de deployment
-./collect_vercel_diagnostics.sh  // Diagnóstico completo Vercel
+wrangler pages deploy .open-next/dist --project-name autamedica-web-app --branch main  # Deploy manual
 ```
 
 ## ✅ Validación Automática
@@ -504,12 +491,11 @@ Script en `scripts/validate-exports.mjs` verifica que:
 - No hay exports no documentados
 - Versiones semánticas son respetadas
 
-**Validación de deployment** en `scripts/validate-vercel-config.mjs`:
+**Validación de deployment** (manual):
 
-- Configuración correcta de vercel.json
-- Package manager PNPM
-- Build commands para monorepo
-- Output directories correctos
+- `wrangler pages deployments list <proyecto>` sin estados `error`
+- `pnpm check:all` exitoso antes de publicar
+- Confirmar que `.open-next/dist` contiene artefactos generados
 
 ## 🎨 Contratos UI (@autamedica/ui)
 
@@ -632,7 +618,7 @@ export const LOG_LEVELS: LogLevel;
 
 ## Índice de símbolos por paquete (auto)
 
-- auth: `ALL_ROLES`, `AuthProvider`, `PORTALS`, `PORTAL_TO_ROLE`, `Portal`, `ROLES`, `ROLE_TO_PORTAL`, `SignInWithOtpOptions`, `SignInWithOtpResult`, `UserRole`, `canAccessPatientData`, `canAccessPortal`, `canManagePlatform`, `createBrowserClient`, `createMiddlewareClient`, `createRouteHandlerClient`, `createServerClient`, `getBasePermissions`, `getCurrentUser`, `getPortalForRole`, `getPortalRedirectUrl`, `getRoleForPortal`, `getSession`, `hasPermission`, `hasPortalAccess`, `hasRole`, `isAdminRole`, `isMedicalRole`, `isPortal`, `isUserRole`, `requirePortalAccess`, `requireSession`, `signInWithOAuth`, `signInWithOtp`, `signOut`, `useAuth`, `validateEmailForSignIn`
+- auth: `APP_ALLOWED_ROLES`, `AppName`, `AuthError`, `AuthErrorType`, `AuthProvider`, `AuthState`, `DomainConfig`, `Environment`, `ROLE_APP_MAPPING`, `RedirectConfig`, `SessionConfig`, `UserProfile`, `UserRole`, `authMiddleware`, `clearLastPath`, `createAppMiddleware`, `createBrowserClient`, `getCorrectAppUrl`, `getDefaultRedirectUrl`, `getDomainConfig`, `getEnvironment`, `getLastPath`, `getLoginUrl`, `getRedirectUrl`, `getSessionConfig`, `getSupabaseClient`, `getSupabaseConfig`, `isCorrectAppForRole`, `isSameOrigin`, `sanitizeReturnUrl`, `signOutGlobally`, `storeLastPath`, `useAuth`, `useRequireAuth`, `useRequireRole`
 - hooks: `useAppointments`, `useAsync`, `useDebounce`, `usePatients`
 - shared: `AUTH_URLS`, `BASE_URL_BY_ROLE`, `EnvironmentConfig`, `EnvironmentValidation`, `HOME_BY_ROLE`, `LogLevel`, `Logger`, `PORTAL_TO_ROLE`, `ensureClientEnv`, `ensureEnv`, `ensureServerEnv`, `getCookieDomain`, `getLoginUrl`, `getPortalForRole`, `getRoleForPortal`, `getTargetUrlByRole`, `isValidRole`, `logger`, `validateEmail`, `validateEnvironment`, `validateEnvironmentByType`, `validateEnvironmentSecurity`, `validatePhone`, `validateProductionEnvironment`, `validateStagingEnvironment`
 - types: `APPOINTMENT_STATUSES`, `APPOINTMENT_TYPES`, `ARGENTINA_INSURANCE_PROVIDERS`, `ARS`, `Address`, `Allergy`, `AllergySeverity`, `ApiError`, `ApiErrorCode`, `ApiResponse`, `Appointment`, `AppointmentId`, `AppointmentInsert`, `AppointmentStatus`, `AppointmentType`, `AppointmentUpdate`, `AppointmentWithDetails`, `ArrayElement`, `AsyncFunction`, `AsyncState`, `AutamedicaRecognition`, `AuthenticatedLoadable`, `BMI`, `BaseEntity`, `BloodType`, `Brand`, `CERTIFICATION_TYPES`, `COMPANY_MEMBER_ROLES`, `COMPANY_SIZES`, `Callback`, `CertificationId`, `Company`, `CompanyAddress`, `CompanyContact`, `CompanyId`, `CompanyInsert`, `CompanyMember`, `CompanyMemberInsert`, `CompanyMemberRole`, `CompanyMemberUpdate`, `CompanySize`, `CompanyUpdate`, `CompanyWithMembers`, `ComplianceInfo`, `Coordinates`, `CountryCode`, `CreateEntityInput`, `DNI`, `DataLoadingState`, `Database`, `DaySchedule`, `DiscriminateUnion`, `Doctor`, `DoctorAPIResponse`, `DoctorEducation`, `DoctorExperience`, `DoctorId`, `DoctorInsert`, `DoctorListAPIResponse`, `DoctorLookupResult`, `DoctorPrivateData`, `DoctorProfile`, `DoctorPublicAPIResponse`, `DoctorPublicProfile`, `DoctorPublicRating`, `DoctorRatingAPIResponse`, `DoctorRatingDisplay`, `DoctorUpdate`, `DoctorWithProfile`, `EmergencyContact`, `EmployeeId`, `EntityFilters`, `GENDERS`, `Gender`, `HeightCm`, `ICD10Code`, `ID_VALIDATION_CONFIG`, `ISODateString`, `Id`, `InsurancePlan`, `InsurancePolicyNumber`, `Json`, `JsonArray`, `JsonObject`, `JsonPrimitive`, `JsonValue`, `KeysOf`, `LICENSE_STATUS`, `LicenseProvinceCode`, `Loadable`, `LoadingState`, `MEDICAL_RECORD_VISIBILITIES`, `MEDICAL_SPECIALTIES`, `MapDiscriminatedUnion`, `Maybe`, `MedicalApiResponse`, `MedicalAudit`, `MedicalCertification`, `MedicalCondition`, `MedicalHistoryId`, `MedicalLicense`, `MedicalLicenseNumber`, `MedicalLoadable`, `MedicalRecord`, `MedicalRecordInsert`, `MedicalRecordNumber`, `MedicalRecordUpdate`, `MedicalRecordVisibility`, `MedicalRecordWithDetails`, `MedicalSpecialty`, `MedicalSubspecialty`, `Medication`, `MutableDeep`, `NationalPhone`, `NonEmptyArray`, `NonEmptyObject`, `NonEmptyString`, `NonNullable`, `Nullable`, `Optional`, `PHONE_VALIDATION_CONFIG`, `PaginatedResponse`, `PaginationParams`, `Patient`, `PatientAPIResponse`, `PatientAddress`, `PatientAdminView`, `PatientCareTeam`, `PatientCareTeamInsert`, `PatientCareTeamUpdate`, `PatientCareTeamWithDetails`, `PatientCount`, `PatientId`, `PatientInsert`, `PatientListAPIResponse`, `PatientMedicalAPIResponse`, `PatientMedicalView`, `PatientPrivateData`, `PatientProfile`, `PatientPublicProfile`, `PatientReview`, `PatientUpdate`, `PatientVolumeMetrics`, `PatientWithProfile`, `Percent0to100`, `Percentage`, `PhoneE164`, `Portal`, `PositiveNumber`, `Predicate`, `PrescriptionId`, `ProfessionalInsurance`, `Profile`, `ProfileInsert`, `ProfileUpdate`, `REVIEW_WINDOW_DAYS`, `ROLE_TO_PORTALS`, `RatingScore`, `ReadonlyDeep`, `RecognitionAPIResponse`, `ReviewId`, `ReviewListAPIResponse`, `ReviewSubmissionResult`, `SUBSPECIALTIES`, `SpecialtyCode`, `StateCode`, `SubspecialtyCode`, `SupabaseApiResponse`, `SupabasePaginatedResponse`, `Tables`, `TablesInsert`, `TablesUpdate`, `TenantId`, `ThrowsFunction`, `TimeHHmm`, `TimeSlot`, `USER_ROLES`, `UpdateEntityInput`, `User`, `UserId`, `UserProfile`, `UserRole`, `UserSession`, `ValuesOf`, `VitalSigns`, `VoidFunction`, `WeeklySchedule`, `WeightKg`, `ZipCode`, `acceptsInsurancePlan`, `calculateAge`, `calculateBMI`, `calculateMonthsActive`, `calculateOverallRating`, `calculatePatientReviewsScore`, `calculateRecognitionScore`, `calculateReviewsBreakdown`, `calculateRiskLevel`, `calculateTotalTrainingYears`, `calculateVolumePercentile`, `calculateVolumeScore`, `calculateYearsOfExperience`, `canAccessPortal`, `canPracticeInArgentina`, `canPracticeSpecialty`, `canReceiveTelemedicine`, `canSubmitReview`, `combineLoadables`, `createBasicAddress`, `createBasicSpecialty`, `createId`, `createMedicalAddress`, `createMedicalLicense`, `createMedicalView`, `createPublicProfile`, `createRatingDisplay`, `createValidatedId`, `extractCountryCode`, `extractPrivateData`, `extractProvinceFromLicense`, `fail`, `failWithCode`, `failure`, `flatMapLoadable`, `formatAddressString`, `formatMedicalLicense`, `formatPhoneForDisplay`, `generateAppointmentId`, `generateDisplayName`, `generateDoctorId`, `generatePatientId`, `generatePrefixedId`, `generateUUID`, `getAvailableSubspecialties`, `getLoadableValue`, `getPhoneExamples`, `getRecognitionBadgeText`, `getSpecialtiesByCategory`, `getSpecialtiesRequiring`, `hasActiveAllergies`, `hasInsuranceCoverage`, `idle`, `isActiveLicense`, `isApiError`, `isApiSuccess`, `isAppointment`, `isArgentinaMobile`, `isArgentinaPhone`, `isArgentinaStateCode`, `isArgentinaZipCode`, `isAvailableOnDay`, `isCompleteAddress`, `isCountryCode`, `isDoctor`, `isDoctorLicenseActive`, `isDoctorProfileComplete`, `isEligibleForRecognition`, `isEntityActive`, `isEntityDeleted`, `isFailure`, `isHighRiskPatient`, `isISODateString`, `isIdle`, `isLoading`, `isNonEmptyArray`, `isNonEmptyObject`, `isNonEmptyString`, `isNonNullable`, `isPAMIEligible`, `isPatient`, `isPercentage`, `isPhoneE164`, `isPositiveNumber`, `isProfile`, `isPublicHealthcareEligible`, `isSuccess`, `isUnauthenticated`, `isValidBloodType`, `isValidCertification`, `isValidCoordinates`, `isValidDNI`, `isValidEmail`, `isValidMedicalLicense`, `isValidPhoneForCountry`, `isValidRatingScore`, `isValidSpecialtyCode`, `isValidSubspecialtyCode`, `isValidTimeHHmm`, `isValidURL`, `loading`, `mapApiResponse`, `mapLoadable`, `markEntityAsDeleted`, `matchAsyncState`, `matchAuthenticatedLoadable`, `matchDataLoadingState`, `matchLoadable`, `medicalFail`, `medicalOk`, `migrateToAddress`, `normalizePhoneNumber`, `nowAsISODateString`, `ok`, `requiresSpecializedCare`, `success`, `toArgentinaStateCode`, `toArgentinaZipCode`, `toCountryCode`, `toE164Format`, `toISODateString`, `toNationalFormat`, `unauthenticated`, `unwrapApiResponse`, `unwrapLoadable`, `validateIdForScope`, `validatePhoneList`

@@ -29,7 +29,7 @@ const productionEnv = {
   // URLs
   NEXT_PUBLIC_API_URL: 'https://api.autamedica.com',
   NEXT_PUBLIC_APP_URL: 'https://autamedica.com',
-  NEXT_PUBLIC_VERCEL_URL: 'https://autamedica.com',
+  NEXT_PUBLIC_SITE_URL: 'https://autamedica.com',
 
   // Monitoring - Sentry configurado
   NEXT_PUBLIC_SENTRY_DSN: 'https://9ce3f6a449a4882ab4eaec5a6e9ca2cc@o4510021476548608.ingest.us.sentry.io/4510021478318080',

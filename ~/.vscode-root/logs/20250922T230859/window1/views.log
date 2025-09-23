@@ -1,0 +1,16 @@
+2025-09-22 23:09:01.575 [trace] Added views:workbench.panel.chat.view.copilot in workbench.panel.chat
+2025-09-22 23:09:01.575 [trace] Added views:outline in workbench.view.explorer
+2025-09-22 23:09:01.575 [trace] Added views:workbench.view.search in workbench.view.search
+2025-09-22 23:09:01.575 [trace] Added views:workbench.scm in workbench.view.scm
+2025-09-22 23:09:01.575 [trace] Added views:workbench.panel.markers.view in workbench.panel.markers
+2025-09-22 23:09:01.575 [trace] Added views:workbench.panel.output in workbench.panel.output
+2025-09-22 23:09:01.575 [trace] Added views:terminal in terminal
+2025-09-22 23:09:01.575 [trace] Added views:timeline in workbench.view.explorer
+2025-09-22 23:09:01.575 [trace] Added views:workbench.explorer.fileView in workbench.view.explorer
+2025-09-22 23:09:02.758 [trace] Added views:pw.extension.settingsView in workbench.view.extension.test
+2025-09-22 23:09:02.759 [trace] Added views:pw.extension.locatorsView in workbench.view.extension.playwrightContainer
+2025-09-22 23:09:03.989 [trace] Added views:workbench.debug.welcome in workbench.view.debug
+2025-09-22 23:09:04.192 [trace] Added views:workbench.panel.repl.view in workbench.panel.repl
+2025-09-22 23:09:06.569 [trace] Added views:~remote.forwardedPorts in ~remote.forwardedPortsContainer
+2025-09-22 23:09:08.748 [trace] Added views:workbench.view.testing in workbench.view.extension.test
+2025-09-22 23:09:09.135 [trace] Added views:workbench.scm.history in workbench.view.scm

@@ -1,0 +1,599 @@
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/launch.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/keybindings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/settings.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/settings.json')
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/settings.json (correlationId: undefined)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/.vscode/tasks.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/.vscode/tasks.json')
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/.vscode/tasks.json (correlationId: undefined)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/.vscode/launch.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/.vscode/launch.json')
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/.vscode/launch.json (correlationId: undefined)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/.vscode/mcp.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/.vscode/mcp.json')
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/.vscode/mcp.json (correlationId: undefined)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/keybindings.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/keybindings.json')
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/keybindings.json (correlationId: undefined)
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/.vscode'
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/.vscode/settings.json'
+2025-09-22 23:02:49.434 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User'
+2025-09-22 23:02:49.436 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User/prompts (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:49.455 [trace] [File Watcher (node.js)] Request to stop watching: /root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/launch.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/.vscode/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/keybindings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:49.456 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.456 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/.vscode/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.456 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/.vscode/launch.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.456 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/.vscode/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.456 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/keybindings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.467 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/prompts (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/prompts')
+2025-09-22 23:02:49.469 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/prompts (correlationId: undefined)
+2025-09-22 23:02:49.574 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:49.580 [trace] [File Watcher (node.js)] Request to stop watching: /root/altamedica-reboot/~/.vscode-root/User/prompts (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:49.580 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/prompts (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:49.581 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/tasks.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/tasks.json')
+2025-09-22 23:02:49.581 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/tasks.json (correlationId: undefined)
+2025-09-22 23:02:49.581 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/~/.vscode-root/User/mcp.json (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/~/.vscode-root/User/mcp.json')
+2025-09-22 23:02:49.582 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/mcp.json (correlationId: undefined)
+2025-09-22 23:02:50.414 [trace] [File Watcher (node.js)] Request to stop watching: /root/altamedica-reboot/~/.vscode-root/User/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>),/root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:50.660 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/tasks.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:50.660 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/~/.vscode-root/User/mcp.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:02:51.433 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User/snippets (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:51.451 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/~/.vscode-root/User/snippets'
+2025-09-22 23:02:51.700 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/.vscode/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:51.713 [trace] [File Watcher (node.js)] ignoring a path for watching who's stat info failed to resolve: /root/altamedica-reboot/.vscode/extensions (error: Error: ENOENT: no such file or directory, stat '/root/altamedica-reboot/.vscode/extensions')
+2025-09-22 23:02:51.713 [trace] [File Watcher (node.js)] starting fs.watchFile() on /root/altamedica-reboot/.vscode/extensions (correlationId: undefined)
+2025-09-22 23:02:51.830 [trace] [File Watcher ('parcel')] Request to start watching: /root/altamedica-reboot (excludes: **/.git/objects/**,**/.git/subtree-cache/**,**/.hg/store/**, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:52.509 [trace] [File Watcher (node.js)] Request to stop watching: /root/altamedica-reboot/.vscode/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:02:52.523 [trace] [File Watcher (node.js)] stopping file watcher (/root/altamedica-reboot/.vscode/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>))
+2025-09-22 23:03:31.584 [trace] [File Watcher (node.js)] [raw] ["rename"] settings.json.vsctmp
+2025-09-22 23:03:31.584 [trace] [File Watcher (node.js)] [raw] ["change"] settings.json.vsctmp
+2025-09-22 23:03:31.586 [trace] [File Watcher (node.js)] [ADDED] /root/altamedica-reboot/~/.vscode-root/User/settings.json.vsctmp
+2025-09-22 23:03:31.592 [trace] [File Watcher (node.js)] [raw] ["rename"] settings.json.vsctmp
+2025-09-22 23:03:31.593 [trace] [File Watcher (node.js)] [raw] ["rename"] settings.json
+2025-09-22 23:03:31.666 [trace] [File Watcher (node.js)]  >> normalized [ADDED] /root/altamedica-reboot/~/.vscode-root/User/settings.json.vsctmp
+2025-09-22 23:03:31.694 [trace] [File Watcher (node.js)] [DELETED] /root/altamedica-reboot/~/.vscode-root/User/settings.json.vsctmp
+2025-09-22 23:03:31.695 [trace] [File Watcher (node.js)] [ADDED] /root/altamedica-reboot/~/.vscode-root/User/settings.json
+2025-09-22 23:03:31.772 [trace] [File Watcher (node.js)]  >> normalized [DELETED] /root/altamedica-reboot/~/.vscode-root/User/settings.json.vsctmp
+2025-09-22 23:03:31.776 [trace] [File Watcher (node.js)]  >> normalized [ADDED] /root/altamedica-reboot/~/.vscode-root/User/settings.json
+2025-09-22 23:03:33.633 [trace] [File Watcher (node.js)] detected /root/altamedica-reboot/~/.vscode-root/User/settings.json exists again, resuming watcher (correlationId: undefined)
+2025-09-22 23:03:33.637 [trace] [File Watcher (node.js)]  >> normalized [ADDED] /root/altamedica-reboot/~/.vscode-root/User/settings.json
+2025-09-22 23:03:33.638 [trace] [File Watcher (node.js)] stopping fs.watchFile() on /root/altamedica-reboot/~/.vscode-root/User/settings.json (correlationId: undefined)
+2025-09-22 23:03:33.641 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/~/.vscode-root/User/settings.json (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:03:33.643 [trace] [File Watcher (node.js)] reusing an existing recursive watcher for /root/altamedica-reboot/~/.vscode-root/User/settings.json
+2025-09-22 23:04:31.723 [trace] [File Watcher ('parcel')] Started watching: '/root/altamedica-reboot' with backend 'inotify'
+2025-09-22 23:04:31.724 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:31.724 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:31.740 [trace] [File Watcher (node.js)] Request to start watching: /root/altamedica-reboot/.git (excludes: <none>, includes: ["**/.git/objects/**/**","**/.git/subtree-cache/**/**","**/.hg/store/**/**"], filter: <none>, correlationId: <none>),/root/altamedica-reboot/.git/refs/remotes/origin/main (excludes: <none>, includes: ["**/.git/objects/**/**","**/.git/subtree-cache/**/**","**/.hg/store/**/**"], filter: <none>, correlationId: <none>)
+2025-09-22 23:04:31.744 [trace] [File Watcher (node.js)] reusing an existing recursive watcher for /root/altamedica-reboot/.git/refs/remotes/origin/main
+2025-09-22 23:04:31.746 [trace] [File Watcher (node.js)] Started watching: '/root/altamedica-reboot/.git'
+2025-09-22 23:04:31.797 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:31.799 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:31.801 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:31.802 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:31.803 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:31.860 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:31.860 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:31.881 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:31.882 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:31.884 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:31.884 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:31.942 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:31.946 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.017 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.019 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.073 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.073 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.074 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.074 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.127 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.151 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.151 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.153 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.158 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.214 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.214 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.297 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.297 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.299 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.300 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.301 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.365 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.367 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.375 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.375 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.378 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.378 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.442 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.442 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.497 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.497 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.519 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.520 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.521 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.585 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.586 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.588 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.645 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.663 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.671 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.673 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.737 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.741 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.812 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.813 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.815 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.821 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.822 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.822 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:32.825 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:32.889 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.889 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.943 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:32.965 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:32.966 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.066 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.068 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.069 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.069 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.121 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.145 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.146 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.146 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.147 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.204 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.204 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.256 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.280 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.280 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.340 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.341 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.342 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.346 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.401 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.414 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.415 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.416 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.417 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.474 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.475 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.550 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.552 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.610 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.611 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.613 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.616 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.671 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.686 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.687 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.688 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.689 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.752 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.753 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.836 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.840 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.855 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.891 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.891 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.936 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:33.937 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:33.937 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:33.998 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:33.998 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.073 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.074 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.129 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.129 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.130 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.131 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.186 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.209 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.213 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.215 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.218 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.342 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.344 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.346 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.346 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.404 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.419 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.421 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.422 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.424 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.484 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.485 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.537 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.560 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.561 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.615 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.615 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.616 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.616 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.668 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.691 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.691 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.692 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.692 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:34.747 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.749 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.832 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.838 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.928 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:34.955 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:34.959 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:34.969 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.027 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.038 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.040 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.042 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.046 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.114 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.114 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.114 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.116 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.171 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.196 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.196 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.196 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.197 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.255 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.257 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.313 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.330 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.332 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.390 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.393 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.393 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.393 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.445 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.465 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.466 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.466 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.466 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.521 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.522 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.597 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.599 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.656 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.657 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.658 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.660 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.715 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.735 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.744 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.745 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.746 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.846 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.856 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.910 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.911 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.911 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.921 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.922 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:35.923 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:35.923 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:35.978 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:35.979 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.033 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.056 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.059 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.160 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.161 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.162 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.163 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.218 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.235 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.237 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.238 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.239 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.304 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.305 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.419 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.420 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.423 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.425 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.486 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.493 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.493 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.497 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.498 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.499 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.501 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.563 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/GitHub.copilot-chat/GitHub Copilot Chat.log
+2025-09-22 23:04:36.563 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.563 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.615 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.639 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/GitHub.copilot-chat/GitHub Copilot Chat.log
+2025-09-22 23:04:36.640 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.641 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.710 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.721 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.723 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.724 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.781 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.785 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.790 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.799 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.800 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.913 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.914 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.972 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.972 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.972 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:36.979 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:36.979 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:36.980 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:36.981 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.033 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.033 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.085 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.110 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.111 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.164 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.164 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.218 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.218 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.218 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.240 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.240 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.240 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.241 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.304 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.306 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.368 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.391 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.392 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.483 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.483 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.483 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.484 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.536 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.560 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.561 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.562 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.562 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.619 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.620 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.673 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.696 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.696 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.753 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.754 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.756 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.757 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.817 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.848 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:37.851 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.852 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.853 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:37.919 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.920 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:37.994 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:37.995 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.049 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.051 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.056 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.057 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.112 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.139 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.142 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.143 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.146 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.254 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.254 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.254 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.255 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.306 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.329 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.329 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.329 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.329 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.382 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.383 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.436 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.459 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.459 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.521 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.523 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.524 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.524 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.578 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.605 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.606 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.608 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.610 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.670 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.671 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.745 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.746 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.799 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.799 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.799 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.800 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.852 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.875 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:38.875 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.876 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:38.876 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:38.929 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:38.929 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.004 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.006 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.060 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.060 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.060 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.061 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.114 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.136 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.136 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.136 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.137 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.190 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.191 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.266 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.266 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.272 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.272 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.273 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.325 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.325 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.348 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.348 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.348 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.348 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.401 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.401 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.453 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.476 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.477 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.529 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.530 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.530 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.530 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.582 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.605 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.606 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.607 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.607 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.661 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.662 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.713 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.737 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.737 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.792 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.792 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.792 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.793 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.845 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.867 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:39.867 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.867 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.868 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:39.920 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.920 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:39.995 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:39.995 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.047 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.048 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.048 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.048 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.100 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.130 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.130 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.130 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.131 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.184 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.184 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.260 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.262 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.315 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/telemetry.log
+2025-09-22 23:04:40.316 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.316 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.316 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.317 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.369 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.393 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/telemetry.log
+2025-09-22 23:04:40.394 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.395 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.395 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.397 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.537 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/state.vscdb
+2025-09-22 23:04:40.540 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.540 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.540 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.540 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.592 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.611 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/User/globalStorage/state.vscdb
+2025-09-22 23:04:40.612 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.614 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.614 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.614 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.675 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.682 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.683 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.738 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.756 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.757 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.757 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.821 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.822 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.825 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.830 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.882 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.906 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:40.907 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.907 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:40.907 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:40.964 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:40.964 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.039 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.039 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.093 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.094 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.094 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.094 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.146 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.168 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.170 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.170 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.172 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.229 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.230 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.302 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.303 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.303 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.306 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.306 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.307 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.307 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.362 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.363 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.414 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.438 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.438 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.492 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.492 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.555 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.555 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.555 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.569 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.571 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.573 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.574 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.630 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.631 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.632 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.696 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.707 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.707 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.707 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.806 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/telemetry.log
+2025-09-22 23:04:41.806 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.807 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.807 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.github-authentication/GitHub Authentication.log
+2025-09-22 23:04:41.808 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.808 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.860 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.883 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/telemetry.log
+2025-09-22 23:04:41.883 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:41.883 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.883 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.github-authentication/GitHub Authentication.log
+2025-09-22 23:04:41.884 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.884 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:41.938 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:41.938 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:41.990 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.013 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.014 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.067 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:42.068 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.069 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.069 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:42.121 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.145 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:42.147 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.148 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.148 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:42.201 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.201 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.282 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.287 [trace] [File Watcher ('parcel')]  >> normalized [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.344 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/network-shared.log
+2025-09-22 23:04:42.345 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/exthost.log
+2025-09-22 23:04:42.345 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/exthost/vscode.git/Git.log
+2025-09-22 23:04:42.348 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log
+2025-09-22 23:04:42.348 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/renderer.log
+2025-09-22 23:04:42.400 [trace] [File Watcher ('parcel')] [CHANGED] /root/altamedica-reboot/~/.vscode-root/logs/20250922T230244/window1/fileWatcher.log

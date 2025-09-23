@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Filter,
   MapPin,
-  Star,
   AlertTriangle,
   Activity,
   Users,
@@ -13,8 +11,7 @@ import {
   TrendingUp,
   Shield,
   Zap,
-  Heart,
-  Settings
+  Heart
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
@@ -40,16 +37,16 @@ export interface OperationsHubLayoutProps {
 }
 
 export function OperationsHubLayout({
-  theme = 'autamedica',
-  showCommandPalette = false,
-  onCommandPalette,
-  children
+  theme: _theme = 'autamedica',
+  showCommandPalette: _showCommandPalette = false,
+  onCommandPalette: _onCommandPalette,
+  children: _children
 }: OperationsHubLayoutProps) {
   // State local
-  const [activeProfile, setActiveProfile] = useState('normal');
+  const [_activeProfile, _setActiveProfile] = useState('normal');
   const [emergencyMode, setEmergencyMode] = useState(false);
   const [activeTab, setActiveTab] = useState('crisis-map');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, _setSidebarOpen] = useState(true);
 
   // Mock data para crisis management
   const [crisisData] = useState({

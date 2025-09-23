@@ -25,7 +25,7 @@ async function checkServerStatus(url) {
   try {
     const response = await fetch(url);
     return response.ok;
-  } catch (error) {
+  } catch {
     return false;
   }
 }

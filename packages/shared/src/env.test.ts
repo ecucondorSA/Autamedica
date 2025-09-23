@@ -80,7 +80,7 @@ describe('Environment Validation', () => {
       // Set up all required environment variables
       process.env.NEXT_PUBLIC_API_URL = 'https://api.example.com';
       process.env.NEXT_PUBLIC_APP_URL = 'https://app.example.com';
-      process.env.NEXT_PUBLIC_VERCEL_URL = 'https://example.com';
+      process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com';
       process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://supabase.example.com';
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'anon-key';
 
@@ -103,7 +103,7 @@ describe('Environment Validation', () => {
       // Set up required variables
       process.env.NEXT_PUBLIC_API_URL = 'https://api.example.com';
       process.env.NEXT_PUBLIC_APP_URL = 'https://app.example.com';
-      process.env.NEXT_PUBLIC_VERCEL_URL = 'https://example.com';
+      process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com';
       process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://supabase.example.com';
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'anon-key';
 

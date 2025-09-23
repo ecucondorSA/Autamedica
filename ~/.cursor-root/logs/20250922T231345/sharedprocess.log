@@ -1,0 +1,86 @@
+2025-09-22 23:13:54.185 [trace] sharedProcess configuration {"machineId":"b302b9e842b4783b5173cae29dba1d16c9e4c66408be9d1a4805801e0ddc6547","macMachineId":"2ef7c413ff4d4c8727fbde66a1bee4f349dc0f6720cdc95a9763e5cecf8cbccc","sqmId":"","devDeviceId":"b0762f83-8980-4a89-a3fb-0caac41d3bba","codeCachePath":"/root/altamedica-reboot/~/.cursor-root/CachedData/af58d92614edb1f72bdd756615d131bf8dfa5290","profiles":{"home":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/profiles","query":"","fragment":"","_formatted":null,"_fsPath":null},"all":[{"id":"__default__profile__","name":"Default","location":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User","query":"","fragment":"","_formatted":null,"_fsPath":null},"isDefault":true,"globalStorageHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/globalStorage","query":"","fragment":"","_formatted":null,"_fsPath":null},"settingsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/settings.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"keybindingsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/keybindings.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"tasksResource":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/tasks.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"snippetsHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/snippets","query":"","fragment":"","_formatted":null,"_fsPath":null},"promptsHome":{"scheme":"vscode-userdata","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/User/prompts","query":"","fragment":"","_formatted":null,"_fsPath":null},"extensionsResource":{"scheme":"vscode-userdata","authority":"","path":"/root/.cursor/extensions/extensions.json","query":"","fragment":"","_formatted":null,"_fsPath":null},"cacheHome":{"scheme":"file","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/CachedProfilesData/__default__profile__","query":"","fragment":"","_formatted":null,"_fsPath":null},"workspaces":[{"scheme":"file","authority":"","path":"/root/altamedica-reboot","query":"","fragment":"","_formatted":"file:///root/altamedica-reboot","_fsPath":null}]}]},"args":{"_":["/root/altamedica-reboot"],"diff":false,"merge":false,"add":false,"remove":false,"goto":false,"new-window":false,"reuse-window":false,"wait":false,"user-data-dir":"~/.cursor-root","help":false,"list-extensions":false,"show-versions":false,"pre-release":false,"update-extensions":false,"version":false,"verbose":true,"status":false,"prof-startup":false,"no-cached-data":false,"prof-v8-extensions":false,"disable-extensions":false,"disable-lcd-text":false,"disable-gpu":true,"disable-chromium-sandbox":true,"sandbox":false,"telemetry":false,"debugRenderer":false,"enable-smoke-test-driver":false,"logExtensionHostCommunication":false,"skip-release-notes":false,"skip-welcome":false,"skip-onboarding":false,"disable-telemetry":false,"disable-updates":false,"use-inmemory-secretstorage":false,"disable-workspace-trust":false,"disable-crash-reporter":false,"skip-add-to-recently-opened":false,"open-url":false,"file-write":false,"file-chmod":false,"force":false,"do-not-sync":false,"do-not-include-pack-dependencies":false,"trace":false,"trace-memory-infra":false,"preserve-env":false,"force-user-env":false,"force-disable-user-env":false,"open-devtools":false,"disable-gpu-sandbox":true,"__enable-file-policy":false,"enable-coi":false,"no-proxy-server":false,"no-sandbox":false,"nolazy":false,"force-renderer-accessibility":false,"ignore-certificate-errors":true,"allow-insecure-localhost":false,"disable-dev-shm-usage":true,"profile-temp":false,"hmr":false,"logsPath":"/root/altamedica-reboot/~/.cursor-root/logs/20250922T231345"},"logLevel":1,"loggers":[{"resource":{"scheme":"file","authority":"","path":"/root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/main.log","query":"","fragment":"","_formatted":"file:///root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/main.log","_fsPath":"/root/altamedica-reboot/~/.cursor-root/logs/20250922T231345/main.log"},"id":"main","name":"Main"}]}
+2025-09-22 23:13:54.190 [trace] Started scanning system extensions
+2025-09-22 23:13:54.192 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:54.192 [trace] ExtensionManagementService#cleanUp
+2025-09-22 23:13:54.192 [trace] ExtensionManagementService#removeTempDeleteFolders
+2025-09-22 23:13:54.192 [trace] ExtensionManagementService.updateControlCache
+2025-09-22 23:13:54.193 [info] Getting extensions control
+2025-09-22 23:13:54.207 [debug] Writing language packs {}
+2025-09-22 23:13:54.261 [trace] Extension VSIX downloads cache dir does not exist
+2025-09-22 23:13:54.319 [trace] [File Watcher (node.js)] Request to start watching: /root/.cursor/extensions (excludes: <none>, includes: <all>, filter: <none>, correlationId: <none>)
+2025-09-22 23:13:54.340 [debug] No extensions are marked as removed.
+2025-09-22 23:13:54.440 [trace] [File Watcher (node.js)] Started watching: '/root/.cursor/extensions'
+2025-09-22 23:13:54.441 [debug] ComputeTargetPlatform: linux-x64
+2025-09-22 23:13:54.442 [trace] Scanned user extensions: 0
+2025-09-22 23:13:55.108 [trace] Scanned system extensions: 99
+2025-09-22 23:13:55.430 [debug] Writing language packs {}
+2025-09-22 23:13:55.462 [trace] Started scanning system extensions
+2025-09-22 23:13:55.462 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:55.518 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:55.518 [trace] Scanned system extensions: 99
+2025-09-22 23:13:55.535 [debug] User data changed
+2025-09-22 23:13:55.539 [trace] Scanned user extensions: 0
+2025-09-22 23:13:55.803 [trace] Started scanning system extensions
+2025-09-22 23:13:55.804 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:55.854 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:55.855 [trace] Scanned system extensions: 99
+2025-09-22 23:13:55.858 [trace] Scanned user extensions: 0
+2025-09-22 23:13:56.177 [trace] Started scanning system extensions
+2025-09-22 23:13:56.177 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:56.220 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:56.223 [trace] Scanned system extensions: 99
+2025-09-22 23:13:56.244 [trace] Scanned user extensions: 0
+2025-09-22 23:13:56.417 [trace] Started scanning system extensions
+2025-09-22 23:13:56.420 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:56.477 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:56.478 [trace] Scanned system extensions: 99
+2025-09-22 23:13:56.480 [trace] Scanned user extensions: 0
+2025-09-22 23:13:56.652 [trace] Started scanning system extensions
+2025-09-22 23:13:56.652 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:56.695 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:56.696 [trace] Scanned system extensions: 99
+2025-09-22 23:13:56.708 [trace] Scanned user extensions: 0
+2025-09-22 23:13:56.854 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:56.863 [trace] Scanned user extensions: 0
+2025-09-22 23:13:57.137 [trace] Started scanning system extensions
+2025-09-22 23:13:57.137 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:57.145 [trace] Scanned user extensions: 0
+2025-09-22 23:13:57.188 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:57.188 [trace] Scanned system extensions: 99
+2025-09-22 23:13:57.263 [error] Error getting extensions control manifest Timeout getting extensions control
+2025-09-22 23:13:57.304 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:57.305 [trace] Started scanning system extensions
+2025-09-22 23:13:57.305 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:57.442 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:57.442 [trace] Scanned system extensions: 99
+2025-09-22 23:13:57.454 [trace] Scanned user extensions: 0
+2025-09-22 23:13:57.484 [trace] Scanned user extensions: 0
+2025-09-22 23:13:58.050 [trace] Started scanning system extensions
+2025-09-22 23:13:58.050 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:58.116 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:58.117 [trace] Scanned system extensions: 99
+2025-09-22 23:13:58.118 [trace] Scanned user extensions: 0
+2025-09-22 23:13:58.191 [trace] Started scanning system extensions
+2025-09-22 23:13:58.191 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:13:58.246 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:13:58.246 [trace] Scanned system extensions: 99
+2025-09-22 23:13:58.247 [trace] Scanned user extensions: 0
+2025-09-22 23:14:03.349 [trace] Started scanning system extensions
+2025-09-22 23:14:03.350 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:14:03.377 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:14:03.377 [trace] Scanned system extensions: 99
+2025-09-22 23:14:03.378 [trace] Scanned user extensions: 0
+2025-09-22 23:14:04.146 [trace] [logs cleanup]: Starting to clean up old logs.
+2025-09-22 23:14:05.382 [debug] ComputeTargetPlatform: linux-x64
+2025-09-22 23:14:10.899 [trace] Started scanning system extensions
+2025-09-22 23:14:10.899 [trace] Started scanning user extensions {"$mid":1,"external":"vscode-userdata:/root/.cursor/extensions/extensions.json","path":"/root/.cursor/extensions/extensions.json","scheme":"vscode-userdata"}
+2025-09-22 23:14:10.919 [debug] Using cached extensions scan result system file:///home/edu/Descargas/squashfs-root/usr/share/cursor/resources/app/extensions
+2025-09-22 23:14:10.919 [trace] Scanned system extensions: 99
+2025-09-22 23:14:10.920 [trace] Scanned user extensions: 0
+2025-09-22 23:14:18.101 [debug] User data changed
+2025-09-22 23:14:18.139 [debug] User data changed
+2025-09-22 23:14:18.223 [debug] User data changed
+2025-09-22 23:14:18.227 [debug] User data changed
+2025-09-22 23:14:24.130 [trace] [code cache cleanup]: Starting to clean up old code cache folders.
+2025-09-22 23:14:24.130 [trace] [storage cleanup]: Starting to clean up workspace storage folders for unused empty workspaces.
+2025-09-22 23:14:34.133 [trace] [language pack cache cleanup]: Starting to clean up unused language packs.

@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+ 
 // Tipos de configuración de entorno
 export interface EnvironmentConfig {
   // Variables públicas (cliente)
@@ -49,7 +49,7 @@ const ALLOWED_CLIENT_VARS = new Set([
   // URLs y configuración pública
   "NEXT_PUBLIC_API_URL",
   "NEXT_PUBLIC_APP_URL",
-  "NEXT_PUBLIC_VERCEL_URL",
+  "NEXT_PUBLIC_SITE_URL",
   "NEXT_PUBLIC_DOCTORS_URL",
   "NEXT_PUBLIC_PATIENTS_URL",
   "NEXT_PUBLIC_COMPANIES_URL",
@@ -188,7 +188,7 @@ export function validateEnvironment(): EnvironmentConfig {
   const client = {
     apiUrl: ensureClientEnv("NEXT_PUBLIC_API_URL"),
     appUrl: ensureClientEnv("NEXT_PUBLIC_APP_URL"),
-    siteUrl: ensureClientEnv("NEXT_PUBLIC_VERCEL_URL"),
+    siteUrl: ensureClientEnv("NEXT_PUBLIC_SITE_URL"),
     supabase: {
       url: ensureClientEnv("NEXT_PUBLIC_SUPABASE_URL"),
       anonKey: ensureClientEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),

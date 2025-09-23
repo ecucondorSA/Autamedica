@@ -21,7 +21,7 @@ const ROLES = {
 
 /**
  * URLs base para cada aplicación por entorno
- * CONFIGURACIÓN: URLs de deployment de Vercel para producción
+ * CONFIGURACIÓN: URLs de deployment de Cloudflare Pages para producción
  * SEGURIDAD: Cada rol solo tiene acceso a su aplicación específica
  */
 export const BASE_URL_BY_ROLE: Record<UserRole, string> = {

@@ -1,0 +1,63 @@
+{
+    "telemetry.sqmId": "",
+    "telemetry.macMachineId": "2ef7c413ff4d4c8727fbde66a1bee4f349dc0f6720cdc95a9763e5cecf8cbccc",
+    "telemetry.machineId": "b302b9e842b4783b5173cae29dba1d16c9e4c66408be9d1a4805801e0ddc6547",
+    "telemetry.devDeviceId": "b0762f83-8980-4a89-a3fb-0caac41d3bba",
+    "backupWorkspaces": {
+        "workspaces": [],
+        "folders": [
+            {
+                "folderUri": "file:///root/altamedica-reboot"
+            }
+        ],
+        "emptyWindows": []
+    },
+    "windowControlHeight": 35,
+    "profileAssociations": {
+        "workspaces": {
+            "file:///root/altamedica-reboot": "__default__profile__"
+        },
+        "emptyWindows": {}
+    },
+    "theme": "hc-black",
+    "themeBackground": "#0a0a0a",
+    "windowSplash": {
+        "zoomLevel": 0,
+        "baseTheme": "hc-black",
+        "colorInfo": {
+            "foreground": "#cccccc",
+            "background": "#0a0a0a",
+            "editorBackground": "#0a0a0a",
+            "titleBarBackground": "#0a0a0a",
+            "titleBarBorder": "rgba(255, 255, 255, 0.1)",
+            "activityBarBackground": "#0a0a0a",
+            "activityBarBorder": "#6fc3df",
+            "sideBarBackground": "#0a0a0a",
+            "sideBarBorder": "rgba(255, 255, 255, 0.1)",
+            "statusBarBackground": "#0a0a0a",
+            "statusBarBorder": "rgba(42, 42, 42, 0)",
+            "statusBarNoFolderBackground": "#0a0a0a",
+            "windowBorder": "#6fc3df"
+        },
+        "layoutInfo": {
+            "sideBarSide": "left",
+            "editorPartMinWidth": 220,
+            "titleBarHeight": 35,
+            "activityBarWidth": 0,
+            "sideBarWidth": 0,
+            "auxiliarySideBarWidth": 400,
+            "statusBarHeight": 22,
+            "windowBorder": false
+        }
+    },
+    "windowSplashWorkspaceOverride": {
+        "layoutInfo": {
+            "auxiliarySideBarWidth": [
+                400,
+                [
+                    "602e01651a858412530e82445468fb37"
+                ]
+            ]
+        }
+    }
+}

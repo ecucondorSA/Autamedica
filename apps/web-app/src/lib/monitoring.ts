@@ -4,7 +4,6 @@
  * HIPAA-compliant monitoring with privacy protection
  */
 
-import { ensureEnv } from '@autamedica/shared';
 
 export interface MetricData {
   name: string;
@@ -57,10 +56,10 @@ class ObservabilityManager {
       timestamp: metric.timestamp || Date.now(),
       environment: process.env.NEXT_PUBLIC_NODE_ENV ?? 'development',
       service: 'altamedica-web',
-      version: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? 'unknown'
+      version: process.env.CF_PAGES_COMMIT_SHA?.slice(0, 7) ?? 'unknown'
     };
 
-    // Send to monitoring service (Vercel Analytics, DataDog, etc.)
+    // Send to monitoring service (Cloudflare Analytics, DataDog, etc.)
     this.sendToMonitoringService('metrics', enrichedMetric);
   }
 
@@ -418,7 +417,7 @@ class ObservabilityManager {
     if (!this.isProduction) return;
 
     // In production, this would send to monitoring services like:
-    // - Vercel Analytics
+    // - Cloudflare Analytics
     // - DataDog
     // - New Relic
     // - Prometheus/Grafana
@@ -433,7 +432,7 @@ class ObservabilityManager {
     if (!this.isProduction) return;
 
     // In production, this would send to logging services like:
-    // - Vercel Logs
+    // - Cloudflare Logpush
     // - CloudWatch
     // - Elasticsearch
     // - Splunk

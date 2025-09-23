@@ -1,239 +1,500 @@
-'use client';
+"use client"
 
-import React, { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { JSX, ReactNode } from 'react'
 import {
-  Video,
-  VideoOff,
+  Brain,
+  CheckCircle2,
+  Loader2,
   Mic,
   MicOff,
-  Monitor,
-  Brain,
-  CheckCircle,
-} from 'lucide-react';
+  MonitorUp,
+  PhoneOff,
+  ScreenShare,
+  ScreenShareOff,
+  Video,
+  VideoOff,
+} from 'lucide-react'
+import { useActiveSession, usePatientData } from '@/hooks'
 
-export default function DoctorsHomePage() {
-  const [isMuted, setIsMuted] = useState(false);
-  const [isVideoOff, setIsVideoOff] = useState(false);
-  const [showDiagnosisPanel, setShowDiagnosisPanel] = useState(false);
+const CALL_BADGE_CLASSES = {
+  good: 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20',
+  warning: 'bg-amber-400/10 text-amber-200 border border-amber-400/20',
+  danger: 'bg-rose-500/10 text-rose-200 border border-rose-500/20',
+} as const
+
+type CallQualityTone = keyof typeof CALL_BADGE_CLASSES
+
+type ControlButtonProps = {
+  active: boolean
+  iconActive: ReactNode
+  iconInactive: ReactNode
+  label: string
+  onClick: () => void
+}
+
+type InfoCardProps = {
+  title: string
+  accent: string
+  children: ReactNode
+}
+
+type QuickActionProps = {
+  label: string
+  emoji: string
+  intent?: 'default' | 'primary'
+  onClick?: () => void
+}
+
+export default function DoctorsHomePage(): JSX.Element {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const screenShareRef = useRef<HTMLVideoElement | null>(null)
+
+  // Hooks para obtener datos de la sesión activa y paciente
+  const { session } = useActiveSession()
+  const { patient } = usePatientData(session?.patientId || null)
+
+  const [localStream, setLocalStream] = useState<MediaStream | null>(null)
+  const [screenStream, setScreenStream] = useState<MediaStream | null>(null)
+  const [isMuted, setIsMuted] = useState(false)
+  const [isVideoEnabled, setIsVideoEnabled] = useState(false)
+  const [isScreenSharing, setIsScreenSharing] = useState(false)
+  const [callStatus, setCallStatus] = useState<'idle' | 'connecting' | 'live' | 'ended'>('idle')
+  const [callDuration, setCallDuration] = useState(0)
+  const [cameraError, setCameraError] = useState<string | null>(null)
+  const [showDiagnosisPanel, setShowDiagnosisPanel] = useState(false)
+
+  useEffect(() => {
+    if (callStatus !== 'live') {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setCallDuration((prev) => prev + 1)
+    }, 1_000)
+
+    return () => clearInterval(interval)
+  }, [callStatus])
+
+  useEffect(() => {
+    return () => {
+      stopMedia(localStream)
+      stopMedia(screenStream)
+    }
+  }, [localStream, screenStream])
+
+  useEffect(() => {
+    if (videoRef.current && localStream) {
+      videoRef.current.srcObject = localStream
+    }
+  }, [localStream])
+
+  useEffect(() => {
+    if (screenShareRef.current && screenStream) {
+      screenShareRef.current.srcObject = screenStream
+    }
+  }, [screenStream])
+
+  const formattedDuration = useMemo(() => {
+    const minutes = Math.floor(callDuration / 60)
+    const seconds = callDuration % 60
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+  }, [callDuration])
+
+  const callQuality = useMemo((): { label: string; tone: CallQualityTone } => {
+    if (cameraError) {
+      return { label: 'Sin señal', tone: 'danger' }
+    }
+    if (callStatus === 'live') {
+      return { label: 'HD', tone: 'good' }
+    }
+    if (callStatus === 'connecting') {
+      return { label: 'Inicializando', tone: 'warning' }
+    }
+    return { label: 'En espera', tone: 'warning' }
+  }, [cameraError, callStatus])
+
+  async function handleActivateCamera() {
+    if (callStatus === 'live') {
+      return
+    }
+
+    try {
+      setCameraError(null)
+      setCallStatus('connecting')
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          frameRate: { ideal: 30 },
+        },
+        audio: true,
+      })
+
+      setLocalStream(stream)
+      setIsVideoEnabled(true)
+      setIsMuted(false)
+      setCallDuration(0)
+      setCallStatus('live')
+    } catch (error) {
+      console.error('[VideoCall] Error al activar la cámara', error)
+      const message =
+        error instanceof DOMException
+          ? error.message
+          : 'No se pudo acceder a la cámara. Verifica los permisos del navegador.'
+      setCameraError(message)
+      setCallStatus('idle')
+    }
+  }
+
+  function handleToggleAudio() {
+    if (!localStream) {
+      return
+    }
+    const nextMuted = !isMuted
+    localStream.getAudioTracks().forEach((track) => {
+      track.enabled = !nextMuted
+    })
+    setIsMuted(nextMuted)
+  }
+
+  function handleToggleVideo() {
+    if (!localStream) {
+      return
+    }
+    const nextEnabled = !isVideoEnabled
+    localStream.getVideoTracks().forEach((track) => {
+      track.enabled = nextEnabled
+    })
+    setIsVideoEnabled(nextEnabled)
+  }
+
+  async function handleToggleScreenShare() {
+    if (isScreenSharing) {
+      stopMedia(screenStream)
+      setScreenStream(null)
+      setIsScreenSharing(false)
+      return
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false })
+      setScreenStream(stream)
+      setIsScreenSharing(true)
+    } catch (error) {
+      console.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
+      setIsScreenSharing(false)
+    }
+  }
+
+  function handleEndCall() {
+    stopMedia(localStream)
+    stopMedia(screenStream)
+    setLocalStream(null)
+    setScreenStream(null)
+    setIsVideoEnabled(false)
+    setIsMuted(false)
+    setIsScreenSharing(false)
+    setCallStatus('ended')
+  }
 
   return (
-    <div className="h-full flex">
-      {/* Video Call Center */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-4xl">
-          {/* Video Container */}
-          <div className="relative bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-gray-700">
-            <div className="aspect-video relative">
-              <div className="bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-pink-500 rounded-full flex items-center justify-center mb-4 mx-auto">
-                    <VideoOff className="w-12 h-12 text-white" />
+    <div className="flex min-h-full flex-col gap-6 px-4 py-6 text-slate-100 sm:px-6 lg:flex-row">
+      <section className="flex flex-1 flex-col gap-6">
+        <div className="rounded-2xl border border-slate-800/60 bg-[#101d32] p-4 shadow-2xl shadow-slate-900/20 sm:p-6">
+          <div className="mb-4 flex flex-wrap items-center gap-3 text-xs">
+            <span className={`rounded-full px-3 py-1 font-semibold ${CALL_BADGE_CLASSES[callQuality.tone]}`}>
+              {callQuality.label}
+            </span>
+            <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-blue-200">
+              {callStatus === 'live' ? '45ms latencia' : 'Latencia desconocida'}
+            </span>
+            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-emerald-200">
+              {callStatus === 'live' ? 'Estable' : 'En espera'}
+            </span>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-slate-800/60 bg-[#0d1b2f]">
+            <div className="aspect-video">
+              {cameraError ? (
+                <div className="flex h-full flex-col items-center justify-center gap-3 px-4 py-8 text-center text-slate-300 sm:px-8">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-rose-500/20 text-rose-200">
+                    <VideoOff className="h-10 w-10" />
                   </div>
-                  <h3 className="text-white text-xl font-semibold mb-2">
-                    Cámara en Modo Demo
-                  </h3>
-                  <p className="text-gray-300 text-sm mb-4">
-                    Haz clic en "Activar cámara" para inicializar
-                  </p>
+                  <h3 className="text-xl font-semibold text-slate-100">No se detectó cámara</h3>
+                  <p className="max-w-md text-sm text-slate-400">{cameraError}</p>
                   <button
-                    onClick={() => window.location.reload()}
-                    className="px-4 py-2 bg-blue-600 hover:bg-green-600 text-white rounded-md transition-colors"
+                    type="button"
+                    onClick={handleActivateCamera}
+                    className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-500"
                   >
-                    Activar Cámara
+                    Reintentar
                   </button>
                 </div>
-              </div>
-
-              {/* Status overlay */}
-              <div className="absolute top-4 left-4 bg-gray-900/80 backdrop-blur-sm px-3 py-2 rounded-lg">
-                <div className="flex items-center space-x-3 text-sm">
-                  <span className="text-green-400">● HD</span>
-                  <span className="text-gray-400">|</span>
-                  <span className="text-blue-400">45ms latencia</span>
-                  <span className="text-gray-400">|</span>
-                  <span className="text-green-400">Estable</span>
+              ) : localStream ? (
+                <video
+                  ref={videoRef}
+                  className={`h-full w-full object-cover transition-opacity ${isVideoEnabled ? 'opacity-100' : 'opacity-0'}`}
+                  autoPlay
+                  playsInline
+                  muted
+                />
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center gap-4 px-4 py-8 text-center">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-fuchsia-500/20 text-fuchsia-200">
+                    <VideoOff className="h-12 w-12" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-slate-100">Cámara en modo demo</h3>
+                    <p className="text-sm text-slate-400">Haz clic en "Activar cámara" para inicializar</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleActivateCamera}
+                    className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-500"
+                  >
+                    Activar cámara
+                  </button>
                 </div>
-              </div>
-            </div>
+              )}
 
-            {/* Video Controls */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-              <div className="flex items-center space-x-4 bg-gray-900/90 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-600">
-                <button
-                  onClick={() => setIsMuted(!isMuted)}
-                  className={`p-3 rounded-full transition-colors ${
-                    isMuted
-                      ? 'bg-pink-500 hover:bg-red-600'
-                      : 'bg-blue-600 hover:bg-blue-700'
-                  }`}
-                >
-                  {isMuted ? (
-                    <MicOff className="w-5 h-5 text-white" />
-                  ) : (
-                    <Mic className="w-5 h-5 text-white" />
-                  )}
-                </button>
-
-                <button
-                  onClick={() => setIsVideoOff(!isVideoOff)}
-                  className={`p-3 rounded-full transition-colors ${
-                    isVideoOff
-                      ? 'bg-pink-500 hover:bg-red-600'
-                      : 'bg-blue-600 hover:bg-blue-700'
-                  }`}
-                >
-                  {isVideoOff ? (
-                    <VideoOff className="w-5 h-5 text-white" />
-                  ) : (
-                    <Video className="w-5 h-5 text-white" />
-                  )}
-                </button>
-
-                <button className="p-3 rounded-full bg-purple-600 hover:bg-purple-700 transition-colors">
-                  <Monitor className="w-5 h-5 text-white" />
-                </button>
-
-                <button className="p-3 rounded-full bg-pink-500 hover:bg-red-600 transition-colors">
-                  <span className="w-5 h-5 flex items-center justify-center text-white font-bold">
-                    ✕
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Patient Info Strip */}
-          <div className="mt-4 flex space-x-4">
-            <div className="bg-gray-800 border border-gray-600 p-4 rounded-lg flex-1">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-white font-medium">
-                    María González
-                  </h4>
-                  <p className="text-gray-400 text-sm">
-                    32 años • Consulta General
-                  </p>
+              {callStatus === 'connecting' && (
+                <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-3 bg-[#0d1b2f]/80 text-slate-200 backdrop-blur-sm">
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-300" />
+                  <p className="text-sm font-medium">Inicializando videollamada…</p>
                 </div>
-                <div className="text-green-400">●</div>
-              </div>
+              )}
+
+              {isScreenSharing && (
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-600/20 px-4 py-1 text-xs text-blue-100">
+                  <ScreenShare className="h-4 w-4" />
+                  Compartiendo pantalla
+                </div>
+              )}
             </div>
-            <div className="bg-gray-800 border border-gray-600 p-4 rounded-lg">
-              <div className="text-center">
-                <div className="text-orange-400 font-bold">15:30</div>
-                <div className="text-gray-400 text-xs">Duración</div>
+
+            {screenStream && (
+              <div className="absolute right-4 top-4 hidden h-32 w-48 overflow-hidden rounded-lg border border-slate-700 bg-slate-900/70 shadow-lg sm:block">
+                <video ref={screenShareRef} className="h-full w-full object-cover" autoPlay muted playsInline />
               </div>
-            </div>
-            <div className="bg-gray-800 border border-gray-600 p-4 rounded-lg">
-              <div className="text-center">
-                <div className="text-blue-400 font-bold">HD</div>
-                <div className="text-gray-400 text-xs">Calidad</div>
+            )}
+
+            <div className="absolute inset-x-0 bottom-6 flex justify-center px-4 sm:px-0">
+              <div className="flex flex-wrap items-center justify-center gap-3 rounded-full border border-slate-800/80 bg-slate-900/90 px-4 py-3 shadow-lg sm:flex-nowrap sm:justify-start sm:px-6">
+                <ControlButton
+                  active={!isMuted}
+                  iconActive={<Mic className="h-5 w-5" />}
+                  iconInactive={<MicOff className="h-5 w-5" />}
+                  label={isMuted ? 'Activar micrófono' : 'Silenciar'}
+                  onClick={handleToggleAudio}
+                />
+                <ControlButton
+                  active={isVideoEnabled}
+                  iconActive={<Video className="h-5 w-5" />}
+                  iconInactive={<VideoOff className="h-5 w-5" />}
+                  label={isVideoEnabled ? 'Ocultar video' : 'Mostrar video'}
+                  onClick={handleToggleVideo}
+                />
+                <ControlButton
+                  active={isScreenSharing}
+                  iconActive={<ScreenShare className="h-5 w-5" />}
+                  iconInactive={<ScreenShareOff className="h-5 w-5" />}
+                  label={isScreenSharing ? 'Detener pantalla' : 'Compartir pantalla'}
+                  onClick={handleToggleScreenShare}
+                />
+                <button
+                  type="button"
+                  onClick={handleEndCall}
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-600 text-white transition hover:bg-rose-500"
+                >
+                  <PhoneOff className="h-5 w-5" />
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Right Panel - Quick Actions */}
-      <div className="w-80 bg-gray-800 border-l border-gray-700 p-4 space-y-4">
-        <h3 className="text-white font-semibold text-sm uppercase tracking-wider">
-          Acciones Rápidas
-        </h3>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <InfoCard title="Paciente" accent="bg-emerald-500/20 text-emerald-200">
+            {patient ? (
+              <>
+                <p className="text-sm font-semibold text-slate-100">{patient.full_name}</p>
+                <p className="text-xs text-slate-400">
+                  {patient.age} años · {session?.sessionType === 'general' ? 'Consulta general' :
+                   session?.sessionType === 'seguimiento' ? 'Seguimiento' :
+                   session?.sessionType === 'urgencia' ? 'Urgencia' :
+                   session?.sessionType === 'especialidad' ? 'Especialidad' : 'Consulta general'}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-sm font-semibold text-slate-300">Cargando paciente...</p>
+                <p className="text-xs text-slate-400">Obteniendo información</p>
+              </>
+            )}
+          </InfoCard>
+          <InfoCard title="Duración" accent="bg-amber-500/20 text-amber-200">
+            <p className="text-2xl font-semibold text-slate-100">{formattedDuration}</p>
+            <p className="text-xs text-slate-400">Tiempo en llamada</p>
+          </InfoCard>
+          <InfoCard title="Calidad" accent="bg-blue-500/20 text-blue-200">
+            <p className="text-sm font-semibold text-slate-100">
+              {callStatus === 'live' ? callQuality.label : 'En espera'}
+            </p>
+            <p className="text-xs text-slate-400">
+              Latencia {callStatus === 'live' ? '45ms' : '—'}
+            </p>
+          </InfoCard>
+        </div>
+      </section>
 
-        <div className="space-y-3">
-          <button className="w-full text-left bg-gray-700 hover:bg-gray-600 transition-colors p-3 rounded-lg text-white">
-            📝 Tomar Notas
-          </button>
-          <button className="w-full text-left bg-gray-700 hover:bg-gray-600 transition-colors p-3 rounded-lg text-white">
-            💊 Prescribir Medicamento
-          </button>
-          <button className="w-full text-left bg-gray-700 hover:bg-gray-600 transition-colors p-3 rounded-lg text-white">
-            📊 Ver Signos Vitales
-          </button>
-          <button className="w-full text-left bg-gray-700 hover:bg-gray-600 transition-colors p-3 rounded-lg text-white">
-            📋 Historial Médico
-          </button>
-          <button
+      <aside className="w-full space-y-4 rounded-2xl border border-slate-800/60 bg-[#101d32] p-4 shadow-xl shadow-slate-900/20 lg:max-w-sm lg:p-6">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Acciones rápidas</h3>
+        <div className="grid gap-3 sm:grid-cols-2 lg:block">
+          <QuickAction label="Tomar notas" emoji="📝" />
+          <QuickAction label="Prescribir medicamento" emoji="💊" />
+          <QuickAction label="Ver signos vitales" emoji="📊" />
+          <QuickAction label="Historial médico" emoji="📋" />
+          <QuickAction
+            label="Analizar con IA"
+            emoji="🤖"
+            intent="primary"
             onClick={() => setShowDiagnosisPanel(true)}
-            className="w-full text-left bg-blue-600 hover:bg-green-600 transition-colors p-3 rounded-lg text-white font-medium"
-          >
-            🤖 Analizar con IA
-          </button>
-          <button className="w-full text-left bg-gray-700 hover:bg-gray-600 transition-colors p-3 rounded-lg text-white">
-            📅 Programar Seguimiento
-          </button>
+          />
+          <QuickAction label="Programar seguimiento" emoji="📅" />
         </div>
 
-        <div className="bg-gray-700 p-3 mt-6 rounded-lg">
-          <h4 className="text-white font-medium mb-2 text-sm">
-            Estado de la Llamada
-          </h4>
-          <div className="space-y-2 text-xs">
-            <div className="flex justify-between">
-              <span className="text-gray-400">Calidad:</span>
-              <span className="text-green-400">Excelente</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Latencia:</span>
-              <span className="text-blue-400">45ms</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Conexión:</span>
-              <span className="text-green-400">Estable</span>
-            </div>
-          </div>
+        <div className="rounded-2xl border border-slate-800/60 bg-slate-900/70 p-4">
+          <h4 className="mb-3 text-sm font-semibold text-slate-200">Estado de la llamada</h4>
+          <ul className="space-y-2 text-xs text-slate-300">
+            <li className="flex items-center justify-between">
+              <span>Calidad</span>
+              <span className="text-emerald-300">{callQuality.label}</span>
+            </li>
+            <li className="flex items-center justify-between">
+              <span>Latencia</span>
+              <span className="text-blue-200">{callStatus === 'live' ? '45ms' : 'N/D'}</span>
+            </li>
+            <li className="flex items-center justify-between">
+              <span>Conexión</span>
+              <span className="text-emerald-300">{callStatus === 'live' ? 'Estable' : 'En espera'}</span>
+            </li>
+          </ul>
         </div>
-      </div>
+      </aside>
 
-      {/* AI Diagnosis Panel Modal */}
       {showDiagnosisPanel && (
-        <div className="absolute inset-0 bg-gray-900/95 backdrop-blur-sm flex items-center justify-center p-8 z-50">
-          <div className="max-w-3xl w-full bg-gray-800 rounded-lg border border-gray-600 p-6 shadow-2xl">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-white flex items-center space-x-2">
-                <Brain className="w-6 h-6 text-blue-400" />
-                <span>Análisis IA - María González</span>
-              </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 backdrop-blur">
+          <div className="w-full max-w-3xl rounded-3xl border border-slate-800/80 bg-[#0f1f35] p-5 shadow-2xl sm:p-6">
+            <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3 text-slate-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/20 text-blue-200">
+                  <Brain className="h-5 w-5" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold">Análisis IA · María González</h2>
+                  <p className="text-xs text-slate-400">Carga un resumen de síntomas para generar diagnósticos asistidos.</p>
+                </div>
+              </div>
               <button
+                type="button"
                 onClick={() => setShowDiagnosisPanel(false)}
-                className="text-gray-400 hover:text-white"
+                className="self-start rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:self-auto"
               >
-                ✕
+                Cerrar
               </button>
+            </header>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="space-y-2 text-sm text-slate-200">
+                <span>Síntomas principales</span>
+                <textarea
+                  defaultValue="Dolor de garganta severo, fiebre de 38.5°C, dificultad para tragar"
+                  className="min-h-[120px] w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                />
+              </label>
+              <label className="space-y-2 text-sm text-slate-200">
+                <span>Duración de síntomas</span>
+                <input
+                  defaultValue="2 días"
+                  className="w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                />
+              </label>
             </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-white mb-2 font-medium">
-                  Síntomas principales
-                </label>
-                <textarea
-                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-blue-400 focus:outline-none"
-                  rows={3}
-                  placeholder="Dolor de garganta, fiebre, tos..."
-                  defaultValue="Dolor de garganta severo, fiebre de 38.5°C, dificultad para tragar"
-                />
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                Datos encriptados y auditados.
               </div>
-
-              <div>
-                <label className="block text-white mb-2 font-medium">
-                  Duración de síntomas
-                </label>
-                <input
-                  type="text"
-                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-blue-400 focus:outline-none"
-                  placeholder="Ej: 3 días"
-                  defaultValue="2 días"
-                />
-              </div>
-
-              <button className="w-full bg-blue-600 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors flex items-center justify-center space-x-2">
-                <Brain className="w-5 h-5" />
-                <span>Analizar con IA</span>
+              <button
+                type="button"
+                className="flex items-center gap-2 self-stretch rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 sm:self-auto"
+              >
+                <Brain className="h-4 w-4" />
+                Analizar con IA
               </button>
             </div>
           </div>
         </div>
       )}
     </div>
-  );
+  )
+}
+
+function stopMedia(stream: MediaStream | null) {
+  stream?.getTracks().forEach((track) => {
+    track.stop()
+  })
+}
+
+function ControlButton({ active, iconActive, iconInactive, label, onClick }: ControlButtonProps): JSX.Element {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
+        active
+          ? 'bg-emerald-500 text-slate-900 hover:bg-emerald-400'
+          : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+      }`}
+      aria-label={label}
+      title={label}
+    >
+      {active ? iconActive : iconInactive}
+    </button>
+  )
+}
+
+function InfoCard({ title, accent, children }: InfoCardProps): JSX.Element {
+  return (
+    <div className="rounded-2xl border border-slate-800/60 bg-[#101d32] p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{title}</p>
+      <div className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${accent}`}>{title}</div>
+      <div className="mt-4 space-y-1 text-sm text-slate-300">{children}</div>
+    </div>
+  )
+}
+
+function QuickAction({ label, emoji, intent = 'default', onClick }: QuickActionProps): JSX.Element {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition ${
+        intent === 'primary'
+          ? 'border-blue-500/60 bg-blue-600/20 text-blue-100 hover:bg-blue-600/30'
+          : 'border-slate-700 bg-slate-900/60 text-slate-200 hover:bg-slate-900'
+      }`}
+    >
+      <span className="flex items-center gap-3">
+        <span className="text-lg" aria-hidden>
+          {emoji}
+        </span>
+        {label}
+      </span>
+      <MonitorUp className="h-4 w-4 text-slate-500" aria-hidden />
+    </button>
+  )
 }

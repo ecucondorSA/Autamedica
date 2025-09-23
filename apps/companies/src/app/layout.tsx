@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -18,6 +18,7 @@ import {
   TrendingUp,
   Database,
 } from 'lucide-react';
+import { createClient } from '@/lib/supabase';
 import './globals.css';
 
 interface RootLayoutProps {
@@ -27,6 +28,32 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const [activeProfile, setActiveProfile] = useState('emergency');
   const [notifications, _setNotifications] = useState(3);
+  const [companyName, setCompanyName] = useState('Empresa');
+  const [adminName, setAdminName] = useState('Administrador');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const supabase = createClient();
+      if (supabase) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          // Get admin name from metadata or email
+          const name = user.user_metadata?.name || 
+                       user.user_metadata?.full_name || 
+                       user.email?.split('@')[0] || 
+                       'Administrador';
+          setAdminName(name);
+          
+          // Get company name from metadata or use default
+          const company = user.user_metadata?.company_name || 
+                         user.user_metadata?.company || 
+                         'Empresa';
+          setCompanyName(company);
+        }
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const profiles = [
     {
@@ -81,7 +108,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   <AlertTriangle className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">
-                  AutaMedica Crisis Control
+                  {companyName} Crisis Control - {adminName}
                 </span>
               </div>
               
@@ -208,7 +235,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex items-center space-x-6">
               <span className="flex items-center space-x-2">
                 <AlertTriangle className="w-4 h-4" />
-                <span className="font-semibold">AutaMedica Crisis Control</span>
+                <span className="font-semibold">{companyName} Crisis Control</span>
               </span>
               <span className="text-red-200">|</span>
               <span className="flex items-center space-x-1">

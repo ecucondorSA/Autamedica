@@ -4,7 +4,7 @@
     "providers": [
       "Prometheus",
       "DataDog",
-      "Vercel Analytics"
+      "Cloudflare Analytics"
     ],
     "retention": "90d"
   },
@@ -14,7 +14,7 @@
     "providers": [
       "Winston",
       "Pino",
-      "Vercel Logs"
+      "Cloudflare Logpush"
     ],
     "hipaaCompliant": true
   },

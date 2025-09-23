@@ -23,7 +23,7 @@ tar -czf "$FULL_PATH" \
     --exclude='.next' \
     --exclude='dist' \
     --exclude='.turbo' \
-    --exclude='.vercel' \
+    --exclude='.wrangler' \
     --exclude='*.log' \
     --exclude='*.tmp' \
     --exclude='.DS_Store' \
@@ -34,7 +34,6 @@ tar -czf "$FULL_PATH" \
     --exclude='coverage' \
     --exclude='*.tsbuildinfo' \
     --exclude='visual-snapshots' \
-    --exclude='vercel_diagnostics_*' \
     .
 
 # Verificar que el archivo se creó correctamente

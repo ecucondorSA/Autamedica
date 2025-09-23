@@ -190,7 +190,7 @@ USING (EXISTS (SELECT 1 FROM patient_care_team WHERE doctor_id IN (...)));
    - Servicios de notificaciones (SendGrid/Twilio)
 
 3. **Deployment**
-   - 4 aplicaciones ya desplegadas en Vercel
+   - 4 aplicaciones desplegadas en Cloudflare Pages
    - Base de datos Supabase configurada
    - CDN para archivos médicos
 

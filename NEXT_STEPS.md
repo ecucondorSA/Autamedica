@@ -138,7 +138,7 @@ scripts/
 
 **Prioridad: MEDIA** | **Tiempo estimado: 30 min**
 
-Configurar variables de entorno en Vercel:
+Configurar variables de entorno en Cloudflare Pages:
 ```bash
 NEXT_PUBLIC_DOCTORS_URL=https://doctors.autamedica.com
 NEXT_PUBLIC_PATIENTS_URL=https://patients.autamedica.com

@@ -31,7 +31,7 @@ autamedica-reboot/
 │   └── @autamedica/hooks      # React hooks personalizados
 ├── docs/
 │   ├── GLOSARIO_MAESTRO.md    # Contratos documentados
-│   └── VERCEL_DEPLOYMENT.md   # Guía de despliegue
+│   └── CLOUDFLARE_DEPLOYMENT_GUIDE.md   # Guía de despliegue
 └── scripts/
     └── validate-exports.mjs   # Validación de contratos
 ```
@@ -88,16 +88,16 @@ pnpm lint-staged         # Pre-commit checks
 
 ## 🚢 Despliegue
 
-### Vercel (Recomendado)
+### Cloudflare Pages
 
-1. Conectar repositorio a Vercel
-2. Root Directory: `apps/web-app`
-3. Build Command: `pnpm -w build --filter @autamedica/web-app...`
-4. Ver [docs/VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md)
+1. Crear proyectos individuales en Cloudflare Pages (web-app, doctors, patients, companies, admin)
+2. Build Command recomendado: `cd apps/<app> && pnpm build:cloudflare`
+3. Output Directory: `apps/<app>/.open-next/dist`
+4. Ver [CLOUDFLARE_DEPLOYMENT_GUIDE.md](CLOUDFLARE_DEPLOYMENT_GUIDE.md)
 
 ### Variables de Entorno
 
-Configurar en Vercel o `.env.local`:
+Configurar en Cloudflare Pages o `.env.local`:
 - Definir según uso de `ensureEnv` en el código
 - Separar por entorno (Production/Preview/Development)
 

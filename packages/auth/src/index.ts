@@ -1,57 +1,66 @@
 /**
- * @autamedica/auth - Package de autenticación para Autamedica
- *
- * Este package provee toda la funcionalidad de autenticación con Supabase
- * incluyendo clientes, sesiones, y autenticación por email.
+ * @fileoverview Main entry point for @autamedica/auth package
+ * Centralized authentication for AutaMedica platform
  */
 
-// Clientes Supabase
-export { createBrowserClient, signInWithOAuth } from "./client";
-export {
-  createServerClient,
-  createMiddlewareClient,
-  createRouteHandlerClient,
-} from "./server";
+// Export types
+export type {
+  UserRole,
+  AppName,
+  UserProfile,
+  AuthState,
+  Environment,
+  DomainConfig,
+  RedirectConfig,
+  SessionConfig,
+  AuthErrorType
+} from './types'
 
-// Manejo de sesiones
 export {
-  getSession,
-  requireSession,
-  requirePortalAccess,
-  signOut,
-  getCurrentUser,
-  hasRole,
-  hasPortalAccess,
-} from "./session";
+  ROLE_APP_MAPPING,
+  APP_ALLOWED_ROLES,
+  AuthError
+} from './types'
 
-// Autenticación por email (Magic Links)
+// Export client utilities
 export {
-  signInWithOtp,
-  validateEmailForSignIn,
-  getPortalRedirectUrl,
-} from "./email";
-export type { SignInWithOtpOptions, SignInWithOtpResult } from "./email";
+  createBrowserClient,
+  getSupabaseClient,
+  signOutGlobally
+} from './client/supabase'
 
-// Contexto y hooks React
-export { AuthProvider, useAuth } from "./react";
-
-// Sistema de roles y permisos
+// Export hooks and context
 export {
-  ROLES,
-  PORTALS,
-  ALL_ROLES,
-  ROLE_TO_PORTAL,
-  PORTAL_TO_ROLE,
-  isUserRole,
-  isPortal,
-  getPortalForRole,
-  getRoleForPortal,
-  isAdminRole,
-  isMedicalRole,
-  canAccessPatientData,
-  canManagePlatform,
-  getBasePermissions,
-  hasPermission,
-  canAccessPortal,
-} from "./roles";
-export type { UserRole, Portal } from "./roles";
+  AuthProvider,
+  useAuth,
+  useRequireAuth,
+  useRequireRole
+} from './hooks/useAuth'
+
+// Export middleware
+export {
+  authMiddleware,
+  createAppMiddleware
+} from './middleware/auth'
+
+// Export configuration utilities
+export {
+  getEnvironment,
+  getDomainConfig,
+  getSessionConfig,
+  getSupabaseConfig,
+  isSameOrigin,
+  sanitizeReturnUrl
+} from './utils/config'
+
+// Export redirect utilities
+export {
+  getRedirectUrl,
+  getDefaultRedirectUrl,
+  getLoginUrl,
+  isCorrectAppForRole,
+  getCorrectAppUrl,
+  storeLastPath,
+  getLastPath,
+  clearLastPath
+} from './utils/redirect'

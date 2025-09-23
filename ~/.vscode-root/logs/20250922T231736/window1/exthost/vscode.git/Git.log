@@ -1,0 +1,132 @@
+2025-09-22 23:17:46.175 [info] [main] Log level: Trace
+2025-09-22 23:17:46.175 [info] [main] Validating found git in: "git"
+2025-09-22 23:17:46.175 [info] [main] Using git "2.48.1" from "git"
+2025-09-22 23:17:46.175 [info] [Model][doInitialScan] Initial repository scan started
+2025-09-22 23:17:46.175 [trace] [Model][doInitialScan] Settings: autoRepositoryDetection=true, openRepositoryInParentFolders=prompt
+2025-09-22 23:17:46.175 [trace] [Model][onDidChangeWorkspaceFolders] Workspace folders: [/root/altamedica-reboot]
+2025-09-22 23:17:46.175 [trace] [Model][scanWorkspaceFolders] Workspace folder: /root/altamedica-reboot
+2025-09-22 23:17:46.175 [trace] [Model][openRepository] Repository: /root/altamedica-reboot
+2025-09-22 23:17:46.175 [info] > git rev-parse --show-toplevel [12ms]
+2025-09-22 23:17:46.175 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot is: /root/altamedica-reboot
+2025-09-22 23:17:46.175 [info] > git rev-parse --git-dir --git-common-dir --show-superproject-working-tree [37ms]
+2025-09-22 23:17:46.175 [trace] [Model][open] Repository: /root/altamedica-reboot
+2025-09-22 23:17:46.175 [info] [Model][openRepository] Opened repository (path): /root/altamedica-reboot
+2025-09-22 23:17:46.175 [info] [Model][openRepository] Opened repository (real path): /root/altamedica-reboot
+2025-09-22 23:17:46.175 [info] [Model][openRepository] Opened repository (kind): repository
+2025-09-22 23:17:46.175 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:17:46.175 [info] > git config --get commit.template [80ms]
+2025-09-22 23:17:51.008 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [4834ms]
+2025-09-22 23:17:51.036 [trace] [OperationManager][start] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:51.434 [info] > git check-ignore -v -z --stdin [399ms]
+2025-09-22 23:17:51.435 [trace] [OperationManager][end] CheckIgnore (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:51.946 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:51.960 [info] > git status -z -uall [52ms]
+2025-09-22 23:17:52.000 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [54ms]
+2025-09-22 23:17:52.001 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:52.048 [trace] [ActionButton][setState] {"HEAD":{"type":0,"name":"main","upstream":{"name":"main","remote":"origin","commit":"4252ae694fe9a93957d8301c2ebaa99d446e2b47"},"commit":"d2090e8e40a85d36c5df10d426164c22256c4655","ahead":25,"behind":0},"isCheckoutInProgress":false,"isCommitInProgress":false,"isMergeInProgress":false,"isRebaseInProgress":false,"isSyncInProgress":false,"repositoryHasChangesToCommit":true,"repositoryHasUnresolvedConflicts":false}
+2025-09-22 23:17:52.048 [trace] [ActionButton][getButton] {"command":"git.commit","title":"$(check) Commit","enabled":true}
+2025-09-22 23:17:52.054 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:17:52.103 [trace] [OperationManager][start] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:52.105 [trace] [OperationManager][start] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:17:53.037 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [934ms]
+2025-09-22 23:17:53.038 [trace] [OperationManager][end] GetBranch (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:53.125 [trace] [OperationManager][start] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:53.504 [trace] [Model][scanWorkspaceFolders] Workspace scan settings: repositoryScanMaxDepth=1; repositoryScanIgnoredFolders=[node_modules]; scanRepositories=[]
+2025-09-22 23:17:53.513 [trace] [Model][scanWorkspaceFolders] Workspace scan sub folders: [/root/altamedica-reboot/.github, /root/altamedica-reboot/.husky, /root/altamedica-reboot/.turbo, /root/altamedica-reboot/.vscode, /root/altamedica-reboot/.wrangler, /root/altamedica-reboot/apps, /root/altamedica-reboot/database, /root/altamedica-reboot/docs, /root/altamedica-reboot/eslint-rules, /root/altamedica-reboot/observability, /root/altamedica-reboot/packages, /root/altamedica-reboot/scripts, /root/altamedica-reboot/supabase, /root/altamedica-reboot/test-results, /root/altamedica-reboot/tests, /root/altamedica-reboot/visual-snapshots, /root/altamedica-reboot/~]
+2025-09-22 23:17:53.513 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.github
+2025-09-22 23:17:53.535 [info] > git config --get --local branch.main.vscode-merge-base [396ms]
+2025-09-22 23:17:53.535 [warning] [Git][config] git config failed: Failed to execute git
+2025-09-22 23:17:53.541 [trace] [OperationManager][end] Config (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:53.608 [info] > git config --get commit.template [593ms]
+2025-09-22 23:17:53.959 [info] > git reflog main --grep-reflog=branch: Created from *. [358ms]
+2025-09-22 23:17:54.018 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [42ms]
+2025-09-22 23:17:54.018 [info] fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+2025-09-22 23:17:54.018 [warning] [Repository][getDefaultBranch] Failed to get default branch details: Failed to execute git.
+2025-09-22 23:17:54.041 [trace] [OperationManager][start] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:17:54.041 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:17:54.041 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:17:54.041 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:17:54.041 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":["refs/heads/main","refs/heads/production","refs/heads/staging","refs/remotes/ecucondor/main","refs/remotes/origin/main"],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:17:54.041 [info] > git rev-parse --show-toplevel [86ms]
+2025-09-22 23:17:54.041 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.github is: /root/altamedica-reboot
+2025-09-22 23:17:54.041 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.041 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.husky
+2025-09-22 23:17:54.060 [info] > git merge-base refs/heads/main refs/remotes/origin/main [20ms]
+2025-09-22 23:17:54.060 [trace] [OperationManager][end] MergeBase (blocking: false, readOnly: true; retry: false; showProgress: true)
+2025-09-22 23:17:54.077 [trace] [OperationManager][start] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:54.077 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [62ms]
+2025-09-22 23:17:54.086 [info] > git diff --name-status -z --diff-filter=ADMR 4252ae694fe9a93957d8301c2ebaa99d446e2b47...refs/remotes/origin/main [9ms]
+2025-09-22 23:17:54.086 [trace] [OperationManager][end] Diff (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:54.087 [info] > git rev-parse --show-toplevel [28ms]
+2025-09-22 23:17:54.087 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.husky is: /root/altamedica-reboot
+2025-09-22 23:17:54.087 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.087 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.turbo
+2025-09-22 23:17:54.222 [info] > git rev-parse --show-toplevel [53ms]
+2025-09-22 23:17:54.222 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.turbo is: /root/altamedica-reboot
+2025-09-22 23:17:54.222 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.222 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.vscode
+2025-09-22 23:17:54.292 [trace] [OperationManager][start] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:54.362 [info] > git status -z -uall [116ms]
+2025-09-22 23:17:54.362 [info] > git rev-parse --show-toplevel [21ms]
+2025-09-22 23:17:54.362 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.vscode is: /root/altamedica-reboot
+2025-09-22 23:17:54.362 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.362 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/.wrangler
+2025-09-22 23:17:54.363 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [71ms]
+2025-09-22 23:17:54.364 [trace] [OperationManager][end] GetRefs (blocking: false, readOnly: true; retry: false; showProgress: false)
+2025-09-22 23:17:54.392 [trace] [OperationManager][end] Status (blocking: false, readOnly: false; retry: false; showProgress: true)
+2025-09-22 23:17:54.392 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRef: {"id":"refs/heads/main","name":"main","revision":"d2090e8e40a85d36c5df10d426164c22256c4655","icon":{"id":"target"}}
+2025-09-22 23:17:54.392 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemRemoteRef: {"id":"refs/remotes/origin/main","name":"origin/main","revision":"4252ae694fe9a93957d8301c2ebaa99d446e2b47","icon":{"id":"cloud"}}
+2025-09-22 23:17:54.392 [trace] [GitHistoryProvider][onDidRunWriteOperation] currentHistoryItemBaseRef: undefined
+2025-09-22 23:17:54.392 [trace] [GitHistoryProvider][onDidRunWriteOperation] historyItemRefs: {"added":[],"modified":[],"removed":[],"silent":false}
+2025-09-22 23:17:54.695 [info] > git rev-parse --show-toplevel [281ms]
+2025-09-22 23:17:54.695 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/.wrangler is: /root/altamedica-reboot
+2025-09-22 23:17:54.695 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.695 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/apps
+2025-09-22 23:17:54.948 [info] > git rev-parse --show-toplevel [92ms]
+2025-09-22 23:17:54.948 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/apps is: /root/altamedica-reboot
+2025-09-22 23:17:54.948 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:54.949 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/database
+2025-09-22 23:17:55.093 [info] > git rev-parse --show-toplevel [84ms]
+2025-09-22 23:17:55.093 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/database is: /root/altamedica-reboot
+2025-09-22 23:17:55.093 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.097 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/docs
+2025-09-22 23:17:55.185 [info] > git rev-parse --show-toplevel [10ms]
+2025-09-22 23:17:55.185 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/docs is: /root/altamedica-reboot
+2025-09-22 23:17:55.185 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.185 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/eslint-rules
+2025-09-22 23:17:55.381 [info] > git rev-parse --show-toplevel [28ms]
+2025-09-22 23:17:55.381 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/eslint-rules is: /root/altamedica-reboot
+2025-09-22 23:17:55.381 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.381 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/observability
+2025-09-22 23:17:55.451 [info] > git rev-parse --show-toplevel [27ms]
+2025-09-22 23:17:55.451 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/observability is: /root/altamedica-reboot
+2025-09-22 23:17:55.451 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.451 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/packages
+2025-09-22 23:17:55.516 [info] > git rev-parse --show-toplevel [1ms]
+2025-09-22 23:17:55.517 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/packages is: /root/altamedica-reboot
+2025-09-22 23:17:55.517 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.517 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/scripts
+2025-09-22 23:17:55.537 [info] > git rev-parse --show-toplevel [4ms]
+2025-09-22 23:17:55.537 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/scripts is: /root/altamedica-reboot
+2025-09-22 23:17:55.538 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.538 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/supabase
+2025-09-22 23:17:55.553 [info] > git rev-parse --show-toplevel [4ms]
+2025-09-22 23:17:55.553 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/supabase is: /root/altamedica-reboot
+2025-09-22 23:17:55.553 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.553 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/test-results
+2025-09-22 23:17:55.578 [info] > git rev-parse --show-toplevel [13ms]
+2025-09-22 23:17:55.578 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/test-results is: /root/altamedica-reboot
+2025-09-22 23:17:55.578 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.578 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/tests
+2025-09-22 23:17:55.600 [info] > git rev-parse --show-toplevel [5ms]
+2025-09-22 23:17:55.600 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/tests is: /root/altamedica-reboot
+2025-09-22 23:17:55.600 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.600 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/visual-snapshots
+2025-09-22 23:17:55.624 [info] > git rev-parse --show-toplevel [3ms]
+2025-09-22 23:17:55.624 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/visual-snapshots is: /root/altamedica-reboot
+2025-09-22 23:17:55.624 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.624 [trace] [Model][openRepository] Repository: /root/altamedica-reboot/~
+2025-09-22 23:17:55.646 [info] > git rev-parse --show-toplevel [3ms]
+2025-09-22 23:17:55.646 [trace] [Model][openRepository] Repository root for path /root/altamedica-reboot/~ is: /root/altamedica-reboot
+2025-09-22 23:17:55.646 [trace] [Model][openRepository] Repository for path /root/altamedica-reboot already exists: /root/altamedica-reboot
+2025-09-22 23:17:55.649 [info] [Model][doInitialScan] Initial repository scan completed - repositories (1), closed repositories (0), parent repositories (0), unsafe repositories (0)

@@ -1,39 +1,53 @@
 {
   "name": "@autamedica/auth",
-  "version": "0.1.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Centralized authentication package for AutaMedica platform",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    },
+    "./middleware": {
+      "import": "./dist/middleware/index.mjs",
+      "require": "./dist/middleware/index.js",
+      "types": "./dist/middleware/index.d.ts"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsc -w -p tsconfig.json",
-    "typecheck": "tsc --noEmit",
-    "check-types": "tsc --noEmit",
-    "clean": "rimraf dist"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@autamedica/types": "workspace:*",
-    "@autamedica/shared": "workspace:*",
-    "@supabase/ssr": "^0.7.0",
-    "@supabase/supabase-js": "^2.57.4",
-    "next": "15.5.2"
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.51.0",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "@types/react": "^18.0.0 || ^19.0.0",
-    "rimraf": "^5.0.0",
-    "typescript": "5.9.2"
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.7",
+    "react": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "next": "^15.5.0",
+    "react": "^19.0.0"
   }
 }

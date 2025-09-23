@@ -1,0 +1,6 @@
+2025-09-22 22:55:43.613 [info] ChatSessionStore: Migrating 0 chat sessions from storage service to file system
+2025-09-22 22:55:44.074 [info] Started local extension host with pid 2726221.
+2025-09-22 22:55:47.225 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2025-09-22 22:55:48.089 [info] [perf] Render performance baseline is 150ms
+2025-09-22 22:57:20.632 [error] [Extension Host] (node:2726221) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `exe --trace-deprecation ...` to show where the warning was created)

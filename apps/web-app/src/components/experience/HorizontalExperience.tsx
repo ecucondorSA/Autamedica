@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Link from "next/link";
 import { getAppUrl } from "@/lib/env";
 import ProfessionalPatientsFeatures from "@/components/landing/ProfessionalPatientsFeatures";
 import ProfessionalDoctorsFeatures from "@/components/landing/ProfessionalDoctorsFeatures";

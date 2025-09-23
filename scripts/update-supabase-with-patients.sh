@@ -1,28 +1,36 @@
 #!/bin/bash
 
-# Script para agregar la URL de patients deployment a Supabase
-# Incluye todas las URLs de deployments completados
+# Script para actualizar Supabase con todas las URLs activas del ecosistema Cloudflare Pages
+# Incluye dominios productivos y los previews generados por Cloudflare
 
-echo "🔧 Configurando Supabase con todas las URLs de deployment..."
+echo "🔧 Configurando Supabase con URLs de Cloudflare Pages..."
 echo ""
 
 PROJECT_REF="gtyvdircfhmdjiaelqkg"
 ACCESS_TOKEN="sbp_aa74b7707840d07be814d4f92adde20dd35d3c16"
 
-# URLs de todos los deployments
-DOCTORS_URL="https://doctors-8cp3hr5fy-ecucondor-gmailcoms-projects.vercel.app"
-WEBAPP_URL="https://autamedica-web-f4kjlzrf1-ecucondor-gmailcoms-projects.vercel.app"
-PATIENTS_URL="https://autamedica-patients-m7wvcbzgm-ecucondor-gmailcoms-projects.vercel.app"
-DOCTORS_ALT="https://médicos-4vjq1iyi1-ecucondor-gmailcoms-proyectos.vercel.app"
-DOCTORS_CUSTOM="https://doctores-ebon.vercel.app"
+# Dominios productivos (pueden sobreescribirse vía variables de entorno)
+WEBAPP_URL="${WEBAPP_URL:-https://autamedica.com}"
+DOCTORS_URL="${DOCTORS_URL:-https://doctors.autamedica.com}"
+PATIENTS_URL="${PATIENTS_URL:-https://patients.autamedica.com}"
+COMPANIES_URL="${COMPANIES_URL:-https://companies.autamedica.com}"
+
+# Dominios de preview generados por Cloudflare Pages
+WEBAPP_PREVIEW_URL="${WEBAPP_PREVIEW_URL:-https://autamedica-web-app.pages.dev}"
+DOCTORS_PREVIEW_URL="${DOCTORS_PREVIEW_URL:-https://autamedica-doctors.pages.dev}"
+PATIENTS_PREVIEW_URL="${PATIENTS_PREVIEW_URL:-https://autamedica-patients.pages.dev}"
+COMPANIES_PREVIEW_URL="${COMPANIES_PREVIEW_URL:-https://autamedica-companies.pages.dev}"
 
 echo "📍 Proyecto: $PROJECT_REF"
 echo "🔗 URLs a configurar:"
-echo "   - Doctors: $DOCTORS_URL"
-echo "   - Web-app: $WEBAPP_URL"
-echo "   - Patients: $PATIENTS_URL (NUEVA)"
-echo "   - Doctors Alt: $DOCTORS_ALT"
-echo "   - Doctors Custom: $DOCTORS_CUSTOM"
+echo "   - Web (prod): $WEBAPP_URL"
+echo "   - Doctors (prod): $DOCTORS_URL"
+echo "   - Patients (prod): $PATIENTS_URL"
+echo "   - Companies (prod): $COMPANIES_URL"
+echo "   - Web (preview): $WEBAPP_PREVIEW_URL"
+echo "   - Doctors (preview): $DOCTORS_PREVIEW_URL"
+echo "   - Patients (preview): $PATIENTS_PREVIEW_URL"
+echo "   - Companies (preview): $COMPANIES_PREVIEW_URL"
 echo ""
 
 # Método 1: Configurar Site URL principal
@@ -38,9 +46,9 @@ curl -s -X PATCH \
 echo ""
 
 # Método 2: Lista completa de redirect URLs
-echo "🔄 Configurando todas las redirect URLs..."
+echo "🔄 Configurando redirect URLs..."
 
-ALLOWED_URLS="$WEBAPP_URL/**,$DOCTORS_URL/**,$PATIENTS_URL/**,$DOCTORS_ALT/**,$DOCTORS_CUSTOM/**,https://autamedica.com/**,https://doctors.autamedica.com/**,https://patients.autamedica.com/**,https://companies.autamedica.com/**,http://localhost:3000/**,http://localhost:3001/**,http://localhost:3002/**"
+ALLOWED_URLS="$WEBAPP_URL/**,$DOCTORS_URL/**,$PATIENTS_URL/**,$COMPANIES_URL/**,$WEBAPP_PREVIEW_URL/**,$DOCTORS_PREVIEW_URL/**,$PATIENTS_PREVIEW_URL/**,$COMPANIES_PREVIEW_URL/**,http://localhost:3000/**,http://localhost:3001/**,http://localhost:3002/**,http://localhost:3003/**"
 
 curl -s -X PATCH \
   "https://api.supabase.com/v1/projects/$PROJECT_REF/config/auth" \
@@ -68,8 +76,11 @@ curl -s -X PUT \
       \"$WEBAPP_URL/auth/callback\",
       \"$DOCTORS_URL/auth/callback\",
       \"$PATIENTS_URL/auth/callback\",
-      \"$DOCTORS_ALT/auth/callback\",
-      \"$DOCTORS_CUSTOM/auth/callback\",
+      \"$COMPANIES_URL/auth/callback\",
+      \"$WEBAPP_PREVIEW_URL/auth/callback\",
+      \"$DOCTORS_PREVIEW_URL/auth/callback\",
+      \"$PATIENTS_PREVIEW_URL/auth/callback\",
+      \"$COMPANIES_PREVIEW_URL/auth/callback\",
       \"https://autamedica.com/auth/callback\",
       \"https://doctors.autamedica.com/auth/callback\",
       \"https://patients.autamedica.com/auth/callback\",
@@ -89,9 +100,12 @@ echo ""
 echo "Redirect URLs:"
 echo "✅ $WEBAPP_URL/auth/callback"
 echo "✅ $DOCTORS_URL/auth/callback"
-echo "✅ $PATIENTS_URL/auth/callback (NUEVA)"
-echo "✅ $DOCTORS_ALT/auth/callback"
-echo "✅ $DOCTORS_CUSTOM/auth/callback"
+echo "✅ $PATIENTS_URL/auth/callback"
+echo "✅ $COMPANIES_URL/auth/callback"
+echo "✅ $WEBAPP_PREVIEW_URL/auth/callback"
+echo "✅ $DOCTORS_PREVIEW_URL/auth/callback"
+echo "✅ $PATIENTS_PREVIEW_URL/auth/callback"
+echo "✅ $COMPANIES_PREVIEW_URL/auth/callback"
 echo "✅ https://autamedica.com/auth/callback"
 echo "✅ https://doctors.autamedica.com/auth/callback"
 echo "✅ https://patients.autamedica.com/auth/callback"

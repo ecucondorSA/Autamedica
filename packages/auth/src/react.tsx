@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
-import type { AuthState, AuthUser } from "./types";
+import type { AuthState } from "./types";
 
 interface AuthContextType extends AuthState {
   logout: () => Promise<void>;

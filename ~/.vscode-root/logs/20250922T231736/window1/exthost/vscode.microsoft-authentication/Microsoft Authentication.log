@@ -1,0 +1,20 @@
+2025-09-22 23:17:46.175 [debug] [initialize] Initializing PublicClientApplicationManager
+2025-09-22 23:17:46.175 [info] [getSessions] [all] starting
+2025-09-22 23:17:46.175 [info] [getSessions] [all] returned 0 session(s)
+2025-09-22 23:17:46.175 [info] [getSessions] [all] starting
+2025-09-22 23:17:46.175 [info] [getSessions] [all] returned 0 session(s)
+2025-09-22 23:17:46.175 [info] [getSessions] [all] starting
+2025-09-22 23:17:46.175 [info] [getSessions] [all] returned 0 session(s)
+2025-09-22 23:17:46.175 [info] [getSessions] [all] starting
+2025-09-22 23:17:46.175 [info] [getSessions] [all] returned 0 session(s)
+2025-09-22 23:17:46.175 [info] [getSessions] [499b84ac-1321-427f-aa17-267ca6975798/.default offline_access] starting
+2025-09-22 23:17:46.175 [debug] [getOrCreate] [aebc6443-996d-45c2-90f0-388ff96faa56] PublicClientApplicationManager cache miss, creating new PCA...
+2025-09-22 23:17:46.175 [info] [aebc6443-996d-45c2-90f0-388ff96faa56] Native Broker is only available on Windows
+2025-09-22 23:17:46.175 [debug] [update] [aebc6443-996d-45c2-90f0-388ff96faa56] CachedPublicClientApplication update before: 0
+2025-09-22 23:17:46.175 [debug] [Tue, 23 Sep 2025 02:17:46 GMT] : [aebc6443-996d-45c2-90f0-388ff96faa56] : @azure/msal-node@3.7.3 : Info - getTokenCache called
+2025-09-22 23:17:46.175 [debug] [update] [aebc6443-996d-45c2-90f0-388ff96faa56] CachedPublicClientApplication update after: 0
+2025-09-22 23:17:46.175 [debug] [update] [aebc6443-996d-45c2-90f0-388ff96faa56] CachedPublicClientApplication update complete
+2025-09-22 23:17:51.049 [debug] [_handleSecretStorageChange] Handling PCAs secret storage change...
+2025-09-22 23:17:51.050 [debug] [getOrCreate] [aebc6443-996d-45c2-90f0-388ff96faa56] PCA created.
+2025-09-22 23:17:51.050 [info] [getSessions] [499b84ac-1321-427f-aa17-267ca6975798/.default offline_access] returned 0 session(s)
+2025-09-22 23:17:51.426 [debug] [_handleSecretStorageChange] Finished handling PCAs secret storage change.

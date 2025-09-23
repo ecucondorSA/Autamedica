@@ -13,13 +13,13 @@ console.log('📊 Setting up AltaMedica Observability Stack...\n');
 const OBSERVABILITY_CONFIG = {
   metrics: {
     enabled: true,
-    providers: ['Prometheus', 'DataDog', 'Vercel Analytics'],
+    providers: ['Prometheus', 'DataDog', 'Cloudflare Analytics'],
     retention: '90d'
   },
   logging: {
     enabled: true,
     level: 'info',
-    providers: ['Winston', 'Pino', 'Vercel Logs'],
+    providers: ['Winston', 'Pino', 'Cloudflare Logpush'],
     hipaaCompliant: true
   },
   tracing: {
