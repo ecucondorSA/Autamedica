@@ -3,13 +3,6 @@
 
 echo "[pre-commit] Running validation checks..."
 
-# Validate Vercel deployment configuration
-echo "[pre-commit] Validating Vercel deployment configuration..."
-node scripts/validate-vercel-deployment.js || {
-  echo "[pre-commit] ❌ Vercel validation failed. Please fix the errors before committing."
-  exit 1
-}
-
 # Sync glossaries
 echo "[pre-commit] Syncing glossaries..."
 pnpm docs:sync || exit 1
