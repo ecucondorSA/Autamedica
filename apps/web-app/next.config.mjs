@@ -71,6 +71,18 @@ const nextConfig = {
         value: "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
       },
       {
+        key: "Expires",
+        value: "0"
+      },
+      {
+        key: "Pragma",
+        value: "no-cache"
+      },
+      {
+        key: "ETag",
+        value: `"${Date.now()}-${Math.random().toString(36).substr(2, 9)}"`
+      },
+      {
         key: "X-Robots-Tag",
         value: isProduction ? "index, follow" : "noindex, nofollow"
       },

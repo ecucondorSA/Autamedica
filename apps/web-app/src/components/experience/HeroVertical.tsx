@@ -9,17 +9,42 @@ type Props = {
 
 export default function HeroVertical({ videos, title, subtitle }: Props) {
   const [index, setIndex] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handle = () => setReducedMotion(mq.matches);
+    if (mq.addEventListener) mq.addEventListener("change", handle);
+    else mq.addListener(handle);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", handle);
+      else mq.removeListener(handle);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % videos.length), 8000);
     return () => clearInterval(id);
-  }, [videos.length]);
+  }, [videos.length, reducedMotion]);
 
   return (
     <section className="hero-vertical">
-      <div className="video-background">
+      <div className="video-background" aria-hidden="true">
         {videos.map((src, i) => (
-          <video key={src} className={`hero-video ${i === index ? "active" : ""}`} autoPlay muted loop playsInline>
+          <video
+            key={src}
+            className={`hero-video ${i === index ? "active" : ""}`}
+            autoPlay={!reducedMotion}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
             <source src={src} type="video/mp4" />
           </video>
         ))}
@@ -47,6 +72,8 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
             inset: 0;
             z-index: 1;
           }
+          /* avoid videos capturing pointer events */
+          .video-background .hero-video { pointer-events: none; }
           .hero-video {
             position: absolute;
             inset: 0;
@@ -64,30 +91,31 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem 2rem;
             z-index: 2;
           }
           .hero-content {
-            max-width: 800px;
-            margin-bottom: 4rem;
+            max-width: 1200px;
+            margin-top: clamp(3.5rem, 12vh, 6rem);
+            margin-bottom: 2.5rem;
             width: 100%;
           }
           h1 {
             color: #fff;
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(3rem, 6.5vw, 5rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 1.75rem;
+            line-height: 1.15;
+            text-shadow: 0 6px 18px rgba(0,0,0,0.35);
           }
           p {
             color: #e5e7eb;
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            max-width: 600px;
-            line-height: 1.6;
-            margin: 0 auto 2.5rem auto;
+            font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+            max-width: 720px;
+            line-height: 1.55;
+            margin: 0 auto 2.75rem auto;
           }
 
           /* Mobile Responsive Design */
@@ -104,13 +132,13 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
               max-width: 100%;
             }
             h1 {
-              font-size: clamp(2rem, 8vw, 3rem);
-              margin-bottom: 1rem;
+              font-size: clamp(2.4rem, 8vw, 3.4rem);
+              margin-bottom: 1.1rem;
               line-height: 1.1;
             }
             p {
-              font-size: clamp(0.9rem, 4vw, 1.1rem);
-              margin-bottom: 1.5rem;
+              font-size: clamp(1rem, 4.5vw, 1.2rem);
+              margin-bottom: 1.6rem;
               max-width: 100%;
               padding: 0 0.5rem;
             }
@@ -137,13 +165,13 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
               margin-bottom: 3rem;
             }
             h1 {
-              font-size: clamp(2.25rem, 5vw, 3.5rem);
-              margin-bottom: 1.25rem;
+              font-size: clamp(2.8rem, 5vw, 3.8rem);
+              margin-bottom: 1.35rem;
             }
             p {
-              font-size: clamp(1rem, 2.5vw, 1.2rem);
-              max-width: 550px;
-              margin-bottom: 2rem;
+              font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+              max-width: 600px;
+              margin-bottom: 2.2rem;
             }
           }
 
@@ -157,11 +185,11 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
               margin-bottom: 5rem;
             }
             h1 {
-              font-size: clamp(3rem, 4vw, 4.5rem);
+              font-size: clamp(3.4rem, 4.2vw, 4.8rem);
             }
             p {
-              font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-              max-width: 700px;
+              font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+              max-width: 760px;
             }
           }
 
@@ -192,12 +220,12 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
               margin-bottom: 1rem;
             }
             h1 {
-              font-size: clamp(1.75rem, 6vw, 2.5rem);
-              margin-bottom: 0.5rem;
+              font-size: clamp(2rem, 6.5vw, 2.8rem);
+              margin-bottom: 0.6rem;
             }
             p {
-              font-size: clamp(0.875rem, 3vw, 1rem);
-              margin-bottom: 1rem;
+              font-size: clamp(0.95rem, 3.2vw, 1.1rem);
+              margin-bottom: 1.1rem;
             }
           }
 

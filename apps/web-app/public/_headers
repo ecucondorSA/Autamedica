@@ -1,0 +1,25 @@
+/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+  Expires: 0
+  Pragma: no-cache
+  X-Cache-Buster: 2025-09-26-v2
+
+/_next/static/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+  Expires: 0
+  Pragma: no-cache
+
+/static/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+  Expires: 0
+  Pragma: no-cache
+
+/*.js
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+  Expires: 0
+  Pragma: no-cache
+
+/*.css
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+  Expires: 0
+  Pragma: no-cache

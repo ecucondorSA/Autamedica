@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP WebRTC Test - AltaMedica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .connected {
+            background: #0d7377;
+            border-color: #14a085;
+            color: white;
+        }
+        .error {
+            background: #8b0000;
+            border-color: #dc3545;
+            color: white;
+        }
+        .connecting {
+            background: #b8860b;
+            border-color: #ffc107;
+            color: white;
+        }
+        .disconnected {
+            background: #4a4a4a;
+            border-color: #666;
+            color: #ccc;
+        }
+        #messages {
+            border: 2px solid #333;
+            background: #2a2a2a;
+            height: 400px;
+            overflow-y: scroll;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            margin: 5px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #0d7377;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #14a085;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            border: 2px solid #333;
+            background: #2a2a2a;
+            color: white;
+            border-radius: 4px;
+        }
+        input::placeholder {
+            color: #999;
+        }
+        .video-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        video {
+            width: 300px;
+            height: 200px;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+        .video-box {
+            text-align: center;
+        }
+        .video-box h3 {
+            margin: 10px 0;
+            color: #14a085;
+        }
+        h1 {
+            color: #14a085;
+            text-align: center;
+        }
+        .info {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #333;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 AltaMedica - HTTP WebRTC Test</h1>
+
+        <div class="info">
+            <strong>🚀 Nueva implementación HTTP-based</strong><br>
+            Usa fetch y polling en lugar de WebSockets para mayor confiabilidad.<br>
+            <strong>Servidor:</strong> https://autamedica-http-signaling-server.ecucondor.workers.dev
+        </div>
+
+        <div id="status" class="status disconnected">🔌 Desconectado</div>
+
+        <div class="controls">
+            <input type="text" id="roomId" placeholder="Room ID" value="test-room">
+            <input type="text" id="userId" placeholder="User ID" value="doctor-1">
+            <select id="userType">
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+                <option value="nurse">Nurse</option>
+            </select>
+        </div>
+
+        <div class="controls">
+            <button onclick="connect()" id="connectBtn">🔗 Connect</button>
+            <button onclick="disconnect()" id="disconnectBtn" disabled>🔌 Disconnect</button>
+            <button onclick="startVideo()" id="videoBtn" disabled>📹 Start Video</button>
+            <button onclick="stopVideo()" id="stopVideoBtn" disabled>⏹️ Stop Video</button>
+        </div>
+
+        <div class="video-container">
+            <div class="video-box">
+                <h3>📹 Local Video</h3>
+                <video id="localVideo" autoplay muted playsinline></video>
+            </div>
+            <div class="video-box">
+                <h3>🎥 Remote Video</h3>
+                <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+        </div>
+
+        <div id="messages"></div>
+    </div>
+
+    <script type="module">
+        // Simple HTTP WebRTC Client implementation for testing
+        class HttpWebRTCClient {
+            constructor(config) {
+                this.config = {
+                    signalingUrl: 'https://autamedica-http-signaling-server.ecucondor.workers.dev',
+                    iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:stun1.l.google.com:19302' }
+                    ],
+                    roomId: 'default-room',
+                    pollInterval: 1000,
+                    ...config
+                };
+                this.peerConnections = new Map();
+                this.localStream = null;
+                this.connectionState = 'disconnected';
+                this.pollTimer = null;
+                this.lastPollTimestamp = 0;
+                this.isPolling = false;
+                this.eventListeners = new Map();
+            }
+
+            on(event, listener) {
+                if (!this.eventListeners.has(event)) {
+                    this.eventListeners.set(event, []);
+                }
+                this.eventListeners.get(event).push(listener);
+            }
+
+            emit(event, ...args) {
+                const listeners = this.eventListeners.get(event);
+                if (listeners) {
+                    listeners.forEach(listener => {
+                        try {
+                            listener(...args);
+                        } catch (error) {
+                            console.error(`Error in ${event} listener:`, error);
+                        }
+                    });
+                }
+            }
+
+            setConnectionState(state) {
+                if (this.connectionState !== state) {
+                    this.connectionState = state;
+                    this.emit('connection-state', state);
+                }
+            }
+
+            async connect(roomId) {
+                if (this.connectionState === 'connecting' || this.connectionState === 'connected') {
+                    return;
+                }
+
+                this.setConnectionState('connecting');
+
+                try {
+                    const finalRoomId = roomId || this.config.roomId;
+
+                    const joinResponse = await fetch(`${this.config.signalingUrl}/api/join`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            roomId: finalRoomId,
+                            userId: this.config.userId,
+                            userType: this.config.userType
+                        })
+                    });
+
+                    if (!joinResponse.ok) {
+                        throw new Error(`Join failed: ${joinResponse.status}`);
+                    }
+
+                    const joinData = await joinResponse.json();
+
+                    if (!joinData.success) {
+                        throw new Error(`Join failed: ${joinData.error}`);
+                    }
+
+                    console.log('Successfully joined room:', finalRoomId);
+
+                    if (joinData.roomState?.users) {
+                        for (const user of joinData.roomState.users) {
+                            this.emit('user-joined', user.userId, user.userType);
+                        }
+                    }
+
+                    this.setConnectionState('connected');
+                    this.startPolling();
+
+                } catch (error) {
+                    console.error('Connection failed:', error);
+                    this.setConnectionState('failed');
+                    this.emit('error', error);
+                    throw error;
+                }
+            }
+
+            async startLocalStream(constraints = { video: true, audio: true }) {
+                try {
+                    this.localStream = await navigator.mediaDevices.getUserMedia(constraints);
+                    this.emit('local-stream', this.localStream);
+
+                    for (const [userId, pc] of this.peerConnections) {
+                        this.localStream.getTracks().forEach(track => {
+                            pc.addTrack(track, this.localStream);
+                        });
+                    }
+
+                    return this.localStream;
+                } catch (error) {
+                    console.error('Failed to get local stream:', error);
+                    this.emit('error', new Error('Failed to access camera/microphone'));
+                    throw error;
+                }
+            }
+
+            stopLocalStream() {
+                if (this.localStream) {
+                    this.localStream.getTracks().forEach(track => track.stop());
+                    this.localStream = null;
+                }
+            }
+
+            async disconnect() {
+                this.setConnectionState('disconnected');
+                this.stopPolling();
+
+                if (this.config.roomId) {
+                    try {
+                        await fetch(`${this.config.signalingUrl}/api/leave`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                roomId: this.config.roomId,
+                                userId: this.config.userId
+                            })
+                        });
+                    } catch (error) {
+                        console.error('Error leaving room:', error);
+                    }
+                }
+
+                this.cleanup();
+            }
+
+            cleanup() {
+                for (const [userId, pc] of this.peerConnections) {
+                    pc.close();
+                }
+                this.peerConnections.clear();
+                this.stopLocalStream();
+            }
+
+            startPolling() {
+                if (this.isPolling) return;
+
+                this.isPolling = true;
+                this.lastPollTimestamp = Date.now();
+
+                const poll = async () => {
+                    if (!this.isPolling || this.connectionState !== 'connected') {
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(
+                            `${this.config.signalingUrl}/api/poll?roomId=${encodeURIComponent(this.config.roomId)}&userId=${encodeURIComponent(this.config.userId)}&since=${this.lastPollTimestamp}`
+                        );
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.lastPollTimestamp = data.timestamp;
+
+                            for (const message of data.messages) {
+                                await this.handleSignalingMessage(message);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Polling error:', error);
+                    }
+
+                    this.pollTimer = setTimeout(poll, this.config.pollInterval);
+                };
+
+                poll();
+            }
+
+            stopPolling() {
+                this.isPolling = false;
+                if (this.pollTimer) {
+                    clearTimeout(this.pollTimer);
+                    this.pollTimer = null;
+                }
+            }
+
+            async handleSignalingMessage(message) {
+                console.log('Received signaling message:', message);
+                // Basic signaling handling - can be extended
+                this.emit('signaling-message', message);
+            }
+
+            getConnectionState() {
+                return this.connectionState;
+            }
+
+            getLocalStream() {
+                return this.localStream;
+            }
+        }
+
+        // Global variables
+        let client = null;
+        const statusDiv = document.getElementById('status');
+        const messagesDiv = document.getElementById('messages');
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+
+        function updateStatus(message, className) {
+            statusDiv.textContent = message;
+            statusDiv.className = 'status ' + className;
+        }
+
+        function addMessage(message, type = 'info') {
+            const div = document.createElement('div');
+            div.style.color = type === 'error' ? '#ff6b6b' :
+                             type === 'sent' ? '#4ecdc4' :
+                             type === 'success' ? '#95e1d3' : '#ccc';
+            div.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function updateButtons() {
+            const isConnected = client && client.getConnectionState() === 'connected';
+            const hasStream = client && client.getLocalStream();
+
+            document.getElementById('connectBtn').disabled = isConnected;
+            document.getElementById('disconnectBtn').disabled = !isConnected;
+            document.getElementById('videoBtn').disabled = !isConnected || hasStream;
+            document.getElementById('stopVideoBtn').disabled = !hasStream;
+        }
+
+        window.connect = async function() {
+            try {
+                const roomId = document.getElementById('roomId').value || 'default-room';
+                const userId = document.getElementById('userId').value || 'test-user';
+                const userType = document.getElementById('userType').value || 'doctor';
+
+                addMessage(`🚀 Connecting to room: ${roomId} as ${userType}...`, 'info');
+                updateStatus('🔗 Connecting...', 'connecting');
+
+                client = new HttpWebRTCClient({
+                    roomId: roomId,
+                    userId: userId,
+                    userType: userType
+                });
+
+                // Set up event listeners
+                client.on('connection-state', (state) => {
+                    console.log('Connection state changed:', state);
+                    switch (state) {
+                        case 'connected':
+                            updateStatus('✅ Connected', 'connected');
+                            addMessage('✅ Connected to signaling server successfully!', 'success');
+                            break;
+                        case 'connecting':
+                            updateStatus('🔗 Connecting...', 'connecting');
+                            break;
+                        case 'disconnected':
+                            updateStatus('🔌 Disconnected', 'disconnected');
+                            addMessage('🔌 Disconnected from signaling server', 'info');
+                            break;
+                        case 'failed':
+                            updateStatus('❌ Connection failed', 'error');
+                            addMessage('❌ Connection failed', 'error');
+                            break;
+                    }
+                    updateButtons();
+                });
+
+                client.on('user-joined', (userId, userType) => {
+                    addMessage(`👤 User ${userId} (${userType}) joined the room`, 'success');
+                });
+
+                client.on('user-left', (userId) => {
+                    addMessage(`👋 User ${userId} left the room`, 'info');
+                });
+
+                client.on('local-stream', (stream) => {
+                    addMessage('📹 Local video stream started', 'success');
+                    localVideo.srcObject = stream;
+                    updateButtons();
+                });
+
+                client.on('remote-stream', (stream, userId) => {
+                    addMessage(`🎥 Received remote video from ${userId}`, 'success');
+                    remoteVideo.srcObject = stream;
+                });
+
+                client.on('error', (error) => {
+                    addMessage(`❌ Error: ${error.message}`, 'error');
+                });
+
+                client.on('signaling-message', (message) => {
+                    addMessage(`📡 Received: ${message.type} from ${message.from}`, 'info');
+                });
+
+                await client.connect(roomId);
+
+            } catch (error) {
+                addMessage(`❌ Failed to connect: ${error.message}`, 'error');
+                updateStatus('❌ Connection failed', 'error');
+                updateButtons();
+            }
+        };
+
+        window.disconnect = async function() {
+            if (client) {
+                try {
+                    await client.disconnect();
+                    addMessage('👋 Disconnected from room', 'info');
+                } catch (error) {
+                    addMessage(`❌ Error disconnecting: ${error.message}`, 'error');
+                }
+                client = null;
+            }
+            updateButtons();
+        };
+
+        window.startVideo = async function() {
+            if (client && client.getConnectionState() === 'connected') {
+                try {
+                    addMessage('📹 Starting video stream...', 'info');
+                    await client.startLocalStream({ video: true, audio: true });
+                    addMessage('✅ Video stream started successfully', 'success');
+                } catch (error) {
+                    addMessage(`❌ Failed to start video: ${error.message}`, 'error');
+                }
+                updateButtons();
+            }
+        };
+
+        window.stopVideo = function() {
+            if (client) {
+                client.stopLocalStream();
+                localVideo.srcObject = null;
+                addMessage('⏹️ Video stream stopped', 'info');
+            }
+            updateButtons();
+        };
+
+        // Initialize
+        addMessage('🏥 AltaMedica HTTP WebRTC Test initialized', 'success');
+        addMessage('🚀 Using HTTP polling instead of WebSockets for better reliability', 'info');
+        updateButtons();
+    </script>
+</body>
+</html>

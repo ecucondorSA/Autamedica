@@ -3,14 +3,36 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AutaMedica - Telemedicina Avanzada",
-  description: "Plataforma de telemedicina que conecta pacientes con profesionales de la salud a través de tecnología segura y conforme con HIPAA.",
-  keywords: "telemedicina, medicina, salud, consultas online, HIPAA, AutaMedica",
+  description:
+    "Plataforma de telemedicina que conecta pacientes con profesionales de la salud a través de tecnología segura y conforme con HIPAA.",
+  keywords: [
+    "telemedicina",
+    "medicina",
+    "salud",
+    "consultas online",
+    "HIPAA",
+    "AutaMedica",
+  ],
   authors: [{ name: "E.M Medicina - UBA" }],
-};
-
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "AutaMedica - Telemedicina Avanzada",
+    description: "Plataforma de telemedicina HIPAA-compliant para consultas médicas seguras",
+    type: "website",
+    locale: "es_AR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AutaMedica - Telemedicina Avanzada",
+    description: "Plataforma de telemedicina HIPAA-compliant para consultas médicas seguras",
+  },
 };
 
 export default function RootLayout({
@@ -19,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body>
+    <html lang="es" dir="ltr">
+      <body className="antialiased">
         {children}
       </body>
     </html>

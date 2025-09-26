@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import LoadingOverlay from './LoadingOverlay';
-import HeroVertical from './HeroVertical';
+import React, { useEffect, useState } from 'react';
 import HorizontalExperience from '../experience/HorizontalExperience';
+import HeroVertical from './HeroVertical';
+import LoadingOverlay from './LoadingOverlay';
 // import Doctor3DSimple from '../3d/Doctor3DSimple';
 import ProfessionalFooter from '../landing/ProfessionalFooter';
-import SystemStatus from '../monitoring/SystemStatus';
-import RealTimeMetrics from '../monitoring/RealTimeMetrics';
+import TestimonialsSection from '../landing/TestimonialsSection';
 
 const EnhancedLandingExperience: React.FC = () => {
   // Mantenemos un pequeño estado de fase solo para el overlay inicial
@@ -133,12 +132,12 @@ const EnhancedLandingExperience: React.FC = () => {
       {/* Secciones apiladas: Hero (arriba) + Experiencia horizontal (abajo). */}
       {phase !== 'loading' && (
         <div style={{ position: 'relative' }}>
-          {/* Hero Section - Extended height to prevent overlap */}
+          {/* Hero Section - Optimized height */}
           <div
             style={{
               position: 'relative',
               width: '100%',
-              height: '175vh',
+              height: '100vh',
               overflow: 'hidden',
               backgroundColor: '#000',
               zIndex: 1,
@@ -178,20 +177,8 @@ const EnhancedLandingExperience: React.FC = () => {
           {/* Horizontal Experience Section */}
           <HorizontalExperience />
 
-          {/* Monitoring Section */}
-          <section
-            style={{
-              position: 'relative',
-              backgroundColor: '#000',
-              padding: '4rem 2rem',
-              zIndex: 2,
-            }}
-          >
-            <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gap: '2rem' }}>
-              <SystemStatus />
-              <RealTimeMetrics />
-            </div>
-          </section>
+          {/* Testimonials and Stats Section */}
+          <TestimonialsSection />
 
           {/* Footer después del recorrido completo */}
           <ProfessionalFooter />
@@ -216,7 +203,16 @@ const EnhancedLandingExperience: React.FC = () => {
             </h3>
             <button
               onClick={() => setChatOpen(false)}
-              className="bg-red-500 border-2 border-[#333] text-white text-base cursor-pointer transition-all hover:bg-red-400 hover:scale-110 rounded-full w-6 h-6 flex items-center justify-center font-bold"
+              className="border-2 text-white text-base cursor-pointer transition-all hover:scale-110 rounded-full w-6 h-6 flex items-center justify-center font-bold"
+              style={{ backgroundColor: '#2a2a2a', borderColor: '#4c4c4c' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#3a3a3a'
+                e.currentTarget.style.borderColor = '#5b5b5b'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#2a2a2a'
+                e.currentTarget.style.borderColor = '#4c4c4c'
+              }}
             >
               ×
             </button>

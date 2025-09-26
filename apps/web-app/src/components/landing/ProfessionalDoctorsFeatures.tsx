@@ -1,316 +1,661 @@
 'use client';
 
-// import Link from 'next/link';
 import { getAppUrl } from '@/lib/env';
+import { useEffect, useRef, useState } from 'react';
+
+type Reel = {
+  title: string;
+  description: string;
+  video: string;
+  duration: string;
+};
+
+const keyTools = [
+  'Consultorio virtual con múltiples salas simultáneas',
+  'Tablero clínico con soporte de IA integrada',
+  'Prescripción electrónica con firma digital',
+  'Análisis evolutivo por paciente y cohorte',
+  'Protocolos compartidos entre equipos médicos',
+  'Checklist pre consulta automatizado',
+  'Reportes exportables en segundos',
+  'Alertas sobre interacciones farmacológicas'
+];
+
+const techHighlights = [
+  {
+    title: 'Seguridad de datos',
+    detail: 'Cifrado AES-256, firma doble factor y auditoría completa.'
+  },
+  {
+    title: 'Workflows configurables',
+    detail: 'Protocolos por especialidad con plantillas reutilizables.'
+  },
+  {
+    title: 'Analítica inmediata',
+    detail: 'Paneles dinámicos con métricas comparativas y alertas.'
+  }
+];
+
+const integrations = [
+  {
+    name: 'HL7 & FHIR',
+    detail: 'Intercambio interoperable con hospitales y laboratorios.'
+  },
+  {
+    name: 'PACS / DICOM',
+    detail: 'Imágenes diagnósticas en alta resolución directamente en la ficha.'
+  },
+  {
+    name: 'Sistemas contables',
+    detail: 'Facturación automática y conciliación de cobranzas.'
+  }
+];
+
+const demoReels: Reel[] = [
+  {
+    title: 'Consultorio digital integral',
+    description: 'Agenda compartida, sala de espera virtual y panel clínico en vivo.',
+    video: '/videos/Video_Listo_Telemedicina.mp4',
+    duration: '08:10'
+  },
+  {
+    title: 'Asistente diagnóstico',
+    description: 'IA que sugiere diagnósticos diferenciales y protocolos terapéuticos.',
+    video: '/videos/alta-agent-ia.mp4',
+    duration: '05:36'
+  },
+  {
+    title: 'Seguimiento longitudinal',
+    description: 'Evolución clínica y resultados compartidos con el equipo ampliado.',
+    video: '/videos/Video_Listo_Encuentra_Doctor.mp4',
+    duration: '07:04'
+  }
+];
 
 export default function ProfessionalDoctorsFeatures() {
-  const features = [
-    'Consultorio virtual integrado',
-    'Gestión de pacientes avanzada',
-    'IA para diagnóstico asistido',
-    'Historia clínica electrónica',
-    'Teleconsultas HD profesionales',
-    'Sistema de recetas digitales',
-    'Analytics médicos en tiempo real',
-    'Integración con laboratorios'
-  ];
+  const [current, setCurrent] = useState(demoReels[0]);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const videoThumbnails = [
-    {
-      title: 'Consultorio Virtual',
-      thumbnail: '/videos/doctor-thumb1.jpg',
-      duration: '3:45'
-    },
-    {
-      title: 'IA Diagnóstico',
-      thumbnail: '/videos/doctor-thumb2.jpg',
-      duration: '2:15'
-    },
-    {
-      title: 'Historia Clínica',
-      thumbnail: '/videos/doctor-thumb3.jpg',
-      duration: '4:20'
-    },
-    {
-      title: 'Analytics Médicos',
-      thumbnail: '/videos/doctor-thumb4.jpg',
-      duration: '3:30'
+  const handleVideoEnd = () => {
+    const index = demoReels.findIndex((reel) => reel.video === current.video);
+    const next = demoReels[(index + 1) % demoReels.length];
+    setCurrent(next);
+  };
+
+  const togglePlayback = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
     }
-  ];
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleSelect = (reel: Reel) => {
+    setCurrent(reel);
+    setIsPlaying(true);
+  };
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      const playPromise = videoRef.current.play();
+      if (playPromise instanceof Promise) {
+        playPromise.catch(() => setIsPlaying(false));
+      }
+    }
+  }, [current, isPlaying]);
 
   return (
-    <div className="content">
-      <div className="icon">
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-        </svg>
-      </div>
-
-      <h2>Portal Médico</h2>
-      <p className="subtitle">Herramientas profesionales para médicos modernos</p>
-
-      <ul className="features-list">
-        {features.map((feature, index) => (
-          <li key={index}>
-            <span className="check">⚕️</span>
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      {/* Videos en miniatura */}
-      <div className="video-thumbnails">
-        <h3 className="video-title">Herramientas profesionales</h3>
-        <div className="thumbnail-grid">
-          {videoThumbnails.map((video, index) => (
-            <div key={index} className="thumbnail-card">
-              <div className="thumbnail-image">
-                <div className="play-button">▶</div>
-                <span className="duration">{video.duration}</span>
-              </div>
-              <p className="thumbnail-text">{video.title}</p>
+    <section className="doctors-portal" aria-label="Portal Médicos">
+      <div className="media-block">
+        <div className="reel-frame">
+          <video
+            key={current.video}
+            ref={videoRef}
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleVideoEnd}
+          >
+            <source src={current.video} type="video/mp4" />
+          </video>
+          <div className="reel-overlay">
+            <div className="reel-copy">
+              <span className="reel-badge">Demostración clínica</span>
+              <h3>{current.title}</h3>
+              <p>{current.description}</p>
             </div>
+            <button type="button" className="reel-control" onClick={togglePlayback}>
+              {isPlaying ? 'Pausa' : 'Reproducir'}
+            </button>
+          </div>
+        </div>
+        <div className="reel-strip" role="list">
+          {demoReels.map((reel) => (
+            <button
+              key={reel.video}
+              type="button"
+              onClick={() => handleSelect(reel)}
+              className={`reel-card ${reel.video === current.video ? 'active' : ''}`}
+              aria-pressed={reel.video === current.video}
+            >
+              <div className="card-header">
+                <span className="card-dot" />
+                <span className="card-duration">{reel.duration}</span>
+              </div>
+              <strong>{reel.title}</strong>
+              <span>{reel.description}</span>
+            </button>
           ))}
         </div>
       </div>
 
-      <div className="cta-buttons">
-        <a href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-primary">
-          Acceder como Médico
-        </a>
-        <a href={getAppUrl('/auth/login?portal=doctors', 'doctors')} className="btn btn-secondary">
-          Unirse a la Plataforma
-        </a>
+      <div className="content-block">
+        <header className="portal-head">
+          <div className="portal-title">
+            <span aria-hidden="true" className="symbol">⚕️</span>
+            <div>
+              <h2>Portal Médico</h2>
+              <p>Un workspace clínico diseñado para profesionales que necesitan precisión, velocidad y trazabilidad.</p>
+            </div>
+          </div>
+          <dl className="portal-metrics">
+            <div>
+              <dt>Tiempo medio por consulta</dt>
+              <dd>11 min</dd>
+            </div>
+            <div>
+              <dt>Protocolos activos</dt>
+              <dd>145</dd>
+            </div>
+            <div>
+              <dt>Prescripciones digitales</dt>
+              <dd>320K</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div className="information-grid">
+          <div className="tools" role="list">
+            {keyTools.map((tool) => (
+              <div key={tool} className="tool-card" role="listitem">
+                <span className="bullet" aria-hidden="true">▣</span>
+                <span>{tool}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="tech-panels">
+            <section>
+              <h3>Características técnicas</h3>
+              <div className="tech-list">
+                {techHighlights.map((item) => (
+                  <article key={item.title}>
+                    <h4>{item.title}</h4>
+                    <p>{item.detail}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+            <section>
+              <h3>Integraciones principales</h3>
+              <ul>
+                {integrations.map((integration) => (
+                  <li key={integration.name}>
+                    <span>{integration.name}</span>
+                    <p>{integration.detail}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        </div>
+
+        <div className="cta-row">
+          <a className="cta primary" href={getAppUrl('/auth/login?portal=doctors', 'doctors')}>
+            Acceder como Médico
+          </a>
+          <a className="cta secondary" href={getAppUrl('/auth/register?portal=doctors', 'doctors')}>
+            Solicitar demostración técnica
+          </a>
+        </div>
       </div>
 
       <style>{`
-        .content {
-          text-align: center;
-          max-width: 900px;
-          color: #000;
-          padding: 0;
+        .doctors-portal {
+          display: grid;
+          grid-template-rows: auto 1fr;
+          gap: 1.6rem;
           width: 100%;
+          height: 100%;
+          min-height: 100%;
+          padding: 2.2rem 3rem 1.9rem;
           box-sizing: border-box;
-          margin: 0 auto;
+          background: linear-gradient(135deg, #f2f2f2, #d8d8d8);
+          color: #111;
+          overflow: hidden;
         }
 
-        .icon {
-          margin-bottom: 0;
-          opacity: 0.9;
+        .media-block {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        h2 {
-          font-size: clamp(0.9rem, 2vw, 1.1rem);
-          margin-bottom: 0.1rem;
-          font-weight: 700;
-          background: linear-gradient(135deg, #0066CC, #004499);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          line-height: 0.9;
-          letter-spacing: -0.02em;
+        .reel-frame {
+          position: relative;
+          width: 100%;
+          min-height: 220px;
+          height: clamp(250px, 34vh, 380px);
+          border-radius: 16px;
+          overflow: hidden;
+          background: linear-gradient(135deg, #cbcbcb, #dedede);
+          border: 1px solid rgba(0,0,0,0.08);
         }
 
-        .subtitle {
-          font-size: clamp(0.6rem, 1vw, 0.7rem);
-          margin-bottom: 0.25rem;
-          opacity: 0.7;
-          color: #333;
-          line-height: 1;
-          max-width: 300px;
-          margin-left: auto;
-          margin-right: auto;
+        .reel-frame video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
-        .features-list {
-          list-style: none;
-          padding: 0;
-          margin: 0.1rem 0;
+        .reel-overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          padding: 1.6rem 1.8rem;
+          background: linear-gradient(180deg, rgba(15,15,15,0.15) 0%, rgba(10,10,10,0.65) 90%);
+          color: #f7f7f7;
+        }
+
+        .reel-copy h3 {
+          margin: 0.75rem 0 0;
+          font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+          font-weight: 600;
+        }
+
+        .reel-copy p {
+          margin: 0.4rem 0 0;
+          font-size: 1rem;
+          line-height: 1.5;
+          color: #dedede;
+          max-width: 420px;
+        }
+
+        .reel-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.75rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          background: rgba(255,255,255,0.18);
+          border: 1px solid rgba(255,255,255,0.3);
+          padding: 0.45rem 0.85rem;
+          border-radius: 999px;
+        }
+
+        .reel-control {
+          align-self: flex-start;
+          background: rgba(0,0,0,0.6);
+          border: 1px solid rgba(255,255,255,0.3);
+          color: #f1f1f1;
+          border-radius: 999px;
+          padding: 0.65rem 1.3rem;
+          font-size: 0.9rem;
+          letter-spacing: 0.04em;
+          cursor: pointer;
+        }
+
+        .reel-control:hover {
+          background: rgba(0,0,0,0.75);
+        }
+
+        .reel-strip {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+          gap: 0.75rem;
+        }
+
+        .reel-card {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
           text-align: left;
-          max-width: 250px;
-          margin-left: auto;
-          margin-right: auto;
+          padding: 1rem 1.3rem;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.7);
+          border: 1px solid rgba(0,0,0,0.08);
+          color: #1a1a1a;
+          cursor: pointer;
+          transition: all 0.25s ease;
         }
 
-        .features-list li {
-          padding: clamp(0.05rem, 0.3vw, 0.1rem) 0;
-          border-bottom: 1px solid rgba(0,0,0,0.1);
+        .reel-card strong {
+          font-size: 1rem;
+        }
+
+        .reel-card span {
+          font-size: 0.9rem;
+          color: #3e3e3e;
+        }
+
+        .reel-card:hover {
+          transform: translateY(-3px);
+          border-color: rgba(0,0,0,0.2);
+        }
+
+        .reel-card.active {
+          background: rgba(17,17,17,0.85);
+          color: #f7f7f7;
+          border-color: rgba(17,17,17,0.65);
+        }
+
+        .reel-card.active span {
+          color: #d8d8d8;
+        }
+
+        .card-header {
           display: flex;
           align-items: center;
-          gap: clamp(0.15rem, 0.3vw, 0.25rem);
-          transition: all 0.2s ease;
-          font-size: clamp(0.6rem, 0.9vw, 0.65rem);
-          line-height: 1;
+          justify-content: space-between;
+          font-size: 0.8rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
         }
 
-        .features-list li:hover {
-          padding-left: 0.5rem;
-          border-color: rgba(0, 102, 204, 0.3);
+        .card-dot {
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 50%;
+          background: #1a1a1a;
         }
 
-        .check {
-          font-size: 1.1rem;
+        .reel-card.active .card-dot {
+          background: #f7f7f7;
         }
 
-        .cta-buttons {
+        .card-duration {
+          color: #555;
+        }
+
+        .reel-card.active .card-duration {
+          color: #cfcfcf;
+        }
+
+        .content-block {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+          gap: 1.4rem;
+          overflow: hidden;
+        }
+
+        .portal-head {
           display: flex;
-          gap: 0.25rem;
-          justify-content: center;
-          margin-top: 0.25rem;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1.6rem;
           flex-wrap: wrap;
         }
 
-        .btn {
-          display: inline-block;
-          padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem);
-          text-decoration: none;
-          border-radius: 3px;
+        .portal-title {
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+          max-width: 620px;
+        }
+
+        .portal-title h2 {
+          margin: 0 0 0.5rem;
+          font-size: clamp(2.4rem, 4.6vw, 3.3rem);
+          letter-spacing: -0.02em;
+        }
+
+        .portal-title p {
+          margin: 0;
+          font-size: clamp(1rem, 1.8vw, 1.25rem);
+          color: #3a3a3a;
+          line-height: 1.45;
+        }
+
+        .symbol {
+          font-size: clamp(2rem, 3.6vw, 2.8rem);
+        }
+
+        .portal-metrics {
+          display: flex;
+          gap: 1.75rem;
+          flex-wrap: wrap;
+          margin: 0;
+        }
+
+        .portal-metrics div {
+          min-width: 150px;
+        }
+
+        .portal-metrics dt {
+          font-size: 0.85rem;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: #5a5a5a;
+          margin: 0 0 0.35rem;
+        }
+
+        .portal-metrics dd {
+          margin: 0;
+          font-size: clamp(1.5rem, 2.6vw, 2rem);
           font-weight: 600;
-          transition: all 0.3s ease;
+          color: #121212;
+        }
+
+        .information-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+          gap: 1.4rem;
+          align-items: stretch;
+          overflow: hidden;
+        }
+
+        .tools {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 0.75rem;
+          align-content: start;
+        }
+
+        .tool-card {
+          display: flex;
+          gap: 0.65rem;
+          align-items: flex-start;
+          padding: 0.9rem 1.15rem;
+          border-radius: 10px;
+          background: rgba(255,255,255,0.68);
+          border: 1px solid rgba(0,0,0,0.08);
+          font-size: 0.94rem;
+          line-height: 1.3;
+          color: #1e1e1e;
+          transition: border-color 0.2s ease;
+        }
+
+        .tool-card:hover {
+          border-color: rgba(0,0,0,0.22);
+        }
+
+        .bullet {
+          font-size: 1.1rem;
+          color: #222;
+          margin-top: 0.1rem;
+        }
+
+        .tech-panels {
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem;
+          background: rgba(255,255,255,0.82);
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 14px;
+          padding: 1.4rem;
+          min-height: 0;
+        }
+
+        .tech-panels h3 {
+          margin: 0 0 1rem;
+          font-size: clamp(1.3rem, 2vw, 1.7rem);
+        }
+
+        .tech-list {
+          display: grid;
+          gap: 0.75rem;
+        }
+
+        .tech-list article {
+          padding-bottom: 0.6rem;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .tech-list article:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .tech-list h4 {
+          margin: 0 0 0.35rem;
+          font-size: 1.02rem;
+          font-weight: 600;
+        }
+
+        .tech-list p {
+          margin: 0;
+          font-size: 0.9rem;
+          line-height: 1.5;
+          color: #3c3c3c;
+        }
+
+        .tech-panels ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          gap: 0.8rem;
+        }
+
+        .tech-panels li span {
+          display: block;
+          font-weight: 600;
+          font-size: 1rem;
+        }
+
+        .tech-panels li p {
+          margin: 0.35rem 0 0;
+          font-size: 0.9rem;
+          color: #3c3c3c;
+          line-height: 1.5;
+        }
+
+        .cta-row {
+          display: flex;
+          gap: 1.05rem;
+          flex-wrap: wrap;
+        }
+
+        .cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.85rem 2.3rem;
+          border-radius: 999px;
+          font-size: 0.98rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
           border: 1px solid transparent;
-          font-size: clamp(0.55rem, 0.8vw, 0.6rem);
-          white-space: nowrap;
+          transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .btn-primary {
-          background: linear-gradient(135deg, #0066CC, #004499);
-          color: #fff;
+        .cta.primary {
+          background: #1b1b1b;
+          color: #f8f8f8;
         }
 
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
-        }
-
-        .btn-secondary {
+        .cta.secondary {
           background: transparent;
-          color: #0066CC;
-          border-color: rgba(0, 102, 204, 0.3);
+          border-color: rgba(0,0,0,0.35);
+          color: #1b1b1b;
         }
 
-        .btn-secondary:hover {
-          background: rgba(0, 102, 204, 0.1);
-          border-color: #0066CC;
+        .cta:hover {
+          transform: translateY(-2px);
+        }
+
+        .cta.secondary:hover {
+          border-color: rgba(0,0,0,0.55);
+        }
+
+        @media (max-width: 1520px) {
+          .tools {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 1280px) {
+          .doctors-portal {
+            padding: 2rem 2.5rem 1.8rem;
+          }
+
+          .information-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .tools {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
         }
 
         @media (max-width: 768px) {
-          .cta-buttons {
+          .doctors-portal {
+            padding: 1.8rem 1.45rem 1.6rem;
+          }
+
+          .reel-frame {
+            height: 220px;
+          }
+
+          .reel-strip {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .portal-head {
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
           }
 
-          .btn {
+          .cta-row {
+            flex-direction: column;
+          }
+
+          .cta {
             width: 100%;
-            max-width: 280px;
           }
         }
 
-        /* Videos en miniatura */
-        .video-thumbnails {
-          margin: 0.25rem 0;
-          padding: 0.15rem;
-          background: rgba(0, 102, 204, 0.05);
-          border-radius: 3px;
-          border: 1px solid rgba(0, 102, 204, 0.1);
-        }
-
-        .video-title {
-          font-size: clamp(0.65rem, 1.2vw, 0.7rem);
-          font-weight: 600;
-          color: #0066CC;
-          margin-bottom: 0.15rem;
-          text-align: center;
-        }
-
-        .thumbnail-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: clamp(0.2rem, 0.8vw, 0.3rem);
-          max-width: 250px;
-          margin: 0 auto;
-        }
-
-        .thumbnail-card {
-          background: rgba(0, 102, 204, 0.08);
-          border-radius: 8px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          cursor: pointer;
-          border: 1px solid rgba(0, 102, 204, 0.1);
-        }
-
-        .thumbnail-card:hover {
-          transform: translateY(-3px);
-          background: rgba(0, 102, 204, 0.15);
-          box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2);
-          border-color: #0066CC;
-        }
-
-        .thumbnail-image {
-          position: relative;
-          aspect-ratio: 16/9;
-          background: linear-gradient(135deg, #e8f4fd, #d4edda);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-bottom: 1px solid rgba(0, 102, 204, 0.1);
-        }
-
-        .play-button {
-          width: 18px;
-          height: 18px;
-          background: #0066CC;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 8px;
-          font-weight: bold;
-          transition: all 0.3s ease;
-          box-shadow: 0 1px 3px rgba(0, 102, 204, 0.3);
-        }
-
-        .thumbnail-card:hover .play-button {
-          transform: scale(1.1);
-          background: #004499;
-          box-shadow: 0 2px 6px rgba(0, 102, 204, 0.4);
-        }
-
-        .duration {
-          position: absolute;
-          bottom: 8px;
-          right: 8px;
-          background: rgba(0, 0, 0, 0.8);
-          color: #fff;
-          padding: 2px 6px;
-          border-radius: 4px;
-          font-size: 0.75rem;
-          font-weight: 500;
-        }
-
-        .thumbnail-text {
-          padding: 0.1rem 0.15rem;
-          font-size: clamp(0.5rem, 0.7vw, 0.55rem);
-          font-weight: 500;
-          color: #333;
-          text-align: center;
-          margin: 0;
-          line-height: 0.9;
-        }
-
-        @media (max-width: 480px) {
-          .thumbnail-grid {
+        @media (max-width: 540px) {
+          .reel-strip {
             grid-template-columns: 1fr;
-            max-width: 300px;
           }
 
-          .video-thumbnails {
-            padding: 0.75rem;
-            margin: 1rem 0;
+          .tools {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
-    </div>
+    </section>
   );
 }

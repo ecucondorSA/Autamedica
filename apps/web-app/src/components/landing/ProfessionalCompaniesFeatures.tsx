@@ -1,308 +1,599 @@
 'use client';
 
-// import Link from 'next/link';
 import { getAppUrl } from '@/lib/env';
 
+const plans = [
+  {
+    name: 'Essential',
+    headcount: 'Hasta 200 colaboradores',
+    detail: 'Cobertura médica integral con seguimiento preventivo.',
+    services: [
+      'Telemedicina corporativa 24/7',
+      'Programas de bienestar trimestrales',
+      'Dashboard ejecutivo en tiempo real'
+    ]
+  },
+  {
+    name: 'Growth',
+    headcount: '200 a 1000 colaboradores',
+    detail: 'Incluye analítica avanzada y campañas de prevención segmentadas.',
+    services: [
+      'Métricas de productividad y ausentismo',
+      'Integración con RR.HH. y payroll',
+      'Clínica virtual exclusiva para la empresa'
+    ]
+  },
+  {
+    name: 'Enterprise',
+    headcount: '+1000 colaboradores',
+    detail: 'Implementación dedicada con soporte on-site y SLA personalizados.',
+    services: [
+      'Gerente médico asignado',
+      'Programas de riesgo específicos',
+      'Reportes financieros y regulatorios'
+    ]
+  }
+];
+
+const productivityMetrics = [
+  { label: 'Reducción de ausentismo', value: '18%' },
+  { label: 'Retorno sobre inversión', value: '3.5x' },
+  { label: 'Adopción de la plataforma', value: '92%' }
+];
+
+const supportHighlights = [
+  {
+    title: 'Soporte dedicado',
+    description: 'Equipo médico y de operaciones asignado a cada cuenta corporativa.'
+  },
+  {
+    title: 'Onboarding express',
+    description: 'Integraciones técnicas en menos de 10 días sin interrumpir operaciones.'
+  },
+  {
+    title: 'Cumplimiento normativo',
+    description: 'Auditorías periódicas y reportes regulatorios listos para presentar.'
+  }
+];
+
+const corporateSolutions = [
+  'Campañas de prevención específicas por población',
+  'Alertas inteligentes sobre factores de riesgo',
+  'Beneficios integrados con programas de bienestar',
+  'Reportes comparativos por sede y región'
+];
+
 export default function ProfessionalCompaniesFeatures() {
-  const features = [
-    'Dashboard empresarial completo',
-    'Gestión de empleados médica',
-    'Reportes de salud corporativa',
-    'Programas de bienestar',
-    'Medicina ocupacional',
-    'Integraciones con RRHH',
-    'Análisis de costos médicos',
-    'Compliance regulatorio'
-  ];
-
-  const videoThumbnails = [
-    {
-      title: 'Dashboard Empresarial',
-      thumbnail: '/videos/company-thumb1.jpg',
-      duration: '4:15'
-    },
-    {
-      title: 'Medicina Ocupacional',
-      thumbnail: '/videos/company-thumb2.jpg',
-      duration: '3:40'
-    }
-  ];
-
   return (
-    <div className="content">
-      <div className="icon">
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M3 21h18" />
-          <path d="M5 21V7l8-4v18" />
-          <path d="M19 21V11l-6-4" />
-        </svg>
-      </div>
-
-      <h2>Portal Empresarial</h2>
-      <p className="subtitle">Soluciones de salud corporativa integrales</p>
-
-      <ul className="features-list">
-        {features.map((feature, index) => (
-          <li key={index}>
-            <span className="check">🏢</span>
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      {/* Videos en miniatura */}
-      <div className="video-thumbnails">
-        <h3 className="video-title">Soluciones corporativas</h3>
-        <div className="thumbnail-grid">
-          {videoThumbnails.map((video, index) => (
-            <div key={index} className="thumbnail-card">
-              <div className="thumbnail-image">
-                <div className="play-button">▶</div>
-                <span className="duration">{video.duration}</span>
-              </div>
-              <p className="thumbnail-text">{video.title}</p>
+    <section className="companies-portal" aria-label="Portal Empresas">
+      <div className="media-header">
+        <div className="corporate-video">
+          <video autoPlay muted loop playsInline>
+            <source src="/videos/Video_Listo_.mp4" type="video/mp4" />
+          </video>
+          <div className="video-caption">
+            <div>
+              <span className="video-badge">Estrategia corporativa</span>
+              <h3>Salud ocupacional sin fricciones</h3>
+              <p>
+                Panel ejecutivo unificado con métricas de productividad, campañas preventivas y soporte 24/7
+                para cada colaborador.
+              </p>
             </div>
-          ))}
+            <div className="video-metrics">
+              {productivityMetrics.map((metric) => (
+                <div key={metric.label}>
+                  <span className="metric-value">{metric.value}</span>
+                  <span className="metric-label">{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="cta-buttons">
-        <a href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-primary">
-          Acceso Empresarial
-        </a>
-        <a href={getAppUrl('/auth/login?portal=companies', 'companies')} className="btn btn-secondary">
-          Solicitar Demo
-        </a>
+      <div className="portal-body">
+        <header className="portal-header">
+          <div className="title-block">
+            <span className="icon" aria-hidden="true">🏢</span>
+            <div>
+              <h2>Portal Empresas</h2>
+              <p>
+                Diseñado para RR.HH. y áreas médicas corporativas que necesitan datos confiables, planes
+                escalables y soporte inmediato.
+              </p>
+            </div>
+          </div>
+          <ul className="solutions" role="list">
+            {corporateSolutions.map((item) => (
+              <li key={item} role="listitem">
+                <span className="mark" aria-hidden="true">▧</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </header>
+
+        <div className="plan-grid plans-grid">
+          {plans.map((plan) => (
+            <article key={plan.name} className="plan-card">
+              <div className="plan-head">
+                <h3>{plan.name}</h3>
+                <span>{plan.headcount}</span>
+              </div>
+              <p className="plan-detail">{plan.detail}</p>
+              <ul>
+                {plan.services.map((service) => (
+                  <li key={service}>{service}</li>
+                ))}
+              </ul>
+              <a className="plan-link" href={getAppUrl(`/contact?plan=${plan.name.toLowerCase()}`, 'companies')}>
+                Solicitar propuesta
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div className="plan-popover">
+          <div className="plan-popover-grid">
+            <div className="support-copy">
+              <h3>Soporte dedicado y administrativo</h3>
+              <p>
+                Cada empresa cuenta con un gerente médico, analistas de datos y un equipo de soporte operativo que
+                monitorea indicadores críticos de salud ocupacional.
+              </p>
+            </div>
+            <div className="support-grid">
+              {supportHighlights.map((highlight) => (
+                <article key={highlight.title}>
+                  <h4>{highlight.title}</h4>
+                  <p>{highlight.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="cta-row">
+          <a className="cta primary" href={getAppUrl('/auth/login?portal=companies', 'companies')}>
+            Acceso Portal Empresas
+          </a>
+          <a className="cta secondary" href={getAppUrl('/contact/demo', 'companies')}>
+            Agenda una reunión ejecutiva
+          </a>
+        </div>
       </div>
 
       <style>{`
-        .content {
-          text-align: center;
-          max-width: 900px;
-          color: #fff;
-          padding: 0;
+        .companies-portal {
+          display: grid;
+          grid-template-rows: auto 1fr;
+          gap: 1.6rem;
           width: 100%;
+          height: 100%;
+          min-height: 100%;
+          padding: 2.2rem 3rem 1.9rem;
           box-sizing: border-box;
-          margin: 0 auto;
+          background: linear-gradient(135deg, #111111, #1a1a1a);
+          color: var(--au-text-primary);
+          overflow: hidden;
         }
 
-        .icon {
-          margin-bottom: 0;
-          opacity: 0.9;
+        .media-header {
+          width: 100%;
         }
 
-        h2 {
-          font-size: clamp(0.9rem, 2vw, 1.1rem);
-          margin-bottom: 0.1rem;
-          font-weight: 700;
-          background: linear-gradient(135deg, #FF6B35, #F7931E);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          line-height: 0.9;
-          letter-spacing: -0.02em;
+        .corporate-video {
+          position: relative;
+          width: 100%;
+          min-height: 220px;
+          height: clamp(250px, 34vh, 380px);
+          border-radius: 16px;
+          overflow: hidden;
+          border: 1px solid var(--au-border);
+          background: linear-gradient(135deg, #1c1c1c, #232323);
         }
 
-        .subtitle {
-          font-size: clamp(0.6rem, 1vw, 0.7rem);
-          margin-bottom: 0.25rem;
-          opacity: 0.8;
-          color: #e5e7eb;
-          line-height: 1;
-          max-width: 300px;
-          margin-left: auto;
-          margin-right: auto;
+        .corporate-video video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
-        .features-list {
-          list-style: none;
-          padding: 0;
-          margin: 0.1rem 0;
-          text-align: left;
-          max-width: 250px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .features-list li {
-          padding: clamp(0.05rem, 0.3vw, 0.1rem) 0;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
+        .video-caption {
+          position: absolute;
+          inset: 0;
           display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          padding: 1.5rem 1.8rem;
+          background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.82) 92%);
+          gap: 1.45rem;
+        }
+
+        .video-caption h3 {
+          margin: 0.7rem 0 0;
+          font-size: clamp(1.55rem, 2.3vw, 2rem);
+          font-weight: 600;
+        }
+
+        .video-caption p {
+          margin: 0.45rem 0 0;
+          font-size: 0.96rem;
+          line-height: 1.45;
+          color: var(--au-text-secondary);
+          max-width: 440px;
+        }
+
+        .video-badge {
+          display: inline-flex;
           align-items: center;
-          gap: clamp(0.15rem, 0.3vw, 0.25rem);
-          transition: all 0.2s ease;
-          font-size: clamp(0.6rem, 0.9vw, 0.65rem);
-          line-height: 1;
+          gap: 0.35rem;
+          font-size: 0.74rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          background: rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.22);
+          padding: 0.42rem 0.8rem;
+          border-radius: 999px;
         }
 
-        .features-list li:hover {
-          padding-left: 0.5rem;
-          border-color: rgba(255, 107, 53, 0.3);
-        }
-
-        .check {
-          font-size: 1.1rem;
-        }
-
-        .cta-buttons {
+        .video-metrics {
           display: flex;
-          gap: 0.25rem;
-          justify-content: center;
-          margin-top: 0.25rem;
+          gap: 1.3rem;
           flex-wrap: wrap;
         }
 
-        .btn {
-          display: inline-block;
-          padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem);
-          text-decoration: none;
-          border-radius: 3px;
+        .video-metrics div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.28rem;
+          min-width: 110px;
+        }
+
+        .metric-value {
+          font-size: clamp(1.5rem, 2.4vw, 2.1rem);
           font-weight: 600;
-          transition: all 0.3s ease;
+        }
+
+        .metric-label {
+          font-size: 0.82rem;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: var(--au-text-secondary);
+        }
+
+        .portal-body {
+          position: relative;
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+          gap: 1.4rem;
+          overflow: hidden;
+          padding-bottom: 7rem;
+        }
+
+        .portal-header {
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+          gap: 1.4rem;
+          align-items: start;
+        }
+
+        .title-block {
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .title-block h2 {
+          margin: 0 0 0.45rem;
+          font-size: clamp(2.4rem, 4.6vw, 3.3rem);
+          letter-spacing: -0.02em;
+        }
+
+        .title-block p {
+          margin: 0;
+          font-size: clamp(1rem, 1.8vw, 1.25rem);
+          color: var(--au-text-secondary);
+          line-height: 1.42;
+          max-width: 520px;
+        }
+
+        .icon {
+          font-size: clamp(2rem, 3.6vw, 2.8rem);
+        }
+
+        .solutions {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.9rem;
+        }
+
+        .solutions li {
+          display: flex;
+          gap: 0.65rem;
+          align-items: flex-start;
+          font-size: 1rem;
+          color: var(--au-text-secondary);
+        }
+
+        .mark {
+          font-size: 1.08rem;
+          color: var(--au-accent);
+          margin-top: 0.12rem;
+        }
+
+        .plan-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 1.2rem;
+          min-height: 0;
+        }
+
+        .plans-grid {
+          position: relative;
+          z-index: 1;
+        }
+
+        .plan-card {
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+          background: rgba(18,18,18,0.83);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px;
+          padding: 1.6rem;
+          min-height: 100%;
+          isolation: isolate;
+        }
+
+        .plan-head {
+          display: flex;
+          flex-direction: column;
+          gap: 0.32rem;
+        }
+
+        .plan-head h3 {
+          margin: 0;
+          font-size: clamp(1.3rem, 2vw, 1.7rem);
+        }
+
+        .plan-head span {
+          font-size: 0.88rem;
+          color: var(--au-text-tertiary);
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
+
+        .plan-detail {
+          margin: 0;
+          font-size: 0.88rem;
+          color: var(--au-text-secondary);
+          line-height: 1.45;
+        }
+
+        .plan-card ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          gap: 0.55rem;
+          font-size: 0.88rem;
+          color: var(--au-text-secondary);
+        }
+
+        .plan-card li::before {
+          content: '—';
+          margin-right: 0.45rem;
+          color: var(--au-accent);
+        }
+
+        .plan-link {
+          margin-top: auto;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.8rem 2.2rem;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.16);
+          color: var(--au-text-primary);
+          font-weight: 600;
+          letter-spacing: 0.04em;
+        }
+
+        .plan-link:hover {
+          border-color: rgba(255,255,255,0.32);
+        }
+
+        .plan-popover {
+          position: absolute;
+          inset: auto 0 0 0;
+          z-index: 3;
+          background: #141415;
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 16px;
+          mix-blend-mode: normal;
+          overflow: hidden;
+          padding: 1.5rem 1.8rem;
+        }
+
+        .plan-popover-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+          gap: 1.4rem;
+          align-items: start;
+        }
+
+        .plan-popover h3,
+        .plan-popover p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .support-copy h3 {
+          margin: 0 0 0.65rem;
+          font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+        }
+
+        .support-copy p {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.5;
+          color: var(--au-text-secondary);
+        }
+
+        .support-grid {
+          display: grid;
+          gap: 0.9rem;
+          overflow-y: auto;
+          padding-right: 0.4rem;
+          scrollbar-width: thin;
+        }
+        .support-grid::-webkit-scrollbar{ width: 6px; }
+        .support-grid::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+        .support-grid article {
+          background: rgba(10,10,10,0.72);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px;
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.45rem;
+        }
+
+        .support-grid h4 {
+          margin: 0;
+          font-size: 1.05rem;
+        }
+
+        .support-grid p {
+          margin: 0;
+          font-size: 0.9rem;
+          color: var(--au-text-secondary);
+          line-height: 1.42;
+        }
+
+        .cta-row {
+          display: flex;
+          gap: 1.05rem;
+          flex-wrap: wrap;
+        }
+
+        .cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.85rem 2.3rem;
+          border-radius: 999px;
+          font-size: 0.98rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
           border: 1px solid transparent;
-          font-size: clamp(0.55rem, 0.8vw, 0.6rem);
-          white-space: nowrap;
+          transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .btn-primary {
-          background: linear-gradient(135deg, #FF6B35, #F7931E);
-          color: #fff;
+        .cta.primary {
+          background: var(--au-accent);
+          color: #111;
         }
 
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
-        }
-
-        .btn-secondary {
+        .cta.secondary {
           background: transparent;
-          color: #fff;
-          border-color: rgba(255,255,255,0.3);
+          border-color: rgba(255,255,255,0.25);
+          color: var(--au-text-primary);
         }
 
-        .btn-secondary:hover {
-          background: rgba(255,255,255,0.1);
-          border-color: #fff;
+        .cta:hover {
+          transform: translateY(-2px);
+        }
+
+        .cta.secondary:hover {
+          border-color: rgba(255,255,255,0.38);
+        }
+
+        @media (max-width: 1520px) {
+          .plan-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 1280px) {
+          .companies-portal {
+            padding: 2rem 2.5rem 1.8rem;
+          }
+
+          .portal-header {
+            grid-template-columns: 1fr;
+          }
+
+          .solutions {
+            grid-template-columns: 1fr;
+          }
+
+          .plan-popover-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .plan-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .portal-body {
+            padding-bottom: 2.5rem;
+          }
+
+          .plan-popover {
+            position: static;
+            margin-top: 1.5rem;
+            border-radius: 14px;
+          }
+        }
+
+        @media (max-width: 820px) {
+          .plan-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         @media (max-width: 768px) {
-          .cta-buttons {
+          .companies-portal {
+            padding: 1.8rem 1.45rem 1.6rem;
+          }
+
+          .corporate-video {
+            height: 220px;
+          }
+
+          .video-caption {
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
           }
 
-          .btn {
+          .cta-row {
+            flex-direction: column;
+          }
+
+          .cta {
             width: 100%;
-            max-width: 280px;
-          }
-        }
-
-        /* Videos en miniatura */
-        .video-thumbnails {
-          margin: 0.25rem 0;
-          padding: 0.15rem;
-          background: rgba(255, 107, 53, 0.05);
-          border-radius: 3px;
-          border: 1px solid rgba(255, 107, 53, 0.1);
-        }
-
-        .video-title {
-          font-size: clamp(0.65rem, 1.2vw, 0.7rem);
-          font-weight: 600;
-          color: #FF6B35;
-          margin-bottom: 0.15rem;
-          text-align: center;
-        }
-
-        .thumbnail-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: clamp(0.2rem, 0.8vw, 0.3rem);
-          max-width: 250px;
-          margin: 0 auto;
-        }
-
-        .thumbnail-card {
-          background: rgba(255, 107, 53, 0.08);
-          border-radius: 8px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          cursor: pointer;
-          border: 1px solid rgba(255, 107, 53, 0.1);
-        }
-
-        .thumbnail-card:hover {
-          transform: translateY(-3px);
-          background: rgba(255, 107, 53, 0.15);
-          box-shadow: 0 8px 20px rgba(255, 107, 53, 0.2);
-          border-color: #FF6B35;
-        }
-
-        .thumbnail-image {
-          position: relative;
-          aspect-ratio: 16/9;
-          background: linear-gradient(135deg, #fff5f0, #ffe8d6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-bottom: 1px solid rgba(255, 107, 53, 0.1);
-        }
-
-        .play-button {
-          width: 18px;
-          height: 18px;
-          background: #FF6B35;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 8px;
-          font-weight: bold;
-          transition: all 0.3s ease;
-          box-shadow: 0 1px 3px rgba(255, 107, 53, 0.3);
-        }
-
-        .thumbnail-card:hover .play-button {
-          transform: scale(1.1);
-          background: #F7931E;
-          box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);
-        }
-
-        .duration {
-          position: absolute;
-          bottom: 8px;
-          right: 8px;
-          background: rgba(0, 0, 0, 0.8);
-          color: #fff;
-          padding: 2px 6px;
-          border-radius: 4px;
-          font-size: 0.75rem;
-          font-weight: 500;
-        }
-
-        .thumbnail-text {
-          padding: 0.1rem 0.15rem;
-          font-size: clamp(0.5rem, 0.7vw, 0.55rem);
-          font-weight: 500;
-          color: #fff;
-          text-align: center;
-          margin: 0;
-          line-height: 0.9;
-        }
-
-        @media (max-width: 480px) {
-          .thumbnail-grid {
-            grid-template-columns: 1fr;
-            max-width: 300px;
           }
 
-          .video-thumbnails {
-            padding: 0.75rem;
-            margin: 1rem 0;
+          .portal-body {
+            padding-bottom: 2rem;
           }
         }
       `}</style>
-    </div>
+    </section>
   );
 }

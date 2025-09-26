@@ -132,14 +132,14 @@ export default function CompaniesHomePage() {
   return (
     <div className="p-6 space-y-6">
       {/* Section Navigation */}
-      <div className="bg-gray-800 border border-gray-600 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
         <div className="flex items-center space-x-4">
           <button
             onClick={() => setActiveSection('crisis')}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
               activeSection === 'crisis'
-                ? 'bg-red-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                ? 'bg-gray-800 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             <AlertTriangle className="w-5 h-5" />
@@ -149,13 +149,13 @@ export default function CompaniesHomePage() {
             onClick={() => setActiveSection('marketplace')}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
               activeSection === 'marketplace'
-                ? 'bg-orange-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                ? 'bg-gray-800 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             <Briefcase className="w-5 h-5" />
             <span>Marketplace Médico</span>
-            <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold">HOT</span>
+            <span className="bg-gray-500 text-white text-xs px-2 py-1 rounded-full font-bold">HOT</span>
           </button>
         </div>
       </div>
@@ -164,18 +164,18 @@ export default function CompaniesHomePage() {
       {activeSection === 'crisis' && (
         <>
           {/* Crisis Overview Header */}
-          <div className="bg-gray-800 border border-red-600 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-2xl font-bold text-white flex items-center space-x-2">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <h1 className="text-2xl font-bold text-gray-800 flex items-center space-x-2">
+                <AlertTriangle className="w-6 h-6 text-gray-600" />
                 <span>Centro de Control de Crisis</span>
               </h1>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                  <span className="text-red-400 font-medium">ALERTA ACTIVA</span>
+                  <div className="w-3 h-3 bg-gray-600 rounded-full animate-pulse"></div>
+                  <span className="text-gray-600 font-medium">ALERTA ACTIVA</span>
                 </div>
-                <div className="text-gray-400 font-mono">
+                <div className="text-gray-500 font-mono">
                   {currentTime.toLocaleTimeString()}
                 </div>
               </div>

@@ -1,0 +1,19 @@
+# Cloudflare Workers configuration for HTTP-based signaling server
+name = "autamedica-http-signaling-server"
+main = "src/worker.js"
+compatibility_date = "2024-09-20"
+
+[env.production]
+name = "autamedica-http-signaling-server"
+
+[env.staging]
+name = "autamedica-http-signaling-server-staging"
+
+# Environment variables
+[vars]
+SIGNALING_MODE = "http"
+API_VERSION = "v1"
+
+# Optional: Schedule cleanup job
+[triggers]
+crons = ["*/30 * * * *"]  # Every 30 seconds

@@ -36,20 +36,37 @@ bucket_name = "autamedica-shared-assets"
 preview_bucket_name = "autamedica-shared-assets-preview"
 
 # Routes configuration for authentication flow
-[routes]
-# Exclude static assets from authentication
-exclude = [
-  "/_next/*",
-  "/static/*",
-  "/*.ico",
-  "/*.png",
-  "/*.jpg",
-  "/*.svg",
-  "/api/health"
-]
+[[routes]]
+pattern = "/_next/*"
+zone_id = ""
 
-# Include authentication check for all other routes
-include = ["/*"]
+[[routes]]
+pattern = "/static/*"
+zone_id = ""
+
+[[routes]]
+pattern = "/*.ico"
+zone_id = ""
+
+[[routes]]
+pattern = "/*.png"
+zone_id = ""
+
+[[routes]]
+pattern = "/*.jpg"
+zone_id = ""
+
+[[routes]]
+pattern = "/*.svg"
+zone_id = ""
+
+[[routes]]
+pattern = "/api/health"
+zone_id = ""
+
+[[routes]]
+pattern = "/*"
+zone_id = ""
 
 # Environment-specific configurations
 [env.production]
