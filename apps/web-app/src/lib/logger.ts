@@ -1,5 +1,18 @@
-const runtimeEnv = process.env.NEXT_PUBLIC_NODE_ENV ?? process.env.NODE_ENV ?? 'development';
-const isProductionBuild = runtimeEnv === 'production';
+import { ensureClientEnv, ensureEnv } from '@autamedica/shared'
+
+const runtimeEnv = (() => {
+  try {
+    return ensureClientEnv('NEXT_PUBLIC_NODE_ENV')
+  } catch {
+    try {
+      return ensureEnv('NODE_ENV')
+    } catch {
+      return 'development'
+    }
+  }
+})()
+
+const isProductionBuild = runtimeEnv === 'production'
 
 export function logDebug(...args: unknown[]): void {
   if (!isProductionBuild) {

@@ -5,7 +5,7 @@ import type { JSX } from 'react'
 import { WebRTCClient, type ConnectionState, type MediaConstraints } from './webrtc-client'
 import {
   Video, VideoOff, Mic, MicOff, PhoneOff, Phone, Users,
-  ScreenShare, ScreenShareOff, Loader2, Activity, Camera
+  ScreenShare, ScreenShareOff, Loader2, Camera
 } from 'lucide-react'
 
 export interface UnifiedVideoCallProps {

@@ -10,7 +10,7 @@ export class HttpSignalingAPI {
     this.userSessions = new Map() // userId -> { roomId, lastPing, userType }
   }
 
-  async handleRequest(request, env) {
+  async handleRequest(request, _env) {
     const url = new URL(request.url)
     const pathname = url.pathname
     const method = request.method

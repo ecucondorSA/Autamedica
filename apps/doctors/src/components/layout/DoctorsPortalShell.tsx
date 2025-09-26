@@ -69,18 +69,6 @@ function getInitials(name: string): string {
   )
 }
 
-function TabPlaceholder({ label }: { label: string }): JSX.Element {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-3 bg-[#111b2e] text-center text-slate-300">
-      <span className="text-4xl">🛠️</span>
-      <div>
-        <p className="text-lg font-semibold">{label}</p>
-        <p className="text-sm text-slate-400">Esta sección estará disponible próximamente.</p>
-      </div>
-    </div>
-  )
-}
-
 export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('video-call')
   const [userName, setUserName] = useState(FALLBACK_USER)

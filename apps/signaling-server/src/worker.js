@@ -8,11 +8,8 @@ import { HttpSignalingAPI } from './http-api.js'
 // Global instance of HTTP API
 const httpApi = new HttpSignalingAPI()
 
-// Schedule cleanup every 30 seconds
-const CLEANUP_INTERVAL = 30000
-
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env, _ctx) {
     const { pathname } = new URL(request.url)
 
     // Handle all HTTP API routes
@@ -76,7 +73,7 @@ export default {
   },
 
   // Optional: Schedule periodic cleanup
-  async scheduled(controller, env, ctx) {
+  async scheduled(_controller, _env, ctx) {
     ctx.waitUntil(httpApi.cleanup())
   }
 }

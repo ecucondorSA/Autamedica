@@ -68,7 +68,7 @@ export default function ProfessionalPatientsFeatures() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoEnd = () => {
-    const currentIndex = playlist.findIndex((item) => item.video === currentVideo.video);
+    const currentIndex = playlist.findIndex((item) => item.video === currentVideo?.video);
     const nextItem = playlist[(currentIndex + 1) % playlist.length];
     setCurrentVideo(nextItem);
   };
@@ -103,19 +103,19 @@ export default function ProfessionalPatientsFeatures() {
       <div className="media-zone">
         <div className="video-frame">
           <video
-            key={currentVideo.video}
+            key={currentVideo?.video}
             ref={videoRef}
             autoPlay
             muted
             playsInline
             onEnded={handleVideoEnd}
           >
-            <source src={currentVideo.video} type="video/mp4" />
+            <source src={currentVideo?.video} type="video/mp4" />
           </video>
           <div className="video-overlay">
             <div>
               <span className="badge">Historias reales</span>
-              <h3>{currentVideo.title}</h3>
+              <h3>{currentVideo?.title}</h3>
             </div>
             <button type="button" onClick={togglePlayback} className="control" aria-label="Controlar reproducción">
               {isPlaying ? 'Pausa' : 'Reproducir'}
@@ -128,8 +128,8 @@ export default function ProfessionalPatientsFeatures() {
               key={item.video}
               type="button"
               onClick={() => handleSelect(item)}
-              className={`playlist-item ${item.video === currentVideo.video ? 'active' : ''}`}
-              aria-pressed={item.video === currentVideo.video}
+              className={`playlist-item ${item.video === currentVideo?.video ? 'active' : ''}`}
+              aria-pressed={item.video === currentVideo?.video}
             >
               <div className="item-head">
                 <span className="dot" />

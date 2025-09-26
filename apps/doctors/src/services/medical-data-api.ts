@@ -3,6 +3,7 @@
  * Reemplaza las consultas directas a Supabase con endpoints HTTP
  */
 
+import { ensureClientEnv } from '@autamedica/shared'
 import type {
   VitalSigns,
   MedicalRecord,
@@ -13,7 +14,7 @@ import type {
   PrescriptionFilters
 } from '@/types/medical'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'
+const API_BASE_URL = ensureClientEnv('NEXT_PUBLIC_API_URL')
 
 // Cliente HTTP base para todas las requests
 class MedicalDataAPI {
@@ -210,8 +211,9 @@ class MedicalDataAPI {
         }
 
         if (filters.medication_name) {
+          const searchTerm = filters.medication_name.toLowerCase()
           filteredPrescriptions = filteredPrescriptions.filter(p =>
-            p.medication_name.toLowerCase().includes(filters.medication_name!.toLowerCase())
+            p.medication_name.toLowerCase().includes(searchTerm)
           )
         }
 

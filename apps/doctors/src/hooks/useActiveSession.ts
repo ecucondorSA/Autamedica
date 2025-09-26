@@ -3,7 +3,6 @@
  */
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase'
 import type { UUID } from '@/types/medical'
 import { DEMO_PATIENT_ID } from '@/data/demoData'
 

@@ -8,8 +8,7 @@ import type {
   Prescription,
   UsePrescriptionsResult,
   UUID,
-  PrescriptionFilters,
-  PrescriptionStatus
+  PrescriptionFilters
 } from '@/types/medical'
 
 interface UsePrescriptionsOptions {
@@ -156,10 +155,6 @@ export function usePrescriptions(
       throw err
     }
   }, [])
-
-  const refresh = useCallback(async () => {
-    await fetchPrescriptions()
-  }, [fetchPrescriptions])
 
   useEffect(() => {
     fetchPrescriptions()

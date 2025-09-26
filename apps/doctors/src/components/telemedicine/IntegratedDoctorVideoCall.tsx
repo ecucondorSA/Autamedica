@@ -150,7 +150,9 @@ export default function IntegratedDoctorVideoCall({
               <span>|</span>
               <span className="text-blue-400">45ms</span>
               <span>|</span>
-              <span className="text-green-400">Estable</span>
+              <span className={isConnected ? 'text-green-400' : 'text-yellow-400'}>
+                {isConnected ? 'Conectado' : 'Conectando...'}
+              </span>
             </div>
           </div>
         )}
@@ -162,6 +164,7 @@ export default function IntegratedDoctorVideoCall({
           <div>
             <h3 className="text-white font-semibold">{patientData.name}</h3>
             <p className="text-gray-400">{patientData.age} años • Consulta General</p>
+            <p className="text-gray-500 text-xs">Sesión: {sessionId}</p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="text-center">

@@ -78,7 +78,7 @@ export default function ProfessionalDoctorsFeatures() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoEnd = () => {
-    const index = demoReels.findIndex((reel) => reel.video === current.video);
+    const index = demoReels.findIndex((reel) => reel.video === current?.video);
     const next = demoReels[(index + 1) % demoReels.length];
     setCurrent(next);
   };
@@ -113,20 +113,20 @@ export default function ProfessionalDoctorsFeatures() {
       <div className="media-block">
         <div className="reel-frame">
           <video
-            key={current.video}
+            key={current?.video}
             ref={videoRef}
             autoPlay
             muted
             playsInline
             onEnded={handleVideoEnd}
           >
-            <source src={current.video} type="video/mp4" />
+            <source src={current?.video} type="video/mp4" />
           </video>
           <div className="reel-overlay">
             <div className="reel-copy">
               <span className="reel-badge">Demostración clínica</span>
-              <h3>{current.title}</h3>
-              <p>{current.description}</p>
+              <h3>{current?.title}</h3>
+              <p>{current?.description}</p>
             </div>
             <button type="button" className="reel-control" onClick={togglePlayback}>
               {isPlaying ? 'Pausa' : 'Reproducir'}
@@ -139,8 +139,8 @@ export default function ProfessionalDoctorsFeatures() {
               key={reel.video}
               type="button"
               onClick={() => handleSelect(reel)}
-              className={`reel-card ${reel.video === current.video ? 'active' : ''}`}
-              aria-pressed={reel.video === current.video}
+              className={`reel-card ${reel.video === current?.video ? 'active' : ''}`}
+              aria-pressed={reel.video === current?.video}
             >
               <div className="card-header">
                 <span className="card-dot" />

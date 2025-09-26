@@ -2,6 +2,7 @@
  * Durable Object for managing WebSocket connections in a signaling room
  * Each room is a separate Durable Object instance with persistent state
  */
+/* global WebSocketPair */
 
 export class SignalingRoom {
   constructor(state, env) {
@@ -130,7 +131,7 @@ export class SignalingRoom {
 
     // Send current room state to the new client
     const roomUsers = []
-    for (const [clientId, clientSocket] of this.sessions) {
+    for (const [, clientSocket] of this.sessions) {
       if (clientSocket !== socket) {
         const clientInfo = this.clients.get(clientSocket)
         if (clientInfo) {

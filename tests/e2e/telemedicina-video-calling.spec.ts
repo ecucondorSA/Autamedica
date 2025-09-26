@@ -1,4 +1,4 @@
-import { test, expect, Page, Browser } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 /**
  * Tests E2E para Sistema de Telemedicina - Video Calling

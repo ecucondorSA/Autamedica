@@ -106,10 +106,6 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
     }
   }, [patientId])
 
-  const refresh = useCallback(async () => {
-    await fetchVitalSigns()
-  }, [fetchVitalSigns])
-
   useEffect(() => {
     fetchVitalSigns()
   }, [fetchVitalSigns])
