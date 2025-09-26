@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dev:*)",
+      "Bash(PORT=3000 pnpm dev)",
+      "Bash(lsof:*)",
+      "Bash(netstat:*)",
+      "Bash(kill:*)",
+      "Bash(xargs kill:*)",
+      "Bash(pkill:*)",
+      "Bash(curl:*)",
+      "Bash(env)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
