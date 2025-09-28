@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import type { Patient, Appointment } from "@autamedica/types";
 
 export function usePatients() {
-  const [patients, setPatients] = useState<Patient[]>([]);
+  const [patients, _setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     // TODO: Implementar fetch de pacientes
@@ -17,9 +17,9 @@ export function usePatients() {
 }
 
 export function useAppointments() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, _setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     // TODO: Implementar fetch de citas

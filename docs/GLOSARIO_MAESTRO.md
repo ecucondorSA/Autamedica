@@ -25,6 +25,273 @@ export type SpecialtyId = UUID & { readonly brand: "SpecialtyId" };
 export type ISODateString = string & { readonly brand: "ISODateString" };
 ```
 
+### Utilidades de Fechas ISO
+
+```typescript
+// Validators de fechas ISO
+export const isISODateString: (value: string) => value is ISODateString;
+export const toISODateString: (date: Date) => ISODateString;
+export const nowAsISODateString: () => ISODateString;
+```
+
+### Sistema de Generación de IDs
+
+```typescript
+// Factory para crear IDs únicos
+export const createId: () => UUID;
+export const generateUUID: () => UUID;
+
+// Configuración de validación
+export interface ID_VALIDATION_CONFIG {
+  readonly minLength: number;
+  readonly maxLength: number;
+  readonly allowedPrefixes: readonly string[];
+}
+
+// Validadores y factories con contexto
+export const validateIdForScope: (id: string, scope: string) => boolean;
+export const createValidatedId: (scope: string) => UUID;
+
+// Generadores con prefijo
+export const generatePrefixedId: (prefix: string) => UUID;
+export const generatePatientId: () => PatientId;
+export const generateDoctorId: () => DoctorId;
+export const generateAppointmentId: () => AppointmentId;
+```
+
+### Estado de Entidades
+
+```typescript
+// Utilidades para manejo de estado soft-delete
+export const isEntityDeleted: (entity: { deletedAt?: ISODateString | null }) => boolean;
+export const isEntityActive: (entity: { deletedAt?: ISODateString | null }) => boolean;
+export const markEntityAsDeleted: <T extends { deletedAt?: ISODateString | null }>(entity: T) => T & { deletedAt: ISODateString };
+```
+
+### Sistema de Geografía y Direcciones
+
+```typescript
+// Validators geográficos
+export const isCountryCode: (value: string) => boolean;
+export const isArgentinaStateCode: (value: string) => boolean;
+export const isValidCoordinates: (lat: number, lng: number) => boolean;
+export const isArgentinaZipCode: (value: string) => boolean;
+
+// Constructores de direcciones
+export const createBasicAddress: (street: string, city: string, state: string, country: string) => Address;
+export const createMedicalAddress: (address: Address, facilityType: string) => MedicalAddress;
+
+// Converters geográficos
+export const toCountryCode: (countryName: string) => string;
+export const toArgentinaStateCode: (stateName: string) => string;
+export const toArgentinaZipCode: (zipCode: string) => string;
+
+// Utilidades de direcciones
+export const migrateToAddress: (oldAddress: LegacyAddress) => Address;
+export const isCompleteAddress: (address: Partial<Address>) => address is Address;
+export const formatAddressString: (address: Address) => string;
+```
+
+### Sistema de Teléfonos
+
+```typescript
+// Configuración de validación telefónica
+export interface PHONE_VALIDATION_CONFIG {
+  readonly countryCode: string;
+  readonly minLength: number;
+  readonly maxLength: number;
+  readonly patterns: readonly RegExp[];
+}
+
+// Validators telefónicos
+export const isPhoneE164: (phone: string) => boolean;
+export const isValidPhoneForCountry: (phone: string, countryCode: string) => boolean;
+export const isArgentinaPhone: (phone: string) => boolean;
+export const isArgentinaMobile: (phone: string) => boolean;
+
+// Formatters telefónicos
+export const normalizePhoneNumber: (phone: string) => string;
+export const toE164Format: (phone: string, countryCode: string) => string;
+export const toNationalFormat: (phoneE164: string) => string;
+export const formatPhoneForDisplay: (phone: string) => string;
+
+// Utilidades telefónicas
+export const extractCountryCode: (phoneE164: string) => string;
+export const getPhoneExamples: (countryCode: string) => string[];
+export const validatePhoneList: (phones: string[]) => ValidationResult[];
+```
+
+### Sistema de Especialidades Médicas
+
+```typescript
+// Catálogos de especialidades y certificaciones
+export const MEDICAL_SPECIALTIES: readonly MedicalSpecialty[];
+export const SUBSPECIALTIES: readonly MedicalSubspecialty[];
+export const CERTIFICATION_TYPES: readonly CertificationType[];
+
+// Estados de licencias médicas
+export const LICENSE_STATUS: readonly LicenseStatus[];
+
+// Validators de especialidades
+export const isValidSpecialtyCode: (code: string) => boolean;
+export const isValidSubspecialtyCode: (code: string) => boolean;
+
+// Validators de licencias médicas
+export const isValidMedicalLicense: (license: string) => boolean;
+export const isActiveLicense: (license: MedicalLicense) => boolean;
+export const isValidCertification: (cert: Certification) => boolean;
+
+// Utilidades de especialidades
+export const getSpecialtiesRequiring: (requirement: string) => MedicalSpecialty[];
+export const getAvailableSubspecialties: (specialtyCode: string) => MedicalSubspecialty[];
+export const getSpecialtiesByCategory: (category: string) => MedicalSpecialty[];
+export const createBasicSpecialty: (code: string, name: string) => MedicalSpecialty;
+
+// Utilidades de licencias médicas
+export const formatMedicalLicense: (license: string) => string;
+export const extractProvinceFromLicense: (license: string) => string;
+export const createMedicalLicense: (province: string, number: string) => MedicalLicense;
+
+// Validaciones de práctica médica
+export const canPracticeSpecialty: (doctor: Doctor, specialty: string) => boolean;
+export const canPracticeInArgentina: (license: MedicalLicense) => boolean;
+export const isDoctorLicenseActive: (doctor: Doctor) => boolean;
+export const isDoctorProfileComplete: (doctor: Doctor) => boolean;
+
+// Cálculos médicos
+export const calculateTotalTrainingYears: (doctor: Doctor) => number;
+export const calculateYearsOfExperience: (doctor: Doctor) => number;
+
+// Utilidades de perfiles
+export const generateDisplayName: (firstName: string, lastName: string) => string;
+```
+
+### Validaciones Médicas y Profesionales
+
+```typescript
+// Validaciones de práctica médica
+export const acceptsInsurancePlan: (doctor: Doctor, planId: string) => boolean;
+export const isAvailableOnDay: (doctor: Doctor, date: ISODateString) => boolean;
+
+// Validaciones de datos médicos
+export const isValidTimeHHmm: (time: string) => boolean;
+export const isValidDNI: (dni: string) => boolean;
+export const isValidDoctorEmail: (email: string) => boolean;
+export const isValidDoctorURL: (url: string) => boolean;
+export const isValidBloodType: (bloodType: string) => boolean;
+
+// Utilidades de perfiles médicos
+export const createPublicProfile: (doctor: Doctor) => DoctorPublicProfile;
+export const extractPrivateData: (doctor: Doctor) => DoctorPrivateData;
+```
+
+### Sistema de Seguros Argentinos
+
+```typescript
+// Catálogo de obras sociales y seguros
+export const ARGENTINA_INSURANCE_PROVIDERS: readonly InsuranceProvider[];
+
+// Validaciones de cobertura
+export const isPublicHealthcareEligible: (patient: Patient) => boolean;
+export const isPAMIEligible: (patient: Patient) => boolean;
+export const hasInsuranceCoverage: (patient: Patient, treatment: string) => boolean;
+```
+
+### Cálculos de Salud y Riesgo
+
+```typescript
+// Cálculos médicos básicos
+export const calculateBMI: (heightCm: number, weightKg: number) => number;
+export const calculateAge: (birthDate: ISODateString) => number;
+
+// Evaluación de riesgo médico
+export const calculateRiskLevel: (patient: Patient) => RiskLevel;
+export const hasActiveAllergies: (patient: Patient) => boolean;
+export const isHighRiskPatient: (patient: Patient) => boolean;
+export const requiresSpecializedCare: (patient: Patient) => boolean;
+
+// Elegibilidad de servicios
+export const canReceiveTelemedicine: (patient: Patient) => boolean;
+
+// Utilidades de perfiles de pacientes
+export const generatePatientDisplayName: (patient: Patient) => string;
+export const createPatientPublicProfile: (patient: Patient) => PatientPublicProfile;
+export const createMedicalView: (patient: Patient) => PatientMedicalView;
+export const extractPatientPrivateData: (patient: Patient) => PatientPrivateData;
+```
+
+### Sistema de Reviews y Ratings
+
+```typescript
+// Constantes de configuración de reviews
+export const REVIEW_WINDOW_DAYS: number;
+
+// Validaciones de ratings
+export const isValidRatingScore: (score: number) => boolean;
+export const canSubmitReview: (patient: Patient, doctor: Doctor) => boolean;
+
+// Cálculos de métricas de reviews
+export const calculatePatientReviewsScore: (reviews: Review[]) => number;
+export const calculateReviewsBreakdown: (reviews: Review[]) => ReviewBreakdown;
+export const calculateVolumeScore: (doctor: Doctor) => number;
+export const calculateRecognitionScore: (doctor: Doctor) => number;
+export const calculateOverallRating: (doctor: Doctor) => number;
+export const calculateMonthsActive: (doctor: Doctor) => number;
+export const calculateVolumePercentile: (doctor: Doctor) => number;
+
+// Utilidades de reconocimiento
+export const isEligibleForRecognition: (doctor: Doctor) => boolean;
+export const createRatingDisplay: (rating: number) => RatingDisplay;
+export const getRecognitionBadgeText: (level: RecognitionLevel) => string;
+```
+
+### Type Guards y Utilidades de Validación
+
+```typescript
+// Type guards básicos
+export const isNonEmptyString: (value: string) => value is NonEmptyString;
+export const isNonEmptyArray: <T>(arr: T[]) => arr is NonEmptyArray<T>;
+export const isNonNullable: <T>(value: T | null | undefined) => value is T;
+export const isNonEmptyObject: (obj: object) => obj is NonEmptyObject;
+export const isPositiveNumber: (num: number) => num is PositiveNumber;
+export const isPercentage: (num: number) => num is Percentage;
+```
+
+### Sistema de Estados Async/Loadable
+
+```typescript
+// Constructores de estados
+export const idle: <T>() => Loadable<T>;
+export const loading: <T>() => Loadable<T>;
+export const success: <T>(data: T) => Loadable<T>;
+export const failure: <T>(error: Error) => Loadable<T>;
+export const unauthenticated: <T>() => AuthenticatedLoadable<T>;
+
+// Pattern matching para estados
+export const matchDataLoadingState: <T, R>(
+  state: DataLoadingState<T>,
+  patterns: DataLoadingStatePatterns<T, R>
+) => R;
+
+export const matchLoadable: <T, R>(
+  loadable: Loadable<T>,
+  patterns: LoadablePatterns<T, R>
+) => R;
+
+export const matchAsyncState: <T, R>(
+  state: AsyncState<T>,
+  patterns: AsyncStatePatterns<T, R>
+) => R;
+
+export const matchAuthenticatedLoadable: <T, R>(
+  loadable: AuthenticatedLoadable<T>,
+  patterns: AuthenticatedLoadablePatterns<T, R>
+) => R;
+
+// Type guards para estados
+export const isIdle: <T>(loadable: Loadable<T>) => boolean;
+```
+
 ### Usuario Base
 
 ```typescript
@@ -101,6 +368,25 @@ export interface Appointment {
 ```
 
 ### Respuestas API
+
+```typescript
+// Factory functions para construir respuestas API
+export const ok: <T>(data: T) => APISuccess<T>;
+export const fail: (error: APIError) => APIFailure;
+export const failWithCode: (code: string, message: string) => APIFailure;
+
+// Type guards para respuestas API
+export const isApiSuccess: <T>(response: APIResponse<T>) => response is APISuccess<T>;
+export const isApiError: <T>(response: APIResponse<T>) => response is APIFailure;
+
+// Utilidades para manejo de respuestas
+export const unwrapApiResponse: <T>(response: APIResponse<T>) => T;
+export const mapApiResponse: <T, U>(response: APIResponse<T>, mapper: (data: T) => U) => APIResponse<U>;
+
+// Factories específicos para contexto médico
+export const medicalOk: <T>(data: T, metadata?: MedicalMetadata) => MedicalAPISuccess<T>;
+export const medicalFail: (error: MedicalAPIError) => MedicalAPIFailure;
+```
 
 ```typescript
 export interface APIError {
@@ -611,6 +897,94 @@ export interface LogLevel {
 }
 
 export const logger: Logger;
+```
+
+## 🎯 Batch 8: Exports Críticos Finales (23 tipos) - Hacia 0 Errores
+
+### Sistema Avanzado de Estados Loadable
+
+```typescript
+// Predicates adicionales para estados loadable
+export const isLoading: <T>(loadable: Loadable<T>) => boolean;
+export const isSuccess: <T>(loadable: Loadable<T>) => boolean;
+export const isFailure: <T>(loadable: Loadable<T>) => boolean;
+export const isUnauthenticated: <T>(loadable: AuthenticatedLoadable<T>) => boolean;
+
+// Transformadores avanzados de loadable
+export const mapLoadable: <T, U>(
+  loadable: Loadable<T>,
+  fn: (value: T) => U
+) => Loadable<U>;
+
+export const flatMapLoadable: <T, U>(
+  loadable: Loadable<T>,
+  fn: (value: T) => Loadable<U>
+) => Loadable<U>;
+
+export const combineLoadables: <T>(
+  loadables: Loadable<T>[]
+) => Loadable<T[]>;
+
+// Extractores de valor de loadable
+export const getLoadableValue: <T>(
+  loadable: Loadable<T>
+) => T | undefined;
+
+export const unwrapLoadable: <T>(
+  loadable: Loadable<T>,
+  fallback: T
+) => T;
+```
+
+### Sistema de Autenticación y Roles (Auth Legacy)
+
+```typescript
+// Mapeo de roles a portales disponibles
+export const ROLE_TO_PORTALS: Record<UserRole, Portal[]>;
+
+// Control de acceso por portal
+export const canAccessPortal: (
+  userRole: UserRole,
+  portal: Portal
+) => boolean;
+```
+
+### Type Guards del Sistema Supabase
+
+```typescript
+// Guards para entidades principales del sistema
+export const isProfile: (obj: unknown) => obj is SupabaseProfile;
+export const isDoctor: (obj: unknown) => obj is SupabaseDoctor;
+export const isPatient: (obj: unknown) => obj is SupabasePatient;
+export const isAppointment: (obj: unknown) => obj is SupabaseAppointment;
+```
+
+### Constantes del Sistema de Base de Datos
+
+```typescript
+// Enumeraciones de roles de usuario
+export const USER_ROLES: readonly UserRole[];
+
+// Tamaños de empresa disponibles
+export const COMPANY_SIZES: readonly CompanySize[];
+
+// Géneros disponibles en el sistema
+export const GENDERS: readonly Gender[];
+
+// Tipos de cita médica
+export const APPOINTMENT_TYPES: readonly AppointmentType[];
+
+// Estados de cita médica
+export const APPOINTMENT_STATUSES: readonly AppointmentStatus[];
+
+// Niveles de visibilidad de registros médicos
+export const MEDICAL_RECORD_VISIBILITIES: readonly MedicalRecordVisibility[];
+
+// Roles de miembros en empresas
+export const COMPANY_MEMBER_ROLES: readonly CompanyMemberRole[];
+
+// Proveedores de seguros médicos de Argentina
+export const ARGENTINA_INSURANCE_PROVIDERS: readonly InsuranceProvider[];
 export const LOG_LEVELS: LogLevel;
 ```
 
@@ -622,7 +996,7 @@ export const LOG_LEVELS: LogLevel;
 - hooks: `useAppointments`, `useAsync`, `useDebounce`, `usePatients`
 - shared: `AUTH_URLS`, `BASE_URL_BY_ROLE`, `EnvironmentConfig`, `EnvironmentValidation`, `HOME_BY_ROLE`, `LogLevel`, `Logger`, `PORTAL_TO_ROLE`, `ensureClientEnv`, `ensureEnv`, `ensureServerEnv`, `getCookieDomain`, `getLoginUrl`, `getPortalForRole`, `getRoleForPortal`, `getTargetUrlByRole`, `isValidRole`, `logger`, `validateEmail`, `validateEnvironment`, `validateEnvironmentByType`, `validateEnvironmentSecurity`, `validatePhone`, `validateProductionEnvironment`, `validateStagingEnvironment`
 - telemedicine: `HttpWebRTCClient`, `IceServerConfig`, `MediaControlsHook`, `RtcStatsData`, `RtcStatsHook`, `Signal`, `SignalKind`, `SignalingConfig`, `SignalingImplementation`, `SignalingTransport`, `TelemedicineClientHook`, `UnifiedVideoCall`, `UnifiedVideoCallProps`, `WebRTCClient`, `WebRTCConfig`, `WebRTCEvents`, `createSignalingTransport`, `createSignalingTransportFromEnv`, `getIceServersConfig`, `isSignal`, `useMediaControls`, `useRtcStats`, `useTelemedicineClient`, `validateIceServersConfig`
-- types: `APPOINTMENT_STATUSES`, `APPOINTMENT_TYPES`, `ARGENTINA_INSURANCE_PROVIDERS`, `ARS`, `Address`, `Allergy`, `AllergySeverity`, `ApiError`, `ApiErrorCode`, `ApiResponse`, `Appointment`, `AppointmentId`, `AppointmentInsert`, `AppointmentStatus`, `AppointmentType`, `AppointmentUpdate`, `AppointmentWithDetails`, `ArrayElement`, `AsyncFunction`, `AsyncState`, `AutamedicaRecognition`, `AuthenticatedLoadable`, `BMI`, `BaseEntity`, `BloodType`, `Brand`, `CERTIFICATION_TYPES`, `COMPANY_MEMBER_ROLES`, `COMPANY_SIZES`, `Callback`, `CertificationId`, `Company`, `CompanyAddress`, `CompanyContact`, `CompanyId`, `CompanyInsert`, `CompanyMember`, `CompanyMemberInsert`, `CompanyMemberRole`, `CompanyMemberUpdate`, `CompanySize`, `CompanyUpdate`, `CompanyWithMembers`, `ComplianceInfo`, `Coordinates`, `CountryCode`, `CreateEntityInput`, `DNI`, `DataLoadingState`, `Database`, `DaySchedule`, `DiscriminateUnion`, `Doctor`, `DoctorAPIResponse`, `DoctorEducation`, `DoctorExperience`, `DoctorId`, `DoctorInsert`, `DoctorListAPIResponse`, `DoctorLookupResult`, `DoctorPrivateData`, `DoctorProfile`, `DoctorPublicAPIResponse`, `DoctorPublicProfile`, `DoctorPublicRating`, `DoctorRatingAPIResponse`, `DoctorRatingDisplay`, `DoctorUpdate`, `DoctorWithProfile`, `EmergencyContact`, `EmployeeId`, `EntityFilters`, `GENDERS`, `Gender`, `HeightCm`, `ICD10Code`, `ID_VALIDATION_CONFIG`, `ISODateString`, `Id`, `InsurancePlan`, `InsurancePolicyNumber`, `Json`, `JsonArray`, `JsonObject`, `JsonPrimitive`, `JsonValue`, `KeysOf`, `LICENSE_STATUS`, `LicenseProvinceCode`, `Loadable`, `LoadingState`, `MEDICAL_RECORD_VISIBILITIES`, `MEDICAL_SPECIALTIES`, `MapDiscriminatedUnion`, `Maybe`, `MedicalApiResponse`, `MedicalAudit`, `MedicalCertification`, `MedicalCondition`, `MedicalHistoryId`, `MedicalLicense`, `MedicalLicenseNumber`, `MedicalLoadable`, `MedicalRecord`, `MedicalRecordInsert`, `MedicalRecordNumber`, `MedicalRecordUpdate`, `MedicalRecordVisibility`, `MedicalRecordWithDetails`, `MedicalSpecialty`, `MedicalSubspecialty`, `Medication`, `MutableDeep`, `NationalPhone`, `NonEmptyArray`, `NonEmptyObject`, `NonEmptyString`, `NonNullable`, `Nullable`, `Optional`, `PHONE_VALIDATION_CONFIG`, `PaginatedResponse`, `PaginationParams`, `Patient`, `PatientAPIResponse`, `PatientAddress`, `PatientAdminView`, `PatientCareTeam`, `PatientCareTeamInsert`, `PatientCareTeamUpdate`, `PatientCareTeamWithDetails`, `PatientCount`, `PatientId`, `PatientInsert`, `PatientListAPIResponse`, `PatientMedicalAPIResponse`, `PatientMedicalView`, `PatientPrivateData`, `PatientProfile`, `PatientPublicProfile`, `PatientReview`, `PatientUpdate`, `PatientVolumeMetrics`, `PatientWithProfile`, `Percent0to100`, `Percentage`, `PhoneE164`, `Portal`, `PositiveNumber`, `Predicate`, `PrescriptionId`, `ProfessionalInsurance`, `Profile`, `ProfileInsert`, `ProfileUpdate`, `REVIEW_WINDOW_DAYS`, `ROLE_TO_PORTALS`, `RatingScore`, `ReadonlyDeep`, `RecognitionAPIResponse`, `ReviewId`, `ReviewListAPIResponse`, `ReviewSubmissionResult`, `SUBSPECIALTIES`, `SpecialtyCode`, `StateCode`, `SubspecialtyCode`, `SupabaseApiResponse`, `SupabasePaginatedResponse`, `Tables`, `TablesInsert`, `TablesUpdate`, `TenantId`, `ThrowsFunction`, `TimeHHmm`, `TimeSlot`, `USER_ROLES`, `UpdateEntityInput`, `User`, `UserId`, `UserProfile`, `UserRole`, `UserSession`, `ValuesOf`, `VitalSigns`, `VoidFunction`, `WeeklySchedule`, `WeightKg`, `ZipCode`, `acceptsInsurancePlan`, `calculateAge`, `calculateBMI`, `calculateMonthsActive`, `calculateOverallRating`, `calculatePatientReviewsScore`, `calculateRecognitionScore`, `calculateReviewsBreakdown`, `calculateRiskLevel`, `calculateTotalTrainingYears`, `calculateVolumePercentile`, `calculateVolumeScore`, `calculateYearsOfExperience`, `canAccessPortal`, `canPracticeInArgentina`, `canPracticeSpecialty`, `canReceiveTelemedicine`, `canSubmitReview`, `combineLoadables`, `createBasicAddress`, `createBasicSpecialty`, `createId`, `createMedicalAddress`, `createMedicalLicense`, `createMedicalView`, `createPublicProfile`, `createRatingDisplay`, `createValidatedId`, `extractCountryCode`, `extractPrivateData`, `extractProvinceFromLicense`, `fail`, `failWithCode`, `failure`, `flatMapLoadable`, `formatAddressString`, `formatMedicalLicense`, `formatPhoneForDisplay`, `generateAppointmentId`, `generateDisplayName`, `generateDoctorId`, `generatePatientId`, `generatePrefixedId`, `generateUUID`, `getAvailableSubspecialties`, `getLoadableValue`, `getPhoneExamples`, `getRecognitionBadgeText`, `getSpecialtiesByCategory`, `getSpecialtiesRequiring`, `hasActiveAllergies`, `hasInsuranceCoverage`, `idle`, `isActiveLicense`, `isApiError`, `isApiSuccess`, `isAppointment`, `isArgentinaMobile`, `isArgentinaPhone`, `isArgentinaStateCode`, `isArgentinaZipCode`, `isAvailableOnDay`, `isCompleteAddress`, `isCountryCode`, `isDoctor`, `isDoctorLicenseActive`, `isDoctorProfileComplete`, `isEligibleForRecognition`, `isEntityActive`, `isEntityDeleted`, `isFailure`, `isHighRiskPatient`, `isISODateString`, `isIdle`, `isLoading`, `isNonEmptyArray`, `isNonEmptyObject`, `isNonEmptyString`, `isNonNullable`, `isPAMIEligible`, `isPatient`, `isPercentage`, `isPhoneE164`, `isPositiveNumber`, `isProfile`, `isPublicHealthcareEligible`, `isSuccess`, `isUnauthenticated`, `isValidBloodType`, `isValidCertification`, `isValidCoordinates`, `isValidDNI`, `isValidEmail`, `isValidMedicalLicense`, `isValidPhoneForCountry`, `isValidRatingScore`, `isValidSpecialtyCode`, `isValidSubspecialtyCode`, `isValidTimeHHmm`, `isValidURL`, `loading`, `mapApiResponse`, `mapLoadable`, `markEntityAsDeleted`, `matchAsyncState`, `matchAuthenticatedLoadable`, `matchDataLoadingState`, `matchLoadable`, `medicalFail`, `medicalOk`, `migrateToAddress`, `normalizePhoneNumber`, `nowAsISODateString`, `ok`, `requiresSpecializedCare`, `success`, `toArgentinaStateCode`, `toArgentinaZipCode`, `toCountryCode`, `toE164Format`, `toISODateString`, `toNationalFormat`, `unauthenticated`, `unwrapApiResponse`, `unwrapLoadable`, `validateIdForScope`, `validatePhoneList`
+- types: `APPOINTMENT_STATUSES`, `APPOINTMENT_TYPES`, `ARGENTINA_INSURANCE_PROVIDERS`, `ARS`, `Address`, `Allergy`, `AllergySeverity`, `ApiError`, `ApiErrorCode`, `ApiResponse`, `Appointment`, `AppointmentId`, `AppointmentInsert`, `AppointmentStatus`, `AppointmentType`, `AppointmentUpdate`, `AppointmentWithDetails`, `ArrayElement`, `AsyncFunction`, `AsyncState`, `AutamedicaRecognition`, `AuthenticatedLoadable`, `BMI`, `BaseEntity`, `BloodType`, `Brand`, `CERTIFICATION_TYPES`, `COMPANY_MEMBER_ROLES`, `COMPANY_SIZES`, `Callback`, `CertificationId`, `Company`, `CompanyAddress`, `CompanyContact`, `CompanyId`, `CompanyInsert`, `CompanyMember`, `CompanyMemberInsert`, `CompanyMemberRole`, `CompanyMemberUpdate`, `CompanySize`, `CompanyUpdate`, `CompanyWithMembers`, `ComplianceInfo`, `Coordinates`, `CountryCode`, `CreateEntityInput`, `DNI`, `DataLoadingState`, `Database`, `DaySchedule`, `DiscriminateUnion`, `Doctor`, `DoctorAPIResponse`, `DoctorEducation`, `DoctorExperience`, `DoctorId`, `DoctorInsert`, `DoctorListAPIResponse`, `DoctorLookupResult`, `DoctorPrivateData`, `DoctorProfile`, `DoctorPublicAPIResponse`, `DoctorPublicProfile`, `DoctorPublicRating`, `DoctorRatingAPIResponse`, `DoctorRatingDisplay`, `DoctorUpdate`, `DoctorWithProfile`, `EmergencyContact`, `EmployeeId`, `EntityFilters`, `FacilityId`, `GENDERS`, `Gender`, `HeightCm`, `ICD10Code`, `ID_VALIDATION_CONFIG`, `ISODateString`, `Id`, `InsurancePlan`, `InsurancePolicyNumber`, `Json`, `JsonArray`, `JsonObject`, `JsonPrimitive`, `JsonValue`, `KeysOf`, `LICENSE_STATUS`, `LicenseProvinceCode`, `Loadable`, `LoadingState`, `MEDICAL_RECORD_VISIBILITIES`, `MEDICAL_SPECIALTIES`, `MapDiscriminatedUnion`, `Maybe`, `MedicalApiResponse`, `MedicalAudit`, `MedicalCertification`, `MedicalCondition`, `MedicalHistoryId`, `MedicalLicense`, `MedicalLicenseNumber`, `MedicalLoadable`, `MedicalRecord`, `MedicalRecordInsert`, `MedicalRecordNumber`, `MedicalRecordUpdate`, `MedicalRecordVisibility`, `MedicalRecordWithDetails`, `MedicalSpecialty`, `MedicalSubspecialty`, `Medication`, `MutableDeep`, `NationalPhone`, `NonEmptyArray`, `NonEmptyObject`, `NonEmptyString`, `NonNullable`, `Nullable`, `Optional`, `PHONE_VALIDATION_CONFIG`, `PaginatedResponse`, `PaginationParams`, `Patient`, `PatientAPIResponse`, `PatientAddress`, `PatientAdminView`, `PatientCareTeam`, `PatientCareTeamInsert`, `PatientCareTeamUpdate`, `PatientCareTeamWithDetails`, `PatientCount`, `PatientId`, `PatientInsert`, `PatientListAPIResponse`, `PatientMedicalAPIResponse`, `PatientMedicalView`, `PatientPrivateData`, `PatientProfile`, `PatientPublicProfile`, `PatientReview`, `PatientUpdate`, `PatientVolumeMetrics`, `PatientWithProfile`, `Percent0to100`, `Percentage`, `PhoneE164`, `Portal`, `PositiveNumber`, `Predicate`, `PrescriptionId`, `ProfessionalInsurance`, `Profile`, `ProfileInsert`, `ProfileUpdate`, `REVIEW_WINDOW_DAYS`, `ROLE_TO_PORTALS`, `RatingScore`, `ReadonlyDeep`, `RecognitionAPIResponse`, `ReviewId`, `ReviewListAPIResponse`, `ReviewSubmissionResult`, `SUBSPECIALTIES`, `SpecialtyCode`, `StateCode`, `SubspecialtyCode`, `SupabaseApiResponse`, `SupabasePaginatedResponse`, `Tables`, `TablesInsert`, `TablesUpdate`, `TenantId`, `ThrowsFunction`, `TimeHHmm`, `TimeSlot`, `USER_ROLES`, `UUID`, `UpdateEntityInput`, `User`, `UserId`, `UserProfile`, `UserRole`, `UserSession`, `ValuesOf`, `VitalSigns`, `VoidFunction`, `WeeklySchedule`, `WeightKg`, `ZipCode`, `acceptsInsurancePlan`, `calculateAge`, `calculateBMI`, `calculateMonthsActive`, `calculateOverallRating`, `calculatePatientReviewsScore`, `calculateRecognitionScore`, `calculateReviewsBreakdown`, `calculateRiskLevel`, `calculateTotalTrainingYears`, `calculateVolumePercentile`, `calculateVolumeScore`, `calculateYearsOfExperience`, `canAccessPortal`, `canPracticeInArgentina`, `canPracticeSpecialty`, `canReceiveTelemedicine`, `canSubmitReview`, `combineLoadables`, `createBasicAddress`, `createBasicSpecialty`, `createId`, `createMedicalAddress`, `createMedicalLicense`, `createMedicalView`, `createPublicProfile`, `createRatingDisplay`, `createValidatedId`, `extractCountryCode`, `extractPrivateData`, `extractProvinceFromLicense`, `fail`, `failWithCode`, `failure`, `flatMapLoadable`, `formatAddressString`, `formatMedicalLicense`, `formatPhoneForDisplay`, `generateAppointmentId`, `generateDisplayName`, `generateDoctorId`, `generatePatientId`, `generatePrefixedId`, `generateUUID`, `getAvailableSubspecialties`, `getLoadableValue`, `getPhoneExamples`, `getRecognitionBadgeText`, `getSpecialtiesByCategory`, `getSpecialtiesRequiring`, `hasActiveAllergies`, `hasInsuranceCoverage`, `idle`, `isActiveLicense`, `isApiError`, `isApiSuccess`, `isAppointment`, `isArgentinaMobile`, `isArgentinaPhone`, `isArgentinaStateCode`, `isArgentinaZipCode`, `isAvailableOnDay`, `isCompleteAddress`, `isCountryCode`, `isDoctor`, `isDoctorLicenseActive`, `isDoctorProfileComplete`, `isEligibleForRecognition`, `isEntityActive`, `isEntityDeleted`, `isFailure`, `isHighRiskPatient`, `isISODateString`, `isIdle`, `isLoading`, `isNonEmptyArray`, `isNonEmptyObject`, `isNonEmptyString`, `isNonNullable`, `isPAMIEligible`, `isPatient`, `isPercentage`, `isPhoneE164`, `isPositiveNumber`, `isProfile`, `isPublicHealthcareEligible`, `isSuccess`, `isUnauthenticated`, `isValidBloodType`, `isValidCertification`, `isValidCoordinates`, `isValidDNI`, `isValidEmail`, `isValidMedicalLicense`, `isValidPhoneForCountry`, `isValidRatingScore`, `isValidSpecialtyCode`, `isValidSubspecialtyCode`, `isValidTimeHHmm`, `isValidURL`, `loading`, `mapApiResponse`, `mapLoadable`, `markEntityAsDeleted`, `matchAsyncState`, `matchAuthenticatedLoadable`, `matchDataLoadingState`, `matchLoadable`, `medicalFail`, `medicalOk`, `migrateToAddress`, `normalizePhoneNumber`, `nowAsISODateString`, `ok`, `requiresSpecializedCare`, `success`, `toArgentinaStateCode`, `toArgentinaZipCode`, `toCountryCode`, `toE164Format`, `toISODateString`, `toNationalFormat`, `unauthenticated`, `unwrapApiResponse`, `unwrapLoadable`, `validateIdForScope`, `validatePhoneList`
 - ui: `Button`, `ButtonProps`, `Card`, `CardProps`, `FooterLink`, `FooterLinkProps`, `Input`, `InputProps`
 - utils: (sin símbolos)
 

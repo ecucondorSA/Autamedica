@@ -76,6 +76,7 @@
 - `EmergencyContact`
 - `EmployeeId`
 - `EntityFilters`
+- `FacilityId`
 - `GENDERS`
 - `Gender`
 - `HeightCm`
@@ -181,6 +182,7 @@
 - `TimeHHmm`
 - `TimeSlot`
 - `USER_ROLES`
+- `UUID`
 - `UpdateEntityInput`
 - `User`
 - `UserId`

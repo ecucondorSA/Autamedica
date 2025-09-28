@@ -7,16 +7,10 @@ import {
   Clock,
   DollarSign,
   Users,
-  Filter,
-  Star,
   Eye,
-  ChevronRight,
-  Building,
   Briefcase,
-  AlertCircle,
   Map,
-  List,
-  ArrowUpDown
+  List
 } from 'lucide-react'
 import { LeafletMap } from './LeafletMap'
 import { mockJobOffers, mockDoctors } from '@/data/marketplaceData'

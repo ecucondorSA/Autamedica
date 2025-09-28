@@ -64,7 +64,7 @@ function extractUserProfile(user: User): UserProfile | null {
     company_name: user.user_metadata?.company_name,
     created_at: user.created_at,
     updated_at: user.updated_at || user.created_at,
-    last_path: getLastPath(user.id)
+    last_path: getLastPath(user.id) ?? '/dashboard'
   }
 }
 

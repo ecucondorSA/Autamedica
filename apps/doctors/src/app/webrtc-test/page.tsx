@@ -1,18 +1,19 @@
 'use client'
 
 import { useEffect, useMemo, useRef } from 'react'
+import { ensureClientEnv } from '@autamedica/shared'
 
 const ROOM_ID = 'test123'
 const ROLE: 'doctor' | 'patient' = 'doctor'
 
 const parseIceServers = () => {
-  const raw = process.env.NEXT_PUBLIC_ICE_SERVERS ?? '[]'
   try {
+    const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS')
     const parsed = JSON.parse(raw)
     if (Array.isArray(parsed)) return parsed
     console.warn('[webrtc-test] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to []')
   } catch (error) {
-    console.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS', error)
+    console.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS or variable not set', error)
   }
   return []
 }
@@ -115,13 +116,9 @@ export default function WebRTCTestPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const signalingUrl = process.env.NEXT_PUBLIC_SIGNALING_URL
-    if (!signalingUrl) {
-      console.error('[webrtc-test] Missing NEXT_PUBLIC_SIGNALING_URL env')
-      return
-    }
-
-    const socket = new WebSocket(signalingUrl)
+    try {
+      const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
+      const socket = new WebSocket(signalingUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
@@ -183,6 +180,9 @@ export default function WebRTCTestPage() {
         wsRef.current = null
       }
       socket.close()
+    }
+    } catch (error) {
+      console.error('[webrtc-test] Failed to initialize WebSocket:', error)
     }
   }, [])
 

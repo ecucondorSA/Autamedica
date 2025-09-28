@@ -1,7 +1,7 @@
 "use client"
 
 import type { JSX } from 'react'
-import { Activity, Heart, Thermometer, Droplets, Wind, TrendingUp, Plus, Calendar } from 'lucide-react'
+import { Activity, Heart, Thermometer, Wind, TrendingUp, Plus, Calendar } from 'lucide-react'
 import { useVitalSigns } from '@/hooks'
 
 export function VitalSignsPanel(): JSX.Element {

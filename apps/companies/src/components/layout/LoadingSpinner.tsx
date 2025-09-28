@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { Loader2 } from 'lucide-react';
-import { cn } from '@altamedica/utils';
+// import { cn } from '@altamedica/utils';
+// Temporary workaround for TypeScript module resolution
+import { cn } from '../../../../../packages/utils/dist/index.js';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
