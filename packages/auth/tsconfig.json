@@ -11,7 +11,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "incremental": false,
+    "incremental": true,
     "tsBuildInfoFile": null,
     "composite": true
   },
