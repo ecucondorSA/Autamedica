@@ -25,6 +25,49 @@ export type SpecialtyId = UUID & { readonly brand: "SpecialtyId" };
 export type ISODateString = string & { readonly brand: "ISODateString" };
 ```
 
+### Utilidades de Fechas ISO
+
+```typescript
+// Validators de fechas ISO
+export const isISODateString: (value: string) => value is ISODateString;
+export const toISODateString: (date: Date) => ISODateString;
+export const nowAsISODateString: () => ISODateString;
+```
+
+### Sistema de Generación de IDs
+
+```typescript
+// Factory para crear IDs únicos
+export const createId: () => UUID;
+export const generateUUID: () => UUID;
+
+// Configuración de validación
+export interface ID_VALIDATION_CONFIG {
+  readonly minLength: number;
+  readonly maxLength: number;
+  readonly allowedPrefixes: readonly string[];
+}
+
+// Validadores y factories con contexto
+export const validateIdForScope: (id: string, scope: string) => boolean;
+export const createValidatedId: (scope: string) => UUID;
+
+// Generadores con prefijo
+export const generatePrefixedId: (prefix: string) => UUID;
+export const generatePatientId: () => PatientId;
+export const generateDoctorId: () => DoctorId;
+export const generateAppointmentId: () => AppointmentId;
+```
+
+### Estado de Entidades
+
+```typescript
+// Utilidades para manejo de estado soft-delete
+export const isEntityDeleted: (entity: { deletedAt?: ISODateString | null }) => boolean;
+export const isEntityActive: (entity: { deletedAt?: ISODateString | null }) => boolean;
+export const markEntityAsDeleted: <T extends { deletedAt?: ISODateString | null }>(entity: T) => T & { deletedAt: ISODateString };
+```
+
 ### Usuario Base
 
 ```typescript
@@ -101,6 +144,25 @@ export interface Appointment {
 ```
 
 ### Respuestas API
+
+```typescript
+// Factory functions para construir respuestas API
+export const ok: <T>(data: T) => APISuccess<T>;
+export const fail: (error: APIError) => APIFailure;
+export const failWithCode: (code: string, message: string) => APIFailure;
+
+// Type guards para respuestas API
+export const isApiSuccess: <T>(response: APIResponse<T>) => response is APISuccess<T>;
+export const isApiError: <T>(response: APIResponse<T>) => response is APIFailure;
+
+// Utilidades para manejo de respuestas
+export const unwrapApiResponse: <T>(response: APIResponse<T>) => T;
+export const mapApiResponse: <T, U>(response: APIResponse<T>, mapper: (data: T) => U) => APIResponse<U>;
+
+// Factories específicos para contexto médico
+export const medicalOk: <T>(data: T, metadata?: MedicalMetadata) => MedicalAPISuccess<T>;
+export const medicalFail: (error: MedicalAPIError) => MedicalAPIFailure;
+```
 
 ```typescript
 export interface APIError {
