@@ -220,6 +220,78 @@ export const createMedicalView: (patient: Patient) => PatientMedicalView;
 export const extractPatientPrivateData: (patient: Patient) => PatientPrivateData;
 ```
 
+### Sistema de Reviews y Ratings
+
+```typescript
+// Constantes de configuración de reviews
+export const REVIEW_WINDOW_DAYS: number;
+
+// Validaciones de ratings
+export const isValidRatingScore: (score: number) => boolean;
+export const canSubmitReview: (patient: Patient, doctor: Doctor) => boolean;
+
+// Cálculos de métricas de reviews
+export const calculatePatientReviewsScore: (reviews: Review[]) => number;
+export const calculateReviewsBreakdown: (reviews: Review[]) => ReviewBreakdown;
+export const calculateVolumeScore: (doctor: Doctor) => number;
+export const calculateRecognitionScore: (doctor: Doctor) => number;
+export const calculateOverallRating: (doctor: Doctor) => number;
+export const calculateMonthsActive: (doctor: Doctor) => number;
+export const calculateVolumePercentile: (doctor: Doctor) => number;
+
+// Utilidades de reconocimiento
+export const isEligibleForRecognition: (doctor: Doctor) => boolean;
+export const createRatingDisplay: (rating: number) => RatingDisplay;
+export const getRecognitionBadgeText: (level: RecognitionLevel) => string;
+```
+
+### Type Guards y Utilidades de Validación
+
+```typescript
+// Type guards básicos
+export const isNonEmptyString: (value: string) => value is NonEmptyString;
+export const isNonEmptyArray: <T>(arr: T[]) => arr is NonEmptyArray<T>;
+export const isNonNullable: <T>(value: T | null | undefined) => value is T;
+export const isNonEmptyObject: (obj: object) => obj is NonEmptyObject;
+export const isPositiveNumber: (num: number) => num is PositiveNumber;
+export const isPercentage: (num: number) => num is Percentage;
+```
+
+### Sistema de Estados Async/Loadable
+
+```typescript
+// Constructores de estados
+export const idle: <T>() => Loadable<T>;
+export const loading: <T>() => Loadable<T>;
+export const success: <T>(data: T) => Loadable<T>;
+export const failure: <T>(error: Error) => Loadable<T>;
+export const unauthenticated: <T>() => AuthenticatedLoadable<T>;
+
+// Pattern matching para estados
+export const matchDataLoadingState: <T, R>(
+  state: DataLoadingState<T>,
+  patterns: DataLoadingStatePatterns<T, R>
+) => R;
+
+export const matchLoadable: <T, R>(
+  loadable: Loadable<T>,
+  patterns: LoadablePatterns<T, R>
+) => R;
+
+export const matchAsyncState: <T, R>(
+  state: AsyncState<T>,
+  patterns: AsyncStatePatterns<T, R>
+) => R;
+
+export const matchAuthenticatedLoadable: <T, R>(
+  loadable: AuthenticatedLoadable<T>,
+  patterns: AuthenticatedLoadablePatterns<T, R>
+) => R;
+
+// Type guards para estados
+export const isIdle: <T>(loadable: Loadable<T>) => boolean;
+```
+
 ### Usuario Base
 
 ```typescript
