@@ -68,6 +68,52 @@ export const isEntityActive: (entity: { deletedAt?: ISODateString | null }) => b
 export const markEntityAsDeleted: <T extends { deletedAt?: ISODateString | null }>(entity: T) => T & { deletedAt: ISODateString };
 ```
 
+### Sistema de Geografía y Direcciones
+
+```typescript
+// Validators geográficos
+export const isCountryCode: (value: string) => boolean;
+export const isArgentinaStateCode: (value: string) => boolean;
+export const isValidCoordinates: (lat: number, lng: number) => boolean;
+export const isArgentinaZipCode: (value: string) => boolean;
+
+// Constructores de direcciones
+export const createBasicAddress: (street: string, city: string, state: string, country: string) => Address;
+export const createMedicalAddress: (address: Address, facilityType: string) => MedicalAddress;
+
+// Converters geográficos
+export const toCountryCode: (countryName: string) => string;
+export const toArgentinaStateCode: (stateName: string) => string;
+export const toArgentinaZipCode: (zipCode: string) => string;
+
+// Utilidades de direcciones
+export const migrateToAddress: (oldAddress: LegacyAddress) => Address;
+export const isCompleteAddress: (address: Partial<Address>) => address is Address;
+export const formatAddressString: (address: Address) => string;
+```
+
+### Sistema de Teléfonos
+
+```typescript
+// Configuración de validación telefónica
+export interface PHONE_VALIDATION_CONFIG {
+  readonly countryCode: string;
+  readonly minLength: number;
+  readonly maxLength: number;
+  readonly patterns: readonly RegExp[];
+}
+
+// Validators telefónicos
+export const isPhoneE164: (phone: string) => boolean;
+export const isValidPhoneForCountry: (phone: string, countryCode: string) => boolean;
+export const isArgentinaPhone: (phone: string) => boolean;
+
+// Formatters telefónicos
+export const normalizePhoneNumber: (phone: string) => string;
+export const toE164Format: (phone: string, countryCode: string) => string;
+export const toNationalFormat: (phoneE164: string) => string;
+```
+
 ### Usuario Base
 
 ```typescript
