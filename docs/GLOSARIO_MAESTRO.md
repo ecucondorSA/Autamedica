@@ -897,6 +897,94 @@ export interface LogLevel {
 }
 
 export const logger: Logger;
+```
+
+## 🎯 Batch 8: Exports Críticos Finales (23 tipos) - Hacia 0 Errores
+
+### Sistema Avanzado de Estados Loadable
+
+```typescript
+// Predicates adicionales para estados loadable
+export const isLoading: <T>(loadable: Loadable<T>) => boolean;
+export const isSuccess: <T>(loadable: Loadable<T>) => boolean;
+export const isFailure: <T>(loadable: Loadable<T>) => boolean;
+export const isUnauthenticated: <T>(loadable: AuthenticatedLoadable<T>) => boolean;
+
+// Transformadores avanzados de loadable
+export const mapLoadable: <T, U>(
+  loadable: Loadable<T>,
+  fn: (value: T) => U
+) => Loadable<U>;
+
+export const flatMapLoadable: <T, U>(
+  loadable: Loadable<T>,
+  fn: (value: T) => Loadable<U>
+) => Loadable<U>;
+
+export const combineLoadables: <T>(
+  loadables: Loadable<T>[]
+) => Loadable<T[]>;
+
+// Extractores de valor de loadable
+export const getLoadableValue: <T>(
+  loadable: Loadable<T>
+) => T | undefined;
+
+export const unwrapLoadable: <T>(
+  loadable: Loadable<T>,
+  fallback: T
+) => T;
+```
+
+### Sistema de Autenticación y Roles (Auth Legacy)
+
+```typescript
+// Mapeo de roles a portales disponibles
+export const ROLE_TO_PORTALS: Record<UserRole, Portal[]>;
+
+// Control de acceso por portal
+export const canAccessPortal: (
+  userRole: UserRole,
+  portal: Portal
+) => boolean;
+```
+
+### Type Guards del Sistema Supabase
+
+```typescript
+// Guards para entidades principales del sistema
+export const isProfile: (obj: unknown) => obj is SupabaseProfile;
+export const isDoctor: (obj: unknown) => obj is SupabaseDoctor;
+export const isPatient: (obj: unknown) => obj is SupabasePatient;
+export const isAppointment: (obj: unknown) => obj is SupabaseAppointment;
+```
+
+### Constantes del Sistema de Base de Datos
+
+```typescript
+// Enumeraciones de roles de usuario
+export const USER_ROLES: readonly UserRole[];
+
+// Tamaños de empresa disponibles
+export const COMPANY_SIZES: readonly CompanySize[];
+
+// Géneros disponibles en el sistema
+export const GENDERS: readonly Gender[];
+
+// Tipos de cita médica
+export const APPOINTMENT_TYPES: readonly AppointmentType[];
+
+// Estados de cita médica
+export const APPOINTMENT_STATUSES: readonly AppointmentStatus[];
+
+// Niveles de visibilidad de registros médicos
+export const MEDICAL_RECORD_VISIBILITIES: readonly MedicalRecordVisibility[];
+
+// Roles de miembros en empresas
+export const COMPANY_MEMBER_ROLES: readonly CompanyMemberRole[];
+
+// Proveedores de seguros médicos de Argentina
+export const ARGENTINA_INSURANCE_PROVIDERS: readonly InsuranceProvider[];
 export const LOG_LEVELS: LogLevel;
 ```
 

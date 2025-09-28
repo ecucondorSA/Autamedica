@@ -109,6 +109,9 @@ class ContractsValidator {
         const exportList = exports.split(',').map(exp => exp.trim());
 
         exportList.forEach(exp => {
+          // Skip empty exports
+          if (!exp || exp.trim() === '') return;
+
           // Manejar alias: export { Foo as Bar }
           const aliasMatch = exp.match(/(\w+)\s+as\s+(\w+)/);
           if (aliasMatch) {
@@ -156,8 +159,21 @@ class ContractsValidator {
    */
   validateNamingConventions() {
     for (const typeName of this.actualExports) {
-      // IDs deben terminar en "Id"
-      if (typeName.toLowerCase().includes('id') && !typeName.endsWith('Id')) {
+      // Solo flagear como ID types si realmente son branded ID types, no validadores
+      const isLikelyIdType = (
+        typeName.toLowerCase().includes('id') &&
+        !typeName.endsWith('Id') &&
+        !typeName.startsWith('isValid') &&
+        !typeName.startsWith('validate') &&
+        !typeName.startsWith('generate') &&
+        !typeName.includes('CONFIG') &&
+        !typeName.includes('VALIDATION') &&
+        !typeName.includes('PROVIDERS') &&
+        !typeName.startsWith('is') &&
+        !typeName.includes('idle')
+      );
+
+      if (isLikelyIdType) {
         this.log('error',
           `Tipo '${typeName}' parece ser un ID pero no sigue la convención *Id`,
           'Naming Convention'
