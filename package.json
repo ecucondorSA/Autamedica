@@ -62,7 +62,7 @@
     "check:all": "pnpm run lint && pnpm run type-check && pnpm run policies:validate && pnpm run docs:validate",
     "lint-staged": "lint-staged",
     "prepare": "husky",
-    "prepush": "pnpm -w typecheck && pnpm -w lint && pnpm -w test",
+    "prepush": "timeout 900 pnpm -w typecheck && timeout 900 pnpm -w lint && timeout 900 pnpm -w test",
     "ai:review": "bash scripts/ai-pr-review.sh"
   },
   "devDependencies": {
