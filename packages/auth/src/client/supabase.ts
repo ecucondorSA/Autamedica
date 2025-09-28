@@ -35,7 +35,7 @@ export function createBrowserClient(): SupabaseClient {
         if (typeof window !== 'undefined') {
           const cookies = document.cookie.split('; ')
           const cookie = cookies.find(c => c.startsWith(`${name}=`))
-          return cookie ? decodeURIComponent(cookie.split('=')[1]) : undefined
+          return cookie ? decodeURIComponent(cookie.split('=')[1] || '') : undefined
         }
         return undefined
       },
@@ -107,9 +107,9 @@ export function createBrowserClient(): SupabaseClient {
         }
       }
     }
-  })
+  }) as unknown as SupabaseClient
 
-  return supabaseClient
+  return supabaseClient!
 }
 
 /**

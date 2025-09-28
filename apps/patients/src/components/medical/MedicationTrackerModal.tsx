@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Pill, Clock, CheckCircle2, AlertTriangle, Plus, Calendar } from 'lucide-react';
+import { X, Pill, Clock, CheckCircle2, Plus, Calendar } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
 
 interface MedicationTrackerModalProps {

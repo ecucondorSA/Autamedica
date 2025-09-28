@@ -8,5 +8,5 @@ interface ClientWrapperProps {
 }
 
 export function ClientWrapper({ children }: ClientWrapperProps) {
-  return <AuthProvider>{children}</AuthProvider>
+  return <AuthProvider onAuthStateChange={() => {}}>{children}</AuthProvider>
 }

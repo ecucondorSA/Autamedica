@@ -1,0 +1,328 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ci-sincronizar-workflows: asegura que Autamedica tenga 7 workflows en español
+# Uso:
+#   ./ci-sincronizar-workflows               # escribe, commitea y pushea si hay cambios
+#   ./ci-sincronizar-workflows --dry-run     # sólo muestra lo que haría
+#   ./ci-sincronizar-workflows --no-push     # commitea sin push
+# Requiere: git, bash, sed, grep
+
+DRY_RUN=false
+DO_PUSH=true
+BRANCH=$(git branch --show-current 2>/dev/null || echo "")
+if [[ -z "$BRANCH" ]]; then echo "❌ No estás en un repo git."; exit 1; fi
+
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run) DRY_RUN=true ;;
+    --no-push) DO_PUSH=false ;;
+  esac
+done
+
+echo "🧩 Autamedica • Sync Workflows"
+echo "📍 Rama: $BRANCH"
+echo "⚙️  Opciones → dry-run=$DRY_RUN, push=$DO_PUSH"
+echo "—"
+
+WF_DIR=".github/workflows"
+mkdir -p "$WF_DIR"
+
+# Map de archivos destino (ES) y los antiguos a renombrar/eliminar
+declare -A RENAME_MAP=(
+  ["$WF_DIR/ci.yml"]="$WF_DIR/verificacion-basica.yml"
+  ["$WF_DIR/security-hardening.yml"]="$WF_DIR/seguridad.yml"
+)
+DELETE_LIST=(
+  "$WF_DIR/release.yml"
+)
+
+# Contenidos canónicos (7 archivos)
+read -r -d '' WF_VERIFICACION <<'YAML'
+name: 'Verificación Básica (Lint/Types/Build)'
+on:
+  push:
+  pull_request:
+jobs:
+  verificacion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint || true
+      - name: Typecheck
+        run: pnpm tsc --noEmit || true
+      - name: Build (monorepo tolerante)
+        run: |
+          pnpm --filter @autamedica/web-app build || true
+          pnpm --filter @autamedica/patients build || true
+          pnpm --filter @autamedica/doctors build || true
+          pnpm --filter @autamedica/companies build || true
+          pnpm --filter @autamedica/admin build || true
+YAML
+
+read -r -d '' WF_SEGURIDAD <<'YAML'
+name: 'Seguridad (Auditorías/SAST/Secretos)'
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 3 * * *'
+jobs:
+  seguridad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pnpm audit || true
+      - name: GitLeaks (secretos)
+        uses: zricethezav/gitleaks-action@v2
+        with: { args: "--no-banner" }
+      - name: CodeQL init
+        uses: github/codeql-action/init@v3
+        with: { languages: javascript }
+      - name: CodeQL analyze
+        uses: github/codeql-action/analyze@v3
+YAML
+
+# validate-contracts.yml ya existe, lo dejamos tal cual (sólo crear si falta)
+read -r -d '' WF_VALIDAR_CONTRATOS <<'YAML'
+name: 'Validar Contratos TypeScript'
+on:
+  pull_request:
+    paths:
+      - 'packages/types/**'
+      - 'docs/GLOSARIO_MAESTRO.md'
+      - 'scripts/validate-contracts.js'
+  push:
+    branches: [main, develop]
+jobs:
+  validar-contratos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - name: Validar glosario vs exports
+        run: node scripts/validate-contracts.js
+YAML
+
+read -r -d '' WF_PREVIEW <<'YAML'
+name: 'Desplegar Preview (Pages)'
+on:
+  pull_request:
+    branches: [ develop, staging ]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/desplegar-preview.yml'
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PAGES_PROJECTS: autamedica-web-app,autamedica-patients,autamedica-doctors,autamedica-companies,autamedica-admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: |
+          pnpm --filter @autamedica/web-app build || true
+          pnpm --filter @autamedica/patients build || true
+          pnpm --filter @autamedica/doctors build || true
+          pnpm --filter @autamedica/companies build || true
+          pnpm --filter @autamedica/admin build || true
+      - run: pnpm add -g wrangler
+      - name: Deploy PR preview
+        shell: bash
+        run: |
+          IFS=',' read -ra PROJS <<< "${PAGES_PROJECTS}"
+          for p in "${PROJS[@]}"; do
+            echo "→ Preview: $p (rama ${{ github.head_ref }})"
+            wrangler pages deploy . --project-name "$p" --branch "${{ github.head_ref }}" || true
+          done
+YAML
+
+read -r -d '' WF_STAGING <<'YAML'
+name: 'Desplegar Staging (Pages)'
+on:
+  push:
+    branches: [ staging ]
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PAGES_PROJECTS: autamedica-web-app,autamedica-patients,autamedica-doctors,autamedica-companies,autamedica-admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: |
+          pnpm --filter @autamedica/web-app build || true
+          pnpm --filter @autamedica/patients build || true
+          pnpm --filter @autamedica/doctors build || true
+          pnpm --filter @autamedica/companies build || true
+          pnpm --filter @autamedica/admin build || true
+      - run: pnpm add -g wrangler
+      - name: Deploy staging
+        shell: bash
+        run: |
+          IFS=',' read -ra PROJS <<< "${PAGES_PROJECTS}"
+          for p in "${PROJS[@]}"; do
+            echo "→ Staging: $p"
+            wrangler pages deploy . --project-name "$p" --branch "staging" || true
+          done
+YAML
+
+read -r -d '' WF_PROD <<'YAML'
+name: 'Desplegar Producción (Pages)'
+on:
+  push:
+    branches: [ main ]
+jobs:
+  produccion:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PAGES_PROJECTS: autamedica-web-app,autamedica-patients,autamedica-doctors,autamedica-companies,autamedica-admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: |
+          pnpm --filter @autamedica/web-app build || true
+          pnpm --filter @autamedica/patients build || true
+          pnpm --filter @autamedica/doctors build || true
+          pnpm --filter @autamedica/companies build || true
+          pnpm --filter @autamedica/admin build || true
+      - run: pnpm add -g wrangler
+      - name: Deploy producción
+        shell: bash
+        run: |
+          IFS=',' read -ra PROJS <<< "${PAGES_PROJECTS}"
+          for p in "${PROJS[@]}"; do
+            echo "→ Producción: $p"
+            wrangler pages deploy . --project-name "$p" --branch "main" || true
+          done
+YAML
+
+read -r -d '' WF_WORKERS <<'YAML'
+name: 'Desplegar Workers'
+on:
+  push:
+    branches: [ develop, staging, main ]
+    paths:
+      - 'workers/**'
+      - 'packages/**'
+      - 'wrangler.toml'
+      - '.github/workflows/desplegar-workers.yml'
+jobs:
+  workers:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm add -g wrangler
+      - name: Publish Workers
+        run: |
+          echo "Rama: ${{ github.ref_name }}"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            wrangler deploy --env production
+          elif [ "${{ github.ref_name }}" = "staging" ]; then
+            wrangler deploy --env staging
+          else
+            wrangler deploy --env preview || wrangler deploy
+          fi
+YAML
+
+declare -A CANONICAL=(
+  ["$WF_DIR/verificacion-basica.yml"]="$WF_VERIFICACION"
+  ["$WF_DIR/seguridad.yml"]="$WF_SEGURIDAD"
+  ["$WF_DIR/validate-contracts.yml"]="$WF_VALIDAR_CONTRATOS"
+  ["$WF_DIR/desplegar-preview.yml"]="$WF_PREVIEW"
+  ["$WF_DIR/desplegar-staging.yml"]="$WF_STAGING"
+  ["$WF_DIR/desplegar-produccion.yml"]="$WF_PROD"
+  ["$WF_DIR/desplegar-workers.yml"]="$WF_WORKERS"
+)
+
+# 1) Renombrar antiguos si existen
+for OLD in "${!RENAME_MAP[@]}"; do
+  NEW="${RENAME_MAP[$OLD]}"
+  if [[ -f "$OLD" && ! -f "$NEW" ]]; then
+    echo "✏️  Renombrar: $OLD → $NEW"
+    $DRY_RUN || git mv "$OLD" "$NEW"
+  fi
+done
+
+# 2) Eliminar obsoletos
+for F in "${DELETE_LIST[@]}"; do
+  if [[ -f "$F" ]]; then
+    echo "🗑️  Eliminar: $F"
+    $DRY_RUN || git rm "$F"
+  fi
+done
+
+# 3) Escribir/normalizar 7 workflows canónicos
+CHANGED=false
+for FILE in "${!CANONICAL[@]}"; do
+  CONTENT="${CANONICAL[$FILE]}"
+  if [[ ! -f "$FILE" ]] || ! diff -q <(echo "$CONTENT") "$FILE" >/dev/null 2>&1; then
+    echo "📝 Actualizar archivo: $FILE"
+    if ! $DRY_RUN; then
+      printf "%s\n" "$CONTENT" > "$FILE"
+      git add "$FILE"
+    fi
+    CHANGED=true
+  fi
+done
+
+# 4) Verificar secrets necesarios
+echo "🔐 Chequeo rápido de secrets (manual en GitHub Settings → Secrets & variables):"
+echo "   - CLOUDFLARE_API_TOKEN (requerido)"
+echo "   - CLOUDFLARE_ACCOUNT_ID (requerido)"
+echo "   - PAGES_PROJECTS (opcional, puede hardcodearse)"
+
+# 5) Commit y push condicionales
+if $CHANGED; then
+  MSG="⚙️ ops tarea: sincronizar workflows (ES) + despliegues Pages/Workers"
+  echo "✅ Cambios detectados → commit: $MSG"
+  $DRY_RUN || git commit -m "$MSG"
+  if $DO_PUSH; then
+    echo "🚀 Push a remoto (${BRANCH})"
+    $DRY_RUN || git push -u origin "$BRANCH"
+  else
+    echo "ℹ️ Push deshabilitado (--no-push)."
+  fi
+else
+  echo "✅ No hay cambios que sincronizar."
+fi
+
+echo "🎉 Listo. Si renombraste archivos, GitHub Actions puede tardar en reflejar los nombres."

@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+set -e
+
+# git-flow-assistant: Asistente de Flujo Git para Autamedica
+# Uso: ./git-flow-assistant
+
+branch=$(git branch --show-current 2>/dev/null || echo "")
+if [ -z "$branch" ]; then echo "❌ No estás en un repo git."; exit 1; fi
+
+echo "🚀 Autamedica – Asistente de Flujo Git"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📍 Rama actual: $branch"
+echo "📁 Proyecto: $(pwd | grep -o '[^/]*$')"
+echo ""
+echo "📋 Estado actual:"
+git status -s | head -10
+echo ""
+
+# Verificar si hay cambios staged
+staged_count=$(git diff --cached --name-only | wc -l)
+if [ "$staged_count" -eq 0 ]; then
+    echo "⚠️  No hay cambios staged."
+    echo "🔧 Opciones:"
+    echo "   • git add .          (agregar todos los cambios)"
+    echo "   • git add -p         (seleccionar cambios interactivamente)"
+    echo "   • git add <archivo>  (agregar archivo específico)"
+    exit 0
+fi
+
+echo "✅ Cambios staged: $staged_count archivo(s)"
+echo ""
+
+read -p "🤖 ¿Commitear lo staged ahora? (Y/n): " do_commit
+if [ "$do_commit" != "n" ] && [ "$do_commit" != "N" ]; then
+    echo ""
+    echo "🎯 Tipos de commit Autamedica:"
+    echo "  ✨ nova feature  → nueva funcionalidad completa"
+    echo "  🐛 fix problema  → corrección de bug/error"
+    echo "  ⚙️ ops tarea     → infraestructura, CI/CD, dependencias"
+    echo "  📝 docs          → documentación, README, comments"
+    echo "  🧹 clean código  → refactor, limpieza, organización"
+    echo "  ⚡ mejorias      → optimización de performance"
+    echo "  🧪 tests         → agregar/ajustar testing"
+    echo ""
+
+    read -p "💬 Tipo (copiá emoji + tipo): " tipo
+    read -p "📝 Mensaje breve: " msg
+
+    if [ -z "$tipo" ] || [ -z "$msg" ]; then
+        echo "❌ Error: Tipo y mensaje son obligatorios"
+        exit 1
+    fi
+
+    # Commit con formato estándar Autamedica
+    git commit -m "$tipo: $msg
+
+🤖 Generated with Autamedica Git Flow Assistant
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+    echo "✅ Commit realizado: $tipo: $msg"
+    echo ""
+fi
+
+# Flujo según rama actual
+case "$branch" in
+    feature/*|fix/*|hotfix/*)
+        echo "🌟 Rama de desarrollo detectada: $branch"
+        echo ""
+
+        if [[ "$branch" == hotfix/* ]]; then
+            target_branch="main"
+            echo "🚨 HOTFIX: PR directo a main"
+        else
+            target_branch="develop"
+            echo "🔀 PR sugerido hacia: $target_branch"
+        fi
+
+        read -p "🚀 ¿Hacer push y abrir PR → $target_branch? (Y/n): " ans
+        if [ "$ans" != "n" ] && [ "$ans" != "N" ]; then
+            echo "⬆️  Pushing branch..."
+            git push -u origin "$branch"
+
+            echo "📝 Creando PR..."
+            if command -v gh >/dev/null 2>&1; then
+                gh pr create --base "$target_branch" --title "$branch" --body "**Tipo**: $(echo $branch | cut -d'/' -f1)
+**Descripción**: $branch
+
+**Checklist**:
+- [ ] Build passing
+- [ ] Tests passing
+- [ ] Code review completed
+- [ ] No breaking changes
+- [ ] Documentation updated
+
+**Deploy**:
+- Target: $target_branch
+- Preview: Cloudflare Pages automático"
+
+                echo ""
+                echo "🎯 PR creado exitosamente"
+                read -p "🌐 ¿Abrir PR en browser? (Y/n): " open_pr
+                if [ "$open_pr" != "n" ] && [ "$open_pr" != "N" ]; then
+                    gh pr view --web
+                fi
+
+                echo ""
+                echo "🤖 Sugerencias de Revisión por IA:"
+                echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                echo "Claude Code Review:"
+                echo "\"Revisá este diff con foco en seguridad, performance y legibilidad. Señalá riesgos y fixes rápidos.\""
+                echo ""
+                echo "ChatGPT5 Checklist:"
+                echo "\"Validá que el PR cumpla: build OK, rutas críticas no rotas, naming consistente, sin secretos, historias de usuario cubiertas.\""
+            else
+                echo "⚠️  GitHub CLI no instalado. Comandos manuales:"
+                echo "   git push -u origin $branch"
+                echo "   gh pr create --base $target_branch --title '$branch'"
+            fi
+        fi
+
+        if [[ "$branch" == hotfix/* ]]; then
+            echo ""
+            echo "🔄 IMPORTANTE: Después del merge a main, ejecutar:"
+            echo "   git checkout staging && git pull && git merge origin/main && git push"
+            echo "   git checkout develop && git pull && git merge origin/main && git push"
+        fi
+        ;;
+
+    develop)
+        echo "🔧 Rama de desarrollo principal: develop"
+        echo "✅ Commits directos permitidos aquí"
+        echo ""
+        read -p "🎯 ¿Promover develop → staging (QA) con PR? (y/N): " ans
+        if [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+            if command -v gh >/dev/null 2>&1; then
+                gh pr create --base staging --title "🚀 Promote develop → staging (QA)" --body "**QA Release**
+
+**Cambios incluidos**:
+$(git log --oneline staging..develop | head -10)
+
+**Testing**:
+- [ ] Manual QA completed
+- [ ] Automated tests passing
+- [ ] Performance validated
+- [ ] Cross-browser tested
+
+**Deploy**: Staging environment (Cloudflare Pages Preview)"
+
+                echo "✅ PR develop → staging creado"
+                gh pr view --web
+            else
+                echo "⚠️  Instala GitHub CLI: gh pr create --base staging"
+            fi
+        fi
+        ;;
+
+    staging)
+        echo "⚠️  Rama de staging (QA)"
+        echo "🚨 Evitá commits directos en staging"
+        echo "💡 Usa PRs desde develop para cambios"
+        echo ""
+        read -p "🚀 ¿Promover staging → main (PRODUCCIÓN)? (y/N): " ans
+        if [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+            if command -v gh >/dev/null 2>&1; then
+                gh pr create --base main --title "🎉 Release: staging → main (PRODUCCIÓN)" --body "**PRODUCTION RELEASE**
+
+**Release Notes**:
+$(git log --oneline main..staging | head -15)
+
+**Pre-deployment Checklist**:
+- [ ] QA sign-off complete
+- [ ] Performance benchmarks passed
+- [ ] Security scan completed
+- [ ] Database migrations tested
+- [ ] Rollback plan prepared
+- [ ] Monitoring alerts configured
+
+**Deploy**: Production (Cloudflare Pages main branch)
+**Impact**: All users"
+
+                echo "🎉 PR staging → main (PRODUCCIÓN) creado"
+                gh pr view --web
+            else
+                echo "⚠️  Instala GitHub CLI para PR automático"
+            fi
+        fi
+        ;;
+
+    main)
+        echo "🚨 Rama de producción (main)"
+        echo "⛔ Solo HOTFIXES permitidos aquí"
+        echo ""
+        read -p "🆘 ¿Crear hotfix/<slug> desde main? (y/N): " ans
+        if [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+            read -p "🏷️  Slug del hotfix (ej: fix-auth-bug): " slug
+            if [ -n "$slug" ]; then
+                git checkout -b "hotfix/$slug"
+                echo "🌿 Rama hotfix/$slug creada desde main"
+                echo "📌 Hacé tus cambios, luego ejecutá este asistente otra vez"
+                echo ""
+                echo "🔄 Flujo hotfix:"
+                echo "   1. Commit en hotfix/$slug"
+                echo "   2. PR hotfix/$slug → main"
+                echo "   3. Merge a main (deploy inmediato)"
+                echo "   4. Back-merge main → staging → develop"
+            fi
+        fi
+        ;;
+
+    *)
+        echo "ℹ️  Rama personalizada: $branch"
+        echo "📋 Flujo recomendado:"
+        echo "   • feature/<nombre> - nueva funcionalidad"
+        echo "   • fix/<nombre>     - corrección de bug"
+        echo "   • hotfix/<nombre>  - fix urgente desde main"
+        echo "   • develop          - integración de desarrollo"
+        echo "   • staging          - QA y validación"
+        echo "   • main             - producción"
+        ;;
+esac
+
+echo ""
+echo "🧭 Deployment Config (Cloudflare Pages):"
+echo "   📍 main branch    → PRODUCCIÓN (autamedica-*.pages.dev)"
+echo "   📍 staging branch → PREVIEW QA"
+echo "   📍 develop branch → PREVIEW DEV"
+echo "   📍 PR branches    → PREVIEW efímero"
+echo ""
+echo "🎯 Próximos comandos útiles:"
+echo "   ./git-flow-assistant  (ejecutar otra vez)"
+echo "   git status           (ver estado)"
+echo "   git log --oneline    (ver commits recientes)"

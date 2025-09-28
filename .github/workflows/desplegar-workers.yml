@@ -1,0 +1,48 @@
+name: 'Desplegar Workers'
+
+on:
+  push:
+    branches: [ develop, staging, main ]
+    paths:
+      - 'workers/**'
+      - 'packages/**'
+      - 'wrangler.toml'
+      - '.github/workflows/desplegar-workers.yml'
+
+jobs:
+  workers:
+    name: 'Workers por rama'
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Instalar Wrangler
+        run: pnpm add -g wrangler
+
+      - name: Publicar Workers por entorno
+        run: |
+          echo "Rama: ${{ github.ref_name }}"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            wrangler deploy --env production
+          elif [ "${{ github.ref_name }}" = "staging" ]; then
+            wrangler deploy --env staging
+          else
+            wrangler deploy --env preview || wrangler deploy
+          fi

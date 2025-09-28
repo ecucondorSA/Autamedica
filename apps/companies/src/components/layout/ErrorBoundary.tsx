@@ -2,7 +2,9 @@
 
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Button } from '@altamedica/ui';
+// import { Button } from '@altamedica/ui';
+// Temporary workaround for TypeScript module resolution
+import { Button } from '../../../../../packages/ui/dist/index.js';
 import Link from 'next/link';
 
 import { logger } from '@autamedica/shared';
@@ -58,7 +60,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 Recargar página
               </Button>
               <Link href="/dashboard">
-                <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                <Button className="w-full flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
                   <Home className="w-4 h-4" />
                   Ir al inicio
                 </Button>
@@ -111,7 +113,7 @@ export function ErrorFallback({ error: _error, resetErrorBoundary }: ErrorFallba
             Intentar de nuevo
           </Button>
           <Link href="/dashboard">
-            <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+            <Button className="w-full flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
               <Home className="w-4 h-4" />
               Ir al inicio
             </Button>

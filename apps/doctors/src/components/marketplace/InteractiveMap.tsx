@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { MapPin, Users, Star, DollarSign, Clock, Filter, Search } from 'lucide-react'
+import { MapPin, Users, Star, DollarSign, Clock } from 'lucide-react'
 import { MarketplaceJobOffer, MarketplaceDoctor, Coordinates, ARGENTINE_CITIES } from '@/types/marketplace'
 
 interface MarkerData {

@@ -47,9 +47,11 @@ export function CompanyLayoutProvider({ children }: CompanyLayoutProviderProps) 
 
     let currentPath = '';
     for (let i = 0; i < segments.length; i++) {
-      currentPath += `/${segments[i]}`;
       const segment = segments[i];
-      
+      if (!segment) continue; // Skip undefined segments
+
+      currentPath += `/${segment}`;
+
       // Map route segments to human-readable labels
       const labelMap: { [key: string]: string } = {
         'dashboard': 'Centro de Control',

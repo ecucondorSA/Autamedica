@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Activity, Heart, Thermometer, Scale, TrendingUp, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { X, Activity, Heart, Thermometer, Scale, TrendingUp, CheckCircle2 } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
 
 interface VitalSignsModalProps {

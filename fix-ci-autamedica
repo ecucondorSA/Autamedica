@@ -1,0 +1,288 @@
+#!/bin/bash
+
+# fix-ci-autamedica: Diagnóstico y corrección automática de CI/CD
+# Uso: ./fix-ci-autamedica
+
+set -e
+
+echo "🔧 Fix CI/CD - Autamedica"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📅 $(date)"
+echo "📁 Proyecto: $(pwd | grep -o '[^/]*$')"
+echo ""
+
+# Colores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+# Contadores de errores
+LINT_ERRORS=0
+TYPE_ERRORS=0
+SECURITY_ISSUES=0
+CI_FAILURES=0
+
+echo "📋 FASE 1: Análisis de GitHub Actions"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verificar si GitHub CLI está disponible
+if command -v gh >/dev/null 2>&1; then
+    echo "✅ GitHub CLI disponible"
+
+    # Obtener últimos runs
+    echo "🔍 Analizando últimos 10 workflows..."
+    if gh run list --limit 10 > /tmp/gh_runs.txt 2>/dev/null; then
+        echo "📊 Estado de workflows recientes:"
+        cat /tmp/gh_runs.txt | head -5
+
+        # Contar failures
+        FAILED_RUNS=$(grep -c "failure\|cancelled" /tmp/gh_runs.txt || echo "0")
+        if [ "$FAILED_RUNS" -gt 0 ]; then
+            echo -e "❌ ${RED}$FAILED_RUNS workflow(s) fallidos detectados${NC}"
+            CI_FAILURES=$FAILED_RUNS
+
+            # Obtener ID del último run fallido
+            LATEST_FAILED=$(grep "failure\|cancelled" /tmp/gh_runs.txt | head -1 | awk '{print $1}' || echo "")
+            if [ -n "$LATEST_FAILED" ]; then
+                echo "🔍 Último workflow fallido: $LATEST_FAILED"
+                echo "📝 Para ver logs: gh run view $LATEST_FAILED --log"
+            fi
+        else
+            echo -e "✅ ${GREEN}Todos los workflows recientes están OK${NC}"
+        fi
+    else
+        echo -e "⚠️  ${YELLOW}No se pudo acceder a GitHub Actions (puede requerir autenticación)${NC}"
+    fi
+else
+    echo -e "⚠️  ${YELLOW}GitHub CLI no instalado. Instalar con: curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg${NC}"
+fi
+
+echo ""
+echo "📋 FASE 2: Lint Check (ESLint)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+if [ -f "package.json" ] && grep -q "lint" package.json; then
+    echo "🔍 Ejecutando lint check..."
+
+    # Capturar output de lint
+    if pnpm lint > /tmp/lint_output.txt 2>&1; then
+        echo -e "✅ ${GREEN}Lint check pasó correctamente${NC}"
+    else
+        LINT_ERRORS=$(wc -l < /tmp/lint_output.txt)
+        echo -e "❌ ${RED}Lint check falló con $LINT_ERRORS líneas de error${NC}"
+        echo ""
+        echo "🔍 Errores de lint más comunes:"
+        head -20 /tmp/lint_output.txt | grep -E "error|warning" || echo "Ver /tmp/lint_output.txt para detalles"
+        echo ""
+        echo "🛠️  Corrección sugerida:"
+        echo "   pnpm lint --fix    # Auto-fix de issues menores"
+        echo "   pnpm lint          # Ver errores restantes"
+    fi
+else
+    echo -e "⚠️  ${YELLOW}Script de lint no encontrado en package.json${NC}"
+fi
+
+echo ""
+echo "📋 FASE 3: TypeScript Check"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+if [ -f "tsconfig.json" ]; then
+    echo "🔍 Ejecutando TypeScript check..."
+
+    # Verificar con tsc
+    if pnpm tsc --noEmit > /tmp/tsc_output.txt 2>&1; then
+        echo -e "✅ ${GREEN}TypeScript check pasó correctamente${NC}"
+    else
+        TYPE_ERRORS=$(grep -c "error" /tmp/tsc_output.txt || echo "0")
+        echo -e "❌ ${RED}TypeScript check falló con $TYPE_ERRORS errores${NC}"
+        echo ""
+        echo "🔍 Errores de TypeScript más frecuentes:"
+        head -15 /tmp/tsc_output.txt | grep "error" || echo "Ver /tmp/tsc_output.txt para detalles"
+        echo ""
+        echo "🛠️  Correcciones sugeridas:"
+        echo "   • Revisar imports rotos"
+        echo "   • Verificar tipos faltantes"
+        echo "   • Actualizar @types/* packages si es necesario"
+    fi
+else
+    echo -e "⚠️  ${YELLOW}tsconfig.json no encontrado${NC}"
+fi
+
+echo ""
+echo "📋 FASE 4: Security Audit"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+echo "🔍 Ejecutando audit de seguridad..."
+if pnpm audit > /tmp/audit_output.txt 2>&1; then
+    echo -e "✅ ${GREEN}No se encontraron vulnerabilidades críticas${NC}"
+else
+    # Contar vulnerabilidades
+    HIGH_VULNS=$(grep -c "high" /tmp/audit_output.txt || echo "0")
+    CRITICAL_VULNS=$(grep -c "critical" /tmp/audit_output.txt || echo "0")
+    SECURITY_ISSUES=$((HIGH_VULNS + CRITICAL_VULNS))
+
+    if [ "$SECURITY_ISSUES" -gt 0 ]; then
+        echo -e "❌ ${RED}$SECURITY_ISSUES vulnerabilidades críticas/altas encontradas${NC}"
+        echo ""
+        echo "🔍 Resumen de vulnerabilidades:"
+        grep -E "critical|high" /tmp/audit_output.txt | head -10 || echo "Ver /tmp/audit_output.txt para detalles"
+        echo ""
+        echo "🛠️  Corrección sugerida:"
+        echo "   pnpm audit fix    # Auto-fix vulnerabilidades"
+        echo "   pnpm update       # Actualizar dependencias"
+    else
+        echo -e "⚠️  ${YELLOW}Vulnerabilidades menores encontradas (no críticas)${NC}"
+    fi
+fi
+
+echo ""
+echo "📋 FASE 5: Build Test"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+echo "🔍 Verificando que el proyecto compile..."
+if pnpm build > /tmp/build_output.txt 2>&1; then
+    echo -e "✅ ${GREEN}Build completado exitosamente${NC}"
+else
+    echo -e "❌ ${RED}Build falló${NC}"
+    echo ""
+    echo "🔍 Errores de build:"
+    tail -20 /tmp/build_output.txt | grep -E "error|Error" || echo "Ver /tmp/build_output.txt para detalles"
+fi
+
+echo ""
+echo "📋 FASE 6: Validación de Glosario Médico"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+echo "🔍 Validando terminología médica y naming conventions..."
+if [ -f "scripts/check-glossary.js" ]; then
+    if node scripts/check-glossary.js > /tmp/glossary_output.txt 2>&1; then
+        echo -e "✅ ${GREEN}Glosario médico: Sin issues críticos${NC}"
+    else
+        GLOSSARY_ERRORS=$(grep -c "❌ Errores:" /tmp/glossary_output.txt || echo "0")
+        GLOSSARY_WARNINGS=$(grep -c "⚠️  Warnings:" /tmp/glossary_output.txt || echo "0")
+
+        if [ "$GLOSSARY_ERRORS" -gt 0 ]; then
+            echo -e "❌ ${RED}Glosario médico: $GLOSSARY_ERRORS errores de terminología${NC}"
+            echo ""
+            echo "🔍 Errores más frecuentes:"
+            head -10 /tmp/glossary_output.txt | grep "Término prohibido\|violación HIPAA" || echo "Ver /tmp/glossary_output.txt para detalles"
+        fi
+
+        if [ "$GLOSSARY_WARNINGS" -gt 5 ]; then
+            echo -e "⚠️  ${YELLOW}Glosario médico: Muchos warnings de terminología${NC}"
+        fi
+    fi
+else
+    echo -e "⚠️  ${YELLOW}Script de glosario no encontrado (scripts/check-glossary.js)${NC}"
+fi
+
+echo ""
+echo "📋 FASE 7: Configuración Cloudflare Pages"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verificar workflows que aún referencien Vercel
+if [ -d ".github/workflows" ]; then
+    echo "🔍 Verificando workflows de GitHub Actions..."
+
+    VERCEL_REFS=$(grep -r "vercel" .github/workflows/ 2>/dev/null | wc -l || echo "0")
+    if [ "$VERCEL_REFS" -gt 0 ]; then
+        echo -e "⚠️  ${YELLOW}$VERCEL_REFS referencias a Vercel encontradas en workflows${NC}"
+        echo "📁 Archivos con referencias a Vercel:"
+        grep -r "vercel" .github/workflows/ 2>/dev/null || true
+        echo ""
+        echo "🛠️  Acción requerida: Reemplazar/eliminar referencias a Vercel"
+    else
+        echo -e "✅ ${GREEN}No se encontraron referencias obsoletas a Vercel${NC}"
+    fi
+
+    # Verificar si hay configuración para Cloudflare
+    CLOUDFLARE_REFS=$(grep -r "wrangler\|cloudflare" .github/workflows/ 2>/dev/null | wc -l || echo "0")
+    if [ "$CLOUDFLARE_REFS" -gt 0 ]; then
+        echo -e "✅ ${GREEN}Configuración de Cloudflare detectada en workflows${NC}"
+    else
+        echo -e "⚠️  ${YELLOW}No se detectó configuración de Cloudflare en workflows${NC}"
+    fi
+fi
+
+echo ""
+echo "📊 RESUMEN DE PROBLEMAS DETECTADOS"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+GLOSSARY_ISSUES=${GLOSSARY_ERRORS:-0}
+TOTAL_ISSUES=$((LINT_ERRORS + TYPE_ERRORS + SECURITY_ISSUES + CI_FAILURES + GLOSSARY_ISSUES))
+
+echo "📈 Total de issues: $TOTAL_ISSUES"
+echo -e "🔧 Lint errors: ${RED}$LINT_ERRORS${NC}"
+echo -e "📝 TypeScript errors: ${RED}$TYPE_ERRORS${NC}"
+echo -e "🔒 Security issues: ${RED}$SECURITY_ISSUES${NC}"
+echo -e "⚙️ CI failures: ${RED}$CI_FAILURES${NC}"
+echo -e "📚 Glossary issues: ${RED}$GLOSSARY_ISSUES${NC}"
+
+echo ""
+if [ "$TOTAL_ISSUES" -eq 0 ]; then
+    echo -e "🎉 ${GREEN}¡NO SE ENCONTRARON PROBLEMAS CRÍTICOS!${NC}"
+    echo "✅ El proyecto está listo para CI/CD"
+else
+    echo -e "⚠️  ${YELLOW}PLAN DE CORRECCIÓN SUGERIDO:${NC}"
+    echo ""
+
+    if [ "$LINT_ERRORS" -gt 0 ]; then
+        echo "1️⃣ Corregir errores de lint:"
+        echo "   pnpm lint --fix"
+        echo "   # Revisar errores restantes manualmente"
+        echo ""
+    fi
+
+    if [ "$TYPE_ERRORS" -gt 0 ]; then
+        echo "2️⃣ Corregir errores de TypeScript:"
+        echo "   # Revisar /tmp/tsc_output.txt"
+        echo "   # Corregir imports y tipos uno por uno"
+        echo ""
+    fi
+
+    if [ "$SECURITY_ISSUES" -gt 0 ]; then
+        echo "3️⃣ Corregir vulnerabilidades:"
+        echo "   pnpm audit fix"
+        echo "   pnpm update"
+        echo ""
+    fi
+
+    if [ "$GLOSSARY_ISSUES" -gt 0 ]; then
+        echo "4️⃣ Corregir terminología médica:"
+        echo "   # Revisar /tmp/glossary_output.txt"
+        echo "   # Reemplazar términos según glossary.json"
+        echo "   node scripts/check-glossary.js  # Re-validar"
+        echo ""
+    fi
+
+    if [ "$CI_FAILURES" -gt 0 ]; then
+        echo "5️⃣ Re-ejecutar CI después de correcciones:"
+        echo "   git add ."
+        echo "   ./git-claude  # Commit con formato estándar"
+        echo "   git push      # Disparar GitHub Actions"
+        echo ""
+    fi
+fi
+
+echo "🔧 COMANDOS ÚTILES PARA DEBUG:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "gh run list --limit 5           # Ver últimos workflows"
+echo "gh run view <ID> --log          # Ver logs de workflow específico"
+echo "pnpm lint                       # Check lint local"
+echo "pnpm tsc --noEmit               # Check TypeScript local"
+echo "pnpm audit                      # Check vulnerabilidades"
+echo "pnpm build                      # Test build local"
+echo "node scripts/check-glossary.js # Validar terminología médica"
+echo "./git-claude                    # Commit con formato estándar"
+
+echo ""
+echo "📁 ARCHIVOS DE DEBUG GENERADOS:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "/tmp/lint_output.txt           # Output completo de lint"
+echo "/tmp/tsc_output.txt            # Output completo de TypeScript"
+echo "/tmp/audit_output.txt          # Output completo de audit"
+echo "/tmp/build_output.txt          # Output completo de build"
+echo "/tmp/glossary_output.txt       # Output completo de glosario médico"
+echo "/tmp/gh_runs.txt               # Lista de workflows GitHub"

@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { ensureEnv } from "@autamedica/shared";
 
 // Rutas públicas que no requieren autenticación
 const PUBLIC_ROUTES = [
@@ -26,8 +27,8 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+    ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
     {
       cookies: {
         get(name: string) {
@@ -57,8 +58,8 @@ export async function middleware(request: NextRequest) {
 
     if (error || !session) {
       // No autenticado - redirigir al login
-      const loginUrl = new URL('/auth/login', 
-        process.env.NODE_ENV === 'production' 
+      const loginUrl = new URL('/auth/login',
+        ensureEnv('NODE_ENV') === 'production'
           ? 'https://autamedica-web-app.pages.dev'
           : 'http://localhost:3000'
       );
@@ -75,7 +76,7 @@ export async function middleware(request: NextRequest) {
     if (userRole !== 'company' && userRole !== 'company_admin' && userRole !== 'admin' && userRole !== 'platform_admin') {
       // Usuario no autorizado - redirigir al home del web-app
       const homeUrl = new URL('/',
-        process.env.NODE_ENV === 'production' 
+        ensureEnv('NODE_ENV') === 'production'
           ? 'https://autamedica-web-app.pages.dev'
           : 'http://localhost:3000'
       );
@@ -91,7 +92,7 @@ export async function middleware(request: NextRequest) {
     
     // En caso de error, redirigir al login
     const loginUrl = new URL('/auth/login',
-      process.env.NODE_ENV === 'production' 
+      ensureEnv('NODE_ENV') === 'production'
         ? 'https://autamedica.com'
         : 'http://localhost:3000'
     );

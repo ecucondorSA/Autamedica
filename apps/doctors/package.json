@@ -22,6 +22,7 @@
     "@autamedica/hooks": "workspace:^",
     "@autamedica/shared": "workspace:^",
     "@autamedica/tailwind-config": "workspace:^",
+    "@autamedica/telemedicine": "workspace:^",
     "@autamedica/types": "workspace:^",
     "@autamedica/ui": "workspace:^",
     "@autamedica/utils": "workspace:^",

@@ -3,17 +3,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
-import { AuthProvider, useAuth } from '@autamedica/auth-hooks'
+import { AuthProvider, useAuth, type UserProfile } from '@autamedica/auth'
+import { ensureClientEnv } from '@autamedica/shared'
 
 interface CallPageClientProps {
   roomId: string
 }
 
-const REQUIRE_AUTH = process.env.NEXT_PUBLIC_REQUIRE_AUTH === 'true'
+const REQUIRE_AUTH = ensureClientEnv('NEXT_PUBLIC_REQUIRE_AUTH') === 'true'
 
 export function CallPageClient({ roomId }: CallPageClientProps) {
   return (
-    <AuthProvider>
+    <AuthProvider onAuthStateChange={() => {}}>
       <DoctorCallContent roomId={roomId} />
     </AuthProvider>
   )
@@ -21,8 +22,11 @@ export function CallPageClient({ roomId }: CallPageClientProps) {
 
 function DoctorCallContent({ roomId }: { roomId: string }) {
   const router = useRouter()
-  const { session, loading } = useAuth()
+  const { session, profile, loading } = useAuth()
   const [isReady, setIsReady] = useState(false)
+
+  // Type guard to ensure profile is properly typed
+  const typedProfile = profile as UserProfile | null
 
   useEffect(() => {
     if (loading) return
@@ -37,7 +41,7 @@ function DoctorCallContent({ roomId }: { roomId: string }) {
       return
     }
 
-    if (session.user.role !== 'doctor') {
+    if (typedProfile?.role !== 'doctor') {
       router.push('/')
       return
     }
@@ -73,10 +77,12 @@ function DoctorCallContent({ roomId }: { roomId: string }) {
   }
 
   const { userId, userName } = useMemo(() => {
-    if (session) {
+    if (session && typedProfile) {
       return {
         userId: session.user.id,
-        userName: session.user.email || 'Doctor'
+        userName: typedProfile.first_name && typedProfile.last_name
+          ? `${typedProfile.first_name} ${typedProfile.last_name}`
+          : typedProfile.email || 'Doctor'
       }
     }
 
@@ -84,7 +90,7 @@ function DoctorCallContent({ roomId }: { roomId: string }) {
       userId: `dev-doctor-${roomId}`,
       userName: 'Doctor de prueba'
     }
-  }, [session, roomId])
+  }, [session, typedProfile, roomId])
 
   return (
     <div className="min-h-screen bg-[#101d32] overflow-hidden">
@@ -96,8 +102,6 @@ function DoctorCallContent({ roomId }: { roomId: string }) {
         theme="doctor"
         onCallEnd={handleCallEnd}
         onCallStart={handleCallStart}
-        onStatusChange={handleStatusChange}
-        onError={handleError}
         className="h-screen"
       />
     </div>

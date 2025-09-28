@@ -19,6 +19,11 @@ export type Brand<T, B extends string> = T & { readonly __brand: B };
 export type ISODateString = Brand<string, 'ISODateString'>;
 
 /**
+ * UUID base type para todos los identificadores
+ */
+export type UUID = Brand<string, 'UUID'>;
+
+/**
  * Utilidad genérica para crear IDs tipados por scope
  * @template Scope - Nombre del scope/entidad como string literal
  */
@@ -36,6 +41,9 @@ export type DoctorId = Id<'Doctor'>;
 
 /** ID tipado para citas médicas */
 export type AppointmentId = Id<'Appointment'>;
+
+/** ID tipado para centros médicos/facilidades */
+export type FacilityId = Id<'Facility'>;
 
 /** ID tipado para prescripciones */
 export type PrescriptionId = Id<'Prescription'>;

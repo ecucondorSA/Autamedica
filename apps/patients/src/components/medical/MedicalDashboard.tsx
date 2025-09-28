@@ -7,9 +7,7 @@ import {
   Activity,
   Calendar,
   TrendingUp,
-  AlertTriangle,
   Clock,
-  FileText,
   Plus,
   ChevronRight
 } from 'lucide-react';

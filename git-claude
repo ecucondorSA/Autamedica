@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# git-claude: Asistente Git inteligente para Autamedica con Claude Opus 4.1
+# Uso: ./git-claude (después de git add .)
+
+echo "🤖 Claude Opus 4.1 - Autamedica Git Assistant"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📍 Rama actual: $(git branch --show-current)"
+echo "📁 Proyecto: Autamedica ($(pwd | grep -o '[^/]*$'))"
+echo ""
+
+# Verificar si hay cambios staged
+if ! git diff --cached --quiet; then
+    echo "📋 Cambios detectados para commit:"
+    git diff --cached --name-only | sed 's/^/   • /'
+    echo ""
+else
+    echo "⚠️  No hay cambios staged. Ejecuta 'git add .' primero."
+    exit 1
+fi
+
+# Verificar rama y advertir si es crítica
+branch=$(git branch --show-current)
+if [[ "$branch" == "main" ]] || [[ "$branch" == "staging" ]]; then
+    echo "🚨 ADVERTENCIA: Estás en rama '$branch'"
+    echo "   → En producción se recomiendan PR/Merge, no commits directos"
+    echo "   → ¿Estás seguro de continuar?"
+    read -p "   Continuar? (y/N): " continue_anyway
+    if [[ "$continue_anyway" != "y" ]]; then
+        echo "❌ Operación cancelada"
+        exit 1
+    fi
+    echo ""
+fi
+
+echo "🎯 Autamedica Commit Types:"
+echo "  ✨  nova feature  → nueva funcionalidad completa"
+echo "  🐛  fix problema  → corrección de bug/error"
+echo "  ⚙️  ops tarea     → infraestructura, CI/CD, dependencias"
+echo "  📝  docs          → documentación, README, comments"
+echo "  🧹  clean código  → refactor, limpieza, organización"
+echo "  ⚡  mejorias      → optimización de performance"
+echo "  🧪  tests         → agregar/ajustar testing"
+echo ""
+
+# Input del tipo de commit
+read -p "💬 Selecciona emoji + tipo (ej: ✨nova feature): " commit_type
+read -p "📝 Describe el cambio brevemente: " commit_message
+
+# Validar que no esté vacío
+if [[ -z "$commit_type" ]] || [[ -z "$commit_message" ]]; then
+    echo "❌ Error: Tipo y mensaje son obligatorios"
+    exit 1
+fi
+
+# Generar commit completo
+full_commit="$commit_type: $commit_message
+
+🤖 Generated with [Claude Opus 4.1](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+echo ""
+echo "🎯 Commit generado:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "$full_commit"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+read -p "🚀 ¿Ejecutar commit? (Y/n): " confirm
+
+if [[ "$confirm" == "n" ]] || [[ "$confirm" == "N" ]]; then
+    echo "❌ Commit cancelado"
+    exit 1
+fi
+
+# Ejecutar commit usando HEREDOC para formato correcto
+git commit -m "$(cat <<EOF
+$full_commit
+EOF
+)"
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ Commit realizado exitosamente"
+    echo "📊 Estado actual:"
+    git log --oneline -1
+    echo ""
+    echo "🚀 Próximos pasos sugeridos:"
+    echo "   • git push (para enviar a remoto)"
+    echo "   • git status (verificar estado)"
+    echo "   • ./git-claude (para próximo commit)"
+else
+    echo ""
+    echo "❌ Error en el commit. Verifica los cambios."
+fi

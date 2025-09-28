@@ -8,23 +8,19 @@ import { useState } from 'react'
 import type { JSX } from 'react'
 import {
   Brain,
-  Plus,
   Search,
   Calendar,
   Target,
-  TrendingUp,
   AlertTriangle,
   CheckCircle,
-  Clock,
   Zap,
-  FileText,
   Stethoscope,
   Activity,
   ChevronDown,
   ChevronRight
 } from 'lucide-react'
 import { useAIAnalysis } from '@/hooks'
-import type { AIAnalysis, DiagnosticConfidence } from '@/types/medical'
+import type { DiagnosticConfidence } from '@/types/medical'
 
 interface AIHistoryTabProps {
   patientId: string | null

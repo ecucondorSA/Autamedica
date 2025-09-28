@@ -94,7 +94,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     { id: 'settings', icon: Settings, label: 'Configuración' },
   ];
 
-  const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0];
+  const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0]!;
 
   return (
     <html lang="es">

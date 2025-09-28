@@ -1,15 +1,11 @@
 'use client'
 
 import { createBrowserClient } from '@supabase/ssr'
+import { ensureClientEnv } from '@autamedica/shared'
 
 export function createClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn('Supabase environment variables not found')
-    return null
-  }
+  const supabaseUrl = ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL')
+  const supabaseAnonKey = ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
 
   return createBrowserClient(
     supabaseUrl,
