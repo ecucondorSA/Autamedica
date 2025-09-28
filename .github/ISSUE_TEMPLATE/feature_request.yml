@@ -1,0 +1,197 @@
+name: ✨ Feature Request
+description: Proponer una nueva funcionalidad o mejora
+title: "✨ [Feature]: "
+labels: ["enhancement", "needs-discussion"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Solicitud de Nueva Funcionalidad - Autamedica
+
+        Gracias por contribuir con ideas para mejorar Autamedica.
+
+        **💡 TIP**: Considera si tu idea podría resolverse con configuración existente antes de proponer desarrollo nuevo.
+
+  - type: checkboxes
+    id: search
+    attributes:
+      label: 🔍 Búsqueda previa
+      description: ¿Verificaste que no existe una solicitud similar?
+      options:
+        - label: Busqué issues existentes y no encontré una solicitud similar
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 📱 Componente objetivo
+      description: ¿En qué parte de Autamedica iría esta funcionalidad?
+      options:
+        - "🏠 Web-app (Landing/Auth)"
+        - "👨‍⚕️ Doctors (Portal médicos)"
+        - "👤 Patients (Portal pacientes)"
+        - "🏢 Companies (Portal empresarial)"
+        - "⚙️ Admin (Panel administrativo)"
+        - "📦 @autamedica/auth (Autenticación)"
+        - "📦 @autamedica/types (Tipos TypeScript)"
+        - "📦 @autamedica/shared (Utilidades)"
+        - "📦 @autamedica/hooks (React hooks)"
+        - "🔧 CI/CD (Workflows/Deploy)"
+        - "📚 Documentación"
+        - "🌐 Nueva aplicación/módulo"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🎯 Prioridad
+      description: ¿Qué tan importante es esta funcionalidad?
+      options:
+        - "🔴 Crítica - Requerida para launch/compliance"
+        - "🟠 Alta - Mejora significativa de UX"
+        - "🟡 Media - Nice to have"
+        - "🟢 Baja - Mejora menor"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user_type
+    attributes:
+      label: 👥 Tipo de usuario beneficiado
+      description: ¿A quién beneficiaría principalmente?
+      options:
+        - "🏥 Médicos/Profesionales de salud"
+        - "👤 Pacientes"
+        - "🏢 Administradores de empresas"
+        - "⚙️ Administradores de sistema"
+        - "👨‍💻 Desarrolladores"
+        - "📊 Todos los usuarios"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problema que resuelve
+      description: "¿Qué problema específico resolvería esta funcionalidad?"
+      placeholder: "Como [tipo de usuario], tengo el problema de que..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Solución propuesta
+      description: "Describe la funcionalidad que propones"
+      placeholder: "La solución sería implementar..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: 📖 Historia de usuario
+      description: "Describe cómo un usuario usaría esta funcionalidad"
+      placeholder: |
+        Como [tipo de usuario]
+        Quiero [funcionalidad]
+        Para [beneficio/objetivo]
+
+        Criterios de aceptación:
+        - [ ] Cuando...
+        - [ ] Entonces...
+    validations:
+      required: true
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: 🎨 Mockups/Wireframes
+      description: "Si tienes diseños o sketches, compártelos aquí"
+      placeholder: "Arrastra imágenes o describe la interfaz visual..."
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternativas consideradas
+      description: "¿Qué otras soluciones consideraste?"
+      placeholder: "También pensé en... pero esta propuesta es mejor porque..."
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: ⚙️ Complejidad estimada
+      description: "¿Qué tan complejo crees que sería implementar esto?"
+      options:
+        - "🟢 Simple - Cambio de configuración/UI"
+        - "🟡 Moderado - Nueva funcionalidad estándar"
+        - "🟠 Complejo - Cambios arquitecturales"
+        - "🔴 Muy complejo - Reestructuración mayor"
+        - "🤔 No estoy seguro"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: medical_compliance
+    attributes:
+      label: 🏥 Consideraciones médicas
+      description: "Marca si aplica:"
+      options:
+        - label: "Esta funcionalidad maneja datos médicos sensibles (PHI)"
+        - label: "Requiere validación de profesionales médicos"
+        - label: "Debe cumplir regulaciones HIPAA"
+        - label: "Afecta flujo clínico crítico"
+        - label: "Requiere auditoría de seguridad"
+
+  - type: checkboxes
+    id: technical_considerations
+    attributes:
+      label: 🔧 Consideraciones técnicas
+      description: "Marca si aplica:"
+      options:
+        - label: "Requiere cambios en base de datos"
+        - label: "Necesita nuevas integraciones externas"
+        - label: "Afecta performance significativamente"
+        - label: "Requiere nuevas dependencias"
+        - label: "Breaking change para API existente"
+
+  - type: textarea
+    id: business_value
+    attributes:
+      label: 💰 Valor de negocio
+      description: "¿Cómo beneficiaría al negocio esta funcionalidad?"
+      placeholder: |
+        - Incrementa retención de usuarios en X%
+        - Reduce tiempo de proceso en Y minutos
+        - Mejora satisfacción del usuario
+        - Genera revenue adicional
+        - Cumple requirement regulatorio
+
+  - type: dropdown
+    id: timeline
+    attributes:
+      label: ⏰ Timeline sugerido
+      description: "¿Cuándo necesitarías esta funcionalidad?"
+      options:
+        - "🚨 ASAP - Crítico para operación"
+        - "📅 Próximo sprint (2 semanas)"
+        - "🗓️ Próximo mes"
+        - "📊 Próximo quarter"
+        - "🔮 Cuando sea posible"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: volunteer
+    attributes:
+      label: 🤝 Contribución
+      description: "¿Te gustaría contribuir?"
+      options:
+        - label: "Puedo ayudar con el diseño/UX"
+        - label: "Puedo ayudar con la implementación"
+        - label: "Puedo ayudar con testing"
+        - label: "Puedo ayudar con documentación"
+        - label: "Solo la idea, no puedo implementar"

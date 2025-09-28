@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Web App - Main Bundle",
+    "path": "apps/web-app/.next/static/chunks/pages/*.js",
+    "limit": "250 KB",
+    "webpack": false
+  },
+  {
+    "name": "Doctors App - Main Bundle",
+    "path": "apps/doctors/.next/static/chunks/pages/*.js",
+    "limit": "300 KB",
+    "webpack": false
+  },
+  {
+    "name": "Patients App - Main Bundle",
+    "path": "apps/patients/.next/static/chunks/pages/*.js",
+    "limit": "250 KB",
+    "webpack": false
+  },
+  {
+    "name": "Companies App - Main Bundle",
+    "path": "apps/companies/.next/static/chunks/pages/*.js",
+    "limit": "350 KB",
+    "webpack": false
+  },
+  {
+    "name": "Auth Package",
+    "path": "packages/auth/dist/index.js",
+    "limit": "50 KB"
+  },
+  {
+    "name": "Types Package",
+    "path": "packages/types/dist/index.js",
+    "limit": "30 KB"
+  },
+  {
+    "name": "Shared Package",
+    "path": "packages/shared/dist/index.js",
+    "limit": "100 KB"
+  },
+  {
+    "name": "Hooks Package",
+    "path": "packages/hooks/dist/index.js",
+    "limit": "75 KB"
+  }
+]

@@ -1,0 +1,47 @@
+# CODEOWNERS - Gobierno de Autamedica
+# Cada línea es un patrón seguido de uno o más propietarios.
+# El último patrón que coincida tendrá precedencia.
+
+# Global fallback - Core team debe revisar todo
+* @autamedica/core-devs
+
+# Arquitectura y Packages Core
+/packages/types/**           @autamedica/contracts @autamedica/core-devs
+/packages/auth/**            @autamedica/security @autamedica/backend
+/packages/shared/**          @autamedica/backend @autamedica/core-devs
+/packages/hooks/**           @autamedica/frontend @autamedica/core-devs
+
+# Aplicaciones por especialidad
+/apps/web-app/**            @autamedica/frontend @autamedica/ux
+/apps/doctors/**            @autamedica/medical @autamedica/frontend
+/apps/patients/**           @autamedica/medical @autamedica/ux
+/apps/companies/**          @autamedica/business @autamedica/frontend
+/apps/admin/**              @autamedica/backend @autamedica/security
+
+# Infraestructura y DevOps
+/.github/**                 @autamedica/devops @autamedica/security
+/workers/**                 @autamedica/backend @autamedica/devops
+wrangler.toml               @autamedica/devops
+turbo.json                  @autamedica/devops
+package.json                @autamedica/core-devs @autamedica/devops
+pnpm-lock.yaml              @autamedica/core-devs
+
+# Seguridad y Compliance
+**/*.env*                   @autamedica/security
+SECURITY.md                 @autamedica/security
+/docs/security/**           @autamedica/security @autamedica/compliance
+
+# Documentación médica y contratos
+/docs/GLOSARIO_MAESTRO.md   @autamedica/medical @autamedica/contracts
+/docs/medical/**            @autamedica/medical @autamedica/compliance
+/scripts/validate-contracts.js @autamedica/contracts @autamedica/devops
+
+# Base de datos y migraciones (cuando se agreguen)
+/database/**                @autamedica/backend @autamedica/security
+/migrations/**              @autamedica/backend @autamedica/security
+
+# Testing y QA
+/tests/**                   @autamedica/qa @autamedica/backend
+**/test/**                  @autamedica/qa
+**/*.test.*                 @autamedica/qa
+playwright.config.*         @autamedica/qa @autamedica/devops

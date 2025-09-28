@@ -1,0 +1,116 @@
+# Auto-labeler configuration for Autamedica
+# https://github.com/actions/labeler
+
+# Frontend/UI related
+frontend:
+  - "apps/**"
+  - "**/*.tsx"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/components/**"
+  - "**/ui/**"
+
+# Backend/API related
+backend:
+  - "packages/**"
+  - "**/*.api.ts"
+  - "**/server/**"
+  - "**/api/**"
+  - "workers/**"
+
+# Infrastructure and DevOps
+infra:
+  - ".github/**"
+  - "wrangler.toml"
+  - "turbo.json"
+  - "**/deployment/**"
+  - "**/*deploy*"
+  - "**/*ci*"
+  - "**/*cd*"
+
+# Documentation
+docs:
+  - "docs/**"
+  - "**/*.md"
+  - "**/*.mdx"
+  - "**/README*"
+
+# Testing
+testing:
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "tests/**"
+  - "**/test/**"
+  - "playwright.config.*"
+  - "vitest.config.*"
+
+# Security related
+security:
+  - "**/*.env*"
+  - "**/auth/**"
+  - "**/security/**"
+  - "SECURITY.md"
+  - "**/*security*"
+  - "**/*auth*"
+
+# Medical/Healthcare specific
+medical:
+  - "**/medical/**"
+  - "**/patient/**"
+  - "**/doctor/**"
+  - "**/hipaa/**"
+  - "**/*medical*"
+  - "**/*patient*"
+  - "**/*doctor*"
+
+# Configuration
+config:
+  - "**/*.config.*"
+  - "**/*.json"
+  - "**/*.toml"
+  - "**/*.yaml"
+  - "**/*.yml"
+  - ".gitignore"
+  - ".env*"
+
+# Dependencies
+dependencies:
+  - "package.json"
+  - "pnpm-lock.yaml"
+  - "**/package.json"
+
+# Types and contracts
+types:
+  - "packages/types/**"
+  - "**/*.types.ts"
+  - "**/*.d.ts"
+  - "**/types/**"
+
+# Specific apps
+web-app:
+  - "apps/web-app/**"
+
+doctors-app:
+  - "apps/doctors/**"
+
+patients-app:
+  - "apps/patients/**"
+
+companies-app:
+  - "apps/companies/**"
+
+admin-app:
+  - "apps/admin/**"
+
+# Packages
+auth-package:
+  - "packages/auth/**"
+
+shared-package:
+  - "packages/shared/**"
+
+hooks-package:
+  - "packages/hooks/**"
+
+ui-package:
+  - "packages/ui/**"

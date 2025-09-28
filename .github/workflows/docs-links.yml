@@ -1,0 +1,93 @@
+name: 'Docs Links Check'
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '**/*.md'
+      - '**/*.mdx'
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '**/*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: 'Verificar enlaces en documentación'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check links with Lychee
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: |
+            --verbose
+            --no-progress
+            --exclude-loopback
+            --exclude-private
+            --exclude-mail
+            --max-redirects 5
+            --timeout 30
+            --retry-wait-time 5
+            --accept 200,204,301,302,307,308,403,429
+            --exclude-path "./node_modules"
+            --exclude-path "./.next"
+            --exclude-path "./dist"
+            "docs/**/*.md"
+            "*.md"
+            "apps/**/README.md"
+            "packages/**/README.md"
+          fail: true
+
+      - name: Create issue on broken links
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🔗 Broken Links Detected in Documentation';
+            const body = `## 🔗 Broken Links Found
+
+            Our automated link checker found broken links in the documentation.
+
+            **🔍 Details:**
+            - **Workflow**: ${context.workflow}
+            - **Run**: ${context.runNumber}
+            - **Commit**: ${context.sha.substring(0, 7)}
+
+            **📋 Next Steps:**
+            1. Check the workflow logs for specific broken links
+            2. Fix or remove the broken links
+            3. Update documentation if URLs have changed
+            4. Consider using relative links for internal references
+
+            **🔗 Workflow Run**: [View Details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            ---
+            *This issue was automatically created by the docs-links workflow.*`;
+
+            // Check if issue already exists
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'docs,broken-links'
+            });
+
+            const existingIssue = issues.find(issue => issue.title === title);
+
+            if (!existingIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['docs', 'broken-links', 'bug']
+              });
+            }

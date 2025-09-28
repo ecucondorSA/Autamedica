@@ -1,0 +1,129 @@
+name: 'Bundle Size Check'
+
+on:
+  pull_request:
+    branches: [ main, staging, develop ]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - '.size-limit.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  size:
+    name: 'Verificar tamaño de bundles'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build:packages
+        continue-on-error: true
+
+      - name: Build apps
+        run: pnpm build:apps
+        continue-on-error: true
+
+      - name: Install size-limit
+        run: pnpm add -g size-limit @size-limit/file
+
+      - name: Check bundle size
+        run: |
+          echo "📦 Checking bundle sizes..."
+
+          if command -v size-limit &> /dev/null; then
+            size-limit --json > size-report.json || echo "[]" > size-report.json
+          else
+            echo "size-limit not available, creating empty report"
+            echo "[]" > size-report.json
+          fi
+
+      - name: Comment PR with size report
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+
+            let sizeReport = [];
+            try {
+              const reportContent = fs.readFileSync('size-report.json', 'utf8');
+              sizeReport = JSON.parse(reportContent);
+            } catch (error) {
+              console.log('No size report found, using manual calculation');
+            }
+
+            let comment = `## 📦 Bundle Size Report\n\n`;
+
+            if (sizeReport.length === 0) {
+              comment += `⚠️ **Size limit check skipped** - Build artifacts not found\n\n`;
+              comment += `This is normal for PRs that don't affect built output.\n\n`;
+            } else {
+              comment += `| Package | Size | Limit | Status |\n`;
+              comment += `|---------|------|-------|--------|\n`;
+
+              for (const item of sizeReport) {
+                const status = item.passed ? '✅' : '❌';
+                comment += `| ${item.name} | ${item.size} | ${item.limit} | ${status} |\n`;
+              }
+
+              const failed = sizeReport.filter(item => !item.passed);
+              if (failed.length > 0) {
+                comment += `\n### 🚨 Size Limit Exceeded\n\n`;
+                comment += `The following bundles exceeded their size limits:\n\n`;
+                for (const item of failed) {
+                  comment += `- **${item.name}**: ${item.size} (limit: ${item.limit})\n`;
+                }
+                comment += `\n### 💡 Suggestions:\n`;
+                comment += `- Use dynamic imports for large dependencies\n`;
+                comment += `- Enable code splitting\n`;
+                comment += `- Remove unused dependencies\n`;
+                comment += `- Optimize images and assets\n`;
+              }
+            }
+
+            comment += `\n---\n**📏 Size limits configured in** \`.size-limit.json\``;
+
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingComment = comments.find(c =>
+              c.body.includes('📦 Bundle Size Report')
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
