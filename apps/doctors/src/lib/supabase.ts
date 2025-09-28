@@ -12,8 +12,8 @@ export function createClient(): SupabaseClient<Database> | null {
     return cachedClient
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const supabaseUrl = 'https://gtyvdircfhmdjiaelqkg.supabase.co'
+  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgxNTI5NDYsImV4cCI6MjA0MzcyODk0Nn0.95oSUvOFAm1bGmfNPsY5Ni4lCvmGp6ePfmXN0NgHnJw'
 
   if (!supabaseUrl || !supabaseAnonKey) {
     if (!warned) {

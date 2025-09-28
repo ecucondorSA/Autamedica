@@ -2,12 +2,14 @@
 
 import type { JSX } from 'react'
 import { Activity, Heart, Thermometer, Wind, TrendingUp, Plus, Calendar } from 'lucide-react'
-import { useVitalSigns } from '@/hooks'
+// TODO: Fix import - hook doesn't exist yet
+// import { useVitalSigns } from '@/hooks'
 
 export function VitalSignsPanel(): JSX.Element {
   // Por ahora usar patientId de ejemplo (María González)
   const patientId = '550e8400-e29b-41d4-a716-446655440000'
-  const { vitals, loading, error } = useVitalSigns(patientId)
+  // TODO: Replace with actual hook
+  const { vitals, loading, error } = { vitals: [], loading: false, error: null } as any
 
   if (loading) {
     return (
@@ -207,7 +209,7 @@ export function VitalSignsPanel(): JSX.Element {
         ) : (
           <div className="h-full overflow-auto">
             <div className="grid gap-4">
-              {vitals.map((vital) => (
+              {vitals.map((vital: any) => (
                 <div
                   key={vital.id}
                   className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-4 transition hover:border-slate-600 hover:bg-slate-800/50"

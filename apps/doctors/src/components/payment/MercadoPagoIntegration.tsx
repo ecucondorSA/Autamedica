@@ -19,7 +19,7 @@ interface PaymentMethod {
 }
 
 interface MercadoPagoCheckoutProps {
-  planId: string
+  _planId: string
   amount: number
   currency: string
   description: string
@@ -34,7 +34,7 @@ interface MercadoPagoSubscriptionManagerProps {
 }
 
 export function MercadoPagoCheckout({
-  planId,
+  _planId,
   amount,
   currency,
   description,
@@ -62,7 +62,7 @@ export function MercadoPagoCheckout({
   const initializeMercadoPago = async () => {
     try {
       // En producción, esto se cargaría desde las variables de entorno
-      const publicKey = process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || 'TEST-your-public-key'
+      const publicKey = 'TEST-your-public-key'
 
       // Simulación de inicialización del SDK
       console.log('Inicializando MercadoPago SDK con clave:', publicKey)
@@ -152,7 +152,7 @@ export function MercadoPagoCheckout({
   const formatCardNumber = (value: string) => {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
     const matches = v.match(/\d{4,16}/g)
-    const match = matches && matches[0] || ''
+    const match = matches?.[0] || ''
     const parts = []
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4))

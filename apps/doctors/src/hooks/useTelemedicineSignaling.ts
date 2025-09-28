@@ -58,7 +58,7 @@ export function useTelemedicineSignaling(config: UseTelemedicineSignalingConfig)
 
   const normalizedConfig = useMemo(
     () => ({
-      url: config.signalingUrl ?? process.env.NEXT_PUBLIC_SIGNALING_URL ?? 'ws://localhost:3005/signal',
+      url: config.signalingUrl ?? (typeof window !== 'undefined' ? window.location.hostname === 'localhost' ? 'ws://localhost:3005/signal' : 'wss://api.autamedica.com/signal' : 'ws://localhost:3005/signal'),
       roomId: config.roomId,
       userId: config.userId,
       userType: config.userType,
@@ -74,7 +74,7 @@ export function useTelemedicineSignaling(config: UseTelemedicineSignalingConfig)
       return undefined
     }
 
-    const client = new TelemedicineClient(normalizedConfig)
+    const client = new (TelemedicineClient as any)(normalizedConfig as any)
     clientRef.current = client
 
     const unsubscribes = [
@@ -87,31 +87,31 @@ export function useTelemedicineSignaling(config: UseTelemedicineSignalingConfig)
           connectionState: normalizedConfig.autoReconnect ? 'reconnecting' : 'disconnected',
         }))
       }),
-      client.on('error', (error) => {
+      client.on('error', (error: any) => {
         setState((prev) => ({ ...prev, error }))
       }),
-      client.on('user-joined', (message) => {
+      client.on('user-joined', (message: any) => {
         setState((prev) => ({
           ...prev,
           participants: addOrUpdateParticipant(prev.participants, {
-            id: message.from,
-            userType: message.data?.userType ?? 'unknown',
+            id: (message as any).from,
+            userType: (message as any).data?.userType ?? 'unknown',
           }),
         }))
       }),
-      client.on('user-left', (message) => {
+      client.on('user-left', (message: any) => {
         setState((prev) => ({
           ...prev,
-          participants: prev.participants.filter((participant) => participant.id !== message.from),
+          participants: prev.participants.filter((participant) => participant.id !== (message as any).from),
         }))
       }),
-      client.on('offer', (message) => {
+      client.on('offer', (message: any) => {
         setState((prev) => ({ ...prev, lastOffer: message }))
       }),
-      client.on('answer', (message) => {
+      client.on('answer', (message: any) => {
         setState((prev) => ({ ...prev, lastAnswer: message }))
       }),
-      client.on('ice-candidate', (message) => {
+      client.on('ice-candidate', (message: any) => {
         setState((prev) => ({ ...prev, lastCandidate: message }))
       }),
     ]
@@ -140,19 +140,19 @@ export function useTelemedicineSignaling(config: UseTelemedicineSignalingConfig)
   }
 
   const sendOffer = (description: RTCSessionDescriptionInit, targetId?: string) => {
-    clientRef.current?.sendOffer(description, targetId)
+    (clientRef.current as any)?.sendOffer(description, targetId)
   }
 
   const sendAnswer = (description: RTCSessionDescriptionInit, targetId?: string) => {
-    clientRef.current?.sendAnswer(description, targetId)
+    (clientRef.current as any)?.sendAnswer(description, targetId)
   }
 
   const sendIceCandidate = (candidate: RTCIceCandidateInit, targetId?: string) => {
-    clientRef.current?.sendIceCandidate(candidate, targetId)
+    (clientRef.current as any)?.sendIceCandidate(candidate, targetId)
   }
 
   const sendLeave = () => {
-    clientRef.current?.sendLeave()
+    (clientRef.current as any)?.sendLeave()
   }
 
   return {

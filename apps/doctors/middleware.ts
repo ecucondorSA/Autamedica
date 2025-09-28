@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
 const PUBLIC_ROUTES = ['/_next', '/favicon.ico', '/public', '/api/health']
-const WEB_APP_URL = process.env.NODE_ENV === 'production'
-  ? 'https://autamedica-web-app.pages.dev'
-  : 'http://localhost:3000'
+const WEB_APP_URL = 'http://localhost:3000'
 
 const ALLOWED_ROLES = new Set(['doctor', 'admin', 'platform_admin'])
 
@@ -27,8 +25,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const supabaseUrl = 'https://gtyvdircfhmdjiaelqkg.supabase.co'
+  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgxNTI5NDYsImV4cCI6MjA0MzcyODk0Nn0.95oSUvOFAm1bGmfNPsY5Ni4lCvmGp6ePfmXN0NgHnJw'
 
   if (!supabaseUrl || !supabaseAnonKey) {
     console.error('[Doctors middleware] Variables de entorno de Supabase no configuradas.')

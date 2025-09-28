@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { JSX, ReactNode } from 'react'
+import type { JSX } from 'react'
 import './globals.css'
 import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
@@ -10,8 +10,9 @@ export const metadata: Metadata = {
   description: 'Portal profesional para médicos AutaMedica con experiencia de videollamadas y herramientas clínicas.',
 }
 
-type RootLayoutProps = {
-  children: ReactNode
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params?: any;
 }
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased">
         <ClientWrapper>
-          <DoctorsPortalShell>{children}</DoctorsPortalShell>
+          <DoctorsPortalShell>{children as any}</DoctorsPortalShell>
         </ClientWrapper>
       </body>
     </html>

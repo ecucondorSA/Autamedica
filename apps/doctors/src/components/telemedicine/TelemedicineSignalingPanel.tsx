@@ -20,7 +20,7 @@ export function TelemedicineSignalingPanel({
   metadata,
   className,
 }: TelemedicineSignalingPanelProps) {
-  const signalingUrl = useMemo(() => process.env.NEXT_PUBLIC_SIGNALING_URL ?? 'ws://localhost:3005/signal', [])
+  const signalingUrl = useMemo(() => 'ws://localhost:3005/signal', [])
 
   const { state, controls } = useTelemedicineSignaling({
     roomId,

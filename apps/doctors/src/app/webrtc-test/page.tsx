@@ -53,9 +53,11 @@ export default function WebRTCTestPage() {
       }
 
       const incomingStream = event.streams[0]
-      for (const track of incomingStream.getTracks()) {
-        if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
-          remoteStream.addTrack(track)
+      if (incomingStream) {
+        for (const track of incomingStream.getTracks()) {
+          if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
+            remoteStream.addTrack(track)
+          }
         }
       }
     }
@@ -88,7 +90,7 @@ export default function WebRTCTestPage() {
         const stats = await pc.getStats()
         let selected: RTCIceCandidatePairStats | null = null
         stats.forEach((report) => {
-          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).selected) {
+          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).state === 'succeeded') {
             selected = report as RTCIceCandidatePairStats
           }
         })

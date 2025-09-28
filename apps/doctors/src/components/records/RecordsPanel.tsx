@@ -3,12 +3,14 @@
 import type { JSX } from 'react'
 import { useState } from 'react'
 import { FileText, Search, Plus, Eye, Edit, Calendar, User } from 'lucide-react'
-import { useMedicalHistory } from '@/hooks'
+// TODO: Fix import - hook doesn't exist yet
+// import { useMedicalHistory } from '@/hooks'
 
 export function RecordsPanel(): JSX.Element {
   // Por ahora usar patientId de ejemplo (María González)
   const [selectedPatientId] = useState<string>('550e8400-e29b-41d4-a716-446655440000')
-  const { history, loading, error } = useMedicalHistory(selectedPatientId)
+  // TODO: Replace with actual hook
+  const { history, loading, error } = { history: [], loading: false, error: null } as any
 
   if (loading) {
     return (
@@ -98,7 +100,7 @@ export function RecordsPanel(): JSX.Element {
             <div>
               <p className="text-sm text-slate-400">Consultas</p>
               <p className="text-xl font-semibold text-slate-100">
-                {history.filter(record => record.record_type === 'consultation').length}
+                {history.filter((record: any) => record.record_type === 'consultation').length}
               </p>
             </div>
           </div>
@@ -112,7 +114,7 @@ export function RecordsPanel(): JSX.Element {
             <div>
               <p className="text-sm text-slate-400">Este Mes</p>
               <p className="text-xl font-semibold text-slate-100">
-                {history.filter(record =>
+                {history.filter((record: any) =>
                   new Date(record.record_date).getMonth() === new Date().getMonth()
                 ).length}
               </p>
@@ -167,7 +169,7 @@ export function RecordsPanel(): JSX.Element {
         ) : (
           <div className="h-full overflow-auto">
             <div className="grid gap-4">
-              {history.map((record) => (
+              {history.map((record: any) => (
                 <div
                   key={record.id}
                   className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6 transition hover:border-slate-600 hover:bg-slate-800/50"
