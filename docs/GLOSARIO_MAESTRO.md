@@ -107,11 +107,39 @@ export interface PHONE_VALIDATION_CONFIG {
 export const isPhoneE164: (phone: string) => boolean;
 export const isValidPhoneForCountry: (phone: string, countryCode: string) => boolean;
 export const isArgentinaPhone: (phone: string) => boolean;
+export const isArgentinaMobile: (phone: string) => boolean;
 
 // Formatters telefónicos
 export const normalizePhoneNumber: (phone: string) => string;
 export const toE164Format: (phone: string, countryCode: string) => string;
 export const toNationalFormat: (phoneE164: string) => string;
+export const formatPhoneForDisplay: (phone: string) => string;
+
+// Utilidades telefónicas
+export const extractCountryCode: (phoneE164: string) => string;
+export const getPhoneExamples: (countryCode: string) => string[];
+export const validatePhoneList: (phones: string[]) => ValidationResult[];
+```
+
+### Sistema de Especialidades Médicas
+
+```typescript
+// Catálogos de especialidades y certificaciones
+export const MEDICAL_SPECIALTIES: readonly MedicalSpecialty[];
+export const SUBSPECIALTIES: readonly MedicalSubspecialty[];
+export const CERTIFICATION_TYPES: readonly CertificationType[];
+
+// Estados de licencias médicas
+export const LICENSE_STATUS: readonly LicenseStatus[];
+
+// Validators de especialidades
+export const isValidSpecialtyCode: (code: string) => boolean;
+export const isValidSubspecialtyCode: (code: string) => boolean;
+
+// Validators de licencias médicas
+export const isValidMedicalLicense: (license: string) => boolean;
+export const isActiveLicense: (license: MedicalLicense) => boolean;
+export const isValidCertification: (cert: Certification) => boolean;
 ```
 
 ### Usuario Base
