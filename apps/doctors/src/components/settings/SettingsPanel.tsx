@@ -4,11 +4,7 @@ import { useState } from 'react'
 import type { JSX } from 'react'
 import {
   Bell,
-  Camera,
-  Globe,
   Lock,
-  Mic,
-  Monitor,
   Palette,
   Shield,
   User,

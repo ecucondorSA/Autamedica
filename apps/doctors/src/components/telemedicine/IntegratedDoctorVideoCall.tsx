@@ -10,6 +10,14 @@ import {
   Monitor
 } from 'lucide-react';
 
+// React 19 compatibility for Lucide icons
+const VideoIcon = Video as any;
+const VideoOffIcon = VideoOff as any;
+const MicIcon = Mic as any;
+const MicOffIcon = MicOff as any;
+const PhoneOffIcon = PhoneOff as any;
+const MonitorIcon = Monitor as any;
+
 interface PatientData {
   id: string;
   name: string;
@@ -102,7 +110,7 @@ export default function IntegratedDoctorVideoCall({
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center">
-              <VideoOff className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <VideoOffIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-300">Cámara no activada</p>
             </div>
           </div>
@@ -117,7 +125,7 @@ export default function IntegratedDoctorVideoCall({
                 isMuted ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
               }`}
             >
-              {isMuted ? <MicOff className="w-5 h-5 text-white" /> : <Mic className="w-5 h-5 text-white" />}
+              {isMuted ? <MicOffIcon className="w-5 h-5 text-white" /> : <MicIcon className="w-5 h-5 text-white" />}
             </button>
 
             <button
@@ -126,18 +134,18 @@ export default function IntegratedDoctorVideoCall({
                 isVideoOff ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
               }`}
             >
-              {isVideoOff ? <VideoOff className="w-5 h-5 text-white" /> : <Video className="w-5 h-5 text-white" />}
+              {isVideoOff ? <VideoOffIcon className="w-5 h-5 text-white" /> : <VideoIcon className="w-5 h-5 text-white" />}
             </button>
 
             <button className="p-3 rounded-full bg-purple-500 hover:bg-purple-600 transition-colors">
-              <Monitor className="w-5 h-5 text-white" />
+              <MonitorIcon className="w-5 h-5 text-white" />
             </button>
 
             <button
               onClick={endCall}
               className="p-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors"
             >
-              <PhoneOff className="w-5 h-5 text-white" />
+              <PhoneOffIcon className="w-5 h-5 text-white" />
             </button>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
-import { AuthProvider, useAuth } from '@autamedica/auth-hooks'
+import { AuthProvider, useAuth } from '@autamedica/auth'
 
 interface CallPageClientProps {
   roomId: string

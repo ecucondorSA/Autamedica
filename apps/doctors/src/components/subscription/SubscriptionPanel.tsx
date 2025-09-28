@@ -5,10 +5,7 @@ import type { JSX } from 'react'
 import {
   Check,
   Crown,
-  CreditCard,
   Star,
-  Zap,
-  Shield,
   Users,
   Calendar,
   BarChart3,

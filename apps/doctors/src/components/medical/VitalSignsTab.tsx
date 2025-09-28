@@ -23,7 +23,6 @@ import {
   BarChart3
 } from 'lucide-react'
 import { useVitalSigns } from '@/hooks'
-import type { VitalSigns } from '@/types/medical'
 
 interface VitalSignsTabProps {
   patientId: string | null

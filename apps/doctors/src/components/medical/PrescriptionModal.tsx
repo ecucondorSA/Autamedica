@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { JSX } from 'react'
-import { X, Save, Clock, Pill, AlertCircle, ChevronDown, Plus, Trash2 } from 'lucide-react'
+import { X, Save, Clock, Pill, AlertCircle, Plus, Trash2 } from 'lucide-react'
 import { useMedicalHistoryStore } from '@/stores/medicalHistoryStore'
 
 interface PrescriptionModalProps {

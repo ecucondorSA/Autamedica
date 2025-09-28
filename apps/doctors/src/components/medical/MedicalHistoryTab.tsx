@@ -10,18 +10,15 @@ import {
   FileText,
   Calendar,
   Search,
-  Filter,
   Plus,
   Eye,
   AlertTriangle,
-  Clock,
-  User,
   Stethoscope,
   ChevronDown,
   Download
 } from 'lucide-react'
 import { useMedicalHistory } from '@/hooks'
-import type { MedicalRecord, ConsultationType } from '@/types/medical'
+import type { ConsultationType } from '@/types/medical'
 
 interface MedicalHistoryTabProps {
   patientId: string | null

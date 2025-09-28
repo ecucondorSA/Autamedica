@@ -1,0 +1,2 @@
+// smoke test for preview deployment
+console.log('Preview deployment test - dom 28 sep 2025 08:11:28 -03');

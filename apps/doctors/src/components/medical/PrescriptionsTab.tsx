@@ -17,11 +17,10 @@ import {
   XCircle,
   Pause,
   Edit3,
-  Eye,
-  Filter
+  Eye
 } from 'lucide-react'
 import { usePrescriptions } from '@/hooks'
-import type { Prescription, PrescriptionStatus } from '@/types/medical'
+import type { PrescriptionStatus } from '@/types/medical'
 
 interface PrescriptionsTabProps {
   patientId: string | null

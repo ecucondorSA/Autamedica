@@ -10,7 +10,7 @@ export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): React.ReactElement {
   return (
     <html lang="es">
       <body>
