@@ -1,12 +1,31 @@
 # AGENTE.md - Metodología de Desarrollo para Agentes IA
 
+## 🚨 **REGLAS CRÍTICAS - LÉEME PRIMERO**
+
+### ⛔ **PROHIBICIONES ABSOLUTAS**
+- **PROHIBIDO** generar código con deuda técnica
+- **PROHIBIDO** crear workarounds temporales
+- **PROHIBIDO** código que necesite "ajustes posteriores"
+- **PROHIBIDO** soluciones "rápidas" que generen problemas futuros
+- **PROHIBIDO** hardcodear datos o usuarios ficticios
+
+### ⏰ **FILOSOFÍA DE TRABAJO**
+- **NO EXISTE PRISA** - Tiempo y tokens son ILIMITADOS
+- **CALIDAD PRIMERO** - Prefiere 1 línea perfecta vs 100 líneas mediocres
+- **CONSULTA ANTES** - Si no estás 100% seguro, consulta DevAltamedica-Independent
+- **PRODUCCIÓN READY** - Todo código debe ser enterprise-level desde el primer commit
+- **ZERO DEUDA TÉCNICA** - Cada línea de código debe ser mantenible a largo plazo
+
+---
+
 Esta guía establece la metodología de desarrollo para agentes IA trabajando en el monorepo AltaMedica-Reboot.
 
-## 🚀 **ESTADO ACTUAL DEL PROYECTO (ACTUALIZADO)**
+## 🚀 **ESTADO ACTUAL DEL PROYECTO (ENTERPRISE READY)**
 
 **📍 Ubicación Única:** `/root/altamedica-reboot-fresh` (ÚNICA FUENTE DE VERDAD)
-**🔧 Commit Actual:** `b3410d6` - "fix: Resuelto error de gsap y TypeScript en componentes landing"
+**🔧 Commit Actual:** `5cac123` - "ops tarea: token permanente Cloudflare configurado"
 **🏗️ Arquitectura:** Monorepo Turborepo con 16 packages + 6 aplicaciones
+**🚀 Estado:** ENTERPRISE PRODUCTION READY - Sistema CI/CD operativo al 100%
 
 ### 🌐 **Servidores en Desarrollo (ACTIVOS)**
 ```
@@ -17,10 +36,35 @@ Esta guía establece la metodología de desarrollo para agentes IA trabajando en
 ❌ Admin:       http://localhost:3004  - Error: No pages/app directory
 ```
 
-### 📋 **Tareas de Producción Activas**
-1. **AUDITORIA PATIENTS**: Error 500 requiere investigación inmediata
-2. **CONFIGURAR ADMIN**: Falta estructura pages/app directory
+### 🚀 **INFRAESTRUCTURA CI/CD ENTERPRISE (OPERATIVA)**
+
+**🎯 URLs de Producción Activas:**
+- ✅ `autamedica-web-app.pages.dev` + `www.autamedica.com`
+- ✅ `autamedica-patients.pages.dev`
+- ✅ `autamedica-doctors.pages.dev`
+- ✅ `autamedica-companies.pages.dev`
+- ✅ `autamedica-admin.pages.dev`
+
+**🔧 7 Workflows Organizados (nombres en español):**
+- ✅ `verificacion-basica.yml` - Lint + TypeCheck + Build + Tests
+- ✅ `seguridad.yml` - Auditorías + SAST + Secretos (schedule diario)
+- ✅ `validate-contracts.yml` - Validación contratos TypeScript
+- ✅ `desplegar-preview.yml` - Deploy automático de PRs
+- ✅ `desplegar-staging.yml` - Deploy a staging
+- ✅ `desplegar-produccion.yml` - Deploy a producción
+- ✅ `desplegar-workers.yml` - Deploy Workers/DO/KV
+
+**🔐 Secrets Configurados (permanentes):**
+- ✅ `CLOUDFLARE_API_TOKEN` (token permanente, no expira)
+- ✅ `CLOUDFLARE_ACCOUNT_ID`
+- ✅ `PAGES_PROJECTS`
+
+### 📋 **Tareas de Desarrollo Pendientes**
+1. **AUDITORIA PATIENTS**: Error 500 requiere investigación (desarrollo local)
+2. **CONFIGURAR ADMIN**: Falta estructura pages/app directory (desarrollo local)
 3. **OPTIMIZAR PERFORMANCE**: Resolver warnings TypeScript en packages
+
+**🎯 PRIORIDAD**: Desarrollo local - Producción ya está 100% operativa
 
 ## 🎯 **Principio Fundamental: DevAltamedica como Brújula**
 

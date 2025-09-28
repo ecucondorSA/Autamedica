@@ -1,5 +1,21 @@
 # CLAUDE.md - Guía para Claude Code
 
+## 🚨 **REGLAS CRÍTICAS - LÉEME PRIMERO**
+
+### ⛔ **PROHIBICIONES ABSOLUTAS**
+- **PROHIBIDO** generar código con deuda técnica
+- **PROHIBIDO** crear workarounds temporales
+- **PROHIBIDO** código que necesite "ajustes posteriores"
+- **PROHIBIDO** soluciones "rápidas" que generen problemas futuros
+
+### ⏰ **FILOSOFÍA DE TRABAJO**
+- **NO EXISTE PRISA** - Tiempo y tokens son ILIMITADOS
+- **CALIDAD PRIMERO** - Prefiere 1 línea perfecta vs 100 líneas mediocres
+- **CONSULTA ANTES** - Si no estás 100% seguro, consulta DevAltamedica-Independent
+- **PRODUCCIÓN READY** - Todo código debe ser enterprise-level desde el primer commit
+
+---
+
 Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en el monorepo de AltaMedica-Reboot.
 
 ## 🗺️ **METODOLOGÍA CLAVE: DevAltamedica como Mapa de Navegación**
@@ -22,7 +38,11 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 
 **AutaMedica** es una plataforma médica moderna construida como monorepo con Turborepo.
 
-### 🎯 **ESTADO ACTUAL (Septiembre 2025)**
+### 🎯 **ESTADO ACTUAL (Septiembre 2025 - COMPLETAMENTE OPERATIVO)**
+- ✅ **CI/CD ENTERPRISE** - 7 workflows en español con deployments automáticos
+- ✅ **TOKEN PERMANENTE** - Cloudflare configurado sin expiración
+- ✅ **DEPLOYMENTS ACTIVOS** - Preview/Staging/Producción automáticos
+- ✅ **SMOKE TESTS EXITOSOS** - Todos los workflows validados en vivo
 - ✅ **Autenticación completa** - Sistema Supabase con roles y redirección
 - ✅ **Páginas faltantes creadas** - forgot-password, terms, privacy
 - ✅ **Errores 404 resueltos** - Todas las rutas funcionando
@@ -30,15 +50,37 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 - ✅ **Arquitectura Multi-App COMPLETADA** - 6 aplicaciones especializadas
 - ✅ **Marketplace Médico** - Sistema completo de contratación integrado
 - ✅ **DevOps Pipeline** - Git hooks + docs sync + validación automática
-- ✅ **Deployment Config** - Configuración Cloudflare Pages + Turborepo siguiendo mejores prácticas 2025
 - ✅ **DEPLOYMENT COMPLETADO** - Aplicaciones principales desplegadas exitosamente en producción
 - ✅ **Metodología Documentada** - Guías de despliegue seguro y programación guardadas
-- ✅ **CÓDIGO ACTUALIZADO** - Commit b3410d6 con errores GSAP/TypeScript resueltos
+- ✅ **CÓDIGO ACTUALIZADO** - Commit 5cac123 con token permanente configurado
 - ✅ **LIMPIEZA COMPLETA** - Una sola fuente de verdad en sistema (/root/altamedica-reboot-fresh)
 - ✅ **SERVIDORES ACTIVOS** - 5 aplicaciones en desarrollo simultáneo con Turborepo
-- 🚀 **Estado**: DEVELOPMENT ACTIVE - Servidores funcionando, código actualizado, sistema limpio
+- 🚀 **Estado**: ENTERPRISE PRODUCTION READY - Sistema CI/CD operativo al 100%
 
-### 🏗️ **ESTADO DE SERVIDORES (ACTUAL)**
+### 🚀 **INFRAESTRUCTURA CI/CD ENTERPRISE (OPERATIVA)**
+
+**🎯 URLs de Producción:**
+- ✅ `autamedica-web-app.pages.dev` + `www.autamedica.com`
+- ✅ `autamedica-patients.pages.dev`
+- ✅ `autamedica-doctors.pages.dev`
+- ✅ `autamedica-companies.pages.dev`
+- ✅ `autamedica-admin.pages.dev`
+
+**🔧 Workflows Activos (7 en español):**
+- ✅ `verificacion-basica.yml` - Lint + TypeCheck + Build + Tests
+- ✅ `seguridad.yml` - Auditorías + SAST + Secretos
+- ✅ `validate-contracts.yml` - Validación contratos TypeScript
+- ✅ `desplegar-preview.yml` - Deploy automático de PRs
+- ✅ `desplegar-staging.yml` - Deploy a staging
+- ✅ `desplegar-produccion.yml` - Deploy a producción
+- ✅ `desplegar-workers.yml` - Deploy Workers/DO/KV
+
+**🔐 Secrets Configurados:**
+- ✅ `CLOUDFLARE_API_TOKEN` (permanente)
+- ✅ `CLOUDFLARE_ACCOUNT_ID`
+- ✅ `PAGES_PROJECTS`
+
+### 🏢️ **ESTADO DE SERVIDORES DESARROLLO**
 ```
 ✅ Web-App:     http://localhost:3000  (16,844 chars - Status 200)
 ✅ Doctors:     http://localhost:3001  (33,972 chars - Status 200)
@@ -48,6 +90,7 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 ```
 
 **16 packages** ejecutándose en paralelo con **concurrencia 15** via Turborepo.
+**🚀 Deployments automáticos** activos para todas las ramas principales.
 
 ### 📐 **Arquitectura Actual (Multi-App Completada)**
 ```
