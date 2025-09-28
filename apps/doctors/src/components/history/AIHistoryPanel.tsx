@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Bot, TrendingUp, Clock, Filter, Download, Search, ChevronDown, Brain, FileText, AlertTriangle } from 'lucide-react'
+import { Bot, TrendingUp, Clock, Filter, Download, Search, Brain, FileText, AlertTriangle } from 'lucide-react'
 
 interface AIAnalysis {
   id: string

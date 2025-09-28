@@ -111,6 +111,9 @@ importers:
       '@autamedica/shared':
         specifier: workspace:^
         version: link:../../packages/shared
+      '@autamedica/tailwind-config':
+        specifier: workspace:^
+        version: link:../../packages/tailwind-config
       '@autamedica/types':
         specifier: workspace:^
         version: link:../../packages/types

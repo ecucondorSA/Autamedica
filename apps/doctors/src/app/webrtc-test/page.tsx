@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useMemo, useRef } from 'react'
+import { ensureClientEnv } from '@autamedica/shared'
 
 const ROOM_ID = 'test123'
 const ROLE: 'doctor' | 'patient' = 'doctor'
 
 const parseIceServers = () => {
-  const raw = process.env.NEXT_PUBLIC_ICE_SERVERS ?? '[]'
+  const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS', '[]')
   try {
     const parsed = JSON.parse(raw)
     if (Array.isArray(parsed)) return parsed
@@ -115,7 +116,7 @@ export default function WebRTCTestPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const signalingUrl = process.env.NEXT_PUBLIC_SIGNALING_URL
+    const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
     if (!signalingUrl) {
       console.error('[webrtc-test] Missing NEXT_PUBLIC_SIGNALING_URL env')
       return
