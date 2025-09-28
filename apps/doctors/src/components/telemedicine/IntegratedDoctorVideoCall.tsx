@@ -87,7 +87,7 @@ export default function IntegratedDoctorVideoCall({
   };
 
   return (
-    <div className="h-full p-6">
+    <div className="h-full p-6 flex flex-col">
       {/* Video call area */}
       <div className="bg-gray-800 rounded-lg overflow-hidden h-96 mb-6 relative">
         {stream ? (

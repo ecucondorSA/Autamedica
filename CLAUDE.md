@@ -27,14 +27,27 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 - ✅ **Páginas faltantes creadas** - forgot-password, terms, privacy
 - ✅ **Errores 404 resueltos** - Todas las rutas funcionando
 - ✅ **UI/UX AutaMedica** - Colores, contraste y branding consistentes
-- ✅ **Arquitectura Multi-App COMPLETADA** - 4 aplicaciones especializadas funcionando
+- ✅ **Arquitectura Multi-App COMPLETADA** - 6 aplicaciones especializadas
 - ✅ **Marketplace Médico** - Sistema completo de contratación integrado
-- ✅ **Zero TypeScript Errors** - Compilación limpia en todos los packages y apps
 - ✅ **DevOps Pipeline** - Git hooks + docs sync + validación automática
 - ✅ **Deployment Config** - Configuración Cloudflare Pages + Turborepo siguiendo mejores prácticas 2025
-- ✅ **DEPLOYMENT COMPLETADO** - 4 aplicaciones desplegadas exitosamente en producción
+- ✅ **DEPLOYMENT COMPLETADO** - Aplicaciones principales desplegadas exitosamente en producción
 - ✅ **Metodología Documentada** - Guías de despliegue seguro y programación guardadas
-- 🚀 **Estado**: FULLY DEPLOYED - En producción con metodología probada y documentada
+- ✅ **CÓDIGO ACTUALIZADO** - Commit b3410d6 con errores GSAP/TypeScript resueltos
+- ✅ **LIMPIEZA COMPLETA** - Una sola fuente de verdad en sistema (/root/altamedica-reboot-fresh)
+- ✅ **SERVIDORES ACTIVOS** - 5 aplicaciones en desarrollo simultáneo con Turborepo
+- 🚀 **Estado**: DEVELOPMENT ACTIVE - Servidores funcionando, código actualizado, sistema limpio
+
+### 🏗️ **ESTADO DE SERVIDORES (ACTUAL)**
+```
+✅ Web-App:     http://localhost:3000  (16,844 chars - Status 200)
+✅ Doctors:     http://localhost:3001  (33,972 chars - Status 200)
+✅ Companies:   http://localhost:3003  (42,462 chars - Status 200)
+⚠️ Patients:    http://localhost:3002  (Status 500 - REQUIERE AUDITORIA)
+❌ Admin:       http://localhost:3004  (No pages/app directory - REQUIERE CONFIGURACIÓN)
+```
+
+**16 packages** ejecutándose en paralelo con **concurrencia 15** via Turborepo.
 
 ### 📐 **Arquitectura Actual (Multi-App Completada)**
 ```

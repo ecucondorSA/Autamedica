@@ -3,6 +3,7 @@
  */
 
 import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase'
 import type { UUID } from '@/types/medical'
 import { DEMO_PATIENT_ID } from '@/data/demoData'
 
@@ -32,28 +33,28 @@ export function useActiveSession(): UseActiveSessionResult {
     setError(null)
 
     try {
-      // Para la demostración, siempre usar datos demo con UUIDs válidos
+      // Para pruebas, usar datos de invitado con UUIDs válidos
       // En producción, esto consultaría la base de datos real
-      await createDemoSession()
+      await createGuestSession()
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar sesión activa: ${errorMessage}`)
       console.error('[useActiveSession] Error:', err)
 
-      // Fallback a sesión demo
-      await createDemoSession()
+      // Fallback a sesión de invitado
+      await createGuestSession()
     } finally {
       setLoading(false)
     }
   }
 
-  const createDemoSession = async () => {
-    // Usar datos de demostración con UUID válido predefinido
-    const demoSessionId = crypto.randomUUID()
+  const createGuestSession = async () => {
+    // Usar datos de invitado con UUID válido predefinido
+    const guestSessionId = crypto.randomUUID()
 
     setSession({
       patientId: DEMO_PATIENT_ID,
-      sessionId: demoSessionId,
+      sessionId: guestSessionId,
       sessionType: 'general',
       startTime: new Date().toISOString(),
       status: 'en_progreso'

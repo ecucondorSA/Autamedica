@@ -102,7 +102,7 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
       }
 
       // Nota: En un entorno de producción real, esto se guardaría en la base de datos
-      // Por ahora, solo agregamos a la lista local para el demo
+      // Por ahora, solo agregamos a la lista local para pruebas
       const mockData = {
         ...newAnalysis,
         id: crypto.randomUUID()
@@ -122,6 +122,10 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
       setLoading(false)
     }
   }, [patientId])
+
+  const refresh = useCallback(async () => {
+    await fetchAnalyses()
+  }, [fetchAnalyses])
 
   useEffect(() => {
     fetchAnalyses()

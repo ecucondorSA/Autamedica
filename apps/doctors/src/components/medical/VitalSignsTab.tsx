@@ -23,6 +23,7 @@ import {
   BarChart3
 } from 'lucide-react'
 import { useVitalSigns } from '@/hooks'
+import type { VitalSigns } from '@/types/medical'
 
 interface VitalSignsTabProps {
   patientId: string | null
@@ -42,7 +43,7 @@ const VITAL_SIGNS_RANGES = {
 
 export function VitalSignsTab({ patientId }: VitalSignsTabProps): JSX.Element {
   const [showForm, setShowForm] = useState(false)
-  const { vitalSigns, loading, error, latest } = useVitalSigns(patientId)
+  const { vitalSigns, loading, error, addVitalSigns, latest } = useVitalSigns(patientId)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('es-ES', {

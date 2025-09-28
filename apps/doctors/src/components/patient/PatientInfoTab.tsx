@@ -16,9 +16,11 @@ import {
   AlertTriangle,
   Shield,
   Edit3,
+  Save,
   X
 } from 'lucide-react'
 import { usePatientData } from '@/hooks'
+import type { PatientProfile } from '@/types/medical'
 
 interface PatientInfoTabProps {
   patientId: string | null

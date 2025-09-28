@@ -35,7 +35,7 @@ export function usePatientData(patientId: UUID | null): UsePatientDataResult {
     setError(null)
 
     try {
-      // Si es el paciente de demostración, usar datos locales
+      // Si es el paciente de invitado, usar datos locales
       if (patientId === DEMO_PATIENT_ID) {
         setPatient(DEMO_PATIENT)
         setLoading(false)
@@ -87,7 +87,7 @@ export function usePatientData(patientId: UUID | null): UsePatientDataResult {
       setError(`Error al cargar datos del paciente: ${errorMessage}`)
       console.error('[usePatientData] Error:', err)
 
-      // Fallback a datos de demostración en caso de error
+      // Fallback a datos de invitado en caso de error
       if (patientId === DEMO_PATIENT_ID) {
         setPatient(DEMO_PATIENT)
         setError(null)

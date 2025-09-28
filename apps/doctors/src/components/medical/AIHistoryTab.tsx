@@ -8,19 +8,23 @@ import { useState } from 'react'
 import type { JSX } from 'react'
 import {
   Brain,
+  Plus,
   Search,
   Calendar,
   Target,
+  TrendingUp,
   AlertTriangle,
   CheckCircle,
+  Clock,
   Zap,
+  FileText,
   Stethoscope,
   Activity,
   ChevronDown,
   ChevronRight
 } from 'lucide-react'
 import { useAIAnalysis } from '@/hooks'
-import type { DiagnosticConfidence } from '@/types/medical'
+import type { AIAnalysis, DiagnosticConfidence } from '@/types/medical'
 
 interface AIHistoryTabProps {
   patientId: string | null
@@ -53,7 +57,7 @@ export function AIHistoryTab({ patientId }: AIHistoryTabProps): JSX.Element {
   const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null)
   const [showNewAnalysisForm, setShowNewAnalysisForm] = useState(false)
 
-  const { analyses, loading, error } = useAIAnalysis(patientId)
+  const { analyses, loading, error, createAnalysis } = useAIAnalysis(patientId)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('es-ES', {

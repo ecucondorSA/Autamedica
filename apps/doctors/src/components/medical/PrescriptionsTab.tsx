@@ -17,10 +17,11 @@ import {
   XCircle,
   Pause,
   Edit3,
-  Eye
+  Eye,
+  Filter
 } from 'lucide-react'
 import { usePrescriptions } from '@/hooks'
-import type { PrescriptionStatus } from '@/types/medical'
+import type { Prescription, PrescriptionStatus } from '@/types/medical'
 
 interface PrescriptionsTabProps {
   patientId: string | null
@@ -58,7 +59,7 @@ export function PrescriptionsTab({ patientId }: PrescriptionsTabProps): JSX.Elem
   const [selectedStatus, setSelectedStatus] = useState<PrescriptionStatus | ''>('')
   const [showActiveOnly, setShowActiveOnly] = useState(false)
 
-  const { prescriptions, loading, error } = usePrescriptions(patientId, {
+  const { prescriptions, loading, error, addPrescription, updatePrescription } = usePrescriptions(patientId, {
     filters: {
       medication_name: searchTerm || undefined,
       status: selectedStatus || undefined,

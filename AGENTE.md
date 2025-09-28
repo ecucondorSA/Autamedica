@@ -2,6 +2,26 @@
 
 Esta guía establece la metodología de desarrollo para agentes IA trabajando en el monorepo AltaMedica-Reboot.
 
+## 🚀 **ESTADO ACTUAL DEL PROYECTO (ACTUALIZADO)**
+
+**📍 Ubicación Única:** `/root/altamedica-reboot-fresh` (ÚNICA FUENTE DE VERDAD)
+**🔧 Commit Actual:** `b3410d6` - "fix: Resuelto error de gsap y TypeScript en componentes landing"
+**🏗️ Arquitectura:** Monorepo Turborepo con 16 packages + 6 aplicaciones
+
+### 🌐 **Servidores en Desarrollo (ACTIVOS)**
+```
+✅ Web-App:     http://localhost:3000  - Status 200 (16,844 chars)
+✅ Doctors:     http://localhost:3001  - Status 200 (33,972 chars)
+✅ Companies:   http://localhost:3003  - Status 200 (42,462 chars)
+⚠️ Patients:    http://localhost:3002  - Status 500 (AUDITORIA PENDIENTE)
+❌ Admin:       http://localhost:3004  - Error: No pages/app directory
+```
+
+### 📋 **Tareas de Producción Activas**
+1. **AUDITORIA PATIENTS**: Error 500 requiere investigación inmediata
+2. **CONFIGURAR ADMIN**: Falta estructura pages/app directory
+3. **OPTIMIZAR PERFORMANCE**: Resolver warnings TypeScript en packages
+
 ## 🎯 **Principio Fundamental: DevAltamedica como Brújula**
 
 **REGLA ORO**: DevAltamedica-Independent (`/home/edu/Devaltamedica-Independent/`) es tu brújula de navegación. Cuando no sepas cómo implementar algo, consulta primero cómo está resuelto ahí.

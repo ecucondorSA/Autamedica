@@ -1,277 +1,818 @@
-'use client';
+"use client"
 
-import { useState, useEffect } from 'react';
-import { createClient } from '@/lib/supabase';
+import { useState, useEffect, useMemo, useRef } from 'react'
+import type { JSX, ReactNode } from 'react'
+import type { SupabaseProfile } from '@autamedica/types'
+import {
+  Brain,
+  CheckCircle2,
+  Loader2,
+  Mic,
+  MicOff,
+  MonitorUp,
+  PhoneOff,
+  ScreenShare,
+  ScreenShareOff,
+  Video,
+  VideoOff,
+  Sparkles,
+  Activity,
+  ChevronUp,
+  ChevronDown,
+  FileText,
+  Pill,
+  X,
+  User
+} from 'lucide-react'
+import { createClient } from '@/lib/supabase'
 
-export default function PatientsHomePage() {
-  const [userName, setUserName] = useState('Paciente');
+type CallStatus = 'idle' | 'connecting' | 'live' | 'ended'
+type QuickActionIntent = 'default' | 'primary' | 'success'
+type TimeoutHandle = ReturnType<typeof setTimeout>
+
+type ControlButtonProps = {
+  active: boolean
+  iconActive: ReactNode
+  iconInactive: ReactNode
+  label: string
+  onClick: () => void
+}
+
+export default function PatientsHomePage(): JSX.Element {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const screenShareRef = useRef<HTMLVideoElement | null>(null)
+
+  // Estados básicos del paciente
+  const [userName, setUserName] = useState('Paciente')
+  const [patientProfile, setPatientProfile] = useState<SupabaseProfile | null>(null)
+
+  // Estados de video call copiados de doctores
+  const [localStream, setLocalStream] = useState<MediaStream | null>(null)
+  const [screenStream, setScreenStream] = useState<MediaStream | null>(null)
+  const [isMuted, setIsMuted] = useState(false)
+  const [isVideoEnabled, setIsVideoEnabled] = useState(false)
+  const [isScreenSharing, setIsScreenSharing] = useState(false)
+  const [callStatus, setCallStatus] = useState<CallStatus>('idle')
+  const [callDuration, setCallDuration] = useState(0)
+  const [cameraError, setCameraError] = useState<string | null>(null)
+  const [showDiagnosisPanel, setShowDiagnosisPanel] = useState(false)
+  const [showTelemedicinePanel, setShowTelemedicinePanel] = useState(false)
+  const [isQuickActionsVisible, setIsQuickActionsVisible] = useState(false)
+  const [showQualityOverlay, setShowQualityOverlay] = useState(false)
+  const [aiProcessing, setAiProcessing] = useState(false)
+  const [isQuickActionsCollapsed, setIsQuickActionsCollapsed] = useState(false)
+  const [showControls, setShowControls] = useState(true)
+  const [mouseTimer, setMouseTimer] = useState<TimeoutHandle | null>(null)
+  const [isFocusMode, setIsFocusMode] = useState(false)
+
+  const _signalingUserId = useMemo(() => {
+    if (typeof window === 'undefined' || typeof crypto === 'undefined') {
+      return 'patient-demo'
+    }
+    const key = 'autamedica-patient-signaling-id'
+    const cached = window.sessionStorage.getItem(key)
+    if (cached) return cached
+    const generated = crypto.randomUUID()
+    window.sessionStorage.setItem(key, generated)
+    return generated
+  }, [])
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const supabase = createClient();
-      if (supabase) {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          const name = user.user_metadata?.name || 
-                       user.user_metadata?.full_name || 
-                       user.email?.split('@')[0] || 
-                       'Paciente';
-          setUserName(name);
+      try {
+        const supabase = createClient()
+
+        if (!supabase) {
+          console.warn('[Patients] Supabase not configured, skipping user data fetch')
+          return
         }
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+
+        if (!user) {
+          return
+        }
+
+        const fallbackName = user.email?.split('@')[0] ?? 'Paciente'
+        const name = user.user_metadata?.name || user.user_metadata?.full_name || fallbackName
+        setUserName(name)
+
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .maybeSingle()
+
+        if (error) {
+          console.error('Patients portal profile fetch error', error)
+          return
+        }
+
+        if (profile) {
+          setPatientProfile(profile)
+        }
+      } catch (error) {
+        console.error('Patients portal Supabase initialization failed', error)
       }
-    };
-    fetchUserData();
-  }, []);
+    }
+
+    fetchUserData()
+  }, [])
+
+  useEffect(() => {
+    if (callStatus !== 'live') {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setCallDuration((prev) => prev + 1)
+    }, 1_000)
+
+    return () => clearInterval(interval)
+  }, [callStatus])
+
+  // Mostrar overlay de calidad temporalmente cuando cambie el estado de la llamada
+  useEffect(() => {
+    if (callStatus === 'live') {
+      setShowQualityOverlay(true)
+      setIsFocusMode(true) // Activar modo foco automáticamente en llamada
+      setIsQuickActionsCollapsed(true) // Colapsar acciones rápidas
+      const timer = setTimeout(() => {
+        setShowQualityOverlay(false)
+      }, 3000) // Se oculta después de 3 segundos
+      return () => clearTimeout(timer)
+    } else {
+      setIsFocusMode(false)
+    }
+  }, [callStatus])
+
+  // Auto-ocultar controles después de 3 segundos sin movimiento del mouse
+  useEffect(() => {
+    const handleMouseMove = () => {
+      setShowControls(true)
+      if (mouseTimer) clearTimeout(mouseTimer)
+
+      const timer = setTimeout(() => {
+        if (callStatus === 'live' && isFocusMode) {
+          setShowControls(false)
+        }
+      }, 3000)
+
+      setMouseTimer(timer)
+    }
+
+    if (isFocusMode) {
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        if (mouseTimer) clearTimeout(mouseTimer)
+      }
+    }
+  }, [isFocusMode, callStatus, mouseTimer])
+
+  useEffect(() => {
+    if (!isFocusMode) {
+      setIsQuickActionsVisible(false)
+      setIsQuickActionsCollapsed(false)
+    }
+  }, [isFocusMode])
+
+  useEffect(() => {
+    return () => {
+      stopMedia(localStream)
+      stopMedia(screenStream)
+    }
+  }, [localStream, screenStream])
+
+  useEffect(() => {
+    if (videoRef.current && localStream) {
+      videoRef.current.srcObject = localStream
+    }
+  }, [localStream])
+
+  useEffect(() => {
+    if (screenShareRef.current && screenStream) {
+      screenShareRef.current.srcObject = screenStream
+    }
+  }, [screenStream])
+
+  const formattedDuration = useMemo(() => {
+    const minutes = Math.floor(callDuration / 60)
+    const seconds = callDuration % 60
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+  }, [callDuration])
+
+  const callQuality = useMemo((): { label: string; color: string } => {
+    if (cameraError) {
+      return { label: 'Sin señal', color: 'text-rose-400' }
+    }
+    if (callStatus === 'live') {
+      return { label: 'HD', color: 'text-emerald-400' }
+    }
+    if (callStatus === 'connecting') {
+      return { label: 'Inicializando', color: 'text-amber-400' }
+    }
+    return { label: 'En espera', color: 'text-slate-400' }
+  }, [cameraError, callStatus])
+
+  async function handleActivateCamera() {
+    if (callStatus === 'live') {
+      return
+    }
+
+    try {
+      setCameraError(null)
+      setCallStatus('connecting')
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          frameRate: { ideal: 30 },
+        },
+        audio: true,
+      })
+
+      setLocalStream(stream)
+      setIsVideoEnabled(true)
+      setIsMuted(false)
+      setCallDuration(0)
+      setCallStatus('live')
+    } catch (error) {
+      console.error('[VideoCall] Error al activar la cámara', error)
+      const message =
+        error instanceof DOMException
+          ? error.message
+          : 'No se pudo acceder a la cámara. Verifica los permisos del navegador.'
+      setCameraError(message)
+      setCallStatus('idle')
+    }
+  }
+
+  function handleToggleAudio() {
+    if (!localStream) {
+      return
+    }
+    const nextMuted = !isMuted
+    localStream.getAudioTracks().forEach((track) => {
+      track.enabled = !nextMuted
+    })
+    setIsMuted(nextMuted)
+  }
+
+  function handleToggleVideo() {
+    if (!localStream) {
+      return
+    }
+    const nextEnabled = !isVideoEnabled
+    localStream.getVideoTracks().forEach((track) => {
+      track.enabled = nextEnabled
+    })
+    setIsVideoEnabled(nextEnabled)
+  }
+
+  async function handleToggleScreenShare() {
+    if (isScreenSharing) {
+      stopMedia(screenStream)
+      setScreenStream(null)
+      setIsScreenSharing(false)
+      return
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false })
+      setScreenStream(stream)
+      setIsScreenSharing(true)
+    } catch (error) {
+      console.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
+      setIsScreenSharing(false)
+    }
+  }
+
+  function handleEndCall() {
+    stopMedia(localStream)
+    stopMedia(screenStream)
+    setLocalStream(null)
+    setScreenStream(null)
+    setIsVideoEnabled(false)
+    setIsMuted(false)
+    setIsScreenSharing(false)
+    setCallStatus('ended')
+  }
+
+  // Acciones específicas del paciente
+  function handleViewHistory() {
+    console.log('Ver historial médico')
+  }
+
+  function handleViewPrescriptions() {
+    console.log('Ver recetas')
+  }
+
+  function handleViewResults() {
+    console.log('Ver resultados')
+  }
+
+  async function handleAnalyzeWithAI() {
+    setAiProcessing(true)
+    setShowDiagnosisPanel(true)
+
+    // Simular análisis IA para paciente
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    setAiProcessing(false)
+  }
+
+  const toggleQuickActionsVisibility = () => {
+    setIsQuickActionsVisible((prev) => {
+      const next = !prev
+      if (next) {
+        setIsQuickActionsCollapsed(false)
+      }
+      return next
+    })
+  }
+
+  const closeQuickActions = () => {
+    setIsQuickActionsVisible(false)
+  }
+
+  const toggleFocusMode = () => {
+    const next = !isFocusMode
+    setIsFocusMode(next)
+    if (next) {
+      setIsQuickActionsCollapsed(true)
+      setIsQuickActionsVisible(false)
+    }
+  }
 
   return (
-    <div className="space-y-4">
-      {/* Compact Header */}
-      <div className="text-center mb-4">
-        <h1 className="text-2xl font-bold mb-2 text-white">
-          Portal Médico de {userName}
-        </h1>
-        <p className="text-sm text-white opacity-80">
-          Gestiona tu salud de forma integral y mantente conectado con tu equipo médico.
-        </p>
-      </div>
-
-      {/* Main Dashboard Layout - Optimized for 100% zoom */}
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
-
-        {/* Left Section - Main Content (3 columns) */}
-        <div className="xl:col-span-3 space-y-4">
-
-          {/* Central Video Call Section - Compact */}
-          <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-white">🎥 Consulta Virtual</h2>
-              <div className="flex items-center space-x-2">
-                <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-white text-xs">Dr. García disponible</span>
-              </div>
+    <div className="flex min-h-0 flex-1 flex-col text-slate-100">
+      {patientProfile && (
+        <div className="mb-4 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 shadow-lg backdrop-blur">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-300">
+            <div>
+              <p className="text-base font-semibold text-slate-50">
+                {patientProfile.first_name ?? ''} {patientProfile.last_name ?? ''}
+              </p>
+              <p className="text-xs text-slate-400">ID perfil • {patientProfile.id}</p>
             </div>
+            <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+              {patientProfile.role === 'patient' ? 'Paciente' : patientProfile.role}
+            </span>
+            <span className="text-xs text-slate-400">{patientProfile.email}</span>
+            <span className="text-xs text-slate-500">
+              Actualizado {new Date(patientProfile.updated_at).toLocaleDateString('es-AR')}
+            </span>
+          </div>
+        </div>
+      )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {/* Video Call Interface - Compact */}
-              <div className="bg-gray-900 bg-opacity-60 rounded-lg p-4 min-h-[140px] flex flex-col items-center justify-center">
-                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-3">
-                  <span className="text-lg">📹</span>
+      <div className={`call-area ${isFocusMode ? 'gap-3' : 'gap-4'} flex min-h-0 flex-1 flex-col lg:flex-row`}>
+        <section className="call-area__videoCard relative flex min-h-0 flex-1 flex-col">
+          <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-lg">
+            {cameraError ? (
+              <div className="flex flex-1 flex-col items-center justify-center gap-3 bg-[#0d1b2f] px-4 py-6 text-center text-slate-300 sm:px-8">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-rose-500/20 text-rose-200">
+                  <VideoOff className="h-10 w-10" />
                 </div>
-                <h3 className="text-white text-base font-semibold mb-2">Iniciar Videollamada</h3>
-                <p className="text-white opacity-80 text-xs text-center mb-3">
-                  Conecta directamente con tu médico de cabecera
-                </p>
-                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                  Llamar Ahora
+                <h3 className="text-xl font-semibold text-slate-100">No se detectó cámara</h3>
+                <p className="max-w-md text-sm text-slate-400">{cameraError}</p>
+                <button
+                  type="button"
+                  onClick={handleActivateCamera}
+                  className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-500"
+                >
+                  Reintentar
                 </button>
               </div>
-
-              {/* Quick Actions - Compact */}
-              <div className="bg-gray-900 bg-opacity-40 p-4 rounded-lg">
-                <h4 className="text-white font-semibold mb-3 text-sm">📋 Acciones Rápidas</h4>
-                <div className="space-y-2">
-                  <button className="w-full text-left text-white bg-blue-600 bg-opacity-80 p-2 rounded hover:bg-opacity-100 transition-colors text-sm">
-                    💬 Chat con Enfermería
-                  </button>
-                  <button className="w-full text-left text-white bg-purple-600 bg-opacity-80 p-2 rounded hover:bg-opacity-100 transition-colors text-sm">
-                    📅 Agendar Cita
-                  </button>
-                  <button className="w-full text-left text-white bg-orange-600 bg-opacity-80 p-2 rounded hover:bg-opacity-100 transition-colors text-sm">
-                    🚨 Consulta Urgente
-                  </button>
+            ) : localStream ? (
+              <video
+                ref={videoRef}
+                className={`call-area__video h-full w-full object-cover transition-opacity ${
+                  isVideoEnabled ? 'opacity-100' : 'opacity-0'
+                }`}
+                autoPlay
+                playsInline
+                muted
+              />
+            ) : (
+              <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-[#0d1b2f] px-4 py-6 text-center">
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-fuchsia-500/20 text-fuchsia-200">
+                  <User className="h-12 w-12" />
                 </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-slate-100">Portal de Paciente - {userName}</h3>
+                  <p className="text-sm text-slate-400">Conecta con tu médico para iniciar la videoconsulta</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleActivateCamera}
+                  className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-500"
+                >
+                  Iniciar videoconsulta
+                </button>
+              </div>
+            )}
+
+            {callStatus === 'connecting' && (
+              <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-3 bg-[#0d1b2f]/80 text-slate-200 backdrop-blur-sm">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-300" />
+                <p className="text-sm font-medium">Conectando con su médico…</p>
+              </div>
+            )}
+
+            {isScreenSharing && (
+              <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-600/20 px-4 py-1 text-xs text-blue-100">
+                <ScreenShare className="h-4 w-4" />
+                Compartiendo pantalla
+              </div>
+            )}
+
+            {isFocusMode && userName && callStatus === 'live' && showControls && (
+              <div className="video-badge z-10">
+                <div className="flex items-center gap-3 rounded-lg bg-slate-900/80 px-3 py-2 backdrop-blur-md">
+                  <div className="flex items-center gap-2">
+                    <Activity className="h-4 w-4 text-emerald-400" />
+                    <div>
+                      <p className="text-xs font-semibold text-slate-100">{userName}</p>
+                      <p className="text-[10px] text-slate-400">Consulta • {formattedDuration}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[10px] font-medium ${callQuality.color}`}>
+                      {callQuality.label}
+                    </span>
+                    <span className="text-[10px] text-slate-500">• 45ms</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {showQualityOverlay && callStatus === 'live' && !isFocusMode && (
+              <div className={`absolute top-4 left-4 transition-all duration-1000 ${
+                showQualityOverlay ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
+              }`}>
+                <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs backdrop-blur-sm">
+                  <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></div>
+                  <span className="font-medium text-emerald-200">
+                    {callQuality.label} • 45ms • Estable
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div className="absolute right-4 top-4 flex flex-col items-end gap-3">
+              {callStatus === 'live' && (
+                <button
+                  type="button"
+                  onClick={toggleFocusMode}
+                  className={`rounded-full border px-3 py-1.5 text-[11px] font-medium transition ${
+                    isFocusMode
+                      ? 'border-emerald-400/50 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20'
+                      : 'border-slate-700 bg-slate-900/80 text-slate-200 hover:border-emerald-400/60 hover:text-white'
+                  }`}
+                >
+                  {isFocusMode ? 'Salir modo foco' : 'Activar modo foco'}
+                </button>
+              )}
+
+              {screenStream && (
+                <div className="hidden h-32 w-48 overflow-hidden rounded-lg border border-slate-700 bg-slate-900/70 shadow-lg sm:block">
+                  <video ref={screenShareRef} className="h-full w-full object-cover" autoPlay muted playsInline />
+                </div>
+              )}
+            </div>
+
+            <div className={`video-overlay autoHide ${showControls ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+              <div className="flex flex-wrap items-center justify-center gap-3 rounded-full border border-slate-800/80 bg-slate-900/90 px-4 py-3 shadow-lg sm:flex-nowrap sm:justify-start sm:px-6">
+                <ControlButton
+                  active={!isMuted}
+                  iconActive={<Mic className="h-5 w-5" />}
+                  iconInactive={<MicOff className="h-5 w-5" />}
+                  label={isMuted ? 'Activar micrófono' : 'Silenciar'}
+                  onClick={handleToggleAudio}
+                />
+                <ControlButton
+                  active={isVideoEnabled}
+                  iconActive={<Video className="h-5 w-5" />}
+                  iconInactive={<VideoOff className="h-5 w-5" />}
+                  label={isVideoEnabled ? 'Ocultar video' : 'Mostrar video'}
+                  onClick={handleToggleVideo}
+                />
+                <ControlButton
+                  active={isScreenSharing}
+                  iconActive={<ScreenShare className="h-5 w-5" />}
+                  iconInactive={<ScreenShareOff className="h-5 w-5" />}
+                  label={isScreenSharing ? 'Detener pantalla' : 'Compartir pantalla'}
+                  onClick={handleToggleScreenShare}
+                />
+                <button
+                  type="button"
+                  onClick={handleEndCall}
+                  className={`flex items-center justify-center rounded-full bg-rose-600 text-white transition hover:bg-rose-500 ${
+                    isFocusMode ? 'h-10 w-10' : 'h-12 w-12'
+                  }`}
+                >
+                  <PhoneOff className={isFocusMode ? 'h-4 w-4' : 'h-5 w-5'} />
+                </button>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Medical Stats Cards - Compact */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-base font-semibold text-white">💊 Medicamentos</h3>
-                <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">2 pendientes</span>
-              </div>
-              <p className="text-xl font-bold text-white mb-2">5 activos</p>
-              <div className="text-xs text-white opacity-90">
-                <div className="flex justify-between">
-                  <span>• Lisinopril 10mg</span>
-                  <span className="text-yellow-400">8:00 AM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>• Metformina 500mg</span>
-                  <span className="text-green-400">Tomado</span>
-                </div>
-              </div>
-            </div>
+        {isFocusMode && (
+          <button
+            type="button"
+            onClick={toggleQuickActionsVisibility}
+            className={`call-area__quickActionsHandle hidden flex-col items-center gap-1 rounded-2xl border border-slate-700/70 bg-slate-900/85 px-3 py-3 text-xs font-medium text-slate-200 shadow-lg transition hover:border-emerald-500/60 hover:text-white lg:flex ${
+              isQuickActionsVisible ? 'ring-1 ring-emerald-400/60' : ''
+            }`}
+            aria-expanded={isQuickActionsVisible}
+            aria-label="Herramientas del paciente"
+          >
+            {isQuickActionsVisible ? (
+              <>
+                <X className="h-4 w-4" />
+                <span className="text-[11px] font-semibold uppercase tracking-wide">Cerrar panel</span>
+              </>
+            ) : (
+              <>
+                <span className="flex items-center gap-1 text-emerald-300">
+                  <FileText className="h-3 w-3" />
+                  <Pill className="h-3 w-3" />
+                  <Activity className="h-3 w-3" />
+                  <MonitorUp className="h-3 w-3" />
+                  <Brain className="h-3 w-3" />
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-wide">Mi salud</span>
+                <span className="text-[10px] font-normal text-slate-400">Historial · Recetas · Resultados</span>
+              </>
+            )}
+          </button>
+        )}
 
-            <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-              <h3 className="text-base font-semibold text-white mb-2">🔬 Resultados</h3>
-              <p className="text-xl font-bold text-white mb-2">3 nuevos</p>
-              <div className="text-xs text-white opacity-90">
-                <div>• Glucosa: 95 mg/dL ✅</div>
-                <div>• Presión: 120/80 ✅</div>
-                <div>• Colesterol: <span className="text-yellow-400">Pendiente</span></div>
-              </div>
-            </div>
-
-            <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-              <h3 className="text-base font-semibold text-white mb-2">📈 Signos Vitales</h3>
-              <div className="text-xs text-white space-y-1">
-                <div className="flex justify-between">
-                  <span>Peso:</span>
-                  <span className="font-semibold">72.5 kg</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>IMC:</span>
-                  <span className="font-semibold text-green-400">23.2</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Última medición:</span>
-                  <span className="text-gray-300">Hoy</span>
-                </div>
-              </div>
+        <aside
+          className={`right-drawer hidden h-full flex-col space-y-3 rounded-2xl border border-slate-800/60 bg-[#101d32] p-3 shadow-xl shadow-slate-900/20 lg:flex ${
+            isFocusMode && isQuickActionsVisible ? 'right-drawer--open' : ''
+          }`}
+        >
+          <div className="flex items-center justify-between px-1 pb-0">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">Mi información médica</h3>
+            <div className="flex items-center gap-1">
+              {isFocusMode && (
+                <button
+                  type="button"
+                  onClick={closeQuickActions}
+                  className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-800/40 hover:text-slate-200"
+                  aria-label="Cerrar panel"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setIsQuickActionsCollapsed(!isQuickActionsCollapsed)}
+                className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-800/40 hover:text-slate-200"
+                aria-expanded={!isQuickActionsCollapsed}
+                aria-controls="patient-actions-panel"
+              >
+                {isQuickActionsCollapsed ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+              </button>
             </div>
           </div>
 
-          {/* Recent Activity - Compact */}
-          <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-            <h3 className="text-base font-semibold text-white mb-3">📋 Actividad Reciente</h3>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-3 p-2 bg-gray-900 bg-opacity-40 rounded">
-                <span className="text-lg">🔬</span>
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-sm">Resultados de laboratorio disponibles</p>
-                  <p className="text-white opacity-70 text-xs">Hace 2 horas • Dr. García</p>
-                </div>
-                <button className="text-blue-400 hover:text-blue-300 font-semibold text-xs">Ver</button>
+          {!isQuickActionsCollapsed && (
+            <div id="patient-actions-panel" className="space-y-3 px-1 pb-2">
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+                <CompactAction
+                  label="Historial médico"
+                  icon={<FileText className="h-4 w-4" />}
+                  onClick={handleViewHistory}
+                />
+                <CompactAction
+                  label="Mis recetas"
+                  icon={<Pill className="h-4 w-4" />}
+                  onClick={handleViewPrescriptions}
+                />
+                <CompactAction
+                  label="Resultados"
+                  icon={<Activity className="h-4 w-4" />}
+                  onClick={handleViewResults}
+                />
+                <CompactAction
+                  label="Telemedicina"
+                  icon={<MonitorUp className="h-4 w-4" />}
+                  intent={showTelemedicinePanel ? 'primary' : 'default'}
+                  onClick={() => setShowTelemedicinePanel(!showTelemedicinePanel)}
+                />
+                <CompactAction
+                  label={aiProcessing ? 'Procesando...' : 'Consulta IA'}
+                  icon={<Brain className="h-4 w-4" />}
+                  intent="success"
+                  onClick={handleAnalyzeWithAI}
+                />
               </div>
 
-              <div className="flex items-center space-x-3 p-2 bg-gray-900 bg-opacity-40 rounded">
-                <span className="text-lg">💊</span>
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-sm">Recordatorio de medicamento</p>
-                  <p className="text-white opacity-70 text-xs">Hace 30 min • Sistema</p>
+              <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-3 w-3 text-emerald-400" />
+                  <p className="text-xs text-emerald-200">Portal seguro del paciente</p>
                 </div>
-                <button className="text-green-400 hover:text-green-300 font-semibold text-xs">Confirmar</button>
               </div>
+            </div>
+          )}
 
-              <div className="flex items-center space-x-3 p-2 bg-gray-900 bg-opacity-40 rounded">
-                <span className="text-lg">📅</span>
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-sm">Cita confirmada para mañana</p>
-                  <p className="text-white opacity-70 text-xs">Ayer • Recepción</p>
-                </div>
-                <button className="text-blue-400 hover:text-blue-300 font-semibold text-xs">Detalles</button>
+          {isQuickActionsCollapsed && (
+            <div className="px-1 pb-2">
+              <div className="flex items-center justify-center gap-3 rounded-lg border border-slate-700 bg-slate-800/40 py-2">
+                <FileText className="h-3 w-3 text-slate-400" />
+                <Pill className="h-3 w-3 text-slate-400" />
+                <Activity className="h-3 w-3 text-slate-400" />
+                <Brain className="h-3 w-3 text-slate-400" />
+                <span className="text-xs text-slate-400">5 opciones disponibles</span>
               </div>
+            </div>
+          )}
+        </aside>
+      </div>
+
+      {isFocusMode && (
+        <div className="mt-3 flex items-center justify-center lg:hidden">
+          <button
+            type="button"
+            onClick={() => setIsQuickActionsCollapsed(false)}
+            className="flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/70 px-4 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:text-white"
+          >
+            <MonitorUp className="h-4 w-4" />
+            Mi información médica
+          </button>
+        </div>
+      )}
+
+      {isFocusMode && (
+        <div className="fixed bottom-6 right-6 z-20 flex items-center gap-3 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setShowControls(!showControls)}
+            className="rounded-full border border-slate-700/60 bg-slate-900/80 p-3 text-slate-200 transition hover:border-slate-500 hover:text-white"
+            aria-label="Alternar controles"
+          >
+            {showControls ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsQuickActionsCollapsed(false)}
+            className="flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-900 shadow-lg transition hover:bg-emerald-400"
+          >
+            <Sparkles className="h-4 w-4" />
+            Mi salud
+          </button>
+        </div>
+      )}
+
+      {isFocusMode && showQualityOverlay && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-20 z-20 flex justify-center lg:hidden">
+          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-xs text-emerald-200 shadow-lg">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
+            Portal de paciente optimizado
+          </div>
+        </div>
+      )}
+
+      {showDiagnosisPanel && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 backdrop-blur">
+          <div className="w-full max-w-3xl rounded-3xl border border-slate-800/80 bg-[#0f1f35] p-5 shadow-2xl sm:p-6">
+            <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3 text-slate-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/20 text-blue-200">
+                  <Brain className="h-5 w-5" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold">Consulta con IA · {userName}</h2>
+                  <p className="text-xs text-slate-400">Describe tus síntomas para recibir orientación médica.</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDiagnosisPanel(false)}
+                className="self-start rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:self-auto"
+              >
+                Cerrar
+              </button>
+            </header>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="space-y-2 text-sm text-slate-200">
+                <span>Síntomas que sientes</span>
+                <textarea
+                  defaultValue=""
+                  placeholder="Describe cómo te sientes, qué síntomas tienes..."
+                  className="min-h-[120px] w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                />
+              </label>
+              <label className="space-y-2 text-sm text-slate-200">
+                <span>¿Cuánto tiempo llevas así?</span>
+                <input
+                  defaultValue=""
+                  placeholder="Ej: 2 días, una semana..."
+                  className="w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                />
+              </label>
+            </div>
+
+            {aiProcessing && (
+              <div className="mt-6 flex items-center gap-3 rounded-lg border border-blue-500/30 bg-blue-500/10 p-4">
+                <Loader2 className="h-5 w-5 animate-spin text-blue-300" />
+                <p className="text-sm text-blue-200">Analizando tus síntomas...</p>
+              </div>
+            )}
+
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                Información confidencial y protegida.
+              </div>
+              <button
+                type="button"
+                disabled={aiProcessing}
+                className="flex items-center gap-2 self-stretch rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:opacity-50 sm:self-auto"
+              >
+                <Brain className="h-4 w-4" />
+                {aiProcessing ? 'Analizando...' : 'Consultar IA'}
+              </button>
             </div>
           </div>
         </div>
+      )}
 
-        {/* Right Sidebar - Actionable Information */}
-        <div className="xl:col-span-1 space-y-4">
+      {isFocusMode && isQuickActionsVisible && (
+        <button
+          type="button"
+          className="call-area__drawerScrim fixed inset-0 z-30 hidden bg-slate-950/60 backdrop-blur-sm lg:block"
+          aria-label="Cerrar panel"
+          onClick={closeQuickActions}
+        />
+      )}
 
-          {/* Next Appointment */}
-          <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-4 rounded-lg border border-blue-400 border-opacity-30">
-            <h3 className="text-base font-semibold text-white mb-2">📅 Próxima Cita</h3>
-            <div className="text-white">
-              <p className="text-xl font-bold">Mañana</p>
-              <p className="text-lg">10:00 AM</p>
-              <p className="text-xs opacity-90 mt-1">Dr. García - Medicina General</p>
-              <p className="text-xs opacity-75">Consultorio 205</p>
-            </div>
-            <div className="mt-3 space-y-1">
-              <button className="w-full bg-white bg-opacity-20 text-white py-2 rounded text-sm font-semibold hover:bg-opacity-30 transition-colors">
-                Reagendar
-              </button>
-              <button className="w-full bg-white bg-opacity-20 text-white py-2 rounded text-sm font-semibold hover:bg-opacity-30 transition-colors">
-                Ver Detalles
-              </button>
-            </div>
-          </div>
-
-          {/* Today's Medications */}
-          <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-            <h3 className="text-base font-semibold text-white mb-3">💊 Medicamentos de Hoy</h3>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between p-2 bg-gray-900 bg-opacity-40 rounded">
-                <div>
-                  <p className="text-white font-semibold text-sm">Lisinopril</p>
-                  <p className="text-white opacity-70 text-xs">10mg • 8:00 AM</p>
-                </div>
-                <button className="bg-yellow-500 text-white px-2 py-1 rounded text-xs">
-                  Pendiente
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between p-2 bg-gray-900 bg-opacity-40 rounded">
-                <div>
-                  <p className="text-white font-semibold text-sm">Metformina</p>
-                  <p className="text-white opacity-70 text-xs">500mg • 12:00 PM</p>
-                </div>
-                <button className="bg-green-500 text-white px-2 py-1 rounded text-xs">
-                  Tomado
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between p-2 bg-gray-900 bg-opacity-40 rounded">
-                <div>
-                  <p className="text-white font-semibold text-sm">Atorvastatina</p>
-                  <p className="text-white opacity-70 text-xs">20mg • 8:00 PM</p>
-                </div>
-                <button className="bg-gray-500 text-white px-2 py-1 rounded text-xs">
-                  Programado
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Communication */}
-          <div className="bg-black bg-opacity-40 backdrop-blur-sm p-4 rounded-lg border border-white border-opacity-20">
-            <h3 className="text-base font-semibold text-white mb-3">💬 Comunicación</h3>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2 p-2 bg-gray-900 bg-opacity-40 rounded">
-                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs">👨‍⚕️</span>
-                </div>
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-xs">Dr. García</p>
-                  <p className="text-white opacity-70 text-xs">Disponible</p>
-                </div>
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              </div>
-
-              <div className="flex items-center space-x-2 p-2 bg-gray-900 bg-opacity-40 rounded">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs">👩‍⚕️</span>
-                </div>
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-xs">Enfermería</p>
-                  <p className="text-white opacity-70 text-xs">En línea</p>
-                </div>
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-              </div>
-
-              <button className="w-full bg-blue-600 text-white py-2 rounded text-sm font-semibold hover:bg-blue-700 transition-colors mt-2">
-                💬 Nuevo Mensaje
-              </button>
-            </div>
-          </div>
-
-          {/* Emergency Contact */}
-          <div className="bg-gradient-to-br from-red-600 to-red-800 p-4 rounded-lg border border-red-400 border-opacity-30">
-            <h3 className="text-base font-semibold text-white mb-2">🚨 Emergencia</h3>
-            <p className="text-white text-xs mb-3 opacity-90">
-              Para emergencias médicas inmediatas
-            </p>
-            <button className="w-full bg-white bg-opacity-20 text-white py-2 rounded text-sm font-bold hover:bg-opacity-30 transition-colors">
-              LLAMAR EMERGENCIAS
-            </button>
-            <p className="text-white text-xs mt-2 opacity-75 text-center">
-              24/7 • Respuesta inmediata
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
-  );
+  )
+}
+
+function stopMedia(stream: MediaStream | null) {
+  stream?.getTracks().forEach((track) => {
+    track.stop()
+  })
+}
+
+function ControlButton({ active, iconActive, iconInactive, label, onClick }: ControlButtonProps): JSX.Element {
+  const isFocusMode = false // Simplified for patients
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center justify-center rounded-full transition ${
+        isFocusMode ? 'h-10 w-10' : 'h-12 w-12'
+      } ${
+        active
+          ? 'bg-emerald-500 text-slate-900 hover:bg-emerald-400'
+          : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+      }`}
+      aria-label={label}
+      title={label}
+    >
+      {active ? iconActive : iconInactive}
+    </button>
+  )
+}
+
+interface CompactActionProps {
+  label: string
+  icon: JSX.Element
+  intent?: QuickActionIntent
+  onClick?: () => void
+}
+
+function CompactAction({ label, icon, intent = 'default', onClick }: CompactActionProps): JSX.Element {
+  const intentStyles: Record<QuickActionIntent, string> = {
+    default: 'border-slate-700 bg-slate-800/40 text-slate-300 hover:bg-slate-800/60',
+    primary: 'border-blue-500/40 bg-blue-600/10 text-blue-200 hover:bg-blue-600/20',
+    success: 'border-emerald-500/40 bg-emerald-600/10 text-emerald-200 hover:bg-emerald-600/20',
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition ${intentStyles[intent]}`}
+    >
+      <span className={intent === 'success' ? 'text-emerald-400' : intent === 'primary' ? 'text-blue-400' : 'text-slate-400'}>
+        {icon}
+      </span>
+      {label}
+    </button>
+  )
 }

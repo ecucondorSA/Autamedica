@@ -1,0 +1,167 @@
+
+ ⛅️ wrangler 4.38.0 (update available 4.40.2)
+─────────────────────────────────────────────
+[
+  {
+    "Id": "084002a1-6e05-459c-be56-ed86b78f5fb6",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://084002a1.autamedica-doctors.pages.dev",
+    "Status": "2 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/084002a1-6e05-459c-be56-ed86b78f5fb6"
+  },
+  {
+    "Id": "f245b0b3-1ff6-49c3-b944-6d17a1f3492f",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://f245b0b3.autamedica-doctors.pages.dev",
+    "Status": "3 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/f245b0b3-1ff6-49c3-b944-6d17a1f3492f"
+  },
+  {
+    "Id": "423ffd35-4e9b-4044-a4d5-897e6444a677",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://423ffd35.autamedica-doctors.pages.dev",
+    "Status": "3 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/423ffd35-4e9b-4044-a4d5-897e6444a677"
+  },
+  {
+    "Id": "ddcab739-efeb-4028-8e8e-7cfa5866dc14",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://ddcab739.autamedica-doctors.pages.dev",
+    "Status": "3 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/ddcab739-efeb-4028-8e8e-7cfa5866dc14"
+  },
+  {
+    "Id": "0e9474c6-ce2c-4a29-8314-a6e91f92c3d0",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://0e9474c6.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/0e9474c6-ce2c-4a29-8314-a6e91f92c3d0"
+  },
+  {
+    "Id": "e209a7cf-424b-48a7-81cf-41c90bfd7a99",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "4a9ad2b",
+    "Deployment": "https://e209a7cf.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/e209a7cf-424b-48a7-81cf-41c90bfd7a99"
+  },
+  {
+    "Id": "31527b20-7659-43a0-a8d7-3a5858ec0ae3",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "5577516",
+    "Deployment": "https://31527b20.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/31527b20-7659-43a0-a8d7-3a5858ec0ae3"
+  },
+  {
+    "Id": "f60203d8-1903-4ccd-a40b-ed8ea3290cb9",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "5577516",
+    "Deployment": "https://f60203d8.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/f60203d8-1903-4ccd-a40b-ed8ea3290cb9"
+  },
+  {
+    "Id": "a2ada8ee-f874-4ddc-a7dc-c9ed7d80c1dd",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "5577516",
+    "Deployment": "https://a2ada8ee.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/a2ada8ee-f874-4ddc-a7dc-c9ed7d80c1dd"
+  },
+  {
+    "Id": "fcabe13c-3710-4160-a780-f10c12755abb",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "ab1f211",
+    "Deployment": "https://fcabe13c.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/fcabe13c-3710-4160-a780-f10c12755abb"
+  },
+  {
+    "Id": "a6f3f97e-6709-4d2e-9c1a-5667ff61c8ce",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "7993b52",
+    "Deployment": "https://a6f3f97e.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/a6f3f97e-6709-4d2e-9c1a-5667ff61c8ce"
+  },
+  {
+    "Id": "b5719670-c177-4392-ab68-49a23639d0b8",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "7993b52",
+    "Deployment": "https://b5719670.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/b5719670-c177-4392-ab68-49a23639d0b8"
+  },
+  {
+    "Id": "1f9842d2-ceab-48bc-8be7-4857fde87672",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "7993b52",
+    "Deployment": "https://1f9842d2.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/1f9842d2-ceab-48bc-8be7-4857fde87672"
+  },
+  {
+    "Id": "50cab25a-1fb1-414b-811f-034e1e032036",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "7993b52",
+    "Deployment": "https://50cab25a.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/50cab25a-1fb1-414b-811f-034e1e032036"
+  },
+  {
+    "Id": "8b4099d8-1554-4098-9581-a39cce985dda",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "03b2592",
+    "Deployment": "https://8b4099d8.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/8b4099d8-1554-4098-9581-a39cce985dda"
+  },
+  {
+    "Id": "bf4f9771-1cc9-4c48-909d-eb763abaed49",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "03b2592",
+    "Deployment": "https://bf4f9771.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/bf4f9771-1cc9-4c48-909d-eb763abaed49"
+  },
+  {
+    "Id": "13607420-8230-45bb-92b8-d544443c88cb",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "c285245",
+    "Deployment": "https://13607420.autamedica-doctors.pages.dev",
+    "Status": "4 days ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/13607420-8230-45bb-92b8-d544443c88cb"
+  },
+  {
+    "Id": "f67fd8d7-6882-4264-ad77-66d32c7d150c",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "b94afe4",
+    "Deployment": "https://f67fd8d7.autamedica-doctors.pages.dev",
+    "Status": "1 week ago",
+    "Build": "https://dash.cloudflare.com/5737682cdee596a0781f795116a3120b/pages/view/autamedica-doctors/f67fd8d7-6882-4264-ad77-66d32c7d150c"
+  }
+]

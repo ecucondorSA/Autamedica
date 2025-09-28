@@ -1,14 +1,14 @@
 /**
- * Datos de demostración con UUIDs válidos para desarrollo
+ * Datos de invitado con UUIDs válidos para la aplicación
  */
 
 import type { PatientProfile } from '@/types/medical'
 
-// UUID válido generado para el paciente de demostración
-export const DEMO_PATIENT_ID = '550e8400-e29b-41d4-a716-446655440000'
+// UUID válido generado para el paciente de invitado
+export const GUEST_PATIENT_ID = '550e8400-e29b-41d4-a716-446655440000'
 
-export const DEMO_PATIENT: PatientProfile = {
-  id: DEMO_PATIENT_ID,
+export const GUEST_PATIENT: PatientProfile = {
+  id: GUEST_PATIENT_ID,
   first_name: 'María',
   last_name: 'González',
   full_name: 'María González',
@@ -28,3 +28,7 @@ export const DEMO_PATIENT: PatientProfile = {
   created_at: '2024-01-15T10:00:00.000Z',
   updated_at: '2024-01-15T10:00:00.000Z'
 }
+
+// Mantener compatibilidad con nombres anteriores
+export const DEMO_PATIENT_ID = GUEST_PATIENT_ID
+export const DEMO_PATIENT = GUEST_PATIENT

@@ -2,6 +2,234 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+html, body {
+  height: 100%;
+}
+
 body {
   @apply bg-slate-950 text-slate-100 antialiased;
+}
+
+
+/* Videollamada focus layout */
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 40px 40px 1fr;
+  contain: layout style paint;
+  will-change: transform;
+}
+
+.app--focus {
+  grid-template-rows: 40px 0 1fr;
+}
+
+.header {
+  height: 40px;
+}
+
+.tabs {
+  height: 40px;
+  overflow: hidden;
+}
+
+.call-area {
+  display: flex;
+  min-height: 0;
+  position: relative;
+}
+
+.call-area__videoCard {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: none;
+  background: transparent;
+}
+
+.call-area__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.left-rail {
+  width: 72px;
+  transition: width 0.3s ease;
+}
+
+.left-rail--expanded {
+  width: 240px;
+}
+
+.app--focus .left-rail {
+  width: 12px;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.app--focus .left-rail:hover,
+.app--focus .left-rail:focus-within {
+  width: 72px;
+}
+
+.app--focus .left-rail.left-rail--expanded:hover,
+.app--focus .left-rail.left-rail--expanded:focus-within {
+  width: 240px;
+}
+
+/* Layout principal que faltaba */
+.app__layout {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Fix para paneles que ocupen altura completa */
+.panel-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  container-type: inline-size;
+}
+
+/* Responsive para equipos médicos 2025 */
+@media (min-width: 1920px) {
+  .app {
+    grid-template-rows: 50px 50px 1fr;
+  }
+  .header { height: 50px; }
+  .tabs { height: 50px; }
+}
+
+@media (max-width: 768px) {
+  .app--focus {
+    grid-template-rows: 40px 0 1fr;
+  }
+}
+
+/* Container queries para paneles médicos */
+@container (min-width: 400px) {
+  .settings-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.right-drawer {
+  width: 340px;
+  transition: transform 0.3s ease;
+}
+
+.app--focus .right-drawer {
+  display: none;
+}
+
+.app--focus .right-drawer.right-drawer--open {
+  display: flex;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  max-width: 340px;
+  max-height: calc(100% - 32px);
+}
+
+.call-area__quickActionsHandle {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  z-index: 35;
+  display: none;
+  text-align: center;
+}
+
+.app--focus .call-area__quickActionsHandle {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .app--focus .call-area__quickActionsHandle {
+    display: flex;
+  }
+}
+
+.call-area__drawerScrim {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .app--focus .call-area__drawerScrim {
+    display: block;
+  }
+}
+
+.video-overlay {
+  position: absolute;
+  inset: auto auto 12px 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.app--focus .video-overlay.autoHide {
+  opacity: 0;
+}
+
+.app--focus .call-area:hover .video-overlay.autoHide {
+  opacity: 1;
+}
+
+/* Estados de urgencia médica - 2025 Standards */
+.urgent {
+  border-left: 4px solid #dc2626;
+}
+
+.normal {
+  border-left: 4px solid #10b981;
+}
+
+.critical {
+  border-left: 4px solid #f59e0b;
+}
+
+/* Touch targets para equipos médicos */
+.sidebar-button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Loading states profesionales */
+.skeleton {
+  @apply animate-pulse bg-slate-800/60 rounded-lg;
+}
+
+.skeleton-text {
+  @apply skeleton h-4 w-3/4;
+}
+
+.skeleton-card {
+  @apply skeleton h-32;
+}
+
+.video-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.tsqd-open-btn-container {
+  pointer-events: none;
+}
+
+.tsqd-open-btn-container button {
+  pointer-events: auto;
 }

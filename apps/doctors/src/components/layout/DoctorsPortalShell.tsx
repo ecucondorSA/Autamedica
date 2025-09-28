@@ -6,21 +6,36 @@ import {
   Activity,
   Brain,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
   FileText,
   History,
+  Home,
+  MapPin,
   Menu,
   MessageSquare,
   Settings,
+  Star,
   Users,
   X,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { createClient } from '@/lib/supabase'
+import { createBrowserClient } from '@autamedica/auth'
 import { PatientInfoTab } from '@/components/patient/PatientInfoTab'
 import { MedicalHistoryTab } from '@/components/medical/MedicalHistoryTab'
 import { PrescriptionsTab } from '@/components/medical/PrescriptionsTab'
 import { VitalSignsTab } from '@/components/medical/VitalSignsTab'
 import { AIHistoryTab } from '@/components/medical/AIHistoryTab'
+import { SettingsPanel } from '@/components/settings/SettingsPanel'
+import { SubscriptionPanel } from '@/components/subscription/SubscriptionPanel'
+import { MarketplacePanel } from '@/components/marketplace/MarketplacePanel'
+import { PatientsPanel } from '@/components/patients/PatientsPanel'
+import { AppointmentsPanel } from '@/components/appointments/AppointmentsPanel'
+import { RecordsPanel } from '@/components/records/RecordsPanel'
+import { VitalSignsPanel } from '@/components/vitals/VitalSignsPanel'
+import { DiagnosisPanel } from '@/components/diagnosis/DiagnosisPanel'
+import { MedicalRankingPanel } from '@/components/ranking/MedicalRankingPanel'
 import { useActiveSession } from '@/hooks'
 
 type TabId = 'video-call' | 'patient-info' | 'medical-history' | 'prescriptions' | 'vital-signs' | 'ai-history'
@@ -43,6 +58,8 @@ type PortalContextValue = {
   activeTab: TabId
   setActiveTab: (tab: TabId) => void
   userName: string
+  isFocusMode: boolean
+  setFocusMode: (focus: boolean) => void
 }
 
 const PortalLayoutContext = createContext<PortalContextValue | null>(null)
@@ -69,14 +86,135 @@ function getInitials(name: string): string {
   )
 }
 
+function TabPlaceholder({ label }: { label: string }): JSX.Element {
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-3 bg-[#111b2e] text-center text-slate-300">
+      <span className="text-4xl">🛠️</span>
+      <div>
+        <p className="text-lg font-semibold">{label}</p>
+        <p className="text-sm text-slate-400">Esta sección estará disponible próximamente.</p>
+      </div>
+    </div>
+  )
+}
+
+function SectionPlaceholder({ title, icon, description }: { title: string; icon: string; description: string }): JSX.Element {
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4 rounded-xl border border-slate-800/60 bg-[#101d32] p-8 text-center">
+      <span className="text-6xl">{icon}</span>
+      <div>
+        <h3 className="text-xl font-semibold text-slate-100">{title}</h3>
+        <p className="text-slate-400">{description}</p>
+      </div>
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        className="rounded-lg bg-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:bg-slate-600"
+      >
+        Actualizar página
+      </button>
+    </div>
+  )
+}
+
+
 export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('video-call')
   const [userName, setUserName] = useState(FALLBACK_USER)
   const [currentTime, setCurrentTime] = useState<string>('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [activeSection, setActiveSection] = useState<string | null>(null)
+  const [isHydrated, setIsHydrated] = useState(false)
+  const [isFocusMode, setIsFocusMode] = useState(false)
+
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    fetch('http://localhost:4312/active-section', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ activeSection }),
+    }).catch(() => {
+      // Debug server not running; ignore
+    })
+  }, [activeSection])
+
 
   // Hook para obtener la sesión activa con el paciente
   const { session } = useActiveSession()
+
+  // Contadores para sidebar - funcionalidad production sin dependencias problemáticas
+  const patients = { length: 0 } // Se conectará con Supabase cuando esté configurado
+  const appointments = { length: 0 } // Se conectará con Supabase cuando esté configurado
+  const history = { length: 0 } // Se conectará con Supabase cuando esté configurado
+
+  // Efecto para plegar el sidebar automáticamente cuando inicia una videollamada
+  useEffect(() => {
+    if (session?.status === 'en_progreso' && activeTab === 'video-call' && !activeSection) {
+      setIsSidebarCollapsed(true)
+    }
+  }, [session?.status, activeTab, activeSection])
+
+  useEffect(() => {
+    if (isFocusMode) {
+      setIsSidebarCollapsed(true)
+    }
+  }, [isFocusMode])
+
+  const handleSidebarItemClick = (itemId: string) => {
+        setIsSidebarOpen(false)
+
+    if (isFocusMode) {
+      setIsFocusMode(false)
+    }
+
+    switch (itemId) {
+      case 'settings':
+        setActiveSection('settings')
+        break
+      case 'subscription':
+        setActiveSection('subscription')
+        break
+      case 'marketplace':
+        setActiveSection('marketplace')
+        break
+      case 'ranking':
+        setActiveSection('ranking')
+        break
+      case 'patients':
+        setActiveSection('patients')
+        break
+      case 'appointments':
+        setActiveSection('appointments')
+        break
+      case 'records':
+        setActiveSection('records')
+        break
+      case 'vitals':
+        setActiveSection('vitals')
+        break
+      case 'chat':
+        setActiveSection('chat')
+        break
+      case 'diagnosis':
+        setActiveSection('diagnosis')
+        break
+      case 'history':
+        setActiveSection('history')
+        break
+      default:
+                setActiveSection(null)
+    }
+  }
 
   useEffect(() => {
     const updateClock = () => {
@@ -95,30 +233,33 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
 
   useEffect(() => {
     const fetchUser = async () => {
-      const supabase = createClient()
-      if (!supabase) {
-        return
+      try {
+        const supabase = createBrowserClient()
+
+        const { data, error } = await supabase.auth.getUser()
+        if (error) {
+          console.warn('[DoctorsPortalShell] No se pudo obtener el usuario actual', error.message)
+          return
+        }
+
+        const user = data.user
+        if (!user) {
+          console.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
+          return
+        }
+
+        const metadata = user.user_metadata as Record<string, unknown> | null
+        const resolvedName =
+          (metadata?.name as string | undefined) ||
+          (metadata?.full_name as string | undefined) ||
+          user.email?.split('@')[0]?.replaceAll('.', ' ') ||
+          FALLBACK_USER
+
+        setUserName(`Dr. ${resolvedName}`)
+        console.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
+      } catch (error) {
+        console.error('[DoctorsPortalShell] Error al obtener usuario:', error)
       }
-
-      const { data, error } = await supabase.auth.getUser()
-      if (error) {
-        console.warn('[DoctorsPortalShell] No se pudo obtener el usuario actual', error.message)
-        return
-      }
-
-      const user = data.user
-      if (!user) {
-        return
-      }
-
-      const metadata = user.user_metadata as Record<string, unknown> | null
-      const resolvedName =
-        (metadata?.name as string | undefined) ||
-        (metadata?.full_name as string | undefined) ||
-        user.email?.split('@')[0]?.replaceAll('.', ' ') ||
-        FALLBACK_USER
-
-      setUserName(`Dr. ${resolvedName}`)
     }
 
     fetchUser()
@@ -126,17 +267,26 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
 
   const sidebarItems = useMemo<SidebarItem[]>(
     () => [
-      { id: 'patients', icon: Users, label: 'Pacientes', count: 12 },
-      { id: 'appointments', icon: Calendar, label: 'Citas', count: 5 },
-      { id: 'records', icon: FileText, label: 'Historiales', count: 3 },
+      { id: 'patients', icon: Users, label: 'Pacientes', count: patients.length },
+      { id: 'appointments', icon: Calendar, label: 'Citas', count: appointments.length },
+      { id: 'records', icon: FileText, label: 'Historiales', count: history.length },
       { id: 'vitals', icon: Activity, label: 'Signos Vitales' },
-      { id: 'chat', icon: MessageSquare, label: 'Chat', count: 2 },
+      { id: 'chat', icon: MessageSquare, label: 'Chat', count: 0 },
       { id: 'diagnosis', icon: Brain, label: 'IA Diagnosis', badge: 'NEW' },
       { id: 'history', icon: History, label: 'Historial IA', count: 0 },
+      { id: 'ranking', icon: Star, label: 'Ranking', badge: 'GOLD' },
+      { id: 'subscription', icon: CreditCard, label: 'Suscripción', badge: 'PRO' },
+      { id: 'marketplace', icon: MapPin, label: 'Trabajo Médico', badge: 'HOT' },
       { id: 'settings', icon: Settings, label: 'Configuración' },
     ],
-    [],
+    [patients.length, appointments.length, history.length],
   )
+
+  const resumeFocusIfLive = () => {
+    if (session?.status === 'en_progreso') {
+      setIsFocusMode(true)
+    }
+  }
 
   const tabs = useMemo<TabConfig[]>(
     () => [
@@ -154,14 +304,18 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
     activeTab,
     setActiveTab,
     userName,
+    isFocusMode,
+    setFocusMode: setIsFocusMode,
   }
 
   const navItems = sidebarItems.map(({ id, icon: Icon, label, count, badge }) => (
     <button
       key={id}
       type="button"
-      className="flex w-full items-center justify-between rounded-lg border border-transparent bg-transparent px-3 py-2 text-left transition hover:border-slate-700 hover:bg-slate-800/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-      onClick={() => setIsSidebarOpen(false)}
+      className={`flex w-full items-center justify-between rounded-lg border border-transparent px-3 py-2 text-left transition hover:border-slate-700 hover:bg-slate-800/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
+        activeSection === id ? 'bg-slate-800/60 border-slate-600' : 'bg-transparent'
+      }`}
+      onClick={() => handleSidebarItemClick(id)}
     >
       <span className="flex items-center gap-3 text-sm">
         <Icon className="h-4 w-4 text-slate-400" />
@@ -180,12 +334,17 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
 
   return (
     <PortalLayoutContext.Provider value={portalContext}>
-      <div className="flex min-h-screen flex-col bg-[#07101e] text-slate-100">
-        <header className="flex items-center justify-between gap-3 border-b border-slate-800/60 bg-[#0f1f35] px-4 py-3 sm:px-6">
+      <div
+        className={`app h-screen ${isFocusMode ? 'app--focus' : ''} bg-[#07101e] text-slate-100`}
+        suppressHydrationWarning
+      >
+        <header className="header z-10 flex items-center justify-between gap-3 border-b border-slate-800/60 bg-[#0f1f35] px-4 sm:px-6">
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-lg border border-slate-700/60 bg-slate-900/60 p-2 text-slate-300 transition hover:border-slate-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:hidden"
+              className={`inline-flex items-center justify-center rounded-lg border border-slate-700/60 bg-slate-900/60 p-2 text-slate-300 transition hover:border-slate-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
+                isFocusMode ? '' : 'md:hidden'
+              }`}
               onClick={() => setIsSidebarOpen(true)}
               aria-label="Abrir menú"
             >
@@ -211,12 +370,51 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
           </div>
         </header>
 
-        {/* Mobile sidebar overlay */}
+        <div className="tabs border-b border-slate-800/60 bg-[#0f1f35]">
+          <div className="flex h-full w-full items-center overflow-x-auto px-2 sm:px-6">
+            <div className="flex min-w-full snap-x snap-mandatory gap-2 md:min-w-0 md:gap-0">
+              {tabs.map((tab) => {
+                const isActive = tab.id === activeTab
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex min-w-[180px] snap-start items-center gap-2 rounded-lg px-4 py-2 text-sm transition md:min-w-0 md:rounded-none md:border-r md:border-transparent md:px-5 md:py-2.5 ${
+                      isActive
+                        ? 'bg-[#172d4f] font-medium text-white md:bg-[#172d4f] md:border-slate-700'
+                        : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-200'
+                    }`}
+                  >
+                    <span>{tab.icon}</span>
+                    <span className="whitespace-nowrap">{tab.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
         {isSidebarOpen && (
-          <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm md:hidden" role="dialog" aria-modal="true">
+          <div
+            className={`fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm ${isFocusMode ? '' : 'md:hidden'}`}
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="relative h-full w-72 max-w-[85vw] bg-[#111f36] px-5 py-6 shadow-2xl">
               <div className="mb-6 flex items-center justify-between">
-                <p className="text-sm font-semibold text-slate-200">Portal Médico</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                                        setActiveSection(null)
+                    setActiveTab('video-call')
+                    setIsSidebarOpen(false)
+                    resumeFocusIfLive()
+                  }}
+                  className="text-sm font-semibold text-slate-200 transition-colors hover:text-emerald-400"
+                >
+                  Portal Médico
+                </button>
                 <button
                   type="button"
                   onClick={() => setIsSidebarOpen(false)}
@@ -242,92 +440,188 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
           </div>
         )}
 
-        <div className="flex flex-1 flex-col md:flex-row">
-          <aside className="relative hidden w-64 flex-col border-r border-slate-800/60 bg-[#111f36] px-4 py-6 md:flex">
-            <div>
-              <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Portal Médico</h2>
-              <nav className="space-y-2">{navItems}</nav>
+        <div className="app__layout flex min-h-0 overflow-hidden">
+          <aside
+            className={`left-rail relative hidden flex-col border-r border-slate-800/60 bg-[#111f36] px-2 py-4 transition-all duration-300 md:flex ${
+              !isSidebarCollapsed ? 'left-rail--expanded' : ''
+            }`}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              {!isSidebarCollapsed && (
+                <button
+                  type="button"
+                  onClick={() => {
+                                        setActiveSection(null)
+                    setActiveTab('video-call')
+                    resumeFocusIfLive()
+                  }}
+                  className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 transition-colors hover:text-emerald-400"
+                >
+                  Portal Médico
+                </button>
+              )}
+              {isSidebarCollapsed && (
+                <button
+                  type="button"
+                  onClick={() => {
+                                        setActiveSection(null)
+                    setActiveTab('video-call')
+                    resumeFocusIfLive()
+                  }}
+                  className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-800/40 hover:text-emerald-400"
+                  title="Portal Médico"
+                >
+                  <Home className="h-4 w-4" />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                className="rounded-lg border border-slate-700/60 bg-slate-900/60 p-1.5 text-slate-300 transition hover:border-slate-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                aria-label={isSidebarCollapsed ? 'Expandir sidebar' : 'Contraer sidebar'}
+              >
+                {isSidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+              </button>
             </div>
-            <div className="mt-auto rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
-              <div className="flex items-center gap-3">
+            <nav className="space-y-2">
+              {sidebarItems.map(({ id, icon: Icon, label, count, badge }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`sidebar-button flex w-full items-center justify-between rounded-lg border border-transparent px-2 py-2 text-left text-xs transition hover:border-slate-700 hover:bg-slate-800/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible-outline-blue-500 ${
+                    activeSection === id ? 'border-slate-600 bg-slate-800/60' : ''
+                  } ${isSidebarCollapsed ? 'flex-col gap-1 text-center' : 'gap-2'}`}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    handleSidebarItemClick(id)
+                  }}
+                  title={isSidebarCollapsed ? label : undefined}
+                >
+                  <span className={`flex items-center gap-2 ${isSidebarCollapsed ? 'justify-center' : ''}`}>
+                    <Icon className="h-4 w-4 text-slate-400" />
+                    {!isSidebarCollapsed && <span className="text-slate-200">{label}</span>}
+                  </span>
+                  {!isSidebarCollapsed && (
+                    <span className="flex items-center gap-2">
+                      {typeof count === 'number' && (
+                        <span className="rounded-full bg-[#ee58a6] px-2 py-0.5 text-[10px] font-semibold text-white">{count}</span>
+                      )}
+                      {badge && (
+                        <span className="rounded-full bg-emerald-400 px-2 py-0.5 text-[10px] font-bold text-slate-900">{badge}</span>
+                      )}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </nav>
+            <div className={`mt-auto rounded-xl border border-slate-800/60 bg-slate-900/60 p-3 ${isSidebarCollapsed ? 'px-2' : ''}`}>
+              <div className={`flex items-center gap-3 ${isSidebarCollapsed ? 'flex-col text-center' : ''}`}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-slate-900">
                   {getInitials(userName)}
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-200">{userName}</p>
-                  <p className="text-xs text-emerald-400">● Disponible</p>
-                </div>
+                {!isSidebarCollapsed && (
+                  <div>
+                    <p className="text-sm font-medium text-slate-200">{userName}</p>
+                    <p className="text-xs text-emerald-400">● Disponible</p>
+                  </div>
+                )}
               </div>
             </div>
           </aside>
 
-          <main className="flex flex-1 flex-col bg-[#07101e]">
-            <nav className="flex border-b border-slate-800/60 bg-[#0f1f35]">
-              <div className="flex w-full overflow-x-auto px-2 py-2 md:px-6 md:py-0">
-                <div className="flex min-w-full snap-x snap-mandatory gap-2 md:min-w-0 md:gap-0">
-                  {tabs.map((tab) => {
-                    const isActive = tab.id === activeTab
-                    return (
-                      <button
-                        key={tab.id}
-                        type="button"
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`flex min-w-[180px] snap-start items-center gap-2 rounded-lg px-4 py-2 text-sm transition md:min-w-0 md:rounded-none md:border-r md:border-transparent md:px-5 md:py-3 ${
-                          isActive
-                            ? 'bg-[#172d4f] font-medium text-white md:bg-[#172d4f] md:border-slate-700'
-                            : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-200'
-                        }`}
-                      >
-                        <span>{tab.icon}</span>
-                        <span className="whitespace-nowrap">{tab.label}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            </nav>
+          <main className="flex min-h-0 flex-1 flex-col bg-[#07101e]">
+            <section
+              className={`flex min-h-0 flex-1 overflow-hidden ${
+                isFocusMode ? 'p-0' : 'p-0'
+              }`}
+            >
+              <div
+                className="flex h-full w-full flex-col overflow-auto p-6"
+                role="main"
+                aria-label="Panel de contenido médico principal"
+              >
+                {activeSection === 'settings' && <SettingsPanel />}
+                {activeSection === 'subscription' && <SubscriptionPanel />}
+                {activeSection === 'marketplace' && <MarketplacePanel />}
+                {activeSection === 'ranking' && (
+                  <SectionPlaceholder
+                    title="Sistema de Ranking Médico"
+                    icon="⭐"
+                    description="Visualiza tu ranking profesional basado en evaluaciones de pacientes, volumen de consultas y reconocimientos AutaMedica"
+                  />
+                )}
+                {activeSection === 'patients' && <PatientsPanel />}
+                {activeSection === 'appointments' && <AppointmentsPanel />}
+                {activeSection === 'records' && <RecordsPanel />}
+                {activeSection === 'vitals' && <VitalSignsPanel />}
+                {activeSection === 'chat' && (
+                  <SectionPlaceholder
+                    title="Chat Médico"
+                    icon="💬"
+                    description="Comunicación segura con pacientes y colegas"
+                  />
+                )}
+                {activeSection === 'diagnosis' && <DiagnosisPanel />}
+                {activeSection === 'history' && (
+                  <SectionPlaceholder
+                    title="Historial IA"
+                    icon="🤖"
+                    description="Historial de análisis y recomendaciones de IA"
+                  />
+                )}
+                {activeSection === 'ranking' && <MedicalRankingPanel />}
 
-            <section className="flex-1 overflow-y-auto bg-[#07101e]">
-              {activeTab === 'video-call' && children}
-              {activeTab === 'patient-info' && <PatientInfoTab patientId={session?.patientId || null} />}
-              {activeTab === 'medical-history' && <MedicalHistoryTab patientId={session?.patientId || null} />}
-              {activeTab === 'prescriptions' && <PrescriptionsTab patientId={session?.patientId || null} />}
-              {activeTab === 'vital-signs' && <VitalSignsTab patientId={session?.patientId || null} />}
-              {activeTab === 'ai-history' && <AIHistoryTab patientId={session?.patientId || null} />}
+                {!activeSection && (
+                  <div className="flex min-h-0 flex-1 overflow-hidden">
+                    {activeTab === 'video-call' ? (
+                      <div className="flex min-h-0 w-full flex-1 overflow-hidden">
+                        {children}
+                      </div>
+                    ) : (
+                      <div className="flex min-h-0 w-full flex-1 overflow-y-auto rounded-xl border border-slate-800/60 bg-[#101d32] p-6">
+                        {activeTab === 'patient-info' && <PatientInfoTab patientId={session?.patientId || null} />}
+                        {activeTab === 'medical-history' && <MedicalHistoryTab patientId={session?.patientId || null} />}
+                        {activeTab === 'prescriptions' && <PrescriptionsTab patientId={session?.patientId || null} />}
+                        {activeTab === 'vital-signs' && <VitalSignsTab patientId={session?.patientId || null} />}
+                        {activeTab === 'ai-history' && <AIHistoryTab patientId={session?.patientId || null} />}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </section>
+            <footer className="flex flex-col items-center gap-2 border-t border-slate-800/60 bg-[#0f1f35] px-4 py-3 text-xs text-slate-300 sm:flex-row sm:justify-between sm:px-6">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
+                <span className="flex items-center gap-1">
+                  <span role="img" aria-label="hospital">
+                    🏥
+                  </span>
+                  <span className="font-semibold text-slate-100">AutaMedica</span>
+                </span>
+                <span className="hidden text-slate-600 sm:inline">|</span>
+                <span className="flex items-center gap-1 text-emerald-400">
+                  <span>●</span>
+                  Consultas activas 8/12
+                </span>
+                <span className="hidden text-slate-600 sm:inline">|</span>
+                <span>Próxima: 16:00 - Carlos Ruiz</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1">
+                  <span role="img" aria-label="energía">
+                    ⚡
+                  </span>
+                  <span>AutaMedica Medical</span>
+                </span>
+                <span className="hidden text-slate-600 sm:inline">|</span>
+                <span className="flex items-center gap-1 text-emerald-400">
+                  <span>●</span>
+                  API Online
+                </span>
+              </div>
+            </footer>
           </main>
         </div>
-
-        <footer className="flex flex-col items-center gap-2 border-t border-slate-800/60 bg-[#0f1f35] px-4 py-3 text-xs text-slate-300 sm:flex-row sm:justify-between sm:px-6">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-            <span className="flex items-center gap-1">
-              <span role="img" aria-label="hospital">
-                🏥
-              </span>
-              <span className="font-semibold text-slate-100">AutaMedica</span>
-            </span>
-            <span className="hidden text-slate-600 sm:inline">|</span>
-            <span className="flex items-center gap-1 text-emerald-400">
-              <span>●</span>
-              Consultas activas 8/12
-            </span>
-            <span className="hidden text-slate-600 sm:inline">|</span>
-            <span>Próxima: 16:00 - Carlos Ruiz</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <span role="img" aria-label="energía">
-                ⚡
-              </span>
-              <span>AutaMedica Medical</span>
-            </span>
-            <span className="hidden text-slate-600 sm:inline">|</span>
-            <span className="flex items-center gap-1 text-emerald-400">
-              <span>●</span>
-              API Online
-            </span>
-          </div>
-        </footer>
       </div>
     </PortalLayoutContext.Provider>
   )

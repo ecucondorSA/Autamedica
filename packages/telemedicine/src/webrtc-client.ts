@@ -3,6 +3,8 @@
  * Handles peer-to-peer video/audio connections with signaling server
  */
 
+import { getIceServersConfig } from './config/ice-servers'
+
 export interface WebRTCConfig {
   signalingUrl: string
   iceServers: RTCIceServer[]
@@ -43,9 +45,12 @@ export class WebRTCClient {
   ]
 
   constructor(config: Partial<WebRTCConfig> & { userId: string; userType: 'doctor' | 'patient' | 'nurse' }) {
+    // Use environment-configured ICE servers or fallback to defaults
+    const iceServers = config.iceServers || getIceServersConfig() || WebRTCClient.DEFAULT_ICE_SERVERS
+
     this.config = {
       signalingUrl: 'wss://autamedica-signaling-server.ecucondor.workers.dev/signaling',
-      iceServers: WebRTCClient.DEFAULT_ICE_SERVERS,
+      iceServers,
       roomId: 'default-room',
       ...config
     }
@@ -163,9 +168,13 @@ export class WebRTCClient {
 
       // Add tracks to all existing peer connections
       for (const [userId, pc] of this.peerConnections) {
-        this.localStream.getTracks().forEach(track => {
-          pc.addTrack(track, this.localStream!)
-        })
+        if (this.localStream) {
+          this.localStream.getTracks().forEach(track => {
+            if (this.localStream) {
+              pc.addTrack(track, this.localStream)
+            }
+          })
+        }
       }
 
       return this.localStream
@@ -266,14 +275,19 @@ export class WebRTCClient {
     // Add local stream tracks if available
     if (this.localStream) {
       this.localStream.getTracks().forEach(track => {
-        pc.addTrack(track, this.localStream!)
+        if (this.localStream) {
+          pc.addTrack(track, this.localStream)
+        }
       })
     }
 
     // Handle remote stream
     pc.ontrack = (event) => {
       console.log('Received remote stream from', userId)
-      this.emit('remote-stream', event.streams[0], userId)
+      const stream = event.streams?.[0]
+      if (stream) {
+        this.emit('remote-stream', stream, userId)
+      }
     }
 
     // Handle ICE candidates

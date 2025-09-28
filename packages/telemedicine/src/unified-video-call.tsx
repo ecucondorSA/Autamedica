@@ -254,9 +254,12 @@ export function UnifiedVideoCall({
       setIsScreenSharing(true)
 
       // Handle when user stops screen sharing via browser
-      stream.getVideoTracks()[0].onended = () => {
-        setScreenStream(null)
-        setIsScreenSharing(false)
+      const videoTrack = stream.getVideoTracks()[0]
+      if (videoTrack) {
+        videoTrack.onended = () => {
+          setScreenStream(null)
+          setIsScreenSharing(false)
+        }
       }
 
     } catch (error) {
@@ -463,7 +466,7 @@ export function UnifiedVideoCall({
           </button>
 
           {/* Screen Share Toggle (only for desktop) */}
-          {navigator.mediaDevices?.getDisplayMedia && (
+          {typeof window !== 'undefined' && typeof navigator?.mediaDevices?.getDisplayMedia === 'function' && (
             <button
               onClick={toggleScreenShare}
               disabled={connectionState !== 'connected'}

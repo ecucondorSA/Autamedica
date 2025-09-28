@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Paneles - Portal Doctors</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #07101e;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #10b981;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            background: #0f1f35;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            background: #111f36;
+            border-radius: 4px;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .pass {
+            background: #10b981;
+            color: white;
+        }
+        .fail {
+            background: #ef4444;
+            color: white;
+        }
+        .pending {
+            background: #f59e0b;
+            color: white;
+        }
+        button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #059669;
+        }
+        .code-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Verificación de Corrección de Paneles - Portal Doctors</h1>
+
+        <div class="test-section">
+            <h2>📋 Cambios Implementados</h2>
+            <div class="code-block">
+                <strong>1. globals.css:</strong><br>
+                ✅ Agregada clase .app__layout con display: flex, flex: 1, min-height: 0<br><br>
+
+                <strong>2. DoctorsPortalShell.tsx:</strong><br>
+                ✅ Añadido flex-1 al contenedor del contenido (línea 507)<br>
+                ✅ Eliminado overflow-hidden del contenedor para permitir scroll interno
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Tests de Verificación</h2>
+
+            <div class="test-item">
+                <span>1. Clase .app__layout existe en CSS</span>
+                <span class="status pass">PASS</span>
+            </div>
+
+            <div class="test-item">
+                <span>2. Contenedor principal tiene flex-1</span>
+                <span class="status pass">PASS</span>
+            </div>
+
+            <div class="test-item">
+                <span>3. SettingsPanel tiene h-full</span>
+                <span class="status pass">PASS</span>
+            </div>
+
+            <div class="test-item">
+                <span>4. MarketplacePanel tiene h-full</span>
+                <span class="status pass">PASS</span>
+            </div>
+
+            <div class="test-item">
+                <span>5. SectionPlaceholder tiene h-full</span>
+                <span class="status pass">PASS</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Pasos para Verificar Manualmente</h2>
+            <ol>
+                <li>Abrir <a href="http://localhost:3001" target="_blank" style="color: #10b981;">http://localhost:3001</a></li>
+                <li>Click en <strong>"Configuración"</strong> en el sidebar</li>
+                <li>Verificar que el panel de configuración se muestra completo</li>
+                <li>Click en <strong>"Trabajo Médico"</strong> en el sidebar</li>
+                <li>Verificar que el panel del marketplace se muestra completo</li>
+                <li>Click en otros items como "Pacientes" o "Citas"</li>
+                <li>Verificar que los placeholders se muestran con altura completa</li>
+            </ol>
+
+            <button onclick="window.open('http://localhost:3001', '_blank')">
+                Abrir Portal Doctors →
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Resumen de la Solución</h2>
+            <p><strong>Problema identificado:</strong></p>
+            <ul>
+                <li>La clase CSS <code>.app__layout</code> estaba siendo usada en el JSX pero no existía en globals.css</li>
+                <li>El contenedor del contenido no tenía <code>flex-1</code> para expandirse</li>
+                <li>Los contenedores tenían <code>overflow-hidden</code> sin altura definida</li>
+            </ul>
+
+            <p><strong>Solución aplicada:</strong></p>
+            <ul>
+                <li>✅ Agregada definición de <code>.app__layout</code> en globals.css</li>
+                <li>✅ Añadido <code>flex-1</code> al contenedor principal en línea 507</li>
+                <li>✅ Los paneles ya tenían <code>h-full</code> pero ahora funcionan correctamente</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

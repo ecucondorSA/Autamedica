@@ -42,3 +42,6 @@ yarn-error.log*
 
 .claude/
 ~/**
+
+# App-specific lockfiles
+apps/*/pnpm-lock.yaml

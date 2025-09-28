@@ -12,6 +12,8 @@
       "@autamedica/shared/*": ["packages/shared/dist/*"],
       "@autamedica/auth": ["packages/auth/dist/index.d.ts"],
       "@autamedica/auth/*": ["packages/auth/dist/*"],
+      "@autamedica/auth-hooks": ["packages/auth/src/hooks/index.ts"],
+      "@autamedica/auth-hooks/*": ["packages/auth/src/hooks/*"],
       "@autamedica/hooks": ["packages/hooks/dist/index.d.ts"],
       "@autamedica/hooks/*": ["packages/hooks/dist/*"]
     },

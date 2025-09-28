@@ -1,14 +1,11 @@
 {
   "name": "@autamedica/telemedicine",
-  "version": "0.1.0",
-  "type": "module",
+  "version": "0.2.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
       "default": "./dist/index.js"
     }
   },
@@ -22,11 +19,20 @@
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lucide-react": "^0.544.0"
+  },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
+    "@types/react": "^19.1.14",
+    "@types/react-dom": "^19.1.0",
     "rimraf": "^5.0.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }

@@ -340,7 +340,10 @@ export class HttpWebRTCClient {
     // Handle remote stream
     pc.ontrack = (event) => {
       console.log('Received remote stream from', userId)
-      this.emit('remote-stream', event.streams[0], userId)
+      const stream = event.streams?.[0]
+      if (stream) {
+        this.emit('remote-stream', stream, userId)
+      }
     }
 
     // Handle ICE candidates
