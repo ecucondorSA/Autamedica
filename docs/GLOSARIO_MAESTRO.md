@@ -166,6 +166,60 @@ export const calculateYearsOfExperience: (doctor: Doctor) => number;
 export const generateDisplayName: (firstName: string, lastName: string) => string;
 ```
 
+### Validaciones Médicas y Profesionales
+
+```typescript
+// Validaciones de práctica médica
+export const acceptsInsurancePlan: (doctor: Doctor, planId: string) => boolean;
+export const isAvailableOnDay: (doctor: Doctor, date: ISODateString) => boolean;
+
+// Validaciones de datos médicos
+export const isValidTimeHHmm: (time: string) => boolean;
+export const isValidDNI: (dni: string) => boolean;
+export const isValidDoctorEmail: (email: string) => boolean;
+export const isValidDoctorURL: (url: string) => boolean;
+export const isValidBloodType: (bloodType: string) => boolean;
+
+// Utilidades de perfiles médicos
+export const createPublicProfile: (doctor: Doctor) => DoctorPublicProfile;
+export const extractPrivateData: (doctor: Doctor) => DoctorPrivateData;
+```
+
+### Sistema de Seguros Argentinos
+
+```typescript
+// Catálogo de obras sociales y seguros
+export const ARGENTINA_INSURANCE_PROVIDERS: readonly InsuranceProvider[];
+
+// Validaciones de cobertura
+export const isPublicHealthcareEligible: (patient: Patient) => boolean;
+export const isPAMIEligible: (patient: Patient) => boolean;
+export const hasInsuranceCoverage: (patient: Patient, treatment: string) => boolean;
+```
+
+### Cálculos de Salud y Riesgo
+
+```typescript
+// Cálculos médicos básicos
+export const calculateBMI: (heightCm: number, weightKg: number) => number;
+export const calculateAge: (birthDate: ISODateString) => number;
+
+// Evaluación de riesgo médico
+export const calculateRiskLevel: (patient: Patient) => RiskLevel;
+export const hasActiveAllergies: (patient: Patient) => boolean;
+export const isHighRiskPatient: (patient: Patient) => boolean;
+export const requiresSpecializedCare: (patient: Patient) => boolean;
+
+// Elegibilidad de servicios
+export const canReceiveTelemedicine: (patient: Patient) => boolean;
+
+// Utilidades de perfiles de pacientes
+export const generatePatientDisplayName: (patient: Patient) => string;
+export const createPatientPublicProfile: (patient: Patient) => PatientPublicProfile;
+export const createMedicalView: (patient: Patient) => PatientMedicalView;
+export const extractPatientPrivateData: (patient: Patient) => PatientPrivateData;
+```
+
 ### Usuario Base
 
 ```typescript
