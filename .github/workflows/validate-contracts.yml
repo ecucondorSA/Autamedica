@@ -1,0 +1,61 @@
+name: 'Validate Contracts'
+
+on:
+  pull_request:
+    paths:
+      - 'packages/types/**'
+      - 'docs/GLOSARIO_MAESTRO.md'
+      - 'scripts/validate-contracts.js'
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/types/**'
+      - 'docs/GLOSARIO_MAESTRO.md'
+
+jobs:
+  validate-contracts:
+    name: 'Validate TypeScript Contracts'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate contracts against master glossary
+        run: node scripts/validate-contracts.js
+
+      - name: Comment PR with validation results
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let comment = `## 🏛️ Contract Validation Failed\n\n`;
+            comment += `Los exports de \`@autamedica/types\` no están sincronizados con el Glosario Maestro.\n\n`;
+            comment += `### 📋 Plan de Corrección:\n`;
+            comment += `1. **Documentar tipos faltantes** en \`docs/GLOSARIO_MAESTRO.md\`\n`;
+            comment += `2. **Seguir convenciones de naming** (IDs, branded types)\n`;
+            comment += `3. **Revisar tipos obsoletos** que ya no se exportan\n\n`;
+            comment += `### 🔍 Para más detalles:\n`;
+            comment += `\`\`\`bash\n`;
+            comment += `node scripts/validate-contracts.js\n`;
+            comment += `\`\`\`\n\n`;
+            comment += `**Referencia:** [Glosario Maestro](./docs/GLOSARIO_MAESTRO.md)`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
