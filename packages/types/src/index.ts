@@ -14,10 +14,13 @@
 // Sistema de marcas (Brand Types)
 export type {
   Brand,
+  UUID,
   ISODateString,
   Id,
+  PatientId,
   DoctorId,
   AppointmentId,
+  FacilityId,
   PrescriptionId,
   MedicalHistoryId,
   CompanyId,
@@ -232,7 +235,6 @@ export {
 
 // Patient profile types
 export type {
-  PatientId,
   DNI,
   ICD10Code,
   MedicalRecordNumber,
