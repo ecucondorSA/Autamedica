@@ -140,6 +140,30 @@ export const isValidSubspecialtyCode: (code: string) => boolean;
 export const isValidMedicalLicense: (license: string) => boolean;
 export const isActiveLicense: (license: MedicalLicense) => boolean;
 export const isValidCertification: (cert: Certification) => boolean;
+
+// Utilidades de especialidades
+export const getSpecialtiesRequiring: (requirement: string) => MedicalSpecialty[];
+export const getAvailableSubspecialties: (specialtyCode: string) => MedicalSubspecialty[];
+export const getSpecialtiesByCategory: (category: string) => MedicalSpecialty[];
+export const createBasicSpecialty: (code: string, name: string) => MedicalSpecialty;
+
+// Utilidades de licencias médicas
+export const formatMedicalLicense: (license: string) => string;
+export const extractProvinceFromLicense: (license: string) => string;
+export const createMedicalLicense: (province: string, number: string) => MedicalLicense;
+
+// Validaciones de práctica médica
+export const canPracticeSpecialty: (doctor: Doctor, specialty: string) => boolean;
+export const canPracticeInArgentina: (license: MedicalLicense) => boolean;
+export const isDoctorLicenseActive: (doctor: Doctor) => boolean;
+export const isDoctorProfileComplete: (doctor: Doctor) => boolean;
+
+// Cálculos médicos
+export const calculateTotalTrainingYears: (doctor: Doctor) => number;
+export const calculateYearsOfExperience: (doctor: Doctor) => number;
+
+// Utilidades de perfiles
+export const generateDisplayName: (firstName: string, lastName: string) => string;
 ```
 
 ### Usuario Base
