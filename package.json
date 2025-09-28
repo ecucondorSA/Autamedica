@@ -7,7 +7,7 @@
     "build:packages-fallback": "cd packages/types && pnpm build && cd ../shared && pnpm build && cd ../auth && pnpm build && cd ../hooks && pnpm build",
     "build:apps": "turbo run build --filter ./apps/*",
     "dev": "turbo run dev",
-    "lint": "eslint .",
+    "lint": "NODE_OPTIONS=\"--max-old-space-size=4096\" eslint .",
     "lint:fix": "eslint . --fix",
     "watch:lint": "nodemon --watch 'apps/**/*.{ts,tsx}' --watch 'packages/**/*.{ts,tsx}' --ext ts,tsx --exec 'eslint .'",
     "depcruise": "depcruise -c .dependency-cruiser.cjs apps packages scripts",
