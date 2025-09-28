@@ -61,7 +61,9 @@
     "watch:types": "node scripts/watch-types.mjs",
     "check:all": "pnpm run lint && pnpm run type-check && pnpm run policies:validate && pnpm run docs:validate",
     "lint-staged": "lint-staged",
-    "prepare": "test \"$CI\" = \"true\" || husky install"
+    "prepare": "husky",
+    "prepush": "pnpm -w typecheck && pnpm -w lint && pnpm -w test",
+    "ai:review": "bash scripts/ai-pr-review.sh"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

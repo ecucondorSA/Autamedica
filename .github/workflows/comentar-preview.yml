@@ -1,0 +1,80 @@
+name: "Comentarios Preview (Pages)"
+
+on:
+  deployment_status:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  comment:
+    if: ${{ github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'preview' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment Preview URL on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = context.payload.deployment_status?.target_url || context.payload.deployment?.payload?.url;
+            if (!url) {
+              console.log('No target URL found in deployment payload');
+              return;
+            }
+
+            // Extract app name from URL or deployment
+            const appName = url.includes('web-app') ? 'Web App' :
+                           url.includes('doctors') ? 'Doctors' :
+                           url.includes('patients') ? 'Patients' :
+                           url.includes('companies') ? 'Companies' :
+                           url.includes('admin') ? 'Admin' :
+                           'App';
+
+            const body = `🧪 **Preview ${appName} desplegado**
+
+            📱 **URL Preview**: ${url}
+            🔍 **Commit**: ${context.sha.substring(0,7)}
+
+            **✅ Checklist de validación:**
+            - [ ] Login/logout funciona correctamente
+            - [ ] Rutas críticas responden sin errores
+            - [ ] Responsive design en móvil/tablet
+            - [ ] Performance aceptable (< 3s carga inicial)
+            - [ ] No errores en consola del navegador
+
+            **🔐 Validación HIPAA:**
+            - [ ] No datos médicos en logs
+            - [ ] HTTPS habilitado
+            - [ ] Headers de seguridad presentes
+
+            ---
+            *Preview automático generado por Cloudflare Pages*`;
+
+            // Try to find existing preview comment to update
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.payload.deployment?.payload?.pr || context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingComment = comments.find(c =>
+              c.body.includes('Preview') && c.body.includes('desplegado')
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.deployment?.payload?.pr || context.issue.number,
+                body: body
+              });
+            }

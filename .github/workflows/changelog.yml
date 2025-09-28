@@ -1,0 +1,149 @@
+name: "Changelog Automático"
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  changelog:
+    name: 'Generar changelog automático'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Generate changelog
+        run: |
+          echo "📝 Generando changelog desde último release..."
+
+          # Get latest tag (last release)
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No previous releases found, generating from first commit"
+            SINCE_REF=$(git rev-list --max-parents=0 HEAD)
+          else
+            echo "Generating changelog since: $LATEST_TAG"
+            SINCE_REF="$LATEST_TAG"
+          fi
+
+          # Generate changelog with emojis and medical context
+          cat > CHANGELOG.md << 'EOF'
+          # 📋 Changelog
+
+          ## [Unreleased]
+
+          ### 🚀 Nuevas Funcionalidades
+
+          ### 🔧 Mejoras y Optimizaciones
+
+          ### 🐛 Correcciones
+
+          ### 🔒 Seguridad
+
+          ### 📚 Documentación
+
+          ### ⚙️ DevOps e Infraestructura
+
+          ---
+
+          EOF
+
+          # Extract commits and categorize by emoji/type
+          git log --oneline --pretty=format:"%h %s" ${SINCE_REF}..HEAD | while read commit; do
+            case "$commit" in
+              *"✨"*|*"feat"*|*"feature"*)
+                echo "- $commit" >> temp_features.txt
+                ;;
+              *"🔧"*|*"⚙️"*|*"chore"*|*"refactor"*)
+                echo "- $commit" >> temp_improvements.txt
+                ;;
+              *"🐛"*|*"fix"*|*"bug"*)
+                echo "- $commit" >> temp_fixes.txt
+                ;;
+              *"🔒"*|*"security"*|*"sec"*)
+                echo "- $commit" >> temp_security.txt
+                ;;
+              *"📚"*|*"docs"*|*"doc"*)
+                echo "- $commit" >> temp_docs.txt
+                ;;
+              *"🚀"*|*"deploy"*|*"ops"*|*"ci"*)
+                echo "- $commit" >> temp_devops.txt
+                ;;
+              *)
+                echo "- $commit" >> temp_other.txt
+                ;;
+            esac
+          done
+
+          # Insert categorized commits into changelog
+          if [ -f temp_features.txt ]; then
+            sed -i '/### 🚀 Nuevas Funcionalidades/r temp_features.txt' CHANGELOG.md
+          fi
+          if [ -f temp_improvements.txt ]; then
+            sed -i '/### 🔧 Mejoras y Optimizaciones/r temp_improvements.txt' CHANGELOG.md
+          fi
+          if [ -f temp_fixes.txt ]; then
+            sed -i '/### 🐛 Correcciones/r temp_fixes.txt' CHANGELOG.md
+          fi
+          if [ -f temp_security.txt ]; then
+            sed -i '/### 🔒 Seguridad/r temp_security.txt' CHANGELOG.md
+          fi
+          if [ -f temp_docs.txt ]; then
+            sed -i '/### 📚 Documentación/r temp_docs.txt' CHANGELOG.md
+          fi
+          if [ -f temp_devops.txt ]; then
+            sed -i '/### ⚙️ DevOps e Infraestructura/r temp_devops.txt' CHANGELOG.md
+          fi
+          if [ -f temp_other.txt ]; then
+            echo "### 🔄 Otros Cambios" >> CHANGELOG.md
+            cat temp_other.txt >> CHANGELOG.md
+          fi
+
+          # Clean up temp files
+          rm -f temp_*.txt
+
+          # Add generation timestamp
+          echo "" >> CHANGELOG.md
+          echo "*Generado automáticamente el $(date '+%Y-%m-%d %H:%M:%S')*" >> CHANGELOG.md
+
+          echo "✅ Changelog generado:"
+          head -20 CHANGELOG.md
+
+      - name: Commit changelog
+        run: |
+          if [ -n "$(git status --porcelain CHANGELOG.md)" ]; then
+            echo "📝 Committing updated changelog..."
+
+            git config user.name "autamedica-bot"
+            git config user.email "bot@autamedica.dev"
+
+            git add CHANGELOG.md
+            git commit -m "📝 docs: actualizar changelog automático
+
+            🤖 Generated with [Claude Code](https://claude.ai/code)
+
+            Co-Authored-By: Claude <noreply@anthropic.com>"
+
+            git push
+
+            echo "✅ Changelog actualizado y commiteado"
+          else
+            echo "ℹ️  No changes to changelog detected"
+          fi

@@ -19,9 +19,18 @@ async function validateExports() {
     // Extraer exports esperados del glosario
     const expectedExports = extractExpectedExports(glosario);
 
+    // Lista de tipos críticos que requieren ADR si cambian
+    const CRITICAL_TYPES = [
+      'PatientId', 'DoctorId', 'CompanyId', 'UUID',
+      'Patient', 'Doctor', 'Appointment', 'MedicalRecord',
+      'APIResponse', 'AuthUser', 'UserRole',
+      'ISODateString', 'EmailAddress', 'PhoneNumber'
+    ];
+
     // Validar cada package
     const packages = ["types", "shared", "auth", "hooks"];
     let hasErrors = false;
+    let hasCriticalChanges = false;
 
     for (const pkg of packages) {
       const packagePath = `packages/${pkg}/src/index.ts`;
@@ -47,6 +56,35 @@ async function validateExports() {
       const undocumented = actualExports.filter(exp => !expected.includes(exp));
       if (undocumented.length > 0) {
         console.warn(`⚠️  @autamedica/${pkg} undocumented exports:`, undocumented.join(", "));
+
+        // Verificar si hay tipos críticos no documentados
+        const criticalUndocumented = undocumented.filter(exp => CRITICAL_TYPES.includes(exp));
+        if (criticalUndocumented.length > 0) {
+          console.error(`🚨 CRITICAL: Undocumented critical types: ${criticalUndocumented.join(", ")}`);
+          console.error(`   These require documentation in GLOSARIO_MAESTRO.md and ADR if breaking change`);
+          hasErrors = true;
+          hasCriticalChanges = true;
+        }
+      }
+
+      // Verificar cambios en tipos críticos (para packages types)
+      if (pkg === 'types') {
+        const criticalExports = actualExports.filter(exp => CRITICAL_TYPES.includes(exp));
+        if (criticalExports.length > 0) {
+          console.log(`🔒 Critical types found: ${criticalExports.join(", ")}`);
+
+          // Si es CI, verificar si hay ADR para cambios críticos
+          if (process.env.CI && hasCriticalChanges) {
+            const adrPath = 'docs/adr';
+            if (!fs.existsSync(adrPath)) {
+              console.error(`🚨 CRITICAL: No ADR directory found at ${adrPath}`);
+              console.error(`   Critical type changes require Architecture Decision Records`);
+              hasErrors = true;
+            } else {
+              console.log(`📋 ADR directory exists - ensure critical changes are documented`);
+            }
+          }
+        }
       }
 
       if (!hasErrors) {

@@ -1,0 +1,179 @@
+name: "AI Review (Claude)"
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get diff
+        run: |
+          echo "🔍 Obteniendo diff del PR..."
+          git fetch origin ${{ github.base_ref }} --depth=1
+          git diff --unified=3 origin/${{ github.base_ref }}...HEAD > pr.diff
+
+          # Debug: show diff size
+          echo "📊 Tamaño del diff: $(wc -l < pr.diff) líneas"
+          head -20 pr.diff
+
+      - name: Ask Claude for Review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "⚠️  ANTHROPIC_API_KEY no configurado - omitiendo revisión Claude"
+            echo "Sin revisión Claude disponible." > review.md
+            exit 0
+          fi
+
+          echo "🤖 Solicitando revisión a Claude..."
+
+          # Prepare prompt for medical software context
+          prompt="Actuá como revisor senior de AutaMedica (healthtech, HIPAA-compliant).
+
+          Contexto: AutaMedica es una plataforma médica con:
+          - 4 apps especializadas (web-app, doctors, patients, companies)
+          - Packages críticos (@autamedica/types, auth, shared, hooks)
+          - Compliance HIPAA obligatorio
+          - Sistema de contratos TypeScript estricto
+
+          Revisá este diff con foco crítico en:
+
+          🔒 SEGURIDAD MÉDICA:
+          - Datos médicos (PHI/PII) expuestos en logs o código
+          - Secrets hardcodeados o variables de entorno inseguras
+          - Validación de inputs médicos (patient ID, medical records)
+          - Headers de seguridad HIPAA
+
+          📋 CONTRATOS Y TYPES:
+          - Breaking changes en @autamedica/types
+          - Exports nuevos documentados en GLOSARIO_MAESTRO.md
+          - Consistencia con branded types (PatientId, DoctorId)
+          - APIResponse<T> discriminated unions
+
+          ⚡ PERFORMANCE Y UX:
+          - Bundle size impact (límites configurados en .size-limit.json)
+          - Async/await patterns correctos
+          - Accesibilidad para software médico
+          - Responsive design para tablets médicos
+
+          🏗️ ARQUITECTURA:
+          - Apps no importan entre sí (solo packages compartidos)
+          - No deep imports (@autamedica/*/src/*)
+          - Violaciones de boundaries (ESLint rules)
+
+          Respondé en Markdown con:
+
+          ## 🚨 Riesgos Críticos (Bloqueantes)
+          [Lista de issues que deben arreglarse antes del merge]
+
+          ## 💡 Recomendaciones (Mejoras)
+          [Sugerencias con ejemplos de código específicos]
+
+          ## ✅ Checklist de Verificación
+          - [ ] Datos médicos protegidos (no logs, no hardcode)
+          - [ ] HTTPS y headers de seguridad configurados
+          - [ ] Types documentados en glosario maestro
+          - [ ] Performance dentro de límites bundle
+          - [ ] Accesibilidad médica (WCAG 2.1 AA)
+          - [ ] Tests unitarios para nueva funcionalidad
+
+          ## 📊 Puntaje de Confianza
+          **Score**: X/100
+          **Recomendación**: ✅ APPROVE / ⚠️  NEEDS_WORK / ❌ REQUEST_CHANGES"
+
+          # Prepare diff content (escape for JSON)
+          diff_content=$(jq -Rs '.' pr.diff)
+
+          # Call Claude API
+          response=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "{
+              \"model\": \"claude-3-5-sonnet-20241022\",
+              \"max_tokens\": 2000,
+              \"temperature\": 0.1,
+              \"messages\": [
+                {
+                  \"role\": \"user\",
+                  \"content\": $(echo "$prompt" | jq -Rs '.')
+                },
+                {
+                  \"role\": \"user\",
+                  \"content\": $diff_content
+                }
+              ]
+            }")
+
+          # Extract content from response
+          if echo "$response" | jq -e '.content[0].text' >/dev/null 2>&1; then
+            echo "$response" | jq -r '.content[0].text' > review.md
+            echo "✅ Revisión Claude completada"
+          else
+            echo "❌ Error en respuesta de Claude:"
+            echo "$response" | jq '.'
+            echo "Error obteniendo revisión de Claude. Verificar API key y límites." > review.md
+          fi
+
+      - name: Comment Claude Review on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '';
+
+            try {
+              body = fs.readFileSync('review.md', 'utf8');
+            } catch (error) {
+              body = '❌ Error: No se pudo obtener la revisión de Claude.';
+            }
+
+            const fullComment = `## 🤖 Revisión AI - Claude
+
+            ${body}
+
+            ---
+            *Revisión automática generada por Claude 3.5 Sonnet - ${new Date().toISOString()}*`;
+
+            // Find existing Claude review comment
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingComment = comments.find(c =>
+              c.body.includes('🤖 Revisión AI - Claude')
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: fullComment
+              });
+              console.log('✅ Comentario Claude actualizado');
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: fullComment
+              });
+              console.log('✅ Comentario Claude creado');
+            }

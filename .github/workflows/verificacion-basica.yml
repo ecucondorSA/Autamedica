@@ -3,17 +3,28 @@ on: [push, pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
         with: { version: 9 }
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
+        with: { node-version: ${{ matrix.node }}, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      - name: Build packages
+        run: pnpm -r --filter "./packages/*" build
       - run: pnpm lint --max-warnings=0
 
   typecheck:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -21,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      - name: Build packages
+        run: pnpm -r --filter "./packages/*" build
       - run: pnpm type-check
 
   build:

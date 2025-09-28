@@ -1,0 +1,18 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/types" },
+    { "path": "./packages/shared" },
+    { "path": "./packages/auth" },
+    { "path": "./packages/hooks" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/telemedicine" },
+    { "path": "./packages/tailwind-config" },
+    { "path": "./apps/web-app" },
+    { "path": "./apps/doctors" },
+    { "path": "./apps/patients" },
+    { "path": "./apps/companies" },
+    { "path": "./apps/admin" }
+  ]
+}

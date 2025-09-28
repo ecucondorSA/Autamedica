@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "incremental": false,
-    "tsBuildInfoFile": null
+    "tsBuildInfoFile": null,
+    "composite": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

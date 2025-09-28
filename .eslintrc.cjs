@@ -121,6 +121,11 @@ module.exports = {
         "@typescript-eslint/no-unnecessary-type-assertion": "error",
         "@typescript-eslint/member-ordering": ["error", { "default": ["signature", "field", "constructor", "method"] }],
 
+        // --- REGLAS AI/DX ADICIONALES ---
+        "import/no-default-export": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "warn",
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
+
         // --- UNICORN RULES (CALIDAD SELECTIVA) ---
         "unicorn/prefer-optional-catch-binding": "error",
         "unicorn/no-useless-undefined": "error",

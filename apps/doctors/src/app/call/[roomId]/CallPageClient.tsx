@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
 import { AuthProvider, useAuth } from '@autamedica/auth'
 import type { UserProfile } from '@autamedica/types'
-import { ensureClientEnv } from '@autamedica/shared'
 
 interface CallPageClientProps {
   roomId: string

@@ -1,13 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-echo "[pre-commit] Running validation checks..."
-
-# Sync glossaries
-echo "[pre-commit] Syncing glossaries..."
-pnpm docs:sync || exit 1
-
-# Stage updated files if any
-git add packages/*/GLOSARIO.md docs/GLOSARIO_MAESTRO.md 2>/dev/null || true
-
-echo "[pre-commit] ✅ All pre-commit checks passed."
+pnpm test
