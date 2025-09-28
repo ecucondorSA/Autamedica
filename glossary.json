@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "name": "Glosario Autamedica",
+    "version": "1.0.0",
+    "description": "Terminología médica y naming conventions para el proyecto Autamedica",
+    "lastUpdated": "2025-09-28"
+  },
+  "forbidden": {
+    "general": [
+      "tmp", "temp", "foo", "bar", "baz", "test123", "dummy", "xxx", "yyy", "zzz",
+      "asdf", "qwerty", "lorem", "ipsum", "sample", "example", "mock"
+    ],
+    "medical": [
+      "usuario generico", "persona", "individual", "sujeto"
+    ],
+    "security": [
+      "password123", "secret", "key123", "token123"
+    ]
+  },
+  "preferred": {
+    "terminology": {
+      "cliente": "paciente",
+      "doctor": "médico",
+      "doctora": "médica",
+      "user": "usuario",
+      "customer": "paciente",
+      "professional": "profesional médico",
+      "staff": "personal médico",
+      "appointment": "cita médica",
+      "booking": "reserva de cita",
+      "session": "sesión médica",
+      "consultation": "consulta",
+      "treatment": "tratamiento",
+      "diagnosis": "diagnóstico",
+      "prescription": "prescripción médica",
+      "medicine": "medicamento",
+      "drug": "fármaco"
+    },
+    "technical": {
+      "auth": "autenticación",
+      "login": "inicio de sesión",
+      "logout": "cierre de sesión",
+      "signup": "registro",
+      "dashboard": "panel de control",
+      "profile": "perfil",
+      "settings": "configuración",
+      "notification": "notificación",
+      "alert": "alerta médica"
+    }
+  },
+  "required": {
+    "medical_context": [
+      "HIPAA", "privacidad médica", "consentimiento informado",
+      "datos médicos", "historia clínica", "expediente médico"
+    ],
+    "security_context": [
+      "autenticación", "autorización", "encriptación",
+      "audit trail", "logs de seguridad"
+    ]
+  },
+  "patterns": {
+    "components": {
+      "prefix": "Autamedica",
+      "medical_components": "Medical*, Patient*, Doctor*, Clinic*",
+      "forbidden_suffixes": ["Temp", "Test", "Mock", "Demo", "Sample"]
+    },
+    "variables": {
+      "camelCase": true,
+      "no_abbreviations": ["usr", "pwd", "cfg", "tbl", "btn"],
+      "medical_prefixes": ["patient", "doctor", "medical", "clinic", "treatment"]
+    },
+    "files": {
+      "kebab_case": true,
+      "forbidden_names": ["temp.tsx", "test.js", "index123.ts", "component.tsx"],
+      "medical_naming": "patient-*, doctor-*, medical-*, clinic-*"
+    }
+  },
+  "compliance": {
+    "hipaa": {
+      "required_comments": [
+        "PHI data handling",
+        "Patient consent validation",
+        "Audit trail logging",
+        "Access control verification"
+      ],
+      "forbidden_logs": [
+        "console.log with patient data",
+        "patient personal information in logs",
+        "medical record identifiers in debug"
+      ]
+    }
+  }
+}
