@@ -1,7 +1,16 @@
 # 🏥 AutaMedica - Monorepo Healthcare Platform
 
 > **Plataforma médica integral** construida con **arquitectura multi-app**, Turborepo, Next.js 15 y TypeScript estricto.
-> Solución completa para teleconsultas, gestión médica y crisis sanitarias.
+> Solución completa para teleconsultas, gestión médica y crisis sanitarias con **sistema AI/DX enterprise**.
+
+## 🤖 **Sistema AI/DX Enterprise**
+
+AutaMedica incluye un sistema completo de **calidad + consistencia + automatización + DX con IA**:
+
+- 🎯 **TypeScript strict** + ESLint enterprise + hooks automáticos
+- ⚡ **Changelog automático** + preview comments + CI matrix
+- 🤖 **AI Reviews**: Claude + ChatGPT con contexto médico HIPAA
+- 🔒 **Tipos críticos protegidos** + ADR framework médico
 
 ## 🚀 Inicio Rápido
 
