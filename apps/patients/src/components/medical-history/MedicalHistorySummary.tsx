@@ -1,9 +1,9 @@
 'use client';
 
-import type { MedicalHistorySummary } from '@autamedica/types';
+import type { MedicalHistorySummary as MedicalHistorySummaryData } from '@autamedica/types';
 
 interface MedicalHistorySummaryProps {
-  summary: MedicalHistorySummary;
+  summary: MedicalHistorySummaryData;
   className?: string;
 }
 

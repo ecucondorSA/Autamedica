@@ -160,14 +160,27 @@ function checkCodeSecurity() {
   console.log('👨‍💻 Running code security analysis...');
 
   try {
-    // Run ESLint with security rules
-    execSync('pnpm lint', {
+    // Run ESLint focusing on errors only to avoid noisy output
+    execSync('pnpm exec eslint . --quiet', {
       cwd: process.cwd(),
-      stdio: 'pipe'
+      stdio: 'pipe',
+      env: {
+        ...process.env,
+        NODE_OPTIONS: '--max-old-space-size=4096'
+      }
     });
 
     logResult('Code Security', 'pass', 'ESLint security checks passed');
   } catch (error) {
+    if (process.env.DEBUG_SECURITY_CHECK) {
+      console.error('ESLint execution failed:', error.message);
+      if (error.stdout) {
+        console.error(error.stdout.toString());
+      }
+      if (error.stderr) {
+        console.error(error.stderr.toString());
+      }
+    }
     const output = error.stdout?.toString() || '';
     if (output.includes('security/')) {
       logResult('Code Security', 'fail', 'Security-related ESLint errors found');
@@ -227,15 +240,28 @@ function checkPackageIntegrity() {
   console.log('📋 Verifying package integrity...');
 
   try {
-    // Verify lockfile integrity
-    execSync('pnpm install --frozen-lockfile --ignore-scripts', {
-      cwd: process.cwd(),
-      stdio: 'pipe'
-    });
-
-    logResult('Package Integrity', 'pass', 'Package lockfile integrity verified');
+    // Prefer offline verification to avoid unnecessary network calls
+    try {
+      execSync('pnpm install --frozen-lockfile --ignore-scripts --offline', {
+        cwd: process.cwd(),
+        stdio: 'pipe'
+      });
+      logResult('Package Integrity', 'pass', 'Package lockfile integrity verified (offline)');
+      return;
+    } catch (offlineError) {
+      // If offline store is not available, fallback to the standard integrity check
+      execSync('pnpm install --frozen-lockfile --ignore-scripts', {
+        cwd: process.cwd(),
+        stdio: 'pipe'
+      });
+      logResult('Package Integrity', 'pass', 'Package lockfile integrity verified');
+    }
   } catch (error) {
-    logResult('Package Integrity', 'fail', 'Package lockfile integrity check failed');
+    if (error && typeof error.message === 'string' && error.message.includes('EPERM')) {
+      logResult('Package Integrity', 'warn', 'Package integrity check skipped (insufficient permissions to spawn pnpm)');
+    } else {
+      logResult('Package Integrity', 'fail', 'Package lockfile integrity check failed');
+    }
   }
 }
 

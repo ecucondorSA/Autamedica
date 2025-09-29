@@ -1,10 +1,10 @@
 /**
  * @autamedica/types/supabase - Tipos generados desde Supabase database schema
- * 
- * Estos tipos reflejan exactamente la estructura de la base de datos
- * y se mantienen sincronizados con el schema SQL en /database/schema.sql
- * 
- * IMPORTANTE: Este archivo se actualiza automáticamente con `supabase gen types`
+ *
+ * Generado automáticamente el: 2025-09-28T15:45:22.777Z
+ * Fuente: database/schema.sql
+ *
+ * IMPORTANTE: Este archivo se actualiza automáticamente con `pnpm db:generate`
  * No editar manualmente - usar los tipos de entities/ para logic business
  */
 
@@ -20,6 +20,9 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+export type ISODateTime = string // ISO 8601 DateTime (timestamptz)
+export type ISODate = string     // ISO 8601 Date
+
 // ============================================================================
 // Database Structure
 // ============================================================================
@@ -27,497 +30,718 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      // Profiles table (auth bridge)
-      profiles: {
-        Row: {
-          id: string // UUID, references auth.users
-          email: string
-          role: 'patient' | 'doctor' | 'company_admin' | 'admin' | 'platform_admin'
-          first_name: string | null
-          last_name: string | null
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          id: string
-          email: string
-          role?: 'patient' | 'doctor' | 'company_admin' | 'admin' | 'platform_admin'
-          first_name?: string | null
-          last_name?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          email?: string
-          role?: 'patient' | 'doctor' | 'company_admin' | 'admin' | 'platform_admin'
-          first_name?: string | null
-          last_name?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Companies table
-      companies: {
-        Row: {
-          id: string // UUID
-          owner_profile_id: string // UUID, references profiles(id)
-          name: string
-          tax_id: string
-          industry: string | null
-          size: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
-          address: Json | null
-          contact: Json | null
-          is_active: boolean
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          id?: string
-          owner_profile_id: string
-          name: string
-          tax_id: string
-          industry?: string | null
-          size?: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
-          address?: Json | null
-          contact?: Json | null
-          is_active?: boolean
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          owner_profile_id?: string
-          name?: string
-          tax_id?: string
-          industry?: string | null
-          size?: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
-          address?: Json | null
-          contact?: Json | null
-          is_active?: boolean
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Doctors table
-      doctors: {
-        Row: {
-          id: string // UUID
-          user_id: string // UUID, references profiles(id)
-          first_name: string
-          last_name: string
-          email: string
-          phone: string | null
-          license_number: string
-          specialties: string[] // TEXT[]
-          bio: string | null
-          education: Json | null
-          experience: Json | null
-          is_active: boolean
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          first_name: string
-          last_name: string
-          email: string
-          phone?: string | null
-          license_number: string
-          specialties?: string[]
-          bio?: string | null
-          education?: Json | null
-          experience?: Json | null
-          is_active?: boolean
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          first_name?: string
-          last_name?: string
-          email?: string
-          phone?: string | null
-          license_number?: string
-          specialties?: string[]
-          bio?: string | null
-          education?: Json | null
-          experience?: Json | null
-          is_active?: boolean
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Patients table
-      patients: {
-        Row: {
-          id: string // UUID
-          user_id: string // UUID, references profiles(id)
-          company_id: string | null // UUID, references companies(id)
-          first_name: string
-          last_name: string
-          email: string
-          phone: string | null
-          date_of_birth: string | null // DATE
-          gender: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
-          medical_record_number: string | null
-          address: Json | null
-          emergency_contact: Json | null
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          company_id?: string | null
-          first_name: string
-          last_name: string
-          email: string
-          phone?: string | null
-          date_of_birth?: string | null
-          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
-          medical_record_number?: string | null
-          address?: Json | null
-          emergency_contact?: Json | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          company_id?: string | null
-          first_name?: string
-          last_name?: string
-          email?: string
-          phone?: string | null
-          date_of_birth?: string | null
-          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
-          medical_record_number?: string | null
-          address?: Json | null
-          emergency_contact?: Json | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Company Members junction table
-      company_members: {
-        Row: {
-          company_id: string // UUID, references companies(id)
-          profile_id: string // UUID, references profiles(id)
-          role: 'company_admin' | 'manager' | 'staff'
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          company_id: string
-          profile_id: string
-          role?: 'company_admin' | 'manager' | 'staff'
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          company_id?: string
-          profile_id?: string
-          role?: 'company_admin' | 'manager' | 'staff'
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Patient Care Team junction table
-      patient_care_team: {
-        Row: {
-          patient_id: string // UUID, references patients(id)
-          doctor_id: string // UUID, references doctors(id)
-          relationship: string // 'primary', 'specialist', etc.
-          added_by: string | null // UUID, references profiles(id)
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
-        }
-        Insert: {
-          patient_id: string
-          doctor_id: string
-          relationship?: string
-          added_by?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          patient_id?: string
-          doctor_id?: string
-          relationship?: string
-          added_by?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-
-      // Appointments table
+      // appointments table
       appointments: {
         Row: {
-          id: string // UUID
-          patient_id: string // UUID, references patients(id)
-          doctor_id: string // UUID, references doctors(id)
-          company_id: string | null // UUID, references companies(id)
-          start_time: string // timestamptz
-          duration_minutes: number // INTEGER, 1-480 minutes
-          type: 'consultation' | 'follow-up' | 'emergency'
-          status: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled'
+          organization_id: string | null // UUID
+          doctor_id: string // UUID
+          duration_minutes: number
+          id: string | null // UUID
           notes: string | null
-          created_by: string | null // UUID, references profiles(id)
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
+          patient_id: string // UUID
+          start_time: string // timestamptz
+          status: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled' | null
+          type: 'consultation' | 'follow-up' | 'emergency' | null
+          updated_at: string | null // timestamptz
         }
         Insert: {
-          id?: string
-          patient_id: string
-          doctor_id: string
-          company_id?: string | null
-          start_time: string
+          organization_id?: string | null // UUID
+          doctor_id: string // UUID
           duration_minutes: number
-          type?: 'consultation' | 'follow-up' | 'emergency'
-          status?: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled'
+          id?: string | null // UUID
           notes?: string | null
-          created_by?: string | null
-          created_at?: string
-          updated_at?: string
+          patient_id: string // UUID
+          start_time: string // timestamptz
+          status?: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled' | null
+          type?: 'consultation' | 'follow-up' | 'emergency' | null
+          updated_at?: string | null // timestamptz
         }
         Update: {
-          id?: string
-          patient_id?: string
-          doctor_id?: string
-          company_id?: string | null
-          start_time?: string
+          organization_id?: string | null // UUID
+          doctor_id?: string // UUID
           duration_minutes?: number
-          type?: 'consultation' | 'follow-up' | 'emergency'
-          status?: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled'
+          id?: string | null // UUID
           notes?: string | null
-          created_by?: string | null
-          created_at?: string
-          updated_at?: string
+          patient_id?: string // UUID
+          start_time?: string // timestamptz
+          status?: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled' | null
+          type?: 'consultation' | 'follow-up' | 'emergency' | null
+          updated_at?: string | null // timestamptz
         }
       }
-
-      // Medical Records table
-      medical_records: {
+      // audit_log table
+      audit_log: {
         Row: {
-          id: string // UUID
-          patient_id: string // UUID, references patients(id)
-          doctor_id: string | null // UUID, references doctors(id)
-          appointment_id: string | null // UUID, references appointments(id)
-          title: string
-          summary: string | null
-          data: Json | null // Structured medical data
-          visibility: 'patient' | 'care_team' | 'private'
-          created_by: string | null // UUID, references profiles(id)
-          created_at: string // timestamptz
-          updated_at: string // timestamptz
+          action: string
+          id: string | null // UUID
+          ip_address: string | null // IP address
+          new_values: Json | null
+          old_values: Json | null
+          resource_id: string | null // UUID
+          resource_type: string
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null // UUID
         }
         Insert: {
-          id?: string
-          patient_id: string
-          doctor_id?: string | null
-          appointment_id?: string | null
-          title: string
-          summary?: string | null
-          data?: Json | null
-          visibility?: 'patient' | 'care_team' | 'private'
-          created_by?: string | null
-          created_at?: string
-          updated_at?: string
+          action: string
+          id?: string | null // UUID
+          ip_address?: string | null // IP address
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null // UUID
+          resource_type: string
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null // UUID
         }
         Update: {
-          id?: string
-          patient_id?: string
-          doctor_id?: string | null
-          appointment_id?: string | null
-          title?: string
-          summary?: string | null
+          action?: string
+          id?: string | null // UUID
+          ip_address?: string | null // IP address
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null // UUID
+          resource_type?: string
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null // UUID
+        }
+      }
+      // billing_accounts table
+      billing_accounts: {
+        Row: {
+          billing_address: Json
+          billing_email: string
+          billing_name: string
+          entity_id: string // UUID
+          entity_type: 'patient' | 'organization'
+          id: string | null // UUID
+          is_active: boolean | null
+          payment_method: Json | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          billing_address: Json
+          billing_email: string
+          billing_name: string
+          entity_id: string // UUID
+          entity_type: 'patient' | 'organization'
+          id?: string | null // UUID
+          is_active?: boolean | null
+          payment_method?: Json | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          billing_address?: Json
+          billing_email?: string
+          billing_name?: string
+          entity_id?: string // UUID
+          entity_type?: 'patient' | 'organization'
+          id?: string | null // UUID
+          is_active?: boolean | null
+          payment_method?: Json | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // organizations table
+      organizations: {
+        Row: {
+          address: Json | null
+          contact: Json | null
+          created_at: string | null // timestamptz
+          id: string | null // UUID
+          industry: string | null
+          is_active: boolean | null
+          legal_name: string | null
+          metadata: Json | null
+          name: string
+          owner_profile_id: string // UUID
+          size: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
+          slug: string
+          tax_id: string | null
+          type: 'company' | 'clinic' | 'provider' | 'partner' | 'internal' | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          address?: Json | null
+          contact?: Json | null
+          created_at?: string | null // timestamptz
+          id?: string | null // UUID
+          industry?: string | null
+          is_active?: boolean | null
+          legal_name?: string | null
+          metadata?: Json | null
+          name: string
+          owner_profile_id: string // UUID
+          size?: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
+          slug: string
+          tax_id?: string | null
+          type?: 'company' | 'clinic' | 'provider' | 'partner' | 'internal' | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          address?: Json | null
+          contact?: Json | null
+          created_at?: string | null // timestamptz
+          id?: string | null // UUID
+          industry?: string | null
+          is_active?: boolean | null
+          legal_name?: string | null
+          metadata?: Json | null
+          name?: string
+          owner_profile_id?: string // UUID
+          size?: 'startup' | 'small' | 'medium' | 'large' | 'enterprise' | null
+          slug?: string
+          tax_id?: string | null
+          type?: 'company' | 'clinic' | 'provider' | 'partner' | 'internal' | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // org_members table
+      org_members: {
+        Row: {
+          invited_by: string | null // UUID
+          metadata: Json | null
+          organization_id: string | null // UUID
+          profile_id: string | null // UUID
+          role: 'owner' | 'admin' | 'member' | 'billing' | 'support' | null
+          status: 'pending' | 'active' | 'suspended' | 'revoked' | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          invited_by?: string | null // UUID
+          metadata?: Json | null
+          organization_id?: string | null // UUID
+          profile_id?: string | null // UUID
+          role?: 'owner' | 'admin' | 'member' | 'billing' | 'support' | null
+          status?: 'pending' | 'active' | 'suspended' | 'revoked' | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          invited_by?: string | null // UUID
+          metadata?: Json | null
+          organization_id?: string | null // UUID
+          profile_id?: string | null // UUID
+          role?: 'owner' | 'admin' | 'member' | 'billing' | 'support' | null
+          status?: 'pending' | 'active' | 'suspended' | 'revoked' | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // user_roles table
+      user_roles: {
+        Row: {
+          granted_at: string | null // timestamptz
+          granted_by: string | null // UUID
+          id: string | null // UUID
+          metadata: Json | null
+          organization_id: string | null // UUID
+          profile_id: string
+          role: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin'
+        }
+        Insert: {
+          granted_at?: string | null // timestamptz
+          granted_by?: string | null // UUID
+          id?: string | null // UUID
+          metadata?: Json | null
+          organization_id?: string | null // UUID
+          profile_id: string
+          role: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin'
+        }
+        Update: {
+          granted_at?: string | null // timestamptz
+          granted_by?: string | null // UUID
+          id?: string | null // UUID
+          metadata?: Json | null
+          organization_id?: string | null // UUID
+          profile_id?: string
+          role?: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin'
+        }
+      }
+      // doctors table
+      doctors: {
+        Row: {
+          bio: string | null
+          education: Json | null
+          email: string
+          experience: Json | null
+          first_name: string
+          id: string | null // UUID
+          is_active: boolean | null
+          last_name: string
+          license_number: string
+          phone: string | null
+          specialties: string | null
+          updated_at: string | null // timestamptz
+          user_id: string // UUID
+        }
+        Insert: {
+          bio?: string | null
+          education?: Json | null
+          email: string
+          experience?: Json | null
+          first_name: string
+          id?: string | null // UUID
+          is_active?: boolean | null
+          last_name: string
+          license_number: string
+          phone?: string | null
+          specialties?: string | null
+          updated_at?: string | null // timestamptz
+          user_id: string // UUID
+        }
+        Update: {
+          bio?: string | null
+          education?: Json | null
+          email?: string
+          experience?: Json | null
+          first_name?: string
+          id?: string | null // UUID
+          is_active?: boolean | null
+          last_name?: string
+          license_number?: string
+          phone?: string | null
+          specialties?: string | null
+          updated_at?: string | null // timestamptz
+          user_id?: string // UUID
+        }
+      }
+      // error_log table
+      error_log: {
+        Row: {
+          error_message: string
+          error_type: string
+          id: string | null // UUID
+          ip_address: string | null // IP address
+          is_resolved: boolean | null
+          method: string | null
+          resolved_at: string | null // timestamptz
+          resolved_by: string | null // UUID
+          severity: 'low' | 'medium' | 'high' | 'critical' | null
+          stack_trace: string | null
+          url: string | null
+          user_agent: string | null
+          user_id: string | null // UUID
+        }
+        Insert: {
+          error_message: string
+          error_type: string
+          id?: string | null // UUID
+          ip_address?: string | null // IP address
+          is_resolved?: boolean | null
+          method?: string | null
+          resolved_at?: string | null // timestamptz
+          resolved_by?: string | null // UUID
+          severity?: 'low' | 'medium' | 'high' | 'critical' | null
+          stack_trace?: string | null
+          url?: string | null
+          user_agent?: string | null
+          user_id?: string | null // UUID
+        }
+        Update: {
+          error_message?: string
+          error_type?: string
+          id?: string | null // UUID
+          ip_address?: string | null // IP address
+          is_resolved?: boolean | null
+          method?: string | null
+          resolved_at?: string | null // timestamptz
+          resolved_by?: string | null // UUID
+          severity?: 'low' | 'medium' | 'high' | 'critical' | null
+          stack_trace?: string | null
+          url?: string | null
+          user_agent?: string | null
+          user_id?: string | null // UUID
+        }
+      }
+      // invoice_items table
+      invoice_items: {
+        Row: {
+          description: string
+          id: string | null // UUID
+          invoice_id: string // UUID
+          quantity: number // decimal
+          service_code: string | null
+          total_price: number // decimal
+          unit_price: number // decimal
+        }
+        Insert: {
+          description: string
+          id?: string | null // UUID
+          invoice_id: string // UUID
+          quantity?: number // decimal
+          service_code?: string | null
+          total_price: number // decimal
+          unit_price: number // decimal
+        }
+        Update: {
+          description?: string
+          id?: string | null // UUID
+          invoice_id?: string // UUID
+          quantity?: number // decimal
+          service_code?: string | null
+          total_price?: number // decimal
+          unit_price?: number // decimal
+        }
+      }
+      // invoices table
+      invoices: {
+        Row: {
+          appointment_id: string | null // UUID
+          billing_account_id: string // UUID
+          currency: string | null
+          doctor_id: string | null // UUID
+          due_date: string // date
+          id: string | null // UUID
+          invoice_number: string
+          issue_date: string // date
+          notes: string | null
+          patient_id: string | null // UUID
+          payment_terms: string | null
+          status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled' | 'refunded' | null
+          subtotal: number // decimal
+          tax_amount: number // decimal
+          total_amount: number // decimal
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          appointment_id?: string | null // UUID
+          billing_account_id: string // UUID
+          currency?: string | null
+          doctor_id?: string | null // UUID
+          due_date: string // date
+          id?: string | null // UUID
+          invoice_number: string
+          issue_date?: string // date
+          notes?: string | null
+          patient_id?: string | null // UUID
+          payment_terms?: string | null
+          status?: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled' | 'refunded' | null
+          subtotal?: number // decimal
+          tax_amount?: number // decimal
+          total_amount?: number // decimal
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          appointment_id?: string | null // UUID
+          billing_account_id?: string // UUID
+          currency?: string | null
+          doctor_id?: string | null // UUID
+          due_date?: string // date
+          id?: string | null // UUID
+          invoice_number?: string
+          issue_date?: string // date
+          notes?: string | null
+          patient_id?: string | null // UUID
+          payment_terms?: string | null
+          status?: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled' | 'refunded' | null
+          subtotal?: number // decimal
+          tax_amount?: number // decimal
+          total_amount?: number // decimal
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // medical_records table
+      medical_records: {
+        Row: {
+          appointment_id: string | null // UUID
+          data: Json | null
+          doctor_id: string | null // UUID
+          id: string | null // UUID
+          patient_id: string // UUID
+          summary: string | null
+          title: string
+          updated_at: string | null // timestamptz
+          visibility: 'patient' | 'care_team' | 'private' | null
+        }
+        Insert: {
+          appointment_id?: string | null // UUID
           data?: Json | null
-          visibility?: 'patient' | 'care_team' | 'private'
-          created_by?: string | null
-          created_at?: string
-          updated_at?: string
+          doctor_id?: string | null // UUID
+          id?: string | null // UUID
+          patient_id: string // UUID
+          summary?: string | null
+          title: string
+          updated_at?: string | null // timestamptz
+          visibility?: 'patient' | 'care_team' | 'private' | null
+        }
+        Update: {
+          appointment_id?: string | null // UUID
+          data?: Json | null
+          doctor_id?: string | null // UUID
+          id?: string | null // UUID
+          patient_id?: string // UUID
+          summary?: string | null
+          title?: string
+          updated_at?: string | null // timestamptz
+          visibility?: 'patient' | 'care_team' | 'private' | null
+        }
+      }
+      // patient_care_team table
+      patient_care_team: {
+        Row: {
+          added_by: string | null // UUID
+          doctor_id: string | null // UUID
+          patient_id: string | null // UUID
+          relationship: string | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          added_by?: string | null // UUID
+          doctor_id?: string | null // UUID
+          patient_id?: string | null // UUID
+          relationship?: string | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          added_by?: string | null // UUID
+          doctor_id?: string | null // UUID
+          patient_id?: string | null // UUID
+          relationship?: string | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // patients table
+      patients: {
+        Row: {
+          address: Json | null
+          organization_id: string | null // UUID
+          date_of_birth: string | null // date
+          email: string
+          emergency_contact: Json | null
+          first_name: string
+          gender: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          id: string | null // UUID
+          last_name: string
+          medical_record_number: string | null
+          phone: string | null
+          updated_at: string | null // timestamptz
+          user_id: string // UUID
+        }
+        Insert: {
+          address?: Json | null
+          organization_id?: string | null // UUID
+          date_of_birth?: string | null // date
+          email: string
+          emergency_contact?: Json | null
+          first_name: string
+          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          id?: string | null // UUID
+          last_name: string
+          medical_record_number?: string | null
+          phone?: string | null
+          updated_at?: string | null // timestamptz
+          user_id: string // UUID
+        }
+        Update: {
+          address?: Json | null
+          organization_id?: string | null // UUID
+          date_of_birth?: string | null // date
+          email?: string
+          emergency_contact?: Json | null
+          first_name?: string
+          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          id?: string | null // UUID
+          last_name?: string
+          medical_record_number?: string | null
+          phone?: string | null
+          updated_at?: string | null // timestamptz
+          user_id?: string // UUID
+        }
+      }
+      // payments table
+      payments: {
+        Row: {
+          amount: number // decimal
+          billing_account_id: string // UUID
+          currency: string | null
+          id: string | null // UUID
+          invoice_id: string // UUID
+          notes: string | null
+          payment_date: string | null // timestamptz
+          payment_method: 'credit_card' | 'bank_transfer' | 'check' | 'cash' | 'insurance' | 'other' | null
+          processed_by: string | null // UUID
+          status: 'pending' | 'processing' | 'completed' | 'failed' | 'refunded' | null
+          transaction_id: string | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          amount: number // decimal
+          billing_account_id: string // UUID
+          currency?: string | null
+          id?: string | null // UUID
+          invoice_id: string // UUID
+          notes?: string | null
+          payment_date?: string | null // timestamptz
+          payment_method?: 'credit_card' | 'bank_transfer' | 'check' | 'cash' | 'insurance' | 'other' | null
+          processed_by?: string | null // UUID
+          status?: 'pending' | 'processing' | 'completed' | 'failed' | 'refunded' | null
+          transaction_id?: string | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          amount?: number // decimal
+          billing_account_id?: string // UUID
+          currency?: string | null
+          id?: string | null // UUID
+          invoice_id?: string // UUID
+          notes?: string | null
+          payment_date?: string | null // timestamptz
+          payment_method?: 'credit_card' | 'bank_transfer' | 'check' | 'cash' | 'insurance' | 'other' | null
+          processed_by?: string | null // UUID
+          status?: 'pending' | 'processing' | 'completed' | 'failed' | 'refunded' | null
+          transaction_id?: string | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // profiles table
+      profiles: {
+        Row: {
+          email: string
+          first_name: string | null
+          id: string // UUID
+          last_name: string | null
+          role: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin' | null
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          email: string
+          first_name?: string | null
+          id: string // UUID
+          last_name?: string | null
+          role?: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin' | null
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          email?: string
+          first_name?: string | null
+          id?: string // UUID
+          last_name?: string | null
+          role?: 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'admin' | 'platform_admin' | null
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // service_plans table
+      service_plans: {
+        Row: {
+          currency: string | null
+          description: string | null
+          features: Json | null
+          id: string | null // UUID
+          is_active: boolean | null
+          is_public: boolean | null
+          max_appointments_per_month: number | null
+          max_users: number | null
+          name: string
+          plan_type: 'individual' | 'family' | 'corporate' | 'enterprise'
+          price_monthly: number | null // decimal
+          price_yearly: number | null // decimal
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          currency?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string | null // UUID
+          is_active?: boolean | null
+          is_public?: boolean | null
+          max_appointments_per_month?: number | null
+          max_users?: number | null
+          name: string
+          plan_type: 'individual' | 'family' | 'corporate' | 'enterprise'
+          price_monthly?: number | null // decimal
+          price_yearly?: number | null // decimal
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          currency?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string | null // UUID
+          is_active?: boolean | null
+          is_public?: boolean | null
+          max_appointments_per_month?: number | null
+          max_users?: number | null
+          name?: string
+          plan_type?: 'individual' | 'family' | 'corporate' | 'enterprise'
+          price_monthly?: number | null // decimal
+          price_yearly?: number | null // decimal
+          updated_at?: string | null // timestamptz
+        }
+      }
+      // subscriptions table
+      subscriptions: {
+        Row: {
+          billing_account_id: string // UUID
+          billing_cycle: 'monthly' | 'yearly' | null
+          end_date: string | null // date
+          id: string | null // UUID
+          is_trial: boolean | null
+          next_billing_date: string | null // date
+          service_plan_id: string // UUID
+          start_date: string // date
+          status: 'active' | 'paused' | 'cancelled' | 'expired' | null
+          subscriber_id: string // UUID
+          subscriber_type: 'patient' | 'organization'
+          trial_end_date: string | null // date
+          trial_start_date: string | null // date
+          updated_at: string | null // timestamptz
+        }
+        Insert: {
+          billing_account_id: string // UUID
+          billing_cycle?: 'monthly' | 'yearly' | null
+          end_date?: string | null // date
+          id?: string | null // UUID
+          is_trial?: boolean | null
+          next_billing_date?: string | null // date
+          service_plan_id: string // UUID
+          start_date?: string // date
+          status?: 'active' | 'paused' | 'cancelled' | 'expired' | null
+          subscriber_id: string // UUID
+          subscriber_type: 'patient' | 'organization'
+          trial_end_date?: string | null // date
+          trial_start_date?: string | null // date
+          updated_at?: string | null // timestamptz
+        }
+        Update: {
+          billing_account_id?: string // UUID
+          billing_cycle?: 'monthly' | 'yearly' | null
+          end_date?: string | null // date
+          id?: string | null // UUID
+          is_trial?: boolean | null
+          next_billing_date?: string | null // date
+          service_plan_id?: string // UUID
+          start_date?: string // date
+          status?: 'active' | 'paused' | 'cancelled' | 'expired' | null
+          subscriber_id?: string // UUID
+          subscriber_type?: 'patient' | 'organization'
+          trial_end_date?: string | null // date
+          trial_start_date?: string | null // date
+          updated_at?: string | null // timestamptz
         }
       }
     }
-
     Views: {
       [_ in never]: never
     }
-
     Functions: {
       [_ in never]: never
     }
-
     Enums: {
-      user_role: 'patient' | 'doctor' | 'company_admin' | 'admin' | 'platform_admin'
-      company_size: 'startup' | 'small' | 'medium' | 'large' | 'enterprise'
-      gender: 'male' | 'female' | 'other' | 'prefer_not_to_say'
-      appointment_type: 'consultation' | 'follow-up' | 'emergency'
-      appointment_status: 'scheduled' | 'in-progress' | 'completed' | 'cancelled' | 'no-show' | 'rescheduled'
-      medical_record_visibility: 'patient' | 'care_team' | 'private'
-      company_member_role: 'company_admin' | 'manager' | 'staff'
-    }
-
-    CompositeTypes: {
       [_ in never]: never
     }
   }
 }
 
 // ============================================================================
-// Helper Types for easier consumption
+// Convenience Types
 // ============================================================================
 
-// Extract table types for easier usage
 export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row']
 export type TablesInsert<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Insert']
 export type TablesUpdate<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Update']
 
-// Specific table types (for convenience)
-export type Profile = Tables<'profiles'>
-export type Company = Tables<'companies'>
-export type Doctor = Tables<'doctors'>
-export type Patient = Tables<'patients'>
-export type CompanyMember = Tables<'company_members'>
-export type PatientCareTeam = Tables<'patient_care_team'>
-export type Appointment = Tables<'appointments'>
-export type MedicalRecord = Tables<'medical_records'>
-
-// Insert types
-export type ProfileInsert = TablesInsert<'profiles'>
-export type CompanyInsert = TablesInsert<'companies'>
-export type DoctorInsert = TablesInsert<'doctors'>
-export type PatientInsert = TablesInsert<'patients'>
-export type CompanyMemberInsert = TablesInsert<'company_members'>
-export type PatientCareTeamInsert = TablesInsert<'patient_care_team'>
-export type AppointmentInsert = TablesInsert<'appointments'>
-export type MedicalRecordInsert = TablesInsert<'medical_records'>
-
-// Update types
-export type ProfileUpdate = TablesUpdate<'profiles'>
-export type CompanyUpdate = TablesUpdate<'companies'>
-export type DoctorUpdate = TablesUpdate<'doctors'>
-export type PatientUpdate = TablesUpdate<'patients'>
-export type CompanyMemberUpdate = TablesUpdate<'company_members'>
-export type PatientCareTeamUpdate = TablesUpdate<'patient_care_team'>
-export type AppointmentUpdate = TablesUpdate<'appointments'>
-export type MedicalRecordUpdate = TablesUpdate<'medical_records'>
-
-// Enum types
-export type UserRole = Database['public']['Enums']['user_role']
-export type CompanySize = Database['public']['Enums']['company_size']
-export type Gender = Database['public']['Enums']['gender']
-export type AppointmentType = Database['public']['Enums']['appointment_type']
-export type AppointmentStatus = Database['public']['Enums']['appointment_status']
-export type MedicalRecordVisibility = Database['public']['Enums']['medical_record_visibility']
-export type CompanyMemberRole = Database['public']['Enums']['company_member_role']
-
-// ============================================================================
-// Query Result Types (with joins)
-// ============================================================================
-
-// Doctor with profile info
-export interface DoctorWithProfile extends Doctor {
-  profile: Profile
-}
-
-// Patient with profile info
-export interface PatientWithProfile extends Patient {
-  profile: Profile
-}
-
-// Appointment with related entities
-export interface AppointmentWithDetails extends Appointment {
-  patient: PatientWithProfile
-  doctor: DoctorWithProfile
-  company?: Company | null
-}
-
-// Medical record with related entities
-export interface MedicalRecordWithDetails extends MedicalRecord {
-  patient: PatientWithProfile
-  doctor?: DoctorWithProfile | null
-  appointment?: Appointment | null
-}
-
-// Company with members
-export interface CompanyWithMembers extends Company {
-  members: Array<CompanyMember & { profile: Profile }>
-  owner: Profile
-}
-
-// Patient care team with details
-export interface PatientCareTeamWithDetails extends PatientCareTeam {
-  patient: PatientWithProfile
-  doctor: DoctorWithProfile
-  added_by_profile?: Profile | null
-}
-
-// ============================================================================
-// API Response Types
-// ============================================================================
-
-export interface SupabaseApiResponse<T> {
-  data: T | null
-  error: {
-    message: string
-    details?: string
-    hint?: string
-    code?: string
-  } | null
-}
-
-export interface SupabasePaginatedResponse<T> {
-  data: T[]
-  count: number | null
-  error: {
-    message: string
-    details?: string
-    hint?: string
-    code?: string
-  } | null
-}
-
-// ============================================================================
-// Type Guards
-// ============================================================================
-
-export function isProfile(obj: unknown): obj is Profile {
-  return typeof obj === 'object' && obj !== null && 
-         'id' in obj && 'email' in obj && 'role' in obj
-}
-
-export function isDoctor(obj: unknown): obj is Doctor {
-  return typeof obj === 'object' && obj !== null && 
-         'id' in obj && 'user_id' in obj && 'license_number' in obj
-}
-
-export function isPatient(obj: unknown): obj is Patient {
-  return typeof obj === 'object' && obj !== null && 
-         'id' in obj && 'user_id' in obj && 'first_name' in obj
-}
-
-export function isAppointment(obj: unknown): obj is Appointment {
-  return typeof obj === 'object' && obj !== null && 
-         'id' in obj && 'patient_id' in obj && 'doctor_id' in obj && 'start_time' in obj
-}
-
-// ============================================================================
-// Constants
-// ============================================================================
-
-export const USER_ROLES = ['patient', 'doctor', 'company_admin', 'admin', 'platform_admin'] as const
-export const COMPANY_SIZES = ['startup', 'small', 'medium', 'large', 'enterprise'] as const
-export const GENDERS = ['male', 'female', 'other', 'prefer_not_to_say'] as const
-export const APPOINTMENT_TYPES = ['consultation', 'follow-up', 'emergency'] as const
-export const APPOINTMENT_STATUSES = ['scheduled', 'in-progress', 'completed', 'cancelled', 'no-show', 'rescheduled'] as const
-export const MEDICAL_RECORD_VISIBILITIES = ['patient', 'care_team', 'private'] as const
-export const COMPANY_MEMBER_ROLES = ['company_admin', 'manager', 'staff'] as const
+// Helper types for better DX
+export type RowOf<T extends keyof Database['public']['Tables']> = Tables<T>
+export type InsertOf<T extends keyof Database['public']['Tables']> = TablesInsert<T>
+export type UpdateOf<T extends keyof Database['public']['Tables']> = TablesUpdate<T>

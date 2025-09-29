@@ -115,18 +115,19 @@ BEGIN
             c.id,
             c.owner_profile_id,
             c.name,
-            NULL,
-            c.tax_id,
+            c.legal_name,
+            c.cuit,
             c.industry,
             c.size,
             c.address,
-            c.contact,
+            jsonb_build_object('phone', c.phone, 'email', c.email, 'website', c.website),
             '{}'::JSONB,
-            COALESCE(c.is_active, TRUE)
+            COALESCE(c.active, TRUE)
         FROM public.companies c
         ON CONFLICT (id) DO UPDATE
           SET owner_profile_id = EXCLUDED.owner_profile_id,
               name = EXCLUDED.name,
+              legal_name = COALESCE(EXCLUDED.legal_name, public.organizations.legal_name),
               tax_id = COALESCE(EXCLUDED.tax_id, public.organizations.tax_id),
               industry = COALESCE(EXCLUDED.industry, public.organizations.industry),
               size = COALESCE(EXCLUDED.size, public.organizations.size),
@@ -206,7 +207,20 @@ SELECT
     END,
     p.id
 FROM public.profiles p
-ON CONFLICT (profile_id, role) DO NOTHING;
+WHERE NOT EXISTS (
+    SELECT 1 FROM public.user_roles ur 
+    WHERE ur.profile_id = p.id 
+      AND ur.organization_id IS NULL
+      AND ur.role = CASE
+          WHEN p.role = 'platform_admin' THEN 'platform_admin'
+          WHEN p.role = 'admin' THEN 'admin'
+          WHEN p.role = 'organization_admin' THEN 'organization_admin'
+          WHEN p.role = 'company_admin' THEN 'organization_admin'
+          WHEN p.role = 'company' THEN 'company'
+          WHEN p.role = 'doctor' THEN 'doctor'
+          ELSE 'patient'
+      END
+);
 
 INSERT INTO public.user_roles (id, profile_id, organization_id, role, granted_by)
 SELECT
@@ -219,7 +233,15 @@ SELECT
     END,
     om.invited_by
 FROM public.org_members om
-ON CONFLICT (profile_id, organization_id, role) DO NOTHING;
+WHERE NOT EXISTS (
+    SELECT 1 FROM public.user_roles ur 
+    WHERE ur.profile_id = om.profile_id 
+      AND ur.organization_id = om.organization_id
+      AND ur.role = CASE
+          WHEN om.role IN ('owner', 'admin') THEN 'organization_admin'
+          ELSE 'company'
+      END
+);
 
 CREATE OR REPLACE FUNCTION public.select_primary_role_for_profile(target_profile_id UUID)
 RETURNS TEXT AS $$

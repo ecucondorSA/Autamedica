@@ -19,6 +19,7 @@ import {
   UserRole,
   AuthError
 } from '../types'
+import { isUserRole, ROLES } from '../roles'
 import {
   getSupabaseClient,
   signOutGlobally
@@ -47,11 +48,25 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 /**
  * Extract user profile from Supabase user
  */
+function normalizeRole(role: unknown): UserRole | null {
+  if (typeof role === 'string') {
+    if (role === ROLES.COMPANY_ADMIN) {
+      return ROLES.ORGANIZATION_ADMIN
+    }
+
+    if (isUserRole(role)) {
+      return role
+    }
+  }
+
+  console.error('User does not have a role assigned')
+  return null
+}
+
 function extractUserProfile(user: User): UserProfile | null {
-  const role = user.user_metadata?.role as UserRole
+  const role = normalizeRole(user.user_metadata?.role)
 
   if (!role) {
-    console.error('User does not have a role assigned')
     return null
   }
 
@@ -77,6 +92,12 @@ interface AuthProviderProps {
 }
 
 /**
+ * Check if dev bypass is enabled
+ */
+const isDevBypass = typeof window !== 'undefined' &&
+  process.env.NEXT_PUBLIC_AUTH_DEV_BYPASS === 'true'
+
+/**
  * Authentication provider component
  */
 export function AuthProvider({
@@ -90,9 +111,17 @@ export function AuthProvider({
     loading: true,
     error: null
   })
+  const [isClient, setIsClient] = useState(false)
 
-  // Initialize Supabase client
+  // Initialize client safely after hydration
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  // Initialize Supabase client only on client side and not in dev bypass
   const supabase = useMemo(() => {
+    if (!isClient || isDevBypass) return null
+
     try {
       return getSupabaseClient()
     } catch (error) {
@@ -104,10 +133,45 @@ export function AuthProvider({
       }))
       return null
     }
-  }, [])
+  }, [isClient])
 
   // Load initial session
   useEffect(() => {
+    // Handle dev bypass mode
+    if (isDevBypass && isClient) {
+      const params = new URLSearchParams(window.location.search)
+      const role = params.get('as') === 'patient' ? ROLES.PATIENT : ROLES.DOCTOR
+
+      // Create mock user for dev mode
+      const mockUser = {
+        id: `dev-${role}-1`,
+        email: `${role}@dev.local`,
+        user_metadata: { role },
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      } as any
+
+      const mockProfile: UserProfile = {
+        id: mockUser.id,
+        email: mockUser.email,
+        role,
+        first_name: 'Dev',
+        last_name: role === ROLES.DOCTOR ? 'Doctor' : 'Patient',
+        created_at: mockUser.created_at,
+        updated_at: mockUser.updated_at,
+        last_path: '/dashboard'
+      }
+
+      setState({
+        user: mockUser,
+        profile: mockProfile,
+        session: { access_token: 'dev-token', user: mockUser } as any,
+        loading: false,
+        error: null
+      })
+      return
+    }
+
     if (!supabase) return
 
     const loadSession = async () => {
@@ -147,11 +211,11 @@ export function AuthProvider({
     }
 
     loadSession()
-  }, [supabase])
+  }, [supabase, isClient])
 
   // Listen for auth state changes
   useEffect(() => {
-    if (!supabase) return
+    if (!supabase || isDevBypass) return
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -195,6 +259,11 @@ export function AuthProvider({
 
   // Sign in with email and password
   const signIn = useCallback(async (email: string, password: string) => {
+    if (isDevBypass) {
+      console.log('Dev bypass mode - skipping sign in')
+      return
+    }
+
     if (!supabase) {
       throw new AuthError('CONFIGURATION_ERROR', 'Supabase client not initialized')
     }
@@ -220,6 +289,11 @@ export function AuthProvider({
 
   // Sign in with magic link
   const signInWithMagicLink = useCallback(async (email: string) => {
+    if (isDevBypass) {
+      console.log('Dev bypass mode - skipping magic link')
+      return
+    }
+
     if (!supabase) {
       throw new AuthError('CONFIGURATION_ERROR', 'Supabase client not initialized')
     }
@@ -247,6 +321,18 @@ export function AuthProvider({
 
   // Sign out
   const signOut = useCallback(async () => {
+    if (isDevBypass) {
+      console.log('Dev bypass mode - skipping sign out')
+      setState({
+        user: null,
+        profile: null,
+        session: null,
+        loading: false,
+        error: null
+      })
+      return
+    }
+
     setState(prev => ({ ...prev, loading: true, error: null }))
 
     try {
@@ -276,6 +362,11 @@ export function AuthProvider({
 
   // Refresh session
   const refreshSession = useCallback(async () => {
+    if (isDevBypass) {
+      console.log('Dev bypass mode - skipping refresh')
+      return
+    }
+
     if (!supabase) return
 
     try {

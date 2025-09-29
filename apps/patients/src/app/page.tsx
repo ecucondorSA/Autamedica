@@ -25,6 +25,7 @@ import {
   User
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase'
+import { IncomingCallModal } from '@/components/calls/IncomingCallModal'
 
 type CallStatus = 'idle' | 'connecting' | 'live' | 'ended'
 type QuickActionIntent = 'default' | 'primary' | 'success'
@@ -756,6 +757,17 @@ export default function PatientsHomePage(): JSX.Element {
           onClick={closeQuickActions}
         />
       )}
+
+      {/* Incoming call modal - renders globally to show incoming call modals */}
+      <IncomingCallModal
+        onAccept={(callId, roomId) => {
+          console.log('✅ Call accepted:', { callId, roomId })
+          // Navigation is handled inside the modal component
+        }}
+        onDecline={(callId) => {
+          console.log('❌ Call declined:', { callId })
+        }}
+      />
 
     </div>
   )

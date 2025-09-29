@@ -73,7 +73,13 @@ export async function middleware(request: NextRequest) {
     const userRole = session.user.user_metadata?.role;
     
     // Solo permitir acceso a company admins, companies y platform admins
-    if (userRole !== 'company' && userRole !== 'company_admin' && userRole !== 'admin' && userRole !== 'platform_admin') {
+    if (
+      userRole !== 'company' &&
+      userRole !== 'company_admin' &&
+      userRole !== 'organization_admin' &&
+      userRole !== 'admin' &&
+      userRole !== 'platform_admin'
+    ) {
       // Usuario no autorizado - redirigir al home del web-app
       const homeUrl = new URL('/',
         ensureEnv('NODE_ENV') === 'production'

@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2025-09-28T18:06:13.036Z",
+    "phase": "INFRASTRUCTURE",
+    "message": "Verificando signaling server...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.037Z",
+    "phase": "CONNECTION_TEST",
+    "message": "Probando conexión a: ws://localhost:3001",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.083Z",
+    "phase": "CONNECTION_FAILED",
+    "message": "❌ No disponible: ws://localhost:3001 - connect ECONNREFUSED 127.0.0.1:3001",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.083Z",
+    "phase": "CONNECTION_TEST",
+    "message": "Probando conexión a: ws://localhost:8080",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.093Z",
+    "phase": "CONNECTION_FAILED",
+    "message": "❌ No disponible: ws://localhost:8080 - connect ECONNREFUSED 127.0.0.1:8080",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.093Z",
+    "phase": "CONNECTION_TEST",
+    "message": "Probando conexión a: wss://altamedica-signaling.pages.dev",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.220Z",
+    "phase": "CONNECTION_FAILED",
+    "message": "❌ No disponible: wss://altamedica-signaling.pages.dev - getaddrinfo ENOTFOUND altamedica-signaling.pages.dev",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.220Z",
+    "phase": "CONNECTION_TEST",
+    "message": "Probando conexión a: ws://localhost:3000/api/ws",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.223Z",
+    "phase": "CONNECTION_FAILED",
+    "message": "❌ No disponible: ws://localhost:3000/api/ws - connect ECONNREFUSED 127.0.0.1:3000",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:06:13.223Z",
+    "phase": "AUDIT_ERROR",
+    "message": "❌ Error en auditoría",
+    "data": "❌ No se encontró ningún signaling server activo"
+  }
+]

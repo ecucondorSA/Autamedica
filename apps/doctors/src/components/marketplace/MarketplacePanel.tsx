@@ -14,7 +14,8 @@ import {
 } from 'lucide-react'
 import { LeafletMap } from './LeafletMap'
 import { mockJobOffers, mockDoctors } from '@/data/marketplaceData'
-import { MarketplaceJobOffer, MarketplaceDoctor, MEDICAL_SPECIALTIES, ARGENTINE_PROVINCES } from '@/types/marketplace'
+import { MarketplaceJobOffer, MarketplaceDoctor, ARGENTINE_PROVINCES } from '@/types/marketplace'
+import { MEDICAL_SPECIALTIES } from '@autamedica/types'
 
 export function MarketplacePanel() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -145,7 +146,7 @@ export function MarketplacePanel() {
                     className="w-full bg-slate-800/60 border border-slate-700 rounded-lg text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="all">Todas las especialidades</option>
-                    {MEDICAL_SPECIALTIES.map(specialty => (
+                    {Object.values(MEDICAL_SPECIALTIES).map(specialty => (
                       <option key={specialty} value={specialty}>{specialty}</option>
                     ))}
                   </select>
@@ -267,7 +268,7 @@ export function MarketplacePanel() {
                   className="bg-slate-800/60 border border-slate-700 rounded-lg text-slate-100 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="all">Todas</option>
-                  {MEDICAL_SPECIALTIES.slice(0, 5).map(specialty => (
+                  {Object.values(MEDICAL_SPECIALTIES).slice(0, 5).map(specialty => (
                     <option key={specialty} value={specialty}>{specialty}</option>
                   ))}
                 </select>

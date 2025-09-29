@@ -53,12 +53,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v3
         with: { version: 9 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm docs:validate
+      - name: Validate exports and auto-generate docs if needed
+        run: pnpm docs:validate
+      - name: Commit auto-generated documentation
+        if: failure()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action - Auto Docs"
+          git add docs/GLOSARIO_MAESTRO.md || true
+          git diff --staged --quiet || git commit -m "📚 Auto-generar documentación de exports faltantes
+
+          🤖 Documentación generada automáticamente por CI
+
+          Co-Authored-By: GitHub Actions <noreply@github.com>"
+          git push || true
 
   test:
     runs-on: ubuntu-latest

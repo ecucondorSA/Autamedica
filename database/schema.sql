@@ -11,7 +11,15 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS public.profiles (
     id UUID REFERENCES auth.users ON DELETE CASCADE,
     email VARCHAR NOT NULL,
-    role VARCHAR CHECK (role IN ('patient', 'doctor', 'company_admin', 'admin', 'platform_admin')) DEFAULT 'patient',
+    role VARCHAR CHECK (role IN (
+        'patient',
+        'doctor',
+        'company',
+        'company_admin',
+        'organization_admin',
+        'admin',
+        'platform_admin'
+    )) DEFAULT 'patient',
     first_name VARCHAR,
     last_name VARCHAR,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -61,29 +69,6 @@ FOR DELETE USING (
 -- ============================================================================
 -- Triggers & helpers shared by multiple tables
 -- ============================================================================
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-DECLARE
-    user_role VARCHAR;
-BEGIN
-    user_role := NEW.raw_user_meta_data->>'role';
-
-    IF user_role NOT IN ('patient', 'doctor', 'company_admin') THEN
-        user_role := 'patient';
-    END IF;
-
-    INSERT INTO public.profiles (id, email, role)
-    VALUES (NEW.id, NEW.email, user_role);
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
-CREATE TRIGGER on_auth_user_created
-    AFTER INSERT ON auth.users
-    FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -103,7 +88,7 @@ GRANT SELECT ON public.profiles TO anon;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.profiles;
 
 COMMENT ON TABLE public.profiles IS 'User profiles with role-based access control';
-COMMENT ON COLUMN public.profiles.role IS 'User role: patient, doctor, company_admin, admin, platform_admin';
+COMMENT ON COLUMN public.profiles.role IS 'User role: patient, doctor, company, company_admin, organization_admin, admin, platform_admin';
 COMMENT ON POLICY "Users can view own profile" ON public.profiles IS 'Users can only view their own profile information';
 COMMENT ON POLICY "Admins can view all profiles" ON public.profiles IS 'Platform and regular admins can view all user profiles';
 
@@ -112,29 +97,33 @@ COMMENT ON POLICY "Admins can view all profiles" ON public.profiles IS 'Platform
 -- ============================================================================
 
 -- --------------------------------------------------------------------------
--- Companies (create first due to FK dependencies)
+-- Organizations (create first due to FK dependencies)
 -- --------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS public.companies (
+CREATE TABLE IF NOT EXISTS public.organizations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     owner_profile_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    slug VARCHAR UNIQUE NOT NULL,
     name VARCHAR NOT NULL,
-    tax_id VARCHAR NOT NULL,
+    legal_name VARCHAR,
+    tax_id VARCHAR,
+    type VARCHAR CHECK (type IN ('company', 'clinic', 'provider', 'partner', 'internal')) DEFAULT 'company',
     industry VARCHAR,
     size VARCHAR CHECK (size IN ('startup', 'small', 'medium', 'large', 'enterprise')),
     address JSONB,
     contact JSONB,
+    metadata JSONB DEFAULT '{}'::JSONB,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.organizations ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Company owners manage company" ON public.companies
+CREATE POLICY "Organization owners manage organization" ON public.organizations
 FOR ALL USING (owner_profile_id = auth.uid())
 WITH CHECK (owner_profile_id = auth.uid());
 
-CREATE POLICY "Admins manage companies" ON public.companies
+CREATE POLICY "Admins manage organizations" ON public.organizations
 FOR ALL USING (
     EXISTS (
         SELECT 1 FROM public.profiles p
@@ -143,14 +132,14 @@ FOR ALL USING (
     )
 );
 
-CREATE TRIGGER update_companies_updated_at
-    BEFORE UPDATE ON public.companies
+CREATE TRIGGER update_organizations_updated_at
+    BEFORE UPDATE ON public.organizations
     FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-GRANT SELECT, INSERT, UPDATE ON public.companies TO authenticated;
-ALTER PUBLICATION supabase_realtime ADD TABLE public.companies;
+GRANT SELECT, INSERT, UPDATE ON public.organizations TO authenticated;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.organizations;
 
-COMMENT ON TABLE public.companies IS 'Employer/enterprise accounts linked to company_admin profiles';
+COMMENT ON TABLE public.organizations IS 'Employer/enterprise accounts linked to organization_admin profiles';
 
 -- --------------------------------------------------------------------------
 -- Doctors
@@ -205,7 +194,7 @@ COMMENT ON TABLE public.doctors IS 'Extended doctor metadata linked to auth prof
 CREATE TABLE IF NOT EXISTS public.patients (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID UNIQUE NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
-    company_id UUID REFERENCES public.companies(id) ON DELETE SET NULL,
+    organization_id UUID REFERENCES public.organizations(id) ON DELETE SET NULL,
     first_name VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -248,14 +237,14 @@ FOR SELECT USING (
     )
 );
 
-CREATE POLICY "Company admins view company patients" ON public.patients
+CREATE POLICY "Organization admins view organization patients" ON public.patients
 FOR SELECT USING (
     EXISTS (
         SELECT 1
-        FROM public.company_members cm
-        WHERE cm.company_id = public.patients.company_id
+        FROM public.org_members cm
+        WHERE cm.organization_id = public.patients.organization_id
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -269,33 +258,57 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.patients;
 COMMENT ON TABLE public.patients IS 'Patient demographic + contact information linked to auth profiles';
 
 -- --------------------------------------------------------------------------
--- Company Membership
+-- Organization Membership
 -- --------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS public.company_members (
-    company_id UUID REFERENCES public.companies(id) ON DELETE CASCADE,
+CREATE TABLE IF NOT EXISTS public.org_members (
+    organization_id UUID REFERENCES public.organizations(id) ON DELETE CASCADE,
     profile_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
-    role VARCHAR CHECK (role IN ('company_admin', 'manager', 'staff')) DEFAULT 'staff',
+    role VARCHAR CHECK (role IN ('owner', 'admin', 'member', 'billing', 'support')) DEFAULT 'member',
+    status VARCHAR CHECK (status IN ('pending', 'active', 'suspended', 'revoked')) DEFAULT 'active',
+    invited_by UUID REFERENCES public.profiles(id),
+    metadata JSONB DEFAULT '{}'::JSONB,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    PRIMARY KEY (company_id, profile_id)
+    PRIMARY KEY (organization_id, profile_id)
 );
 
-ALTER TABLE public.company_members ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.org_members ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Members view self" ON public.company_members
-FOR SELECT USING (auth.uid() = profile_id);
-
-CREATE POLICY "Company admins manage members" ON public.company_members
-FOR ALL USING (
-    EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = public.company_members.company_id
-          AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+CREATE POLICY "Members view membership" ON public.org_members
+FOR SELECT USING (
+    profile_id = auth.uid()
+    OR EXISTS (
+        SELECT 1 FROM public.org_members owner
+        WHERE owner.organization_id = public.org_members.organization_id
+          AND owner.profile_id = auth.uid()
+          AND owner.role IN ('owner', 'admin')
+    )
+    OR EXISTS (
+        SELECT 1 FROM public.profiles p
+        WHERE p.id = auth.uid()
+          AND p.role IN ('admin', 'platform_admin')
     )
 );
 
-CREATE POLICY "Platform admins manage members" ON public.company_members
+CREATE POLICY "Organization admins manage members" ON public.org_members
+FOR ALL USING (
+    EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = public.org_members.organization_id
+          AND cm.profile_id = auth.uid()
+          AND cm.role IN ('owner', 'admin')
+    )
+);
+WITH CHECK (
+    EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = public.org_members.organization_id
+          AND cm.profile_id = auth.uid()
+          AND cm.role IN ('owner', 'admin')
+    )
+);
+
+CREATE POLICY "Platform admins manage members" ON public.org_members
 FOR ALL USING (
     EXISTS (
         SELECT 1 FROM public.profiles p
@@ -304,14 +317,157 @@ FOR ALL USING (
     )
 );
 
-CREATE TRIGGER update_company_members_updated_at
-    BEFORE UPDATE ON public.company_members
+CREATE TRIGGER update_org_members_updated_at
+    BEFORE UPDATE ON public.org_members
     FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.company_members TO authenticated;
-ALTER PUBLICATION supabase_realtime ADD TABLE public.company_members;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.org_members TO authenticated;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.org_members;
 
-COMMENT ON TABLE public.company_members IS 'Links profiles to employer companies with portal-specific roles';
+COMMENT ON TABLE public.org_members IS 'Links profiles to employer organizations with portal-specific roles';
+
+-- --------------------------------------------------------------------------
+-- User role assignments
+-- --------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.user_roles (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    profile_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    organization_id UUID REFERENCES public.organizations(id) ON DELETE CASCADE,
+    role VARCHAR NOT NULL CHECK (role IN ('patient', 'doctor', 'company', 'company_admin', 'organization_admin', 'admin', 'platform_admin')),
+    granted_by UUID REFERENCES public.profiles(id),
+    granted_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    expires_at TIMESTAMP WITH TIME ZONE,
+    metadata JSONB DEFAULT '{}'::JSONB
+);
+
+CREATE UNIQUE INDEX user_roles_unique_global_role
+    ON public.user_roles (profile_id, role)
+    WHERE organization_id IS NULL;
+
+CREATE UNIQUE INDEX user_roles_unique_org_role
+    ON public.user_roles (profile_id, organization_id, role)
+    WHERE organization_id IS NOT NULL;
+
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users view own roles" ON public.user_roles
+FOR SELECT USING (profile_id = auth.uid());
+
+CREATE POLICY "Organization admins manage scoped roles" ON public.user_roles
+FOR ALL USING (
+    organization_id IS NOT NULL
+    AND EXISTS (
+        SELECT 1 FROM public.org_members om
+        WHERE om.organization_id = public.user_roles.organization_id
+          AND om.profile_id = auth.uid()
+          AND om.role IN ('owner', 'admin')
+    )
+)
+WITH CHECK (
+    organization_id IS NOT NULL
+    AND EXISTS (
+        SELECT 1 FROM public.org_members om
+        WHERE om.organization_id = public.user_roles.organization_id
+          AND om.profile_id = auth.uid()
+          AND om.role IN ('owner', 'admin')
+    )
+);
+
+CREATE POLICY "Platform admins manage user roles" ON public.user_roles
+FOR ALL USING (
+    EXISTS (
+        SELECT 1 FROM public.profiles p
+        WHERE p.id = auth.uid()
+          AND p.role = 'platform_admin'
+    )
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_roles TO authenticated;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.user_roles;
+
+COMMENT ON TABLE public.user_roles IS 'Normalized role assignments per user with optional organization scope';
+COMMENT ON COLUMN public.user_roles.role IS 'Role assigned to the profile (patient, doctor, company, organization_admin, admin, platform_admin)';
+
+CREATE OR REPLACE FUNCTION public.select_primary_role_for_profile(target_profile_id UUID)
+RETURNS TEXT AS $$
+DECLARE
+    selected_role TEXT;
+BEGIN
+    SELECT ur.role
+    INTO selected_role
+    FROM public.user_roles ur
+    WHERE ur.profile_id = target_profile_id
+      AND (ur.expires_at IS NULL OR ur.expires_at > NOW())
+    ORDER BY CASE ur.role
+        WHEN 'platform_admin' THEN 100
+        WHEN 'admin' THEN 90
+        WHEN 'organization_admin' THEN 80
+        WHEN 'company_admin' THEN 75
+        WHEN 'company' THEN 70
+        WHEN 'doctor' THEN 60
+        WHEN 'patient' THEN 50
+        ELSE 0
+    END DESC,
+    ur.granted_at DESC
+    LIMIT 1;
+
+    RETURN COALESCE(selected_role, 'patient');
+END;
+$$ LANGUAGE plpgsql STABLE;
+
+CREATE OR REPLACE FUNCTION public.sync_profile_primary_role()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        UPDATE public.profiles
+        SET role = public.select_primary_role_for_profile(OLD.profile_id),
+            updated_at = NOW()
+        WHERE id = OLD.profile_id;
+        RETURN OLD;
+    END IF;
+
+    UPDATE public.profiles
+    SET role = public.select_primary_role_for_profile(NEW.profile_id),
+        updated_at = NOW()
+    WHERE id = NEW.profile_id;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_profile_role_after_user_roles
+    AFTER INSERT OR UPDATE OR DELETE ON public.user_roles
+    FOR EACH ROW EXECUTE FUNCTION public.sync_profile_primary_role();
+
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+DECLARE
+    raw_role TEXT;
+    normalized_role TEXT;
+BEGIN
+    raw_role := COALESCE(NEW.raw_user_meta_data->>'role', 'patient');
+    normalized_role := LOWER(raw_role);
+
+    IF normalized_role = 'company_admin' THEN
+        normalized_role := 'organization_admin';
+    ELSIF normalized_role NOT IN ('patient', 'doctor', 'company', 'organization_admin', 'admin', 'platform_admin') THEN
+        normalized_role := 'patient';
+    END IF;
+
+    INSERT INTO public.profiles (id, email, role)
+    VALUES (NEW.id, NEW.email, normalized_role);
+
+    INSERT INTO public.user_roles (profile_id, organization_id, role, granted_by)
+    VALUES (NEW.id, NULL, normalized_role, NEW.id);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+    AFTER INSERT ON auth.users
+    FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- --------------------------------------------------------------------------
 -- Patient care team (doctor ↔ patient assignments)
@@ -371,7 +527,7 @@ CREATE TABLE IF NOT EXISTS public.appointments (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     patient_id UUID NOT NULL REFERENCES public.patients(id) ON DELETE CASCADE,
     doctor_id UUID NOT NULL REFERENCES public.doctors(id) ON DELETE CASCADE,
-    company_id UUID REFERENCES public.companies(id) ON DELETE SET NULL,
+    organization_id UUID REFERENCES public.organizations(id) ON DELETE SET NULL,
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
     duration_minutes INTEGER NOT NULL CHECK (duration_minutes > 0 AND duration_minutes <= 480),
     type VARCHAR CHECK (type IN ('consultation', 'follow-up', 'emergency')) DEFAULT 'consultation',
@@ -402,13 +558,13 @@ FOR SELECT USING (
     )
 );
 
-CREATE POLICY "Company admin access appointments" ON public.appointments
+CREATE POLICY "Organization admin access appointments" ON public.appointments
 FOR SELECT USING (
     EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = public.appointments.company_id
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = public.appointments.organization_id
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -536,8 +692,8 @@ COMMENT ON TABLE public.medical_records IS 'Clinical documents and structured no
 -- Security Hardening comments
 -- ============================================================================
 COMMENT ON POLICY "Doctors view assigned patients" ON public.patients IS 'Care-team constrained visibility';
-COMMENT ON POLICY "Company owners manage company" ON public.companies IS 'Company owner control';
-COMMENT ON POLICY "Members view self" ON public.company_members IS 'Employees can validate their membership record';
+COMMENT ON POLICY "Organization owners manage organization" ON public.organizations IS 'Organization owner control';
+COMMENT ON POLICY "Members view membership" ON public.org_members IS 'Members and admins can review organization affiliation records';
 COMMENT ON POLICY "Doctors create appointments" ON public.appointments IS 'Only treating doctors can schedule or modify encounters they own';
 COMMENT ON POLICY "Patients read own records" ON public.medical_records IS 'Patients access their clinical documentation when permitted';
 
@@ -547,12 +703,12 @@ COMMENT ON POLICY "Patients read own records" ON public.medical_records IS 'Pati
 -- ============================================================================
 
 -- --------------------------------------------------------------------------
--- Billing accounts - Links companies and patients to billing
+-- Billing accounts - Links organizations and patients to billing
 -- --------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.billing_accounts (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    entity_type VARCHAR CHECK (entity_type IN ('patient', 'company')) NOT NULL,
-    entity_id UUID NOT NULL, -- References either patient or company
+    entity_type VARCHAR CHECK (entity_type IN ('patient', 'organization')) NOT NULL,
+    entity_id UUID NOT NULL, -- References either patient or organization
     billing_name VARCHAR NOT NULL,
     billing_email VARCHAR NOT NULL,
     billing_address JSONB NOT NULL,
@@ -573,14 +729,14 @@ FOR SELECT USING (
     )
 );
 
--- Company admins can view company billing
-CREATE POLICY "Companies view own billing" ON public.billing_accounts
+-- Organization admins can view organization billing
+CREATE POLICY "Organizations view own billing" ON public.billing_accounts
 FOR SELECT USING (
-    entity_type = 'company' AND EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = entity_id 
+    entity_type = 'organization' AND EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = entity_id 
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -601,7 +757,7 @@ CREATE TRIGGER update_billing_accounts_updated_at
 GRANT SELECT, INSERT, UPDATE ON public.billing_accounts TO authenticated;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.billing_accounts;
 
-COMMENT ON TABLE public.billing_accounts IS 'Billing information for patients and companies';
+COMMENT ON TABLE public.billing_accounts IS 'Billing information for patients and organizations';
 
 -- --------------------------------------------------------------------------
 -- Invoices - Medical service billing
@@ -653,16 +809,16 @@ FOR SELECT USING (
     )
 );
 
--- Company admins can view invoices for their company
+-- Organization admins can view invoices for their organization
 CREATE POLICY "Companies view invoices" ON public.invoices
 FOR SELECT USING (
     EXISTS (
         SELECT 1 FROM public.billing_accounts ba
-        JOIN public.company_members cm ON cm.company_id = ba.entity_id
+        JOIN public.org_members cm ON cm.organization_id = ba.entity_id
         WHERE ba.id = billing_account_id
-          AND ba.entity_type = 'company'
+          AND ba.entity_type = 'organization'
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -827,8 +983,8 @@ COMMENT ON TABLE public.service_plans IS 'Subscription plans and pricing tiers';
 -- --------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.subscriptions (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    subscriber_type VARCHAR CHECK (subscriber_type IN ('patient', 'company')) NOT NULL,
-    subscriber_id UUID NOT NULL, -- References either patient or company
+    subscriber_type VARCHAR CHECK (subscriber_type IN ('patient', 'organization')) NOT NULL,
+    subscriber_id UUID NOT NULL, -- References either patient or organization
     service_plan_id UUID NOT NULL REFERENCES public.service_plans(id) ON DELETE RESTRICT,
     billing_account_id UUID NOT NULL REFERENCES public.billing_accounts(id) ON DELETE CASCADE,
     
@@ -861,14 +1017,14 @@ FOR SELECT USING (
     )
 );
 
--- Company admins can view company subscriptions
+-- Organization admins can view organization subscriptions
 CREATE POLICY "Companies view own subscriptions" ON public.subscriptions
 FOR SELECT USING (
-    subscriber_type = 'company' AND EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = subscriber_id 
+    subscriber_type = 'organization' AND EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = subscriber_id 
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -889,7 +1045,7 @@ CREATE TRIGGER update_subscriptions_updated_at
 GRANT SELECT, INSERT, UPDATE ON public.subscriptions TO authenticated;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.subscriptions;
 
-COMMENT ON TABLE public.subscriptions IS 'Active subscription records for patients and companies';
+COMMENT ON TABLE public.subscriptions IS 'Active subscription records for patients and organizations';
 
 -- --------------------------------------------------------------------------
 -- Audit log - System activity tracking

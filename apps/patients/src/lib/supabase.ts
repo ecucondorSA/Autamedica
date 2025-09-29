@@ -1,28 +1,66 @@
-'use client'
+'use client';
 
-import type { SupabaseClient } from '@supabase/supabase-js'
-import { createBrowserClient } from '@supabase/ssr'
-import type { Database } from '@autamedica/types'
+import { createClient as createSupabaseClient, type SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@autamedica/types';
 
-let cachedClient: SupabaseClient<Database> | null = null
-let warned = false
-
-export function createClient(): SupabaseClient<Database> | null {
-  if (cachedClient) {
-    return cachedClient
-  }
-
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    if (!warned) {
-      console.warn('[Supabase] Variables NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_ANON_KEY no están definidas. Las operaciones autenticadas se omitirán.')
-      warned = true
+// Mock Supabase client for dev bypass mode
+const createMockClient = () => {
+  return {
+    from: (table: string) => ({
+      select: () => Promise.resolve({ data: [], error: null }),
+      insert: () => Promise.resolve({ data: null, error: null }),
+      update: () => Promise.resolve({ data: null, error: null }),
+      delete: () => Promise.resolve({ data: null, error: null }),
+      upsert: () => Promise.resolve({ data: null, error: null }),
+    }),
+    auth: {
+      getSession: () => Promise.resolve({
+        data: {
+          session: {
+            user: { id: 'dev-patient-1', email: 'patient@dev.local' },
+            access_token: 'dev-token'
+          }
+        },
+        error: null
+      }),
+      signOut: () => Promise.resolve({ error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+    },
+    storage: {
+      from: (bucket: string) => ({
+        upload: () => Promise.resolve({ data: null, error: null }),
+        download: () => Promise.resolve({ data: null, error: null }),
+        remove: () => Promise.resolve({ data: null, error: null }),
+      })
     }
-    return null
+  };
+};
+
+let supabaseClient: SupabaseClient<Database> | null = null;
+
+export function createClient(): SupabaseClient<Database> {
+  if (typeof window === 'undefined') {
+    // Return mock client for SSR
+    return createMockClient() as any;
   }
 
-  cachedClient = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey)
-  return cachedClient
+  // Check if dev bypass is enabled
+  const isDevBypass = process.env.NEXT_PUBLIC_AUTH_DEV_BYPASS === 'true';
+
+  if (isDevBypass) {
+    return createMockClient() as any;
+  }
+
+  // Create real client only once on client-side
+  if (!supabaseClient) {
+    supabaseClient = createSupabaseClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { auth: { persistSession: false } }
+    );
+  }
+
+  return supabaseClient;
 }
+
+export const supabase: SupabaseClient<Database> = typeof window !== 'undefined' ? createClient() : createMockClient() as any;

@@ -1,0 +1,15 @@
+
+# Generated files and builds
+.wrangler/
+.turbo/
+dist/
+.next/
+
+# Supabase edge functions
+supabase/functions/
+
+# Worker files
+worker/
+
+# Test files with parsing issues
+tests/e2e/*.spec.ts

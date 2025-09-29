@@ -1,0 +1,103 @@
+[
+  {
+    "timestamp": "2025-09-28T18:08:17.657Z",
+    "phase": "SIGNALING_CHECK",
+    "message": "Verificando signaling server HTTP...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.728Z",
+    "phase": "SIGNALING_SUCCESS",
+    "message": "✅ Signaling server HTTP disponible",
+    "data": {
+      "status": "ok",
+      "time": "2025-09-28T18:08:17.692Z",
+      "service": "autamedica-http-signaling"
+    }
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.728Z",
+    "phase": "ENDPOINTS_TEST",
+    "message": "Probando endpoints del signaling server...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.738Z",
+    "phase": "ENDPOINT_TEST",
+    "message": "GET /: 200",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.746Z",
+    "phase": "ENDPOINT_TEST",
+    "message": "GET /api/signaling/health: 404",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.764Z",
+    "phase": "ENDPOINT_TEST",
+    "message": "POST /api/signaling/invite: 404",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.770Z",
+    "phase": "ENDPOINT_TEST",
+    "message": "GET /api/signaling/rooms: 404",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:17.770Z",
+    "phase": "DB_CALL_CREATE",
+    "message": "Creando llamada en base de datos...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:18.134Z",
+    "phase": "DB_ERROR",
+    "message": "❌ Error creando llamada en DB (usando fallback)",
+    "data": {
+      "message": "Invalid API key",
+      "hint": "Double check your Supabase `anon` or `service_role` API key."
+    }
+  },
+  {
+    "timestamp": "2025-09-28T18:08:18.138Z",
+    "phase": "FALLBACK_CALL",
+    "message": "🔄 Usando datos de llamada simulados",
+    "data": {
+      "id": "test-call-1759082898138",
+      "room_id": "room_4hzx0w18",
+      "doctor_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "patient_id": "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12",
+      "status": "requested",
+      "created_at": "2025-09-28T18:08:18.138Z"
+    }
+  },
+  {
+    "timestamp": "2025-09-28T18:08:18.139Z",
+    "phase": "SIGNALING_INVITE",
+    "message": "Enviando invitación via HTTP signaling...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:18.147Z",
+    "phase": "SIGNALING_FAILED",
+    "message": "❌ Error enviando invitación",
+    "data": {
+      "status": 404,
+      "error": "{\"error\":\"Not found\"}"
+    }
+  },
+  {
+    "timestamp": "2025-09-28T18:08:19.149Z",
+    "phase": "PATIENT_CHECK",
+    "message": "Verificando notificaciones para paciente...",
+    "data": null
+  },
+  {
+    "timestamp": "2025-09-28T18:08:19.154Z",
+    "phase": "PATIENT_ERROR",
+    "message": "❌ Error obteniendo mensajes de paciente",
+    "data": 404
+  }
+]

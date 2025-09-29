@@ -12,10 +12,11 @@
 TRUNCATE TABLE public.medical_records CASCADE;
 TRUNCATE TABLE public.appointments CASCADE;
 TRUNCATE TABLE public.patient_care_team CASCADE;
-TRUNCATE TABLE public.company_members CASCADE;
+TRUNCATE TABLE public.org_members CASCADE;
+TRUNCATE TABLE public.user_roles CASCADE;
 TRUNCATE TABLE public.patients CASCADE;
 TRUNCATE TABLE public.doctors CASCADE;
-TRUNCATE TABLE public.companies CASCADE;
+TRUNCATE TABLE public.organizations CASCADE;
 TRUNCATE TABLE public.profiles CASCADE;
 
 -- ============================================================================
@@ -26,9 +27,9 @@ TRUNCATE TABLE public.profiles CASCADE;
 INSERT INTO public.profiles (id, email, role, first_name, last_name) VALUES
 ('11111111-1111-1111-1111-111111111111', 'admin@autamedica.com', 'platform_admin', 'Sistema', 'Administrador');
 
--- Company Admin
+-- Organization Admin
 INSERT INTO public.profiles (id, email, role, first_name, last_name) VALUES
-('22222222-2222-2222-2222-222222222222', 'empresa@hospitalsanmartin.com', 'company_admin', 'María', 'Rodriguez');
+('22222222-2222-2222-2222-222222222222', 'empresa@hospitalsanmartin.com', 'organization_admin', 'María', 'Rodriguez');
 
 -- Doctors
 INSERT INTO public.profiles (id, email, role, first_name, last_name) VALUES
@@ -44,46 +45,77 @@ INSERT INTO public.profiles (id, email, role, first_name, last_name) VALUES
 ('99999999-9999-9999-9999-999999999999', 'ana.torres@empresa.com', 'patient', 'Ana', 'Torres');
 
 -- ============================================================================
--- COMPANIES (Empresas y Organizaciones)
+-- ORGANIZATIONS (Empresas y clínicas)
 -- ============================================================================
 
-INSERT INTO public.companies (id, owner_profile_id, name, tax_id, industry, size, address, contact, is_active) VALUES
+INSERT INTO public.organizations (id, owner_profile_id, slug, name, legal_name, tax_id, type, industry, size, address, contact, metadata, is_active) VALUES
 (
     'c0000001-0000-0000-0000-000000000001', 
     '22222222-2222-2222-2222-222222222222',
+    'hospital-san-martin',
     'Hospital San Martín',
+    'Hospital San Martín S.A.',
     '30-12345678-9',
+    'clinic',
     'Healthcare',
     'medium',
     '{"street": "Av. San Martín 1234", "city": "Buenos Aires", "province": "CABA", "postal_code": "C1010AAA", "country": "Argentina"}',
     '{"phone": "+54-11-4567-8900", "email": "contacto@hospitalsanmartin.com", "website": "https://hospitalsanmartin.com"}',
+    '{}'::JSONB,
     true
 ),
 (
     'c0000002-0000-0000-0000-000000000002',
     '22222222-2222-2222-2222-222222222222',
+    'techcorp-sa',
     'Empresa TechCorp SA',
+    'TechCorp Sociedad Anónima',
     '30-87654321-2',
+    'company',
     'Technology',
     'large',
     '{"street": "Av. Corrientes 5678", "city": "Buenos Aires", "province": "CABA", "postal_code": "C1043AAB", "country": "Argentina"}',
     '{"phone": "+54-11-2345-6789", "email": "rrhh@techcorp.com.ar", "website": "https://techcorp.com.ar"}',
+    '{}'::JSONB,
     true
 );
 
 -- ============================================================================
--- COMPANY MEMBERS (Membership en empresas)
+-- ORGANIZATION MEMBERS (Membership en organizaciones)
 -- ============================================================================
 
--- Company admin como miembro de su propia empresa
-INSERT INTO public.company_members (company_id, profile_id, role) VALUES
-('c0000001-0000-0000-0000-000000000001', '22222222-2222-2222-2222-222222222222', 'company_admin'),
-('c0000002-0000-0000-0000-000000000002', '22222222-2222-2222-2222-222222222222', 'company_admin');
+-- Organization admin como miembro de su propia organización
+INSERT INTO public.org_members (organization_id, profile_id, role) VALUES
+('c0000001-0000-0000-0000-000000000001', '22222222-2222-2222-2222-222222222222', 'owner'),
+('c0000002-0000-0000-0000-000000000002', '22222222-2222-2222-2222-222222222222', 'owner');
 
 -- Empleados corporativos
-INSERT INTO public.company_members (company_id, profile_id, role) VALUES
-('c0000002-0000-0000-0000-000000000002', '88888888-8888-8888-8888-888888888888', 'staff'),
-('c0000002-0000-0000-0000-000000000002', '99999999-9999-9999-9999-999999999999', 'staff');
+INSERT INTO public.org_members (organization_id, profile_id, role) VALUES
+('c0000002-0000-0000-0000-000000000002', '88888888-8888-8888-8888-888888888888', 'member'),
+('c0000002-0000-0000-0000-000000000002', '99999999-9999-9999-9999-999999999999', 'member');
+
+-- ============================================================================
+-- USER ROLES (Asignaciones globales y por organización)
+-- ============================================================================
+
+-- Roles globales
+INSERT INTO public.user_roles (profile_id, organization_id, role, granted_by) VALUES
+('11111111-1111-1111-1111-111111111111', NULL, 'platform_admin', '11111111-1111-1111-1111-111111111111'),
+('22222222-2222-2222-2222-222222222222', NULL, 'organization_admin', '22222222-2222-2222-2222-222222222222'),
+('33333333-3333-3333-3333-333333333333', NULL, 'doctor', '33333333-3333-3333-3333-333333333333'),
+('44444444-4444-4444-4444-444444444444', NULL, 'doctor', '44444444-4444-4444-4444-444444444444'),
+('55555555-5555-5555-5555-555555555555', NULL, 'doctor', '55555555-5555-5555-5555-555555555555'),
+('66666666-6666-6666-6666-666666666666', NULL, 'patient', '66666666-6666-6666-6666-666666666666'),
+('77777777-7777-7777-7777-777777777777', NULL, 'patient', '77777777-7777-7777-7777-777777777777'),
+('88888888-8888-8888-8888-888888888888', NULL, 'patient', '88888888-8888-8888-8888-888888888888'),
+('99999999-9999-9999-9999-999999999999', NULL, 'patient', '99999999-9999-9999-9999-999999999999');
+
+-- Roles por organización
+INSERT INTO public.user_roles (profile_id, organization_id, role, granted_by) VALUES
+('22222222-2222-2222-2222-222222222222', 'c0000001-0000-0000-0000-000000000001', 'organization_admin', '22222222-2222-2222-2222-222222222222'),
+('22222222-2222-2222-2222-222222222222', 'c0000002-0000-0000-0000-000000000002', 'organization_admin', '22222222-2222-2222-2222-222222222222'),
+('88888888-8888-8888-8888-888888888888', 'c0000002-0000-0000-0000-000000000002', 'company', '22222222-2222-2222-2222-222222222222'),
+('99999999-9999-9999-9999-999999999999', 'c0000002-0000-0000-0000-000000000002', 'company', '22222222-2222-2222-2222-222222222222');
 
 -- ============================================================================
 -- DOCTORS (Perfiles médicos)
@@ -137,7 +169,7 @@ INSERT INTO public.doctors (id, user_id, first_name, last_name, email, phone, li
 -- PATIENTS (Perfiles de pacientes)
 -- ============================================================================
 
-INSERT INTO public.patients (id, user_id, company_id, first_name, last_name, email, phone, date_of_birth, gender, medical_record_number, address, emergency_contact) VALUES
+INSERT INTO public.patients (id, user_id, organization_id, first_name, last_name, email, phone, date_of_birth, gender, medical_record_number, address, emergency_contact) VALUES
 (
     'p0000001-0000-0000-0000-000000000001',
     '66666666-6666-6666-6666-666666666666',
@@ -221,7 +253,7 @@ INSERT INTO public.patient_care_team (patient_id, doctor_id, relationship, added
 -- ============================================================================
 
 -- Citas pasadas (completadas)
-INSERT INTO public.appointments (id, patient_id, doctor_id, company_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
+INSERT INTO public.appointments (id, patient_id, doctor_id, organization_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
 (
     'a0000001-0000-0000-0000-000000000001',
     'p0000001-0000-0000-0000-000000000001',
@@ -248,7 +280,7 @@ INSERT INTO public.appointments (id, patient_id, doctor_id, company_id, start_ti
 );
 
 -- Citas actuales (programadas)
-INSERT INTO public.appointments (id, patient_id, doctor_id, company_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
+INSERT INTO public.appointments (id, patient_id, doctor_id, organization_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
 (
     'a0000003-0000-0000-0000-000000000003',
     'p0000003-0000-0000-0000-000000000003',
@@ -287,7 +319,7 @@ INSERT INTO public.appointments (id, patient_id, doctor_id, company_id, start_ti
 );
 
 -- Cita de emergencia
-INSERT INTO public.appointments (id, patient_id, doctor_id, company_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
+INSERT INTO public.appointments (id, patient_id, doctor_id, organization_id, start_time, duration_minutes, type, status, notes, created_by) VALUES
 (
     'a0000006-0000-0000-0000-000000000006',
     'p0000003-0000-0000-0000-000000000003',
@@ -330,7 +362,7 @@ INSERT INTO public.medical_records (id, patient_id, doctor_id, appointment_id, t
     '44444444-4444-4444-4444-444444444444'
 );
 
--- Registro médico laboral (visible para company admin)
+-- Registro médico laboral (visible para organization admin)
 INSERT INTO public.medical_records (id, patient_id, doctor_id, appointment_id, title, summary, data, visibility, created_by) VALUES
 (
     'm0000003-0000-0000-0000-000000000003',
@@ -367,10 +399,11 @@ DO $$
 BEGIN
     RAISE NOTICE 'Seeds creados exitosamente:';
     RAISE NOTICE '- Profiles: %', (SELECT COUNT(*) FROM public.profiles);
-    RAISE NOTICE '- Companies: %', (SELECT COUNT(*) FROM public.companies);
+    RAISE NOTICE '- Organizations: %', (SELECT COUNT(*) FROM public.organizations);
     RAISE NOTICE '- Doctors: %', (SELECT COUNT(*) FROM public.doctors);
     RAISE NOTICE '- Patients: %', (SELECT COUNT(*) FROM public.patients);
-    RAISE NOTICE '- Company Members: %', (SELECT COUNT(*) FROM public.company_members);
+    RAISE NOTICE '- Organization Members: %', (SELECT COUNT(*) FROM public.org_members);
+    RAISE NOTICE '- User Roles: %', (SELECT COUNT(*) FROM public.user_roles);
     RAISE NOTICE '- Patient Care Team: %', (SELECT COUNT(*) FROM public.patient_care_team);
     RAISE NOTICE '- Appointments: %', (SELECT COUNT(*) FROM public.appointments);
     RAISE NOTICE '- Medical Records: %', (SELECT COUNT(*) FROM public.medical_records);

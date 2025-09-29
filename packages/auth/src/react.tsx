@@ -11,9 +11,10 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const [state] = useState<AuthState>({
-    isAuthenticated: false,
-    isLoading: false,
     user: null,
+    profile: null,
+    session: null,
+    loading: false,
     error: null,
   });
 

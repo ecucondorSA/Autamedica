@@ -120,12 +120,15 @@ export default function WebRTCTestPage() {
 
     try {
       const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
-      const socket = new WebSocket(signalingUrl)
+      const userId = `${ROLE}-${Date.now()}`
+      const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
+      console.log('[webrtc-test] Connecting to:', wsUrl)
+      const socket = new WebSocket(wsUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
       console.log('[webrtc-test] WebSocket connected')
-      socket.send(JSON.stringify({ type: 'join', roomId: ROOM_ID, role: ROLE }))
+      // El server espera que la conexión se haga con query params, no mensajes
     }
 
     socket.onclose = (event) => {

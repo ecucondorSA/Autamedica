@@ -20,6 +20,9 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@autamedica/shared": "workspace:*",
+    "@autamedica/types": "workspace:*",
+    "@supabase/supabase-js": "^2.45.0",
     "lucide-react": "^0.544.0"
   },
   "devDependencies": {

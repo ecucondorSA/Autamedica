@@ -18,21 +18,21 @@ This directory contains the complete database schema for the AutaMedica medical 
 
 ### Core Medical Tables
 1. **`profiles`** - User authentication bridge (linked to auth.users)
-2. **`companies`** - Healthcare organizations and enterprises  
+2. **`organizations`** - Healthcare organizations, clinics, partners  
 3. **`doctors`** - Medical professionals with licenses and specialties
 4. **`patients`** - Patient demographics and medical record numbers
 5. **`appointments`** - Scheduling and encounter management
 6. **`medical_records`** - Clinical documentation and notes
 7. **`patient_care_team`** - Doctor-patient assignments
-8. **`company_members`** - Organization membership and roles
+8. **`org_members`** - Organization membership and scoped roles
 
 ### Transactional Business Tables ⭐ **New: Added 2025-09-20**
-9. **`billing_accounts`** - Billing information for patients and companies
+9. **`billing_accounts`** - Billing information for patients and organizations
 10. **`invoices`** - Medical service invoices and billing records
 11. **`invoice_items`** - Detailed line items for medical service invoices  
 12. **`payments`** - Payment transaction records for medical services
 13. **`service_plans`** - Subscription plans and pricing tiers
-14. **`subscriptions`** - Active subscription records for patients and companies
+14. **`subscriptions`** - Active subscription records for patients and organizations
 15. **`audit_log`** - System audit trail for compliance and security
 16. **`error_log`** - Application error tracking for debugging and monitoring
 
@@ -42,7 +42,7 @@ This directory contains the complete database schema for the AutaMedica medical 
 - **Enabled on all tables** - Every table has RLS policies
 - **Role-based access** - Patients, doctors, company admins, platform admins
 - **Care team constraints** - Doctors only see assigned patients
-- **Company isolation** - Company data isolated by membership
+- **Organization isolation** - Organization data isolated by membership
 
 ### HIPAA Compliance
 - **Audit logging** - All actions tracked with user, timestamp, IP
@@ -52,14 +52,14 @@ This directory contains the complete database schema for the AutaMedica medical 
 
 ### Authentication Bridge
 - **Supabase Auth integration** - Automatic profile creation on user registration
-- **Role assignment** - Support for patient, doctor, company_admin, admin roles
+- **Role assignment** - Support for patient, doctor, company, organization_admin, admin roles
 - **Magic links** - Passwordless authentication via email
 - **Session management** - Secure session handling with auto-refresh
 
 ## 💰 Business Logic
 
 ### Billing System
-- **Multi-entity billing** - Supports both patient and company billing
+- **Multi-entity billing** - Supports both patient and organization billing
 - **Invoice automation** - Auto-calculation of totals via triggers
 - **Payment tracking** - Multiple payment methods and status tracking
 - **Invoice numbering** - Auto-generated invoice numbers (INV-000001 format)

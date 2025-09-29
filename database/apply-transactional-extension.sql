@@ -11,11 +11,11 @@ BEGIN;
 -- BILLING & PAYMENT TRANSACTIONS
 -- ============================================================================
 
--- Billing accounts - Links companies and patients to billing
+-- Billing accounts - Links organizations and patients to billing
 CREATE TABLE IF NOT EXISTS public.billing_accounts (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    entity_type VARCHAR CHECK (entity_type IN ('patient', 'company')) NOT NULL,
-    entity_id UUID NOT NULL, -- References either patient or company
+    entity_type VARCHAR CHECK (entity_type IN ('patient', 'organization')) NOT NULL,
+    entity_id UUID NOT NULL, -- References either patient or organization
     billing_name VARCHAR NOT NULL,
     billing_email VARCHAR NOT NULL,
     billing_address JSONB NOT NULL,
@@ -36,13 +36,13 @@ FOR SELECT USING (
     )
 );
 
-CREATE POLICY "Companies view own billing" ON public.billing_accounts
+CREATE POLICY "Organizations view own billing" ON public.billing_accounts
 FOR SELECT USING (
-    entity_type = 'company' AND EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = entity_id 
+    entity_type = 'organization' AND EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = entity_id 
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -110,15 +110,15 @@ FOR SELECT USING (
     )
 );
 
-CREATE POLICY "Companies view invoices" ON public.invoices
+CREATE POLICY "Organizations view invoices" ON public.invoices
 FOR SELECT USING (
     EXISTS (
         SELECT 1 FROM public.billing_accounts ba
-        JOIN public.company_members cm ON cm.company_id = ba.entity_id
+        JOIN public.org_members cm ON cm.organization_id = ba.entity_id
         WHERE ba.id = billing_account_id
-          AND ba.entity_type = 'company'
+          AND ba.entity_type = 'organization'
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -265,8 +265,8 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.service_plans;
 -- Subscriptions - Active service subscriptions
 CREATE TABLE IF NOT EXISTS public.subscriptions (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    subscriber_type VARCHAR CHECK (subscriber_type IN ('patient', 'company')) NOT NULL,
-    subscriber_id UUID NOT NULL, -- References either patient or company
+    subscriber_type VARCHAR CHECK (subscriber_type IN ('patient', 'organization')) NOT NULL,
+    subscriber_id UUID NOT NULL, -- References either patient or organization
     service_plan_id UUID NOT NULL REFERENCES public.service_plans(id) ON DELETE RESTRICT,
     billing_account_id UUID NOT NULL REFERENCES public.billing_accounts(id) ON DELETE CASCADE,
     
@@ -298,13 +298,13 @@ FOR SELECT USING (
     )
 );
 
-CREATE POLICY "Companies view own subscriptions" ON public.subscriptions
+CREATE POLICY "Organizations view own subscriptions" ON public.subscriptions
 FOR SELECT USING (
-    subscriber_type = 'company' AND EXISTS (
-        SELECT 1 FROM public.company_members cm
-        WHERE cm.company_id = subscriber_id 
+    subscriber_type = 'organization' AND EXISTS (
+        SELECT 1 FROM public.org_members cm
+        WHERE cm.organization_id = subscriber_id 
           AND cm.profile_id = auth.uid()
-          AND cm.role = 'company_admin'
+          AND cm.role IN ('owner', 'admin')
     )
 );
 
@@ -494,12 +494,12 @@ INSERT INTO public.service_plans (name, description, plan_type, price_monthly, p
 ON CONFLICT DO NOTHING;
 
 -- Add table comments
-COMMENT ON TABLE public.billing_accounts IS 'Billing information for patients and companies';
+COMMENT ON TABLE public.billing_accounts IS 'Billing information for patients and organizations';
 COMMENT ON TABLE public.invoices IS 'Medical service invoices and billing records';
 COMMENT ON TABLE public.invoice_items IS 'Detailed line items for medical service invoices';
 COMMENT ON TABLE public.payments IS 'Payment transaction records for medical services';
 COMMENT ON TABLE public.service_plans IS 'Subscription plans and pricing tiers';
-COMMENT ON TABLE public.subscriptions IS 'Active subscription records for patients and companies';
+COMMENT ON TABLE public.subscriptions IS 'Active subscription records for patients and organizations';
 COMMENT ON TABLE public.audit_log IS 'System audit trail for compliance and security';
 COMMENT ON TABLE public.error_log IS 'Application error tracking for debugging and monitoring';
 

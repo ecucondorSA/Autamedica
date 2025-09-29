@@ -12,6 +12,7 @@ import {
   AuthError,
   UserProfile
 } from '../types'
+import { isUserRole, ROLES } from '../roles'
 import {
   getSupabaseConfig,
   getDomainConfig,
@@ -41,44 +42,26 @@ function createMiddlewareClient(request: NextRequest) {
         return request.cookies.get(name)?.value
       },
       set(name, value, options) {
-        request.cookies.set({
-          name,
-          value,
+        const cookieOptions = {
           ...options,
           domain: domainConfig.cookie,
           path: '/',
-          sameSite: 'lax',
+          sameSite: 'lax' as const,
           secure: true,
           maxAge: options.maxAge || sessionConfig.maxAge
-        })
-        supabaseResponse.cookies.set({
-          name,
-          value,
-          ...options,
-          domain: domainConfig.cookie,
-          path: '/',
-          sameSite: 'lax',
-          secure: true,
-          maxAge: options.maxAge || sessionConfig.maxAge
-        })
+        }
+        request.cookies.set({ name, value, ...cookieOptions })
+        supabaseResponse.cookies.set({ name, value, ...cookieOptions })
       },
       remove(name, options) {
-        request.cookies.set({
-          name,
-          value: '',
+        const removeOptions = {
           ...options,
           domain: domainConfig.cookie,
           path: '/',
           maxAge: 0
-        })
-        supabaseResponse.cookies.set({
-          name,
-          value: '',
-          ...options,
-          domain: domainConfig.cookie,
-          path: '/',
-          maxAge: 0
-        })
+        }
+        request.cookies.set({ name, value: '', ...removeOptions })
+        supabaseResponse.cookies.set({ name, value: '', ...removeOptions })
       }
     }
   })
@@ -89,8 +72,22 @@ function createMiddlewareClient(request: NextRequest) {
 /**
  * Extract user profile from Supabase user
  */
+function normalizeRole(role: unknown): UserRole {
+  if (typeof role === 'string') {
+    if (role === ROLES.COMPANY_ADMIN) {
+      return ROLES.ORGANIZATION_ADMIN
+    }
+
+    if (isUserRole(role)) {
+      return role
+    }
+  }
+
+  return ROLES.PATIENT
+}
+
 function extractUserProfile(user: any): UserProfile {
-  const role = user.user_metadata?.role as UserRole
+  const role = normalizeRole(user.user_metadata?.role)
 
   if (!role) {
     throw new AuthError(

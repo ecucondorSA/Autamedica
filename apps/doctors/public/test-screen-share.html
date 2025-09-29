@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Screen Share - AutaMedica</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(to br, #f0f9ff, #e6f2ff);
+            min-height: 100vh;
+        }
+        h1 { color: #1e40af; }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover { background: #2563eb; }
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
+        .error { color: #dc2626; padding: 10px; background: #fef2f2; border-radius: 6px; margin: 10px 0; }
+        .success { color: #059669; padding: 10px; background: #ecfdf5; border-radius: 6px; margin: 10px 0; }
+        video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            background: #000;
+            margin-top: 10px;
+        }
+        #log {
+            font-family: monospace;
+            font-size: 12px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 6px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .log-entry { margin: 2px 0; }
+        .log-error { color: #dc2626; }
+        .log-success { color: #059669; }
+        .log-info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <h1>🖥️ Test de Screen Share - AutaMedica</h1>
+
+    <div class="container">
+        <h2>Test Básico de Compartir Pantalla</h2>
+
+        <button onclick="testBasicScreenShare()">🖥️ Compartir Pantalla Básica</button>
+        <button onclick="testScreenShareWithAudio()">🎤 Compartir Pantalla + Audio</button>
+        <button onclick="testScreenShareWithMic()">🎙️ Compartir Pantalla + Micrófono</button>
+        <button onclick="stopAllStreams()">⏹️ Detener Todo</button>
+
+        <div id="status"></div>
+    </div>
+
+    <div class="container">
+        <h2>Vista Previa</h2>
+        <video id="preview" autoplay muted playsinline controls></video>
+        <div id="stream-info" style="margin-top: 10px; font-size: 14px; color: #6b7280;"></div>
+    </div>
+
+    <div class="container">
+        <h2>Log de Eventos</h2>
+        <button onclick="clearLog()">🗑️ Limpiar Log</button>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        let currentStream = null;
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            const time = new Date().toLocaleTimeString();
+            entry.textContent = `[${time}] ${message}`;
+            logDiv.insertBefore(entry, logDiv.firstChild);
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = type === 'error' ? 'error' : type === 'success' ? 'success' : '';
+            statusDiv.textContent = message;
+        }
+
+        function stopAllStreams() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => {
+                    track.stop();
+                    log(`Stopped track: ${track.kind} (${track.label})`, 'info');
+                });
+                currentStream = null;
+            }
+
+            const video = document.getElementById('preview');
+            video.srcObject = null;
+            document.getElementById('stream-info').textContent = '';
+            showStatus('Todos los streams detenidos', 'success');
+        }
+
+        async function testBasicScreenShare() {
+            log('Iniciando compartir pantalla básica...', 'info');
+            stopAllStreams();
+
+            try {
+                const constraints = {
+                    video: true,
+                    audio: false
+                };
+
+                log(`Constraints: ${JSON.stringify(constraints)}`, 'info');
+
+                const stream = await navigator.mediaDevices.getDisplayMedia(constraints);
+                currentStream = stream;
+
+                log(`Stream obtenido con ${stream.getTracks().length} tracks`, 'success');
+
+                // Listar tracks
+                stream.getTracks().forEach(track => {
+                    const settings = track.getSettings ? track.getSettings() : {};
+                    log(`Track: ${track.kind} - ${track.label}`, 'info');
+                    log(`  Settings: ${JSON.stringify(settings)}`, 'info');
+                });
+
+                // Mostrar en video
+                const video = document.getElementById('preview');
+                video.srcObject = stream;
+
+                // Info del stream
+                const videoTrack = stream.getVideoTracks()[0];
+                if (videoTrack) {
+                    const settings = videoTrack.getSettings();
+                    document.getElementById('stream-info').textContent =
+                        `Video: ${settings.width}x${settings.height} @ ${settings.frameRate}fps | Display: ${settings.displaySurface}`;
+                }
+
+                showStatus('Compartiendo pantalla exitosamente', 'success');
+
+                // Detectar cuando se detiene
+                stream.getVideoTracks()[0].addEventListener('ended', () => {
+                    log('Usuario detuvo compartir pantalla', 'info');
+                    stopAllStreams();
+                });
+
+            } catch (error) {
+                log(`Error: ${error.name} - ${error.message}`, 'error');
+                showStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testScreenShareWithAudio() {
+            log('Iniciando compartir pantalla con audio del sistema...', 'info');
+            stopAllStreams();
+
+            try {
+                const constraints = {
+                    video: {
+                        displaySurface: 'monitor'
+                    },
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    }
+                };
+
+                log(`Constraints: ${JSON.stringify(constraints)}`, 'info');
+
+                const stream = await navigator.mediaDevices.getDisplayMedia(constraints);
+                currentStream = stream;
+
+                log(`Stream obtenido con ${stream.getTracks().length} tracks`, 'success');
+
+                // Listar tracks
+                stream.getTracks().forEach(track => {
+                    log(`Track: ${track.kind} - ${track.label}`, 'info');
+                });
+
+                // Mostrar en video
+                const video = document.getElementById('preview');
+                video.srcObject = stream;
+
+                showStatus('Compartiendo pantalla con audio del sistema', 'success');
+
+            } catch (error) {
+                log(`Error: ${error.name} - ${error.message}`, 'error');
+                showStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testScreenShareWithMic() {
+            log('Iniciando compartir pantalla + micrófono...', 'info');
+            stopAllStreams();
+
+            try {
+                // Primero obtener pantalla
+                log('Paso 1: Obteniendo pantalla...', 'info');
+                const displayStream = await navigator.mediaDevices.getDisplayMedia({
+                    video: true,
+                    audio: false
+                });
+
+                log(`Pantalla obtenida: ${displayStream.getVideoTracks().length} video tracks`, 'success');
+
+                // Luego obtener micrófono
+                log('Paso 2: Obteniendo micrófono...', 'info');
+                const audioStream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: false
+                });
+
+                log(`Micrófono obtenido: ${audioStream.getAudioTracks().length} audio tracks`, 'success');
+
+                // Combinar streams
+                log('Paso 3: Combinando streams...', 'info');
+                const combinedStream = new MediaStream();
+
+                // Agregar video de pantalla
+                displayStream.getVideoTracks().forEach(track => {
+                    combinedStream.addTrack(track);
+                    log(`Added video track: ${track.label}`, 'info');
+                });
+
+                // Agregar audio del micrófono
+                audioStream.getAudioTracks().forEach(track => {
+                    combinedStream.addTrack(track);
+                    log(`Added audio track: ${track.label}`, 'info');
+                });
+
+                currentStream = combinedStream;
+
+                log(`Stream combinado con ${combinedStream.getTracks().length} tracks total`, 'success');
+
+                // Mostrar en video
+                const video = document.getElementById('preview');
+                video.srcObject = combinedStream;
+
+                // Info del stream
+                const videoTrack = combinedStream.getVideoTracks()[0];
+                const audioTrack = combinedStream.getAudioTracks()[0];
+                let info = '';
+
+                if (videoTrack) {
+                    const settings = videoTrack.getSettings();
+                    info += `Video: ${settings.width}x${settings.height} @ ${settings.frameRate}fps`;
+                }
+
+                if (audioTrack) {
+                    info += ` | Audio: ${audioTrack.label}`;
+                }
+
+                document.getElementById('stream-info').textContent = info;
+
+                showStatus('Compartiendo pantalla + micrófono exitosamente', 'success');
+
+                // Detectar cuando se detiene la pantalla
+                displayStream.getVideoTracks()[0].addEventListener('ended', () => {
+                    log('Usuario detuvo compartir pantalla', 'info');
+                    stopAllStreams();
+                });
+
+            } catch (error) {
+                log(`Error: ${error.name} - ${error.message}`, 'error');
+                showStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Test inicial
+        log('Página de prueba cargada', 'info');
+        log(`Navigator: ${navigator.userAgent}`, 'info');
+
+        // Verificar soporte
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+            log('⚠️ getDisplayMedia no está soportado en este navegador', 'error');
+            showStatus('Tu navegador no soporta compartir pantalla', 'error');
+        } else {
+            log('✅ getDisplayMedia está disponible', 'success');
+        }
+    </script>
+</body>
+</html>

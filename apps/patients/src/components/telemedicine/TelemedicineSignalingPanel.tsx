@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react'
 import { useTelemedicineSignaling } from '@/hooks/useTelemedicineSignaling'
+import { getClientEnvOrDefault } from '@autamedica/shared'
 import type { TelemedicineRole } from '@autamedica/telemedicine'
 import type { SignalingConnectionState } from '@/hooks/useTelemedicineSignaling'
 
@@ -20,7 +21,10 @@ export function TelemedicineSignalingPanel({
   metadata,
   className,
 }: TelemedicineSignalingPanelProps) {
-  const signalingUrl = useMemo(() => process.env.NEXT_PUBLIC_SIGNALING_URL ?? 'ws://localhost:3005/signal', [])
+  const signalingUrl = useMemo(
+    () => getClientEnvOrDefault('NEXT_PUBLIC_SIGNALING_URL', 'ws://localhost:3005/signal'),
+    [],
+  )
 
   const { state, controls } = useTelemedicineSignaling({
     roomId,

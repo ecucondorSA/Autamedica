@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Signaling Server</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+        button { margin: 5px; padding: 10px 20px; }
+        .log { background: #f0f0f0; padding: 10px; height: 200px; overflow-y: auto; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test Signaling Server</h1>
+
+    <div class="section">
+        <h2>Doctor Side</h2>
+        <button onclick="joinAsDoctor()">Join as Doctor</button>
+        <button onclick="callPatient()">Call Patient</button>
+        <button onclick="endCall()">End Call</button>
+    </div>
+
+    <div class="section">
+        <h2>Patient Side</h2>
+        <button onclick="joinAsPatient()">Join as Patient</button>
+        <button onclick="acceptCall()">Accept Call</button>
+    </div>
+
+    <div class="section">
+        <h2>Logs</h2>
+        <div id="log" class="log"></div>
+    </div>
+
+    <script>
+        const signalingBase = 'http://localhost:8787';
+        const roomId = 'test-room';
+        let doctorId = `doctor-${Date.now()}`;
+        let patientId = `patient-${Date.now()}`;
+        let pollInterval = null;
+
+        function log(message, isError = false) {
+            const logEl = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logEl.innerHTML += `<div class="${isError ? 'error' : 'success'}">${timestamp} - ${message}</div>`;
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(message);
+        }
+
+        async function joinAsDoctor() {
+            try {
+                const response = await fetch(`${signalingBase}/api/join`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: doctorId,
+                        roomId: roomId,
+                        userType: 'doctor'
+                    })
+                });
+
+                const data = await response.json();
+                log(`Doctor joined: ${JSON.stringify(data)}`);
+                startPolling(doctorId);
+            } catch (error) {
+                log(`Error joining as doctor: ${error}`, true);
+            }
+        }
+
+        async function joinAsPatient() {
+            try {
+                const response = await fetch(`${signalingBase}/api/join`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: patientId,
+                        roomId: roomId,
+                        userType: 'patient'
+                    })
+                });
+
+                const data = await response.json();
+                log(`Patient joined: ${JSON.stringify(data)}`);
+                startPolling(patientId);
+            } catch (error) {
+                log(`Error joining as patient: ${error}`, true);
+            }
+        }
+
+        async function callPatient() {
+            try {
+                const response = await fetch(`${signalingBase}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: doctorId,
+                        roomId: roomId,
+                        message: {
+                            type: 'incoming-call',
+                            doctorName: 'Dr. Test',
+                            patientName: 'Test Patient'
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                log(`Call initiated: ${JSON.stringify(data)}`);
+            } catch (error) {
+                log(`Error calling patient: ${error}`, true);
+            }
+        }
+
+        async function acceptCall() {
+            try {
+                const response = await fetch(`${signalingBase}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: patientId,
+                        roomId: roomId,
+                        message: {
+                            type: 'patient-joined'
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                log(`Call accepted: ${JSON.stringify(data)}`);
+            } catch (error) {
+                log(`Error accepting call: ${error}`, true);
+            }
+        }
+
+        async function endCall() {
+            try {
+                const response = await fetch(`${signalingBase}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: doctorId,
+                        roomId: roomId,
+                        message: {
+                            type: 'call-ended'
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                log(`Call ended: ${JSON.stringify(data)}`);
+            } catch (error) {
+                log(`Error ending call: ${error}`, true);
+            }
+        }
+
+        function startPolling(userId) {
+            if (pollInterval) clearInterval(pollInterval);
+
+            pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(
+                        `${signalingBase}/api/poll?userId=${userId}&roomId=${roomId}`
+                    );
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.messages && data.messages.length > 0) {
+                            data.messages.forEach(msg => {
+                                log(`Message received: ${JSON.stringify(msg)}`);
+                            });
+                        }
+                    }
+                } catch (error) {
+                    // Silent fail for polling
+                }
+            }, 1000);
+        }
+
+        // Initial test
+        fetch(`${signalingBase}/health`)
+            .then(r => r.json())
+            .then(data => log(`Server health: ${JSON.stringify(data)}`))
+            .catch(err => log(`Server not responding: ${err}`, true));
+    </script>
+</body>
+</html>

@@ -1,127 +1,49 @@
 # Supabase Configuration for AutaMedica Platform
 
-[project]
-# Project ID from Supabase Dashboard
-project_id = "gtyvdircfhmdjiaelqkg"
-
 [api]
 enabled = true
-# Port for local development
 port = 54321
 schemas = ["public", "storage", "auth"]
 extra_search_path = ["public", "extensions"]
 max_rows = 1000
 
 [auth]
-# Enable auth for the platform
 enabled = true
-
-# Configure site URL for production
 site_url = "https://autamedica-web-app.pages.dev"
-
-# Add all app URLs as redirect URLs
 additional_redirect_urls = [
   "https://autamedica-web-app.pages.dev/**",
   "https://autamedica-patients.pages.dev/**",
   "https://autamedica-doctors.pages.dev/**",
   "https://autamedica-companies.pages.dev/**",
-  "https://autamedica-admin.pages.dev/**",
   "http://localhost:3000/**",
-  "http://localhost:3002/**",
-  "http://localhost:3003/**",
-  "http://localhost:3004/**",
-  "http://localhost:3005/**"
+  "http://localhost:4001/**",
+  "http://localhost:4002/**"
 ]
-
-# JWT configuration
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 refresh_token_reuse_interval = 10
-
-# Email auth settings
-enable_signup = false  # Users are created by operators only
+enable_signup = false
 enable_manual_linking = false
-double_confirm_changes = true
 enable_anonymous_sign_ins = false
 
-# Session configuration
-[auth.sessions]
-# Use cookie-based sessions for SSO
-timebox = 86400  # 24 hours
-inactivity_timeout = 1800  # 30 minutes
-
-# Cookie configuration for SSO
-[auth.cookies]
-domain = ".pages.dev"  # Shared domain for Cloudflare Pages
-key = "sb"
-same_site = "Lax"
-name = "autamedica-auth"
-chunk_size = 4096
-max_chunks = 5
-
-# Email templates
 [auth.email]
 enable_confirmations = true
-# Custom email templates can be configured here
-template = "default"
 
-# External OAuth providers (if needed in the future)
-[auth.external]
-apple.enabled = false
-google.enabled = false
-github.enabled = false
-facebook.enabled = false
-
-# Database configuration
 [db]
 port = 54322
 major_version = 15
-pooler.enabled = false
-pooler.port = 54329
 
-# Studio configuration
 [studio]
 enabled = true
 port = 54323
 
-# Storage configuration
 [storage]
 enabled = true
-# Configure CORS for all app domains
-[storage.cors]
-allowed_origins = [
-  "https://autamedica-web-app.pages.dev",
-  "https://autamedica-patients.pages.dev",
-  "https://autamedica-doctors.pages.dev",
-  "https://autamedica-companies.pages.dev",
-  "https://autamedica-admin.pages.dev",
-  "http://localhost:3000",
-  "http://localhost:3002",
-  "http://localhost:3003",
-  "http://localhost:3004",
-  "http://localhost:3005"
-]
-allowed_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-allowed_headers = ["*"]
-exposed_headers = ["*"]
-max_age = 86400
 
-# Realtime configuration
 [realtime]
 enabled = true
 ip_version = "IPv4"
 
-# Edge functions configuration (if needed)
 [functions]
-enabled = false
 
-# Analytics (optional)
 [analytics]
-enabled = false
-
-# Local development settings
-[local]
-# In production, these are managed by environment variables
-db_url = "postgresql://postgres:postgres@localhost:54322/postgres"
-# Use Kong for API Gateway in local dev
-kong_url = "http://localhost:8000"

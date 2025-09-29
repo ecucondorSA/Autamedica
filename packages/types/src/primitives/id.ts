@@ -22,6 +22,7 @@ export type DoctorId = UUID & { readonly __entity: "Doctor" };
  * ID de empresa/compañía
  */
 export type CompanyId = UUID & { readonly __entity: "Company" };
+export type OrganizationId = UUID & { readonly __entity: "Organization" };
 
 /**
  * ID de cita médica
@@ -66,4 +67,8 @@ export function createDoctorId(id: string): DoctorId {
  */
 export function createCompanyId(id: string): CompanyId {
   return createUUID(id) as CompanyId;
+}
+
+export function createOrganizationId(id: string): OrganizationId {
+  return createUUID(id) as OrganizationId;
 }

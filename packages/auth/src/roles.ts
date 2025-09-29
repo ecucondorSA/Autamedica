@@ -11,7 +11,10 @@
  * Cada rol tiene acceso a diferentes portales y funcionalidades:
  * - patient: Portal de pacientes, gestión de citas y historial médico
  * - doctor: Portal médico, consultas, prescripciones y telemedicina
- * - company_admin: Portal empresarial, gestión de empleados y facturación
+ * - company: Personal corporativo sin permisos de administración
+ * - company_admin: Alias legado (redirigido a organization_admin)
+ * - organization_admin: Gestión de organizaciones, staff y facturación
+ * - admin: Operaciones internas / soporte
  * - platform_admin: Administración completa de la plataforma
  */
 export const ROLES = {
@@ -21,8 +24,17 @@ export const ROLES = {
   /** Médico - acceso a portal médico y herramientas clínicas */
   DOCTOR: 'doctor',
 
-  /** Administrador de empresa - gestión empresarial y empleados */
+  /** Personal corporativo sin permisos de administración */
+  COMPANY: 'company',
+
+  /** Alias legado para company_admin (se normaliza a organization_admin) */
   COMPANY_ADMIN: 'company_admin',
+
+  /** Administrador de organización - gestión multiusuario */
+  ORGANIZATION_ADMIN: 'organization_admin',
+
+  /** Administrador interno - soporte / operaciones */
+  ADMIN: 'admin',
 
   /** Administrador de plataforma - acceso completo al sistema */
   PLATFORM_ADMIN: 'platform_admin',
@@ -67,7 +79,10 @@ export type Portal = typeof PORTALS[keyof typeof PORTALS];
 export const ROLE_TO_PORTAL: Record<UserRole, Portal> = {
   [ROLES.PATIENT]: PORTALS.PATIENTS,
   [ROLES.DOCTOR]: PORTALS.DOCTORS,
+  [ROLES.COMPANY]: PORTALS.COMPANIES,
   [ROLES.COMPANY_ADMIN]: PORTALS.COMPANIES,
+  [ROLES.ORGANIZATION_ADMIN]: PORTALS.ADMIN,
+  [ROLES.ADMIN]: PORTALS.ADMIN,
   [ROLES.PLATFORM_ADMIN]: PORTALS.ADMIN,
 } as const;
 
@@ -77,7 +92,7 @@ export const ROLE_TO_PORTAL: Record<UserRole, Portal> = {
 export const PORTAL_TO_ROLE: Record<Portal, UserRole> = {
   [PORTALS.PATIENTS]: ROLES.PATIENT,
   [PORTALS.DOCTORS]: ROLES.DOCTOR,
-  [PORTALS.COMPANIES]: ROLES.COMPANY_ADMIN,
+  [PORTALS.COMPANIES]: ROLES.ORGANIZATION_ADMIN,
   [PORTALS.ADMIN]: ROLES.PLATFORM_ADMIN,
 } as const;
 
@@ -137,7 +152,12 @@ export const getRoleForPortal = (portal: Portal): UserRole => {
  * @returns true si el rol tiene permisos administrativos
  */
 export const isAdminRole = (role: UserRole): boolean => {
-  return role === ROLES.COMPANY_ADMIN || role === ROLES.PLATFORM_ADMIN;
+  return (
+    role === ROLES.ORGANIZATION_ADMIN ||
+    role === ROLES.COMPANY_ADMIN ||
+    role === ROLES.ADMIN ||
+    role === ROLES.PLATFORM_ADMIN
+  );
 };
 
 /**
@@ -157,9 +177,12 @@ export const isMedicalRole = (role: UserRole): boolean => {
  * @returns true si puede acceder a datos de pacientes
  */
 export const canAccessPatientData = (role: UserRole): boolean => {
-  return role === ROLES.DOCTOR ||
-         role === ROLES.COMPANY_ADMIN ||
-         role === ROLES.PLATFORM_ADMIN;
+  return (
+    role === ROLES.DOCTOR ||
+    role === ROLES.ORGANIZATION_ADMIN ||
+    role === ROLES.COMPANY_ADMIN ||
+    role === ROLES.PLATFORM_ADMIN
+  );
 };
 
 /**
@@ -198,6 +221,11 @@ export const getBasePermissions = (role: UserRole): string[] => {
       'read:medical_history',
       'create:medical_records',
     ],
+    [ROLES.COMPANY]: [
+      'read:own_profile',
+      'update:own_profile',
+      'read:organization_announcements',
+    ],
     [ROLES.COMPANY_ADMIN]: [
       'read:own_company',
       'update:own_company',
@@ -206,6 +234,22 @@ export const getBasePermissions = (role: UserRole): string[] => {
       'update:employees',
       'read:company_reports',
       'read:billing',
+    ],
+    [ROLES.ORGANIZATION_ADMIN]: [
+      'read:own_company',
+      'update:own_company',
+      'manage:organization_members',
+      'read:employees',
+      'update:employees',
+      'read:company_reports',
+      'read:billing',
+      'manage:role_assignments',
+    ],
+    [ROLES.ADMIN]: [
+      'read:all',
+      'update:all',
+      'manage:organizations',
+      'manage:billing',
     ],
     [ROLES.PLATFORM_ADMIN]: [
       'read:all',
@@ -263,9 +307,18 @@ export const canAccessPortal = (role: UserRole, portal: Portal): boolean => {
       // Los médicos pueden acceder al portal de administración para configuración
       return portal === PORTALS.ADMIN || portal === PORTALS.DOCTORS;
 
+    case ROLES.COMPANY:
+      return portal === PORTALS.COMPANIES;
+
     case ROLES.COMPANY_ADMIN:
-      // Los admins de empresa pueden acceder al portal de médicos para gestión
-      return portal === PORTALS.COMPANIES || portal === PORTALS.DOCTORS;
+      // Alias legacy, mismo comportamiento que organization_admin
+      return portal === PORTALS.COMPANIES || portal === PORTALS.ADMIN;
+
+    case ROLES.ORGANIZATION_ADMIN:
+      return portal === PORTALS.COMPANIES || portal === PORTALS.ADMIN;
+
+    case ROLES.ADMIN:
+      return portal === PORTALS.ADMIN;
 
     case ROLES.PATIENT:
       // Los pacientes solo pueden acceder a su portal

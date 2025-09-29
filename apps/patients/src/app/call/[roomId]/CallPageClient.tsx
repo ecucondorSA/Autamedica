@@ -4,12 +4,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
 import { AuthProvider, useAuth } from '@autamedica/auth'
+import { getClientEnvOrDefault } from '@autamedica/shared'
 
 interface CallPageClientProps {
   roomId: string
 }
 
-const REQUIRE_AUTH = process.env.NEXT_PUBLIC_REQUIRE_AUTH === 'true'
+const REQUIRE_AUTH = getClientEnvOrDefault('NEXT_PUBLIC_REQUIRE_AUTH', 'false') === 'true'
 
 export function CallPageClient({ roomId }: CallPageClientProps) {
   return (

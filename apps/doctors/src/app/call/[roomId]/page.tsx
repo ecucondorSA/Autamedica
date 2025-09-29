@@ -6,10 +6,6 @@ export function generateStaticParams() {
   return [{ roomId: 'test123' }]
 }
 
-interface DoctorCallPageProps {
-  params: { roomId: string }
-}
-
-export default function DoctorCallPage({ params }: DoctorCallPageProps) {
+export default function DoctorCallPage({ params }: { params: { roomId: string } }) {
   return <CallPageClient roomId={params.roomId} />
 }

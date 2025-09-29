@@ -24,6 +24,7 @@ export type {
   PrescriptionId,
   MedicalHistoryId,
   CompanyId,
+  OrganizationId,
   EmployeeId,
   TenantId,
   UserId,
@@ -403,64 +404,22 @@ export type { Appointment } from "./entities/appointment";
 // Supabase Database Types
 // ==========================================
 
-// Supabase generated types (with prefixes to avoid conflicts)
-export type {
-  Database,
-  Json,
-  Tables,
-  TablesInsert,
-  TablesUpdate,
-  Profile as SupabaseProfile,
-  Company as SupabaseCompany,
-  Doctor as SupabaseDoctor,
-  Patient as SupabasePatient,
-  CompanyMember,
-  PatientCareTeam,
-  Appointment as SupabaseAppointment,
-  MedicalRecord,
-  ProfileInsert,
-  CompanyInsert,
-  DoctorInsert,
-  PatientInsert,
-  CompanyMemberInsert,
-  PatientCareTeamInsert,
-  AppointmentInsert,
-  MedicalRecordInsert,
-  ProfileUpdate,
-  CompanyUpdate,
-  DoctorUpdate,
-  PatientUpdate,
-  CompanyMemberUpdate,
-  PatientCareTeamUpdate,
-  AppointmentUpdate,
-  MedicalRecordUpdate,
-  UserRole as SupabaseUserRole,
-  CompanySize as SupabaseCompanySize,
-  Gender as SupabaseGender,
-  AppointmentType,
-  AppointmentStatus,
-  MedicalRecordVisibility,
-  CompanyMemberRole,
-  DoctorWithProfile,
-  PatientWithProfile,
-  AppointmentWithDetails,
-  MedicalRecordWithDetails,
-  CompanyWithMembers,
-  PatientCareTeamWithDetails,
-  SupabaseApiResponse,
-  SupabasePaginatedResponse,
-} from './supabase/database.types';
+// Core database interface and JSON type
+export type { Database, Json } from './supabase/database.types';
 
-export {
-  isProfile,
-  isDoctor,
-  isPatient,
-  isAppointment,
-  USER_ROLES,
-  COMPANY_SIZES,
-  GENDERS,
-  APPOINTMENT_TYPES,
-  APPOINTMENT_STATUSES,
-  MEDICAL_RECORD_VISIBILITIES,
-  COMPANY_MEMBER_ROLES,
-} from './supabase/database.types';
+// Import for internal use in helper types
+import type { Database } from './supabase/database.types';
+
+// Helper types for easier consumption (one source of truth)
+export type Tables<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Row'];
+export type TablesInsert<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Insert'];
+export type TablesUpdate<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Update'];
+
+// Convenient alias for timestamp fields (matches our generator)
+export type ISODateTime = string; // ISO 8601 DateTime (timestamptz)
+
+// Note: Only export what's actually available in database.types.ts
+// The file is auto-generated and may not have all these exports yet

@@ -102,7 +102,8 @@ export class HttpSignalingAPI {
     if (!this.rooms.has(roomId)) {
       this.rooms.set(roomId, {
         users: new Set(),
-        messages: []
+        messages: [],
+        pendingCalls: new Map() // Store pending calls for patients
       })
     }
 
@@ -128,6 +129,19 @@ export class HttpSignalingAPI {
       timestamp: Date.now()
     }
     room.messages.push(joinMessage)
+
+    // Check for pending calls for this patient
+    if (userType === 'patient' && room.pendingCalls) {
+      const pendingCall = room.pendingCalls.get('current')
+      if (pendingCall) {
+        console.log(`Delivering pending call to patient ${userId}`)
+        // Add pending call to messages so patient receives it immediately
+        room.messages.push({
+          ...pendingCall,
+          timestamp: Date.now() // Update timestamp to ensure it's received
+        })
+      }
+    }
 
     // Get current room state
     const users = Array.from(room.users).map(u => JSON.parse(u))
@@ -212,6 +226,18 @@ export class HttpSignalingAPI {
       timestamp: Date.now()
     }
     room.messages.push(message)
+
+    // If it's an incoming call, store it as pending for patients who join later
+    if (type === 'incoming-call' && room.pendingCalls) {
+      console.log(`Storing pending call from ${from}`)
+      room.pendingCalls.set('current', message)
+    }
+
+    // If patient accepts or rejects call, clear pending call
+    if ((type === 'patient-joined' || type === 'call-rejected') && room.pendingCalls) {
+      console.log(`Clearing pending call`)
+      room.pendingCalls.delete('current')
+    }
 
     // Keep only last 100 messages per room
     if (room.messages.length > 100) {

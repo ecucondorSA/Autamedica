@@ -1,4 +1,50 @@
-// WebRTC Core
+// Call management system
+export type {
+  CallStatus,
+  Call,
+  CallEvent,
+  WSMessage,
+  ControlMessage,
+  SignalingMessage,
+  InviteMessage,
+  AcceptMessage,
+  DeclineMessage,
+  CancelMessage,
+  EndMessage,
+  JoinMessage,
+  OfferMessage,
+  AnswerMessage,
+  CandidateMessage
+} from './calls/types'
+
+export {
+  CallService,
+  createCallService,
+  generateRoomId
+} from './calls/service'
+
+export {
+  SignalingClient,
+  createSignalingClient
+} from './signaling/client'
+
+export {
+  WebRTCPeer
+} from './webrtc/peer'
+
+// New exports for config and factory
+export {
+  loadIceServers,
+  ICE_STUN_ONLY,
+  ICE_WITH_TURN,
+  loadSignalingUrl
+} from './config/ice-servers'
+
+export {
+  createSignaling
+} from './signaling/factory'
+
+// Legacy WebRTC Core (keep for compatibility)
 export { WebRTCClient } from './webrtc-client'
 export type { WebRTCConfig, WebRTCEvents } from './webrtc-client'
 
@@ -42,13 +88,14 @@ export type MediaConstraints = {
 // Telemedicine types for signaling
 export type TelemedicineRole = 'doctor' | 'patient' | 'nurse' | 'unknown'
 
-export interface OfferMessage {
+// Legacy message types (keep for compatibility)
+export interface LegacyOfferMessage {
   from: string
   to?: string
   data: RTCSessionDescriptionInit
 }
 
-export interface AnswerMessage {
+export interface LegacyAnswerMessage {
   from: string
   to?: string
   data: RTCSessionDescriptionInit

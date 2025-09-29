@@ -6,6 +6,16 @@
 import type { UserProfile, UserRole } from '../types'
 
 /**
+ * Basic KV interface for Cloudflare Workers
+ */
+interface KVNamespace {
+  get(key: string, options?: { type?: 'text' | 'json' | 'arrayBuffer' | 'stream' }): Promise<any>
+  put(key: string, value: string | ArrayBuffer | ReadableStream, options?: { expirationTtl?: number }): Promise<void>
+  delete(key: string): Promise<void>
+  list(options?: { prefix?: string; limit?: number; cursor?: string }): Promise<{ keys: Array<{ name: string }> }>
+}
+
+/**
  * Cloudflare KV namespace bindings (injected by Cloudflare)
  */
 declare global {
@@ -206,7 +216,9 @@ export function parseSessionFromCookie(cookieHeader: string | null): string | nu
 
   const cookies = cookieHeader.split(';').reduce((acc, cookie) => {
     const [key, value] = cookie.trim().split('=')
-    acc[key] = value
+    if (key && value) {
+      acc[key] = value
+    }
     return acc
   }, {} as Record<string, string>)
 

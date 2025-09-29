@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Camera Constraints - AutaMedica</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(to br, #f0f9ff, #e6f2ff);
+            min-height: 100vh;
+        }
+        h1 {
+            color: #1e40af;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .constraint-test {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #ddd;
+            background: #f9fafb;
+        }
+        .constraint-test.testing {
+            border-color: #fbbf24;
+            background: #fffbeb;
+        }
+        .constraint-test.success {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+        .constraint-test.failed {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .status {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .error-details {
+            color: #dc2626;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px;
+            background: white;
+            border-radius: 4px;
+        }
+        .success-details {
+            color: #059669;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .device-info {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            background: #000;
+            margin-top: 10px;
+        }
+        .test-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0fdf4;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 Test de Constraints de Cámara - AutaMedica</h1>
+
+    <div class="test-container">
+        <h2>📱 Dispositivos Detectados</h2>
+        <div id="devices" class="device-info">
+            Cargando dispositivos...
+        </div>
+
+        <button onclick="runAllTests()">▶️ Ejecutar Todas las Pruebas</button>
+        <button onclick="runProgressiveFallback()">🔄 Probar Fallback Progresivo</button>
+        <button onclick="clearResults()">🗑️ Limpiar Resultados</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🧪 Pruebas de Constraints</h2>
+        <div id="tests">
+            <!-- Tests will be added here dynamically -->
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>📹 Vista Previa</h2>
+        <video id="preview" autoplay muted playsinline></video>
+        <div id="stream-info" style="margin-top: 10px; font-size: 14px; color: #6b7280;"></div>
+    </div>
+
+    <div id="summary" class="test-summary" style="display: none;">
+        <h3>📊 Resumen de Pruebas</h3>
+        <div id="summary-content"></div>
+    </div>
+
+    <script>
+        const constraints = [
+            {
+                name: "Dispositivos Específicos (Exact)",
+                constraint: async () => {
+                    const devices = await navigator.mediaDevices.enumerateDevices();
+                    const camera = devices.find(d => d.kind === 'videoinput');
+                    const mic = devices.find(d => d.kind === 'audioinput');
+                    return {
+                        audio: mic ? { deviceId: { exact: mic.deviceId } } : true,
+                        video: camera ? { deviceId: { exact: camera.deviceId } } : true
+                    };
+                },
+                description: "Intenta usar dispositivos específicos con exact"
+            },
+            {
+                name: "Audio + Video Básico",
+                constraint: { audio: true, video: true },
+                description: "Configuración más simple posible"
+            },
+            {
+                name: "Resolución HD (1280x720)",
+                constraint: {
+                    audio: true,
+                    video: {
+                        width: { ideal: 1280, max: 1920 },
+                        height: { ideal: 720, max: 1080 }
+                    }
+                },
+                description: "Intenta obtener video HD"
+            },
+            {
+                name: "Resolución Baja (640x480)",
+                constraint: {
+                    audio: true,
+                    video: {
+                        width: { ideal: 640 },
+                        height: { ideal: 480 }
+                    }
+                },
+                description: "Resolución más baja para dispositivos limitados"
+            },
+            {
+                name: "Cámara Frontal (user)",
+                constraint: {
+                    audio: true,
+                    video: { facingMode: 'user' }
+                },
+                description: "Específicamente la cámara frontal"
+            },
+            {
+                name: "Cámara Trasera (environment)",
+                constraint: {
+                    audio: true,
+                    video: { facingMode: 'environment' }
+                },
+                description: "Específicamente la cámara trasera (móvil)"
+            },
+            {
+                name: "Solo Audio",
+                constraint: {
+                    audio: true,
+                    video: false
+                },
+                description: "Fallback final - solo audio sin video"
+            },
+            {
+                name: "Frame Rate Alto (30fps)",
+                constraint: {
+                    audio: true,
+                    video: {
+                        frameRate: { ideal: 30, max: 60 }
+                    }
+                },
+                description: "Intenta obtener 30fps o más"
+            },
+            {
+                name: "Aspect Ratio 16:9",
+                constraint: {
+                    audio: true,
+                    video: {
+                        aspectRatio: { ideal: 16/9 }
+                    }
+                },
+                description: "Fuerza aspect ratio widescreen"
+            }
+        ];
+
+        let currentStream = null;
+
+        async function enumerateDevices() {
+            try {
+                // Try to get permissions first
+                const tempStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+                    .catch(() => null);
+
+                if (tempStream) {
+                    tempStream.getTracks().forEach(t => t.stop());
+                }
+
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const cameras = devices.filter(d => d.kind === 'videoinput');
+                const mics = devices.filter(d => d.kind === 'audioinput');
+
+                let html = `
+                    <strong>🎥 Cámaras (${cameras.length}):</strong><br>
+                    ${cameras.map(c => `• ${c.label || 'Cámara sin nombre'} (${c.deviceId.substring(0, 8)}...)`).join('<br>')}
+                    <br><br>
+                    <strong>🎤 Micrófonos (${mics.length}):</strong><br>
+                    ${mics.map(m => `• ${m.label || 'Micrófono sin nombre'} (${m.deviceId.substring(0, 8)}...)`).join('<br>')}
+                `;
+
+                document.getElementById('devices').innerHTML = html;
+            } catch (err) {
+                document.getElementById('devices').innerHTML = `❌ Error: ${err.message}`;
+            }
+        }
+
+        function createTestElement(name, description) {
+            const div = document.createElement('div');
+            div.className = 'constraint-test';
+            div.id = `test-${name.replace(/\s+/g, '-')}`;
+            div.innerHTML = `
+                <div class="status">⏳ ${name}</div>
+                <div style="color: #6b7280; font-size: 14px;">${description}</div>
+                <div class="test-details"></div>
+            `;
+            return div;
+        }
+
+        async function testConstraint(constraint, name) {
+            const testDiv = document.getElementById(`test-${name.replace(/\s+/g, '-')}`);
+            const detailsDiv = testDiv.querySelector('.test-details');
+
+            testDiv.className = 'constraint-test testing';
+            testDiv.querySelector('.status').innerHTML = `⏳ Probando: ${name}`;
+
+            // Clear previous stream
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+
+            try {
+                const actualConstraint = typeof constraint === 'function' ? await constraint() : constraint;
+
+                console.log(`Testing ${name}:`, actualConstraint);
+                const startTime = performance.now();
+                const stream = await navigator.mediaDevices.getUserMedia(actualConstraint);
+                const elapsed = Math.round(performance.now() - startTime);
+
+                currentStream = stream;
+
+                // Show in video preview
+                const video = document.getElementById('preview');
+                video.srcObject = stream;
+
+                // Get stream info
+                const videoTrack = stream.getVideoTracks()[0];
+                const audioTrack = stream.getAudioTracks()[0];
+
+                let streamInfo = [];
+                if (videoTrack) {
+                    const settings = videoTrack.getSettings();
+                    streamInfo.push(`Video: ${settings.width}x${settings.height} @ ${settings.frameRate}fps`);
+                    if (settings.deviceId) streamInfo.push(`Device: ${settings.deviceId.substring(0, 8)}...`);
+                }
+                if (audioTrack) {
+                    streamInfo.push(`Audio: ${audioTrack.label || 'Enabled'}`);
+                }
+
+                document.getElementById('stream-info').innerHTML = streamInfo.join(' | ');
+
+                testDiv.className = 'constraint-test success';
+                testDiv.querySelector('.status').innerHTML = `✅ ${name} - Exitoso (${elapsed}ms)`;
+                detailsDiv.innerHTML = `<div class="success-details">${streamInfo.join('<br>')}</div>`;
+
+                return { success: true, constraint: actualConstraint, info: streamInfo, elapsed };
+
+            } catch (error) {
+                console.error(`Failed ${name}:`, error);
+
+                testDiv.className = 'constraint-test failed';
+                testDiv.querySelector('.status').innerHTML = `❌ ${name} - Falló`;
+                detailsDiv.innerHTML = `
+                    <div class="error-details">
+                        Error: ${error.name}<br>
+                        Mensaje: ${error.message}
+                    </div>
+                `;
+
+                return { success: false, constraint, error: error.message };
+            }
+        }
+
+        async function runAllTests() {
+            document.getElementById('tests').innerHTML = '';
+            const results = [];
+
+            for (const test of constraints) {
+                const testEl = createTestElement(test.name, test.description);
+                document.getElementById('tests').appendChild(testEl);
+
+                const result = await testConstraint(test.constraint, test.name);
+                results.push({ ...result, name: test.name });
+
+                // Wait a bit between tests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+
+            showSummary(results);
+        }
+
+        async function runProgressiveFallback() {
+            document.getElementById('tests').innerHTML = '';
+            const fallbackOrder = [
+                constraints[0], // Specific devices
+                constraints[1], // Basic
+                constraints[3], // Low res
+                constraints[4], // Front camera
+                constraints[6]  // Audio only
+            ];
+
+            for (const test of fallbackOrder) {
+                const testEl = createTestElement(test.name, test.description + ' (Fallback)');
+                document.getElementById('tests').appendChild(testEl);
+
+                const result = await testConstraint(test.constraint, test.name);
+
+                if (result.success) {
+                    showSummary([result]);
+                    break;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        function showSummary(results) {
+            const successful = results.filter(r => r.success);
+            const failed = results.filter(r => !r.success);
+
+            const summaryDiv = document.getElementById('summary');
+            const contentDiv = document.getElementById('summary-content');
+
+            contentDiv.innerHTML = `
+                <p>✅ <strong>Exitosos:</strong> ${successful.length}/${results.length}</p>
+                ${successful.length > 0 ? `
+                    <p><strong>Constraints que funcionaron:</strong></p>
+                    <ul>
+                        ${successful.map(r => `<li>${r.name} (${r.elapsed}ms)</li>`).join('')}
+                    </ul>
+                ` : ''}
+                ${failed.length > 0 ? `
+                    <p><strong>Constraints que fallaron:</strong></p>
+                    <ul style="color: #dc2626;">
+                        ${failed.map(r => `<li>${r.name}: ${r.error}</li>`).join('')}
+                    </ul>
+                ` : ''}
+            `;
+
+            summaryDiv.style.display = 'block';
+        }
+
+        function clearResults() {
+            document.getElementById('tests').innerHTML = '';
+            document.getElementById('summary').style.display = 'none';
+
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+
+            document.getElementById('preview').srcObject = null;
+            document.getElementById('stream-info').innerHTML = '';
+        }
+
+        // Initialize
+        enumerateDevices();
+
+        // Listen for device changes
+        navigator.mediaDevices.addEventListener('devicechange', enumerateDevices);
+    </script>
+</body>
+</html>

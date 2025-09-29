@@ -23,7 +23,14 @@ export function createClient() {
   return createBrowserClient(url, key)
 }
 
-export type UserRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'admin' | 'platform_admin'
+export type UserRole =
+  | 'patient'
+  | 'doctor'
+  | 'company'
+  | 'company_admin'
+  | 'organization_admin'
+  | 'admin'
+  | 'platform_admin'
 
 export interface UserProfile {
   id: string
@@ -52,13 +59,17 @@ export const ROLE_REDIRECTS = {
     development: 'http://localhost:3004/dashboard',
     production: 'https://autamedica-companies.pages.dev/dashboard'
   },
+  organization_admin: {
+    development: 'http://localhost:3005/dashboard',
+    production: 'https://autamedica-admin.pages.dev/dashboard'
+  },
   admin: {
     development: 'http://localhost:3005/dashboard',
     production: 'https://autamedica-admin.pages.dev/dashboard'
   },
   platform_admin: {
-    development: 'http://localhost:3000/admin',
-    production: 'https://autamedica-web-app.pages.dev/admin'
+    development: 'http://localhost:3005/dashboard',
+    production: 'https://autamedica-admin.pages.dev/dashboard'
   }
 } as const
 

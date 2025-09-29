@@ -10,7 +10,31 @@ import { redirect } from "next/navigation";
 import type { User, UserSession } from "@autamedica/types";
 import { toISODateString } from "@autamedica/types";
 import type { UserRole, Portal } from "./roles";
-import { canAccessPortal } from "./roles";
+import { canAccessPortal, isUserRole, ROLES } from "./roles";
+
+const DEFAULT_PORTAL_REDIRECT: Record<UserRole, string> = {
+  patient: "/patients",
+  doctor: "/doctors",
+  company: "/companies",
+  company_admin: "/companies",
+  organization_admin: "/admin",
+  admin: "/admin",
+  platform_admin: "/admin",
+};
+
+function normalizeRole(role: unknown): UserRole {
+  if (typeof role === "string") {
+    if (role === ROLES.COMPANY_ADMIN) {
+      return ROLES.ORGANIZATION_ADMIN;
+    }
+
+    if (isUserRole(role)) {
+      return role;
+    }
+  }
+
+  return ROLES.PATIENT;
+}
 
 /**
  * Obtiene la sesión actual del usuario
@@ -34,7 +58,7 @@ export async function getSession(): Promise<UserSession | null> {
         id: session.user.id,
         email: session.user.email!,
         emailVerified: !!session.user.email_confirmed_at,
-        role: (session.user.user_metadata?.role as UserRole) || "patient",
+        role: normalizeRole(session.user.user_metadata?.role),
         createdAt: toISODateString(new Date(session.user.created_at)),
         updatedAt: toISODateString(new Date(session.user.updated_at!)),
       },
@@ -86,14 +110,7 @@ export async function requirePortalAccess(
 
   if (!canAccessPortal(session.user.role, portal)) {
     // Redirigir al portal apropiado según el rol del usuario
-    const userPortals = {
-      patient: "/patients",
-      doctor: "/doctors",
-      company_admin: "/companies",
-      platform_admin: "/admin",
-    };
-
-    redirect(userPortals[session.user.role] || "/");
+    redirect(DEFAULT_PORTAL_REDIRECT[session.user.role] || "/");
   }
 
   return session;

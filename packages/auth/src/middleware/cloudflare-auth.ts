@@ -117,17 +117,17 @@ export const middlewareConfig = {
     publicPaths: ['/api/health']
   },
   companies: {
-    allowedRoles: ['company', 'company_admin'],
+    allowedRoles: ['company', 'company_admin', 'organization_admin'],
     requireAuth: true,
     publicPaths: ['/api/health']
   },
   admin: {
-    allowedRoles: ['platform_admin'],
+    allowedRoles: ['organization_admin', 'admin', 'platform_admin'],
     requireAuth: true,
     publicPaths: ['/api/health']
   },
   'web-app': {
-    allowedRoles: ['patient', 'doctor', 'company', 'company_admin', 'platform_admin'],
+    allowedRoles: ['patient', 'doctor', 'company', 'company_admin', 'organization_admin', 'admin', 'platform_admin'],
     requireAuth: false,
     publicPaths: ['/', '/auth', '/terms', '/privacy', '/api/health']
   }

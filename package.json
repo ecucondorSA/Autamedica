@@ -2,6 +2,10 @@
   "name": "autamedica-reboot",
   "private": true,
   "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:rls": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/rls_smoke.sql",
+    "release:org-roles": "./scripts/release-org-roles.sh",
     "build": "turbo run build",
     "build:packages": "turbo run build --filter @autamedica/*",
     "build:packages-fallback": "cd packages/types && pnpm build && cd ../shared && pnpm build && cd ../auth && pnpm build && cd ../hooks && pnpm build",
@@ -21,6 +25,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "validate-exports": "node scripts/validate-exports.mjs",
     "docs:validate": "node scripts/validate-exports.mjs",
+    "docs:generate": "node scripts/auto-generate-docs.mjs",
+    "docs:auto-fix": "node scripts/auto-generate-docs.mjs && node scripts/validate-exports.mjs",
+    "types:analyze": "node scripts/analyze-type-duplication.mjs",
+    "db:validate": "node scripts/validate-database-schema.mjs",
+    "db:generate": "node scripts/generate-db-types.mjs",
+    "db:sync": "node scripts/generate-db-types.mjs && node scripts/validate-database-schema.mjs",
+    "db:test": "node scripts/test-db-generation.mjs",
     "docs:sync": "node scripts/docs-sync.mjs",
     "docs:sync:watch": "node scripts/docs-watch.mjs",
     "env:validate": "node scripts/validate-env.mjs",
@@ -63,7 +74,8 @@
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "prepush": "timeout 900 pnpm -w typecheck && timeout 900 pnpm -w lint && timeout 900 pnpm -w test",
-    "ai:review": "bash scripts/ai-pr-review.sh"
+    "ai:review": "bash scripts/ai-pr-review.sh",
+    "smoke:all": "bash scripts/smoke-all.sh"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -73,6 +85,7 @@
     "@vitest/coverage-v8": "^3.2.4",
     "concurrently": "^9.2.1",
     "dependency-cruiser": "^17.0.1",
+    "dotenv": "^17.2.2",
     "eslint": "^9.35.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-boundaries": "^5.0.1",
@@ -96,6 +109,7 @@
   "dependencies": {
     "@openai/codex": "^0.39.0",
     "@supabase/supabase-js": "^2.57.4",
+    "glob": "^11.0.3",
     "next": "15.5.4",
     "turbo": "^2.5.6"
   },

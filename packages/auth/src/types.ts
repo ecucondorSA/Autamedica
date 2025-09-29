@@ -9,7 +9,14 @@ import type { User, Session } from '@supabase/supabase-js'
  * User roles in the AutaMedica platform
  * Each user has exactly one role that determines their app access
  */
-export type UserRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'platform_admin'
+export type UserRole =
+  | 'patient'
+  | 'doctor'
+  | 'company'
+  | 'company_admin'
+  | 'organization_admin'
+  | 'admin'
+  | 'platform_admin'
 
 /**
  * Application identifiers
@@ -70,6 +77,8 @@ export const ROLE_APP_MAPPING: Record<UserRole, AppName> = {
   doctor: 'doctors',
   company: 'companies',
   company_admin: 'companies',
+  organization_admin: 'admin',
+  admin: 'admin',
   platform_admin: 'admin'
 } as const
 
@@ -77,11 +86,19 @@ export const ROLE_APP_MAPPING: Record<UserRole, AppName> = {
  * App to allowed roles mapping
  */
 export const APP_ALLOWED_ROLES: Record<AppName, UserRole[]> = {
-  'web-app': ['patient', 'doctor', 'company', 'company_admin', 'platform_admin'], // All roles can access landing
+  'web-app': [
+    'patient',
+    'doctor',
+    'company',
+    'company_admin',
+    'organization_admin',
+    'admin',
+    'platform_admin'
+  ],
   'patients': ['patient'],
   'doctors': ['doctor'],
-  'companies': ['company', 'company_admin'],
-  'admin': ['platform_admin']
+  'companies': ['company', 'company_admin', 'organization_admin'],
+  'admin': ['organization_admin', 'admin', 'platform_admin']
 } as const
 
 /**
