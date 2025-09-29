@@ -1,0 +1,182 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Autamedica Security Team <security@autamedica.com>
+Date: Sun, 29 Sep 2025 00:00:00 +0000
+Subject: [PATCH 6/6] feat: security headers and Supabase migration
+
+- Add comprehensive security headers for all apps
+- Implement unified identity system migration
+- Configure CSP for WebRTC and Supabase
+- Add proper permissions policies per app type
+
+---
+ apps/companies/public/_headers              | 8 ++++++++
+ apps/doctors/public/_headers                | 8 ++++++++
+ apps/patients/public/_headers               | 8 ++++++++
+ apps/web-app/public/_headers                | 7 +++++++
+ supabase/migrations/20250929_unified_identity_system.sql | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 120 insertions(+)
+ create mode 100644 apps/companies/public/_headers
+ create mode 100644 apps/doctors/public/_headers
+ create mode 100644 apps/patients/public/_headers
+ create mode 100644 apps/web-app/public/_headers
+ create mode 100644 supabase/migrations/20250929_unified_identity_system.sql
+
+diff --git a/apps/companies/public/_headers b/apps/companies/public/_headers
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/apps/companies/public/_headers
+@@ -0,0 +1,8 @@
++/*
++  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
++  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
++  X-Frame-Options: DENY
++  X-Content-Type-Options: nosniff
++  Referrer-Policy: strict-origin-when-cross-origin
++  Permissions-Policy: camera=(), microphone=(), geolocation=()
++  X-XSS-Protection: 1; mode=block
+
+diff --git a/apps/doctors/public/_headers b/apps/doctors/public/_headers
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/apps/doctors/public/_headers
+@@ -0,0 +1,8 @@
++/*
++  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
++  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
++  X-Frame-Options: DENY
++  X-Content-Type-Options: nosniff
++  Referrer-Policy: strict-origin-when-cross-origin
++  Permissions-Policy: camera=(self), microphone=(self), geolocation=()
++  X-XSS-Protection: 1; mode=block
+
+diff --git a/apps/patients/public/_headers b/apps/patients/public/_headers
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/apps/patients/public/_headers
+@@ -0,0 +1,8 @@
++/*
++  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
++  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
++  X-Frame-Options: DENY
++  X-Content-Type-Options: nosniff
++  Referrer-Policy: strict-origin-when-cross-origin
++  Permissions-Policy: camera=(self), microphone=(self), geolocation=()
++  X-XSS-Protection: 1; mode=block
+
+diff --git a/apps/web-app/public/_headers b/apps/web-app/public/_headers
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/apps/web-app/public/_headers
+@@ -0,0 +1,7 @@
++/*
++  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
++  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
++  X-Frame-Options: DENY
++  X-Content-Type-Options: nosniff
++  Referrer-Policy: strict-origin-when-cross-origin
++  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+diff --git a/supabase/migrations/20250929_unified_identity_system.sql b/supabase/migrations/20250929_unified_identity_system.sql
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/supabase/migrations/20250929_unified_identity_system.sql
+@@ -0,0 +1,89 @@
++-- Perfiles base con external_id para IDs cortos
++CREATE TABLE IF NOT EXISTS public.profiles (
++  user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
++  role text NOT NULL CHECK (role IN ('patient','doctor','company','company_admin','organization_admin')),
++  external_id text UNIQUE NOT NULL,
++  created_at timestamptz DEFAULT now(),
++  updated_at timestamptz DEFAULT now()
++);
++
++-- Entidades específicas
++CREATE TABLE IF NOT EXISTS public.patients (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  user_id uuid UNIQUE NOT NULL REFERENCES public.profiles(user_id) ON DELETE CASCADE,
++  company_id uuid,
++  medical_record_number text UNIQUE,
++  created_at timestamptz DEFAULT now()
++);
++
++CREATE TABLE IF NOT EXISTS public.doctors (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  user_id uuid UNIQUE NOT NULL REFERENCES public.profiles(user_id) ON DELETE CASCADE,
++  license_number text UNIQUE NOT NULL,
++  speciality text,
++  verified boolean DEFAULT false,
++  created_at timestamptz DEFAULT now()
++);
++
++CREATE TABLE IF NOT EXISTS public.companies (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  user_id uuid UNIQUE NOT NULL REFERENCES public.profiles(user_id) ON DELETE CASCADE,
++  tax_id text UNIQUE NOT NULL,
++  company_name text NOT NULL,
++  created_at timestamptz DEFAULT now()
++);
++
++-- Relación doctor-paciente
++CREATE TABLE IF NOT EXISTS public.doctor_patient (
++  doctor_id uuid REFERENCES public.doctors(id) ON DELETE CASCADE,
++  patient_id uuid REFERENCES public.patients(id) ON DELETE CASCADE,
++  assigned_at timestamptz DEFAULT now(),
++  PRIMARY KEY (doctor_id, patient_id)
++);
++
++-- RLS Policies
++ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
++CREATE POLICY "Users can view own profile" ON public.profiles
++  FOR SELECT USING (auth.uid() = user_id);
++
++ALTER TABLE public.patients ENABLE ROW LEVEL SECURITY;
++CREATE POLICY "Patients can view own data" ON public.patients
++  FOR SELECT USING (EXISTS(
++    SELECT 1 FROM public.profiles p
++    WHERE p.user_id = auth.uid() AND p.role='patient' AND p.user_id = public.patients.user_id
++  ));
++
++ALTER TABLE public.doctors ENABLE ROW LEVEL SECURITY;
++CREATE POLICY "Doctors can view own data" ON public.doctors
++  FOR SELECT USING (EXISTS(
++    SELECT 1 FROM public.profiles p
++    WHERE p.user_id = auth.uid() AND p.role='doctor' AND p.user_id = public.doctors.user_id
++  ));
++
++-- Función para generar external_id único
++CREATE OR REPLACE FUNCTION generate_external_id(role_prefix text)
++RETURNS text AS $$
++BEGIN
++  RETURN role_prefix || '_' || substr(encode(gen_random_bytes(6), 'base64'), 1, 8);
++END;
++$$ LANGUAGE plpgsql;
++
++-- Trigger para auto-generar external_id
++CREATE OR REPLACE FUNCTION auto_generate_external_id()
++RETURNS trigger AS $$
++BEGIN
++  IF NEW.external_id IS NULL THEN
++    NEW.external_id := generate_external_id(
++      CASE NEW.role
++        WHEN 'patient' THEN 'PAT'
++        WHEN 'doctor' THEN 'DOC'
++        WHEN 'company' THEN 'COM'
++        WHEN 'company_admin' THEN 'ADM'
++        WHEN 'organization_admin' THEN 'ORG'
++      END
++    );
++  END IF;
++  RETURN NEW;
++END;
++$$ LANGUAGE plpgsql;
++
++CREATE TRIGGER profiles_external_id_trigger
++  BEFORE INSERT ON public.profiles
++  FOR EACH ROW EXECUTE FUNCTION auto_generate_external_id();
+--
+2.34.1

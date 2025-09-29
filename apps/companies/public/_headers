@@ -1,5 +1,8 @@
 /*
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
-  X-Cache-Buster: 2025-09-26-companies-v2
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=()
+  X-XSS-Protection: 1; mode=block

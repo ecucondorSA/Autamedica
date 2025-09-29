@@ -61,3 +61,6 @@ export {
 // App URL helpers (deprecated - use portal system)
 export { getAppUrl, getBaseUrlForRole } from "./env/getAppUrl";
 export type { AppRole } from "./env/getAppUrl";
+
+// WebRTC diagnostics and media utils
+export { WebRTCDiagnostics, ICE_SERVERS } from "./webrtc-diagnostics";

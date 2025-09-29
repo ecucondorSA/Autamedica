@@ -1,0 +1,101 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Autamedica Security Team <security@autamedica.com>
+Date: Sun, 29 Sep 2025 00:00:00 +0000
+Subject: [PATCH 2/6] feat: centralized role-based routing system
+
+- Add unified portal routing for all user roles
+- Support dev/staging/production environments
+- Type-safe role validation
+- Single source of truth for portal URLs
+
+---
+ packages/shared/src/index.ts       |  1 +
+ packages/shared/src/role-routing.ts | 67 ++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
+ create mode 100644 packages/shared/src/role-routing.ts
+
+diff --git a/packages/shared/src/index.ts b/packages/shared/src/index.ts
+index 1234567..abcdef0 100644
+--- a/packages/shared/src/index.ts
++++ b/packages/shared/src/index.ts
+@@ -1,3 +1,4 @@
+ export * from './validators';
+ export * from './env';
+ export * from './logger';
++export * from './role-routing';
+
+diff --git a/packages/shared/src/role-routing.ts b/packages/shared/src/role-routing.ts
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/packages/shared/src/role-routing.ts
+@@ -0,0 +1,67 @@
++export type UserRole =
++  | "organization_admin"
++  | "company_admin"
++  | "company"
++  | "doctor"
++  | "patient"
++
++interface PortalConfig {
++  production: string
++  staging: string
++  development: string
++}
++
++const PORTAL_URLS: Record<UserRole, PortalConfig> = {
++  organization_admin: {
++    production: "https://admin.autamedica.pages.dev",
++    staging: "https://admin-staging.autamedica.pages.dev",
++    development: "http://localhost:3004"
++  },
++  company_admin: {
++    production: "https://companies.autamedica.pages.dev",
++    staging: "https://companies-staging.autamedica.pages.dev",
++    development: "http://localhost:3003"
++  },
++  company: {
++    production: "https://companies.autamedica.pages.dev",
++    staging: "https://companies-staging.autamedica.pages.dev",
++    development: "http://localhost:3003"
++  },
++  doctor: {
++    production: "https://doctors.autamedica.pages.dev",
++    staging: "https://doctors-staging.autamedica.pages.dev",
++    development: "http://localhost:3001"
++  },
++  patient: {
++    production: "https://patients.autamedica.pages.dev",
++    staging: "https://patients-staging.autamedica.pages.dev",
++    development: "http://localhost:3002"
++  }
++}
++
++/**
++ * Get the portal URL for a specific user role
++ * Automatically detects environment (dev/staging/prod)
++ */
++export function getPortalForRole(role: UserRole): string {
++  const env = process.env.NODE_ENV || 'development'
++  const envKey = env === 'production' ? 'production' :
++                 env === 'staging' ? 'staging' : 'development'
++
++  return PORTAL_URLS[role][envKey]
++}
++
++/**
++ * Validate if a string is a valid user role
++ */
++export function isValidRole(role: string): role is UserRole {
++  return Object.keys(PORTAL_URLS).includes(role)
++}
++
++/**
++ * Get default portal (patients) for fallback scenarios
++ */
++export function getDefaultPortal(): string {
++  return getPortalForRole('patient')
++}
++
+--
+2.34.1
