@@ -53,6 +53,7 @@ const ALLOWED_CLIENT_VARS = new Set([
   "NEXT_PUBLIC_DOCTORS_URL",
   "NEXT_PUBLIC_PATIENTS_URL",
   "NEXT_PUBLIC_COMPANIES_URL",
+  "NEXT_PUBLIC_SIGNALING_URL",
 
   // Supabase (cliente)
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -93,6 +94,7 @@ const ALLOWED_CLIENT_VARS = new Set([
   "NEXT_PUBLIC_ADMIN_PANEL_ENABLED",
   "NEXT_PUBLIC_PROMETHEUS_ENABLED",
   "NEXT_PUBLIC_HIPAA_AUDIT_ENABLED",
+  "NEXT_PUBLIC_REQUIRE_AUTH",
   "NEXT_PUBLIC_DATABASE_ADMIN_ENABLED",
   "NEXT_PUBLIC_AUDIT_LOGS_ENABLED",
 ]);
@@ -146,11 +148,10 @@ export function ensureEnv(name: string): string {
   return value;
 }
 
-// Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
-export function ensureClientEnv(name: string): string {
+function assertClientEnvAllowed(name: string) {
   if (!ALLOWED_CLIENT_VARS.has(name)) {
     throw new Error(
-      `Invalid client environment variable: ${name}. Only NEXT_PUBLIC_* variables are allowed on client side.`,
+      `Invalid client environment variable: ${name}. Only approved NEXT_PUBLIC_* variables are allowed on client side.`,
     );
   }
 
@@ -159,12 +160,28 @@ export function ensureClientEnv(name: string): string {
       `Security violation: ${name} appears to be a server-only variable exposed to client`,
     );
   }
+}
+
+// Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
+export function ensureClientEnv(name: string): string {
+  assertClientEnvAllowed(name);
 
   const value = process.env[name];
   if (!value) {
     throw new Error(`Missing required client environment variable: ${name}`);
   }
   return value;
+}
+
+export function getClientEnvOrDefault(name: string, defaultValue: string): string {
+  assertClientEnvAllowed(name);
+  const value = process.env[name];
+  return value ?? defaultValue;
+}
+
+export function getOptionalClientEnv(name: string): string | undefined {
+  assertClientEnvAllowed(name);
+  return process.env[name] ?? undefined;
 }
 
 // Utilidad específica para variables de entorno del servidor (sin NEXT_PUBLIC_)
@@ -180,6 +197,17 @@ export function ensureServerEnv(name: string): string {
     throw new Error(`Missing required server environment variable: ${name}`);
   }
   return value;
+}
+
+export function getServerEnvOrDefault(name: string, defaultValue?: string): string | undefined {
+  if (name.startsWith("NEXT_PUBLIC_")) {
+    throw new Error(
+      `Invalid server environment variable: ${name}. Server-side code should not use NEXT_PUBLIC_ variables directly.`,
+    );
+  }
+
+  const value = process.env[name];
+  return value ?? defaultValue;
 }
 
 // Validación completa de variables de entorno críticas para producción
@@ -322,7 +350,7 @@ export function validateProductionEnvironment(): EnvironmentValidation {
 // Utilidad para verificar que no haya variables mal configuradas
 export function validateEnvironmentSecurity(): void {
   // Verificar que no hay variables server-only expuestas como NEXT_PUBLIC_
-  for (const serverVar of SERVER_ONLY_VARS) {
+  for (const serverVar of Array.from(SERVER_ONLY_VARS)) {
     const exposedVar = `NEXT_PUBLIC_${serverVar}`;
     if (process.env[exposedVar]) {
       throw new Error(

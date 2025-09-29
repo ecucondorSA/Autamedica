@@ -12,7 +12,6 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "incremental": true,
-    "tsBuildInfoFile": null,
     "composite": true
   },
   "include": ["src/**/*"],
