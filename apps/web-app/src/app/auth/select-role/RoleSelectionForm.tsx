@@ -66,8 +66,11 @@ export function RoleSelectionForm({ user }: RoleSelectionFormProps) {
       setTimeout(() => {
         const urls = {
           patient: '/patients',
-          doctor: '/doctors', 
+          doctor: '/doctors',
+          company: '/companies',
           company_admin: '/companies',
+          organization_admin: '/admin',
+          admin: '/admin',
           platform_admin: '/admin'
         };
         
