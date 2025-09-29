@@ -5,7 +5,7 @@
  * Validates organization_admin and other role mappings
  */
 
-import { getTargetUrlByRole, getPortalForRole, isValidRole, getRoleForPortal } from './packages/shared/dist/index.js';
+import { getTargetUrlByRole, getPortalForRole, isValidRole, getRoleForPortal } from './packages/shared/src/index.ts';
 
 console.log('🔐 Testing Role System Implementation\n');
 

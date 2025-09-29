@@ -48,8 +48,9 @@ export function createBrowserClient(): SupabaseClient {
             `domain=${domainConfig.cookie}`,
             `max-age=${options.maxAge || sessionConfig.maxAge}`,
             `SameSite=Lax`,
-            'Secure'
-          ]
+            // Add Secure flag for production (HTTPS)
+            process.env.NODE_ENV === 'production' ? `Secure` : '',
+          ].filter(Boolean) // Remove empty strings
 
           document.cookie = cookieOptions.join('; ')
         }

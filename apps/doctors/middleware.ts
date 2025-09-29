@@ -1,77 +1,78 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@supabase/ssr'
+/**
+ * Secure middleware for Doctors portal
+ * Uses JWT verification instead of hardcoded credentials
+ */
 
-const PUBLIC_ROUTES = ['/_next', '/favicon.ico', '/public', '/api/health']
-const WEB_APP_URL = 'http://localhost:3000'
+import { NextRequest, NextResponse } from 'next/server';
+import { getSession, hasRole } from '@autamedica/shared/auth/session';
+import { getPortalForRole, isCorrectPortal } from '@autamedica/shared/env/portals';
+import { buildSafeLoginUrl } from '@autamedica/shared/security/redirects';
 
-const ALLOWED_ROLES = new Set(['doctor', 'admin', 'platform_admin'])
+// Public routes that don't require authentication
+const PUBLIC_ROUTES = [
+  '/_next',
+  '/favicon.ico',
+  '/public',
+  '/api/health',
+  '/manifest.webmanifest',
+];
 
-function buildLoginUrl(pathname: string, reason?: string) {
-  const loginUrl = new URL('/auth/login', WEB_APP_URL)
-  loginUrl.searchParams.set('portal', 'doctors')
-  if (pathname) {
-    loginUrl.searchParams.set('returnTo', pathname)
-  }
-  if (reason) {
-    loginUrl.searchParams.set('error', reason)
-  }
-  return loginUrl
-}
+// Allowed roles for doctors portal
+const ALLOWED_ROLES = ['doctor', 'organization_admin', 'platform_admin'] as const;
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname } = request.nextUrl;
+  const origin = request.nextUrl.origin;
 
-  if (PUBLIC_ROUTES.some((route) => pathname.startsWith(route))) {
-    return NextResponse.next()
+  // Allow public routes
+  if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
+    return NextResponse.next();
   }
-
-  const supabaseUrl = 'https://gtyvdircfhmdjiaelqkg.supabase.co'
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgxNTI5NDYsImV4cCI6MjA0MzcyODk0Nn0.95oSUvOFAm1bGmfNPsY5Ni4lCvmGp6ePfmXN0NgHnJw'
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error('[Doctors middleware] Variables de entorno de Supabase no configuradas.')
-    return NextResponse.redirect(buildLoginUrl(pathname, 'missing_supabase_env'))
-  }
-
-  const response = NextResponse.next()
-
-  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      get(name) {
-        return request.cookies.get(name)?.value
-      },
-      set(name, value, options) {
-        response.cookies.set({ name, value, ...options })
-      },
-      remove(name, options) {
-        response.cookies.set({ name, value: '', ...options })
-      },
-    },
-  })
 
   try {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession()
+    // Get session using JWT verification (no Supabase client needed)
+    const session = await getSession(request);
 
-    if (error || !session) {
-      return NextResponse.redirect(buildLoginUrl(pathname, error ? 'session_error' : 'no_session'))
+    // No session - redirect to login
+    if (!session) {
+      const loginUrl = buildSafeLoginUrl('doctors', request.url, 'session_expired');
+      return NextResponse.redirect(loginUrl);
     }
 
-    const userRole = (session.user.user_metadata?.role as string | undefined) ?? 'guest'
-
-    if (!ALLOWED_ROLES.has(userRole)) {
-      return NextResponse.redirect(new URL('/', WEB_APP_URL))
+    // Check if user has allowed role for doctors portal
+    if (!hasRole(session, [...ALLOWED_ROLES])) {
+      // User has wrong role - redirect to their correct portal
+      const correctPortal = getPortalForRole(session.user.role);
+      return NextResponse.redirect(new URL('/', correctPortal));
     }
 
-    return response
+    // Verify user is on correct portal for their role
+    if (!isCorrectPortal(origin, session.user.role)) {
+      const correctPortal = getPortalForRole(session.user.role);
+      return NextResponse.redirect(new URL(pathname, correctPortal));
+    }
+
+    // All checks passed
+    return NextResponse.next();
   } catch (error) {
-    console.error('[Doctors middleware] Error verificando sesión', error)
-    return NextResponse.redirect(buildLoginUrl(pathname, 'middleware_error'))
+    console.error('Middleware error:', error);
+
+    // On error, redirect to login
+    const loginUrl = buildSafeLoginUrl('doctors', request.url, 'auth_error');
+    return NextResponse.redirect(loginUrl);
   }
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\..*).*)'],
-}
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, manifest.webmanifest (metadata files)
+     * - public folder
+     * - api/health (health check endpoint)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health).*)',
+  ],
+};

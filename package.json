@@ -2,7 +2,7 @@
   "name": "autamedica-reboot",
   "private": true,
   "scripts": {
-    "test:e2e": "playwright test",
+    "test:e2e": "node tests/run-playwright.cjs",
     "test:e2e:ui": "playwright test --ui",
     "test:rls": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/rls_smoke.sql",
     "release:org-roles": "./scripts/release-org-roles.sh",
@@ -42,7 +42,6 @@
     "security:check": "node scripts/security-check.mjs",
     "security:audit": "pnpm audit --audit-level moderate",
     "security:full": "pnpm run security:check && pnpm run security:audit",
-    "test:e2e": "node tests/run-playwright.cjs",
     "test:unit": "turbo run test:unit",
     "test": "turbo run test",
     "health": "node scripts/health-check.mjs",
@@ -110,6 +109,7 @@
     "@openai/codex": "^0.39.0",
     "@supabase/supabase-js": "^2.57.4",
     "glob": "^11.0.3",
+    "jose": "^6.1.0",
     "next": "15.5.4",
     "turbo": "^2.5.6"
   },

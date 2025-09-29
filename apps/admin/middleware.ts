@@ -1,5 +1,5 @@
 /**
- * Secure middleware for Patients portal
+ * Secure middleware for Admin portal
  * Uses JWT verification instead of Supabase client
  */
 
@@ -17,8 +17,8 @@ const PUBLIC_ROUTES = [
   '/manifest.webmanifest',
 ];
 
-// Allowed roles for patients portal
-const ALLOWED_ROLES = ['patient', 'organization_admin', 'platform_admin'] as const;
+// Allowed roles for admin portal - only admins
+const ALLOWED_ROLES = ['organization_admin', 'platform_admin'] as const;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -35,11 +35,11 @@ export async function middleware(request: NextRequest) {
 
     // No session - redirect to login
     if (!session) {
-      const loginUrl = buildSafeLoginUrl('patients', request.url, 'session_expired');
+      const loginUrl = buildSafeLoginUrl('admin', request.url, 'session_expired');
       return NextResponse.redirect(loginUrl);
     }
 
-    // Check if user has allowed role for patients portal
+    // Check if user has allowed role for admin portal
     if (!hasRole(session, [...ALLOWED_ROLES])) {
       // User has wrong role - redirect to their correct portal
       const correctPortal = getPortalForRole(session.user.role);
@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
     console.error('Middleware error:', error);
 
     // On error, redirect to login
-    const loginUrl = buildSafeLoginUrl('patients', request.url, 'auth_error');
+    const loginUrl = buildSafeLoginUrl('admin', request.url, 'auth_error');
     return NextResponse.redirect(loginUrl);
   }
 }

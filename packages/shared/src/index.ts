@@ -23,16 +23,41 @@ export { validateEmail, validatePhone } from "./validators";
 export { logger } from "./services/logger.service";
 export type { Logger, LogLevel } from "./services/logger.service";
 
-// Role-based routing
+// Role-based routing (deprecated - use portal system)
 export {
   BASE_URL_BY_ROLE,
   HOME_BY_ROLE,
   getTargetUrlByRole,
   getCookieDomain,
   isValidRole,
-  getPortalForRole,
   PORTAL_TO_ROLE,
-  getRoleForPortal,
   AUTH_URLS,
   getLoginUrl
 } from "./role-routing";
+
+// Unified portal routing system
+export {
+  getPortalForRole,
+  getPortalUrlWithPath,
+  isCorrectPortal,
+  getRoleForPortal
+} from "./env/portals";
+
+// Security helpers
+export {
+  isAllowedRedirect,
+  safeRedirectOrFallback,
+  buildSafeLoginUrl
+} from "./security/redirects";
+
+// Auth session helpers
+export {
+  getSession,
+  hasRole,
+  type Session,
+  type SessionRole
+} from "./auth/session";
+
+// App URL helpers (deprecated - use portal system)
+export { getAppUrl, getBaseUrlForRole } from "./env/getAppUrl";
+export type { AppRole } from "./env/getAppUrl";

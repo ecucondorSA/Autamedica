@@ -17,6 +17,9 @@ importers:
       glob:
         specifier: ^11.0.3
         version: 11.0.3
+      jose:
+        specifier: ^6.1.0
+        version: 6.1.0
       next:
         specifier: 15.5.4
         version: 15.5.4(@playwright/test@1.55.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -5793,6 +5796,9 @@ packages:
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
+
+  jose@6.1.0:
+    resolution: {integrity: sha512-TTQJyoEoKcC1lscpVDCSsVgYzUDg/0Bt3WE//WiTPK6uOCQC2KZS4MpugbMWt/zyjkopgZoXhZuCi00gLudfUA==}
 
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -16544,6 +16550,8 @@ snapshots:
       '@isaacs/cliui': 8.0.2
 
   jiti@1.21.7: {}
+
+  jose@6.1.0: {}
 
   joycon@3.1.1: {}
 
