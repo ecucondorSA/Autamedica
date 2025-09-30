@@ -1,31 +1,6 @@
 /*
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
-  X-Cache-Buster: 2025-09-26-v2
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-
-/_next/static/*
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
-
-/static/*
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
-
-/*.js
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
-
-/*.css
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
-  Expires: 0
-  Pragma: no-cache
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';

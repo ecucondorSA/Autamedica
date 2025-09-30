@@ -126,7 +126,7 @@ export interface Database {
 ### **Credenciales Verificadas**
 ```javascript
 SUPABASE_URL: "https://gtyvdircfhmdjiaelqkg.supabase.co"
-SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
+SUPABASE_ANON_KEY: "NUEVA-ANON-KEY-ROTADA.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
 SUPABASE_SERVICE_KEY: [Configurado en .env.production]
 ```
 

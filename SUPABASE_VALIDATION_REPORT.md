@@ -206,7 +206,7 @@ psql "postgresql://postgres:PASSWORD@db.gtyvdircfhmdjiaelqkg.supabase.co:5432/po
 
 # 3. Ejecutar tests reales (credenciales ya configuradas)
 NEXT_PUBLIC_SUPABASE_URL="https://gtyvdircfhmdjiaelqkg.supabase.co" \
-NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4" \
+NEXT_PUBLIC_SUPABASE_ANON_KEY="REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA" \
 node scripts/test-supabase-rls.mjs
 
 # 4. Validar flujos médicos

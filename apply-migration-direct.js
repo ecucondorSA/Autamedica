@@ -1,8 +1,8 @@
-const { createClient } = require('@supabase/supabase-js');
+const { createClient: _createClient } = require('@supabase/supabase-js');
 const fs = require('fs');
 
-const SUPABASE_URL = 'https://gtyvdircfhmdjiaelqkg.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA';
+const _SUPABASE_URL = 'https://gtyvdircfhmdjiaelqkg.supabase.co';
+const _SUPABASE_ANON_KEY = 'REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA';
 
 async function applyMigration() {
   console.log('📦 Reading migration file...');

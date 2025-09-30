@@ -8,6 +8,7 @@ import LoadingOverlay from './LoadingOverlay';
 // import Doctor3DSimple from '../3d/Doctor3DSimple';
 import ProfessionalFooter from '../landing/ProfessionalFooter';
 import TestimonialsSection from '../landing/TestimonialsSection';
+import VideoGrid from '../landing/VideoGrid';
 
 const EnhancedLandingExperience: React.FC = () => {
   // Mantenemos un pequeño estado de fase solo para el overlay inicial
@@ -137,7 +138,8 @@ const EnhancedLandingExperience: React.FC = () => {
             style={{
               position: 'relative',
               width: '100%',
-              height: '100vh',
+              height: 'clamp(100vh, 100svh, 120vh)',
+              minHeight: 'clamp(100vh, 100svh, 110vh)',
               overflow: 'hidden',
               backgroundColor: '#000',
               zIndex: 1,
@@ -177,8 +179,25 @@ const EnhancedLandingExperience: React.FC = () => {
           {/* Horizontal Experience Section */}
           <HorizontalExperience />
 
-          {/* Testimonials and Stats Section */}
-          <TestimonialsSection />
+          {/* Video Grid Transition - No title, seamless flow */}
+          <section className="py-16 bg-gradient-to-b from-black via-gray-900 to-black">
+            <div className="container mx-auto px-4">
+              <VideoGrid />
+            </div>
+          </section>
+
+          {/* Testimonials and Stats Section - "Descubre AutaMedica en Acción" + "Números que Hablan por Sí Solos" */}
+          <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+            <div className="container mx-auto px-4 text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Descubre AutaMedica en Acción
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Explora nuestras herramientas avanzadas de telemedicina, desde consultas virtuales hasta diagnósticos con IA
+              </p>
+            </div>
+            <TestimonialsSection />
+          </section>
 
           {/* Footer después del recorrido completo */}
           <ProfessionalFooter />
@@ -190,7 +209,7 @@ const EnhancedLandingExperience: React.FC = () => {
 
       {/* Manga-style Chat Bubble */}
       {chatOpen && (
-        <div className="fixed bottom-4 right-4 w-[280px] h-[350px] bg-white border-4 border-[#333] rounded-[150px_/_190px] flex flex-col z-[999] shadow-[0_8px_25px_rgba(0,0,0,0.3)] origin-bottom-right animate-[popIn_0.4s_cubic-bezier(0.68,-0.55,0.265,1.55)] sm:bottom-[120px] sm:right-[120px] sm:w-[300px] sm:h-[380px] md:bottom-[200px] md:right-[180px]">
+        <div className="fixed bottom-4 right-4 w-[clamp(280px,35vw,450px)] h-[clamp(350px,50vh,550px)] max-w-[90vw] max-h-[85vh] bg-white border-4 border-[#333] rounded-[150px_/_190px] flex flex-col z-[999] shadow-[0_8px_25px_rgba(0,0,0,0.3)] origin-bottom-right animate-[popIn_0.4s_cubic-bezier(0.68,-0.55,0.265,1.55)] sm:bottom-[120px] sm:right-[120px] sm:w-[clamp(300px,40vw,480px)] sm:h-[clamp(380px,55vh,580px)] md:bottom-[200px] md:right-[180px]">
           {/* Chat tail */}
           <div className="absolute bottom-[-35px] right-[80px] w-0 h-0 border-l-[35px] border-l-transparent border-r-[5px] border-r-transparent border-t-[40px] border-t-white rotate-[-15deg] z-[1000]" />
           <div className="absolute bottom-[-40px] right-[78px] w-0 h-0 border-l-[38px] border-l-transparent border-r-[7px] border-r-transparent border-t-[43px] border-t-[#333] rotate-[-15deg] z-[999]" />

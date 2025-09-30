@@ -64,3 +64,23 @@ export type { AppRole } from "./env/getAppUrl";
 
 // WebRTC diagnostics and media utils
 export { WebRTCDiagnostics, ICE_SERVERS } from "./webrtc-diagnostics";
+
+// Tenant-based roles and permissions
+export * from "./tenant/roles";
+
+// Simplified role system utilities
+export {
+  roleToPortal,
+  roleToPortalDev,
+  getPortalForRole as getPortalForRoleSimplified,
+  getDefaultRedirectUrl,
+  hasAdminAccess,
+  canManageOrganizations,
+  canAccessMedicalFeatures,
+  getRoleDisplayName,
+  getRoleDescription,
+  isValidUserRole,
+  requiresVerification,
+  AVAILABLE_ROLES,
+  VERIFIED_ROLES,
+} from './roles';

@@ -1,1 +1,10 @@
-pnpm prepush
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Validando antes de push..."
+
+pnpm lint || exit 1
+pnpm typecheck || exit 1
+pnpm test || exit 1
+
+echo "✅ QA OK – Push permitido"

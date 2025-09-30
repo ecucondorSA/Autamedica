@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import EnhancedLandingExperience from './EnhancedLandingExperience'
 import MobileExperience from './MobileExperience'
+import EnhancedLoader from '../ui/EnhancedLoader'
 
 export default function ResponsiveExperience() {
   const [isMobile, setIsMobile] = useState(false)
@@ -53,12 +54,12 @@ export default function ResponsiveExperience() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-gray-600 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <div className="text-white text-lg">Cargando AutaMedica...</div>
-        </div>
-      </div>
+      <EnhancedLoader
+        fullscreen
+        type="spinner"
+        message="Cargando AutaMedica..."
+        size="lg"
+      />
     )
   }
 

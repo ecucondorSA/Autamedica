@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { fetchSessionData } from '@/lib/session-sync'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
@@ -12,11 +15,24 @@ type RootLayoutProps = {
   children: ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
+  // SSR session sync
+  const sessionData = await fetchSessionData()
+
+  if (!sessionData) {
+    // No session - redirect to Auth Hub
+    const authHubUrl = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3005'
+      : 'https://auth.autamedica.com'
+
+    redirect(`${authHubUrl}/login?returnTo=${encodeURIComponent('http://localhost:3002')}`)
+  }
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="bg-slate-950 text-slate-100 antialiased">
-        <PatientRootLayout>{children}</PatientRootLayout>
+        <AuthProvider initialSession={sessionData}>
+          <PatientRootLayout>{children}</PatientRootLayout>
+        </AuthProvider>
       </body>
     </html>
   )

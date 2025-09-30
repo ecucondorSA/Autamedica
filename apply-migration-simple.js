@@ -3,7 +3,7 @@
 const { createClient } = require('@supabase/supabase-js')
 
 const supabaseUrl = 'https://gtyvdircfhmdjiaelqkg.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA'
+const supabaseKey = 'REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA'
 
 async function applyMigrationStepByStep() {
   const supabase = createClient(supabaseUrl, supabaseKey)
@@ -28,7 +28,7 @@ async function applyMigrationStepByStep() {
 
   // Paso 2: Crear tabla calls si no existe
   console.log('2️⃣ Verificando tabla calls...')
-  const { data: callsCheck, error: callsError } = await supabase
+  const { data: _callsCheck, error: callsError } = await supabase
     .from('calls')
     .select('count')
     .limit(1)
@@ -41,7 +41,7 @@ async function applyMigrationStepByStep() {
 
   // Paso 3: Test simple para ver permisos
   console.log('3️⃣ Probando permisos básicos...')
-  const { data: basicTest, error: basicError } = await supabase
+  const { data: _basicTest, error: basicError } = await supabase
     .from('_realtime_schema_versions')
     .select('*')
     .limit(1)

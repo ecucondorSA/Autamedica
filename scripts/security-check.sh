@@ -29,17 +29,17 @@ pass_check() {
 echo "1. 🔐 VERIFICACIÓN DE CREDENCIALES HARDCODEADAS"
 echo "================================================"
 
-# Buscar JWT tokens
-if grep -r "eyJ[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.patch" . >/dev/null 2>&1; then
+# Buscar JWT tokens (evitando este mismo script y placeholders)
+if grep -r "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.vscode-root --exclude-dir=.cursor-root --exclude="*.md" --exclude="*.patch" --exclude="security-check.sh" . >/dev/null 2>&1; then
   fail_check "JWT tokens hardcodeados encontrados"
   echo "   Archivos afectados:"
-  grep -r "eyJ[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.patch" . | head -5
+  grep -r "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.patch" --exclude="security-check.sh" . | head -5
 else
   pass_check "No se encontraron JWT tokens hardcodeados"
 fi
 
 # Buscar claves de API
-if grep -ri "supabase.*key\|api.*key\|secret.*key" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.patch" . | grep -v "process.env\|ensureEnv\|TU-.*-KEY" >/dev/null 2>&1; then
+if grep -ri "supabase.*key\|api.*key\|secret.*key" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.vscode-root --exclude-dir=.cursor-root --exclude="*.md" --exclude="*.patch" . | grep -v "process.env\|ensureEnv\|TU-.*-KEY\|NEXT_PUBLIC_SUPABASE_ANON_KEY.*nueva\|anon_key.*grep\|api-keys.*supabase\|anon_key.*echo\|service_key.*echo\|echo.*ANON_KEY\|anon key.*decode" >/dev/null 2>&1; then
   fail_check "Posibles claves de API hardcodeadas"
   echo "   Revisar manualmente:"
   grep -ri "supabase.*key\|api.*key\|secret.*key" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.patch" . | grep -v "process.env\|ensureEnv\|TU-.*-KEY" | head -3

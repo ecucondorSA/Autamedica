@@ -9,7 +9,7 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 
 const SUPABASE_URL = 'https://gtyvdircfhmdjiaelqkg.supabase.co';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjI5Mjc5MCwiZXhwIjoyMDcxODY4NzkwfQ.zETc5W1OzznzfspXwd4zxA-ifW-aCKd9PGRneEs2IOk';
+const SUPABASE_SERVICE_KEY = 'REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA';
 
 console.log('🏥 AUTAMEDICA - Aplicando Schema Médico');
 console.log('========================================\n');

@@ -6,9 +6,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create profiles table (base users)
 CREATE TABLE IF NOT EXISTS public.profiles (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     email TEXT UNIQUE NOT NULL,
-    role TEXT NOT NULL CHECK (role IN ('patient', 'doctor', 'company_admin', 'admin', 'platform_admin')),
+    role TEXT NOT NULL CHECK (role IN ('patient', 'doctor', 'company', 'company_admin', 'admin', 'platform_admin')),
+    external_id TEXT UNIQUE NOT NULL,
     first_name TEXT,
     last_name TEXT,
     phone TEXT,
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS public.companies (
     phone TEXT,
     email TEXT,
     website TEXT,
-    owner_profile_id UUID REFERENCES public.profiles(id),
+    owner_profile_id UUID REFERENCES public.profiles(user_id),
     active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS public.companies (
 -- Create doctors table
 CREATE TABLE IF NOT EXISTS public.doctors (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    user_id UUID REFERENCES public.profiles(id) UNIQUE,
+    user_id UUID REFERENCES public.profiles(user_id) UNIQUE,
     license_number TEXT UNIQUE NOT NULL,
     specialty TEXT NOT NULL,
     subspecialty TEXT,
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS public.doctors (
 -- Create patients table
 CREATE TABLE IF NOT EXISTS public.patients (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    user_id UUID REFERENCES public.profiles(id) UNIQUE,
+    user_id UUID REFERENCES public.profiles(user_id) UNIQUE,
     dni TEXT UNIQUE,
     birth_date DATE,
     gender TEXT CHECK (gender IN ('male', 'female', 'other', 'prefer_not_to_say')),
@@ -81,8 +82,8 @@ CREATE TABLE IF NOT EXISTS public.patients (
 CREATE TABLE IF NOT EXISTS public.company_members (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     company_id UUID REFERENCES public.companies(id),
-    profile_id UUID REFERENCES public.profiles(id),
-    role TEXT DEFAULT 'employee' CHECK (role IN ('admin', 'hr', 'employee')),
+    profile_id UUID REFERENCES public.profiles(user_id),
+    role TEXT DEFAULT 'member' CHECK (role IN ('member', 'admin')),
     position TEXT,
     department TEXT,
     employee_id TEXT,
@@ -120,7 +121,7 @@ CREATE TABLE IF NOT EXISTS public.appointments (
     notes TEXT,
     location TEXT,
     meeting_url TEXT,
-    created_by UUID REFERENCES public.profiles(id),
+    created_by UUID REFERENCES public.profiles(user_id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -147,16 +148,16 @@ CREATE TABLE IF NOT EXISTS public.medical_records (
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Users can view own profile" ON public.profiles
-    FOR SELECT USING (auth.uid() = id);
+    FOR SELECT USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can update own profile" ON public.profiles
-    FOR UPDATE USING (auth.uid() = id);
+    FOR UPDATE USING (auth.uid() = user_id);
 
 CREATE POLICY "Platform admins can view all profiles" ON public.profiles
     FOR SELECT USING (
         EXISTS (
             SELECT 1 FROM public.profiles 
-            WHERE id = auth.uid() AND role = 'platform_admin'
+            WHERE user_id = auth.uid() AND role = 'platform_admin'
         )
     );
 
@@ -168,7 +169,7 @@ CREATE POLICY "Company admins can view own companies" ON public.companies
         owner_profile_id = auth.uid() OR
         EXISTS (
             SELECT 1 FROM public.profiles 
-            WHERE id = auth.uid() AND role = 'platform_admin'
+            WHERE user_id = auth.uid() AND role = 'platform_admin'
         )
     );
 
@@ -182,7 +183,7 @@ CREATE POLICY "Platform admins can view all doctors" ON public.doctors
     FOR SELECT USING (
         EXISTS (
             SELECT 1 FROM public.profiles 
-            WHERE id = auth.uid() AND role = 'platform_admin'
+            WHERE user_id = auth.uid() AND role = 'platform_admin'
         )
     );
 

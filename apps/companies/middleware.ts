@@ -18,7 +18,7 @@ const PUBLIC_ROUTES = [
 ];
 
 // Allowed roles for companies portal
-const ALLOWED_ROLES = ['company', 'company_admin', 'organization_admin', 'platform_admin'] as const;
+const ALLOWED_ROLES = ['company', 'organization_admin', 'platform_admin'] as const;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

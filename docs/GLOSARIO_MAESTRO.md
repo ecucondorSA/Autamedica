@@ -3024,15 +3024,503 @@ if (!hasRole(sess, ['organization_admin','company_admin'])) return 403;
 
 - auth: `APP_ALLOWED_ROLES`, `AppName`, `AuthError`, `AuthErrorType`, `AuthProvider`, `AuthState`, `DomainConfig`, `Environment`, `ROLE_APP_MAPPING`, `RedirectConfig`, `SessionConfig`, `UserProfile`, `UserRole`, `authMiddleware`, `clearLastPath`, `createAppMiddleware`, `createBrowserClient`, `getCorrectAppUrl`, `getDefaultRedirectUrl`, `getDomainConfig`, `getEnvironment`, `getLastPath`, `getLoginUrl`, `getRedirectUrl`, `getSessionConfig`, `getSupabaseClient`, `getSupabaseConfig`, `isCorrectAppForRole`, `isSameOrigin`, `sanitizeReturnUrl`, `signOutGlobally`, `storeLastPath`, `useAuth`, `useRequireAuth`, `useRequireRole`
 - hooks: `useAppointments`, `useAsync`, `useDebounce`, `usePatients`
-- shared: `AUTH_URLS`, `BASE_URL_BY_ROLE`, `EnvironmentConfig`, `EnvironmentValidation`, `HOME_BY_ROLE`, `LogLevel`, `Logger`, `PORTAL_TO_ROLE`, `ensureClientEnv`, `ensureEnv`, `ensureServerEnv`, `getCookieDomain`, `getLoginUrl`, `getPortalForRole`, `getRoleForPortal`, `getTargetUrlByRole`, `isValidRole`, `logger`, `validateEmail`, `validateEnvironment`, `validateEnvironmentByType`, `validateEnvironmentSecurity`, `validatePhone`, `validateProductionEnvironment`, `validateStagingEnvironment`
+- shared: `AppRole`, `AUTH_URLS`, `AVAILABLE_ROLES`, `BASE_URL_BY_ROLE`, `buildSafeLoginUrl`, `canAccessMedicalFeatures`, `canManageOrganizations`, `EnvironmentConfig`, `EnvironmentValidation`, `HOME_BY_ROLE`, `ICE_SERVERS`, `LogLevel`, `Logger`, `PORTAL_TO_ROLE`, `requiresVerification`, `roleToPortal`, `roleToPortalDev`, `ensureClientEnv`, `safeRedirectOrFallback`, `ensureEnv`, `ensureServerEnv`, `getAppUrl`, `getBaseUrlForRole`, `getClientEnvOrDefault`, `getCookieDomain`, `getDefaultRedirectUrl`, `getOptionalClientEnv`, `getPortalUrlWithPath`, `getRoleDescription`, `getRoleDisplayName`, `getServerEnvOrDefault`, `getSession`, `getLoginUrl`, `getPortalForRole`, `getRoleForPortal`, `getTargetUrlByRole`, `hasAdminAccess`, `hasRole`, `isAllowedRedirect`, `isCorrectPortal`, `isValidRole`, `isValidUserRole`, `logger`, `validateEmail`, `validateEnvironment`, `validateEnvironmentByType`, `validateEnvironmentSecurity`, `validatePhone`, `typeSession`, `typeSessionRole`, `VERIFIED_ROLES`, `validateProductionEnvironment`, `WebRTCDiagnostics`, `validateStagingEnvironment`
 - telemedicine: `HttpWebRTCClient`, `IceServerConfig`, `MediaControlsHook`, `RtcStatsData`, `RtcStatsHook`, `Signal`, `SignalKind`, `SignalingConfig`, `SignalingImplementation`, `SignalingTransport`, `TelemedicineClientHook`, `UnifiedVideoCall`, `UnifiedVideoCallProps`, `WebRTCClient`, `WebRTCConfig`, `WebRTCEvents`, `createSignalingTransport`, `createSignalingTransportFromEnv`, `getIceServersConfig`, `isSignal`, `useMediaControls`, `useRtcStats`, `useTelemedicineClient`, `validateIceServersConfig`
-- types: `APPOINTMENT_STATUSES`, `APPOINTMENT_TYPES`, `ARGENTINA_INSURANCE_PROVIDERS`, `ARS`, `Address`, `Allergy`, `AllergySeverity`, `ApiError`, `ApiErrorCode`, `ApiResponse`, `Appointment`, `AppointmentId`, `AppointmentInsert`, `AppointmentStatus`, `AppointmentType`, `AppointmentUpdate`, `AppointmentWithDetails`, `ArrayElement`, `AsyncFunction`, `AsyncState`, `AutamedicaRecognition`, `AuthenticatedLoadable`, `BMI`, `BaseEntity`, `BloodType`, `Brand`, `CERTIFICATION_TYPES`, `COMPANY_MEMBER_ROLES`, `COMPANY_SIZES`, `Callback`, `CertificationId`, `Company`, `CompanyAddress`, `CompanyContact`, `CompanyId`, `CompanyInsert`, `CompanyMember`, `CompanyMemberInsert`, `CompanyMemberRole`, `CompanyMemberUpdate`, `CompanySize`, `CompanyUpdate`, `CompanyWithMembers`, `ComplianceInfo`, `Coordinates`, `CountryCode`, `CreateEntityInput`, `DNI`, `DataLoadingState`, `Database`, `DaySchedule`, `DiscriminateUnion`, `Doctor`, `DoctorAPIResponse`, `DoctorEducation`, `DoctorExperience`, `DoctorId`, `DoctorInsert`, `DoctorListAPIResponse`, `DoctorLookupResult`, `DoctorPrivateData`, `DoctorProfile`, `DoctorPublicAPIResponse`, `DoctorPublicProfile`, `DoctorPublicRating`, `DoctorRatingAPIResponse`, `DoctorRatingDisplay`, `DoctorUpdate`, `DoctorWithProfile`, `EmergencyContact`, `EmployeeId`, `EntityFilters`, `FacilityId`, `GENDERS`, `Gender`, `HeightCm`, `ICD10Code`, `ID_VALIDATION_CONFIG`, `ISODateString`, `Id`, `InsurancePlan`, `InsurancePolicyNumber`, `Json`, `JsonArray`, `JsonObject`, `JsonPrimitive`, `JsonValue`, `KeysOf`, `LICENSE_STATUS`, `LicenseProvinceCode`, `Loadable`, `LoadingState`, `MEDICAL_RECORD_VISIBILITIES`, `MEDICAL_SPECIALTIES`, `MapDiscriminatedUnion`, `Maybe`, `MedicalApiResponse`, `MedicalAudit`, `MedicalCertification`, `MedicalCondition`, `MedicalHistoryId`, `MedicalLicense`, `MedicalLicenseNumber`, `MedicalLoadable`, `MedicalRecord`, `MedicalRecordInsert`, `MedicalRecordNumber`, `MedicalRecordUpdate`, `MedicalRecordVisibility`, `MedicalRecordWithDetails`, `MedicalSpecialty`, `MedicalSubspecialty`, `Medication`, `MutableDeep`, `NationalPhone`, `NonEmptyArray`, `NonEmptyObject`, `NonEmptyString`, `NonNullable`, `Nullable`, `Optional`, `PHONE_VALIDATION_CONFIG`, `PaginatedResponse`, `PaginationParams`, `Patient`, `PatientAPIResponse`, `PatientAddress`, `PatientAdminView`, `PatientCareTeam`, `PatientCareTeamInsert`, `PatientCareTeamUpdate`, `PatientCareTeamWithDetails`, `PatientCount`, `PatientId`, `PatientInsert`, `PatientListAPIResponse`, `PatientMedicalAPIResponse`, `PatientMedicalView`, `PatientPrivateData`, `PatientProfile`, `PatientPublicProfile`, `PatientReview`, `PatientUpdate`, `PatientVolumeMetrics`, `PatientWithProfile`, `Percent0to100`, `Percentage`, `PhoneE164`, `Portal`, `PositiveNumber`, `Predicate`, `PrescriptionId`, `ProfessionalInsurance`, `Profile`, `ProfileInsert`, `ProfileUpdate`, `REVIEW_WINDOW_DAYS`, `ROLE_TO_PORTALS`, `RatingScore`, `ReadonlyDeep`, `RecognitionAPIResponse`, `ReviewId`, `ReviewListAPIResponse`, `ReviewSubmissionResult`, `SUBSPECIALTIES`, `SpecialtyCode`, `StateCode`, `SubspecialtyCode`, `SupabaseApiResponse`, `SupabasePaginatedResponse`, `Tables`, `TablesInsert`, `TablesUpdate`, `TenantId`, `ThrowsFunction`, `TimeHHmm`, `TimeSlot`, `USER_ROLES`, `UUID`, `UpdateEntityInput`, `User`, `UserId`, `UserProfile`, `UserRole`, `UserSession`, `ValuesOf`, `VitalSigns`, `VoidFunction`, `WeeklySchedule`, `WeightKg`, `ZipCode`, `acceptsInsurancePlan`, `calculateAge`, `calculateBMI`, `calculateMonthsActive`, `calculateOverallRating`, `calculatePatientReviewsScore`, `calculateRecognitionScore`, `calculateReviewsBreakdown`, `calculateRiskLevel`, `calculateTotalTrainingYears`, `calculateVolumePercentile`, `calculateVolumeScore`, `calculateYearsOfExperience`, `canAccessPortal`, `canPracticeInArgentina`, `canPracticeSpecialty`, `canReceiveTelemedicine`, `canSubmitReview`, `combineLoadables`, `createBasicAddress`, `createBasicSpecialty`, `createId`, `createMedicalAddress`, `createMedicalLicense`, `createMedicalView`, `createPublicProfile`, `createRatingDisplay`, `createValidatedId`, `extractCountryCode`, `extractPrivateData`, `extractProvinceFromLicense`, `fail`, `failWithCode`, `failure`, `flatMapLoadable`, `formatAddressString`, `formatMedicalLicense`, `formatPhoneForDisplay`, `generateAppointmentId`, `generateDisplayName`, `generateDoctorId`, `generatePatientId`, `generatePrefixedId`, `generateUUID`, `getAvailableSubspecialties`, `getLoadableValue`, `getPhoneExamples`, `getRecognitionBadgeText`, `getSpecialtiesByCategory`, `getSpecialtiesRequiring`, `hasActiveAllergies`, `hasInsuranceCoverage`, `idle`, `isActiveLicense`, `isApiError`, `isApiSuccess`, `isAppointment`, `isArgentinaMobile`, `isArgentinaPhone`, `isArgentinaStateCode`, `isArgentinaZipCode`, `isAvailableOnDay`, `isCompleteAddress`, `isCountryCode`, `isDoctor`, `isDoctorLicenseActive`, `isDoctorProfileComplete`, `isEligibleForRecognition`, `isEntityActive`, `isEntityDeleted`, `isFailure`, `isHighRiskPatient`, `isISODateString`, `isIdle`, `isLoading`, `isNonEmptyArray`, `isNonEmptyObject`, `isNonEmptyString`, `isNonNullable`, `isPAMIEligible`, `isPatient`, `isPercentage`, `isPhoneE164`, `isPositiveNumber`, `isProfile`, `isPublicHealthcareEligible`, `isSuccess`, `isUnauthenticated`, `isValidBloodType`, `isValidCertification`, `isValidCoordinates`, `isValidDNI`, `isValidEmail`, `isValidMedicalLicense`, `isValidPhoneForCountry`, `isValidRatingScore`, `isValidSpecialtyCode`, `isValidSubspecialtyCode`, `isValidTimeHHmm`, `isValidURL`, `loading`, `mapApiResponse`, `mapLoadable`, `markEntityAsDeleted`, `matchAsyncState`, `matchAuthenticatedLoadable`, `matchDataLoadingState`, `matchLoadable`, `medicalFail`, `medicalOk`, `migrateToAddress`, `normalizePhoneNumber`, `nowAsISODateString`, `ok`, `requiresSpecializedCare`, `success`, `toArgentinaStateCode`, `toArgentinaZipCode`, `toCountryCode`, `toE164Format`, `toISODateString`, `toNationalFormat`, `unauthenticated`, `unwrapApiResponse`, `unwrapLoadable`, `validateIdForScope`, `validatePhoneList`
+- types: `APPOINTMENT_STATUSES`, `APPOINTMENT_TYPES`, `ARGENTINA_INSURANCE_PROVIDERS`, `ARS`, `Address`, `Allergy`, `AllergySeverity`, `ApiError`, `ApiErrorCode`, `ApiResponse`, `Appointment`, `AppointmentId`, `AppointmentInsert`, `AppointmentStatus`, `AppointmentType`, `AppointmentUpdate`, `AppointmentWithDetails`, `ArrayElement`, `AsyncFunction`, `AsyncState`, `AutamedicaRecognition`, `AuthenticatedLoadable`, `BMI`, `BaseEntity`, `BloodType`, `Brand`, `CERTIFICATION_TYPES`, `COMPANY_MEMBER_ROLES`, `COMPANY_SIZES`, `Callback`, `CertificationId`, `Company`, `CompanyAddress`, `CompanyContact`, `CompanyId`, `CompanyInsert`, `CompanyMember`, `CompanyMemberInsert`, `CompanyMemberRole`, `CompanyMemberUpdate`, `CompanySize`, `CompanyUpdate`, `CompanyProfile`, `CompanyWithMembers`, `ComplianceInfo`, `Coordinates`, `CountryCode`, `CreateEntityInput`, `DNI`, `DataLoadingState`, `Database`, `DaySchedule`, `DiscriminateUnion`, `Doctor`, `DoctorAPIResponse`, `DoctorEducation`, `DoctorExperience`, `DoctorId`, `DoctorInsert`, `DoctorListAPIResponse`, `DoctorLookupResult`, `DoctorPrivateData`, `DoctorProfile`, `DoctorPublicAPIResponse`, `DoctorPublicProfile`, `DoctorPublicRating`, `DoctorRatingAPIResponse`, `DoctorRatingDisplay`, `DoctorUpdate`, `DoctorWithProfile`, `EmergencyContact`, `EmployeeId`, `EntityFilters`, `FacilityId`, `GENDERS`, `Gender`, `HeightCm`, `ICD10Code`, `ID_VALIDATION_CONFIG`, `ISODateTime`, `ISODateString`, `Id`, `InsurancePlan`, `InsuranceInfo`, `InsurancePolicyNumber`, `Json`, `JsonArray`, `JsonObject`, `JsonPrimitive`, `JsonValue`, `KeysOf`, `LICENSE_STATUS`, `LicenseProvinceCode`, `Loadable`, `LoadingState`, `MEDICAL_RECORD_VISIBILITIES`, `MEDICAL_SPECIALTIES`, `MapDiscriminatedUnion`, `Maybe`, `MedicalApiResponse`, `MedicalAudit`, `MedicalCertification`, `MedicalCondition`, `MedicalHistoryId`, `MedicalLicense`, `MedicalLicenseNumber`, `MedicalLoadable`, `MedicalRecord`, `MedicalRecordInsert`, `MedicalRecordNumber`, `MedicalRecordUpdate`, `MedicalRecordVisibility`, `MedicalRecordWithDetails`, `MedicalSpecialty`, `MedicalSubspecialty`, `Medication`, `MutableDeep`, `NationalPhone`, `NonEmptyArray`, `NonEmptyObject`, `NonEmptyString`, `NonNullable`, `Nullable`, `OrganizationId`, `Optional`, `PHONE_VALIDATION_CONFIG`, `PaginatedResponse`, `PaginationParams`, `Patient`, `PatientAPIResponse`, `PatientAddress`, `PatientAdminView`, `PatientCareTeam`, `PatientCareTeamInsert`, `PatientCareTeamUpdate`, `PatientCareTeamWithDetails`, `PatientCount`, `PatientId`, `PatientInsert`, `PatientListAPIResponse`, `PatientMedicalAPIResponse`, `PatientMedicalView`, `PatientPrivateData`, `PatientProfile`, `PatientPublicProfile`, `PatientReview`, `PatientUpdate`, `PatientVolumeMetrics`, `PatientCareTeamRole`, `PatientWithProfile`, `Percent0to100`, `Percentage`, `PhoneE164`, `Portal`, `PositiveNumber`, `Predicate`, `PrescriptionId`, `ProfessionalInsurance`, `Profile`, `ProfileInsert`, `ProfileUpdate`, `REVIEW_WINDOW_DAYS`, `ROLE_TO_PORTALS`, `RatingScore`, `ReadonlyDeep`, `RecognitionAPIResponse`, `ReviewId`, `ReviewListAPIResponse`, `ReviewSubmissionResult`, `SUBSPECIALTIES`, `SpecialtyCode`, `StateCode`, `SubspecialtyCode`, `SupabaseApiResponse`, `SupabasePaginatedResponse`, `Tables`, `TablesInsert`, `TablesUpdate`, `TenantId`, `ThrowsFunction`, `TimeHHmm`, `TimeSlot`, `USER_ROLES`, `UUID`, `UpdateEntityInput`, `User`, `UserId`, `UserProfile`, `UserRole`, `UserSession`, `ValuesOf`, `VitalSigns`, `VoidFunction`, `WeeklySchedule`, `WeightKg`, `ZipCode`, `acceptsInsurancePlan`, `canAccessRecord`, `canInviteMembers`, `canManageBilling`, `canManageCompany`, `calculateAge`, `calculateBMI`, `calculateMonthsActive`, `calculateOverallRating`, `calculatePatientReviewsScore`, `calculateRecognitionScore`, `calculateReviewsBreakdown`, `calculateRiskLevel`, `calculateTotalTrainingYears`, `calculateVolumePercentile`, `calculateVolumeScore`, `calculateYearsOfExperience`, `canAccessPortal`, `canPracticeInArgentina`, `canPracticeSpecialty`, `canReceiveTelemedicine`, `canSubmitReview`, `combineLoadables`, `createBasicAddress`, `createBasicSpecialty`, `createId`, `createMedicalAddress`, `createMedicalLicense`, `createMedicalView`, `createPublicProfile`, `createRatingDisplay`, `createValidatedId`, `extractCountryCode`, `extractPrivateData`, `extractProvinceFromLicense`, `fail`, `failWithCode`, `failure`, `flatMapLoadable`, `formatAddressString`, `formatMedicalLicense`, `formatPhoneForDisplay`, `generateAppointmentId`, `generateDisplayName`, `generateDoctorId`, `generatePatientId`, `generatePrefixedId`, `generateUUID`, `getAvailableSubspecialties`, `getLoadableValue`, `getPhoneExamples`, `getSupabaseErrorMessage`, `getRecognitionBadgeText`, `getSpecialtiesByCategory`, `getSpecialtiesRequiring`, `hasActiveAllergies`, `hasInsuranceCoverage`, `idle`, `isActiveLicense`, `isApiError`, `isApiSuccess`, `isAppointmentStatus`, `isAppointmentType`, `isAppointment`, `isArgentinaMobile`, `isArgentinaPhone`, `isArgentinaStateCode`, `isCompanyMemberRole`, `isArgentinaZipCode`, `isAvailableOnDay`, `isCompleteAddress`, `isCountryCode`, `isDoctor`, `isDoctorLicenseActive`, `isDoctorEducation`, `isDoctorProfileComplete`, `isEligibleForRecognition`, `isEntityActive`, `isEntityDeleted`, `isFailure`, `isHighRiskPatient`, `isHighSensitivityRecord`, `isISODateString`, `isTerminalStatus`, `isIdle`, `isLoading`, `isNonEmptyArray`, `isNonEmptyObject`, `isNonEmptyString`, `isNonNullable`, `isPrimaryDoctor`, `isPAMIEligible`, `isPatient`, `isPatientCareTeamRole`, `isMedicalRecordVisibility`, `isPercentage`, `isPhoneE164`, `isPositiveNumber`, `isProfileComplete`, `isProfile`, `isPublicHealthcareEligible`, `isSupabaseApiResponse`, `isSupabaseError`, `isSupabaseSuccess`, `isSuccess`, `isUnauthenticated`, `isValidBloodType`, `isValidCertification`, `isValidCoordinates`, `isValidDNI`, `isValidEmail`, `isValidMedicalLicense`, `isValidPhoneForCountry`, `isValidRatingScore`, `isValidSpecialtyCode`, `isValidRole`, `isValidSubspecialtyCode`, `isValidTimeHHmm`, `isValidURL`, `loading`, `mapApiResponse`, `mapLoadable`, `markEntityAsDeleted`, `matchAsyncState`, `matchAuthenticatedLoadable`, `matchDataLoadingState`, `matchLoadable`, `medicalFail`, `medicalOk`, `migrateToAddress`, `normalizePhoneNumber`, `nowAsISODateString`, `requiresEquipment`, `ok`, `requiresSpecializedCare`, `success`, `toArgentinaStateCode`, `toArgentinaZipCode`, `toCountryCode`, `toE164Format`, `toISODateString`, `toNationalFormat`, `unauthenticated`, `unwrapApiResponse`, `unwrapLoadable`, `validateIdForScope`, `validatePhoneList`
 - ui: `Button`, `ButtonProps`, `Card`, `CardProps`, `FooterLink`, `FooterLinkProps`, `Input`, `InputProps`
 - utils: (sin símbolos)
 
 
 
 <!-- AUTOGEN_PACKAGES:END -->
+
+## 📋 Exports Auto-generados
+
+### //
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   ARGENTINA_INSURANCE_PROVIDERS
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   argentina_insurance_providers.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   acceptsInsurancePlan
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   acceptsinsuranceplan.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   calculateAge
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   calculateage.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   calculateBMI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   calculatebmi.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   calculateRiskLevel
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   calculaterisklevel.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   calculateYearsOfExperience
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   calculateyearsofexperience.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   canPracticeInArgentina
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   canpracticeinargentina.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   canReceiveTelemedicine
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   canreceivetelemedicine.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   createMedicalView
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   createmedicalview.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   createPublicProfile
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   createpublicprofile.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   extractPrivateData
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   extractprivatedata.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   generateDisplayName
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   generatedisplayname.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   hasActiveAllergies
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   hasactiveallergies.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   hasInsuranceCoverage
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   hasinsurancecoverage.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isAvailableOnDay
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isavailableonday.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isDoctorLicenseActive
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isdoctorlicenseactive.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isDoctorProfileComplete
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isdoctorprofilecomplete.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isHighRiskPatient
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   ishighriskpatient.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isPAMIEligible
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   ispamieligible.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isPublicHealthcareEligible
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   ispublichealthcareeligible.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isValidBloodType
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isvalidbloodtype.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isValidDNI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isvaliddni.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isValidEmail
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isvalidemail.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isValidTimeHHmm
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isvalidtimehhmm.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   isValidURL
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   isvalidurl.
+- **Contrato:** Pendiente de documentación detallada
+
+### //   requiresSpecializedCare
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para //   requiresspecializedcare.
+- **Contrato:** Pendiente de documentación detallada
+
+### AVAILABLE_ROLES
+- **Tipo:** const
+- **Package:** @autamedica/shared
+- **Descripción:** Constante del sistema para available roles.
+- **Contrato:** Pendiente de documentación detallada
+
+### VERIFIED_ROLES
+- **Tipo:** const
+- **Package:** @autamedica/shared
+- **Descripción:** Constante del sistema para verified roles.
+- **Contrato:** Pendiente de documentación detallada
+
+### canAccessMedicalFeatures
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para canaccessmedicalfeatures.
+- **Contrato:** Pendiente de documentación detallada
+
+### canManageOrganizations
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para canmanageorganizations.
+- **Contrato:** Pendiente de documentación detallada
+
+### getRoleDescription
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getroledescription en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getRoleDisplayName
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getroledisplayname en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasAdminAccess
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para hasadminaccess.
+- **Contrato:** Pendiente de documentación detallada
+
+### isValidUserRole
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isvaliduserrole.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresVerification
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para requiresverification.
+- **Contrato:** Pendiente de documentación detallada
+
+### roleToPortal
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para roletoportal.
+- **Contrato:** Pendiente de documentación detallada
+
+### roleToPortalDev
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para roletoportaldev.
+- **Contrato:** Pendiente de documentación detallada
+
+### OrganizationId
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Identificador único para organizaciones/empresas
+- **Contrato:** UUID branded type para organization
+
+### CompanyProfile
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Perfil completo de empresa en el sistema
+- **Contrato:** Interface con datos de empresa
+
+### InsuranceInfo
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Información de seguro médico
+- **Contrato:** Interface con detalles de cobertura
+
+### isValidRole
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida si un rol es válido en el sistema
+- **Contrato:** Type guard para roles
+
+### isProfileComplete
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si un perfil está completo
+- **Contrato:** Validador de completitud de perfil
+
+### PatientCareTeamRole
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Roles del equipo de cuidado de pacientes
+- **Contrato:** Union type de roles médicos
+
+### isPatientCareTeamRole
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida si es un rol de equipo de cuidado
+- **Contrato:** Type guard para roles de care team
+
+### isPrimaryDoctor
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si es el médico primario
+- **Contrato:** Validador de rol de médico primario
+
+### isDoctorEducation
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida educación médica
+- **Contrato:** Type guard para educación
+
+### isCompanyMemberRole
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida roles de miembros de empresa
+- **Contrato:** Type guard para roles empresariales
+
+### canManageBilling
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica permisos de gestión de facturación
+- **Contrato:** Validador de permisos de billing
+
+### canInviteMembers
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica permisos para invitar miembros
+- **Contrato:** Validador de permisos de invitación
+
+### canManageCompany
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica permisos de gestión de empresa
+- **Contrato:** Validador de permisos administrativos
+
+### isAppointmentType
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida tipos de cita médica
+- **Contrato:** Type guard para appointment types
+
+### isAppointmentStatus
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida estados de cita
+- **Contrato:** Type guard para appointment status
+
+### isTerminalStatus
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si es un estado terminal
+- **Contrato:** Validador de estados finales
+
+### requiresEquipment
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si requiere equipamiento
+- **Contrato:** Validador de requerimientos de equipo
+
+### isMedicalRecordVisibility
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida visibilidad de registros médicos
+- **Contrato:** Type guard para visibility levels
+
+### canAccessRecord
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica acceso a registros médicos
+- **Contrato:** Validador de permisos de acceso
+
+### isHighSensitivityRecord
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si es registro de alta sensibilidad
+- **Contrato:** Validador de sensibilidad HIPAA
+
+### isSupabaseApiResponse
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida respuestas de API Supabase
+- **Contrato:** Type guard para Supabase responses
+
+### isSupabaseError
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida errores de Supabase
+- **Contrato:** Type guard para Supabase errors
+
+### isSupabaseSuccess
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Valida éxito de operación Supabase
+- **Contrato:** Type guard para success responses
+
+### getSupabaseErrorMessage
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Extrae mensaje de error de Supabase
+- **Contrato:** Helper para error messages
+
+### ISODateTime
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Fecha y hora en formato ISO
+- **Contrato:** Branded string type para ISO datetime
+
+### getOptionalClientEnv
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene variable de entorno opcional del cliente
+- **Contrato:** Helper para env vars opcionales
+
+### getClientEnvOrDefault
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene env var del cliente con valor default
+- **Contrato:** Helper con fallback
+
+### getServerEnvOrDefault
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene env var del servidor con default
+- **Contrato:** Helper server-side con fallback
+
+### getPortalUrlWithPath
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Construye URL de portal con path
+- **Contrato:** URL builder para portales
+
+### isCorrectPortal
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Verifica si está en el portal correcto
+- **Contrato:** Validador de portal actual
+
+### isAllowedRedirect
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Valida si redirect es permitido
+- **Contrato:** Security helper para redirects
+
+### safeRedirectOrFallback
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Redirect seguro con fallback
+- **Contrato:** Safe redirect helper
+
+### buildSafeLoginUrl
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Construye URL de login segura
+- **Contrato:** Login URL builder
+
+### getSession
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene sesión de usuario actual
+- **Contrato:** Session accessor
+
+### hasRole
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Verifica si usuario tiene rol
+- **Contrato:** Role checker
+
+### typeSession
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Type guard para sesión
+- **Contrato:** Session type guard
+
+### typeSessionRole
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Type guard para rol de sesión
+- **Contrato:** Session role type guard
+
+### getAppUrl
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene URL de aplicación
+- **Contrato:** App URL resolver
+
+### getBaseUrlForRole
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene URL base según rol
+- **Contrato:** Role-based URL resolver
+
+### AppRole
+- **Tipo:** type
+- **Package:** @autamedica/shared
+- **Descripción:** Roles de aplicación disponibles
+- **Contrato:** Union type de app roles
+
+### WebRTCDiagnostics
+- **Tipo:** interface
+- **Package:** @autamedica/shared
+- **Descripción:** Diagnósticos de WebRTC
+- **Contrato:** Interface para diagnósticos de video
+
+### ICE_SERVERS
+- **Tipo:** const
+- **Package:** @autamedica/shared
+- **Descripción:** Configuración de servidores ICE
+- **Contrato:** Constante de configuración WebRTC
+
+### getDefaultRedirectUrl
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Obtiene URL de redirect por defecto
+- **Contrato:** Default redirect resolver
 
 ## 🔗 Base de Datos
 Ver glosario actualizado: [`docs/database/schema.md`](../docs/database/schema.md)

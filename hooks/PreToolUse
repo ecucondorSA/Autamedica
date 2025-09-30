@@ -1,0 +1,4 @@
+#!/bin/sh
+# $1 suele contener el nombre de la tool/comando
+mkdir -p .logs 2>/dev/null || true
+printf "⚙️ PreToolUse → %s\n" "$1" >> .logs/ai-tools.log 2>/dev/null || true

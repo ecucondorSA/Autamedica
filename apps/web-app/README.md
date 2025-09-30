@@ -75,7 +75,7 @@ createBrowserClient(
 ### **Variables de Entorno**
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=NUEVA-ANON-KEY-ROTADA..
 ```
 
 ## 🎨 **UI/UX Médico**

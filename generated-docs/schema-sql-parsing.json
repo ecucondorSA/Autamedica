@@ -1,0 +1,2069 @@
+{
+  "schema_name": "parsed",
+  "tables": [
+    {
+      "table_name": "profiles",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "email",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "external_id",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "first_name",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "last_name",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "phone",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "avatar_url",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_profiles_email",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "email"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_profiles_role",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "role"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "profiles_user_id_idx",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_profiles_numeric_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "numeric_id"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "companies",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "name",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "legal_name",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "cuit",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "industry",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "size",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "address",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "phone",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "email",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "website",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "owner_profile_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "doctors",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "license_number",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "specialty",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "subspecialty",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "years_experience",
+          "data_type": "INTEGER",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "0"
+        },
+        {
+          "column_name": "education",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "certifications",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "schedule",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "consultation_fee",
+          "data_type": "DECIMAL(10,2)",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "accepted_insurance",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "bio",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "languages",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'[\"Spanish\"]'"
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_doctors_user_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_doctors_specialty_active",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "specialty",
+            "active"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "patients",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "dni",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "birth_date",
+          "data_type": "DATE",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "gender",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "blood_type",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "height_cm",
+          "data_type": "INTEGER",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "weight_kg",
+          "data_type": "DECIMAL(5,2)",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "emergency_contact",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "medical_history",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'[]'"
+        },
+        {
+          "column_name": "allergies",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'[]'"
+        },
+        {
+          "column_name": "medications",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'[]'"
+        },
+        {
+          "column_name": "insurance_info",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "company_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_patients_user_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_patients_company_active",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "organization_id",
+            "active"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "company_members",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "company_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "profile_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'member'"
+        },
+        {
+          "column_name": "position",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "department",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "employee_id",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "start_date",
+          "data_type": "DATE",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "end_date",
+          "data_type": "DATE",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "UNIQUE(company_id,",
+          "data_type": "profile_id)",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "patient_care_team",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "patient_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "doctor_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'primary'"
+        },
+        {
+          "column_name": "assigned_date",
+          "data_type": "DATE",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "CURRENT_DATE"
+        },
+        {
+          "column_name": "active",
+          "data_type": "BOOLEAN",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "true"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "UNIQUE(patient_id,",
+          "data_type": "doctor_id)",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_patient_care_team_lookup",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "doctor_id",
+            "patient_id",
+            "active"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "appointments",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "patient_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "doctor_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "start_time",
+          "data_type": "TIMESTAMP",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "end_time",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "duration_minutes",
+          "data_type": "INTEGER",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "30"
+        },
+        {
+          "column_name": "type",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'consultation'"
+        },
+        {
+          "column_name": "status",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'scheduled'"
+        },
+        {
+          "column_name": "notes",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "location",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "meeting_url",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_by",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_appointments_patient_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "patient_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_appointments_doctor_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "doctor_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_appointments_start_time",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "start_time"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_appointments_doctor_time",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "doctor_id",
+            "start_time"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_appointments_patient_time",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "patient_id",
+            "start_time"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "medical_records",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "patient_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "doctor_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "appointment_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "type",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "title",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "content",
+          "data_type": "JSONB",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "attachments",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'[]'"
+        },
+        {
+          "column_name": "visibility",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'care_team'"
+        },
+        {
+          "column_name": "date_recorded",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMP",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_medical_records_patient_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "patient_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_medical_records_patient",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "patient_id",
+            "created_at"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "calls",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "uuid_generate_v4()"
+        },
+        {
+          "column_name": "room_id",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "doctor_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "patient_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "status",
+          "data_type": "call_status",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'requested'"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "accepted_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "ended_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "reason",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [],
+      "constraints": [
+        {
+          "constraint_name": "calls_room_id_check",
+          "constraint_type": "CHECK",
+          "columns": []
+        },
+        {
+          "constraint_name": "calls_valid_dates",
+          "constraint_type": "CHECK",
+          "columns": []
+        },
+        {
+          "constraint_name": "calls_end_dates",
+          "constraint_type": "CHECK",
+          "columns": []
+        }
+      ]
+    },
+    {
+      "table_name": "call_events",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "BIGSERIAL",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "call_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "type",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "payload",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [],
+      "constraints": [
+        {
+          "constraint_name": "call_events_type_check",
+          "constraint_type": "CHECK",
+          "columns": []
+        }
+      ]
+    },
+    {
+      "table_name": "profiles",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamptz",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamptz",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_profiles_email",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "email"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_profiles_role",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "role"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "profiles_user_id_idx",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_profiles_numeric_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "numeric_id"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "organizations",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "uuid_generate_v4()"
+        },
+        {
+          "column_name": "owner_profile_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "slug",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "concat('org-',"
+        },
+        {
+          "column_name": "name",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "legal_name",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "tax_id",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "type",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'company'"
+        },
+        {
+          "column_name": "industry",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "size",
+          "data_type": "TEXT",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "address",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "contact",
+          "data_type": "JSONB",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "metadata",
+          "data_type": "JSONB",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'{}'::JSONB"
+        },
+        {
+          "column_name": "is_active",
+          "data_type": "BOOLEAN",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "TRUE"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "org_members",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "organization_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "profile_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'member'"
+        },
+        {
+          "column_name": "status",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'active'"
+        },
+        {
+          "column_name": "invited_by",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "metadata",
+          "data_type": "JSONB",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'{}'::JSONB"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "PRIMARY",
+          "data_type": "KEY",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "user_roles",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "uuid_generate_v4()"
+        },
+        {
+          "column_name": "profile_id",
+          "data_type": "UUID",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "organization_id",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "role",
+          "data_type": "TEXT",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "granted_by",
+          "data_type": "UUID",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "granted_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "NOW()"
+        },
+        {
+          "column_name": "expires_at",
+          "data_type": "TIMESTAMPTZ",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "metadata",
+          "data_type": "JSONB",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "'{}'::JSONB"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "user_roles_unique_global_role",
+          "is_unique": true,
+          "is_primary": false,
+          "columns": [
+            "profile_id",
+            "role"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "user_roles_unique_org_role",
+          "is_unique": true,
+          "is_primary": false,
+          "columns": [
+            "profile_id",
+            "organization_id",
+            "role"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "patients",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "company_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "medical_record_number",
+          "data_type": "text",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamptz",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_patients_user_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_patients_company_active",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "organization_id",
+            "active"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "doctors",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "license_number",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "speciality",
+          "data_type": "text",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "verified",
+          "data_type": "boolean",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "false"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamptz",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_doctors_user_id",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_doctors_specialty_active",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "specialty",
+            "active"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "table_name": "companies",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "tax_id",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "company_name",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamptz",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "doctor_patient",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "doctor_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "patient_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "assigned_at",
+          "data_type": "timestamptz",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        },
+        {
+          "column_name": "PRIMARY",
+          "data_type": "KEY",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ],
+      "indexes": [],
+      "constraints": []
+    },
+    {
+      "table_name": "medical_audit_log",
+      "table_schema": "public",
+      "table_type": "BASE TABLE",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "action_type",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "table_name",
+          "data_type": "text",
+          "is_nullable": false,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "record_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "patient_user_id",
+          "data_type": "uuid",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "ip_address",
+          "data_type": "inet",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "user_agent",
+          "data_type": "text",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamptz",
+          "is_nullable": true,
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "column_default": "now()"
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_audit_log_user_date",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "user_id",
+            "created_at"
+          ],
+          "index_type": "btree"
+        },
+        {
+          "index_name": "idx_audit_log_patient_date",
+          "is_unique": false,
+          "is_primary": false,
+          "columns": [
+            "patient_user_id",
+            "created_at"
+          ],
+          "index_type": "btree"
+        }
+      ],
+      "constraints": []
+    }
+  ],
+  "functions": [
+    {
+      "function_name": "handle_updated_at",
+      "function_schema": "public",
+      "return_type": "TRIGGER AS $$ BEGIN NEW.updated_at = NOW()",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "create_call",
+      "function_schema": "public",
+      "return_type": "TABLE( id UUID, room_id TEXT, doctor_id UUID, patient_id UUID, status call_status, created_at TIMESTAMPTZ ) AS $$ DECLARE v_room_id TEXT",
+      "argument_types": [
+        " p_doctor_id UUID, p_patient_id UUID "
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "update_call_status",
+      "function_schema": "public",
+      "return_type": "BOOLEAN AS $$ DECLARE v_updated BOOLEAN := FALSE",
+      "argument_types": [
+        " p_call_id UUID, p_status call_status, p_reason TEXT DEFAULT NULL "
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "handle_new_user",
+      "function_schema": "public",
+      "return_type": "trigger as $$ begin insert into public.profiles (user_id, email, role) values ( new.id, new.email, coalesce( new.raw_app_meta_data->>'role', new.raw_user_meta_data->>'role', 'patient' )::text )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "update_updated_at_column",
+      "function_schema": "public",
+      "return_type": "trigger as $$ begin new.updated_at = now()",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "update_updated_at_column",
+      "function_schema": "public",
+      "return_type": "TRIGGER AS $$ BEGIN NEW.updated_at = NOW()",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "select_primary_role_for_profile",
+      "function_schema": "public",
+      "return_type": "TEXT AS $$ DECLARE selected_role TEXT",
+      "argument_types": [
+        "target_profile_id UUID"
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "sync_profile_primary_role",
+      "function_schema": "public",
+      "return_type": "TRIGGER AS $$ BEGIN IF TG_OP = 'DELETE' THEN UPDATE public.profiles SET role = public.select_primary_role_for_profile(OLD.profile_id), updated_at = NOW() WHERE user_id = OLD.profile_id",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "generate_external_id",
+      "function_schema": "public",
+      "return_type": "text AS $$ BEGIN RETURN role_prefix || '_' || substr(encode(gen_random_bytes(6), 'base64'), 1, 8)",
+      "argument_types": [
+        "role_prefix text"
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "auto_generate_external_id",
+      "function_schema": "public",
+      "return_type": "trigger AS $$ BEGIN IF NEW.external_id IS NULL THEN NEW.external_id := generate_external_id( CASE NEW.role WHEN 'patient' THEN 'PAT' WHEN 'doctor' THEN 'DOC' WHEN 'company' THEN 'COM' WHEN 'company_admin' THEN 'ADM' WHEN 'organization_admin' THEN 'ORG' END )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "ensure_numeric_id",
+      "function_schema": "public",
+      "return_type": "TRIGGER LANGUAGE plpgsql SECURITY DEFINER AS $$ BEGIN IF NEW.numeric_id IS NULL THEN NEW.numeric_id := nextval('public.user_numeric_id_seq')",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": true,
+      "language": "plpgsql"
+    },
+    {
+      "function_name": "get_next_numeric_id",
+      "function_schema": "public",
+      "return_type": "BIGINT LANGUAGE sql SECURITY DEFINER AS $$ SELECT last_value + 1 FROM public.user_numeric_id_seq",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": true,
+      "language": "sql"
+    },
+    {
+      "function_name": "format_user_id",
+      "function_schema": "public",
+      "return_type": "TEXT LANGUAGE plpgsql IMMUTABLE AS $$ DECLARE v_prefix TEXT",
+      "argument_types": [
+        " p_numeric_id BIGINT, p_role TEXT "
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "plpgsql"
+    },
+    {
+      "function_name": "is_doctor",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ BEGIN RETURN EXISTS ( SELECT 1 FROM public.profiles WHERE user_id = auth.uid() AND role = 'doctor' AND active = true )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "is_patient",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ BEGIN RETURN EXISTS ( SELECT 1 FROM public.profiles WHERE user_id = auth.uid() AND role = 'patient' AND active = true )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "is_company_admin",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ BEGIN RETURN EXISTS ( SELECT 1 FROM public.profiles WHERE user_id = auth.uid() AND role IN ('company', 'company_admin') AND active = true )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "is_system_admin",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ BEGIN RETURN EXISTS ( SELECT 1 FROM public.profiles WHERE user_id = auth.uid() AND role IN ('admin', 'platform_admin') AND active = true )",
+      "argument_types": [
+        ""
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "doctor_has_patient_access",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ DECLARE doctor_id uuid",
+      "argument_types": [
+        "patient_user_id uuid"
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "user_belongs_to_company",
+      "function_schema": "public",
+      "return_type": "boolean AS $$ BEGIN RETURN EXISTS ( SELECT 1 FROM public.company_members cm JOIN public.profiles p ON p.user_id = cm.profile_id WHERE cm.profile_id = auth.uid() AND cm.organization_id = target_organization_id AND cm.active = true AND p.active = true )",
+      "argument_types": [
+        "target_organization_id uuid"
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    },
+    {
+      "function_name": "log_medical_access",
+      "function_schema": "public",
+      "return_type": "void AS $$ BEGIN INSERT INTO public.medical_audit_log ( user_id, action_type, table_name, record_id, patient_user_id, ip_address, created_at ) VALUES ( auth.uid(), p_action_type, p_table_name, p_record_id, p_patient_user_id, inet_client_addr(), now() )",
+      "argument_types": [
+        " p_action_type text, p_table_name text, p_record_id uuid DEFAULT NULL, p_patient_user_id uuid DEFAULT NULL "
+      ],
+      "function_type": "FUNCTION",
+      "is_security_definer": false,
+      "language": "sql"
+    }
+  ],
+  "triggers": [],
+  "extensions": [],
+  "introspected_at": "2025-09-30T00:43:20.353Z"
+}

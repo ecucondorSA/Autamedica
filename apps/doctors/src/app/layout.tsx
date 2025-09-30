@@ -4,6 +4,9 @@ import './globals.css'
 import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
 import { ClientWrapper } from '@/components/ClientWrapper'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { fetchSessionData } from '@/lib/session-sync'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
@@ -15,7 +18,18 @@ interface RootLayoutProps {
   params?: any;
 }
 
-export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
+  // SSR session sync
+  const sessionData = await fetchSessionData()
+
+  if (!sessionData) {
+    // No session - redirect to Auth Hub
+    const authHubUrl = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3005'
+      : 'https://auth.autamedica.com'
+
+    redirect(`${authHubUrl}/login?returnTo=${encodeURIComponent('http://localhost:3001')}`)
+  }
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
@@ -27,9 +41,11 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
         />
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased">
-        <ClientWrapper>
-          <DoctorsPortalShell>{children as any}</DoctorsPortalShell>
-        </ClientWrapper>
+        <AuthProvider initialSession={sessionData}>
+          <ClientWrapper>
+            <DoctorsPortalShell>{children as any}</DoctorsPortalShell>
+          </ClientWrapper>
+        </AuthProvider>
       </body>
     </html>
   )

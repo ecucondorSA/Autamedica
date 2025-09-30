@@ -12,8 +12,8 @@
 # ✅ CORRECTO: Todo en un comando
 cd /root/altamedica-reboot-deploy && \
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co \
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... \
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... \
+NEXT_PUBLIC_SUPABASE_ANON_KEY=NUEVA-ANON-KEY-ROTADA.. \
+SUPABASE_SERVICE_ROLE_KEY=NUEVA-ANON-KEY-ROTADA.. \
 NEXT_PUBLIC_APP_URL=https://autamedica.com \
 NEXT_PUBLIC_DOCTORS_URL=https://doctors.autamedica.com \
 NEXT_PUBLIC_PATIENTS_URL=https://patients.autamedica.com \
@@ -191,8 +191,8 @@ El mismo comando debe producir el mismo resultado en cualquier máquina, en cual
 # Este comando despliega la app web-app con configuración completa de producción
 cd /root/altamedica-reboot-deploy && \
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co \
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... \
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... \
+NEXT_PUBLIC_SUPABASE_ANON_KEY=NUEVA-ANON-KEY-ROTADA.. \
+SUPABASE_SERVICE_ROLE_KEY=NUEVA-ANON-KEY-ROTADA.. \
 NEXT_PUBLIC_APP_URL=https://autamedica.com \
 NODE_ENV=production \
 HUSKY=0 \

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LoadingProvider } from "@/lib/loading-context";
+import GlobalLoader from "@/components/ui/GlobalLoader";
 
 export const metadata: Metadata = {
   title: "AutaMedica - Telemedicina Avanzada",
@@ -43,7 +45,10 @@ export default function RootLayout({
   return (
     <html lang="es" dir="ltr">
       <body className="antialiased">
-        {children}
+        <LoadingProvider>
+          {children}
+          <GlobalLoader />
+        </LoadingProvider>
       </body>
     </html>
   );

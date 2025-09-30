@@ -77,7 +77,7 @@ CREATE INDEX IF NOT EXISTS idx_profiles_numeric_id
 -- 5) Create a view for easy access to user info with numeric ID
 CREATE OR REPLACE VIEW public.user_identifiers AS
 SELECT
-  p.id as user_id,
+  p.user_id as user_id,
   p.numeric_id,
   p.role,
   p.email,

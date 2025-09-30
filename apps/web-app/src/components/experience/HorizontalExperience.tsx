@@ -7,6 +7,7 @@ import { getAppUrl } from "@/lib/env";
 import ProfessionalPatientsFeatures from "@/components/landing/ProfessionalPatientsFeatures";
 import ProfessionalDoctorsFeatures from "@/components/landing/ProfessionalDoctorsFeatures";
 import ProfessionalCompaniesFeatures from "@/components/landing/ProfessionalCompaniesFeatures";
+import VideoGrid from "@/components/landing/VideoGrid";
 
 type Panel = {
   title: string;
@@ -22,6 +23,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<HTMLDivElement[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
 
   const panels: Panel[] = [
     {
@@ -39,12 +41,18 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
       ctaHref: getAppUrl("/", "companies"),
       component: ProfessionalCompaniesFeatures,
     },
+    {
+      title: "Ecosistema",
+      ctaHref: "/model-viewer",
+      component: VideoGrid,
+    },
   ];
 
   const slideBackgrounds = [
     "linear-gradient(135deg, #101010, #181818)",
     "linear-gradient(135deg, #f2f2f2, #d8d8d8)",
     "linear-gradient(135deg, #111111, #1a1a1a)",
+    "linear-gradient(135deg, #0a0a0a, #141414)",
   ];
 
   useLayoutEffect(() => {
@@ -90,10 +98,38 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         const slides = slideRefs.current;
         const total = panels.length;
 
-        // Setup track and slides
-        gsap.set(track, { width: `${total * 100}vw`, display: "flex" });
+        // Setup container for full viewport
+        gsap.set(container, {
+          width: "100vw !important",
+          height: "100vh !important",
+          minHeight: "100vh !important",
+          maxHeight: "100vh !important",
+          overflow: "hidden"
+        });
+
+        // Setup track and slides - exact sizing
+        gsap.set(track, {
+          width: `${total * 100}vw`,
+          height: "100vh",
+          minHeight: "100vh",
+          maxHeight: "100vh",
+          display: "flex",
+          padding: "0 !important",
+          margin: "0 !important",
+          gap: 0,
+          overflow: "visible"
+        });
         slides.forEach(slide => {
-          if (slide) gsap.set(slide, { width: "100vw" });
+          if (slide) gsap.set(slide, {
+            flex: "0 0 100vw",
+            width: "100vw",
+            height: "100vh",
+            minHeight: "100vh",
+            maxHeight: "100vh",
+            borderRadius: 0,
+            margin: 0,
+            padding: 0
+          });
         });
 
         const anim = gsap.to(track, {
@@ -105,15 +141,18 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
           id: "horizontal-experience",
           trigger: container,
           start: "top top",
-          end: () => `+=${(total - 1) * window.innerWidth}`,
+          end: () => `+=${(total - 1) * window.innerHeight}`,
           pin: true,
+          pinSpacing: false,
           scrub: true,
           animation: anim,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             // progress → índice
             const i = Math.round(self.progress * (total - 1));
-            if (i !== activeIndex) {
-              console.log('[HX] Section changed:', activeIndex, '→', i);
+            if (i !== activeIndexRef.current) {
+              console.log('[HX] Section changed:', activeIndexRef.current, '→', i);
+              activeIndexRef.current = i;
               setActiveIndex(i);
             }
           },
@@ -138,16 +177,16 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
       console.log('[HX] Component cleanup');
       mm.revert();
     };
-  }, [panels.length, activeIndex]);
+  }, [panels.length]);
 
   const goToSlide = (targetIndex: number) => {
     const total = panels.length;
     const clamped = Math.max(0, Math.min(targetIndex, total - 1));
 
-    console.log('[HX Nav] Going to slide:', clamped, 'from:', activeIndex);
+    console.log('[HX Nav] Going to slide:', clamped, 'from:', activeIndexRef.current);
 
     // Distance in px (matches ScrollTrigger end calc)
-    const distance = clamped * window.innerWidth;
+    const distance = clamped * window.innerHeight;
 
     const st = ScrollTrigger.getById("horizontal-experience");
     if (st) {
@@ -178,6 +217,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
       target?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
     }
 
+    activeIndexRef.current = clamped;
     setActiveIndex(clamped);
   };
 
@@ -185,12 +225,12 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
     function onKey(e: KeyboardEvent) {
       if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
       const dir = e.key === "ArrowRight" ? 1 : -1;
-      const next = Math.max(0, Math.min(panels.length - 1, activeIndex + dir));
+      const next = Math.max(0, Math.min(panels.length - 1, activeIndexRef.current + dir));
       goToSlide(next);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [activeIndex, panels.length]);
+  }, [panels.length]);
 
   return (
     <div
@@ -202,7 +242,6 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
       <div
         ref={trackRef}
         className="hx-track"
-        style={{ ['--hx-pad' as any]: "0px" }}
       >
         {panels.map((p, i) => {
           const PanelComp = p.component;
@@ -258,22 +297,24 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
 
       <style>{`
         .hx-container{
-          position:relative;
-          min-height:clamp(100vh, 100svh, 110vh);
-          overflow:hidden;
+          position:relative !important;
+          width:100vw !important;
+          height:100vh !important;
+          min-height:100vh !important;
+          max-height:100vh !important;
+          overflow:hidden !important;
           background: transparent;
           color: var(--au-text-primary);
         }
         .hx-track{
-          display:flex;
-          overflow-x:auto;
-          overflow-y:clip;
-          overscroll-behavior-x:contain;
-          scroll-snap-type:x mandatory;
-          gap:0;
-          min-height:clamp(100vh, 100svh, 110vh);
-          height:100%;
-          padding-inline:var(--hx-pad, 0px);
+          display:flex !important;
+          height:100vh !important;
+          min-height:100vh !important;
+          max-height:100vh !important;
+          overflow:visible !important;
+          gap:0 !important;
+          padding:0 !important;
+          margin:0 !important;
           background:transparent;
           will-change:transform;
           scrollbar-width:none;
@@ -281,15 +322,18 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         }
         .hx-track::-webkit-scrollbar{ display:none; }
         .hx-slide{
-          flex:0 0 calc(100vw - (var(--hx-pad, 0px) * 2));
-          min-height:clamp(100vh, 100svh, 110vh);
-          scroll-snap-align:start;
+          flex:0 0 100vw !important;
+          width:100vw !important;
+          height:100vh !important;
+          min-height:100vh !important;
+          max-height:100vh !important;
           background:var(--slide-bg, #0f0f10);
-          border-radius:16px;
+          border-radius:0 !important;
           overflow:hidden;
           position:relative;
           display:flex;
-          margin:0;
+          margin:0 !important;
+          padding:0 !important;
         }
         .hx-slide-inner{
           flex:1 1 auto;
@@ -362,6 +406,15 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
             width:10px;
             height:10px;
           }
+        }
+
+        /* Fix VideoGrid sizing when inside carousel */
+        .hx-slide-inner .video-grid-section{
+          min-height:100vh !important;
+          max-height:100vh !important;
+          height:100vh !important;
+          padding:2rem !important;
+          overflow:hidden !important;
         }
 
         @media (prefers-reduced-motion: reduce){

@@ -158,7 +158,7 @@ export default function TestimonialsSection() {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
           color: white;
           padding: 5rem 2rem;
-          min-height: 100vh;
+          min-height: clamp(100vh, 100svh, 110vh);
           display: flex;
           align-items: center;
           width: 100%;

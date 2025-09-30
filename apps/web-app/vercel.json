@@ -1,7 +1,0 @@
-{
-  "version": 2,
-  "installCommand": "cd ../.. && corepack enable && corepack prepare pnpm@9.15.2 --activate && HUSKY=0 pnpm install --frozen-lockfile",
-  "buildCommand": "cd ../.. && pnpm build:packages && pnpm build --filter ./apps/web-app",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
-}

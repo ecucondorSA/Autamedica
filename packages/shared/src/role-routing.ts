@@ -15,10 +15,8 @@ import { ensureServerEnv } from './env';
 const ROLES = {
   PATIENT: 'patient' as UserRole,
   DOCTOR: 'doctor' as UserRole,
-  COMPANY: 'company' as UserRole,
   COMPANY_ADMIN: 'company_admin' as UserRole,
   ORGANIZATION_ADMIN: 'organization_admin' as UserRole,
-  ADMIN: 'admin' as UserRole,
   PLATFORM_ADMIN: 'platform_admin' as UserRole,
 };
 
@@ -30,10 +28,8 @@ const ROLES = {
 export const BASE_URL_BY_ROLE: Record<UserRole, string> = {
   'patient': 'https://patients.autamedica.com',
   'doctor': 'https://doctors.autamedica.com',
-  'company': 'https://companies.autamedica.com',
   'company_admin': 'https://companies.autamedica.com',
   'organization_admin': 'https://admin.autamedica.com',
-  'admin': 'https://admin.autamedica.com',
   'platform_admin': 'https://www.autamedica.com',
 };
 
@@ -43,10 +39,8 @@ export const BASE_URL_BY_ROLE: Record<UserRole, string> = {
 export const HOME_BY_ROLE: Record<UserRole, string> = {
   'patient': '/',
   'doctor': '/',
-  'company': '/',
   'company_admin': '/',
   'organization_admin': '/',
-  'admin': '/',
   'platform_admin': '/',
 };
 
@@ -106,10 +100,8 @@ export function getPortalForRole(role: UserRole): string {
   const portalMap: Record<UserRole, string> = {
     'patient': 'patients',
     'doctor': 'doctors',
-    'company': 'companies',
     'company_admin': 'companies',
     'organization_admin': 'admin',
-    'admin': 'admin',
     'platform_admin': 'admin',
   };
 
@@ -127,8 +119,8 @@ export function getPortalForRole(role: UserRole): string {
 export const PORTAL_TO_ROLE: Record<string, UserRole> = {
   patients: 'patient',
   doctors: 'doctor',
-  companies: 'organization_admin',
-  admin: 'platform_admin',
+  companies: 'company_admin',
+  admin: 'organization_admin',
 };
 
 /**

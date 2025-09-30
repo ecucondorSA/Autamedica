@@ -1,0 +1,100 @@
+{
+  "timestamp": "2025-09-30T01:50:16.580Z",
+  "checks": [
+    {
+      "type": "auth_redirect",
+      "path": "/auth/login",
+      "timestamp": "2025-09-30T01:50:16.586Z",
+      "status": "failed",
+      "message": "❌ /auth/login → 404 → ",
+      "monitoring": "⚠️ Headers de monitoreo faltantes"
+    },
+    {
+      "type": "auth_redirect",
+      "path": "/auth/register",
+      "timestamp": "2025-09-30T01:50:16.869Z",
+      "status": "failed",
+      "message": "❌ /auth/register → 404 → ",
+      "monitoring": "⚠️ Headers de monitoreo faltantes"
+    },
+    {
+      "type": "auth_redirect",
+      "path": "/auth/forgot-password",
+      "timestamp": "2025-09-30T01:50:16.922Z",
+      "status": "failed",
+      "message": "❌ /auth/forgot-password → 404 → ",
+      "monitoring": "⚠️ Headers de monitoreo faltantes"
+    },
+    {
+      "type": "security_headers",
+      "timestamp": "2025-09-30T01:50:16.965Z",
+      "status": "completed",
+      "details": {
+        "content-security-policy": {
+          "status": "❌",
+          "value": "Missing"
+        },
+        "x-frame-options": {
+          "status": "❌",
+          "value": "Missing"
+        },
+        "x-content-type-options": {
+          "status": "✅",
+          "value": "nosniff"
+        },
+        "referrer-policy": {
+          "status": "✅",
+          "value": "strict-origin-when-cross-origin"
+        }
+      },
+      "cspCompliance": "⚠️ CSP podría necesitar ajustes para AutaMedica",
+      "message": "Security headers verification completed"
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "doctors",
+      "timestamp": "2025-09-30T01:50:17.040Z",
+      "status": "passed",
+      "message": "✅ doctors portal: 200"
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "patients",
+      "timestamp": "2025-09-30T01:50:17.231Z",
+      "status": "warning",
+      "message": "⚠️ patients portal: 404 (podría requerir auth)"
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "companies",
+      "timestamp": "2025-09-30T01:50:17.812Z",
+      "status": "passed",
+      "message": "✅ companies portal: 200"
+    },
+    {
+      "type": "cookie_compliance",
+      "timestamp": "2025-09-30T01:50:18.089Z",
+      "status": "info",
+      "message": "ℹ️ Cookie compliance requiere verificación manual en Auth Hub",
+      "requirements": {
+        "domain": ".autamedica.com",
+        "path": "/",
+        "secure": true,
+        "httpOnly": true,
+        "sameSite": "None"
+      },
+      "instructions": [
+        "1. Verificar que Auth Hub setea am_session con Domain=.autamedica.com",
+        "2. Confirmar flags: Secure; HttpOnly; SameSite=None",
+        "3. Validar TTL y refresh automático",
+        "4. Probar cross-domain SSO entre portales"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 2,
+    "failed": 5,
+    "warnings": 5
+  }
+}

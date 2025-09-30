@@ -1,6 +1,7 @@
 {
   "extends": "../../packages/typescript-config/nextjs.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

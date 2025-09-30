@@ -40,6 +40,11 @@ export type FacilityId = UUID & { readonly __entity: "Facility" };
 export type SpecialtyId = UUID & { readonly __entity: "Specialty" };
 
 /**
+ * ID de usuario (auth)
+ */
+export type UserId = UUID & { readonly __entity: "User" };
+
+/**
  * Helper para crear UUID desde string
  * @param id - String que representa un UUID válido
  */

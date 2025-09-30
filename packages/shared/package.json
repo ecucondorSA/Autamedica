@@ -8,14 +8,22 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./roles": {
+      "types": "./dist/roles.d.ts",
+      "default": "./dist/roles.js"
+    },
+    "./auth/portals": {
+      "types": "./dist/auth/portals.d.ts",
+      "default": "./dist/auth/portals.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
     "test:unit": "vitest run",
@@ -25,6 +33,7 @@
     "@autamedica/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
     "rimraf": "^5.0.0",
+    "tsup": "^8.3.5",
     "typescript": "5.9.2",
     "vitest": "^3.2.4"
   },

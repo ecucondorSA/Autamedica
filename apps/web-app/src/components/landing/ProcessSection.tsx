@@ -96,7 +96,7 @@ export default function ProcessSection() {
           max-width: 95vw;
           margin: 0 auto;
           color: #fff;
-          min-height: 100vh;
+          min-height: clamp(100vh, 100svh, 110vh);
           display: flex;
           flex-direction: column;
           justify-content: center;

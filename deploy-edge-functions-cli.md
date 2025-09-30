@@ -16,7 +16,7 @@ npx supabase functions deploy update-call-status --project-ref gtyvdircfhmdjiael
 curl -L -X POST 'https://gtyvdircfhmdjiaelqkg.supabase.co/functions/v1/create-call' \
   -H 'Authorization: Bearer [YOUR-AUTH-TOKEN]' \
   -H 'Content-Type: application/json' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
+  -H 'apikey: REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
   --data '{"doctorId":"test-doctor","patientId":"test-patient"}'
 ```
 
@@ -61,14 +61,14 @@ Una vez desplegadas exitosamente, las funciones estarán disponibles en:
 curl -L -X POST 'https://gtyvdircfhmdjiaelqkg.supabase.co/functions/v1/create-call' \
   -H 'Authorization: Bearer [USER-AUTH-TOKEN]' \
   -H 'Content-Type: application/json' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
+  -H 'apikey: REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
   --data '{"doctorId":"test-doctor","patientId":"test-patient"}'
 
 # Test update-call-status
 curl -L -X POST 'https://gtyvdircfhmdjiaelqkg.supabase.co/functions/v1/update-call-status' \
   -H 'Authorization: Bearer [USER-AUTH-TOKEN]' \
   -H 'Content-Type: application/json' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
+  -H 'apikey: REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA' \
   --data '{"callId":"[CALL-ID-FROM-CREATE]","status":"accepted","reason":"Test"}'
 ```
 

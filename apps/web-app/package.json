@@ -14,14 +14,7 @@
     "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .open-next/dist --project-name=autamedica-web-app"
   },
   "dependencies": {
-    "@autamedica/auth": "workspace:*",
-    "@autamedica/hooks": "workspace:*",
-    "@autamedica/shared": "workspace:*",
     "@autamedica/tailwind-config": "workspace:^",
-    "@autamedica/types": "workspace:*",
-    "@opennextjs/cloudflare": "^1.8.3",
-    "@supabase/ssr": "^0.7.0",
-    "@supabase/supabase-js": "^2.57.4",
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "next": "^15.5.4",
@@ -29,9 +22,9 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
-    "@repo/eslint-config": "workspace:*",
     "@autamedica/typescript-config": "workspace:*",
+    "@opennextjs/cloudflare": "^1.8.3",
+    "@playwright/test": "^1.55.0",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",

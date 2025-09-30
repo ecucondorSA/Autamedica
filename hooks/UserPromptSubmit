@@ -1,0 +1,15 @@
+#!/bin/sh
+# Captura prompts del usuario a la IA
+mkdir -p .logs 2>/dev/null || true
+TS=$(date -Is)
+
+# Si hay argumentos, usar el primer argumento, sino leer de stdin
+if [ $# -gt 0 ]; then
+    prompt="$1"
+else
+    prompt="$(cat)"
+fi
+
+# Truncar a 500 chars para evitar logs gigantes
+short="${prompt:0:500}"
+printf "[%s] %s\n" "$TS" "$short" >> .logs/prompts.log

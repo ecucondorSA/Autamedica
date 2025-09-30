@@ -1,43 +1,52 @@
 {
   "videos": {
-    "Video_Listo_.mp4": {
-      "size": 613,
-      "sizeMB": 0,
-      "lastModified": "2025-09-15T16:17:20.874Z",
-      "publicPath": "/videos/Video_Listo_.mp4"
+    "video1.mp4": {
+      "publicPath": "/videos/video1.mp4",
+      "description": "Consultorio digital integral",
+      "size": "4.6M",
+      "quality": "HD"
     },
-    "Video_Listo_Encuentra_Doctor.mp4": {
-      "size": 634,
-      "sizeMB": 0,
-      "lastModified": "2025-09-15T16:17:20.874Z",
-      "publicPath": "/videos/Video_Listo_Encuentra_Doctor.mp4"
+    "video2.mp4": {
+      "publicPath": "/videos/video2.mp4",
+      "description": "Asistente diagnóstico",
+      "size": "4.4M",
+      "quality": "HD"
     },
-    "Video_Listo_Telemedicina.mp4": {
-      "size": 622,
-      "sizeMB": 0,
-      "lastModified": "2025-09-15T16:17:20.874Z",
-      "publicPath": "/videos/Video_Listo_Telemedicina.mp4"
+    "video3.mp4": {
+      "publicPath": "/videos/video3.mp4",
+      "description": "Seguimiento longitudinal",
+      "size": "6.7M",
+      "quality": "HD"
     },
     "alta-agent-ia.mp4": {
-      "size": 2122794,
-      "sizeMB": 2.02,
-      "lastModified": "2025-09-15T16:17:20.862Z",
-      "publicPath": "/videos/alta-agent-ia.mp4"
+      "publicPath": "/videos/alta-agent-ia.mp4",
+      "description": "Inteligencia Artificial Médica",
+      "size": "2.1M",
+      "quality": "HD"
     },
-    "consultas-video-hd.mp4": {
-      "size": 2122794,
-      "sizeMB": 2.02,
-      "lastModified": "2025-09-15T16:17:20.865Z",
-      "publicPath": "/videos/consultas-video-hd.mp4"
+    "patient_consulta_virtual.mp4": {
+      "publicPath": "/videos/patient_consulta_virtual.mp4",
+      "description": "Consulta virtual directa",
+      "size": "1.2M",
+      "quality": "HD"
     },
-    "historia-clinica-digital.mp4": {
-      "size": 5658306,
-      "sizeMB": 5.4,
-      "lastModified": "2025-09-15T16:17:20.873Z",
-      "publicPath": "/videos/historia-clinica-digital.mp4"
+    "patient_historia_clinica.mp4": {
+      "publicPath": "/videos/patient_historia_clinica.mp4",
+      "description": "Historia clínica digital",
+      "size": "235K",
+      "quality": "SD"
+    },
+    "patient_agendamiento.mp4": {
+      "publicPath": "/videos/patient_agendamiento.mp4",
+      "description": "Sistema de agendamiento",
+      "size": "526K",
+      "quality": "SD"
+    },
+    "patient_seguimiento.mp4": {
+      "publicPath": "/videos/patient_seguimiento.mp4",
+      "description": "Seguimiento de pacientes",
+      "size": "205K",
+      "quality": "SD"
     }
-  },
-  "totalSize": 9905763,
-  "generated": "2025-09-15T16:27:23.827Z",
-  "totalSizeMB": "9.45"
+  }
 }
