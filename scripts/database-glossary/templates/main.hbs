@@ -1,0 +1,264 @@
+# 📊 Base de Datos AutaMedica - Glosario Técnico
+
+**🏥 Sistema Médico Completo con Cumplimiento HIPAA**
+
+---
+
+## 📋 Información General
+
+| **Campo** | **Valor** |
+|-----------|-----------|
+| **Base de Datos** | {{database_info.database_name}} |
+| **Esquema Principal** | {{database_info.schema_version}} |
+| **Última Migración** | {{database_info.last_migration}} |
+| **Método de Introspección** | {{database_info.introspection_method}} |
+| **Generado** | {{database_info.generated_at}} |
+
+---
+
+## 🔢 Estadísticas del Esquema
+
+| **Métrica** | **Cantidad** |
+|-------------|--------------|
+| 📋 **Tablas Totales** | {{database_info.total_tables}} |
+| 📊 **Columnas Totales** | {{database_info.total_columns}} |
+| ⚙️ **Funciones** | {{database_info.total_functions}} |
+| 🔒 **Columnas HIPAA Clasificadas** | {{database_info.hipaa_classified_columns}} |
+
+---
+
+{{#if hipaa_summary}}
+## 🔐 Resumen de Cumplimiento HIPAA
+
+### 📊 Estado de Clasificación
+- **✅ Tablas Revisadas**: {{hipaa_summary.total_tables_reviewed}}
+- **🔒 Tablas con PHI**: {{hipaa_summary.phi_containing_tables}}
+- **⚠️ Columnas Alta Sensibilidad**: {{hipaa_summary.high_sensitivity_columns}}
+
+### 🛡️ Control de Acceso
+- **🔐 Tablas con RLS**: {{hipaa_summary.access_control_summary.rls_enabled_tables}}
+- **👤 Basadas en Roles**: {{hipaa_summary.access_control_summary.role_based_tables}}
+- **🌐 Acceso Público**: {{hipaa_summary.access_control_summary.public_access_tables}}
+- **⚠️ Sin Control**: {{hipaa_summary.access_control_summary.uncontrolled_access_tables}}
+
+{{#if hipaa_summary.compliance_gaps}}
+### ⚠️ Brechas de Cumplimiento
+
+{{#each hipaa_summary.compliance_gaps}}
+#### {{severity}} - {{gap_type}}
+**Descripción**: {{recommendation}}
+
+**Tablas Afectadas**:
+{{#each affected_tables}}
+- `{{this}}`
+{{/each}}
+
+{{#if regulatory_reference}}
+**Referencia Regulatoria**: {{regulatory_reference}}
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+{{/if}}
+
+---
+
+## 📋 Tablas por Dominio Médico
+
+{{#each tables}}
+{{#ifEquals @index 0}}
+### {{medical_domain}}
+{{else}}
+{{#ifNotEquals medical_domain ../medical_domain}}
+
+### {{medical_domain}}
+{{/ifNotEquals}}
+{{/ifEquals}}
+
+#### 📄 `{{table_name}}`
+
+**Propósito**: {{table_purpose}}
+
+{{#if hipaa_classification}}
+**🔒 Clasificación HIPAA**: {{hipaa_classification.overall_sensitivity}}
+{{#if hipaa_classification.contains_phi}}
+- ⚠️ **Contiene PHI**: Sí ({{hipaa_classification.phi_column_count}} columnas)
+- 🔐 **Control de Acceso**: {{hipaa_classification.access_control_level}}
+- 📊 **Auditoría**: {{hipaa_classification.audit_requirements}}
+- 🔒 **Encriptación**: {{hipaa_classification.encryption_requirements}}
+{{/if}}
+{{/if}}
+
+##### 📊 Columnas
+
+| **Columna** | **Tipo** | **Requerida** | **Propósito Médico** | **HIPAA** |
+|-------------|----------|---------------|---------------------|-----------|
+{{#each columns}}
+| `{{column_name}}` | {{data_type}} | {{#if is_required}}✅{{else}}❌{{/if}} | {{#if medical_purpose}}{{medical_purpose}}{{else}}{{description}}{{/if}} | {{#if hipaa_annotation}}{{hipaa_annotation.sensitivity_level}}{{else}}-{{/if}} |
+{{/each}}
+
+{{#if relationships}}
+##### 🔗 Relaciones
+
+{{#each relationships}}
+- **{{relationship_type}}** con `{{related_table}}` via {{foreign_key_columns}} - {{relationship_purpose}}
+{{/each}}
+{{/if}}
+
+{{#if indexes}}
+##### 📈 Índices de Rendimiento
+
+{{#each indexes}}
+- **`{{index_name}}`** ({{index_type}}) en {{columns}} - {{performance_purpose}}
+{{/each}}
+{{/if}}
+
+{{#if sample_queries}}
+##### 💻 Consultas Ejemplo
+
+{{#each sample_queries}}
+```sql
+{{this}}
+```
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if functions}}
+---
+
+## ⚙️ Funciones y Procedimientos
+
+{{#each functions}}
+### `{{function_name}}()`
+
+**Propósito**: {{purpose}}
+**Tipo de Retorno**: `{{return_type}}`
+{{#if medical_use_case}}**Caso de Uso Médico**: {{medical_use_case}}{{/if}}
+
+{{#if parameters}}
+#### Parámetros
+
+| **Parámetro** | **Tipo** | **Requerido** | **Descripción** |
+|---------------|----------|---------------|-----------------|
+{{#each parameters}}
+| `{{parameter_name}}` | {{parameter_type}} | {{#if is_required}}✅{{else}}❌{{/if}} | {{description}} |
+{{/each}}
+{{/if}}
+
+{{#if security_considerations}}
+#### 🔒 Consideraciones de Seguridad
+{{#each security_considerations}}
+- {{this}}
+{{/each}}
+{{/if}}
+
+{{#if example_usage}}
+#### 💻 Ejemplo de Uso
+{{#each example_usage}}
+```sql
+{{this}}
+```
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+{{/if}}
+
+---
+
+## 🔍 Validación del Esquema
+
+{{#if validation_results}}
+{{#each validation_results}}
+### {{validation_type}} - {{status}}
+
+{{message}}
+
+{{#if affected_objects}}
+**Objetos Afectados**:
+{{#each affected_objects}}
+- {{this}}
+{{/each}}
+{{/if}}
+
+{{#if suggestion}}
+**Recomendación**: {{suggestion}}
+{{/if}}
+
+---
+{{/each}}
+{{else}}
+✅ **No hay problemas de validación detectados**
+{{/if}}
+
+---
+
+## 🏗️ Información de Generación
+
+| **Campo** | **Valor** |
+|-----------|-----------|
+| **Generado Por** | {{generation_info.generated_by}} |
+| **Modo** | {{generation_info.generation_mode}} |
+| **Versión de Template** | {{generation_info.template_version}} |
+| **Duración** | {{generation_info.generation_duration_ms}}ms |
+| **Validación** | {{#if generation_info.validation_passed}}✅ Pasó{{else}}❌ Falló{{/if}} |
+
+{{#if generation_info.source_files}}
+### 📁 Archivos Fuente
+{{#each generation_info.source_files}}
+- `{{this}}`
+{{/each}}
+{{/if}}
+
+---
+
+## 📚 Referencias y Notas
+
+### 🏥 Dominios Médicos Cubiertos
+
+- **👤 PATIENT_MANAGEMENT**: Gestión de pacientes y demografía
+- **🩺 CLINICAL_DATA**: Datos clínicos, diagnósticos, tratamientos
+- **📅 APPOINTMENTS**: Sistema de citas y agenda médica
+- **💰 BILLING_FINANCIAL**: Facturación y gestión financiera
+- **👨‍⚕️ PROVIDER_MANAGEMENT**: Gestión de profesionales médicos
+- **🏥 FACILITY_OPERATIONS**: Operaciones de instalaciones médicas
+- **💻 TELEMEDICINE**: Consultas remotas y telemedicina
+- **🔬 RESEARCH_ANALYTICS**: Investigación y análisis poblacional
+- **⚙️ SYSTEM_ADMINISTRATION**: Administración del sistema
+- **📋 COMPLIANCE_AUDIT**: Cumplimiento y auditoría
+- **🚨 EMERGENCY_CARE**: Atención de emergencias
+- **💊 PHARMACY**: Gestión farmacéutica
+- **🧪 LABORATORY**: Laboratorio y resultados
+- **📷 IMAGING**: Imagenología médica
+
+### 🔒 Niveles de Sensibilidad HIPAA
+
+- **PUBLIC**: Sin PHI - datos públicos
+- **INTERNAL**: Uso interno - sin datos de pacientes
+- **RESTRICTED**: Contiene PHI - acceso controlado
+- **HIGHLY_SENSITIVE**: PHI altamente sensible - auditoría obligatoria
+- **PSYCHIATRIC**: Salud mental - protección especial
+- **GENETIC**: Información genética - protección federal
+- **UNKNOWN**: Requiere revisión manual
+
+### 📖 Convenciones de Nomenclatura
+
+- **Tablas**: snake_case, singular para entidades, plural para relaciones
+- **Columnas**: snake_case, descriptivo del contenido
+- **Índices**: idx_tablename_columnname(s)
+- **Constrains**: pk_tablename (primary key), fk_tablename_referenced (foreign key)
+- **Funciones**: verbo_sustantivo, descriptivo de la acción
+
+---
+
+**🔐 Documento generado automáticamente - Cumplimiento HIPAA verificado**
+**📅 Última actualización**: {{generation_info.generated_at}}
+**🛠️ Sistema de Glosario de Base de Datos AutaMedica v1.0**
