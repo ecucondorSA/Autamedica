@@ -4,45 +4,125 @@ on:
   push:
     branches: [ main ]
 
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
 jobs:
-  produccion:
-    name: 'Deploy a Producción'
+  # ============================================
+  # Job 1: Web-App (Landing + Auth)
+  # ============================================
+  deploy-web-app:
+    name: 'Deploy Web-App'
     runs-on: ubuntu-latest
-    env:
-      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      PAGES_PROJECTS: autamedica-web-app,autamedica-patients,autamedica-doctors,autamedica-companies,autamedica-admin
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configurar PNPM
+      - name: Setup PNPM
         uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
 
-      - name: Configurar Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
 
-      - name: Instalar dependencias
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build monorepo (tolerante)
-        run: |
-          pnpm --filter @autamedica/web-app build || true
-          pnpm --filter @autamedica/patients build || true
-          pnpm --filter @autamedica/doctors build || true
-          pnpm --filter @autamedica/companies build || true
-          pnpm --filter @autamedica/admin build || true
+      - name: Build packages core
+        run: pnpm build:packages:core
 
-      - name: Instalar Wrangler
+      - name: Build web-app
+        working-directory: apps/web-app
+        run: pnpm run build:cloudflare
+
+      - name: Install Wrangler
         run: pnpm add -g wrangler
 
-      - name: Desplegar a Producción (main)
-        shell: bash
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/web-app
         run: |
-          IFS=',' read -ra PROJS <<< "${PAGES_PROJECTS}"
-          for p in "${PROJS[@]}"; do
-            echo "→ Deploy producción: $p"
-            wrangler pages deploy . --project-name "$p" --branch "main" || true
-          done
+          wrangler pages deploy .vercel/output/static \
+            --project-name autamedica-web-app \
+            --branch main
+
+  # ============================================
+  # Job 2: Doctors Portal
+  # ============================================
+  deploy-doctors:
+    name: 'Deploy Doctors'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages core
+        run: pnpm build:packages:core
+
+      - name: Build doctors
+        run: pnpm --filter @autamedica/doctors build
+
+      - name: Install Wrangler
+        run: pnpm add -g wrangler
+
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/doctors
+        run: |
+          wrangler pages deploy .next \
+            --project-name autamedica-doctors \
+            --branch main
+
+  # ============================================
+  # Job 3: Companies Portal
+  # ============================================
+  deploy-companies:
+    name: 'Deploy Companies'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages core
+        run: pnpm build:packages:core
+
+      - name: Build companies
+        run: pnpm --filter @autamedica/companies build
+
+      - name: Install Wrangler
+        run: pnpm add -g wrangler
+
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/companies
+        run: |
+          wrangler pages deploy .next \
+            --project-name autamedica-companies \
+            --branch main
