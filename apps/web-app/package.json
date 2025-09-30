@@ -10,8 +10,8 @@
     "lint": "next lint --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
-    "build:cloudflare": "cd ../.. && pnpm build:packages:core && pnpm turbo run build --filter=@autamedica/web-app --only",
-    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .open-next/dist --project-name=autamedica-web-app"
+    "build:cloudflare": "cd ../.. && pnpm build:packages:core && cd apps/web-app && npx @cloudflare/next-on-pages@1",
+    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .vercel/output/static --project-name=autamedica-web-app"
   },
   "dependencies": {
     "@autamedica/tailwind-config": "workspace:^",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",
-    "@opennextjs/cloudflare": "^1.8.3",
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@playwright/test": "^1.55.0",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
