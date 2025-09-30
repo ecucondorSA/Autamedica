@@ -2487,6 +2487,539 @@ El esquema de base de datos está protegido por:
 - ✅ Documentación automática en este glosario
 
 
+## 📋 Exports Auto-generados
+
+### ISODateTime
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Interfaz de datos para isodatetime en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### Tables
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Interfaz de datos para tables en el sistema médico.
+- **Contrato:** Pendiente de documentación detallada
+
+### TablesInsert
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para tablesinsert.
+- **Contrato:** Pendiente de documentación detallada
+
+### TablesUpdate
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para tablesupdate.
+- **Contrato:** Pendiente de documentación detallada
+
+### isProfileComplete
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isprofilecomplete.
+- **Contrato:** Pendiente de documentación detallada
+
+### ICE_SERVERS
+- **Tipo:** const
+- **Package:** @autamedica/shared
+- **Descripción:** Constante del sistema para ice servers.
+- **Contrato:** Pendiente de documentación detallada
+
+### MemberRole
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para memberrole.
+- **Contrato:** Pendiente de documentación detallada
+
+### WebRTCDiagnostics
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para webrtcdiagnostics.
+- **Contrato:** Pendiente de documentación detallada
+
+### buildSafeLoginUrl
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para buildsafeloginurl.
+- **Contrato:** Pendiente de documentación detallada
+
+### canInviteMembers
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para caninvitemembers.
+- **Contrato:** Pendiente de documentación detallada
+
+### canManageBilling
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para canmanagebilling.
+- **Contrato:** Pendiente de documentación detallada
+
+### canManageCompany
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para canmanagecompany.
+- **Contrato:** Pendiente de documentación detallada
+
+### getAppUrl
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getappurl en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getBaseUrlForRole
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getbaseurlforrole en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getClientEnvOrDefault
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getclientenvordefault en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getOptionalClientEnv
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getoptionalclientenv en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getPortalUrlWithPath
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getportalurlwithpath en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getServerEnvOrDefault
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getserverenvordefault en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getSession
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getsession en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasRole
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para hasrole.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAllowedRedirect
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isallowedredirect.
+- **Contrato:** Pendiente de documentación detallada
+
+### isCorrectPortal
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para iscorrectportal.
+- **Contrato:** Pendiente de documentación detallada
+
+### safeRedirectOrFallback
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para saferedirectorfallback.
+- **Contrato:** Pendiente de documentación detallada
+
+### type Session
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type session.
+- **Contrato:** Pendiente de documentación detallada
+
+### type SessionRole
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type sessionrole.
+- **Contrato:** Pendiente de documentación detallada
+
+## 📋 Exports Auto-generados
+
+### canAccessRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canaccessrecord.
+- **Contrato:** Pendiente de documentación detallada
+
+### getSupabaseErrorMessage
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getsupabaseerrormessage en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAppointmentStatus
+- **Tipo:** enum
+- **Package:** @autamedica/types
+- **Descripción:** Estados posibles para isappointment en el sistema.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAppointmentType
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isappointmenttype.
+- **Contrato:** Pendiente de documentación detallada
+
+### isCompanyMemberRole
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para iscompanymemberrole.
+- **Contrato:** Pendiente de documentación detallada
+
+### isDoctorEducation
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isdoctoreducation.
+- **Contrato:** Pendiente de documentación detallada
+
+### isHighSensitivityRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ishighsensitivityrecord.
+- **Contrato:** Pendiente de documentación detallada
+
+### isMedicalRecordVisibility
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ismedicalrecordvisibility.
+- **Contrato:** Pendiente de documentación detallada
+
+### isPatientCareTeamRole
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ispatientcareteamrole.
+- **Contrato:** Pendiente de documentación detallada
+
+### isPrimaryDoctor
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isprimarydoctor.
+- **Contrato:** Pendiente de documentación detallada
+
+### isSupabaseApiResponse
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Respuesta de API para operaciones de issupabaseapi.
+- **Contrato:** Pendiente de documentación detallada
+
+### isSupabaseError
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para issupabaseerror.
+- **Contrato:** Pendiente de documentación detallada
+
+### isSupabaseSuccess
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para issupabasesuccess.
+- **Contrato:** Pendiente de documentación detallada
+
+### isTerminalStatus
+- **Tipo:** enum
+- **Package:** @autamedica/types
+- **Descripción:** Estados posibles para isterminal en el sistema.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresEquipment
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresequipment.
+- **Contrato:** Pendiente de documentación detallada
+
+<!-- MANUAL_DOCS_HIGH_PRIORITY:START -->
+
+## 📚 **Documentación Detallada - Alta Prioridad**
+
+### OrganizationId
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Type
+**Estado:** ✅ Documentado
+
+#### Descripción
+Identificador único y opaco de **organización** (no secuencial, no predecible) usado en RLS y ownership.
+
+#### Definición (TypeScript)
+```ts
+export type OrganizationId = UUID & { readonly __entity: "Organization" };
+```
+
+#### Reglas y Validaciones
+* Debe ser un UUID válido con brand "Organization".
+* Es **opaco** (no inferir significado del sufijo).
+* Se usa como clave foránea en tablas con RLS por organización.
+
+#### Relaciones
+* Referenciado por: `CompanyProfile.organizationId`, membresías, registros médicos corporativos.
+
+#### Ejemplos
+```ts
+const id: OrganizationId = createOrganizationId('01J9ZQ5F3YB4F2QG6ZP8T3M7');
+```
+
+### CompanyProfile
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Type
+**Estado:** ✅ Documentado
+
+#### Descripción
+Perfil canónico de **empresa/cliente** dentro de una organización: datos legales, facturación y estado.
+
+#### Definición (TypeScript)
+```ts
+export interface CompanyProfile {
+  id: CompanyId;
+  organizationId: OrganizationId;
+  legalName: string;
+  taxId?: string;             // CUIT/RUC/… según país
+  countryCode: string;        // ISO-3166-1 alpha-2
+  billingEmail?: string;
+  active: boolean;
+  createdAt: ISODateTime;
+  updatedAt: ISODateTime;
+}
+```
+
+#### Reglas y Validaciones
+* `organizationId` obligatorio y válido.
+* `countryCode` ISO-3166-1 (AR, EC, …).
+* Si `taxId` existe → validar formato local (pendiente: validadores por país).
+
+#### Relaciones
+* `InsuranceInfo` puede asociarse a una `CompanyProfile`.
+* RLS: acceso restringido por `organizationId`.
+
+#### Ejemplos
+```ts
+const acme: CompanyProfile = {
+  id: createCompanyId('e15b...'),
+  organizationId: createOrganizationId('01J9ZQ5...'),
+  legalName: 'ACME Salud S.A.',
+  countryCode: 'AR',
+  active: true,
+  createdAt: '2025-09-20T12:00:00-03:00' as ISODateTime,
+  updatedAt: '2025-09-28T09:10:00-03:00' as ISODateTime
+};
+```
+
+### InsuranceInfo
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Type
+**Estado:** ✅ Documentado
+
+#### Descripción
+Cobertura/plan de seguro médico asociado a un paciente o convenio empresa.
+
+#### Definición (TypeScript)
+```ts
+export interface InsuranceInfo {
+  provider: string;           // p.ej. "OSDE", "Swiss Medical"
+  plan?: string;              // p.ej. "310"
+  memberId?: string;          // credencial/afiliado
+  validFrom?: ISODateTime;
+  validTo?: ISODateTime;
+}
+```
+
+#### Reglas y Validaciones
+* Periodo válido: si hay `validTo`, debe ser >= `validFrom`.
+* `provider` requerido.
+
+#### Relaciones
+* Usado en ficha de paciente y contratos empresa.
+
+#### Ejemplos
+```ts
+const coverage: InsuranceInfo = {
+  provider: 'OSDE',
+  plan: '310',
+  memberId: 'A1234567'
+};
+```
+
+### ISODateTime
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Type
+**Estado:** ✅ Documentado
+
+#### Descripción
+Timestamp ISO 8601 **con zona horaria**. Se usa en auditoría, agendas y RLS temporal.
+
+#### Definición (TypeScript)
+```ts
+export type ISODateTime = string & { readonly __brand: "ISODateTime" };
+```
+
+#### Reglas y Validaciones
+* Debe incluir offset (`-03:00`, `Z`, etc.).
+* Recomendado: almacenar en UTC y renderizar con TZ del usuario.
+
+#### Ejemplos
+```ts
+const when: ISODateTime = '2025-09-29T14:32:10-03:00' as ISODateTime;
+```
+
+### isValidRole
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Guard
+**Estado:** ✅ Documentado
+
+#### Descripción
+Valida que un string pertenezca al set de **roles soportados**.
+
+#### Definición (TypeScript)
+```ts
+export type UserRole = 'organization_admin' | 'company_admin' | 'company' | 'doctor' | 'patient';
+
+export function isValidRole(x: unknown): x is UserRole;
+```
+
+#### Reglas y Validaciones
+* Solo valores del union `UserRole`.
+* Usar antes de rutear o conceder permisos.
+
+#### Ejemplos
+```ts
+if (isValidRole(input)) { /* seguro */ } else { /* 400 Bad Request */ }
+```
+
+### isProfileComplete
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Validador
+**Estado:** ✅ Documentado
+
+#### Descripción
+Chequea **completitud mínima** del perfil (según rol) para operar en producción.
+
+#### Definición (TypeScript)
+```ts
+export interface Profile {
+  user_id: UserId;
+  email: string;
+  role: UserRole;
+}
+export function isProfileComplete(p: Profile): boolean;
+```
+
+#### Reglas y Validaciones
+* `doctor` → matrícula, especialidad y verificación documental.
+* `patient` → datos personales mínimos + consentimiento.
+* `company` → razón social + responsable legal.
+
+#### Ejemplos
+```ts
+isProfileComplete(profile) // true/false según requisitos del rol
+```
+
+### canManageBilling
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Util/Permisos
+**Estado:** ✅ Documentado
+
+#### Descripción
+Determina si el rol puede **gestionar facturación** (plan, cobros, medios de pago).
+
+#### Definición (TypeScript)
+```ts
+export function canManageBilling(role: CompanyMemberRole): boolean;
+```
+
+#### Reglas
+* `owner` y `admin` → `true`.
+* Otros roles → `false`.
+
+#### Ejemplos
+```ts
+if (!canManageBilling(role)) return res.status(403).end();
+```
+
+### canManageCompany
+
+**Paquete:** @autamedica/types
+**Tipo/Función:** Util/Permisos
+**Estado:** ✅ Documentado
+
+#### Descripción
+Permite acciones administrativas sobre la **empresa** (invitaciones, roles, estado).
+
+#### Definición (TypeScript)
+```ts
+export function canManageCompany(role: CompanyMemberRole): boolean;
+```
+
+#### Reglas
+* `owner` y `admin` → `true`.
+
+#### Ejemplos
+```ts
+if (!canManageCompany(userRole)) throw new Error('Insufficient permissions');
+```
+
+### getSession
+
+**Paquete:** @autamedica/shared
+**Tipo/Función:** Auth
+**Estado:** ✅ Documentado
+
+#### Descripción
+Obtiene la **sesión actual** desde la cookie `am_session` (SSO), con tipado consistente para server/client.
+
+#### Definición (TypeScript)
+```ts
+export interface TypedSession {
+  userId: UserId;
+  role: UserRole;
+  issuedAt: ISODateTime;
+}
+export async function getSession(req: Request | NextRequest): Promise<TypedSession | null>;
+```
+
+#### Reglas
+* Debe validar firma y caducidad.
+* Nunca exponer secretos en cliente.
+
+#### Ejemplos
+```ts
+const sess = await getSession(req);
+if (!sess) return NextResponse.redirect('/login');
+```
+
+### hasRole
+
+**Paquete:** @autamedica/shared
+**Tipo/Función:** Auth/Permisos
+**Estado:** ✅ Documentado
+
+#### Descripción
+Atajo para verificar si la sesión posee un **rol** requerido (o conjunto).
+
+#### Definición (TypeScript)
+```ts
+export function hasRole(s: TypedSession | null, required: UserRole | UserRole[]): boolean;
+```
+
+#### Reglas
+* `null` → `false`.
+* Acepta uno o varios roles.
+
+#### Ejemplos
+```ts
+if (!hasRole(sess, ['organization_admin','company_admin'])) return 403;
+```
+
+<!-- MANUAL_DOCS_HIGH_PRIORITY:END -->
+
 ## Índice de símbolos por paquete (auto)
 
 - auth: `APP_ALLOWED_ROLES`, `AppName`, `AuthError`, `AuthErrorType`, `AuthProvider`, `AuthState`, `DomainConfig`, `Environment`, `ROLE_APP_MAPPING`, `RedirectConfig`, `SessionConfig`, `UserProfile`, `UserRole`, `authMiddleware`, `clearLastPath`, `createAppMiddleware`, `createBrowserClient`, `getCorrectAppUrl`, `getDefaultRedirectUrl`, `getDomainConfig`, `getEnvironment`, `getLastPath`, `getLoginUrl`, `getRedirectUrl`, `getSessionConfig`, `getSupabaseClient`, `getSupabaseConfig`, `isCorrectAppForRole`, `isSameOrigin`, `sanitizeReturnUrl`, `signOutGlobally`, `storeLastPath`, `useAuth`, `useRequireAuth`, `useRequireRole`
@@ -2498,4 +3031,8 @@ El esquema de base de datos está protegido por:
 - utils: (sin símbolos)
 
 
+
 <!-- AUTOGEN_PACKAGES:END -->
+
+## 🔗 Base de Datos
+Ver glosario actualizado: [`docs/database/schema.md`](../docs/database/schema.md)
