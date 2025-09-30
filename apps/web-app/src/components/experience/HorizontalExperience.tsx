@@ -2,6 +2,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { getAppUrl } from "@/lib/env";
 import ProfessionalPatientsFeatures from "@/components/landing/ProfessionalPatientsFeatures";
 import ProfessionalDoctorsFeatures from "@/components/landing/ProfessionalDoctorsFeatures";
@@ -14,12 +15,13 @@ type Panel = {
   component?: React.ComponentType;
 };
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { onLeaveTo?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [section, setSection] = useState(0);
+  const slideRefs = useRef<HTMLDivElement[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const panels: Panel[] = [
     {
@@ -46,70 +48,149 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
   ];
 
   useLayoutEffect(() => {
+    if (!containerRef.current || !trackRef.current) return;
+
     const mm = gsap.matchMedia();
-    const el = containerRef.current;
-    const track = trackRef.current;
-    if (!el || !track) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    track.style.width = `${panels.length * 100}vw`;
+    // Initialize slideRefs array
+    slideRefs.current = [];
 
-    const ro = new ResizeObserver(() => ScrollTrigger.refresh());
-    ro.observe(el);
+    // Log diagnóstico mejorado
+    console.log('[HX] Carousel Init:', {
+      slides: panels.length,
+      w: window.innerWidth,
+      h: window.innerHeight,
+      mqDesktop: window.matchMedia('(min-width:1025px)').matches,
+      mqLandscape: window.matchMedia('(orientation: landscape)').matches,
+      reducedMotion: reduced
+    });
 
     mm.add(
       {
-        isDesktop: "(min-width: 769px)",
-        okMotion: "(prefers-reduced-motion: no-preference)",
+        desktop: "(min-width:1025px)",
+        reduced: "(prefers-reduced-motion: reduce)"
       },
       (ctx) => {
-        const { isDesktop, okMotion } = ctx.conditions as { isDesktop: boolean; okMotion: boolean };
-        if (!isDesktop || !okMotion) return;
+        const { desktop } = ctx.conditions as { desktop: boolean };
 
-        const sections = gsap.utils.toArray<HTMLElement>(".hx-slide");
-        const totalShift = -100 * (sections.length - 1);
+        if (reduced) {
+          console.log('[HX] Reduced motion detected, skipping animations');
+          return;
+        }
 
-        const st = gsap.to(track, {
-          xPercent: totalShift,
+        if (!desktop) {
+          console.log('[HX] Mobile/tablet detected, using vertical layout');
+          ScrollTrigger.getAll().forEach(t => t.kill());
+          return;
+        }
+
+        const container = containerRef.current!;
+        const track = trackRef.current!;
+        const slides = slideRefs.current;
+        const total = panels.length;
+
+        // Setup track and slides
+        gsap.set(track, { width: `${total * 100}vw`, display: "flex" });
+        slides.forEach(slide => {
+          if (slide) gsap.set(slide, { width: "100vw" });
+        });
+
+        const anim = gsap.to(track, {
+          xPercent: -100 * (total - 1),
           ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top top",
-            end: () => `+=${window.innerWidth * (sections.length - 1)}`,
-            pin: true,
-            scrub: 1,
-            pinSpacing: true,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const idx = Math.round(self.progress * (sections.length - 1));
-              if (idx !== section) setSection(idx);
-            },
+        });
+
+        const st = ScrollTrigger.create({
+          id: "horizontal-experience",
+          trigger: container,
+          start: "top top",
+          end: () => `+=${(total - 1) * window.innerWidth}`,
+          pin: true,
+          scrub: true,
+          animation: anim,
+          onUpdate: (self) => {
+            // progress → índice
+            const i = Math.round(self.progress * (total - 1));
+            if (i !== activeIndex) {
+              console.log('[HX] Section changed:', activeIndex, '→', i);
+              setActiveIndex(i);
+            }
           },
+          onRefresh: () => {
+            console.log('[HX] ScrollTrigger refreshed');
+          }
+        });
+
+        ctx.add(() => {
+          ScrollTrigger.refresh();
         });
 
         return () => {
-          st.scrollTrigger?.kill();
+          console.log('[HX] Cleaning up GSAP animations');
+          anim.kill();
           st.kill();
         };
       }
     );
 
     return () => {
-      mm.kill();
-      ro.disconnect();
+      console.log('[HX] Component cleanup');
+      mm.revert();
     };
-  }, [panels.length]);
+  }, [panels.length, activeIndex]);
+
+  const goToSlide = (targetIndex: number) => {
+    const total = panels.length;
+    const clamped = Math.max(0, Math.min(targetIndex, total - 1));
+
+    console.log('[HX Nav] Going to slide:', clamped, 'from:', activeIndex);
+
+    // Distance in px (matches ScrollTrigger end calc)
+    const distance = clamped * window.innerWidth;
+
+    const st = ScrollTrigger.getById("horizontal-experience");
+    if (st) {
+      // Target scroll position
+      const targetY = st.start + distance;
+
+      console.log('[HX Nav] GSAP scroll:', {
+        distance,
+        targetY,
+        start: st.start,
+        end: st.end
+      });
+
+      // Use ScrollToPlugin to move the scroll associated with pinned ScrollTrigger
+      gsap.to(window, {
+        duration: 0.6,
+        scrollTo: { y: targetY, autoKill: false },
+        ease: "power2.out",
+        onUpdate: () => ScrollTrigger.update(),
+        onComplete: () => {
+          console.log('[HX Nav] Navigation complete to slide', clamped);
+        }
+      });
+    } else {
+      console.log('[HX Nav] No ScrollTrigger, using fallback');
+      // Fallback for mobile/tablet scenarios
+      const target = document.getElementById(`hx-panel-${clamped}`);
+      target?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    }
+
+    setActiveIndex(clamped);
+  };
 
   useLayoutEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
       const dir = e.key === "ArrowRight" ? 1 : -1;
-      const next = Math.max(0, Math.min(panels.length - 1, section + dir));
-      const target = document.getElementById(`hx-panel-${next}`);
-      target?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      const next = Math.max(0, Math.min(panels.length - 1, activeIndex + dir));
+      goToSlide(next);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [section, panels.length]);
+  }, [activeIndex, panels.length]);
 
   return (
     <div
@@ -129,6 +210,9 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
             <section
               key={p.title}
               id={`hx-panel-${i}`}
+              ref={(el) => {
+                if (el) slideRefs.current[i] = el;
+              }}
               className="hx-slide"
               role="group"
               aria-label={p.title}
@@ -155,26 +239,27 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         })}
       </div>
 
-      <div className="dots" aria-label="Progreso" role="tablist">
-        {panels.map((_, i) => (
-          <button
-            key={i}
-            role="tab"
-            aria-selected={i === section}
-            aria-controls={`hx-panel-${i}`}
-            className={`dot ${i === section ? "active" : ""}`}
-            onClick={() =>
-              document.getElementById(`hx-panel-${i}`)?.scrollIntoView({ behavior: "smooth", inline: "start" })
-            }
-            title={`Ir a ${panels[i]?.title ?? 'Panel'}`}
-          />
+      <ul className="dots" aria-label="Progreso" role="tablist">
+        {panels.map((panel, i) => (
+          <li key={i}>
+            <button
+              type="button"
+              role="tab"
+              aria-label={`Ir al slide ${i + 1}: ${panel.title}`}
+              aria-selected={i === activeIndex}
+              aria-controls={`hx-panel-${i}`}
+              className={`dot ${i === activeIndex ? "active" : ""}`}
+              onClick={() => goToSlide(i)}
+              title={`Ir a ${panel.title}`}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
 
       <style>{`
         .hx-container{
           position:relative;
-          min-height:100vh;
+          min-height:clamp(100vh, 100svh, 110vh);
           overflow:hidden;
           background: transparent;
           color: var(--au-text-primary);
@@ -186,7 +271,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
           overscroll-behavior-x:contain;
           scroll-snap-type:x mandatory;
           gap:0;
-          min-height:100vh;
+          min-height:clamp(100vh, 100svh, 110vh);
           height:100%;
           padding-inline:var(--hx-pad, 0px);
           background:transparent;
@@ -197,7 +282,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         .hx-track::-webkit-scrollbar{ display:none; }
         .hx-slide{
           flex:0 0 calc(100vw - (var(--hx-pad, 0px) * 2));
-          min-height:100vh;
+          min-height:clamp(100vh, 100svh, 110vh);
           scroll-snap-align:start;
           background:var(--slide-bg, #0f0f10);
           border-radius:16px;
@@ -231,6 +316,13 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
           display:flex;
           gap:0.65rem;
           z-index:10;
+          list-style:none;
+          margin:0;
+          padding:0;
+        }
+        .dots li{
+          margin:0;
+          padding:0;
         }
         .dot{
           width:12px;
@@ -239,12 +331,23 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
           background:rgba(255,255,255,0.25);
           border:1px solid rgba(255,255,255,0.4);
           cursor:pointer;
-          transition:transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+          transition:transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+          position:relative;
+        }
+        .dot:hover{
+          background:rgba(255,255,255,0.4);
+          border-color:rgba(255,255,255,0.6);
+          transform:scale(1.1);
         }
         .dot.active{
-          background:var(--au-accent);
-          border-color:var(--au-accent);
+          background:var(--au-accent, #ffffff);
+          border-color:var(--au-accent, #ffffff);
           transform:scale(1.15);
+          box-shadow:0 0 10px rgba(255,255,255,0.3);
+        }
+        .dot:focus{
+          outline:2px solid rgba(255,255,255,0.5);
+          outline-offset:2px;
         }
 
         @media (max-width:768px){
