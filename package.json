@@ -8,7 +8,7 @@
     "release:org-roles": "./scripts/release-org-roles.sh",
     "build": "turbo run build",
     "build:packages": "turbo run build --filter @autamedica/*",
-    "build:packages:core": "turbo run build --filter=@autamedica/types --filter=@autamedica/shared --filter=@autamedica/auth --filter=@autamedica/hooks --filter=@autamedica/tailwind-config",
+    "build:packages:core": "turbo run build --filter=@autamedica/types --filter=@autamedica/shared --filter=@autamedica/auth --filter=@autamedica/hooks --filter=@autamedica/tailwind-config --filter=@autamedica/telemedicine --filter=@autamedica/ui --filter=@autamedica/utils",
     "build:packages-fallback": "cd packages/types && pnpm build && cd ../shared && pnpm build && cd ../auth && pnpm build && cd ../hooks && pnpm build",
     "build:apps": "turbo run build --filter ./apps/*",
     "dev": "turbo run dev",
