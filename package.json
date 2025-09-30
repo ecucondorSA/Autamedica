@@ -8,6 +8,7 @@
     "release:org-roles": "./scripts/release-org-roles.sh",
     "build": "turbo run build",
     "build:packages": "turbo run build --filter @autamedica/*",
+    "build:packages:core": "turbo run build --filter=@autamedica/types --filter=@autamedica/shared --filter=@autamedica/auth --filter=@autamedica/hooks --filter=@autamedica/tailwind-config",
     "build:packages-fallback": "cd packages/types && pnpm build && cd ../shared && pnpm build && cd ../auth && pnpm build && cd ../hooks && pnpm build",
     "build:apps": "turbo run build --filter ./apps/*",
     "dev": "turbo run dev",
@@ -47,10 +48,9 @@
     "security:check": "node scripts/security-check.mjs",
     "security:audit": "pnpm audit --audit-level moderate",
     "security:full": "pnpm run security:check && pnpm run security:audit",
-    "monitor:auth": "node scripts/monitor-auth.mjs",
+    "monitor:auth": "node scripts/auth-monitoring.js",
     "monitor:auth:watch": "node scripts/monitor-auth.mjs --watch",
     "test:e2e:web": "cd apps/web-app && playwright test --reporter=line",
-    "monitor:auth": "node scripts/auth-monitoring.js",
     "setup:auth-hooks": "node scripts/apply-auth-hooks.js",
     "test:unit": "turbo run test:unit",
     "test": "turbo run test",
@@ -124,12 +124,14 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@openai/codex": "^0.39.0",
     "@supabase/supabase-js": "^2.57.4",
     "glob": "^11.0.3",
     "jose": "^6.1.0",
     "next": "15.5.4",
-    "turbo": "^2.5.6"
+    "turbo": "^2.5.6",
+    "vercel": "^48.1.6"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

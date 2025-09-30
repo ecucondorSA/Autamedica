@@ -180,8 +180,8 @@ export async function GET(request: Request) {
             console.log(`Synced role for user ${user.email}: ${profile.role}`);
             role = profile.role as UserRole;
           }
-        } catch (_error) {
-          // Service role key not available, skip role sync
+        } catch {
+          // Service role key not available, skip role sync (ensureEnv throws if not found)
           console.log('Service role key not available, skipping role sync');
         }
       }

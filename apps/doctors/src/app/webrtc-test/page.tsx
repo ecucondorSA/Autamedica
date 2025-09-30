@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ensureClientEnv } from '@autamedica/shared'
 
 const ROOM_ID = 'test123'
 const ROLE: 'doctor' | 'patient' = 'doctor'
 
 const parseIceServers = () => {
+  // Solo ejecutar en cliente
+  if (typeof window === 'undefined') return []
+
   try {
     const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS')
     const parsed = JSON.parse(raw)
@@ -23,8 +26,12 @@ export default function WebRTCTestPage() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null)
   const wsRef = useRef<WebSocket | null>(null)
   const pcRef = useRef<RTCPeerConnection | null>(null)
+  const [iceServers, setIceServers] = useState<RTCIceServer[]>([])
 
-  const iceServers = useMemo(parseIceServers, [])
+  // Parse ICE servers solo en cliente
+  useEffect(() => {
+    setIceServers(parseIceServers())
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined' || pcRef.current) return
@@ -118,8 +125,15 @@ export default function WebRTCTestPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    let signalingUrl: string;
     try {
-      const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
+      signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
+    } catch (error) {
+      console.error('[webrtc-test] NEXT_PUBLIC_SIGNALING_URL not configured', error)
+      return
+    }
+
+    try {
       const userId = `${ROLE}-${Date.now()}`
       const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
       console.log('[webrtc-test] Connecting to:', wsUrl)

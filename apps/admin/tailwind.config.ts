@@ -1,11 +1,13 @@
 import base from '@autamedica/tailwind-config';
 import type { Config } from 'tailwindcss';
 
-export default {
+const config: Config = {
   ...base,
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     '../../packages/ui/**/*.{ts,tsx}'
   ]
-} satisfies Config;
+};
+
+export default config;
