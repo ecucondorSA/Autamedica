@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
+- c0c28a5 feat(cloudflare): usar adapter oficial @cloudflare/next-on-pages
 - 4afe632 feat: merge deploy/auth-cloudflare - configuración Cloudflare Pages
 - 8adf8b5 feat(auth): nueva app de autenticación centralizada y migraciones BD
 - ad1efdb feat: security hardening applied
@@ -87,6 +88,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 4755776 📝 docs: actualizar changelog automático
 - d344ce6 📝 docs: actualizar changelog automático
 - ebdf835 📝 docs: actualizar changelog automático
 - 6875f3b 📝 docs: actualizar changelog automático
@@ -126,6 +128,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- e4000f7 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 436566e Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 058f2a7 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - ef2217f Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -160,4 +163,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-09-30 22:09:54*
+*Generado automáticamente el 2025-09-30 22:25:43*
