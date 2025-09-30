@@ -10,7 +10,7 @@
     "lint": "next lint --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
-    "build:cloudflare": "cd ../.. && pnpm build:packages:core && pnpm turbo run build --filter=@autamedica/web-app --no-deps",
+    "build:cloudflare": "cd ../.. && pnpm build:packages:core && pnpm turbo run build --filter=@autamedica/web-app --only",
     "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .open-next/dist --project-name=autamedica-web-app"
   },
   "dependencies": {
