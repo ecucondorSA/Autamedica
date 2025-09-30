@@ -47,6 +47,7 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- d115340 fix(web-app): cambiar --no-deps por --only en build:cloudflare (turbo 2.5.6)
 - fe0a414 fix(web-app): actualizar build:cloudflare script
 - 5714118 fix(cloudflare): remover [build] de wrangler.toml (no soportado en Pages)
 - 87e5a3c fix(cloudflare): build command para web-app solo (evita build de otras apps)
@@ -81,6 +82,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- aba563e 📝 docs: actualizar changelog automático
 - 3317b33 docs: agregar guía completa de deployment para Cloudflare Pages
 - 504a4f3 docs: link database glossary from GLOSARIO_MAESTRO
 - 9cc0732 docs(db): glosario BD híbrido (SQL parsing auto + HIPAA + ERD) – CI gates
@@ -116,6 +118,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 92d1e5e Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 5be4542 Merge branch 'staging'
 - b53a903 Merge branch 'test/preview-check' into staging
 - 50431ca 🎯 META COMPLETADA: CI completamente verde (0 errores)
@@ -146,4 +149,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-09-30 21:08:02*
+*Generado automáticamente el 2025-09-30 21:11:22*
