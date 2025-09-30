@@ -48,6 +48,7 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- 9f5fa3d fix(build): configurar Node 20 LTS y script de diagnóstico
 - 4fb06f9 fix(workflows): configurar para pnpm en lugar de npm
 - d6bc33c fix(workflows): actualizar PNPM a version 9.15.2
 - 5b90ace fix(build): agregar telemedicine, ui, utils a build:packages:core
@@ -91,6 +92,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 590e450 📝 docs: actualizar changelog automático
 - 748318f 📝 docs: actualizar changelog automático
 - 4b4c006 📝 docs: actualizar changelog automático
 - 22bb3d9 📝 docs: actualizar changelog automático
@@ -134,6 +136,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 5aed748 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - ad04614 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 339ceec Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - b4c8dd2 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -172,4 +175,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-09-30 23:04:24*
+*Generado automáticamente el 2025-09-30 23:17:46*
