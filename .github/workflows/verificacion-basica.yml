@@ -11,7 +11,7 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: ${{ matrix.node }}, cache: pnpm }
@@ -27,7 +27,7 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
@@ -41,7 +41,7 @@ jobs:
     needs: [lint, typecheck]
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
@@ -80,7 +80,7 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
@@ -94,7 +94,7 @@ jobs:
       BASE_URL: http://127.0.0.1:3000
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
