@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type { Tables, TablesInsert, TablesUpdate, Database } from '@autamedica/types';
+import type { Tables, TablesInsert, TablesUpdate } from '@autamedica/types';
 
 // Row = lectura, Insert = creación, Update = parches
 export type Appointment = Tables<'appointments'>;

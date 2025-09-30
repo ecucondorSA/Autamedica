@@ -47,6 +47,8 @@
     "security:check": "node scripts/security-check.mjs",
     "security:audit": "pnpm audit --audit-level moderate",
     "security:full": "pnpm run security:check && pnpm run security:audit",
+    "monitor:auth": "node scripts/monitor-auth.mjs",
+    "monitor:auth:watch": "node scripts/monitor-auth.mjs --watch",
     "test:e2e:web": "cd apps/web-app && playwright test --reporter=line",
     "monitor:auth": "node scripts/auth-monitoring.js",
     "setup:auth-hooks": "node scripts/apply-auth-hooks.js",

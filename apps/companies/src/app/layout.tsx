@@ -1,32 +1,5 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import {
-  Activity,
-  AlertTriangle,
-  BarChart3,
-  Building2,
-  Eye,
-  MapPin,
-  Monitor,
-  RotateCw,
-  Users,
-  Zap,
-  Settings,
-  Bell,
-  Shield,
-  TrendingUp,
-  Database,
-} from 'lucide-react';
-import { createClient } from '@/lib/supabase';
-import './globals.css';
-
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
-
-'use client';
-
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Activity,
@@ -47,7 +20,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import './globals.css';
-import { canManageCompany, MemberRole } from '@repo/shared';
+import { canManageCompany, MemberRole } from '@autamedica/shared/roles';
 
 interface RootLayoutProps {
   children: React.ReactNode;

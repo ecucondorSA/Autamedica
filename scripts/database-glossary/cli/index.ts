@@ -9,7 +9,7 @@
  */
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
-import { dirname, join } from 'path';
+import { join } from 'path';
 import { existsSync, statSync } from 'fs';
 import * as Handlebars from 'handlebars';
 import * as prettier from 'prettier';

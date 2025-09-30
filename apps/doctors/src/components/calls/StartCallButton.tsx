@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createCallService, createSignalingClient, generateRoomId } from '@autamedica/telemedicine'
+import { createCallService, createSignalingClient } from '@autamedica/telemedicine'
 
 interface StartCallButtonProps {
   doctorId: string

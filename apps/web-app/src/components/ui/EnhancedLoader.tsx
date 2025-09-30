@@ -1,4 +1,5 @@
 'use client';
+/* global performance */
 
 import React, { useEffect, useState } from 'react';
 

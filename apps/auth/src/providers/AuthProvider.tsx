@@ -74,7 +74,7 @@ export const withAuth = <P extends object>(
   options: WithAuthOptions = {}
 ) => {
   const WrappedComponent = (props: P) => {
-    const { isAuthenticated, loading, hasRole, user } = useAuthContext();
+    const { isAuthenticated, loading, hasRole, user: _user } = useAuthContext();
     const { redirectTo = '/auth/select-role', requireRole, fallback } = options;
 
     // Show loading state

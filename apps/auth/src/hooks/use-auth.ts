@@ -153,7 +153,7 @@ export const useAuth = (): UseAuthReturn => {
       if (error) {
         const authError = createAuthError(
           error.message === 'Invalid login credentials'
-            ? 'Email o contraseña incorrectos'
+            ? 'Email o contraseï¿½a incorrectos'
             : error.message,
           error
         );
@@ -170,7 +170,7 @@ export const useAuth = (): UseAuthReturn => {
 
       return { success: true };
     } catch (error) {
-      const authError = createAuthError('Error de conexión', error);
+      const authError = createAuthError('Error de conexiï¿½n', error);
       updateState({ loading: false, error: authError });
       return { success: false, error: authError };
     }
@@ -181,7 +181,7 @@ export const useAuth = (): UseAuthReturn => {
     updateState({ loading: true, error: null });
 
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { data: _data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
@@ -201,7 +201,7 @@ export const useAuth = (): UseAuthReturn => {
       // OAuth redirect happens, so we don't update state here
       return { success: true };
     } catch (error) {
-      const authError = createAuthError('Error de autenticación', error);
+      const authError = createAuthError('Error de autenticaciï¿½n', error);
       updateState({ loading: false, error: authError });
       return { success: false, error: authError };
     }
@@ -215,7 +215,7 @@ export const useAuth = (): UseAuthReturn => {
       const { error } = await supabase.auth.signOut();
 
       if (error) {
-        const authError = createAuthError('Error al cerrar sesión', error);
+        const authError = createAuthError('Error al cerrar sesiï¿½n', error);
         updateState({ loading: false, error: authError });
         return { success: false, error: authError };
       }
@@ -229,7 +229,7 @@ export const useAuth = (): UseAuthReturn => {
 
       return { success: true };
     } catch (error) {
-      const authError = createAuthError('Error de conexión', error);
+      const authError = createAuthError('Error de conexiï¿½n', error);
       updateState({ loading: false, error: authError });
       return { success: false, error: authError };
     }
@@ -297,7 +297,7 @@ export const useAuth = (): UseAuthReturn => {
       updateState({ loading: false, error: null });
       return { success: true };
     } catch (error) {
-      const authError = createAuthError('Error de conexión', error);
+      const authError = createAuthError('Error de conexiï¿½n', error);
       updateState({ loading: false, error: authError });
       return { success: false, error: authError };
     }
@@ -311,7 +311,7 @@ export const useAuth = (): UseAuthReturn => {
       const { data, error } = await supabase.auth.refreshSession();
 
       if (error) {
-        const authError = createAuthError('Error al actualizar sesión', error);
+        const authError = createAuthError('Error al actualizar sesiï¿½n', error);
         updateState({ loading: false, error: authError });
         return { success: false, error: authError };
       }
@@ -325,7 +325,7 @@ export const useAuth = (): UseAuthReturn => {
 
       return { success: true };
     } catch (error) {
-      const authError = createAuthError('Error de conexión', error);
+      const authError = createAuthError('Error de conexiï¿½n', error);
       updateState({ loading: false, error: authError });
       return { success: false, error: authError };
     }

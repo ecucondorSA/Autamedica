@@ -71,7 +71,7 @@ export async function getSession(req: NextRequest): Promise<Session | null> {
  * Verify user has one of the allowed roles
  */
 export function hasRole(session: Session | null, allowedRoles: SessionRole[]): boolean {
-  if (!session || !session.user.role) {
+  if (!session?.user.role) {
     return false;
   }
   return allowedRoles.includes(session.user.role);

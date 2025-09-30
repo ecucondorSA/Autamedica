@@ -5,7 +5,7 @@
  * equipos de atención médica y DTOs para Supabase.
  */
 
-import type { PatientId, DoctorId, UUID, UserId } from "../primitives/id";
+import type { PatientId, DoctorId, UUID } from "../primitives/id";
 import type { ISODateString } from "../primitives/date";
 
 // ==========================================

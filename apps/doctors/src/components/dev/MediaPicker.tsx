@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Camera, CameraOff, Mic, MicOff, Monitor, RefreshCw } from 'lucide-react'
+import { Camera, Mic, Monitor, RefreshCw } from 'lucide-react'
 
 interface MediaPickerProps {
   onMediaReady: (stream: MediaStream) => void

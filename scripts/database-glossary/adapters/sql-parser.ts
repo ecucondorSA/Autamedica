@@ -6,15 +6,14 @@
  * CI/CD pipelines where live database connections aren't available or desired.
  */
 
-import { readFile, stat, readdir } from 'fs/promises';
-import { join, extname, basename } from 'path';
+import { readFile, stat } from 'fs/promises';
+import { join } from 'path';
 import globby from 'globby';
 import type {
   SQLParsingAdapter,
   SQLParsingResult,
   ParsedSQLStatement,
   ParsedSQLElement,
-  SQLParsingError,
   SQLParsingConfig,
   AdapterInfo,
   DatabaseSchema,

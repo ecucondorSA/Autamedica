@@ -81,7 +81,8 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
 
   const clearComponentLoading = useCallback((componentId: string) => {
     setComponentLoadings(prev => {
-      const { [componentId]: _, ...rest } = prev;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Destructuring to remove key from object
+      const { [componentId]: _removed, ...rest } = prev;
       return rest;
     });
   }, []);

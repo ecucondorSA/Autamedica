@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createSignalingClient, createCallService } from '@autamedica/telemedicine'
+import { createCallService } from '@autamedica/telemedicine'
 import type { Call } from '@autamedica/telemedicine'
 
 interface WaitingRoomProps {

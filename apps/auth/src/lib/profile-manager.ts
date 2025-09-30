@@ -146,7 +146,7 @@ export class ProfileManager {
         };
       }
 
-      const { data, error } = await this.client.rpc('set_portal_and_role', {
+      const { data: _data, error } = await this.client.rpc('set_portal_and_role', {
         p_portal: portal,
         p_role: role || null,
         p_organization_id: organizationId || null,

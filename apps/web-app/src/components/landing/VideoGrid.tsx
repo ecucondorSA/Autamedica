@@ -1,6 +1,7 @@
 'use client';
+/* global IntersectionObserver */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const videoSources = [
   { src: '/videos/video1.mp4', title: 'Consultorio Digital' },
@@ -15,40 +16,93 @@ const videoSources = [
 
 export default function VideoGrid() {
   const videosRef = useRef<(HTMLVideoElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- isVisible state tracked for IntersectionObserver, unused pending UI indicators
+  const [_isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Start each video at a different time to avoid synchronization
-    videosRef.current.forEach((video, index) => {
-      if (video) {
-        // Random start delay between 0 and 3 seconds
-        const delay = Math.random() * 3000;
-        setTimeout(() => {
-          video.play().catch(() => {
-            // Silently handle autoplay errors
-          });
-        }, delay);
+    // IntersectionObserver to detect when component is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            // Play videos when visible
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- index not needed for video iteration
+            videosRef.current.forEach((video, _index) => {
+              if (video && video.paused) {
+                // Random start delay between 0 and 2 seconds
+                const delay = Math.random() * 2000;
+                setTimeout(() => {
+                  // Check if video element still exists in DOM
+                  if (document.body.contains(video) && video.paused) {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                      playPromise.catch((error) => {
+                        // Ignore AbortError silently
+                        if (error.name !== 'AbortError') {
+                          console.debug('Video play error:', error.name);
+                        }
+                      });
+                    }
+                  }
+                }, delay);
+              }
+            });
+          } else {
+            // Pause videos when not visible to save resources
+            videosRef.current.forEach((video) => {
+              if (video && !video.paused && document.body.contains(video)) {
+                video.pause();
+              }
+            });
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '50px' } // Trigger slightly before visible
+    );
 
-        // Set random start time within the video
-        video.addEventListener('loadedmetadata', () => {
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      // Cleanup: pause all videos
+      videosRef.current.forEach((video) => {
+        if (video && document.body.contains(video)) {
+          video.pause();
+        }
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    // Set random start time for each video when metadata loads
+    videosRef.current.forEach((video) => {
+      if (video) {
+        const handleLoadedMetadata = () => {
           if (video.duration && video.duration > 0) {
             video.currentTime = Math.random() * video.duration * 0.5;
           }
-        });
+        };
+        video.addEventListener('loadedmetadata', handleLoadedMetadata);
       }
     });
   }, []);
 
   return (
-    <section className="video-grid-section">
+    <section ref={containerRef} className="video-grid-section">
       <div className="mx-auto max-w-[min(1600px,96vw)] px-[clamp(12px,2.5vw,24px)]">
         <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-light text-center text-white mb-2 tracking-wide leading-tight">Ecosistema Médico Completo</h2>
         <p className="text-[clamp(1rem,2.5vw,1.4rem)] text-center text-white/60 mb-[clamp(2rem,6vh,4rem)] leading-relaxed">Múltiples herramientas trabajando en sincronía para tu salud</p>
 
-        <div className="grid gap-[clamp(12px,2.5vw,24px)] [grid-template-columns:repeat(auto-fit,minmax(clamp(220px,32vw,360px),1fr))] auto-rows-[clamp(160px,24vh,280px)]">
+        <div className="grid gap-[clamp(12px,2vw,24px)]" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(200px, 30vw, 320px), 1fr))', gridAutoRows: 'clamp(140px, 18vh, 220px)'}}>
           {videoSources.map((video, index) => (
             <div key={index} className="video-item">
               <video
                 ref={(el) => videosRef.current[index] = el}
+                autoPlay
                 muted
                 loop
                 playsInline
@@ -67,9 +121,16 @@ export default function VideoGrid() {
 
       <style jsx>{`
         .video-grid-section {
-          padding: clamp(4rem, 10vh, 8rem) clamp(1rem, 4vw, 2rem);
-          background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%);
-          min-height: clamp(100vh, 120vh, 140vh);
+          padding: clamp(2rem, 4vh, 4rem) clamp(1rem, 3vw, 3rem) !important;
+          background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%) !important;
+          min-height: 100% !important;
+          height: auto !important;
+          max-height: none !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: flex-start !important;
+          overflow: visible !important;
+          box-sizing: border-box !important;
         }
 
         .grid-container {
@@ -102,14 +163,16 @@ export default function VideoGrid() {
         }
 
         .video-item {
-          position: relative;
-          aspect-ratio: 16 / 10;
-          border-radius: 16px;
-          overflow: hidden;
-          background: #1a1a1a;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          min-height: 280px;
+          position: relative !important;
+          aspect-ratio: 16 / 10 !important;
+          border-radius: 16px !important;
+          overflow: hidden !important;
+          background: #1a1a1a !important;
+          transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          min-height: clamp(140px, 18vh, 220px) !important;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
 
         .video-item:hover {

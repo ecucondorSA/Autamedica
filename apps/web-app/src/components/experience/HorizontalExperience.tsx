@@ -18,12 +18,14 @@ type Panel = {
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { onLeaveTo?: string }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- onLeaveTo parameter reserved for exit navigation
+export default function HorizontalExperience({ onLeaveTo: _onLeaveTo = "/model-viewer" }: { onLeaveTo?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<HTMLDivElement[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
+  const stRef = useRef<ScrollTrigger | null>(null);
 
   const panels: Panel[] = [
     {
@@ -61,18 +63,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
     const mm = gsap.matchMedia();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Initialize slideRefs array
     slideRefs.current = [];
-
-    // Log diagnóstico mejorado
-    console.log('[HX] Carousel Init:', {
-      slides: panels.length,
-      w: window.innerWidth,
-      h: window.innerHeight,
-      mqDesktop: window.matchMedia('(min-width:1025px)').matches,
-      mqLandscape: window.matchMedia('(orientation: landscape)').matches,
-      reducedMotion: reduced
-    });
 
     mm.add(
       {
@@ -82,14 +73,7 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
       (ctx) => {
         const { desktop } = ctx.conditions as { desktop: boolean };
 
-        if (reduced) {
-          console.log('[HX] Reduced motion detected, skipping animations');
-          return;
-        }
-
-        if (!desktop) {
-          console.log('[HX] Mobile/tablet detected, using vertical layout');
-          ScrollTrigger.getAll().forEach(t => t.kill());
+        if (reduced || !desktop) {
           return;
         }
 
@@ -98,83 +82,83 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         const slides = slideRefs.current;
         const total = panels.length;
 
-        // Setup container for full viewport
-        gsap.set(container, {
-          width: "100vw !important",
-          height: "100vh !important",
-          minHeight: "100vh !important",
-          maxHeight: "100vh !important",
-          overflow: "hidden"
-        });
-
-        // Setup track and slides - exact sizing
-        gsap.set(track, {
-          width: `${total * 100}vw`,
-          height: "100vh",
-          minHeight: "100vh",
-          maxHeight: "100vh",
-          display: "flex",
-          padding: "0 !important",
-          margin: "0 !important",
-          gap: 0,
-          overflow: "visible"
-        });
-        slides.forEach(slide => {
-          if (slide) gsap.set(slide, {
-            flex: "0 0 100vw",
-            width: "100vw",
-            height: "100vh",
-            minHeight: "100vh",
-            maxHeight: "100vh",
-            borderRadius: 0,
-            margin: 0,
-            padding: 0
-          });
-        });
+        // Simple horizontal scroll animation - Faster scroll (reduced from 3x to 1.5x)
+        const scrollDistance = total * window.innerHeight * 1.5;
 
         const anim = gsap.to(track, {
-          xPercent: -100 * (total - 1),
-          ease: "none",
+          x: () => -(total - 1) * window.innerWidth,
+          ease: "power1.inOut",
         });
 
-        const st = ScrollTrigger.create({
-          id: "horizontal-experience",
+        stRef.current = ScrollTrigger.create({
           trigger: container,
           start: "top top",
-          end: () => `+=${(total - 1) * window.innerHeight}`,
+          end: `+=${scrollDistance}`,
           pin: true,
-          pinSpacing: false,
-          scrub: true,
+          scrub: 0.5,
           animation: anim,
-          invalidateOnRefresh: true,
+          onEnter: () => {
+            // Disable body scroll and internal scrolls
+            document.body.style.overflow = 'hidden';
+          },
+          onLeave: () => {
+            // Re-enable body scroll
+            document.body.style.overflow = '';
+          },
+          onEnterBack: () => {
+            // Disable body scroll when scrolling back
+            document.body.style.overflow = 'hidden';
+          },
+          onLeaveBack: () => {
+            // Re-enable body scroll
+            document.body.style.overflow = '';
+          },
           onUpdate: (self) => {
-            // progress → índice
             const i = Math.round(self.progress * (total - 1));
             if (i !== activeIndexRef.current) {
-              console.log('[HX] Section changed:', activeIndexRef.current, '→', i);
               activeIndexRef.current = i;
               setActiveIndex(i);
             }
-          },
-          onRefresh: () => {
-            console.log('[HX] ScrollTrigger refreshed');
-          }
-        });
 
-        ctx.add(() => {
-          ScrollTrigger.refresh();
+            // Fade transitions between panels
+            slides.forEach((slide, idx) => {
+              if (!slide) return;
+
+              const slideProgress = self.progress * (total - 1);
+              const distance = Math.abs(slideProgress - idx);
+
+              if (distance < 1) {
+                const opacity = 1 - distance;
+                const scale = 0.95 + (0.05 * opacity);
+                gsap.to(slide, {
+                  opacity,
+                  scale,
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              } else {
+                gsap.to(slide, {
+                  opacity: 0,
+                  scale: 0.95,
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              }
+            });
+          },
         });
 
         return () => {
-          console.log('[HX] Cleaning up GSAP animations');
           anim.kill();
-          st.kill();
+          if (stRef.current) {
+            stRef.current.kill();
+            stRef.current = null;
+          }
         };
       }
     );
 
     return () => {
-      console.log('[HX] Component cleanup');
       mm.revert();
     };
   }, [panels.length]);
@@ -182,39 +166,18 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
   const goToSlide = (targetIndex: number) => {
     const total = panels.length;
     const clamped = Math.max(0, Math.min(targetIndex, total - 1));
+    const scrollDistance = total * window.innerHeight * 1.5;
+    const distance = (clamped / (total - 1)) * scrollDistance;
 
-    console.log('[HX Nav] Going to slide:', clamped, 'from:', activeIndexRef.current);
-
-    // Distance in px (matches ScrollTrigger end calc)
-    const distance = clamped * window.innerHeight;
-
-    const st = ScrollTrigger.getById("horizontal-experience");
+    const st = stRef.current;
     if (st) {
-      // Target scroll position
       const targetY = st.start + distance;
-
-      console.log('[HX Nav] GSAP scroll:', {
-        distance,
-        targetY,
-        start: st.start,
-        end: st.end
-      });
-
-      // Use ScrollToPlugin to move the scroll associated with pinned ScrollTrigger
       gsap.to(window, {
-        duration: 0.6,
+        duration: 0.8,
         scrollTo: { y: targetY, autoKill: false },
-        ease: "power2.out",
+        ease: "power2.inOut",
         onUpdate: () => ScrollTrigger.update(),
-        onComplete: () => {
-          console.log('[HX Nav] Navigation complete to slide', clamped);
-        }
       });
-    } else {
-      console.log('[HX Nav] No ScrollTrigger, using fallback');
-      // Fallback for mobile/tablet scenarios
-      const target = document.getElementById(`hx-panel-${clamped}`);
-      target?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
     }
 
     activeIndexRef.current = clamped;
@@ -235,14 +198,11 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
   return (
     <div
       ref={containerRef}
-      className="hx-container"
+      className="horizontal-scroll-container"
       role="region"
       aria-label="Recorrido horizontal de soluciones"
     >
-      <div
-        ref={trackRef}
-        className="hx-track"
-      >
+      <div ref={trackRef} className="horizontal-track">
         {panels.map((p, i) => {
           const PanelComp = p.component;
           return (
@@ -252,12 +212,14 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
               ref={(el) => {
                 if (el) slideRefs.current[i] = el;
               }}
-              className="hx-slide"
+              className="horizontal-slide"
               role="group"
               aria-label={p.title}
-              style={{ ['--slide-bg' as any]: slideBackgrounds[i] ?? "#0f0f10" }}
+              style={{
+                background: slideBackgrounds[i] ?? "#0f0f10"
+              }}
             >
-              <div className="hx-slide-inner">
+              <div className="slide-content">
                 {PanelComp ? (
                   <PanelComp />
                 ) : (
@@ -267,9 +229,6 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
                       <ul>{p.items.map((t) => <li key={t}>{t}</li>)}</ul>
                     )}
                     <a href={p.ctaHref} className="btn">Ingresar</a>
-                    <div style={{ marginTop: "1rem" }}>
-                      <a href={onLeaveTo} className="btn" aria-label="Ver asistente 3D">Ver asistente 3D</a>
-                    </div>
                   </div>
                 )}
               </div>
@@ -278,7 +237,8 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
         })}
       </div>
 
-      <ul className="dots" aria-label="Progreso" role="tablist">
+      {/* Navigation dots with transition indicator */}
+      <ul className="scroll-dots" aria-label="Progreso" role="tablist">
         {panels.map((panel, i) => (
           <li key={i}>
             <button
@@ -291,134 +251,264 @@ export default function HorizontalExperience({ onLeaveTo = "/model-viewer" }: { 
               onClick={() => goToSlide(i)}
               title={`Ir a ${panel.title}`}
             />
+            {i < panels.length - 1 && (
+              <span className={`transition-bridge ${i === activeIndex || i === activeIndex - 1 ? 'active' : ''}`} />
+            )}
           </li>
         ))}
       </ul>
 
-      <style>{`
-        .hx-container{
-          position:relative !important;
-          width:100vw !important;
-          height:100vh !important;
-          min-height:100vh !important;
-          max-height:100vh !important;
-          overflow:hidden !important;
-          background: transparent;
-          color: var(--au-text-primary);
-        }
-        .hx-track{
-          display:flex !important;
-          height:100vh !important;
-          min-height:100vh !important;
-          max-height:100vh !important;
-          overflow:visible !important;
-          gap:0 !important;
-          padding:0 !important;
-          margin:0 !important;
-          background:transparent;
-          will-change:transform;
-          scrollbar-width:none;
-          -ms-overflow-style:none;
-        }
-        .hx-track::-webkit-scrollbar{ display:none; }
-        .hx-slide{
-          flex:0 0 100vw !important;
-          width:100vw !important;
-          height:100vh !important;
-          min-height:100vh !important;
-          max-height:100vh !important;
-          background:var(--slide-bg, #0f0f10);
-          border-radius:0 !important;
-          overflow:hidden;
-          position:relative;
-          display:flex;
-          margin:0 !important;
-          padding:0 !important;
-        }
-        .hx-slide-inner{
-          flex:1 1 auto;
-          min-height:100%;
-          width:100%;
-          display:flex;
-          overflow-y:auto;
-          overflow-x:hidden;
-          padding:0;
-          scrollbar-width:thin;
-        }
-        .hx-slide-inner::-webkit-scrollbar{ width:6px; }
-        .hx-slide-inner::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.12); border-radius:3px; }
-        .hx-slide-inner > *{
-          flex:1 1 auto;
-          min-height:100%;
-          width:100%;
-        }
-        .dots{
-          position:fixed;
-          bottom:1.25rem;
-          left:50%;
-          transform:translateX(-50%);
-          display:flex;
-          gap:0.65rem;
-          z-index:10;
-          list-style:none;
-          margin:0;
-          padding:0;
-        }
-        .dots li{
-          margin:0;
-          padding:0;
-        }
-        .dot{
-          width:12px;
-          height:12px;
-          border-radius:50%;
-          background:rgba(255,255,255,0.25);
-          border:1px solid rgba(255,255,255,0.4);
-          cursor:pointer;
-          transition:transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-          position:relative;
-        }
-        .dot:hover{
-          background:rgba(255,255,255,0.4);
-          border-color:rgba(255,255,255,0.6);
-          transform:scale(1.1);
-        }
-        .dot.active{
-          background:var(--au-accent, #ffffff);
-          border-color:var(--au-accent, #ffffff);
-          transform:scale(1.15);
-          box-shadow:0 0 10px rgba(255,255,255,0.3);
-        }
-        .dot:focus{
-          outline:2px solid rgba(255,255,255,0.5);
-          outline-offset:2px;
+      {/* Transition arrows */}
+      {activeIndex < panels.length - 1 && (
+        <div className="next-indicator">
+          <span>→</span>
+          <p>{panels[activeIndex + 1]?.title}</p>
+        </div>
+      )}
+      {activeIndex > 0 && (
+        <div className="prev-indicator">
+          <span>←</span>
+          <p>{panels[activeIndex - 1]?.title}</p>
+        </div>
+      )}
+
+      <style jsx>{`
+        .horizontal-scroll-container {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          z-index: 10;
+          background: #000;
         }
 
-        @media (max-width:768px){
-          .hx-track{
-            padding-inline:0;
-          }
-          .dots{
-            bottom:1rem;
-            gap:0.5rem;
-          }
-          .dot{
-            width:10px;
-            height:10px;
-          }
+        .horizontal-track {
+          display: flex;
+          height: 100vh;
+          width: ${panels.length * 100}vw;
+          will-change: transform;
         }
 
-        /* Fix VideoGrid sizing when inside carousel */
-        .hx-slide-inner .video-grid-section{
-          min-height:100vh !important;
-          max-height:100vh !important;
-          height:100vh !important;
-          padding:2rem !important;
-          overflow:hidden !important;
+        .horizontal-slide {
+          flex: 0 0 100vw;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          position: relative;
+          transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+          will-change: opacity, transform, filter;
         }
 
-        @media (prefers-reduced-motion: reduce){
-          .dot{ transition:none; }
+        .horizontal-slide::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(90deg,
+            rgba(0,0,0,0.3) 0%,
+            transparent 10%,
+            transparent 90%,
+            rgba(0,0,0,0.3) 100%
+          );
+          pointer-events: none;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity 0.5s ease;
+        }
+
+        .horizontal-slide:not(:first-child)::before,
+        .horizontal-slide:not(:last-child)::before {
+          opacity: 0.5;
+        }
+
+        .slide-content {
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          -webkit-overflow-scrolling: touch;
+          scroll-behavior: smooth;
+        }
+
+        .slide-content::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        .slide-content::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.1);
+        }
+
+        .slide-content::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 3px;
+        }
+
+        .slide-content::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.5);
+        }
+
+        .slide-content > * {
+          width: 100%;
+          min-height: 100%;
+          flex-shrink: 0;
+        }
+
+        .scroll-dots {
+          position: fixed;
+          bottom: 2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          z-index: 100;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .scroll-dots li {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+
+        .dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+          background: rgba(255, 255, 255, 0.5);
+          transform: scale(1.1);
+        }
+
+        .dot.active {
+          background: white;
+          transform: scale(1.2);
+          box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+        }
+
+        .transition-bridge {
+          width: 24px;
+          height: 2px;
+          background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 0.2)
+          );
+          transition: all 0.5s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .transition-bridge::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.8),
+            transparent
+          );
+          animation: bridge-flow 2s ease-in-out infinite;
+        }
+
+        .transition-bridge.active {
+          background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0.5)
+          );
+        }
+
+        @keyframes bridge-flow {
+          0% { left: -100%; }
+          100% { left: 100%; }
+        }
+
+        .next-indicator,
+        .prev-indicator {
+          position: fixed;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 1rem 1.5rem;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          color: white;
+          z-index: 90;
+          opacity: 0.6;
+          transition: opacity 0.3s ease;
+        }
+
+        .next-indicator {
+          right: 2rem;
+        }
+
+        .prev-indicator {
+          left: 2rem;
+          flex-direction: row-reverse;
+        }
+
+        .next-indicator:hover,
+        .prev-indicator:hover {
+          opacity: 1;
+        }
+
+        .next-indicator span,
+        .prev-indicator span {
+          font-size: 1.5rem;
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        .next-indicator p,
+        .prev-indicator p {
+          margin: 0;
+          font-size: 0.875rem;
+          opacity: 0.8;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 1024px) {
+          .horizontal-track {
+            flex-direction: column;
+            width: 100vw;
+            height: auto;
+          }
+
+          .horizontal-slide {
+            flex: 0 0 auto;
+            width: 100vw;
+            min-height: 100vh;
+            height: auto;
+          }
+
+          .scroll-dots {
+            display: none;
+          }
         }
       `}</style>
     </div>

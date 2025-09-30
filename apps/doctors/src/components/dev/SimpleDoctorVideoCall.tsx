@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { WebRTCDebugger, attachWebRTCDebugger, quickDiagnosis } from '../../utils/webrtc-debug'
+import { WebRTCDebugger, quickDiagnosis } from '../../utils/webrtc-debug'
 import {
   Video,
   VideoOff,
@@ -13,8 +13,7 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  Settings,
-  RefreshCw
+  Settings
 } from 'lucide-react'
 import MediaPicker from './MediaPicker'
 
@@ -116,7 +115,7 @@ export default function SimpleDoctorVideoCall({
         streamCount: event.streams.length
       })
 
-      if (event.streams && event.streams[0]) {
+      if (event.streams?.[0]) {
         const stream = event.streams[0]
         debuggerRef.current?.info('Setting remote stream', {
           streamId: stream.id,

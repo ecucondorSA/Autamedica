@@ -204,17 +204,16 @@ export default function ProfessionalPatientsFeatures() {
 
       <style>{`
         .patients-portal {
-          display: grid;
-          grid-template-rows: auto 1fr;
+          display: flex;
+          flex-direction: column;
           gap: 1.6rem;
           width: 100%;
-          height: 100%;
+          height: auto;
           min-height: 100%;
           padding: 2.2rem 3rem 1.9rem;
           box-sizing: border-box;
           background: linear-gradient(135deg, var(--au-surface), #151515);
           color: var(--au-text-primary);
-          overflow: hidden;
         }
 
         .media-zone {
