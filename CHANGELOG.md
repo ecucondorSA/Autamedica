@@ -47,6 +47,7 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- 0b8be14 fix(cloudflare): corregir pages_build_output_dir a .next
 - 86b854e fix(cloudflare): remover opennextjs-cloudflare que causa webpack errors
 - cff06ab fix(web-app): agregar comando build a opennextjs-cloudflare
 - 898f1fa fix(web-app): agregar opennextjs-cloudflare al build:cloudflare
@@ -86,6 +87,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- d344ce6 📝 docs: actualizar changelog automático
 - ebdf835 📝 docs: actualizar changelog automático
 - 6875f3b 📝 docs: actualizar changelog automático
 - aba563e 📝 docs: actualizar changelog automático
@@ -124,6 +126,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 436566e Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 058f2a7 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - ef2217f Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 92d1e5e Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -157,4 +160,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-09-30 21:45:54*
+*Generado automáticamente el 2025-09-30 22:09:54*
