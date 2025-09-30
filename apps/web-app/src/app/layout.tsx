@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { LoadingProvider } from "@/lib/loading-context";
 import GlobalLoader from "@/components/ui/GlobalLoader";
@@ -6,6 +6,12 @@ import StructuredData from "@/components/seo/StructuredData";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { WebVitals } from "./web-vitals";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://autamedica.com'),
@@ -36,11 +42,6 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
   },
   robots: {
     index: true,
