@@ -57,7 +57,7 @@ async function fetchImage(fetcher, imageUrl, ctx) {
       const headers = new Headers(imgResponse.headers);
       headers.set("content-type", contentType);
       headers.set("content-disposition", "attachment");
-      headers.set("content-security-policy", "default-src 'self'; script-src 'none'; sandbox;");
+      headers.set("content-security-policy", "script-src 'none'; frame-src 'none'; sandbox;");
       return new Response(respBody, { ...imgResponse, headers });
     }
     ctx.waitUntil(respBody.cancel());
