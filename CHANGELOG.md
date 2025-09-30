@@ -1,0 +1,149 @@
+# 📋 Changelog
+
+## [Unreleased]
+
+### 🚀 Nuevas Funcionalidades
+- 4afe632 feat: merge deploy/auth-cloudflare - configuración Cloudflare Pages
+- 8adf8b5 feat(auth): nueva app de autenticación centralizada y migraciones BD
+- ad1efdb feat: security hardening applied
+- dd59a12 🔐 feat: Sistema de Roles Normalizado - organization_admin COMPLETO
+- 2eb0dc3 feat: complete role system implementation with tests, seeds and CI/CD
+- 0eebe76 feat(db): introduce organizations/org_members/user_roles with organization_admin role
+- c5dc256 ✨ nova feature: smoke test AI/DX & CI
+- 93b5a32 🤖 feat: sistema AI/DX enterprise - calidad + automatización + IA
+- 09fd555 ✨ nova feature: prueba de preview deployment smoke test
+- 66233b6 feat: enhance telemedicine system with unified video calls and Next.js 15.5.4 upgrade
+- a1ff8a0 feat: enhance telemedicine system with unified video calls and Next.js 15.5.4 upgrade
+- 2b2582f feat: resolver problema UUID y implementar sistema médico completo
+- 804be13 feat: OAuth con PKCE y redirección a portales externos
+- f5cb7c7 feat: Add comprehensive transactional schema and fix production errors
+- e61cb55 feat: configuración completa para Cloudflare Pages
+- 200dc13 feat: sistema de autenticación completo con RLS seguro
+- 835df2a feat: configure Cloudflare Pages deployment for all apps
+- 6c77cf3 feat: Add automatic sequential video playback for patient experiences
+- db3e533 feat: Apply minimal stable Vercel template for monorepo deployment
+- 1b737a5 feat: Configure multi-app deployment for doctors, patients, companies
+- 64a5ae7 feat: Add Vercel deployment validation rules
+- 46bd503 feat: Remove vercel.json for proper Turborepo auto-configuration
+- b298aff feat: Add complete multi-app architecture with Vercel deployment
+- b96c8ce feat: Complete multi-app architecture with full TypeScript resolution
+- f180d43 feat: Complete AutaMedica UI redesign and authentication improvements
+- 1963c5d feat: Comprehensive quality system + medical types + deployment fixes
+- 7ce21a4 feat: Implement comprehensive validation infrastructure and multi-app architecture planning
+
+### 🔧 Mejoras y Optimizaciones
+- 695de61 🔧 fix: aumentar memoria NODE_OPTIONS para ESLint
+- 744c90c 🔧 fix: agregar timeout 900s a prepush hooks
+- f790a26 ⚙️ ops tarea: hardening de repositorio (calidad, seguridad y DX)
+- df2d00e 🔧 fix: corregir versión PNPM en workflows de deployment
+- 304603e ⚙️ ops tarea: agregar script de sincronización de workflows + documentación
+- 3759d86 ⚙️ ops tarea: limpieza y reorganización completa de workflows
+- 75e230a 🔧 BATCH MASIVO: Resolución CI/CD + ESLint + TypeScript
+- f788386 ⚙️ ops: Sistema validación contratos - Workflow GitHub Actions + PR template
+- de92086 ⚙️ ops tarea: sistema completo CI/CD con glosario médico y correcciones TypeScript
+- 55b4e65 chore: monorepo lockfile single source - remove secondary lockfiles
+- 120b40e chore: nuevo punto de partida Autamedica
+- 67ace50 chore: remove editor cache artifacts
+- 2c00bed chore: centralize vercel.json in monorepo root
+
+### 🐛 Correcciones
+- fe0a414 fix(web-app): actualizar build:cloudflare script
+- 5714118 fix(cloudflare): remover [build] de wrangler.toml (no soportado en Pages)
+- 87e5a3c fix(cloudflare): build command para web-app solo (evita build de otras apps)
+- dca2d47 fix(auth): variable error no usada en catch block
+- 9ad3254 fix(auth): reemplazar process.env con ensureEnv en routes API
+- 781e5cc fix(lint): corregir errores y warnings en auth y web-app
+- db274cc fix(gsap-carousel): dots controlan navegación y se sincronizan con ScrollTrigger
+- fdb078e fix: add missing organization_admin role to role selection form
+- e490b33 fix: enable composite mode for auth package
+- b317121 fix(ci): resolve memory and build order pipeline issues
+- 559adeb fix: Resolver todos los errores TypeScript y ESLint en doctors app
+- d441315 🐛 fix: Reordenar pasos workflow - pnpm setup antes que Node.js
+- 7fe4601 🐛 fix: Workflow validación contratos - npm→pnpm + permisos GitHub
+- b3410d6 fix: Resuelto error de gsap y TypeScript en componentes landing
+- 53956fb fix: resolver errores de build y deployment exitoso
+- b40110b fix: solucionar errores de producción
+- b94afe4 fix: use CI env var instead of is-ci package for Husky
+- 3d7011e fix: make Husky conditional for CI environments
+- a83c494 fix: regenerate pnpm-lock.yaml for Cloudflare compatibility
+- 7d9d3c3 fix: add complete Vercel configuration with corepack for each app
+- dfabb0c fix: Configure centralized vercel.json with proper rootDirectory for all apps
+- 81181c3 TEMP: Disable middleware auth for debugging
+- 512d4b7 fix(doctors): enforce production return urls
+- fab522e fix: Restore correct Vercel configuration
+- b7a78d0 fix: Move and update Vercel config to web-app directory
+- 4cd862b fix: add missing authentication and legal pages to resolve 404 errors
+- f46fa48 fix: improve text contrast across authentication pages for better visibility
+- 35f4512 Fix ESLint errors: remove unused imports and variables, fix any types
+
+### 🔒 Seguridad
+- c7cf4d8 security: remove hardcoded keys, unified role routing, secure cookies
+- 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
+
+### 📚 Documentación
+- 3317b33 docs: agregar guía completa de deployment para Cloudflare Pages
+- 504a4f3 docs: link database glossary from GLOSARIO_MAESTRO
+- 9cc0732 docs(db): glosario BD híbrido (SQL parsing auto + HIPAA + ERD) – CI gates
+- 763583b 📚 docs: agregar descripción sistema AI/DX enterprise
+- 9de99a6 📋 ops tarea: actualizar documentación con estado actual enterprise
+- 6a23c0e 📝 docs: batch masivo reviews + loadables (batch 7 final)
+- 75821fe 📝 docs: sincronizar validaciones médicas y seguros (batch 6 acelerado)
+- e08966a 📝 docs: sincronizar utilidades médicas avanzadas (batch 5/10)
+- 98ec3bc 📝 docs: sincronizar especialidades médicas y teléfonos avanzados (batch 4/10)
+- ce86373 📝 docs: resolver tipos huérfanos - exportar branded types (batch 3/10)
+- dc775bb 📝 docs: sincronizar geografía y teléfonos (batch 2/10)
+- db9d1fa 📝 docs: sincronizar fechas ISO, IDs y API responses (batch 1/10)
+- 031c2ac 📝 docs: plan de cobertura del glosario a partir de CI
+- 7380fda rescue: document horizontal experience recovery
+- c285245 docs: actualizar todos los README.md del monorepo
+- 33090ae Fix doctors middleware - use env vars instead of hardcoded URLs
+- 3b764bb Fix doctors middleware URLs to use Vercel deployment URLs
+- 2310b10 docs: Update CLAUDE.md with complete Vercel multi-app deployment guide
+- 67dfe8c docs: Update CLAUDE.md with authentication system documentation
+
+### ⚙️ DevOps e Infraestructura
+- 5cac123 🔐 ops tarea: token permanente Cloudflare configurado
+- fc12463 trigger: force Cloudflare deployment refresh
+- ad441ff Disable Dependabot - causing deployment congestion
+- 59eaf0f Apply minimal stable Vercel template for monorepo deployment
+- 28908e5 Fix: Override Vercel auto-install detection with explicit commands
+- 70122db Fix: Configuración de deployment para Vercel con PNPM 9.15.2
+- a960a88 Implementar Fase 0: Contratos base para autenticación
+- c8c39ca Fix Vercel deployment with pnpm configuration
+- d8a177e Fix Vercel deployment configuration for monorepo
+- 86d7a1f Fix TypeScript errors for production deployment
+
+---
+
+### 🔄 Otros Cambios
+- 5be4542 Merge branch 'staging'
+- b53a903 Merge branch 'test/preview-check' into staging
+- 50431ca 🎯 META COMPLETADA: CI completamente verde (0 errores)
+- 8b90de9 🧹 clean código: remover archivo de test automatizado
+- dbef5b4 🧪 tests: archivo dummy de prueba automatizada
+- 1f75dfb 🧪 tests: archivo dummy de prueba automatizada
+- bb502a6 Fix Suspense boundary for useSearchParams in login page
+- c225966 Fix auth redirect routes - change /dashboard to / for all apps
+- 87a23fe Fix production auth redirect URLs for custom domains
+- 7f699e0 Restore original AutaMedica dark theme login design
+- 7da14c4 Fix authentication system and Next.js build errors
+- 4252ae6 Fix: Remove conflicting auth callback page to resolve infinite redirect loop
+- 2d3e7c9 Fix OAuth authentication flow and implement functional register form
+- 10ae6f2 Fix role-based routing to always redirect to production URLs
+- 76dcfad Fix Supabase authentication redirect URLs for production
+- 2bbd078 Fix Vercel buildCommand to build packages before apps
+- cf8ea51 Update cross-app URLs to match SSL certificate domains
+- eb0c12b Apply minimal Vercel template with monorepo build configuration
+- 4bce205 Fix: Update packageManager to pnpm@9.15.2 and remove .vercelignore
+- 915422f Fix: Remove trailing commas from package.json files
+- dd718da Fix: Remove engines.pnpm to prevent Vercel auto-detection
+- d035ee3 Fix: Integrate install into buildCommand and ignore conflicting lockfile
+- 2decece Fix: Add --no-frozen-lockfile to Vercel install commands
+- e52b6f0 Fix outputDirectory path in vercel.json
+- 2c11e8a Add vercel.json for monorepo build configuration
+- 27740fb Clean up vercel.json files - let Vercel auto-detect Next.js
+- 8f2ee31 Fix final NODE_ENV client-side access in env.ts
+- faac46d Fix all client-side NEXT_PUBLIC environment variable access
+- 985ae3e Fix client-side NODE_ENV errors
+
+*Generado automáticamente el 2025-09-30 21:08:02*
