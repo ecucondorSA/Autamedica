@@ -180,7 +180,7 @@ export async function GET(request: Request) {
             console.log(`Synced role for user ${user.email}: ${profile.role}`);
             role = profile.role as UserRole;
           }
-        } catch (error) {
+        } catch (_error) {
           // Service role key not available, skip role sync
           console.log('Service role key not available, skipping role sync');
         }
