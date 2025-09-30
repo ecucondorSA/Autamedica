@@ -12,7 +12,7 @@
 | **Esquema Principal**       | 1.0                      |
 | **Última Migración**        | 2025-09-30T00:43:20.353Z |
 | **Método de Introspección** | SQL_PARSING              |
-| **Generado**                | 2025-09-30T20:10:45.323Z |
+| **Generado**                | 2025-09-30T20:31:45.064Z |
 
 ---
 
@@ -728,5 +728,5 @@
 ---
 
 **🔐 Documento generado automáticamente - Cumplimiento HIPAA verificado**
-**📅 Última actualización**: 2025-09-30T20:10:45.327Z
+**📅 Última actualización**: 2025-09-30T20:31:45.067Z
 **🛠️ Sistema de Glosario de Base de Datos AutaMedica v1.0**
