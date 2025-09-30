@@ -163,14 +163,14 @@ describe('ICE Servers Configuration', () => {
       const example = getExampleIceServersConfig()
       const parsed = JSON.parse(example)
 
-      const hasStun = parsed.some((server: any) =>
-        server.urls && server.urls.startsWith('stun:')
-      )
-      const hasTurn = parsed.some((server: any) =>
-        (Array.isArray(server.urls) ? server.urls : [server.urls]).some((url: string) =>
-          url.startsWith('turn:')
-        )
-      )
+      const hasStun = parsed.some((server: any) => {
+        const urls = Array.isArray(server.urls) ? server.urls : [server.urls]
+        return urls.some((url: string) => typeof url === 'string' && url.startsWith('stun:'))
+      })
+      const hasTurn = parsed.some((server: any) => {
+        const urls = Array.isArray(server.urls) ? server.urls : [server.urls]
+        return urls.some((url: string) => typeof url === 'string' && url.startsWith('turn:'))
+      })
 
       expect(hasStun).toBe(true)
       expect(hasTurn).toBe(true)

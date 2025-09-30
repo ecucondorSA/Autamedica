@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-09-30T02:26:20.847Z",
+  "checks": [
+    {
+      "type": "auth_redirect",
+      "path": "/auth/login",
+      "timestamp": "2025-09-30T02:26:20.854Z",
+      "status": "failed",
+      "message": "❌ Error: Protocol \"http:\" not supported. Expected \"https:\""
+    },
+    {
+      "type": "auth_redirect",
+      "path": "/auth/register",
+      "timestamp": "2025-09-30T02:26:20.860Z",
+      "status": "failed",
+      "message": "❌ Error: Protocol \"http:\" not supported. Expected \"https:\""
+    },
+    {
+      "type": "auth_redirect",
+      "path": "/auth/forgot-password",
+      "timestamp": "2025-09-30T02:26:20.861Z",
+      "status": "failed",
+      "message": "❌ Error: Protocol \"http:\" not supported. Expected \"https:\""
+    },
+    {
+      "type": "security_headers",
+      "timestamp": "2025-09-30T02:26:20.865Z",
+      "status": "failed",
+      "details": {},
+      "message": "❌ Error verificando headers: Protocol \"http:\" not supported. Expected \"https:\""
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "doctors",
+      "timestamp": "2025-09-30T02:26:20.865Z",
+      "status": "passed",
+      "message": "✅ doctors portal: 200"
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "patients",
+      "timestamp": "2025-09-30T02:26:21.088Z",
+      "status": "warning",
+      "message": "⚠️ patients portal: 404 (podría requerir auth)"
+    },
+    {
+      "type": "portal_connectivity",
+      "portal": "companies",
+      "timestamp": "2025-09-30T02:26:21.260Z",
+      "status": "passed",
+      "message": "✅ companies portal: 200"
+    },
+    {
+      "type": "cookie_compliance",
+      "timestamp": "2025-09-30T02:26:21.442Z",
+      "status": "info",
+      "message": "ℹ️ Cookie compliance requiere verificación manual en Auth Hub",
+      "requirements": {
+        "domain": ".autamedica.com",
+        "path": "/",
+        "secure": true,
+        "httpOnly": true,
+        "sameSite": "None"
+      },
+      "instructions": [
+        "1. Verificar que Auth Hub setea am_session con Domain=.autamedica.com",
+        "2. Confirmar flags: Secure; HttpOnly; SameSite=None",
+        "3. Validar TTL y refresh automático",
+        "4. Probar cross-domain SSO entre portales"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 2,
+    "failed": 4,
+    "warnings": 1
+  }
+}

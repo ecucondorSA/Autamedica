@@ -3,7 +3,7 @@
  * Handles peer-to-peer video/audio connections with signaling server
  */
 
-import { getIceServersConfig } from './config/ice-servers'
+import { loadIceServers } from './config/ice-servers'
 
 export interface WebRTCConfig {
   signalingUrl: string
@@ -29,9 +29,18 @@ export interface WebRTCEvents {
   'error': (error: Error) => void
 }
 
+interface PeerState {
+  pc: RTCPeerConnection
+  pendingIceCandidates: RTCIceCandidateInit[]
+  isMakingOffer: boolean
+  isSettingRemoteAnswerPending: boolean
+  ignoreOffer: boolean
+  isPolite: boolean
+}
+
 export class WebRTCClient {
   private ws: WebSocket | null = null
-  private peerConnections = new Map<string, RTCPeerConnection>()
+  private peerConnections = new Map<string, PeerState>()
   private localStream: MediaStream | null = null
   private config: WebRTCConfig
   private eventListeners = new Map<keyof WebRTCEvents, Function[]>()
@@ -46,7 +55,7 @@ export class WebRTCClient {
 
   constructor(config: Partial<WebRTCConfig> & { userId: string; userType: 'doctor' | 'patient' | 'nurse' }) {
     // Use environment-configured ICE servers or fallback to defaults
-    const iceServers = config.iceServers || getIceServersConfig() || WebRTCClient.DEFAULT_ICE_SERVERS
+    const iceServers = config.iceServers || loadIceServers() || WebRTCClient.DEFAULT_ICE_SERVERS
 
     this.config = {
       signalingUrl: 'wss://autamedica-signaling-server.ecucondor.workers.dev/signaling',
@@ -57,11 +66,16 @@ export class WebRTCClient {
   }
 
   // Event listener methods
-  on<T extends keyof WebRTCEvents>(event: T, listener: WebRTCEvents[T]): void {
+  on<T extends keyof WebRTCEvents>(event: T, listener: WebRTCEvents[T]): () => void {
     if (!this.eventListeners.has(event)) {
       this.eventListeners.set(event, [])
     }
     this.eventListeners.get(event)!.push(listener)
+
+    // Return unsubscribe function
+    return () => {
+      this.off(event, listener)
+    }
   }
 
   off<T extends keyof WebRTCEvents>(event: T, listener: WebRTCEvents[T]): void {
@@ -167,14 +181,8 @@ export class WebRTCClient {
       this.emit('local-stream', this.localStream)
 
       // Add tracks to all existing peer connections
-      for (const [userId, pc] of this.peerConnections) {
-        if (this.localStream) {
-          this.localStream.getTracks().forEach(track => {
-            if (this.localStream) {
-              pc.addTrack(track, this.localStream)
-            }
-          })
-        }
+      for (const [, peerState] of this.peerConnections) {
+        this.attachLocalTracks(peerState.pc)
       }
 
       return this.localStream
@@ -206,8 +214,8 @@ export class WebRTCClient {
 
   private cleanup(): void {
     // Close all peer connections
-    for (const [userId, pc] of this.peerConnections) {
-      pc.close()
+    for (const [, peerState] of this.peerConnections) {
+      peerState.pc.close()
     }
     this.peerConnections.clear()
 
@@ -235,20 +243,18 @@ export class WebRTCClient {
 
       case 'user-joined':
         this.emit('user-joined', message.from, message.data.userType)
-        // Create offer for the new user if we have local stream
-        if (this.localStream) {
-          await this.createPeerConnection(message.from, true)
-        }
+        this.ensurePeerConnection(message.from)
         break
 
-      case 'user-left':
+      case 'user-left': {
         this.emit('user-left', message.from)
-        const pc = this.peerConnections.get(message.from)
-        if (pc) {
-          pc.close()
+        const peerState = this.peerConnections.get(message.from)
+        if (peerState) {
+          peerState.pc.close()
           this.peerConnections.delete(message.from)
         }
         break
+      }
 
       case 'offer':
         await this.handleOffer(message.from, message.data)
@@ -269,19 +275,24 @@ export class WebRTCClient {
     }
   }
 
-  private async createPeerConnection(userId: string, createOffer: boolean): Promise<RTCPeerConnection> {
-    const pc = new RTCPeerConnection({ iceServers: this.config.iceServers })
-
-    // Add local stream tracks if available
-    if (this.localStream) {
-      this.localStream.getTracks().forEach(track => {
-        if (this.localStream) {
-          pc.addTrack(track, this.localStream)
-        }
-      })
+  private ensurePeerConnection(userId: string): PeerState {
+    let peerState = this.peerConnections.get(userId)
+    if (peerState) {
+      return peerState
     }
 
-    // Handle remote stream
+    const pc = new RTCPeerConnection({ iceServers: this.config.iceServers })
+    const isPolite = this.config.userType !== 'doctor'
+
+    peerState = {
+      pc,
+      pendingIceCandidates: [],
+      isMakingOffer: false,
+      isSettingRemoteAnswerPending: false,
+      ignoreOffer: false,
+      isPolite
+    }
+
     pc.ontrack = (event) => {
       console.log('Received remote stream from', userId)
       const stream = event.streams?.[0]
@@ -290,7 +301,6 @@ export class WebRTCClient {
       }
     }
 
-    // Handle ICE candidates
     pc.onicecandidate = (event) => {
       if (event.candidate) {
         this.sendSignalingMessage({
@@ -301,7 +311,6 @@ export class WebRTCClient {
       }
     }
 
-    // Handle connection state changes
     pc.onconnectionstatechange = () => {
       console.log(`Peer connection with ${userId} state:`, pc.connectionState)
       if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
@@ -309,48 +318,135 @@ export class WebRTCClient {
       }
     }
 
-    this.peerConnections.set(userId, pc)
+    pc.onnegotiationneeded = async () => {
+      if (!peerState || peerState.isPolite) {
+        return
+      }
 
-    // Create offer if requested
-    if (createOffer) {
-      const offer = await pc.createOffer()
-      await pc.setLocalDescription(offer)
+      try {
+        peerState!.isMakingOffer = true
+        await pc.setLocalDescription()
 
-      this.sendSignalingMessage({
-        type: 'offer',
-        to: userId,
-        data: offer
-      })
+        if (pc.localDescription) {
+          this.sendSignalingMessage({
+            type: 'offer',
+            to: userId,
+            data: pc.localDescription
+          })
+        }
+      } catch (error) {
+        console.error('Failed to handle negotiationneeded:', error)
+      } finally {
+        if (peerState) {
+          peerState.isMakingOffer = false
+        }
+      }
     }
 
-    return pc
+    this.attachLocalTracks(pc)
+
+    this.peerConnections.set(userId, peerState)
+    return peerState
   }
 
-  private async handleOffer(userId: string, offer: RTCSessionDescriptionInit): Promise<void> {
-    const pc = await this.createPeerConnection(userId, false)
+  private attachLocalTracks(pc: RTCPeerConnection): void {
+    const stream = this.localStream
+    if (!stream) return
 
-    await pc.setRemoteDescription(offer)
-    const answer = await pc.createAnswer()
-    await pc.setLocalDescription(answer)
+    const existingTrackIds = new Set(
+      pc.getSenders()
+        .map(sender => sender.track?.id)
+        .filter((id): id is string => Boolean(id))
+    )
 
-    this.sendSignalingMessage({
-      type: 'answer',
-      to: userId,
-      data: answer
+    stream.getTracks().forEach(track => {
+      if (!existingTrackIds.has(track.id)) {
+        pc.addTrack(track, stream)
+      }
     })
   }
 
+  private async handleOffer(userId: string, offer: RTCSessionDescriptionInit): Promise<void> {
+    const peerState = this.ensurePeerConnection(userId)
+    const { pc } = peerState
+
+    const offerCollision = peerState.isMakingOffer || pc.signalingState !== 'stable'
+
+    peerState.ignoreOffer = !peerState.isPolite && offerCollision
+    if (peerState.ignoreOffer) {
+      console.warn('Ignoring offer due to collision (impolite peer)')
+      return
+    }
+
+    try {
+      if (offerCollision) {
+        console.log('Offer collision detected, rolling back local description')
+        await pc.setLocalDescription({ type: 'rollback' })
+      }
+
+      await pc.setRemoteDescription(new RTCSessionDescription(offer))
+      this.attachLocalTracks(pc)
+
+      const answer = await pc.createAnswer()
+      await pc.setLocalDescription(answer)
+
+      this.sendSignalingMessage({
+        type: 'answer',
+        to: userId,
+        data: answer
+      })
+
+      await this.flushPendingIceCandidates(peerState)
+      peerState.ignoreOffer = false
+    } catch (error) {
+      console.error('Failed to handle offer:', error)
+    }
+  }
+
   private async handleAnswer(userId: string, answer: RTCSessionDescriptionInit): Promise<void> {
-    const pc = this.peerConnections.get(userId)
-    if (pc) {
-      await pc.setRemoteDescription(answer)
+    const peerState = this.peerConnections.get(userId)
+    if (!peerState) return
+
+    try {
+      peerState.isSettingRemoteAnswerPending = true
+      await peerState.pc.setRemoteDescription(new RTCSessionDescription(answer))
+      await this.flushPendingIceCandidates(peerState)
+    } catch (error) {
+      console.error('Failed to handle answer:', error)
+    } finally {
+      peerState.isSettingRemoteAnswerPending = false
+      peerState.ignoreOffer = false
     }
   }
 
   private async handleIceCandidate(userId: string, candidate: RTCIceCandidateInit): Promise<void> {
-    const pc = this.peerConnections.get(userId)
-    if (pc) {
-      await pc.addIceCandidate(candidate)
+    const peerState = this.ensurePeerConnection(userId)
+    const { pc } = peerState
+
+    if (pc.remoteDescription) {
+      try {
+        await pc.addIceCandidate(new RTCIceCandidate(candidate))
+      } catch (error) {
+        console.error('Failed to add ICE candidate:', error)
+      }
+    } else {
+      console.log('Remote description not set yet, queuing ICE candidate')
+      peerState.pendingIceCandidates.push(candidate)
+    }
+  }
+
+  private async flushPendingIceCandidates(peerState: PeerState): Promise<void> {
+    if (!peerState.pc.remoteDescription) {
+      return
+    }
+
+    while (peerState.pendingIceCandidates.length > 0) {
+      const candidateInit = peerState.pendingIceCandidates.shift()!
+      try {
+        await peerState.pc.addIceCandidate(new RTCIceCandidate(candidateInit))
+      } catch (error) {
+        console.error('Failed to add queued ICE candidate:', error)
+      }
     }
   }
 
@@ -364,7 +460,11 @@ export class WebRTCClient {
   }
 
   getPeerConnections(): Map<string, RTCPeerConnection> {
-    return new Map(this.peerConnections)
+    const map = new Map<string, RTCPeerConnection>()
+    for (const [userId, peerState] of this.peerConnections) {
+      map.set(userId, peerState.pc)
+    }
+    return map
   }
 
   // Media control methods

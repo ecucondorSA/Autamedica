@@ -83,6 +83,7 @@ export default [
       'nginx/**',
       'openai-cli-venv/**',
       'patients-deploy/**',
+      'scripts/test-fixtures/**/*.snapshot.ts',
     ],
   },
 
@@ -170,6 +171,16 @@ export default [
       // Temporarily disabled until TypeScript config is fully aligned
       // '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
+    },
+  },
+
+  // Package-specific parser configuration overrides
+  {
+    files: ['packages/telemedicine/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        project: ['./packages/telemedicine/tsconfig.eslint.json'],
+      },
     },
   },
 

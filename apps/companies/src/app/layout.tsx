@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import './globals.css';
+import { canManageCompany, MemberRole } from '@autamedica/shared/roles';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -30,29 +31,39 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const [notifications, _setNotifications] = useState(3);
   const [companyName, setCompanyName] = useState('Empresa');
   const [adminName, setAdminName] = useState('Administrador');
+  const [userMemberRole, setUserMemberRole] = useState<MemberRole | null>(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUserDataAndRole = async () => {
       const supabase = createClient();
-      if (supabase) {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          // Get admin name from metadata or email
-          const name = user.user_metadata?.name || 
-                       user.user_metadata?.full_name || 
-                       user.email?.split('@')[0] || 
-                       'Administrador';
-          setAdminName(name);
-          
-          // Get company name from metadata or use default
-          const company = user.user_metadata?.company_name || 
-                         user.user_metadata?.company || 
-                         'Empresa';
-          setCompanyName(company);
+      if (!supabase) return;
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const name = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Administrador';
+        setAdminName(name);
+        
+        const company = user.user_metadata?.company_name || user.user_metadata?.company || 'Empresa';
+        setCompanyName(company);
+
+        // Check for admin role in any of the user's companies
+        const { data: memberData, error } = await supabase
+          .from('company_members')
+          .select('role')
+          .eq('user_id', user.id)
+          .eq('role', 'admin')
+          .limit(1);
+
+        if (error) {
+          console.error('Error fetching member role:', error);
+          setUserMemberRole('member'); // Default to non-admin on error
+        } else {
+          // If we found at least one admin membership, set role to admin.
+          setUserMemberRole(memberData && memberData.length > 0 ? 'admin' : 'member');
         }
       }
     };
-    fetchUserData();
+    fetchUserDataAndRole();
   }, []);
 
   const profiles = [
@@ -79,20 +90,29 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   ];
 
-  const sidebarItems = [
-    { id: 'overview', icon: Eye, label: 'Vista General', count: 24 },
-    { id: 'crisis-map', icon: MapPin, label: 'Mapa de Crisis', badge: 'LIVE' },
-    { id: 'metrics', icon: Activity, label: 'Métricas', count: 8 },
-    { id: 'network', icon: Zap, label: 'Red de Respuesta' },
-    { id: 'staff', icon: Users, label: 'Personal Médico', count: 156 },
-    { id: 'marketplace', icon: Building2, label: 'Marketplace Médico', count: 47, badge: 'HOT' },
-    { id: 'facilities', icon: Building2, label: 'Instalaciones', count: 12 },
-    { id: 'alerts', icon: Bell, label: 'Alertas', count: notifications },
-    { id: 'reports', icon: TrendingUp, label: 'Reportes' },
-    { id: 'data', icon: Database, label: 'Base de Datos' },
-    { id: 'security', icon: Shield, label: 'Seguridad' },
-    { id: 'settings', icon: Settings, label: 'Configuración' },
-  ];
+  const sidebarItems = useMemo(() => {
+    const allItems = [
+      { id: 'overview', icon: Eye, label: 'Vista General', count: 24 },
+      { id: 'crisis-map', icon: MapPin, label: 'Mapa de Crisis', badge: 'LIVE' },
+      { id: 'metrics', icon: Activity, label: 'Métricas', count: 8 },
+      { id: 'network', icon: Zap, label: 'Red de Respuesta' },
+      { id: 'staff', icon: Users, label: 'Personal Médico', count: 156, adminOnly: true },
+      { id: 'marketplace', icon: Building2, label: 'Marketplace Médico', count: 47, badge: 'HOT' },
+      { id: 'facilities', icon: Building2, label: 'Instalaciones', count: 12 },
+      { id: 'alerts', icon: Bell, label: 'Alertas', count: notifications },
+      { id: 'reports', icon: TrendingUp, label: 'Reportes' },
+      { id: 'data', icon: Database, label: 'Base de Datos' },
+      { id: 'security', icon: Shield, label: 'Seguridad', adminOnly: true },
+      { id: 'settings', icon: Settings, label: 'Configuración', adminOnly: true },
+    ];
+
+    if (!userMemberRole) return []; // O un skeleton/loader
+
+    return allItems.filter(item => {
+      if (!item.adminOnly) return true;
+      return canManageCompany(userMemberRole);
+    });
+  }, [userMemberRole, notifications]);
 
   const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0]!;
 

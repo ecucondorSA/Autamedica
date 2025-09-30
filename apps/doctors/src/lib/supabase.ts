@@ -1,28 +1,37 @@
-"use client"
+'use client';
 
-import { createBrowserClient } from '@supabase/ssr'
-import type { SupabaseClient } from '@supabase/supabase-js'
-import type { Database } from '@autamedica/types'
+import { createBrowserClient } from '@autamedica/auth';
 
-let cachedClient: SupabaseClient<Database> | null = null
-let warned = false
+let supabaseClient: any = null;
 
-export function createClient(): SupabaseClient<Database> | null {
-  if (cachedClient) {
-    return cachedClient
+export function createClient() {
+  // Only create client in browser environment
+  if (typeof window === 'undefined') {
+    return null;
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    if (!warned) {
-      console.warn('[Supabase] Variables NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_ANON_KEY no están definidas. Las operaciones autenticadas se omitirán.')
-      warned = true
-    }
-    return null
+  // Create real client only once on client-side
+  if (!supabaseClient) {
+    supabaseClient = createBrowserClient();
   }
 
-  cachedClient = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey)
-  return cachedClient
+  return supabaseClient;
 }
+
+// Lazy getter para evitar ejecución en build time
+export function getSupabase() {
+  return createClient();
+}
+
+// Export para compatibilidad con imports existentes
+// IMPORTANTE: Este NO se ejecuta en build time porque está en un módulo 'use client'
+export const supabase = {
+  get auth() {
+    const client = createClient();
+    return client?.auth || { getUser: async () => ({ data: { user: null }, error: null }) };
+  },
+  get from() {
+    const client = createClient();
+    return client?.from || (() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) }));
+  }
+};

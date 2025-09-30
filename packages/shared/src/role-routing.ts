@@ -13,10 +13,11 @@ import { ensureServerEnv } from './env';
 
 // Definir ROLES localmente para evitar dependencia circular con auth
 const ROLES = {
-  PATIENT: 'patient' as const,
-  DOCTOR: 'doctor' as const,
-  COMPANY_ADMIN: 'company_admin' as const,
-  PLATFORM_ADMIN: 'platform_admin' as const,
+  PATIENT: 'patient' as UserRole,
+  DOCTOR: 'doctor' as UserRole,
+  COMPANY_ADMIN: 'company_admin' as UserRole,
+  ORGANIZATION_ADMIN: 'organization_admin' as UserRole,
+  PLATFORM_ADMIN: 'platform_admin' as UserRole,
 };
 
 /**
@@ -25,20 +26,22 @@ const ROLES = {
  * SEGURIDAD: Cada rol solo tiene acceso a su aplicación específica
  */
 export const BASE_URL_BY_ROLE: Record<UserRole, string> = {
-  [ROLES.PATIENT]: 'https://patients.autamedica.com',
-  [ROLES.DOCTOR]: 'https://doctors.autamedica.com', 
-  [ROLES.COMPANY_ADMIN]: 'https://companies.autamedica.com',
-  [ROLES.PLATFORM_ADMIN]: 'https://www.autamedica.com',
+  'patient': 'https://patients.autamedica.com',
+  'doctor': 'https://doctors.autamedica.com',
+  'company_admin': 'https://companies.autamedica.com',
+  'organization_admin': 'https://admin.autamedica.com',
+  'platform_admin': 'https://www.autamedica.com',
 };
 
 /**
  * Rutas home por defecto dentro de cada aplicación
  */
 export const HOME_BY_ROLE: Record<UserRole, string> = {
-  [ROLES.PATIENT]: '/',
-  [ROLES.DOCTOR]: '/',
-  [ROLES.COMPANY_ADMIN]: '/',
-  [ROLES.PLATFORM_ADMIN]: '/',
+  'patient': '/',
+  'doctor': '/',
+  'company_admin': '/',
+  'organization_admin': '/',
+  'platform_admin': '/',
 };
 
 /**
@@ -95,10 +98,11 @@ export function isValidRole(role: string): role is UserRole {
  */
 export function getPortalForRole(role: UserRole): string {
   const portalMap: Record<UserRole, string> = {
-    [ROLES.PATIENT]: 'patients',
-    [ROLES.DOCTOR]: 'doctors',
-    [ROLES.COMPANY_ADMIN]: 'companies',
-    [ROLES.PLATFORM_ADMIN]: 'admin',
+    'patient': 'patients',
+    'doctor': 'doctors',
+    'company_admin': 'companies',
+    'organization_admin': 'admin',
+    'platform_admin': 'admin',
   };
 
   const portal = portalMap[role];
@@ -113,10 +117,10 @@ export function getPortalForRole(role: UserRole): string {
  * Mapeo de portales a roles (inverso de getPortalForRole)
  */
 export const PORTAL_TO_ROLE: Record<string, UserRole> = {
-  patients: ROLES.PATIENT,
-  doctors: ROLES.DOCTOR,
-  companies: ROLES.COMPANY_ADMIN,
-  admin: ROLES.PLATFORM_ADMIN,
+  patients: 'patient',
+  doctors: 'doctor',
+  companies: 'company_admin',
+  admin: 'organization_admin',
 };
 
 /**

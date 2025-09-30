@@ -17,18 +17,18 @@ CREATE POLICY "profiles_select_all" ON public.profiles
 
 -- Users can insert their own profile
 CREATE POLICY "profiles_insert_own" ON public.profiles
-    FOR INSERT WITH CHECK (auth.uid()::text = id::text);
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 -- Users can update their own profile
 CREATE POLICY "profiles_update_own" ON public.profiles
-    FOR UPDATE USING (auth.uid()::text = id::text);
+    FOR UPDATE USING (auth.uid() = user_id);
 
 -- Only admins can delete profiles
 CREATE POLICY "profiles_delete_admin" ON public.profiles
     FOR DELETE USING (
         EXISTS (
             SELECT 1 FROM public.profiles p
-            WHERE p.id = auth.uid()::uuid
+            WHERE p.user_id = auth.uid()
             AND p.role IN ('admin', 'platform_admin')
         )
     );

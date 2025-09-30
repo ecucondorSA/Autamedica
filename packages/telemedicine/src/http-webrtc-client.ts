@@ -301,7 +301,7 @@ export class HttpWebRTCClient {
         }
         break
 
-      case 'user-left':
+      case 'user-left': {
         this.emit('user-left', message.from)
         const pc = this.peerConnections.get(message.from)
         if (pc) {
@@ -309,6 +309,7 @@ export class HttpWebRTCClient {
           this.peerConnections.delete(message.from)
         }
         break
+      }
 
       case 'offer':
         await this.handleOffer(message.from, message.data)

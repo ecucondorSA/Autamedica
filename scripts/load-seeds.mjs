@@ -8,7 +8,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://gtyvdircfhmdjiaelqkg.supabase.co';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjI5Mjc5MCwiZXhwIjoyMDcxODY4NzkwfQ.zETc5W1OzznzfspXwd4zxA-ifW-aCKd9PGRneEs2IOk';
+const SUPABASE_SERVICE_KEY = 'REPLACE_WITH_ROTATED_KEY.zETc5W1OzznzfspXwd4zxA-ifW-aCKd9PGRneEs2IOk';
 
 console.log('🏥 AUTAMEDICA - Cargando Seeds de Datos');
 console.log('=========================================\n');

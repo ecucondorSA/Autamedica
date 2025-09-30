@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type {
-  MedicalHistoryTimeline,
+  MedicalHistoryTimeline as MedicalHistoryTimelineData,
   MedicalHistoryCondition,
   MedicalAllergy,
   PatientMedication,
@@ -12,7 +12,7 @@ import type {
 } from '@autamedica/types';
 
 interface MedicalHistoryTimelineProps {
-  timeline: MedicalHistoryTimeline;
+  timeline: MedicalHistoryTimelineData;
   className?: string;
 }
 

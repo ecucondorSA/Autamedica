@@ -6,13 +6,19 @@
 
 ## 🏛️ Contract Validation (OBLIGATORIO)
 
-### Checklist de Glosario Maestro
+### 📚 Glosario & Contratos
 
-- [ ] **He leído y entiendo el [Glosario Maestro](./docs/GLOSARIO_MAESTRO.md)**
-- [ ] **Todos los nuevos exports en `@autamedica/types` están documentados en el glosario**
-- [ ] **Los tipos siguen las convenciones de naming (branded types, *Id para identificadores)**
-- [ ] **He ejecutado `node scripts/validate-contracts.js` sin errores**
-- [ ] **He actualizado la documentación del glosario si fue necesario**
+- [ ] **Tipos nuevos documentados en `docs/GLOSARIO_MAESTRO.md`**
+- [ ] **Sin breaking changes** **o** ADR adjunto en `docs/adr/xxxx-*.md`
+- [ ] **Exports validados**: `pnpm docs:validate` passing
+- [ ] **Convenciones seguidas** (branded types, *Id sufijos, APIResponse<T>)
+- [ ] **Tipos críticos** sin cambios o documentados en ADR
+
+### 🔒 Tipos Críticos (Requieren ADR si cambian)
+- `PatientId`, `DoctorId`, `CompanyId`, `UUID`
+- `Patient`, `Doctor`, `Appointment`, `MedicalRecord`
+- `APIResponse`, `AuthUser`, `UserRole`
+- `ISODateString`, `EmailAddress`, `PhoneNumber`
 
 ### Validación Automática
 

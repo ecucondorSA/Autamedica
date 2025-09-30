@@ -1,0 +1,9 @@
+name = "autamedica-auth"
+compatibility_date = "2025-09-30"
+pages_build_output_dir = ".vercel/output/static"
+
+[env.production]
+name = "autamedica-auth"
+
+[env.preview]
+name = "autamedica-auth-preview"

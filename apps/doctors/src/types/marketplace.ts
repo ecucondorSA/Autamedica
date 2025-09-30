@@ -143,37 +143,6 @@ export const ARGENTINE_PROVINCES = [
   'Tucumán'
 ] as const
 
-export const MEDICAL_SPECIALTIES = [
-  'Medicina General',
-  'Cardiología',
-  'Pediatría',
-  'Neurología',
-  'Psiquiatría',
-  'Dermatología',
-  'Ginecología y Obstetricia',
-  'Traumatología',
-  'Oftalmología',
-  'Otorrinolaringología',
-  'Urología',
-  'Oncología',
-  'Medicina de Emergencia',
-  'Anestesiología',
-  'Radiología',
-  'Patología',
-  'Medicina Interna',
-  'Cirugía General',
-  'Endocrinología',
-  'Gastroenterología',
-  'Hematología',
-  'Infectología',
-  'Nefrología',
-  'Neumología',
-  'Reumatología',
-  'Medicina Familiar',
-  'Geriatría',
-  'Medicina del Trabajo'
-] as const
-
 export const ARGENTINE_CITIES = {
   'Ciudad Autónoma de Buenos Aires': { lat: -34.6037, lng: -58.3816 },
   'La Plata': { lat: -34.9215, lng: -57.9545 },

@@ -1,6 +1,7 @@
 {
   "extends": "../../packages/typescript-config/nextjs.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -20,5 +21,11 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "references": [
+    { "path": "../../packages/types" },
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/auth" },
+    { "path": "../../packages/hooks" }
   ]
 }

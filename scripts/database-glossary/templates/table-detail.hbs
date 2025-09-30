@@ -1,0 +1,305 @@
+# {{medicalDomainIcon medical_domain}} {{table_name}} - Detalles Técnicos
+
+**{{medicalDomainName medical_domain}}** | **Esquema**: `{{table_schema}}` | **Tipo**: {{table_type}}
+
+{{#if table_comment}}
+> 📝 **Descripción**: {{table_comment}}
+{{/if}}
+
+---
+
+## 🎯 Propósito Médico
+
+{{table_purpose}}
+
+{{#if hipaa_classification}}
+---
+
+## 🔒 Clasificación HIPAA
+
+### {{hipaaLevelIcon hipaa_classification.overall_sensitivity}} Nivel de Sensibilidad: {{hipaaLevelName hipaa_classification.overall_sensitivity}}
+
+{{#if hipaa_classification.contains_phi}}
+| **Aspecto** | **Estado** | **Detalles** |
+|-------------|------------|--------------|
+| **Contiene PHI** | {{hipaaLevelIcon hipaa_classification.overall_sensitivity}} Sí | {{hipaa_classification.phi_column_count}} columnas clasificadas |
+| **Control de Acceso** | 🔐 | {{hipaa_classification.access_control_level}} |
+| **Auditoría** | 📊 | {{hipaa_classification.audit_requirements}} |
+| **Encriptación** | 🔒 | {{hipaa_classification.encryption_requirements}} |
+| **Retención** | 📅 | {{hipaa_classification.retention_category}} |
+{{else}}
+✅ **Esta tabla NO contiene información médica protegida (PHI)**
+{{/if}}
+
+{{/if}}
+
+---
+
+## 📊 Estructura de Columnas
+
+| **Columna** | **Tipo** | **Nulo** | **PK** | **FK** | **Por Defecto** | **HIPAA** | **Propósito** |
+|-------------|----------|----------|--------|--------|-----------------|-----------|---------------|
+{{#each columns}}
+| {{inlineCode column_name}} | {{postgresTypeIcon data_type}} {{data_type}} | {{#if is_nullable}}✅{{else}}❌{{/if}} | {{#if is_primary_key}}🔑{{else}}-{{/if}} | {{#if is_foreign_key}}🔗{{else}}-{{/if}} | {{default column_default "-"}} | {{#if hipaa_annotation}}{{hipaaLevelIcon hipaa_annotation.sensitivity_level}}{{else}}-{{/if}} | {{default medical_purpose description}} |
+{{/each}}
+
+---
+
+## 📋 Detalles de Columnas
+
+{{#each columns}}
+### {{postgresTypeIcon data_type}} `{{column_name}}`
+
+**Tipo**: {{data_type}}{{#if character_maximum_length}} ({{character_maximum_length}}){{/if}}
+**Descripción**: {{default description "Sin descripción disponible"}}
+
+{{#if medical_purpose}}
+**🏥 Propósito Médico**: {{medical_purpose}}
+{{/if}}
+
+{{#if validation_rules}}
+**📏 Reglas de Validación**:
+{{#each validation_rules}}
+- {{this}}
+{{/each}}
+{{/if}}
+
+{{#if example_values}}
+**💡 Valores Ejemplo**: {{join example_values ", "}}
+{{/if}}
+
+{{#if hipaa_annotation}}
+#### 🔒 Clasificación HIPAA
+
+| **Aspecto** | **Valor** |
+|-------------|-----------|
+| **Nivel de Sensibilidad** | {{hipaaLevelIcon hipaa_annotation.sensitivity_level}} {{hipaaLevelName hipaa_annotation.sensitivity_level}} |
+| **Contiene PHI** | {{#if hipaa_annotation.contains_phi}}✅ Sí{{else}}❌ No{{/if}} |
+| **Categorías de Datos** | {{join hipaa_annotation.data_categories ", "}} |
+| **Encriptación Requerida** | {{#if hipaa_annotation.encryption_required}}🔒 Sí{{else}}🌐 No{{/if}} |
+| **Auditoría Requerida** | {{#if hipaa_annotation.audit_required}}📊 Sí{{else}}📄 No{{/if}} |
+| **Última Revisión** | {{formatDate hipaa_annotation.last_reviewed}} |
+| **Revisado Por** | {{hipaa_annotation.reviewed_by}} |
+
+{{#if hipaa_annotation.access_requirements}}
+##### 🛡️ Requisitos de Acceso
+{{#each hipaa_annotation.access_requirements}}
+- **{{requirement_type}}**: {{description}}
+  {{#if required_roles}}- Roles: {{join required_roles ", "}}{{/if}}
+  {{#if mfa_required}}- MFA Requerido: ✅{{/if}}
+  - Nivel de Auditoría: {{audit_level}}
+{{/each}}
+{{/if}}
+
+{{#if hipaa_annotation.retention_policy}}
+##### 📅 Política de Retención
+- **Período**: {{hipaa_annotation.retention_policy.retention_period_years}} años
+- **Método de Eliminación**: {{hipaa_annotation.retention_policy.deletion_method}}
+- **Derechos del Paciente**: {{#if hipaa_annotation.retention_policy.patient_access_rights}}✅{{else}}❌{{/if}}
+- **Derecho de Enmienda**: {{#if hipaa_annotation.retention_policy.amendment_rights}}✅{{else}}❌{{/if}}
+{{/if}}
+
+{{#if hipaa_annotation.compliance_notes}}
+##### 📝 Notas de Cumplimiento
+{{hipaa_annotation.compliance_notes}}
+{{/if}}
+
+{{/if}}
+
+{{#if related_columns}}
+#### 🔗 Columnas Relacionadas
+{{#each related_columns}}
+- {{inlineCode this}}
+{{/each}}
+{{/if}}
+
+{{#if business_logic}}
+#### 💼 Lógica de Negocio
+{{business_logic}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if relationships}}
+---
+
+## 🔗 Relaciones con Otras Tablas
+
+{{#each relationships}}
+### {{#ifEquals relationship_type "ONE_TO_ONE"}}1:1{{/ifEquals}}{{#ifEquals relationship_type "ONE_TO_MANY"}}1:N{{/ifEquals}}{{#ifEquals relationship_type "MANY_TO_MANY"}}N:N{{/ifEquals}} - {{inlineCode related_table}}
+
+**Tipo**: {{relationship_type}}
+**Columnas FK**: {{join foreign_key_columns ", "}}
+**Propósito**: {{relationship_purpose}}
+
+{{#if cardinality_notes}}
+**Notas de Cardinalidad**: {{cardinality_notes}}
+{{/if}}
+
+{{/each}}
+
+{{/if}}
+
+{{#if indexes}}
+---
+
+## 📈 Índices de Rendimiento
+
+{{#each indexes}}
+### {{#if is_unique}}🔑{{else}}📊{{/if}} `{{index_name}}`
+
+| **Aspecto** | **Valor** |
+|-------------|-----------|
+| **Tipo** | {{index_type}} |
+| **Columnas** | {{join columns ", "}} |
+| **Único** | {{#if is_unique}}✅ Sí{{else}}❌ No{{/if}} |
+| **Propósito** | {{performance_purpose}} |
+
+{{#if query_patterns}}
+**🔍 Patrones de Consulta Optimizados**:
+{{#each query_patterns}}
+```sql
+{{this}}
+```
+{{/each}}
+{{/if}}
+
+{{#if maintenance_notes}}
+**🔧 Notas de Mantenimiento**: {{maintenance_notes}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{/if}}
+
+{{#if constraints}}
+---
+
+## ⚖️ Restricciones y Reglas de Negocio
+
+{{#each constraints}}
+### `{{constraint_name}}`
+
+| **Aspecto** | **Valor** |
+|-------------|-----------|
+| **Tipo** | {{constraint_type}} |
+| **Columnas** | {{join columns ", "}} |
+| **Nivel de Aplicación** | {{enforcement_level}} |
+| **Regla de Negocio** | {{business_rule}} |
+
+{{#if validation_examples}}
+**✅ Ejemplos de Validación**:
+{{#each validation_examples}}
+```sql
+{{this}}
+```
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{/if}}
+
+{{#if sample_queries}}
+---
+
+## 💻 Consultas de Ejemplo
+
+{{#each sample_queries}}
+### Ejemplo {{add @index 1}}
+
+```sql
+{{this}}
+```
+
+---
+
+{{/each}}
+
+{{/if}}
+
+{{#if migration_history}}
+---
+
+## 📚 Historial de Migraciones
+
+{{#each migration_history}}
+### {{migration_name}}
+
+**Aplicado**: {{formatDate applied_at}}
+**Rollback Disponible**: {{#if rollback_available}}✅{{else}}❌{{/if}}
+
+**Cambios**:
+{{#each changes}}
+- {{this}}
+{{/each}}
+
+---
+
+{{/each}}
+
+{{/if}}
+
+---
+
+## 🔍 Información Técnica
+
+### 📊 Estadísticas
+
+| **Métrica** | **Valor** |
+|-------------|-----------|
+| **Total de Columnas** | {{length columns}} |
+| **Columnas Requeridas** | {{#each columns}}{{#if is_required}}{{add @index 1}}{{/if}}{{/each}} |
+| **Claves Primarias** | {{#each columns}}{{#if is_primary_key}}{{add @index 1}}{{/if}}{{/each}} |
+| **Claves Foráneas** | {{#each columns}}{{#if is_foreign_key}}{{add @index 1}}{{/if}}{{/each}} |
+| **Índices** | {{length indexes}} |
+| **Restricciones** | {{length constraints}} |
+| **Relaciones** | {{length relationships}} |
+
+### 🔒 Resumen de Seguridad
+
+{{#if hipaa_classification}}
+- **Nivel HIPAA**: {{hipaaLevelIcon hipaa_classification.overall_sensitivity}} {{hipaaLevelName hipaa_classification.overall_sensitivity}}
+- **Columnas con PHI**: {{#if hipaa_classification.contains_phi}}{{hipaa_classification.phi_column_count}}{{else}}0{{/if}}
+- **Control de Acceso**: {{hipaa_classification.access_control_level}}
+- **Auditoría**: {{hipaa_classification.audit_requirements}}
+{{else}}
+- **Estado HIPAA**: ❓ Sin clasificar
+- **Recomendación**: Realizar revisión de cumplimiento
+{{/if}}
+
+### 🎯 Recomendaciones
+
+{{#unless hipaa_classification}}
+{{alert "warning" "Esta tabla requiere clasificación HIPAA. Revisar contenido de datos médicos."}}
+{{/unless}}
+
+{{#ifEquals hipaa_classification.access_control_level "PUBLIC"}}
+{{alert "info" "Verificar que el acceso público sea apropiado para todos los datos en esta tabla."}}
+{{/ifEquals}}
+
+{{#if hipaa_classification.contains_phi}}
+{{#unless hipaa_classification.encryption_requirements}}
+{{alert "error" "Tabla contiene PHI pero no tiene requisitos de encriptación definidos."}}
+{{/unless}}
+{{/if}}
+
+{{#ifGreaterThan (length columns) 50}}
+{{alert "warning" "Tabla con muchas columnas. Considerar normalización o particionamiento."}}
+{{/ifGreaterThan}}
+
+{{#unless indexes}}
+{{alert "info" "Tabla sin índices definidos. Evaluar necesidades de rendimiento."}}
+{{/unless}}
+
+---
+
+**📅 Documento generado**: {{formatDate "now"}}
+**🔄 Última actualización de esquema**: {{formatDate ../database_info.last_migration}}
+**📊 Fuente**: {{../database_info.introspection_method}}

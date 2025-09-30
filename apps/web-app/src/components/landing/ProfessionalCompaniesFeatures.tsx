@@ -68,8 +68,9 @@ export default function ProfessionalCompaniesFeatures() {
     <section className="companies-portal" aria-label="Portal Empresas">
       <div className="media-header">
         <div className="corporate-video">
-          <video autoPlay muted loop playsInline>
-            <source src="/videos/Video_Listo_.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline preload="auto">
+            <source src="/videos/video3.mp4" type="video/mp4" />
+            Tu navegador no soporta el elemento de video.
           </video>
           <div className="video-caption">
             <div>
@@ -166,17 +167,18 @@ export default function ProfessionalCompaniesFeatures() {
 
       <style>{`
         .companies-portal {
-          display: grid;
-          grid-template-rows: auto 1fr;
-          gap: 1.6rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem;
           width: 100%;
-          height: 100%;
+          height: auto;
           min-height: 100%;
-          padding: 2.2rem 3rem 1.9rem;
+          padding: 1.5rem 2.5rem 1rem;
           box-sizing: border-box;
           background: linear-gradient(135deg, #111111, #1a1a1a);
           color: var(--au-text-primary);
-          overflow: hidden;
+          overflow-y: auto;
+          overflow-x: hidden;
         }
 
         .media-header {
@@ -186,8 +188,8 @@ export default function ProfessionalCompaniesFeatures() {
         .corporate-video {
           position: relative;
           width: 100%;
-          min-height: 220px;
-          height: clamp(250px, 34vh, 380px);
+          min-height: 180px;
+          height: clamp(180px, 25vh, 280px);
           border-radius: 16px;
           overflow: hidden;
           border: 1px solid var(--au-border);
@@ -267,11 +269,13 @@ export default function ProfessionalCompaniesFeatures() {
 
         .portal-body {
           position: relative;
-          display: grid;
-          grid-template-rows: auto minmax(0, 1fr) auto;
-          gap: 1.4rem;
-          overflow: hidden;
-          padding-bottom: 7rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          flex: 1;
+          overflow: visible;
+          padding-bottom: 0.5rem;
+          min-height: 0;
         }
 
         .portal-header {
@@ -331,7 +335,7 @@ export default function ProfessionalCompaniesFeatures() {
         .plan-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 1.2rem;
+          gap: 0.8rem;
           min-height: 0;
         }
 
@@ -343,11 +347,11 @@ export default function ProfessionalCompaniesFeatures() {
         .plan-card {
           display: flex;
           flex-direction: column;
-          gap: 0.85rem;
+          gap: 0.6rem;
           background: rgba(18,18,18,0.83);
           border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 14px;
-          padding: 1.6rem;
+          border-radius: 12px;
+          padding: 1rem;
           min-height: 100%;
           isolation: isolate;
         }

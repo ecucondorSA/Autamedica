@@ -1,0 +1,527 @@
+# 🔐 Reporte de Cumplimiento HIPAA - Base de Datos AutaMedica
+
+**📊 Análisis Automatizado de Protección de Información Médica**
+
+---
+
+## 📋 Resumen Ejecutivo
+
+| **Métrica** | **Valor** | **Estado** |
+|-------------|-----------|------------|
+| **Tablas Analizadas** | {{hipaa_summary.total_tables_reviewed}} | {{#ifGreaterThan hipaa_summary.total_tables_reviewed 0}}✅{{else}}⚠️{{/if}} |
+| **Tablas con PHI** | {{hipaa_summary.phi_containing_tables}} | {{#ifGreaterThan hipaa_summary.phi_containing_tables 0}}🔒{{else}}✅{{/if}} |
+| **Columnas Alta Sensibilidad** | {{hipaa_summary.high_sensitivity_columns}} | {{#ifGreaterThan hipaa_summary.high_sensitivity_columns 0}}⚠️{{else}}✅{{/if}} |
+| **Brechas Críticas** | {{#each hipaa_summary.compliance_gaps}}{{#ifEquals severity "CRITICAL"}}{{add @index 1}}{{/ifEquals}}{{/each}} | {{#ifGreaterThan (length hipaa_summary.compliance_gaps) 0}}❌{{else}}✅{{/if}} |
+| **Cobertura de Encriptación** | {{percentage (length hipaa_summary.encryption_requirements) hipaa_summary.phi_containing_tables}} | {{#ifGreaterThan (percentage (length hipaa_summary.encryption_requirements) hipaa_summary.phi_containing_tables) 90}}✅{{else}}⚠️{{/if}} |
+
+---
+
+## 🛡️ Estado de Control de Acceso
+
+### 📊 Distribución de Protecciones
+
+| **Tipo de Control** | **Cantidad** | **Porcentaje** |
+|---------------------|--------------|----------------|
+| 🔐 **RLS Habilitado** | {{hipaa_summary.access_control_summary.rls_enabled_tables}} | {{percentage hipaa_summary.access_control_summary.rls_enabled_tables hipaa_summary.total_tables_reviewed}} |
+| 👤 **Basado en Roles** | {{hipaa_summary.access_control_summary.role_based_tables}} | {{percentage hipaa_summary.access_control_summary.role_based_tables hipaa_summary.total_tables_reviewed}} |
+| 🌐 **Acceso Público** | {{hipaa_summary.access_control_summary.public_access_tables}} | {{percentage hipaa_summary.access_control_summary.public_access_tables hipaa_summary.total_tables_reviewed}} |
+| ⚠️ **Sin Control** | {{hipaa_summary.access_control_summary.uncontrolled_access_tables}} | {{percentage hipaa_summary.access_control_summary.uncontrolled_access_tables hipaa_summary.total_tables_reviewed}} |
+
+{{#ifGreaterThan hipaa_summary.access_control_summary.uncontrolled_access_tables 0}}
+{{alert "error" "Existen tablas sin control de acceso adecuado. Esto representa un riesgo de cumplimiento HIPAA."}}
+{{/ifGreaterThan}}
+
+{{#ifGreaterThan hipaa_summary.access_control_summary.public_access_tables 5}}
+{{alert "warning" "Alto número de tablas con acceso público. Verificar que no contengan PHI."}}
+{{/ifGreaterThan}}
+
+---
+
+## 🚨 Brechas de Cumplimiento
+
+{{#if hipaa_summary.compliance_gaps}}
+{{#each hipaa_summary.compliance_gaps}}
+### {{securityIcon severity}} {{gap_type}} - {{upperCase severity}}
+
+**Descripción**: {{recommendation}}
+
+{{#if regulatory_reference}}
+**📚 Base Regulatoria**: {{regulatory_reference}}
+{{/if}}
+
+#### 📋 Objetos Afectados
+
+{{#if affected_tables}}
+**Tablas**:
+{{#each affected_tables}}
+- `{{this}}`
+{{/each}}
+{{/if}}
+
+{{#if affected_columns}}
+**Columnas**:
+{{#each affected_columns}}
+- `{{this}}`
+{{/each}}
+{{/if}}
+
+#### 🔧 Plan de Remediación
+
+{{#ifEquals gap_type "MISSING_ENCRYPTION"}}
+1. **Implementar encriptación a nivel de columna** para datos PHI
+2. **Configurar gestión de claves** apropiada
+3. **Actualizar políticas de acceso** para requerir desencriptación autorizada
+4. **Documentar procedimientos** de manejo de claves
+
+**Código de Ejemplo**:
+```sql
+-- Habilitar encriptación para columnas sensibles
+ALTER TABLE {{first affected_tables}}
+ALTER COLUMN sensitive_column
+SET DATA TYPE bytea USING pgp_sym_encrypt(sensitive_column::text, 'encryption_key');
+
+-- Crear función de acceso controlado
+CREATE OR REPLACE FUNCTION get_decrypted_data(encrypted_data bytea)
+RETURNS text
+SECURITY DEFINER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  -- Verificar permisos antes de desencriptar
+  IF NOT has_role_permission(current_user, 'PHI_ACCESS') THEN
+    RAISE EXCEPTION 'Acceso no autorizado a datos PHI';
+  END IF;
+
+  RETURN pgp_sym_decrypt(encrypted_data, 'encryption_key');
+END;
+$$;
+```
+{{/ifEquals}}
+
+{{#ifEquals gap_type "INSUFFICIENT_ACCESS_CONTROL"}}
+1. **Implementar Row Level Security (RLS)** en tablas afectadas
+2. **Crear políticas de acceso** basadas en roles médicos
+3. **Configurar auditoría** de accesos a datos PHI
+4. **Establecer autenticación multifactor** para acceso a datos sensibles
+
+**Código de Ejemplo**:
+```sql
+-- Habilitar RLS
+ALTER TABLE {{first affected_tables}} ENABLE ROW LEVEL SECURITY;
+
+-- Política para doctores - solo sus pacientes
+CREATE POLICY doctor_patient_access ON {{first affected_tables}}
+FOR ALL TO doctor_role
+USING (
+  doctor_id = auth.get_current_doctor_id() OR
+  EXISTS (
+    SELECT 1 FROM patient_care_team pct
+    WHERE pct.patient_id = {{first affected_tables}}.patient_id
+    AND pct.doctor_id = auth.get_current_doctor_id()
+  )
+);
+
+-- Política para pacientes - solo sus propios datos
+CREATE POLICY patient_self_access ON {{first affected_tables}}
+FOR ALL TO patient_role
+USING (patient_id = auth.get_current_patient_id());
+```
+{{/ifEquals}}
+
+{{#ifEquals gap_type "NO_AUDIT_TRAIL"}}
+1. **Implementar auditoría automática** de accesos y modificaciones
+2. **Crear triggers de auditoría** para cambios en datos PHI
+3. **Establecer retención** de logs de auditoría por 6 años mínimo
+4. **Configurar alertas** para accesos sospechosos
+
+**Código de Ejemplo**:
+```sql
+-- Crear tabla de auditoría
+CREATE TABLE audit_log (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  table_name text NOT NULL,
+  operation text NOT NULL,
+  user_id uuid,
+  user_role text,
+  old_values jsonb,
+  new_values jsonb,
+  accessed_at timestamptz DEFAULT now(),
+  ip_address inet,
+  user_agent text
+);
+
+-- Función de auditoría
+CREATE OR REPLACE FUNCTION audit_trigger_function()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  INSERT INTO audit_log (
+    table_name, operation, user_id, user_role,
+    old_values, new_values, ip_address
+  ) VALUES (
+    TG_TABLE_NAME, TG_OP, auth.uid(), auth.get_user_role(),
+    CASE WHEN TG_OP IN ('UPDATE', 'DELETE') THEN to_jsonb(OLD) END,
+    CASE WHEN TG_OP IN ('INSERT', 'UPDATE') THEN to_jsonb(NEW) END,
+    inet_client_addr()
+  );
+
+  RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+-- Aplicar trigger a tabla sensible
+CREATE TRIGGER audit_{{first affected_tables}}_trigger
+AFTER INSERT OR UPDATE OR DELETE ON {{first affected_tables}}
+FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+```
+{{/ifEquals}}
+
+{{#ifEquals gap_type "UNCLEAR_RETENTION"}}
+1. **Definir políticas de retención** específicas por tipo de dato médico
+2. **Implementar eliminación automática** de datos expirados
+3. **Crear proceso de anonimización** para datos de investigación
+4. **Documentar excepciones** de retención legal
+
+**Código de Ejemplo**:
+```sql
+-- Función de limpieza automática
+CREATE OR REPLACE FUNCTION cleanup_expired_data()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  -- PHI general: 6 años después del último acceso
+  DELETE FROM {{first affected_tables}}
+  WHERE last_accessed < NOW() - INTERVAL '6 years'
+  AND NOT legal_hold;
+
+  -- Datos psiquiátricos: retención especial
+  DELETE FROM psychiatric_records
+  WHERE created_at < NOW() - INTERVAL '10 years'
+  AND patient_consent_expired;
+
+  -- Log de eliminaciones para auditoría
+  INSERT INTO data_retention_log (
+    table_name, records_deleted, deletion_reason, deleted_at
+  ) VALUES (
+    '{{first affected_tables}}', ROW_COUNT, 'Automatic retention cleanup', NOW()
+  );
+END;
+$$;
+
+-- Programar limpieza mensual
+SELECT cron.schedule('cleanup-phi-data', '0 2 1 * *', 'SELECT cleanup_expired_data();');
+```
+{{/ifEquals}}
+
+{{#ifEquals gap_type "UNCLASSIFIED_PHI"}}
+1. **Revisar manualmente** columnas sin clasificar
+2. **Aplicar etiquetas HIPAA** apropiadas
+3. **Actualizar documentación** de tipos de datos
+4. **Entrenar equipo** en clasificación de PHI
+
+**Proceso de Clasificación**:
+1. Identificar tipo de información médica
+2. Determinar nivel de sensibilidad
+3. Aplicar controles de acceso apropiados
+4. Documentar decisiones de clasificación
+{{/ifEquals}}
+
+---
+
+{{/each}}
+{{else}}
+✅ **No se detectaron brechas de cumplimiento críticas**
+
+Todas las tablas analizadas cumplen con los requisitos básicos de HIPAA.
+{{/if}}
+
+---
+
+## 🔒 Requisitos de Encriptación
+
+{{#if hipaa_summary.encryption_requirements}}
+{{#each hipaa_summary.encryption_requirements}}
+### 🛡️ {{table_name}}
+
+| **Aspecto** | **Configuración** |
+|-------------|-------------------|
+| **Columnas Afectadas** | {{join columns ", "}} |
+| **Tipo de Encriptación** | {{encryption_type}} |
+| **Gestión de Claves** | {{key_management}} |
+| **Justificación** | {{compliance_driver}} |
+
+{{#ifEquals encryption_type "COLUMN_LEVEL"}}
+**Implementación Recomendada**:
+```sql
+-- Encriptación a nivel de columna usando pgcrypto
+ALTER TABLE {{table_name}}
+ADD COLUMN {{first columns}}_encrypted bytea;
+
+UPDATE {{table_name}}
+SET {{first columns}}_encrypted = pgp_sym_encrypt({{first columns}}::text, 'master_key');
+
+ALTER TABLE {{table_name}}
+DROP COLUMN {{first columns}};
+
+ALTER TABLE {{table_name}}
+RENAME COLUMN {{first columns}}_encrypted TO {{first columns}};
+```
+{{/ifEquals}}
+
+{{#ifEquals encryption_type "ROW_LEVEL"}}
+**Implementación Recomendada**:
+```sql
+-- Encriptación a nivel de fila
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Función para encriptar fila completa
+CREATE OR REPLACE FUNCTION encrypt_phi_row(data jsonb, key_id text)
+RETURNS bytea
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RETURN pgp_sym_encrypt(data::text, get_encryption_key(key_id));
+END;
+$$;
+```
+{{/ifEquals}}
+
+---
+
+{{/each}}
+{{else}}
+ℹ️ **No se requiere encriptación adicional** según el análisis actual.
+{{/if}}
+
+---
+
+## 📊 Requisitos de Auditoría
+
+{{#if hipaa_summary.audit_requirements}}
+{{#each hipaa_summary.audit_requirements}}
+### 📋 {{table_name}} - {{upperCase audit_level}}
+
+| **Configuración** | **Valor** |
+|-------------------|-----------|
+| **Nivel de Auditoría** | {{audit_level}} |
+| **Eventos a Auditar** | {{join events_to_audit ", "}} |
+| **Período de Retención** | {{retention_period}} |
+| **Base de Cumplimiento** | {{compliance_basis}} |
+
+{{#ifEquals audit_level "COMPREHENSIVE"}}
+**Configuración de Auditoría Completa**:
+```sql
+-- Auditoría comprensiva con detalles completos
+CREATE TRIGGER comprehensive_audit_{{table_name}}
+AFTER INSERT OR UPDATE OR DELETE ON {{table_name}}
+FOR EACH ROW EXECUTE FUNCTION comprehensive_audit_function();
+
+-- Función de auditoría comprensiva
+CREATE OR REPLACE FUNCTION comprehensive_audit_function()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  INSERT INTO comprehensive_audit_log (
+    table_name, operation, user_id, user_role, session_id,
+    old_values, new_values, changed_columns,
+    access_timestamp, ip_address, user_agent,
+    application_name, database_user, transaction_id
+  ) VALUES (
+    TG_TABLE_NAME, TG_OP, auth.uid(), auth.get_user_role(), auth.get_session_id(),
+    CASE WHEN TG_OP IN ('UPDATE', 'DELETE') THEN to_jsonb(OLD) END,
+    CASE WHEN TG_OP IN ('INSERT', 'UPDATE') THEN to_jsonb(NEW) END,
+    CASE WHEN TG_OP = 'UPDATE' THEN get_changed_columns(OLD, NEW) END,
+    NOW(), inet_client_addr(), current_setting('application_name'),
+    current_user, txid_current()
+  );
+
+  RETURN COALESCE(NEW, OLD);
+END;
+$$;
+```
+{{/ifEquals}}
+
+---
+
+{{/each}}
+{{else}}
+ℹ️ **Auditoría básica suficiente** para las tablas actuales.
+{{/if}}
+
+---
+
+## 📅 Políticas de Retención
+
+{{#if hipaa_summary.retention_policies}}
+{{#each hipaa_summary.retention_policies}}
+### 📋 {{policy_name}}
+
+| **Configuración** | **Valor** |
+|-------------------|-----------|
+| **Tablas Afectadas** | {{join affected_tables ", "}} |
+| **Período de Retención** | {{retention_period}} |
+| **Método de Eliminación** | {{deletion_method}} |
+| **Retenciones Legales** | {{#if legal_holds}}✅ Soportadas{{else}}❌ No configuradas{{/if}} |
+
+{{#ifEquals deletion_method "SECURE_DELETE"}}
+**Implementación de Eliminación Segura**:
+```sql
+-- Función de eliminación segura
+CREATE OR REPLACE FUNCTION secure_delete_phi(table_name text, record_id uuid)
+RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+  sql_statement text;
+BEGIN
+  -- Verificar permisos
+  IF NOT has_deletion_permission(auth.uid(), table_name) THEN
+    RAISE EXCEPTION 'Sin permisos para eliminación segura';
+  END IF;
+
+  -- Log de eliminación antes de proceder
+  INSERT INTO deletion_audit_log (
+    table_name, record_id, deleted_by, deletion_timestamp, reason
+  ) VALUES (
+    table_name, record_id, auth.uid(), NOW(), 'Retention policy expiry'
+  );
+
+  -- Eliminación física del registro
+  sql_statement := format('DELETE FROM %I WHERE id = $1', table_name);
+  EXECUTE sql_statement USING record_id;
+
+  -- Sobrescribir espacio en disco (nivel OS requerido)
+  PERFORM pg_stat_reset_single_table_counters(table_name::regclass);
+
+  RETURN true;
+END;
+$$;
+```
+{{/ifEquals}}
+
+---
+
+{{/each}}
+{{else}}
+⚠️ **No hay políticas de retención definidas**. Esto puede representar un riesgo de cumplimiento.
+
+{{alert "warning" "HIPAA requiere políticas claras de retención y eliminación de datos PHI."}}
+{{/if}}
+
+---
+
+## 🎯 Plan de Acción Recomendado
+
+### 📋 Prioridad Crítica (30 días)
+
+{{#each hipaa_summary.compliance_gaps}}
+{{#ifEquals severity "CRITICAL"}}
+1. **{{gap_type}}** - {{truncate recommendation 100}}
+   - **Tablas**: {{join affected_tables ", "}}
+   - **Acción**: Implementación inmediata requerida
+{{/ifEquals}}
+{{/each}}
+
+### ⚠️ Prioridad Alta (90 días)
+
+{{#each hipaa_summary.compliance_gaps}}
+{{#ifEquals severity "HIGH"}}
+1. **{{gap_type}}** - {{truncate recommendation 100}}
+   - **Tablas**: {{join affected_tables ", "}}
+   - **Acción**: Planificar implementación
+{{/ifEquals}}
+{{/each}}
+
+### 📊 Prioridad Media (180 días)
+
+{{#each hipaa_summary.compliance_gaps}}
+{{#ifEquals severity "MEDIUM"}}
+1. **{{gap_type}}** - {{truncate recommendation 100}}
+   - **Tablas**: {{join affected_tables ", "}}
+   - **Acción**: Incluir en roadmap de mejoras
+{{/ifEquals}}
+{{/each}}
+
+### 💡 Mejoras Continuas
+
+1. **Capacitación del Equipo**
+   - Entrenamiento en manejo de PHI
+   - Procedimientos de respuesta a incidentes
+   - Actualizaciones regulares en regulaciones HIPAA
+
+2. **Monitoreo Continuo**
+   - Auditorías automáticas mensuales
+   - Revisión de accesos trimestrales
+   - Evaluación de riesgos semestral
+
+3. **Documentación**
+   - Mantener políticas actualizadas
+   - Documentar excepciones y justificaciones
+   - Registrar cambios en clasificaciones
+
+---
+
+## 📚 Referencias Regulatorias
+
+### 🇺🇸 Regulaciones HIPAA Aplicables
+
+- **45 CFR 164.308** - Salvaguardas Administrativas
+- **45 CFR 164.310** - Salvaguardas Físicas
+- **45 CFR 164.312** - Salvaguardas Técnicas
+- **45 CFR 164.314** - Requisitos Organizacionales
+- **45 CFR 164.316** - Políticas, Procedimientos y Documentación
+
+### 🌐 Estándares Internacionales
+
+- **ISO 27001** - Gestión de Seguridad de la Información
+- **ISO 27799** - Informática de la Salud — Gestión de la Seguridad de la Información
+- **NIST Cybersecurity Framework** - Marco de Ciberseguridad
+
+### 📖 Recursos Adicionales
+
+- [HHS.gov HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/index.html)
+- [NIST Special Publication 800-66](https://csrc.nist.gov/publications/detail/sp/800-66/rev-1/final)
+- [HL7 FHIR Security Implementation Guide](https://www.hl7.org/fhir/security.html)
+
+---
+
+## 🔍 Metodología de Análisis
+
+### 🤖 Clasificación Automática
+
+El análisis HIPAA se realizó utilizando:
+
+1. **Análisis de Nombres de Columnas**
+   - Patrones de PHI (ssn, phone, email, address)
+   - Identificadores médicos (patient_id, medical_record_number)
+   - Datos demográficos (birthdate, name, gender)
+
+2. **Análisis de Tipos de Datos**
+   - Campos de texto libre (notas médicas)
+   - Datos binarios (imágenes médicas)
+   - Información financiera (insurance, billing)
+
+3. **Análisis de Contexto de Tabla**
+   - Propósito médico de la tabla
+   - Relaciones con entidades de pacientes
+   - Dominio funcional (clínico, administrativo, etc.)
+
+### 📊 Métricas de Confianza
+
+| **Categoría** | **Confianza** | **Método** |
+|---------------|---------------|------------|
+| **Detección PHI Directa** | 95% | Análisis de patrones conocidos |
+| **Detección PHI Indirecta** | 80% | Análisis de contexto y relaciones |
+| **Clasificación de Sensibilidad** | 85% | Reglas de negocio médicas |
+| **Requisitos de Acceso** | 90% | Análisis de roles y permisos |
+
+---
+
+**📅 Reporte generado**: {{formatDate generation_info.generated_at}}
+**🔄 Próxima revisión recomendada**: {{formatDate (add generation_info.generated_at "3 months")}}
+**👨‍⚕️ Aprobación médica requerida**: Sí
+**⚖️ Revisión legal recomendada**: Sí

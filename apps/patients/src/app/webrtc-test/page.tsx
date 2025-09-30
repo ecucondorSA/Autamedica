@@ -1,18 +1,19 @@
 'use client'
 
 import { useEffect, useMemo, useRef } from 'react'
+import { ensureClientEnv } from '@autamedica/shared'
 
 const ROOM_ID = 'test123'
 const ROLE: 'doctor' | 'patient' = 'patient'
 
 const parseIceServers = () => {
-  const raw = process.env.NEXT_PUBLIC_ICE_SERVERS ?? '[]'
   try {
+    const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS')
     const parsed = JSON.parse(raw)
     if (Array.isArray(parsed)) return parsed
     console.warn('[webrtc-test] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to []')
   } catch (error) {
-    console.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS', error)
+    console.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS or variable not set', error)
   }
   return []
 }
@@ -52,9 +53,11 @@ export default function WebRTCTestPage() {
       }
 
       const incomingStream = event.streams[0]
-      for (const track of incomingStream.getTracks()) {
-        if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
-          remoteStream.addTrack(track)
+      if (incomingStream) {
+        for (const track of incomingStream.getTracks()) {
+          if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
+            remoteStream.addTrack(track)
+          }
         }
       }
     }
@@ -87,7 +90,7 @@ export default function WebRTCTestPage() {
         const stats = await pc.getStats()
         let selected: RTCIceCandidatePairStats | null = null
         stats.forEach((report) => {
-          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).selected) {
+          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).state === 'succeeded') {
             selected = report as RTCIceCandidatePairStats
           }
         })
@@ -115,18 +118,17 @@ export default function WebRTCTestPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const signalingUrl = process.env.NEXT_PUBLIC_SIGNALING_URL
-    if (!signalingUrl) {
-      console.error('[webrtc-test] Missing NEXT_PUBLIC_SIGNALING_URL env')
-      return
-    }
-
-    const socket = new WebSocket(signalingUrl)
+    try {
+      const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
+      const userId = `${ROLE}-${Date.now()}`
+      const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
+      console.log('[webrtc-test] Connecting to:', wsUrl)
+      const socket = new WebSocket(wsUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
       console.log('[webrtc-test] WebSocket connected')
-      socket.send(JSON.stringify({ type: 'join', roomId: ROOM_ID, role: ROLE }))
+      // El server espera que la conexión se haga con query params, no mensajes
     }
 
     socket.onclose = (event) => {
@@ -183,6 +185,9 @@ export default function WebRTCTestPage() {
         wsRef.current = null
       }
       socket.close()
+    }
+    } catch (error) {
+      console.error('[webrtc-test] Failed to initialize WebSocket:', error)
     }
   }, [])
 

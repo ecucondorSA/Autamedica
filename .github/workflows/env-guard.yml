@@ -1,0 +1,149 @@
+name: 'Environment Guard'
+
+on:
+  pull_request:
+    branches: [ main, staging, develop ]
+    paths:
+      - '**/.env*'
+      - '**/env.ts'
+      - '**/env.js'
+      - '**/config.ts'
+      - '**/config.js'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  env-validation:
+    name: 'Validar configuración de entorno'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for env file violations
+        run: |
+          echo "🔍 Checking for environment configuration violations..."
+
+          # Check for .env files in version control
+          if find . -name ".env" -o -name ".env.local" -o -name ".env.production" | grep -v node_modules | head -10; then
+            echo "❌ CRITICAL: .env files found in version control"
+            echo "These files may contain secrets and should be in .gitignore"
+            exit 1
+          fi
+
+          # Check for hardcoded environment variables
+          echo "🔍 Checking for hardcoded environment variables..."
+
+          HARDCODED_PATTERNS=(
+            "process\.env\.[A-Z_]+ *= *['\"][^'\"]+['\"]"
+            "NEXT_PUBLIC_.*= *['\"][^'\"]+['\"]"
+            "SUPABASE_.*= *['\"][^'\"]+['\"]"
+            "CLOUDFLARE_.*= *['\"][^'\"]+['\"]"
+            "API_KEY.*= *['\"][^'\"]+['\"]"
+            "SECRET.*= *['\"][^'\"]+['\"]"
+          )
+
+          FOUND_HARDCODED=false
+
+          for pattern in "${HARDCODED_PATTERNS[@]}"; do
+            if grep -r -E "$pattern" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" . ; then
+              echo "❌ FOUND HARDCODED ENV VAR: $pattern"
+              FOUND_HARDCODED=true
+            fi
+          done
+
+          # Check for direct process.env usage outside allowed locations
+          echo "🔍 Checking for direct process.env usage..."
+
+          ALLOWED_LOCATIONS=(
+            "packages/shared/src/"
+            "next.config.js"
+            "next.config.mjs"
+            "tailwind.config.js"
+            "postcss.config.js"
+          )
+
+          # Find all process.env usages
+          PROCESS_ENV_FILES=$(grep -r "process\.env" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.lock" . || true)
+
+          if [ ! -z "$PROCESS_ENV_FILES" ]; then
+            echo "Found process.env usages:"
+            echo "$PROCESS_ENV_FILES"
+
+            # Check if they're in allowed locations
+            echo "$PROCESS_ENV_FILES" | while read -r line; do
+              file=$(echo "$line" | cut -d: -f1)
+              is_allowed=false
+
+              for allowed in "${ALLOWED_LOCATIONS[@]}"; do
+                if [[ "$file" == *"$allowed"* ]]; then
+                  is_allowed=true
+                  break
+                fi
+              done
+
+              if [ "$is_allowed" = false ]; then
+                echo "❌ Unauthorized process.env usage in: $file"
+                echo "   Use ensureEnv() from @autamedica/shared instead"
+                FOUND_HARDCODED=true
+              fi
+            done
+          fi
+
+          if [ "$FOUND_HARDCODED" = true ]; then
+            echo "🚨 CRITICAL: Environment configuration violations found"
+            echo "Please fix the above issues before merging"
+            exit 1
+          else
+            echo "✅ No environment configuration violations detected"
+          fi
+
+      - name: Validate ensureEnv usage
+        run: |
+          echo "🔍 Validating ensureEnv usage patterns..."
+
+          # Check for proper ensureEnv imports
+          if grep -r "ensureEnv" --exclude-dir=node_modules --exclude-dir=.git . | grep -v "@autamedica/shared"; then
+            echo "❌ ensureEnv should only be imported from @autamedica/shared"
+            exit 1
+          fi
+
+          echo "✅ ensureEnv usage patterns look correct"
+
+      - name: Comment on PR with results
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🔐 Environment Configuration Issues
+
+            This PR contains environment configuration violations that could lead to security issues.
+
+            **🚨 Common issues found:**
+            - .env files committed to version control
+            - Hardcoded environment variables in code
+            - Direct \`process.env\` usage outside allowed locations
+            - Missing \`ensureEnv()\` usage from @autamedica/shared
+
+            **📋 How to fix:**
+            1. Remove any .env files from version control
+            2. Replace hardcoded values with proper environment variables
+            3. Use \`ensureEnv()\` from @autamedica/shared instead of direct \`process.env\`
+            4. Ensure sensitive data is never committed
+
+            **📚 Resources:**
+            - See \`packages/shared/src/env.ts\` for proper environment handling
+            - Check CLAUDE.md for environment configuration guidelines
+
+            ---
+            *Auto-generated by Environment Guard workflow*`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -22,6 +22,7 @@ export type DoctorId = UUID & { readonly __entity: "Doctor" };
  * ID de empresa/compañía
  */
 export type CompanyId = UUID & { readonly __entity: "Company" };
+export type OrganizationId = UUID & { readonly __entity: "Organization" };
 
 /**
  * ID de cita médica
@@ -37,6 +38,11 @@ export type FacilityId = UUID & { readonly __entity: "Facility" };
  * ID de especialidad médica
  */
 export type SpecialtyId = UUID & { readonly __entity: "Specialty" };
+
+/**
+ * ID de usuario (auth)
+ */
+export type UserId = UUID & { readonly __entity: "User" };
 
 /**
  * Helper para crear UUID desde string
@@ -66,4 +72,8 @@ export function createDoctorId(id: string): DoctorId {
  */
 export function createCompanyId(id: string): CompanyId {
   return createUUID(id) as CompanyId;
+}
+
+export function createOrganizationId(id: string): OrganizationId {
+  return createUUID(id) as OrganizationId;
 }

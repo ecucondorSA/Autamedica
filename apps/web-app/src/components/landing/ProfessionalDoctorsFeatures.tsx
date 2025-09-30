@@ -55,7 +55,7 @@ const demoReels: Reel[] = [
   {
     title: 'Consultorio digital integral',
     description: 'Agenda compartida, sala de espera virtual y panel clínico en vivo.',
-    video: '/videos/Video_Listo_Telemedicina.mp4',
+    video: '/videos/video1.mp4',
     duration: '08:10'
   },
   {
@@ -67,7 +67,7 @@ const demoReels: Reel[] = [
   {
     title: 'Seguimiento longitudinal',
     description: 'Evolución clínica y resultados compartidos con el equipo ampliado.',
-    video: '/videos/Video_Listo_Encuentra_Doctor.mp4',
+    video: '/videos/video2.mp4',
     duration: '07:04'
   }
 ];
@@ -226,17 +226,20 @@ export default function ProfessionalDoctorsFeatures() {
 
       <style>{`
         .doctors-portal {
-          display: grid;
-          grid-template-rows: auto 1fr;
+          display: flex;
+          flex-direction: column;
           gap: 1.6rem;
           width: 100%;
-          height: 100%;
+          height: auto;
           min-height: 100%;
           padding: 2.2rem 3rem 1.9rem;
           box-sizing: border-box;
           background: linear-gradient(135deg, #f2f2f2, #d8d8d8);
           color: #111;
-          overflow: hidden;
+          overflow-y: auto;
+          overflow-x: hidden;
+          will-change: scroll-position;
+          -webkit-overflow-scrolling: touch;
         }
 
         .media-block {
@@ -391,10 +394,12 @@ export default function ProfessionalDoctorsFeatures() {
         }
 
         .content-block {
-          display: grid;
-          grid-template-rows: auto minmax(0, 1fr) auto;
+          display: flex;
+          flex-direction: column;
           gap: 1.4rem;
-          overflow: hidden;
+          flex: 1;
+          overflow-y: auto;
+          overflow-x: hidden;
         }
 
         .portal-head {
@@ -456,11 +461,14 @@ export default function ProfessionalDoctorsFeatures() {
         }
 
         .information-grid {
-          display: grid;
-          grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+          display: flex;
+          flex-direction: row;
           gap: 1.4rem;
-          align-items: stretch;
-          overflow: hidden;
+          flex: 1;
+          overflow-y: auto;
+          overflow-x: hidden;
+          will-change: scroll-position;
+          -webkit-overflow-scrolling: touch;
         }
 
         .tools {
@@ -468,6 +476,8 @@ export default function ProfessionalDoctorsFeatures() {
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 0.75rem;
           align-content: start;
+          flex: 1.5;
+          min-width: 0;
         }
 
         .tool-card {
@@ -502,6 +512,8 @@ export default function ProfessionalDoctorsFeatures() {
           border: 1px solid rgba(0,0,0,0.08);
           border-radius: 14px;
           padding: 1.4rem;
+          flex: 1;
+          min-width: 0;
           min-height: 0;
         }
 
@@ -609,7 +621,7 @@ export default function ProfessionalDoctorsFeatures() {
           }
 
           .information-grid {
-            grid-template-columns: 1fr;
+            flex-direction: column;
           }
         }
 

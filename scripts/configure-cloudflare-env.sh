@@ -14,7 +14,7 @@ echo ""
 
 # Variables de entorno de AutaMedica
 SUPABASE_URL="https://gtyvdircfhmdjiaelqkg.supabase.co"
-SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA"
+SUPABASE_ANON_KEY="REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA"
 
 echo "📋 Variables a configurar en Cloudflare Pages Dashboard:"
 echo "   👉 Ve a: https://dash.cloudflare.com > Pages > [tu-proyecto] > Settings > Environment variables"
@@ -58,7 +58,7 @@ cat > .env.cloudflare << EOF
 
 # Variables comunes (todas las apps)
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2Njc4NTUsImV4cCI6MjA3MjI0Mzg1NX0.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA
+NEXT_PUBLIC_SUPABASE_ANON_KEY=REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA
 NEXT_PUBLIC_NODE_ENV=production
 SKIP_ENV_VALIDATION=true
 

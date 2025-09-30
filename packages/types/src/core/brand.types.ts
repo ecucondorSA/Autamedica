@@ -53,6 +53,7 @@ export type MedicalHistoryId = Id<'MedicalHistory'>;
 
 /** ID tipado para empresas */
 export type CompanyId = Id<'Company'>;
+export type OrganizationId = Id<'Organization'>;
 
 /** ID tipado para empleados */
 export type EmployeeId = Id<'Employee'>;

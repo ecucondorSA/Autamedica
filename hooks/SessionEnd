@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+echo "🔴 Sesión finalizada – sincronizando glosarios"
+
+pnpm -s docs:db:ci
+pnpm -s docs:db:check-diff || {
+  echo "❌ DB Glossary desincronizado. Ejecutá pnpm docs:db y commiteá los cambios."; exit 1;
+}

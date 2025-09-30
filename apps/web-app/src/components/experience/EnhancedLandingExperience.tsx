@@ -2,22 +2,36 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import HorizontalExperience from '../experience/HorizontalExperience';
+import dynamic from 'next/dynamic';
 import HeroVertical from './HeroVertical';
 import LoadingOverlay from './LoadingOverlay';
-// import Doctor3DSimple from '../3d/Doctor3DSimple';
-import ProfessionalFooter from '../landing/ProfessionalFooter';
-import TestimonialsSection from '../landing/TestimonialsSection';
+import TransitionBridge from '../ui/TransitionBridge';
+import AccountMenu from '../ui/AccountMenu';
+
+// Lazy load heavy components
+const HorizontalExperience = dynamic(() => import('../experience/HorizontalExperience'), {
+  loading: () => <div className="min-h-screen bg-black flex items-center justify-center text-white">Cargando experiencia...</div>,
+  ssr: false
+});
+
+const TestimonialsSection = dynamic(() => import('../landing/TestimonialsSection'), {
+  loading: () => <div className="min-h-[50vh] bg-gray-900"></div>,
+  ssr: true
+});
+
+const ProfessionalFooter = dynamic(() => import('../landing/ProfessionalFooter'), {
+  ssr: true
+});
 
 const EnhancedLandingExperience: React.FC = () => {
   // Mantenemos un pequeño estado de fase solo para el overlay inicial
   const [phase, setPhase] = useState<'loading' | 'hero'>('loading');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<Array<{ text: string; isBot: boolean }>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Router needed for future navigation features
+  const _router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,21 +42,8 @@ const EnhancedLandingExperience: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleLogin = () => {
-    router.push('/auth/login');
-    setDropdownOpen(false);
-  };
-
-  const handleRegister = () => {
-    router.push('/auth/register');
-    setDropdownOpen(false);
-  };
-
-  const toggleChat = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Chat toggle reserved for Doctor3D integration
+  const _toggleChat = () => {
     setChatOpen(!chatOpen);
     if (!chatOpen && chatMessages.length === 0) {
       setChatMessages([
@@ -75,18 +76,6 @@ const EnhancedLandingExperience: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const dropdown = document.querySelector('.account-dropdown');
-      if (dropdown && !dropdown.contains(event.target as Node)) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
   return (
     <>
       {/* Top Credit */}
@@ -99,33 +88,8 @@ const EnhancedLandingExperience: React.FC = () => {
         AutaMedica
       </div>
 
-      {/* Account Dropdown */}
-      <div className="account-dropdown fixed top-5 right-3 z-[1000] md:top-7 md:right-7">
-        <button
-          onClick={toggleDropdown}
-          className="px-3 py-2 bg-white/10 border border-white/30 text-white rounded-full text-xs transition-all hover:bg-white/20 hover:border-white/50 backdrop-blur-lg cursor-pointer md:px-5 md:py-2.5 md:text-sm"
-        >
-          <span className="hidden sm:inline">Cuenta</span>
-          <span className="sm:hidden">👤</span>
-          <span className="ml-1">▼</span>
-        </button>
-        {dropdownOpen && (
-          <div className="absolute top-full right-0 mt-2 bg-black/90 border border-white/20 rounded-2xl overflow-hidden backdrop-blur-2xl min-w-[150px]">
-            <button
-              onClick={handleLogin}
-              className="block w-full px-5 py-3 text-white text-left text-sm transition-colors hover:bg-white/10 border-b border-white/10"
-            >
-              Iniciar Sesión
-            </button>
-            <button
-              onClick={handleRegister}
-              className="block w-full px-5 py-3 text-white text-left text-sm transition-colors hover:bg-white/10"
-            >
-              Registrarse
-            </button>
-          </div>
-        )}
-      </div>
+      {/* Account Menu - New Component */}
+      <AccountMenu />
 
       {/* Main Content */}
       {phase === 'loading' && <LoadingOverlay onComplete={() => setPhase('hero')} />}
@@ -134,13 +98,16 @@ const EnhancedLandingExperience: React.FC = () => {
         <div style={{ position: 'relative' }}>
           {/* Hero Section - Optimized height */}
           <div
+            className="hero-section-wrapper"
             style={{
               position: 'relative',
               width: '100%',
               height: '100vh',
+              minHeight: '100vh',
+              maxHeight: '100vh',
               overflow: 'hidden',
               backgroundColor: '#000',
-              zIndex: 1,
+              zIndex: 10,
             }}
           >
             <HeroVertical
@@ -174,11 +141,35 @@ const EnhancedLandingExperience: React.FC = () => {
             </div>
           </div>
 
+          {/* Bridge: Hero → Horizontal Experience */}
+          <TransitionBridge
+            title="Explora nuestros portales"
+            subtitle="Soluciones especializadas para cada necesidad"
+            variant="gradient"
+          />
+
           {/* Horizontal Experience Section */}
           <HorizontalExperience />
 
-          {/* Testimonials and Stats Section */}
-          <TestimonialsSection />
+          {/* Bridge: VideoGrid → Testimonials */}
+          <TransitionBridge
+            title="Nuestra comunidad"
+            subtitle="Testimonios reales de usuarios satisfechos"
+            variant="default"
+          />
+
+          {/* Testimonials and Stats Section - "Descubre AutaMedica en Acción" + "Números que Hablan por Sí Solos" */}
+          <section className="py-20 bg-gradient-to-b from-gray-900 to-black" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="container mx-auto px-4 text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Descubre AutaMedica en Acción
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Explora nuestras herramientas avanzadas de telemedicina, desde consultas virtuales hasta diagnósticos con IA
+              </p>
+            </div>
+            <TestimonialsSection />
+          </section>
 
           {/* Footer después del recorrido completo */}
           <ProfessionalFooter />
@@ -190,10 +181,22 @@ const EnhancedLandingExperience: React.FC = () => {
 
       {/* Manga-style Chat Bubble */}
       {chatOpen && (
-        <div className="fixed bottom-4 right-4 w-[280px] h-[350px] bg-white border-4 border-[#333] rounded-[150px_/_190px] flex flex-col z-[999] shadow-[0_8px_25px_rgba(0,0,0,0.3)] origin-bottom-right animate-[popIn_0.4s_cubic-bezier(0.68,-0.55,0.265,1.55)] sm:bottom-[120px] sm:right-[120px] sm:w-[300px] sm:h-[380px] md:bottom-[200px] md:right-[180px]">
-          {/* Chat tail */}
-          <div className="absolute bottom-[-35px] right-[80px] w-0 h-0 border-l-[35px] border-l-transparent border-r-[5px] border-r-transparent border-t-[40px] border-t-white rotate-[-15deg] z-[1000]" />
-          <div className="absolute bottom-[-40px] right-[78px] w-0 h-0 border-l-[38px] border-l-transparent border-r-[7px] border-r-transparent border-t-[43px] border-t-[#333] rotate-[-15deg] z-[999]" />
+        <div
+          className="chat-bubble-wrapper fixed bg-white border-4 border-[#333] rounded-[150px_/_190px] flex flex-col z-[999] shadow-[0_8px_25px_rgba(0,0,0,0.3)] origin-bottom-right animate-[popIn_0.4s_cubic-bezier(0.68,-0.55,0.265,1.55)]"
+          style={{
+            bottom: 'clamp(1rem, 3vh, 2rem)',
+            right: 'clamp(1rem, 3vw, 2rem)',
+            width: 'min(90vw, 380px)',
+            height: 'min(85vh, 520px)',
+            maxWidth: '90vw',
+            maxHeight: '85vh',
+            contain: 'layout size',
+            willChange: 'transform',
+          }}
+        >
+          {/* Chat tail - Optimized positioning */}
+          <div className="absolute bottom-[-20px] right-[60px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[5px] border-r-transparent border-t-[30px] border-t-white rotate-[-15deg] z-[1000] pointer-events-none" />
+          <div className="absolute bottom-[-23px] right-[58px] w-0 h-0 border-l-[28px] border-l-transparent border-r-[7px] border-r-transparent border-t-[33px] border-t-[#333] rotate-[-15deg] z-[999] pointer-events-none" />
 
           {/* Chat header */}
           <div className="px-6 py-5 flex justify-between items-center border-b-2 border-gray-100 mx-4 mt-2">

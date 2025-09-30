@@ -47,7 +47,7 @@ interface MedicalHistoryState {
   // AI-powered actions
   generateAISummary: (patientId: string) => Promise<string>
   suggestPrescriptions: (diagnosis: string) => Promise<string[]>
-  analyzeVitals: (vitals: MedicalEntry['metadata']['vitals']) => Promise<string>
+  analyzeVitals: (vitals: any) => Promise<string>
 }
 
 // Simular llamada a IA (en producción conectar con API real)

@@ -1,0 +1,184 @@
+name: 🐛 Bug Report
+description: Reportar un error o comportamiento inesperado
+title: "🐛 [Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Reporte de Bug - Autamedica
+
+        Gracias por reportar este bug. Información detallada nos ayuda a resolverlo más rápido.
+
+        **⚠️ IMPORTANTE**: Si el bug involucra datos médicos sensibles, reportar por email: security@autamedica.com
+
+  - type: checkboxes
+    id: search
+    attributes:
+      label: 🔍 Búsqueda previa
+      description: ¿Verificaste que no existe un issue similar?
+      options:
+        - label: Busqué issues existentes y no encontré uno similar
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 📱 Componente afectado
+      description: ¿Qué parte de Autamedica tiene el problema?
+      options:
+        - "🏠 Web-app (Landing/Auth)"
+        - "👨‍⚕️ Doctors (Portal médicos)"
+        - "👤 Patients (Portal pacientes)"
+        - "🏢 Companies (Portal empresarial)"
+        - "⚙️ Admin (Panel administrativo)"
+        - "📦 @autamedica/auth (Autenticación)"
+        - "📦 @autamedica/types (Tipos TypeScript)"
+        - "📦 @autamedica/shared (Utilidades)"
+        - "📦 @autamedica/hooks (React hooks)"
+        - "🔧 CI/CD (Workflows/Deploy)"
+        - "📚 Documentación"
+        - "🤔 No estoy seguro"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 Severidad
+      description: ¿Qué tan crítico es este bug?
+      options:
+        - "🔴 Crítico - Bloquea funcionalidad principal"
+        - "🟠 Alto - Afecta experiencia del usuario"
+        - "🟡 Medio - Inconveniente menor"
+        - "🟢 Bajo - Cosmético o edge case"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 📦 Versión/Commit
+      description: "¿En qué versión o commit detectaste el bug?"
+      placeholder: "ej: commit abc123, v1.2.3, o 'última versión de develop'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Descripción del bug
+      description: "Describe claramente qué está pasando"
+      placeholder: "El sistema debería hacer X, pero en lugar hace Y..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 🔄 Pasos para reproducir
+      description: "Lista exacta de pasos para que podamos reproducir el bug"
+      placeholder: |
+        1. Ir a la página '...'
+        2. Hacer clic en '...'
+        3. Rellenar campo '...' con '...'
+        4. Ver error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Comportamiento esperado
+      description: "¿Qué debería pasar en lugar del bug?"
+      placeholder: "Debería mostrar/hacer..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Comportamiento actual
+      description: "¿Qué está pasando realmente?"
+      placeholder: "En su lugar muestra/hace..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: 📊 Frecuencia
+      description: "¿Con qué frecuencia ocurre?"
+      options:
+        - "🔄 Siempre (100%)"
+        - "🎯 Casi siempre (80-99%)"
+        - "⚡ A menudo (50-79%)"
+        - "🎲 A veces (20-49%)"
+        - "🌟 Raramente (1-19%)"
+        - "💎 Solo una vez"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: 🌐 Navegador/Entorno
+      description: "¿Dónde está ocurriendo?"
+      options:
+        - "Chrome (desktop)"
+        - "Firefox (desktop)"
+        - "Safari (desktop)"
+        - "Edge (desktop)"
+        - "Chrome (mobile)"
+        - "Safari (mobile)"
+        - "API/Backend"
+        - "CI/CD"
+        - "Múltiples navegadores"
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📸 Screenshots/Logs
+      description: "Agrega screenshots, logs de consola, o mensajes de error"
+      placeholder: "Arrastra imágenes aquí o pega logs..."
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: 🛠️ Workaround temporal
+      description: "¿Encontraste alguna forma de evitar el problema temporalmente?"
+      placeholder: "Si hago X en lugar de Y, funciona..."
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: 👥 Impacto en usuarios
+      description: "¿A quién afecta este bug?"
+      options:
+        - "🏥 Médicos - Afecta atención al paciente"
+        - "👤 Pacientes - Afecta acceso a servicios"
+        - "🏢 Empresas - Afecta gestión"
+        - "⚙️ Administradores - Afecta configuración"
+        - "👨‍💻 Desarrolladores - Afecta desarrollo"
+        - "📊 Todos los usuarios"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      description: "Confirma que:"
+      options:
+        - label: "He probado en incognito/privado"
+          required: false
+        - label: "He verificado que no es un problema de caché"
+          required: false
+        - label: "He incluido toda la información relevante"
+          required: true
+        - label: "Este bug NO involucra datos médicos sensibles"
+          required: true

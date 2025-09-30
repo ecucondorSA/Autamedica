@@ -2,15 +2,19 @@
 # This is a shared configuration for all apps using Cloudflare Workers/Pages features
 
 name = "autamedica-platform"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-11-21"
 
-# Account details
+# Account details - NEEDS TO BE CONFIGURED
 account_id = "" # Add your Cloudflare account ID here
+
+# Pages configuration for auth app
+[pages]
+pages_build_output_dir = "apps/auth/.open-next/dist"
 
 # Workers/Pages shared configuration
 [vars]
 NEXT_PUBLIC_SUPABASE_URL = "https://gtyvdircfhmdjiaelqkg.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eXZkaXJjZmhtZGppYWVscWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI3OTAsImV4cCI6MjA3MTg2ODc5MH0.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "REPLACE_WITH_ROTATED_KEY.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
 
 # Shared bindings for all apps
 [[kv_namespaces]]

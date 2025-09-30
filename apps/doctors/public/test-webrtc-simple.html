@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WebRTC Simplificado - AutaMedica</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #f3f4f6;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #1f2937; margin-bottom: 20px; }
+        h2 { color: #374151; font-size: 18px; margin-bottom: 15px; }
+        video {
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            background: #000;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover { background: #2563eb; }
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
+        button.danger { background: #ef4444; }
+        button.danger:hover { background: #dc2626; }
+        button.success { background: #10b981; }
+        button.success:hover { background: #059669; }
+        .controls { margin-top: 15px; }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .status.info { background: #dbeafe; color: #1e40af; }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.warning { background: #fed7aa; color: #9a3412; }
+        #messages {
+            height: 200px;
+            overflow-y: auto;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .message { margin: 2px 0; }
+        .message.sent { color: #2563eb; }
+        .message.received { color: #059669; }
+        .message.error { color: #dc2626; }
+        .stats {
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 Test WebRTC Simplificado - AutaMedica</h1>
+
+    <div class="container">
+        <!-- Doctor Side -->
+        <div class="card">
+            <h2>👨‍⚕️ Doctor (Caller)</h2>
+            <video id="doctorLocal" autoplay muted playsinline></video>
+            <div class="controls">
+                <button onclick="doctorInit()">📹 Iniciar Cámara</button>
+                <button onclick="doctorCall()" id="callBtn" disabled>📞 Llamar</button>
+                <button onclick="doctorEnd()" class="danger" disabled id="endBtn1">📵 Colgar</button>
+            </div>
+            <div id="doctorStatus" class="status info">Esperando inicialización...</div>
+            <div id="doctorStats" class="stats"></div>
+            <h3>Video Remoto (Paciente):</h3>
+            <video id="doctorRemote" autoplay playsinline></video>
+        </div>
+
+        <!-- Patient Side -->
+        <div class="card">
+            <h2>👤 Paciente (Receiver)</h2>
+            <video id="patientLocal" autoplay muted playsinline></video>
+            <div class="controls">
+                <button onclick="patientInit()">📹 Iniciar Cámara</button>
+                <button onclick="patientJoin()" id="joinBtn" disabled>🔗 Unirse a Sala</button>
+                <div id="incomingCall" style="display: none; margin-top: 10px;">
+                    <div class="status warning">📞 Llamada entrante del doctor</div>
+                    <button onclick="patientAnswer()" class="success">✅ Aceptar</button>
+                    <button onclick="patientReject()" class="danger">❌ Rechazar</button>
+                </div>
+            </div>
+            <div id="patientStatus" class="status info">Esperando inicialización...</div>
+            <div id="patientStats" class="stats"></div>
+            <h3>Video Remoto (Doctor):</h3>
+            <video id="patientRemote" autoplay playsinline></video>
+        </div>
+    </div>
+
+    <!-- Messages Log -->
+    <div class="card">
+        <h2>📋 Log de Mensajes</h2>
+        <button onclick="clearMessages()">🗑️ Limpiar</button>
+        <button onclick="testSignaling()">🔍 Test Signaling Server</button>
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        const SIGNALING_URL = 'http://localhost:8787';
+        const ROOM_ID = 'test-room-' + Date.now();
+        const DOCTOR_ID = 'doctor-' + Math.random().toString(36).substring(7);
+        const PATIENT_ID = 'patient-' + Math.random().toString(36).substring(7);
+
+        let doctorPC = null;
+        let patientPC = null;
+        let doctorStream = null;
+        let patientStream = null;
+        let pollInterval = null;
+        let patientOffer = null;
+
+        // Logging
+        function log(message, type = 'info') {
+            const msgDiv = document.getElementById('messages');
+            const entry = document.createElement('div');
+            entry.className = `message ${type}`;
+            const time = new Date().toLocaleTimeString();
+            entry.textContent = `[${time}] ${message}`;
+            msgDiv.appendChild(entry);
+            msgDiv.scrollTop = msgDiv.scrollHeight;
+        }
+
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = '';
+        }
+
+        // Test signaling server
+        async function testSignaling() {
+            try {
+                const response = await fetch(`${SIGNALING_URL}/health`);
+                const data = await response.json();
+                log(`Signaling server OK: ${JSON.stringify(data)}`, 'success');
+            } catch (error) {
+                log(`Signaling server error: ${error.message}`, 'error');
+            }
+        }
+
+        // DOCTOR FUNCTIONS
+        async function doctorInit() {
+            try {
+                log('[Doctor] Iniciando cámara...', 'sent');
+                doctorStream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: true
+                });
+
+                document.getElementById('doctorLocal').srcObject = doctorStream;
+                document.getElementById('callBtn').disabled = false;
+                document.getElementById('doctorStatus').className = 'status success';
+                document.getElementById('doctorStatus').textContent = '✅ Cámara lista';
+
+                log('[Doctor] Cámara iniciada', 'success');
+            } catch (error) {
+                log(`[Doctor] Error cámara: ${error.message}`, 'error');
+                document.getElementById('doctorStatus').className = 'status error';
+                document.getElementById('doctorStatus').textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function doctorCall() {
+            try {
+                log(`[Doctor] Iniciando llamada en sala: ${ROOM_ID}`, 'sent');
+
+                // Join room
+                await fetch(`${SIGNALING_URL}/api/join`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        roomId: ROOM_ID,
+                        userId: DOCTOR_ID,
+                        userType: 'doctor'
+                    })
+                });
+
+                log('[Doctor] Unido a la sala', 'success');
+
+                // Send incoming-call message
+                await fetch(`${SIGNALING_URL}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from: DOCTOR_ID,
+                        roomId: ROOM_ID,
+                        type: 'incoming-call',
+                        data: { doctorName: 'Dr. Test' }
+                    })
+                });
+
+                log('[Doctor] Llamada enviada, esperando paciente...', 'sent');
+                document.getElementById('doctorStatus').className = 'status warning';
+                document.getElementById('doctorStatus').textContent = '⏳ Esperando que el paciente acepte...';
+                document.getElementById('callBtn').disabled = true;
+                document.getElementById('endBtn1').disabled = false;
+
+                // Start polling for patient response
+                startDoctorPolling();
+
+            } catch (error) {
+                log(`[Doctor] Error llamada: ${error.message}`, 'error');
+            }
+        }
+
+        function startDoctorPolling() {
+            let lastTimestamp = 0;
+
+            const poll = setInterval(async () => {
+                try {
+                    const response = await fetch(
+                        `${SIGNALING_URL}/api/poll?roomId=${ROOM_ID}&userId=${DOCTOR_ID}&since=${lastTimestamp}`
+                    );
+
+                    const data = await response.json();
+                    lastTimestamp = data.timestamp || Date.now();
+
+                    if (data.messages && data.messages.length > 0) {
+                        for (const msg of data.messages) {
+                            log(`[Doctor] Recibido: ${msg.type}`, 'received');
+
+                            if (msg.type === 'patient-joined') {
+                                log('[Doctor] Paciente aceptó, creando offer...', 'sent');
+                                await doctorCreateOffer();
+                            }
+
+                            if (msg.type === 'webrtc-answer' && doctorPC) {
+                                log('[Doctor] Recibido answer, estableciendo...', 'received');
+                                const answer = new RTCSessionDescription(msg.data.answer);
+                                await doctorPC.setRemoteDescription(answer);
+                                document.getElementById('doctorStatus').className = 'status success';
+                                document.getElementById('doctorStatus').textContent = '✅ Conectado';
+                            }
+
+                            if (msg.type === 'ice-candidate' && doctorPC) {
+                                log('[Doctor] Recibido ICE candidate', 'received');
+                                const candidate = new RTCIceCandidate(msg.data.candidate);
+                                await doctorPC.addIceCandidate(candidate);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    log(`[Doctor] Error polling: ${error.message}`, 'error');
+                }
+            }, 1000);
+
+            pollInterval = poll;
+        }
+
+        async function doctorCreateOffer() {
+            // Create peer connection
+            doctorPC = new RTCPeerConnection({
+                iceServers: [
+                    { urls: 'stun:stun.l.google.com:19302' },
+                    { urls: 'stun:stun1.l.google.com:19302' }
+                ]
+            });
+
+            // Add tracks BEFORE creating offer
+            if (doctorStream) {
+                doctorStream.getTracks().forEach(track => {
+                    doctorPC.addTrack(track, doctorStream);
+                    log(`[Doctor] Added track: ${track.kind}`, 'sent');
+                });
+            }
+
+            // Handle remote stream
+            doctorPC.ontrack = (event) => {
+                log(`[Doctor] Recibido track remoto: ${event.track.kind}`, 'received');
+                if (event.streams[0]) {
+                    document.getElementById('doctorRemote').srcObject = event.streams[0];
+                }
+            };
+
+            // Handle ICE candidates
+            doctorPC.onicecandidate = async (event) => {
+                if (event.candidate) {
+                    log('[Doctor] Enviando ICE candidate', 'sent');
+                    await fetch(`${SIGNALING_URL}/api/message`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            from: DOCTOR_ID,
+                            roomId: ROOM_ID,
+                            type: 'ice-candidate',
+                            data: { candidate: event.candidate }
+                        })
+                    });
+                }
+            };
+
+            // Monitor connection state
+            doctorPC.onconnectionstatechange = () => {
+                log(`[Doctor] Connection state: ${doctorPC.connectionState}`, 'info');
+                updateStats('doctor');
+            };
+
+            // Create and send offer
+            const offer = await doctorPC.createOffer();
+            await doctorPC.setLocalDescription(offer);
+
+            await fetch(`${SIGNALING_URL}/api/message`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    from: DOCTOR_ID,
+                    roomId: ROOM_ID,
+                    type: 'webrtc-offer',
+                    data: { offer: offer }
+                })
+            });
+
+            log('[Doctor] Offer enviado', 'sent');
+        }
+
+        async function doctorEnd() {
+            log('[Doctor] Finalizando llamada', 'sent');
+
+            if (pollInterval) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+            }
+
+            if (doctorPC) {
+                doctorPC.close();
+                doctorPC = null;
+            }
+
+            document.getElementById('doctorRemote').srcObject = null;
+            document.getElementById('callBtn').disabled = false;
+            document.getElementById('endBtn1').disabled = true;
+            document.getElementById('doctorStatus').className = 'status info';
+            document.getElementById('doctorStatus').textContent = '📹 Listo para llamar';
+        }
+
+        // PATIENT FUNCTIONS
+        async function patientInit() {
+            try {
+                log('[Paciente] Iniciando cámara...', 'sent');
+                patientStream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: true
+                });
+
+                document.getElementById('patientLocal').srcObject = patientStream;
+                document.getElementById('joinBtn').disabled = false;
+                document.getElementById('patientStatus').className = 'status success';
+                document.getElementById('patientStatus').textContent = '✅ Cámara lista';
+
+                log('[Paciente] Cámara iniciada', 'success');
+            } catch (error) {
+                log(`[Paciente] Error cámara: ${error.message}`, 'error');
+                document.getElementById('patientStatus').className = 'status error';
+                document.getElementById('patientStatus').textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function patientJoin() {
+            try {
+                log(`[Paciente] Uniéndose a sala: ${ROOM_ID}`, 'sent');
+
+                // Join room
+                await fetch(`${SIGNALING_URL}/api/join`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        roomId: ROOM_ID,
+                        userId: PATIENT_ID,
+                        userType: 'patient'
+                    })
+                });
+
+                log('[Paciente] Unido a la sala, esperando llamada...', 'success');
+                document.getElementById('patientStatus').className = 'status info';
+                document.getElementById('patientStatus').textContent = '⏳ Esperando llamada del doctor...';
+                document.getElementById('joinBtn').disabled = true;
+
+                // Start polling for incoming call
+                startPatientPolling();
+
+            } catch (error) {
+                log(`[Paciente] Error unirse: ${error.message}`, 'error');
+            }
+        }
+
+        function startPatientPolling() {
+            let lastTimestamp = 0;
+
+            const poll = setInterval(async () => {
+                try {
+                    const response = await fetch(
+                        `${SIGNALING_URL}/api/poll?roomId=${ROOM_ID}&userId=${PATIENT_ID}&since=${lastTimestamp}`
+                    );
+
+                    const data = await response.json();
+                    lastTimestamp = data.timestamp || Date.now();
+
+                    if (data.messages && data.messages.length > 0) {
+                        for (const msg of data.messages) {
+                            log(`[Paciente] Recibido: ${msg.type}`, 'received');
+
+                            if (msg.type === 'incoming-call') {
+                                log('[Paciente] Llamada entrante', 'received');
+                                document.getElementById('incomingCall').style.display = 'block';
+                            }
+
+                            if (msg.type === 'webrtc-offer') {
+                                log('[Paciente] Recibido offer', 'received');
+                                patientOffer = msg.data.offer;
+                            }
+
+                            if (msg.type === 'ice-candidate' && patientPC) {
+                                log('[Paciente] Recibido ICE candidate', 'received');
+                                const candidate = new RTCIceCandidate(msg.data.candidate);
+                                await patientPC.addIceCandidate(candidate);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    log(`[Paciente] Error polling: ${error.message}`, 'error');
+                }
+            }, 1000);
+        }
+
+        async function patientAnswer() {
+            try {
+                log('[Paciente] Aceptando llamada...', 'sent');
+                document.getElementById('incomingCall').style.display = 'none';
+
+                // Notify doctor
+                await fetch(`${SIGNALING_URL}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from: PATIENT_ID,
+                        roomId: ROOM_ID,
+                        type: 'patient-joined',
+                        data: {}
+                    })
+                });
+
+                // Wait for offer if not received yet
+                let attempts = 0;
+                while (!patientOffer && attempts < 10) {
+                    log('[Paciente] Esperando offer...', 'info');
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    attempts++;
+                }
+
+                if (!patientOffer) {
+                    throw new Error('No se recibió offer del doctor');
+                }
+
+                // Create peer connection
+                patientPC = new RTCPeerConnection({
+                    iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:stun1.l.google.com:19302' }
+                    ]
+                });
+
+                // Add tracks BEFORE setting remote description
+                if (patientStream) {
+                    patientStream.getTracks().forEach(track => {
+                        patientPC.addTrack(track, patientStream);
+                        log(`[Paciente] Added track: ${track.kind}`, 'sent');
+                    });
+                }
+
+                // Handle remote stream
+                patientPC.ontrack = (event) => {
+                    log(`[Paciente] Recibido track remoto: ${event.track.kind}`, 'received');
+                    if (event.streams[0]) {
+                        document.getElementById('patientRemote').srcObject = event.streams[0];
+                    }
+                };
+
+                // Handle ICE candidates
+                patientPC.onicecandidate = async (event) => {
+                    if (event.candidate) {
+                        log('[Paciente] Enviando ICE candidate', 'sent');
+                        await fetch(`${SIGNALING_URL}/api/message`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                from: PATIENT_ID,
+                                roomId: ROOM_ID,
+                                type: 'ice-candidate',
+                                data: { candidate: event.candidate }
+                            })
+                        });
+                    }
+                };
+
+                // Monitor connection state
+                patientPC.onconnectionstatechange = () => {
+                    log(`[Paciente] Connection state: ${patientPC.connectionState}`, 'info');
+                    updateStats('patient');
+                };
+
+                // Set remote description and create answer
+                await patientPC.setRemoteDescription(new RTCSessionDescription(patientOffer));
+                const answer = await patientPC.createAnswer();
+                await patientPC.setLocalDescription(answer);
+
+                // Send answer
+                await fetch(`${SIGNALING_URL}/api/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from: PATIENT_ID,
+                        roomId: ROOM_ID,
+                        type: 'webrtc-answer',
+                        data: { answer: answer }
+                    })
+                });
+
+                log('[Paciente] Answer enviado', 'sent');
+                document.getElementById('patientStatus').className = 'status success';
+                document.getElementById('patientStatus').textContent = '✅ Conectado';
+
+            } catch (error) {
+                log(`[Paciente] Error answer: ${error.message}`, 'error');
+            }
+        }
+
+        async function patientReject() {
+            log('[Paciente] Rechazando llamada', 'sent');
+            document.getElementById('incomingCall').style.display = 'none';
+
+            await fetch(`${SIGNALING_URL}/api/message`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    from: PATIENT_ID,
+                    roomId: ROOM_ID,
+                    type: 'call-rejected',
+                    data: {}
+                })
+            });
+        }
+
+        // Stats update
+        async function updateStats(side) {
+            const pc = side === 'doctor' ? doctorPC : patientPC;
+            if (!pc) return;
+
+            try {
+                const stats = await pc.getStats();
+                let info = [];
+
+                stats.forEach(report => {
+                    if (report.type === 'candidate-pair' && report.state === 'succeeded') {
+                        info.push(`RTT: ${report.currentRoundTripTime * 1000}ms`);
+                    }
+                    if (report.type === 'inbound-rtp' && report.mediaType === 'video') {
+                        info.push(`Video: ${report.framesPerSecond}fps`);
+                    }
+                });
+
+                const statsDiv = document.getElementById(`${side}Stats`);
+                statsDiv.textContent = `Connection: ${pc.connectionState} | ICE: ${pc.iceConnectionState} | ${info.join(' | ')}`;
+            } catch (error) {
+                // Ignore stats errors
+            }
+        }
+
+        // Initial test
+        testSignaling();
+        log(`Room ID: ${ROOM_ID}`, 'info');
+        log('1. Inicia cámara del Doctor', 'info');
+        log('2. Inicia cámara del Paciente', 'info');
+        log('3. Paciente se une a la sala', 'info');
+        log('4. Doctor llama', 'info');
+        log('5. Paciente acepta', 'info');
+    </script>
+</body>
+</html>

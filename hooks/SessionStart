@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+echo "🟢 Nueva sesión Autamedica"
+
+pnpm -s docs:db:validate || true
+pnpm -s docs:validate || true

@@ -1,0 +1,194 @@
+name: 'Binary Block'
+
+on:
+  pull_request:
+    branches: [ main, staging, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  binary-check:
+    name: 'Verificar archivos binarios'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for large or binary files
+        run: |
+          echo "🔍 Checking for binary files and large assets..."
+
+          # Define maximum file size (5MB = 5242880 bytes)
+          MAX_SIZE=5242880
+
+          # Define allowed binary extensions
+          ALLOWED_BINARIES=(
+            "\.png$" "\.jpg$" "\.jpeg$" "\.gif$" "\.svg$" "\.webp$" "\.ico$"
+            "\.woff$" "\.woff2$" "\.ttf$" "\.eot$"
+            "\.pdf$"
+          )
+
+          # Define blocked binary extensions
+          BLOCKED_BINARIES=(
+            "\.exe$" "\.dll$" "\.so$" "\.dylib$"
+            "\.zip$" "\.rar$" "\.7z$" "\.tar$" "\.gz$"
+            "\.dmg$" "\.pkg$" "\.deb$" "\.rpm$"
+            "\.iso$" "\.img$"
+            "\.doc$" "\.docx$" "\.xls$" "\.xlsx$" "\.ppt$" "\.pptx$"
+            "\.app$" "\.ipa$" "\.apk$"
+          )
+
+          FOUND_ISSUES=false
+
+          # Get list of changed files in this PR
+          CHANGED_FILES=$(git diff --name-only origin/main..HEAD 2>/dev/null || echo "")
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No changed files detected, checking all files..."
+            CHANGED_FILES=$(find . -type f | grep -v .git | head -100)
+          fi
+
+          echo "Checking files:"
+          echo "$CHANGED_FILES"
+
+          # Check each file
+          echo "$CHANGED_FILES" | while read -r file; do
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+
+            # Get file size
+            if command -v stat >/dev/null 2>&1; then
+              file_size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
+            else
+              file_size=$(ls -la "$file" | awk '{print $5}' || echo "0")
+            fi
+
+            # Check if file is too large
+            if [ "$file_size" -gt "$MAX_SIZE" ]; then
+              echo "❌ LARGE FILE: $file ($file_size bytes > $MAX_SIZE bytes)"
+              FOUND_ISSUES=true
+              continue
+            fi
+
+            # Check for blocked binary types
+            for pattern in "${BLOCKED_BINARIES[@]}"; do
+              if echo "$file" | grep -iE "$pattern" >/dev/null; then
+                echo "❌ BLOCKED BINARY: $file (type: $pattern)"
+                FOUND_ISSUES=true
+                continue 2
+              fi
+            done
+
+            # Check if it's a binary file (not text)
+            if file "$file" | grep -E "(executable|binary)" >/dev/null 2>&1; then
+              # Check if it's an allowed binary type
+              is_allowed=false
+              for pattern in "${ALLOWED_BINARIES[@]}"; do
+                if echo "$file" | grep -iE "$pattern" >/dev/null; then
+                  is_allowed=true
+                  break
+                fi
+              done
+
+              if [ "$is_allowed" = false ]; then
+                echo "❌ UNKNOWN BINARY: $file"
+                echo "   File type: $(file "$file" 2>/dev/null || echo "unknown")"
+                FOUND_ISSUES=true
+              else
+                echo "✅ ALLOWED BINARY: $file"
+              fi
+            fi
+          done
+
+          if [ "$FOUND_ISSUES" = true ]; then
+            echo "🚨 CRITICAL: Binary or large files found"
+            echo "Please remove these files or add them to .gitignore"
+            exit 1
+          else
+            echo "✅ No problematic binary files detected"
+          fi
+
+      - name: Check gitignore coverage
+        run: |
+          echo "🔍 Checking .gitignore coverage for common binary patterns..."
+
+          RECOMMENDED_PATTERNS=(
+            "*.exe"
+            "*.dll"
+            "*.so"
+            "*.dylib"
+            "*.zip"
+            "*.rar"
+            "*.7z"
+            "*.tar.gz"
+            "*.dmg"
+            "*.pkg"
+            "*.deb"
+            "*.rpm"
+            "node_modules/"
+            ".env"
+            ".env.local"
+            ".env.production"
+            "dist/"
+            "build/"
+            ".next/"
+            "coverage/"
+            "*.log"
+          )
+
+          if [ ! -f ".gitignore" ]; then
+            echo "⚠️  WARNING: No .gitignore file found"
+            exit 0
+          fi
+
+          echo "Checking .gitignore for recommended patterns..."
+          for pattern in "${RECOMMENDED_PATTERNS[@]}"; do
+            if ! grep -F "$pattern" .gitignore >/dev/null 2>&1; then
+              echo "⚠️  RECOMMENDATION: Add '$pattern' to .gitignore"
+            fi
+          done
+
+          echo "✅ .gitignore check completed"
+
+      - name: Comment on PR with binary issues
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🚫 Binary Files Detected
+
+            This PR contains binary files or large assets that are not allowed in the repository.
+
+            **🚨 Issues found:**
+            - Large files (>5MB)
+            - Blocked binary types (executables, archives, office docs)
+            - Unknown binary files
+
+            **📋 How to fix:**
+            1. Remove large files and use external storage (CDN, cloud storage)
+            2. Remove executable files and archives
+            3. Add binary files to \`.gitignore\`
+            4. For images/fonts: ensure they're optimized and necessary
+
+            **✅ Allowed binary types:**
+            - Images: png, jpg, jpeg, gif, svg, webp, ico
+            - Fonts: woff, woff2, ttf, eot
+            - Documents: pdf (if necessary)
+
+            **🔗 Use Git LFS for large assets:** https://git-lfs.github.io/
+
+            ---
+            *Auto-generated by Binary Block workflow*`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

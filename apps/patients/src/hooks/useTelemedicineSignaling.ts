@@ -8,6 +8,7 @@ import {
   type AnswerMessage,
   type IceCandidateMessage,
 } from '@autamedica/telemedicine'
+import { getClientEnvOrDefault } from '@autamedica/shared'
 
 export type SignalingConnectionState =
   | 'idle'
@@ -58,7 +59,8 @@ export function useTelemedicineSignaling(config: UseTelemedicineSignalingConfig)
 
   const normalizedConfig = useMemo(
     () => ({
-      url: config.signalingUrl ?? process.env.NEXT_PUBLIC_SIGNALING_URL ?? 'ws://localhost:3005/signal',
+      url:
+        config.signalingUrl ?? getClientEnvOrDefault('NEXT_PUBLIC_SIGNALING_URL', 'ws://localhost:3005/signal'),
       roomId: config.roomId,
       userId: config.userId,
       userType: config.userType,

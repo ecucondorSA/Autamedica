@@ -44,7 +44,7 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
 
       const vitals = data || []
       setVitalSigns(vitals)
-      setLatest(vitals.length > 0 ? vitals[0] : null)
+      setLatest(vitals.length > 0 ? vitals[0] : null as any)
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
@@ -82,7 +82,7 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
         created_at: new Date().toISOString()
       }
 
-      const { data, error: insertError } = await supabase
+      const { data, error: insertError } = await (supabase as any)
         .from('vital_signs')
         .insert(newVitals)
         .select()

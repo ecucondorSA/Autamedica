@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ensureClientEnv } from '@autamedica/shared'
 
 const ROOM_ID = 'test123'
 const ROLE: 'doctor' | 'patient' = 'doctor'
 
 const parseIceServers = () => {
+  // Solo ejecutar en cliente
+  if (typeof window === 'undefined') return []
+
   try {
     const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS')
     const parsed = JSON.parse(raw)
@@ -23,8 +26,12 @@ export default function WebRTCTestPage() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null)
   const wsRef = useRef<WebSocket | null>(null)
   const pcRef = useRef<RTCPeerConnection | null>(null)
+  const [iceServers, setIceServers] = useState<RTCIceServer[]>([])
 
-  const iceServers = useMemo(parseIceServers, [])
+  // Parse ICE servers solo en cliente
+  useEffect(() => {
+    setIceServers(parseIceServers())
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined' || pcRef.current) return
@@ -53,9 +60,11 @@ export default function WebRTCTestPage() {
       }
 
       const incomingStream = event.streams[0]
-      for (const track of incomingStream.getTracks()) {
-        if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
-          remoteStream.addTrack(track)
+      if (incomingStream) {
+        for (const track of incomingStream.getTracks()) {
+          if (!remoteStream.getTracks().some((existing) => existing.id === track.id)) {
+            remoteStream.addTrack(track)
+          }
         }
       }
     }
@@ -88,7 +97,7 @@ export default function WebRTCTestPage() {
         const stats = await pc.getStats()
         let selected: RTCIceCandidatePairStats | null = null
         stats.forEach((report) => {
-          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).selected) {
+          if (report.type === 'candidate-pair' && (report as RTCIceCandidatePairStats).state === 'succeeded') {
             selected = report as RTCIceCandidatePairStats
           }
         })
@@ -116,14 +125,24 @@ export default function WebRTCTestPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    let signalingUrl: string;
     try {
-      const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
-      const socket = new WebSocket(signalingUrl)
+      signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
+    } catch (error) {
+      console.error('[webrtc-test] NEXT_PUBLIC_SIGNALING_URL not configured', error)
+      return
+    }
+
+    try {
+      const userId = `${ROLE}-${Date.now()}`
+      const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
+      console.log('[webrtc-test] Connecting to:', wsUrl)
+      const socket = new WebSocket(wsUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
       console.log('[webrtc-test] WebSocket connected')
-      socket.send(JSON.stringify({ type: 'join', roomId: ROOM_ID, role: ROLE }))
+      // El server espera que la conexión se haga con query params, no mensajes
     }
 
     socket.onclose = (event) => {

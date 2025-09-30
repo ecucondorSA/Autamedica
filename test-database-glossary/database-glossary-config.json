@@ -1,0 +1,81 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "test_db",
+    "username": "test_user",
+    "password": "test_password",
+    "ssl": false,
+    "connection_timeout_ms": 5000,
+    "query_timeout_ms": 10000
+  },
+  "introspection": {
+    "enabled": false,
+    "include_schemas": [
+      "public"
+    ],
+    "exclude_schemas": [
+      "information_schema",
+      "pg_catalog"
+    ],
+    "include_tables": [],
+    "exclude_tables": [],
+    "include_views": true,
+    "include_materialized_views": true,
+    "include_functions": true,
+    "include_triggers": true,
+    "include_indexes": true,
+    "include_constraints": true,
+    "max_sample_rows": 100
+  },
+  "sql_parsing": {
+    "enabled": true,
+    "source_directories": [
+      "test-database-glossary/sql"
+    ],
+    "file_patterns": [
+      "**/*.sql"
+    ],
+    "exclude_patterns": [
+      "**/node_modules/**"
+    ],
+    "parse_migrations": true,
+    "parse_seeds": true,
+    "parse_functions": true,
+    "max_file_size_mb": 10
+  },
+  "hipaa": {
+    "enabled": true,
+    "auto_classify": true,
+    "require_manual_review": false,
+    "classification_rules": [],
+    "default_sensitivity": "UNKNOWN",
+    "audit_all_phi": true,
+    "encrypt_by_default": true
+  },
+  "documentation": {
+    "template_directory": "./scripts/database-glossary/templates",
+    "output_format": "MARKDOWN",
+    "include_samples": false,
+    "include_erd": false,
+    "include_migration_history": false,
+    "group_by_domain": true,
+    "custom_sections": []
+  },
+  "validation": {
+    "enabled": true,
+    "strict_mode": false,
+    "required_documentation_coverage": 80,
+    "naming_convention_rules": [],
+    "hipaa_validation_rules": [],
+    "custom_validation_scripts": []
+  },
+  "output": {
+    "output_directory": "test-database-glossary/output",
+    "file_name_template": "test-database-glossary.md",
+    "include_timestamp": false,
+    "compress_output": false,
+    "generate_changelog": false,
+    "backup_previous": false
+  }
+}

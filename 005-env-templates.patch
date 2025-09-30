@@ -1,0 +1,120 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Autamedica Security Team <security@autamedica.com>
+Date: Sun, 29 Sep 2025 00:00:00 +0000
+Subject: [PATCH 5/6] feat: environment variable templates and setup scripts
+
+- Add secure environment variable templates
+- Create automated setup script for development
+- Include Husky pre-commit hooks for security
+- Add environment validation and safety checks
+
+---
+ .env.template                  | 14 ++++++++
+ .lintstagedrc.json            |  3 ++
+ scripts/setup-environment.sh  | 62 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 79 insertions(+)
+ create mode 100644 .env.template
+ create mode 100644 .lintstagedrc.json
+ create mode 100755 scripts/setup-environment.sh
+
+diff --git a/.env.template b/.env.template
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/.env.template
+@@ -0,0 +1,14 @@
++# ⚠️ NUNCA commitear claves reales
++# ✅ Rotar todas las claves antes de producción
++
++# Supabase (OBLIGATORIO rotar)
++NEXT_PUBLIC_SUPABASE_URL=https://TU-PROJECT-ID.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=TU-ANON-KEY-ROTADA
++SUPABASE_SERVICE_ROLE_KEY=TU-SERVICE-ROLE-KEY-ROTADA
++
++# Señalización WebRTC
++NEXT_PUBLIC_SIGNALING_URL=wss://autamedica-signaling-server.ecucondor.workers.dev/connect
++
++# Configuración por entorno
++NODE_ENV=development
++NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+diff --git a/.lintstagedrc.json b/.lintstagedrc.json
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/.lintstagedrc.json
+@@ -0,0 +1,3 @@
++{
++  "*.{ts,tsx,js,mjs}": ["eslint --max-warnings=0", "tsc -p tsconfig.json --noEmit"]
++}
+
+diff --git a/scripts/setup-environment.sh b/scripts/setup-environment.sh
+new file mode 100755
+index 0000000..1234567
+--- /dev/null
++++ b/scripts/setup-environment.sh
+@@ -0,0 +1,62 @@
++#!/bin/bash
++set -euo pipefail
++
++echo "🔧 Configurando entorno de desarrollo Autamedica..."
++
++# Verificar dependencias
++command -v pnpm >/dev/null 2>&1 || {
++  echo "❌ pnpm no encontrado. Instalar: npm install -g pnpm"
++  exit 1
++}
++
++command -v wrangler >/dev/null 2>&1 || {
++  echo "⚠️ wrangler no encontrado. Instalar: npm install -g wrangler"
++}
++
++# Crear archivos .env desde templates
++for app in web-app doctors patients companies; do
++  if [ ! -f "apps/$app/.env.local" ]; then
++    echo "📝 Creando apps/$app/.env.local..."
++    cp .env.template "apps/$app/.env.local"
++    echo "⚠️ EDITAR apps/$app/.env.local con tus credenciales"
++  fi
++done
++
++# Instalar dependencias
++echo "📦 Instalando dependencias..."
++pnpm install
++
++# Configurar Husky
++if [ ! -d ".husky" ]; then
++  echo "🪝 Configurando Husky pre-commit hooks..."
++  pnpm add -D husky lint-staged
++  npx husky init
++  echo -e '#!/bin/sh\n. "$(dirname "$0")/_/husky.sh"\n\nnpx lint-staged' > .husky/pre-commit
++  chmod +x .husky/pre-commit
++fi
++
++# Build packages
++echo "🏗️ Building packages..."
++pnpm build:packages
++
++# Validar configuración
++echo "✅ Validando configuración..."
++if command -v pnpm docs:validate >/dev/null 2>&1; then
++  pnpm docs:validate
++else
++  echo "⚠️ docs:validate no disponible, saltando..."
++fi
++
++# Verificar seguridad
++echo "🔍 Verificando seguridad..."
++if grep -r "eyJ[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git . >/dev/null 2>&1; then
++  echo "❌ ADVERTENCIA: Encontradas claves hardcodeadas"
++  echo "   Ejecutar rotación de claves antes de continuar"
++else
++  echo "✅ No se encontraron claves hardcodeadas"
++fi
++
++echo ""
++echo "🚀 Entorno configurado exitosamente!"
++echo "   Ejecutar: pnpm dev"
++echo "⚠️ RECUERDA: Rotar todas las claves Supabase antes de producción"
+--
+2.34.1

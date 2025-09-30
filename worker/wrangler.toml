@@ -1,0 +1,9 @@
+name = "autamedica-signaling-server"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+[observability]
+enabled = true
+
+[dev]
+port = 8787

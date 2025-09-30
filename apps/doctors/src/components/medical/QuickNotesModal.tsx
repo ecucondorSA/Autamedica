@@ -57,10 +57,7 @@ Prioridad: ${priority === 'high' ? 'ALTA' : 'Normal'}
       content: soapNote,
       doctorId: 'current-doctor',
       patientId,
-      metadata: {
-        noteType: 'SOAP',
-        priority
-      }
+      metadata: {}
     })
 
     onClose()

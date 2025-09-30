@@ -1,15 +1,9 @@
 import { CallPageClient } from './CallPageClient'
 
-export const dynamicParams = false
+// Deshabilitar SSG para esta ruta - requiere runtime dinámico
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
 
-export function generateStaticParams() {
-  return [{ roomId: 'test123' }]
-}
-
-interface DoctorCallPageProps {
-  params: { roomId: string }
-}
-
-export default function DoctorCallPage({ params }: DoctorCallPageProps) {
+export default function DoctorCallPage({ params }: { params: { roomId: string } }) {
   return <CallPageClient roomId={params.roomId} />
 }

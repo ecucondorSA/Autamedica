@@ -24,6 +24,7 @@ export type {
   PrescriptionId,
   MedicalHistoryId,
   CompanyId,
+  OrganizationId,
   EmployeeId,
   TenantId,
   UserId,
@@ -43,6 +44,40 @@ export {
   generateDoctorId,
   generateAppointmentId,
 } from './core/brand.types';
+
+// Sistema de Perfiles Completos
+export type {
+  UserRole,
+  Profile,
+  ProfileInsert,
+  ProfileUpdate,
+  DoctorProfile,
+  DoctorInsert,
+  DoctorWithProfile,
+  PatientProfile,
+  PatientInsert,
+  PatientWithProfile,
+  CompanyProfile,
+  CompanyInsert,
+  MedicalCertification,
+  WeeklySchedule,
+  DaySchedule,
+  EmergencyContact,
+  MedicalCondition,
+  Allergy,
+  Medication,
+  InsuranceInfo,
+  Gender,
+} from './entities/profiles';
+
+export {
+  USER_ROLES,
+  COMPANY_SIZES,
+  GENDERS,
+  isProfile,
+  isValidRole,
+  isProfileComplete,
+} from './entities/profiles';
 
 // Entidades base
 export type {
@@ -175,7 +210,6 @@ export type {
   MedicalSpecialty,
   MedicalSubspecialty,
   MedicalLicense,
-  MedicalCertification,
 } from './medical/specialty.types';
 
 export {
@@ -199,16 +233,13 @@ export {
   createMedicalLicense,
 } from './medical/specialty.types';
 
-// Doctor profile types
+// Doctor profile types (alternate definitions - solo tipos NO duplicados)
 export type {
   TimeHHmm,
   ARS,
   LicenseProvinceCode,
   TimeSlot,
-  DaySchedule,
-  WeeklySchedule,
   ProfessionalInsurance,
-  DoctorProfile,
   DoctorPublicProfile,
   DoctorPrivateData,
   DoctorLookupResult,
@@ -233,7 +264,7 @@ export {
   extractPrivateData,
 } from './doctor/doctor.types';
 
-// Patient profile types
+// Patient profile types (alternate definitions - solo tipos NO duplicados)
 export type {
   DNI,
   ICD10Code,
@@ -244,12 +275,8 @@ export type {
   BMI,
   BloodType,
   AllergySeverity,
-  MedicalCondition,
-  Allergy,
-  Medication,
   VitalSigns,
   InsurancePlan,
-  PatientProfile,
   PatientPublicProfile,
   PatientMedicalView,
   PatientAdminView,
@@ -369,7 +396,6 @@ export type { ISODateString as LegacyISODateString } from "./primitives/date";
 // Auth legacy (deprecated - usar @autamedica/auth directamente)
 export type {
   User,
-  UserRole,
   Portal,
   UserProfile,
   UserSession,
@@ -377,90 +403,133 @@ export type {
 
 export { ROLE_TO_PORTALS, canAccessPortal } from "./auth/user";
 
-// Entidades legacy (a migrar a nueva estructura)
+// Patient types
 export type {
   Patient,
   PatientAddress,
   EmergencyContact as LegacyEmergencyContact,
+  PatientCareTeam,
+  PatientCareTeamRole,
+  PatientCareTeamInsert,
+  PatientCareTeamUpdate,
+  PatientCareTeamWithDetails,
+  PatientUpdate
 } from "./entities/patient";
 
+export {
+  isPatient,
+  isPatientCareTeamRole,
+  isPrimaryDoctor
+} from "./entities/patient";
+
+// Doctor types
 export type {
   Doctor,
   DoctorEducation,
   DoctorExperience,
+  DoctorUpdate
 } from "./entities/doctor";
 
+export {
+  isDoctor,
+  isDoctorEducation
+} from "./entities/doctor";
+
+// Company types
 export type {
   Company,
   CompanySize,
   CompanyAddress,
   CompanyContact,
+  CompanyMember,
+  CompanyMemberRole,
+  CompanyMemberInsert,
+  CompanyMemberUpdate,
+  CompanyUpdate,
+  CompanyWithMembers
 } from "./entities/company";
 
-export type { Appointment } from "./entities/appointment";
+export {
+  COMPANY_MEMBER_ROLES,
+  isCompanyMemberRole,
+  canManageBilling,
+  canInviteMembers,
+  canManageCompany
+} from "./entities/company";
+
+// Appointment types
+export type {
+  Appointment,
+  AppointmentType,
+  AppointmentStatus,
+  AppointmentInsert,
+  AppointmentUpdate,
+  AppointmentWithDetails
+} from "./entities/appointment";
+
+export {
+  APPOINTMENT_TYPES,
+  APPOINTMENT_STATUSES,
+  isAppointment,
+  isAppointmentType,
+  isAppointmentStatus,
+  isTerminalStatus,
+  requiresEquipment
+} from "./entities/appointment";
 
 // ==========================================
 // Supabase Database Types
 // ==========================================
 
-// Supabase generated types (with prefixes to avoid conflicts)
+// Core database interface and JSON type
+export type { Database, Json } from './supabase/database.types';
+
+// Import for internal use in helper types
+import type { Database } from './supabase/database.types';
+
+// Helper types for easier consumption (one source of truth)
+export type Tables<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Row'];
+export type TablesInsert<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Insert'];
+export type TablesUpdate<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Update'];
+
+// Medical Record types
 export type {
-  Database,
-  Json,
-  Tables,
-  TablesInsert,
-  TablesUpdate,
-  Profile as SupabaseProfile,
-  Company as SupabaseCompany,
-  Doctor as SupabaseDoctor,
-  Patient as SupabasePatient,
-  CompanyMember,
-  PatientCareTeam,
-  Appointment as SupabaseAppointment,
   MedicalRecord,
-  ProfileInsert,
-  CompanyInsert,
-  DoctorInsert,
-  PatientInsert,
-  CompanyMemberInsert,
-  PatientCareTeamInsert,
-  AppointmentInsert,
-  MedicalRecordInsert,
-  ProfileUpdate,
-  CompanyUpdate,
-  DoctorUpdate,
-  PatientUpdate,
-  CompanyMemberUpdate,
-  PatientCareTeamUpdate,
-  AppointmentUpdate,
-  MedicalRecordUpdate,
-  UserRole as SupabaseUserRole,
-  CompanySize as SupabaseCompanySize,
-  Gender as SupabaseGender,
-  AppointmentType,
-  AppointmentStatus,
   MedicalRecordVisibility,
-  CompanyMemberRole,
-  DoctorWithProfile,
-  PatientWithProfile,
-  AppointmentWithDetails,
-  MedicalRecordWithDetails,
-  CompanyWithMembers,
-  PatientCareTeamWithDetails,
-  SupabaseApiResponse,
-  SupabasePaginatedResponse,
-} from './supabase/database.types';
+  MedicalRecordInsert,
+  MedicalRecordUpdate,
+  MedicalRecordWithDetails
+} from "./entities/medical-record";
 
 export {
-  isProfile,
-  isDoctor,
-  isPatient,
-  isAppointment,
-  USER_ROLES,
-  COMPANY_SIZES,
-  GENDERS,
-  APPOINTMENT_TYPES,
-  APPOINTMENT_STATUSES,
   MEDICAL_RECORD_VISIBILITIES,
-  COMPANY_MEMBER_ROLES,
-} from './supabase/database.types';
+  isMedicalRecordVisibility,
+  canAccessRecord,
+  isHighSensitivityRecord
+} from "./entities/medical-record";
+
+// Supabase API Response types
+export type {
+  SupabaseApiResponse,
+  SupabasePaginatedResponse
+} from "./primitives/api-supabase";
+
+export {
+  isSupabaseApiResponse,
+  isSupabaseError,
+  isSupabaseSuccess,
+  getSupabaseErrorMessage
+} from "./primitives/api-supabase";
+
+// Updated date types
+export type { ISODateTime } from "./primitives/date";
+
+
+// Convenient alias for timestamp fields (matches our generator)
+// export type ISODateTime = string; // ISO 8601 DateTime (timestamptz) - Now imported from primitives
+
+// Note: Only export what's actually available in database.types.ts
+// The file is auto-generated and may not have all these exports yet

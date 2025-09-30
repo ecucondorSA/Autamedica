@@ -93,7 +93,7 @@ export function usePrescriptions(
         throw new Error('No se pudo inicializar el cliente de Supabase')
       }
 
-      const { error: insertError } = await supabase
+      const { error: insertError } = await (supabase as any)
         .from('prescriptions')
         .insert({
           ...prescription,
@@ -127,7 +127,7 @@ export function usePrescriptions(
         throw new Error('No se pudo inicializar el cliente de Supabase')
       }
 
-      const { error: updateError } = await supabase
+      const { error: updateError } = await (supabase as any)
         .from('prescriptions')
         .update({
           ...updates,

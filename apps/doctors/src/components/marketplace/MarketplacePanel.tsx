@@ -13,8 +13,9 @@ import {
   List
 } from 'lucide-react'
 import { LeafletMap } from './LeafletMap'
-import { mockJobOffers, mockDoctors } from '@/data/marketplaceData'
-import { MarketplaceJobOffer, MarketplaceDoctor, MEDICAL_SPECIALTIES, ARGENTINE_PROVINCES } from '@/types/marketplace'
+import { useRealDoctors } from '@/hooks/useRealDoctors'
+import { MarketplaceJobOffer, MarketplaceDoctor, ARGENTINE_PROVINCES } from '@/types/marketplace'
+import { MEDICAL_SPECIALTIES } from '@autamedica/types'
 
 export function MarketplacePanel() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -26,8 +27,35 @@ export function MarketplacePanel() {
   const [showUrgentOnly, setShowUrgentOnly] = useState(false)
   const [sortBy, setSortBy] = useState<'date' | 'salary' | 'applications'>('date')
 
-  const jobOffers = mockJobOffers
-  const doctors = mockDoctors
+  const { doctors, loading: doctorsLoading, error: doctorsError } = useRealDoctors()
+
+  // Mock job offers (en una implementación real vendría de una API)
+  const jobOffers: MarketplaceJobOffer[] = [
+    {
+      id: '1',
+      title: 'Cardiólogo - Hospital Italiano',
+      specialty: 'Cardiología',
+      hospital: 'Hospital Italiano',
+      location: 'Buenos Aires',
+      type: 'full-time',
+      salary: { min: 150000, max: 250000, currency: 'ARS' },
+      urgent: true,
+      description: 'Buscamos cardiólogo con experiencia en procedimientos invasivos.',
+      status: 'active'
+    },
+    {
+      id: '2',
+      title: 'Pediatra - Sanatorio Otamendi',
+      specialty: 'Pediatría',
+      hospital: 'Sanatorio Otamendi',
+      location: 'Buenos Aires',
+      type: 'part-time',
+      salary: { min: 80000, max: 120000, currency: 'ARS' },
+      urgent: false,
+      description: 'Pediatra para guardias nocturnas y fines de semana.',
+      status: 'active'
+    }
+  ]
 
   const filteredJobs = jobOffers.filter(job => {
     const matchesSearch = searchTerm === '' ||
@@ -145,7 +173,7 @@ export function MarketplacePanel() {
                     className="w-full bg-slate-800/60 border border-slate-700 rounded-lg text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="all">Todas las especialidades</option>
-                    {MEDICAL_SPECIALTIES.map(specialty => (
+                    {Object.values(MEDICAL_SPECIALTIES).map(specialty => (
                       <option key={specialty} value={specialty}>{specialty}</option>
                     ))}
                   </select>
@@ -267,7 +295,7 @@ export function MarketplacePanel() {
                   className="bg-slate-800/60 border border-slate-700 rounded-lg text-slate-100 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="all">Todas</option>
-                  {MEDICAL_SPECIALTIES.slice(0, 5).map(specialty => (
+                  {Object.values(MEDICAL_SPECIALTIES).slice(0, 5).map(specialty => (
                     <option key={specialty} value={specialty}>{specialty}</option>
                   ))}
                 </select>

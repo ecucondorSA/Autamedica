@@ -35,5 +35,12 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "references": [
+    { "path": "../../packages/types" },
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/auth" },
+    { "path": "../../packages/hooks" },
+    { "path": "../../packages/telemedicine" }
   ]
 }

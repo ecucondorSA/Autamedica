@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧪 Post-commit QA rápido..."
+
+pnpm -s lint && pnpm -s typecheck || echo "⚠️ Revisar lint/typecheck"

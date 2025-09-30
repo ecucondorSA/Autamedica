@@ -17,6 +17,18 @@
 export type ISODateString = string & { readonly __brand: "ISODateString" };
 
 /**
+ * String en formato ISO 8601 con tiempo (timestamptz compatible)
+ * Ejemplo: "2025-09-29T20:00:00Z"
+ *
+ * @branded true
+ * @example
+ * ```typescript
+ * const timestamp: ISODateTime = "2025-09-29T20:00:00Z";
+ * ```
+ */
+export type ISODateTime = string & { readonly __brand: "ISODateTime" };
+
+/**
  * Helper para crear ISODateString desde Date
  */
 export function toISODateString(date: Date): ISODateString {

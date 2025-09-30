@@ -1,0 +1,26 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Validando antes de push (scope: auth + web-app deployment)..."
+
+# Validar solo las apps que se van a desplegar
+echo "📋 Lint auth app..."
+cd apps/auth && pnpm lint || exit 1
+cd ../..
+
+echo "📋 Lint web-app..."
+cd apps/web-app && pnpm lint || exit 1
+cd ../..
+
+echo "📋 TypeCheck packages y apps deployment..."
+pnpm --filter @autamedica/types typecheck || exit 1
+pnpm --filter @autamedica/shared typecheck || exit 1
+pnpm --filter @autamedica/auth typecheck || exit 1
+pnpm --filter @autamedica/auth-app typecheck || exit 1
+pnpm --filter @autamedica/web-app typecheck || exit 1
+
+echo "📋 Tests packages..."
+pnpm --filter @autamedica/types test || exit 1
+pnpm --filter @autamedica/shared test || exit 1
+
+echo "✅ QA OK (auth + web-app) – Push permitido"

@@ -53,7 +53,7 @@ class MedicalDataAPI {
     // Por ahora retornar datos mock, pero usando fetch HTTP
     return new Promise((resolve) => {
       setTimeout(() => {
-        const mockData: VitalSigns[] = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
+        const mockData = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
           {
             id: '1' as UUID,
             patient_id: patientId,
@@ -94,7 +94,7 @@ class MedicalDataAPI {
             created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
             updated_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
           }
-        ] : []
+        ] : [] as any
         resolve(mockData)
       }, 100) // Simular latencia de red
     })
@@ -109,7 +109,7 @@ class MedicalDataAPI {
   ): Promise<{ records: MedicalRecord[]; hasMore: boolean }> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const mockRecords: MedicalRecord[] = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
+        const mockRecords = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
           {
             id: '1' as UUID,
             patient_id: patientId,
@@ -138,12 +138,12 @@ class MedicalDataAPI {
             created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             updated_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
           }
-        ] : []
+        ] : [] as any
 
         // Aplicar filtros
         let filteredRecords = mockRecords
-          .filter(record => !filters.consultation_type || record.consultation_type === filters.consultation_type)
-          .filter(record => !filters.diagnosis_contains || record.diagnosis.toLowerCase().includes(filters.diagnosis_contains.toLowerCase()))
+          .filter((record: any) => !filters.consultation_type || record.consultation_type === filters.consultation_type)
+          .filter((record: any) => !filters.diagnosis_contains || record.diagnosis.toLowerCase().includes(filters.diagnosis_contains.toLowerCase()))
 
         const startIndex = page * pageSize
         const paginatedRecords = filteredRecords.slice(startIndex, startIndex + pageSize)
@@ -164,7 +164,7 @@ class MedicalDataAPI {
   ): Promise<Prescription[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const mockPrescriptions: Prescription[] = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
+        const mockPrescriptions = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
           {
             id: '1' as UUID,
             patient_id: patientId,
@@ -201,25 +201,25 @@ class MedicalDataAPI {
             created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             updated_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
           }
-        ] : []
+        ] : [] as any
 
         // Aplicar filtros
         let filteredPrescriptions = mockPrescriptions
 
         if (filters.status) {
-          filteredPrescriptions = filteredPrescriptions.filter(p => p.status === filters.status)
+          filteredPrescriptions = filteredPrescriptions.filter((p: any) => p.status === filters.status)
         }
 
         if (filters.medication_name) {
           const searchTerm = filters.medication_name.toLowerCase()
-          filteredPrescriptions = filteredPrescriptions.filter(p =>
+          filteredPrescriptions = filteredPrescriptions.filter((p: any) =>
             p.medication_name.toLowerCase().includes(searchTerm)
           )
         }
 
         if (filters.active_only) {
           const today = new Date()
-          filteredPrescriptions = filteredPrescriptions.filter(p =>
+          filteredPrescriptions = filteredPrescriptions.filter((p: any) =>
             p.status === 'activa' &&
             new Date(p.start_date) <= today &&
             (!p.end_date || new Date(p.end_date) >= today)
@@ -235,7 +235,7 @@ class MedicalDataAPI {
   async getAIAnalyses(patientId: UUID): Promise<AIAnalysis[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const mockAnalyses: AIAnalysis[] = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
+        const mockAnalyses = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
           {
             id: '1' as UUID,
             patient_id: patientId,
@@ -276,7 +276,7 @@ class MedicalDataAPI {
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }
-        ] : []
+        ] : [] as any
         resolve(mockAnalyses)
       }, 200) // Simular latencia de red
     })
