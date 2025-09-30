@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { ensureEnv } from '@autamedica/shared'
 
 /**
  * Session Sync API - Endpoint para sincronización de sesión entre apps
@@ -11,8 +12,8 @@ export async function GET(_request: NextRequest) {
     const cookieStore = await cookies()
 
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+      ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
       {
         cookies: {
           getAll() {
@@ -39,7 +40,7 @@ export async function GET(_request: NextRequest) {
         {
           status: 401,
           headers: {
-            'Access-Control-Allow-Origin': process.env.NODE_ENV === 'development'
+            'Access-Control-Allow-Origin': ensureEnv('NODE_ENV') === 'development'
               ? '*'
               : 'https://autamedica.com',
             'Access-Control-Allow-Credentials': 'true',
@@ -71,7 +72,7 @@ export async function GET(_request: NextRequest) {
     const sessionData = {
       user: {
         id: session.user.id,
-        email: session.user.email!,
+        email: session.user.email ?? '',
       },
       profile: {
         id: profile.id,
@@ -89,7 +90,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json(sessionData, {
       headers: {
-        'Access-Control-Allow-Origin': process.env.NODE_ENV === 'development'
+        'Access-Control-Allow-Origin': ensureEnv('NODE_ENV') === 'development'
           ? '*'
           : 'https://autamedica.com',
         'Access-Control-Allow-Credentials': 'true',
@@ -116,7 +117,7 @@ export async function GET(_request: NextRequest) {
 export async function OPTIONS() {
   return NextResponse.json(null, {
     headers: {
-      'Access-Control-Allow-Origin': process.env.NODE_ENV === 'development'
+      'Access-Control-Allow-Origin': ensureEnv('NODE_ENV') === 'development'
         ? '*'
         : 'https://autamedica.com',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -135,8 +136,8 @@ export async function POST(_request: NextRequest) {
     const cookieStore = await cookies()
 
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+      ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
       {
         cookies: {
           getAll() {
@@ -161,7 +162,7 @@ export async function POST(_request: NextRequest) {
       { success: true },
       {
         headers: {
-          'Access-Control-Allow-Origin': process.env.NODE_ENV === 'development'
+          'Access-Control-Allow-Origin': ensureEnv('NODE_ENV') === 'development'
             ? '*'
             : 'https://autamedica.com',
           'Access-Control-Allow-Credentials': 'true',

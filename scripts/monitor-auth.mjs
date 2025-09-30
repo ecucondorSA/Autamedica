@@ -54,48 +54,97 @@ async function checkHealth() {
   const results = {
     timestamp: new Date().toISOString(),
     status: 'unknown',
-    checks: {}
+    checks: {},
+    url: BASE_URL,
+    environment: config.env
   }
 
   try {
-    // 1. Health endpoint
+    // 1. Health endpoint usando fetch nativo de Node.js
     log('info', `Checking health at ${BASE_URL}/api/health`)
-    const healthResponse = await fetch(`${BASE_URL}/api/health`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
+    const healthController = new AbortController()
+    const healthTimeout = setTimeout(() => healthController.abort(), 10000)
 
-    const healthData = await healthResponse.json()
-    results.checks.health = {
-      status: healthResponse.ok ? 'pass' : 'fail',
-      statusCode: healthResponse.status,
-      data: healthData
-    }
+    try {
+      const healthResponse = await fetch(`${BASE_URL}/api/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'AutaMedica-Monitor/1.0'
+        },
+        signal: healthController.signal
+      })
+      clearTimeout(healthTimeout)
 
-    if (!healthResponse.ok) {
-      log('warning', 'Health check returned non-OK status', healthData)
-    } else {
-      log('success', `Health check passed (${healthData.totalLatency}ms)`)
+      const healthData = await healthResponse.json()
+      results.checks.health = {
+        status: healthResponse.ok ? 'pass' : 'fail',
+        statusCode: healthResponse.status,
+        latency: healthData.totalLatency,
+        details: {
+          database: healthData.checks?.database?.status,
+          environment: healthData.checks?.environment?.status
+        }
+      }
+
+      if (!healthResponse.ok) {
+        log('warning', 'Health check returned non-OK status', healthData)
+      } else {
+        log('success', `Health check passed (${healthData.totalLatency}ms)`)
+      }
+    } catch (error) {
+      clearTimeout(healthTimeout)
+      if (error.name === 'AbortError') {
+        results.checks.health = {
+          status: 'fail',
+          error: 'Request timeout (10s)'
+        }
+        log('error', 'Health check timed out')
+      } else {
+        throw error
+      }
     }
 
     // 2. Session-sync endpoint (should return 401 without auth)
     log('info', 'Checking session-sync endpoint')
-    const sessionResponse = await fetch(`${BASE_URL}/api/session-sync`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
+    const sessionController = new AbortController()
+    const sessionTimeout = setTimeout(() => sessionController.abort(), 10000)
 
-    const sessionData = await sessionResponse.json()
-    results.checks.sessionSync = {
-      status: sessionResponse.status === 401 ? 'pass' : 'fail',
-      statusCode: sessionResponse.status,
-      authenticated: sessionData.authenticated
-    }
+    try {
+      const sessionResponse = await fetch(`${BASE_URL}/api/session-sync`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'AutaMedica-Monitor/1.0'
+        },
+        signal: sessionController.signal
+      })
+      clearTimeout(sessionTimeout)
 
-    if (sessionResponse.status === 401) {
-      log('success', 'Session-sync correctly returns 401 for unauthenticated requests')
-    } else {
-      log('warning', `Session-sync unexpected status: ${sessionResponse.status}`, sessionData)
+      const sessionData = await sessionResponse.json()
+      results.checks.sessionSync = {
+        status: sessionResponse.status === 401 ? 'pass' : 'fail',
+        statusCode: sessionResponse.status,
+        authenticated: sessionData.authenticated,
+        expectation: 'Should return 401 when unauthenticated'
+      }
+
+      if (sessionResponse.status === 401) {
+        log('success', 'Session-sync correctly returns 401 for unauthenticated requests')
+      } else {
+        log('warning', `Session-sync unexpected status: ${sessionResponse.status}`, sessionData)
+      }
+    } catch (error) {
+      clearTimeout(sessionTimeout)
+      if (error.name === 'AbortError') {
+        results.checks.sessionSync = {
+          status: 'fail',
+          error: 'Request timeout (10s)'
+        }
+        log('error', 'Session-sync check timed out')
+      } else {
+        throw error
+      }
     }
 
     // 3. Determine overall status
@@ -113,11 +162,15 @@ async function checkHealth() {
   } catch (error) {
     log('error', 'Monitor error', {
       message: error.message,
-      stack: error.stack
+      code: error.code,
+      cause: error.cause?.message
     })
 
     results.status = 'error'
-    results.error = error.message
+    results.error = {
+      message: error.message,
+      code: error.code
+    }
     return results
   }
 }

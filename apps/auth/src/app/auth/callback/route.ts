@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { createClient } from '@supabase/supabase-js';
 import { getPortalForRole } from '@autamedica/shared/roles';
+import { ensureEnv } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 
 // Simple URL validation helper
@@ -52,16 +53,18 @@ export async function GET(request: Request) {
 
       // Create server client with implicit flow to avoid PKCE issues
       const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+        ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
         {
           cookies: {
             get(name: string) {
               return cookieStore.get(name)?.value;
             },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Supabase SSR cookie options type
             set(name: string, value: string, options: any) {
               cookieStore.set({ name, value, ...options });
             },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Supabase SSR cookie options type
             remove(name: string, options: any) {
               cookieStore.set({ name, value: '', ...options, maxAge: 0 });
             },
@@ -159,10 +162,11 @@ export async function GET(request: Request) {
       // If profile exists and role differs, sync to app_metadata
       if (profile?.role && profile.role !== role) {
         // Only sync if we have service role key (admin operations)
-        if (process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        try {
+          const serviceRoleKey = ensureEnv('SUPABASE_SERVICE_ROLE_KEY');
           const adminClient = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.SUPABASE_SERVICE_ROLE_KEY!
+            ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+            serviceRoleKey
           );
 
           const { error: updateError } = await adminClient.auth.admin.updateUserById(
@@ -176,6 +180,9 @@ export async function GET(request: Request) {
             console.log(`Synced role for user ${user.email}: ${profile.role}`);
             role = profile.role as UserRole;
           }
+        } catch (error) {
+          // Service role key not available, skip role sync
+          console.log('Service role key not available, skipping role sync');
         }
       }
 

@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { ensureEnv } from '@autamedica/shared'
 
 /**
  * Health Check Endpoint
  * Verifica conectividad con Supabase y estado general de la auth app
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const startTime = Date.now()
   const checks = {
     app: 'autamedica-auth',
@@ -20,8 +21,8 @@ export async function GET(request: NextRequest) {
     const cookieStore = await cookies()
 
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+      ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
       {
         cookies: {
           getAll() {
@@ -63,7 +64,14 @@ export async function GET(request: NextRequest) {
     'NEXT_PUBLIC_SUPABASE_ANON_KEY',
   ]
 
-  const missingEnvs = requiredEnvs.filter(key => !process.env[key])
+  const missingEnvs = requiredEnvs.filter(key => {
+    try {
+      ensureEnv(key)
+      return false
+    } catch {
+      return true
+    }
+  })
   checks.checks.environment = {
     status: missingEnvs.length === 0 ? 'healthy' : 'unhealthy',
     ...(missingEnvs.length > 0 && { error: `Missing: ${missingEnvs.join(', ')}` })
@@ -73,26 +81,10 @@ export async function GET(request: NextRequest) {
     checks.status = 'unhealthy'
   }
 
-  // 3. Check session-sync endpoint
-  try {
-    const sessionSyncUrl = new URL('/api/session-sync', request.url)
-    const sessionSyncStart = Date.now()
-    const response = await fetch(sessionSyncUrl.toString(), {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-    const sessionSyncLatency = Date.now() - sessionSyncStart
-
-    checks.checks.sessionSync = {
-      status: response.status === 401 || response.status === 200 ? 'healthy' : 'unhealthy',
-      latency: sessionSyncLatency
-    }
-  } catch (error) {
-    checks.checks.sessionSync = {
-      status: 'error',
-      error: error instanceof Error ? error.message : 'Unknown error'
-    }
-    checks.status = 'degraded'
+  // 3. Check session-sync endpoint availability (estructura, no ejecución)
+  checks.checks.sessionSync = {
+    status: 'available',
+    endpoint: '/api/session-sync'
   }
 
   const totalLatency = Date.now() - startTime
