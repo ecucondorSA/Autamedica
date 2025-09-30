@@ -92,6 +92,8 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 3e7465d docs(cloudflare): build command correcto para evitar build de todas las apps
+- 082fc0c 📝 docs: actualizar changelog automático
 - 590e450 📝 docs: actualizar changelog automático
 - 748318f 📝 docs: actualizar changelog automático
 - 4b4c006 📝 docs: actualizar changelog automático
@@ -136,6 +138,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 6dc7fc5 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 5aed748 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - ad04614 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 339ceec Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -175,4 +178,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-09-30 23:17:46*
+*Generado automáticamente el 2025-09-30 23:31:11*
