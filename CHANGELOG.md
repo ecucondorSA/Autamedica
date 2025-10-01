@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
+- 94dc705 ✨ feat(workflows): agregar deployment de Auth al workflow de producción
 - c0c28a5 feat(cloudflare): usar adapter oficial @cloudflare/next-on-pages
 - 4afe632 feat: merge deploy/auth-cloudflare - configuración Cloudflare Pages
 - 8adf8b5 feat(auth): nueva app de autenticación centralizada y migraciones BD
@@ -95,6 +96,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- f42ca64 📝 docs: actualizar changelog automático
 - 09c928e 📝 docs: actualizar changelog automático
 - ea385da 📝 docs: actualizar changelog automático
 - 0c3f789 📝 docs: actualizar changelog automático
@@ -192,4 +194,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 00:36:03*
+*Generado automáticamente el 2025-10-01 00:52:29*
