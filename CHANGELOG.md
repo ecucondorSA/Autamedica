@@ -93,6 +93,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 0c3f789 📝 docs: actualizar changelog automático
 - e36e720 📝 docs: actualizar changelog automático
 - 88688cb docs: anu00e1lisis completo GitHub Actions + Cloudflare Pages y plan de remediaciu00f3n
 - fb31406 📝 docs: actualizar changelog automático
@@ -142,6 +143,8 @@
 ---
 
 ### 🔄 Otros Cambios
+- 374adfd Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- 250a3cb trigger: test workflow corregido (FASE 2)
 - 3feb2c7 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - c225e9b Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 6dc7fc5 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -184,4 +187,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 00:00:35*
+*Generado automáticamente el 2025-10-01 00:04:33*
