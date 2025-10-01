@@ -38,21 +38,18 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages core
-        run: pnpm build:packages:core
+        run: pnpm run build:packages
 
-      - name: Build web-app
+      - name: Build Next for Cloudflare Pages
         working-directory: apps/web-app
-        run: pnpm run build:cloudflare
-
-      - name: Install Wrangler
-        run: pnpm add -g wrangler
+        run: npx @cloudflare/next-on-pages@latest
 
       - name: Deploy to Cloudflare Pages
         working-directory: apps/web-app
         run: |
-          wrangler pages deploy .vercel/output/static \
+          npx wrangler pages deploy .vercel/output/static \
             --project-name autamedica-web-app \
-            --branch main
+            --branch production
 
   # ============================================
   # Job 2: Doctors Portal

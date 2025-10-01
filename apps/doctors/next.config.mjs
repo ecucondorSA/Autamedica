@@ -33,8 +33,16 @@ const nextConfig = {
     externalDir: true,
   },
   webpack: (config) => {
+    // Alias para imports específicos
     config.resolve.alias = config.resolve.alias || {}
     config.resolve.alias['@autamedica/auth-hooks'] = path.resolve(__dirname, '../../packages/auth/src/hooks')
+
+    // Asegurar resolución de extensiones TypeScript
+    config.resolve.extensions.push('.ts', '.tsx')
+
+    // Habilitar symlinks para pnpm workspaces
+    config.resolve.symlinks = true
+
     return config
   }
 };

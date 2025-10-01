@@ -1,13 +1,16 @@
 {
   "name": "autamedica-reboot",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test:e2e": "node tests/run-playwright.cjs",
     "test:e2e:ui": "playwright test --ui",
     "test:rls": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/rls_smoke.sql",
     "release:org-roles": "./scripts/release-org-roles.sh",
     "build": "turbo run build",
-    "build:packages": "turbo run build --filter @autamedica/*",
+    "build:packages": "pnpm run build:packages:core",
     "build:packages:core": "turbo run build --filter=@autamedica/types --filter=@autamedica/shared --filter=@autamedica/auth --filter=@autamedica/hooks --filter=@autamedica/tailwind-config --filter=@autamedica/telemedicine --filter=@autamedica/ui --filter=@autamedica/utils",
     "build:packages-fallback": "cd packages/types && pnpm build && cd ../shared && pnpm build && cd ../auth && pnpm build && cd ../hooks && pnpm build",
     "build:apps": "turbo run build --filter ./apps/*",
