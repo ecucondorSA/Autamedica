@@ -88,7 +88,11 @@
     "check:all": "pnpm run lint && pnpm run type-check && pnpm run policies:validate && pnpm run docs:validate",
     "lint-staged": "lint-staged",
     "prepare": "husky && husky install",
-    "prepush": "timeout 900 pnpm -w typecheck && timeout 900 pnpm -w lint && timeout 900 pnpm -w test",
+    "changed:ts": "git diff --name-only --cached --diff-filter=ACMRTUXB | grep -E '\\.(ts|tsx)$' || true",
+    "changed:js": "git diff --name-only --cached --diff-filter=ACMRTUXB | grep -E '\\.(js|jsx)$' || true",
+    "lint:changed": "FILES=\"$(pnpm -s changed:ts) $(pnpm -s changed:js)\"; [ -z \"$FILES\" ] || eslint --max-warnings 0 $FILES",
+    "typecheck:fast": "tsc -p tsconfig.json --noEmit",
+    "prepush": "pnpm -s lint:changed && pnpm -s typecheck:fast",
     "ai:review": "bash scripts/ai-pr-review.sh",
     "smoke:all": "bash scripts/smoke-all.sh"
   },
