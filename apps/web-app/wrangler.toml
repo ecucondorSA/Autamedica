@@ -2,8 +2,8 @@ name = "autamedica-web-app"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Cloudflare Pages configuration - Native Next.js support
-pages_build_output_dir = ".next"
+# Cloudflare Pages configuration
+pages_build_output_dir = ".vercel/output/static"
 
 # Variables de entorno para producción (configurar en dashboard de Cloudflare Pages)
 # Las variables NEXT_PUBLIC_* deben configurarse en el dashboard, no aquí

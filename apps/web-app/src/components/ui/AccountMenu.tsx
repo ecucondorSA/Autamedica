@@ -1,27 +1,29 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+
+// URLs de la app de autenticación
+const AUTH_APP_URL = process.env.NEXT_PUBLIC_AUTH_APP_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://autamedica-auth.pages.dev'
+    : 'http://localhost:3010');
 
 export default function AccountMenu() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleSelectRole = () => {
-    // Redirigir a select-role para elegir el rol antes de login
-    router.push('/auth/select-role');
-    setDropdownOpen(false);
+  const handleLogin = () => {
+    // Redirigir a la app de autenticación
+    window.location.href = `${AUTH_APP_URL}/login`;
   };
 
-  const handleRegisterDirect = () => {
-    // Redirigir directamente a select-role para nuevo registro
-    router.push('/auth/select-role');
-    setDropdownOpen(false);
+  const handleRegister = () => {
+    // Redirigir a la app de autenticación para registro
+    window.location.href = `${AUTH_APP_URL}/register`;
   };
 
   // Click outside to close
@@ -82,7 +84,7 @@ export default function AccountMenu() {
           {/* Primary Action */}
           <div className="p-2">
             <button
-              onClick={handleSelectRole}
+              onClick={handleLogin}
               className="group w-full flex items-center gap-3 px-4 py-3.5 text-left text-white transition-all hover:bg-white/10 rounded-xl border border-transparent hover:border-white/20"
             >
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform group-hover:from-gray-500 group-hover:to-gray-700">
@@ -108,7 +110,7 @@ export default function AccountMenu() {
           {/* Secondary Action */}
           <div className="p-2">
             <button
-              onClick={handleRegisterDirect}
+              onClick={handleRegister}
               className="group w-full flex items-center gap-3 px-4 py-3.5 text-left text-white transition-all hover:bg-gray-700/50 rounded-xl"
             >
               <div className="w-10 h-10 rounded-full bg-gray-700/50 flex items-center justify-center group-hover:bg-gray-600/50 transition-colors">

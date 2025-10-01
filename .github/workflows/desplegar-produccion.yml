@@ -40,8 +40,9 @@ jobs:
       - name: Build packages core
         run: pnpm run build:packages
 
-      - name: Build Next.js with native Cloudflare support
-        run: pnpm --filter @autamedica/web-app build
+      - name: Build Next.js for Cloudflare Pages
+        working-directory: apps/web-app
+        run: npx @cloudflare/next-on-pages@latest
 
       - name: Install Wrangler
         run: pnpm add -g wrangler
@@ -49,10 +50,9 @@ jobs:
       - name: Deploy to Cloudflare Pages
         working-directory: apps/web-app
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-web-app \
-            --branch production \
-            --compatibility-flag="nodejs_compat"
+            --branch production
 
   # ============================================
   # Job 2: Auth Hub (Autenticación Central)
@@ -80,8 +80,9 @@ jobs:
       - name: Build packages core
         run: pnpm run build:packages
 
-      - name: Build auth with Next.js
-        run: pnpm --filter @autamedica/auth build
+      - name: Build auth for Cloudflare Pages
+        working-directory: apps/auth
+        run: npx @cloudflare/next-on-pages@latest
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
@@ -94,10 +95,9 @@ jobs:
       - name: Deploy to Cloudflare Pages
         working-directory: apps/auth
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-auth \
-            --branch production \
-            --compatibility-flag="nodejs_compat"
+            --branch production
 
   # ============================================
   # Job 3: Doctors Portal
@@ -128,16 +128,19 @@ jobs:
       - name: Build doctors with Next.js
         run: pnpm --filter @autamedica/doctors build
 
+      - name: Adapt for Cloudflare Pages
+        working-directory: apps/doctors
+        run: npx @cloudflare/next-on-pages@latest
+
       - name: Install Wrangler
         run: pnpm add -g wrangler
 
       - name: Deploy to Cloudflare Pages
         working-directory: apps/doctors
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-doctors \
-            --branch main \
-            --compatibility-flag="nodejs_compat"
+            --branch main
 
   # ============================================
   # Job 4: Companies Portal
@@ -168,13 +171,16 @@ jobs:
       - name: Build companies with Next.js
         run: pnpm --filter @autamedica/companies build
 
+      - name: Adapt for Cloudflare Pages
+        working-directory: apps/companies
+        run: npx @cloudflare/next-on-pages@latest
+
       - name: Install Wrangler
         run: pnpm add -g wrangler
 
       - name: Deploy to Cloudflare Pages
         working-directory: apps/companies
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-companies \
-            --branch main \
-            --compatibility-flag="nodejs_compat"
+            --branch main

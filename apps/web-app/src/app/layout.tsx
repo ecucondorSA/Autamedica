@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | AutaMedica"
   },
   description:
-    "Plataforma de telemedicina que conecta pacientes con profesionales de la salud. Agenda inmediata, receta digital al finalizar y resultados en tu móvil. Tecnología segura y conforme con HIPAA.",
+    "Plataforma de telemedicina innovadora. Conecta con profesionales de la salud, agenda consultas inmediatas y recibe atención médica de calidad. Tecnología segura HIPAA-compliant.",
   keywords: [
     "telemedicina",
     "consulta virtual",
