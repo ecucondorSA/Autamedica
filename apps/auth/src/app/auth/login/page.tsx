@@ -5,6 +5,9 @@ import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared/roles';
 import { AuthPageWrapper } from '@/components/AuthPageWrapper';
 import { createServerSupabaseClient } from '@/lib/supabase-server';
 
+// Cloudflare Pages requires Edge Runtime for all dynamic routes
+export const runtime = 'edge';
+
 export default async function LoginPage({
   searchParams,
 }: {

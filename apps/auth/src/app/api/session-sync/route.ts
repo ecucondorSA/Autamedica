@@ -3,6 +3,9 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { ensureEnv } from '@autamedica/shared'
 
+// Cloudflare Pages requires Edge Runtime for all dynamic routes
+export const runtime = 'edge'
+
 /**
  * Session Sync API - Endpoint para sincronización de sesión entre apps
  * Usado por patients, doctors, companies para validar sesión centralizada

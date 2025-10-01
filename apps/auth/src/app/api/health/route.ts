@@ -3,6 +3,9 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { ensureEnv } from '@autamedica/shared'
 
+// Cloudflare Pages requires Edge Runtime for all dynamic routes
+export const runtime = 'edge'
+
 /**
  * Health Check Endpoint
  * Verifica conectividad con Supabase y estado general de la auth app

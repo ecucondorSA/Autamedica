@@ -12,6 +12,9 @@ import { getPortalForRole } from '@autamedica/shared/roles';
 import { ensureEnv } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 
+// Cloudflare Pages requires Edge Runtime for all dynamic routes
+export const runtime = 'edge';
+
 // Simple URL validation helper
 function isValidUrl(url: string): boolean {
   try {
