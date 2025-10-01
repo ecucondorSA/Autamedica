@@ -1,6 +1,7 @@
 {
   "name": "@autamedica/telemedicine",
   "version": "0.2.0",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -13,9 +14,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "dev": "tsc --build --watch tsconfig.json",
-    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "build": "tsc --build tsconfig.build.json",
+    "dev": "tsc --build --watch tsconfig.build.json",
+    "clean": "rimraf dist *.tsbuildinfo",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
