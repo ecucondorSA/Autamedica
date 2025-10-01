@@ -1,0 +1,30 @@
+
+> @autamedica/patients@0.1.0 build /root/altamedica-reboot-fresh/apps/patients
+> next build
+
+ ⚠ Invalid next.config.mjs options detected: 
+ ⚠     Unrecognized key(s) in object: 'turbopack' at "experimental"
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+   ▲ Next.js 15.5.4 (Turbopack)
+   - Experiments (use with caution):
+     ⨯ turbopack
+     ✓ externalDir
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 11.4s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/9) ...
+Error: <Html> should not be imported outside of pages/_document.
+Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+    at x (.next/server/chunks/881.js:6:1351)
+Error occurred prerendering page "/404". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: <Html> should not be imported outside of pages/_document.
+Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+    at x (.next/server/chunks/881.js:6:1351)
+Export encountered an error on /_error: /404, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
+/root/altamedica-reboot-fresh/apps/patients:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @autamedica/patients@0.1.0 build: `next build`
+Exit status 1
