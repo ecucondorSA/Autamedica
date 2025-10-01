@@ -79,16 +79,21 @@ jobs:
 
       - name: Build auth app
         working-directory: apps/auth
+        run: pnpm build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           AUTH_HUB_SECRET: ${{ secrets.AUTH_HUB_SECRET }}
-        run: pnpm build
 
       - name: Build for Cloudflare with OpenNext
         working-directory: apps/auth
         run: npx @opennextjs/cloudflare build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          AUTH_HUB_SECRET: ${{ secrets.AUTH_HUB_SECRET }}
 
       - name: Deploy to Cloudflare Pages
         run: |
