@@ -10,8 +10,8 @@
     "lint": "next lint --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
-    "build:cloudflare": "cd ../.. && pnpm build:packages:core && cd apps/web-app && npx @cloudflare/next-on-pages@1",
-    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .vercel/output/static --project-name=autamedica-web-app"
+    "build:cloudflare": "cd ../.. && pnpm build:packages:core && cd apps/web-app && next build",
+    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .next --project-name=autamedica-web-app"
   },
   "dependencies": {
     "@autamedica/tailwind-config": "workspace:^",
