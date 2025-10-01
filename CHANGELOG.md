@@ -52,6 +52,7 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- 8509c70 fix(ci): corregir builds de Cloudflare Pages para todas las apps
 - 27269c1 fix(auth): add edge runtime to all dynamic routes for Cloudflare Pages
 - 6786e3c fix: FASE 3 - Correcciones CI/CD + Export Roles + Env Doctors
 - b548348 fix(workflows): FASE 2 - corregir deployments automáticos y security scans
@@ -99,6 +100,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 2762307 📝 docs: actualizar changelog automático
 - d91cc46 📝 docs: actualizar changelog automático
 - b14a116 📝 docs: actualizar changelog automático
 - 2b92f6d 📝 docs: actualizar changelog automático
@@ -155,6 +157,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 84b3426 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - d23e61f Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 3150767 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 1190f37 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -202,4 +205,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 01:52:15*
+*Generado automáticamente el 2025-10-01 03:01:45*
