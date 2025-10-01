@@ -34,6 +34,7 @@
 - 7ce21a4 feat: Implement comprehensive validation infrastructure and multi-app architecture planning
 
 ### 🔧 Mejoras y Optimizaciones
+- cbea0fb 🔧 fix(workflows): FASE 3 COMPLETA - Todos los fixes de deployment aplicados
 - 44357bd 🔧 fix(deployment): resolver errores deployment FASE 3 - web-app, auth, companies
 - e0b1e46 🔧 fix(workflows): FASE 3 - Aislar build core y optimizar deployment
 - 695de61 🔧 fix: aumentar memoria NODE_OPTIONS para ESLint
@@ -97,6 +98,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- b14a116 📝 docs: actualizar changelog automático
 - 2b92f6d 📝 docs: actualizar changelog automático
 - f42ca64 📝 docs: actualizar changelog automático
 - 09c928e 📝 docs: actualizar changelog automático
@@ -151,6 +153,7 @@
 ---
 
 ### 🔄 Otros Cambios
+- 3150767 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 1190f37 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 374adfd Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 250a3cb trigger: test workflow corregido (FASE 2)
@@ -196,4 +199,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 01:03:33*
+*Generado automáticamente el 2025-10-01 01:33:10*
