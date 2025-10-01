@@ -125,8 +125,12 @@ jobs:
       - name: Build packages core
         run: pnpm run build:packages
 
-      - name: Build doctors
+      - name: Build doctors with Next.js
         run: pnpm --filter @autamedica/doctors build
+
+      - name: Adapt for Cloudflare Pages
+        working-directory: apps/doctors
+        run: npx @cloudflare/next-on-pages@latest
 
       - name: Install Wrangler
         run: pnpm add -g wrangler
@@ -134,7 +138,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         working-directory: apps/doctors
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-doctors \
             --branch main
 
@@ -164,8 +168,12 @@ jobs:
       - name: Build packages core
         run: pnpm run build:packages
 
-      - name: Build companies
+      - name: Build companies with Next.js
         run: pnpm --filter @autamedica/companies build
+
+      - name: Adapt for Cloudflare Pages
+        working-directory: apps/companies
+        run: npx @cloudflare/next-on-pages@latest
 
       - name: Install Wrangler
         run: pnpm add -g wrangler
@@ -173,6 +181,6 @@ jobs:
       - name: Deploy to Cloudflare Pages
         working-directory: apps/companies
         run: |
-          wrangler pages deploy .next \
+          wrangler pages deploy .vercel/output/static \
             --project-name autamedica-companies \
             --branch main
