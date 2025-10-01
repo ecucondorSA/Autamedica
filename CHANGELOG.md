@@ -52,6 +52,7 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- 4f2aa59 fix(deployment): migrar de @cloudflare/next-on-pages a soporte nativo Next.js
 - 81cfba5 fix(build): simplificar tsconfig telemedicine y agregar tsbuildinfo a turbo outputs
 - 22c65b0 fix(packages): usar tsc --build para packages con composite:true
 - 8509c70 fix(ci): corregir builds de Cloudflare Pages para todas las apps
@@ -102,6 +103,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- d1a9828 📝 docs: actualizar changelog automático
 - 5cdc35e 📝 docs: actualizar changelog automático
 - 34f232f 📝 docs: actualizar changelog automático
 - 2762307 📝 docs: actualizar changelog automático
@@ -209,4 +211,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 04:42:21*
+*Generado automáticamente el 2025-10-01 05:02:27*
