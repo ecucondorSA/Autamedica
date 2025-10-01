@@ -158,7 +158,7 @@ export default function TestimonialsSection() {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
           color: white;
           padding: 5rem 2rem;
-          min-height: clamp(100vh, 100svh, 110vh);
+          min-height: auto;
           display: flex;
           align-items: center;
           width: 100%;
@@ -446,7 +446,23 @@ export default function TestimonialsSection() {
         /* Responsive */
         @media (max-width: 768px) {
           .testimonials-section {
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
+            min-height: auto;
+          }
+
+          .section-title {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: 0.75rem;
+          }
+
+          .section-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+          }
+
+          .statistics-wrapper {
+            margin-bottom: 3rem;
           }
 
           .statistics-grid {
@@ -454,17 +470,76 @@ export default function TestimonialsSection() {
             gap: 1rem;
           }
 
+          .stat-card {
+            padding: 1.5rem 1rem;
+          }
+
+          .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .stat-value {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+          }
+
+          .stat-label {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+          }
+
+          .testimonials-wrapper {
+            margin-bottom: 3rem;
+          }
+
           .testimonial-card {
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
           }
 
           .testimonial-header {
             flex-direction: column;
             text-align: center;
+            gap: 1rem;
+          }
+
+          .testimonial-avatar {
+            font-size: 3rem;
+            width: 60px;
+            height: 60px;
+          }
+
+          .testimonial-name {
+            font-size: 1.25rem;
+          }
+
+          .testimonial-role {
+            font-size: 1rem;
+          }
+
+          .testimonial-location {
+            font-size: 0.85rem;
+          }
+
+          .testimonial-rating {
+            font-size: 1.25rem;
+          }
+
+          .testimonial-text {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.5;
           }
 
           .final-cta {
-            padding: 2rem 1rem;
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+          }
+
+          .cta-title {
+            font-size: clamp(1.5rem, 4.5vw, 2rem);
+          }
+
+          .cta-subtitle {
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            margin-bottom: 1.5rem;
           }
 
           .cta-features {
@@ -472,22 +547,101 @@ export default function TestimonialsSection() {
             gap: 1rem;
           }
 
+          .cta-feature {
+            font-size: 1.1rem;
+          }
+
           .cta-buttons {
             flex-direction: column;
             align-items: center;
+            gap: 1rem;
           }
 
           .btn-primary-large,
           .btn-secondary-large {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             justify-content: center;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
           }
         }
 
         @media (max-width: 480px) {
+          .testimonials-section {
+            padding: 2rem 0.75rem;
+            min-height: auto;
+          }
+
+          .section-title {
+            font-size: clamp(1.5rem, 6vw, 1.75rem);
+          }
+
+          .section-subtitle {
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            padding: 0 0.5rem;
+          }
+
           .statistics-grid {
             grid-template-columns: 1fr;
+            gap: 0.75rem;
+          }
+
+          .stat-card {
+            padding: 1.25rem 1rem;
+          }
+
+          .stat-icon {
+            font-size: 2rem;
+          }
+
+          .testimonial-card {
+            padding: 1.5rem 1rem;
+          }
+
+          .testimonial-avatar {
+            font-size: 2.5rem;
+            width: 50px;
+            height: 50px;
+          }
+
+          .testimonial-name {
+            font-size: 1.1rem;
+          }
+
+          .carousel-dots {
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+          }
+
+          .carousel-dots .dot {
+            width: 10px;
+            height: 10px;
+          }
+
+          .final-cta {
+            padding: 2rem 1rem;
+            border-radius: 20px;
+          }
+
+          .cta-title {
+            font-size: clamp(1.35rem, 5vw, 1.5rem);
+          }
+
+          .cta-feature {
+            font-size: 1rem;
+          }
+
+          .btn-primary-large,
+          .btn-secondary-large {
+            max-width: 280px;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+          }
+
+          .cta-disclaimer {
+            font-size: 0.8rem;
+            padding: 0 0.5rem;
           }
         }
       `}</style>
