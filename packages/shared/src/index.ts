@@ -76,6 +76,7 @@ export {
   getDefaultRedirectUrl,
   hasAdminAccess,
   canManageOrganizations,
+  canManageCompany,
   canAccessMedicalFeatures,
   getRoleDisplayName,
   getRoleDescription,

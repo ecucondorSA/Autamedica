@@ -79,6 +79,15 @@ export function canManageOrganizations(role: UserRole): boolean {
 }
 
 /**
+ * Check if a role can manage a company
+ * @param role - User role to check
+ * @returns True if role can manage company features
+ */
+export function canManageCompany(role: UserRole): boolean {
+  return ['company_admin', 'organization_admin', 'platform_admin'].includes(role);
+}
+
+/**
  * Check if a role can access medical features
  * @param role - User role to check
  * @returns True if role can access medical features
