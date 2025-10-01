@@ -34,6 +34,7 @@
 - 7ce21a4 feat: Implement comprehensive validation infrastructure and multi-app architecture planning
 
 ### 🔧 Mejoras y Optimizaciones
+- 44357bd 🔧 fix(deployment): resolver errores deployment FASE 3 - web-app, auth, companies
 - e0b1e46 🔧 fix(workflows): FASE 3 - Aislar build core y optimizar deployment
 - 695de61 🔧 fix: aumentar memoria NODE_OPTIONS para ESLint
 - 744c90c 🔧 fix: agregar timeout 900s a prepush hooks
@@ -96,6 +97,7 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 2b92f6d 📝 docs: actualizar changelog automático
 - f42ca64 📝 docs: actualizar changelog automático
 - 09c928e 📝 docs: actualizar changelog automático
 - ea385da 📝 docs: actualizar changelog automático
@@ -194,4 +196,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 00:52:29*
+*Generado automáticamente el 2025-10-01 01:03:33*
