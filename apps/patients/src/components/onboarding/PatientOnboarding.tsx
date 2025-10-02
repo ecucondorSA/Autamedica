@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
-import { X } from 'lucide-react';
 
 interface PatientOnboardingProps {
   autoStart?: boolean;
@@ -154,7 +153,7 @@ export function PatientOnboarding({ autoStart = false }: PatientOnboardingProps)
     return (
       <button
         onClick={startOnboarding}
-        className="fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+        className="fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
         title="Ver tutorial de nuevo"
       >
         <span className="text-xl">🎓</span>

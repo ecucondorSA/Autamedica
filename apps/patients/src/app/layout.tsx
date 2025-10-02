@@ -3,9 +3,7 @@ import type { ReactNode } from 'react'
 import './globals.css'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
 import { AuthProvider } from '@/contexts/AuthContext'
-import { patientsEnv, patientsLoginUrlBuilder } from '@/lib/env'
 import { fetchSessionData } from '@/lib/session-sync'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
@@ -24,7 +22,7 @@ export default async function RootLayout({ children }: RootLayoutProps): Promise
 
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="bg-slate-950 text-slate-100 antialiased">
+      <body className="antialiased">
         <AuthProvider initialSession={sessionData}>
           <PatientRootLayout>{children}</PatientRootLayout>
         </AuthProvider>

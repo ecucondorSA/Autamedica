@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createCallService } from '@autamedica/telemedicine'
 import type { InviteMessage } from '@autamedica/telemedicine'
+import { logger } from '@autamedica/shared'
 
 interface IncomingCallHandlerProps {
   patientId: string
   patientName?: string
 }
 
-export function IncomingCallHandler({ patientId, patientName = 'Paciente' }: IncomingCallHandlerProps) {
+export function IncomingCallHandler({ patientId, patientName: _patientName = 'Paciente' }: IncomingCallHandlerProps) {
   const [incomingCall, setIncomingCall] = useState<InviteMessage | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
   const router = useRouter()
@@ -25,7 +26,7 @@ export function IncomingCallHandler({ patientId, patientName = 'Paciente' }: Inc
       try {
         // Subscribe to new calls for this patient
         const subscription = callService.subscribeToUserCalls(patientId, 'patient', (call) => {
-          console.log('[IncomingCallHandler] New call received:', call)
+          logger.info('[IncomingCallHandler] New call received:', call)
 
           if (call.status === 'ringing') {
             // Transform call data to InviteMessage format for UI compatibility
@@ -46,7 +47,7 @@ export function IncomingCallHandler({ patientId, patientName = 'Paciente' }: Inc
 
         return subscription
       } catch (error) {
-        console.error('[IncomingCallHandler] Failed to setup call listener:', error)
+        logger.error('[IncomingCallHandler] Failed to setup call listener:', error)
         return () => {}
       }
     }
@@ -74,7 +75,7 @@ export function IncomingCallHandler({ patientId, patientName = 'Paciente' }: Inc
       router.push(`/call/${incomingCall.roomId}?callId=${incomingCall.callId}`)
 
     } catch (error) {
-      console.error('[IncomingCallHandler] Failed to accept call:', error)
+      logger.error('[IncomingCallHandler] Failed to accept call:', error)
       setIsConnecting(false)
     }
   }
@@ -92,7 +93,7 @@ export function IncomingCallHandler({ patientId, patientName = 'Paciente' }: Inc
       setIncomingCall(null)
 
     } catch (error) {
-      console.error('[IncomingCallHandler] Failed to decline call:', error)
+      logger.error('[IncomingCallHandler] Failed to decline call:', error)
     }
   }
 

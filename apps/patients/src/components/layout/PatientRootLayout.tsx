@@ -3,7 +3,6 @@
 import type { CSSProperties, ReactNode, ChangeEvent } from 'react'
 import { AuthProvider } from '@autamedica/auth'
 import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import type { LucideIcon } from 'lucide-react'
@@ -20,7 +19,6 @@ import {
   Shield,
 } from 'lucide-react'
 import { PatientPortalProvider } from '@/components/layout/PatientPortalShell'
-import { AltaAssistant } from '@/components/ai/AltaAssistant'
 
 const formatClock = (date: Date): string =>
   new Intl.DateTimeFormat('es-AR', {
@@ -90,7 +88,7 @@ type NavItem = {
   badge?: string
 }
 
-const NAV_ITEMS: NavItem[] = [
+const _NAV_ITEMS: NavItem[] = [
   { id: 'dashboard', label: 'Inicio', href: '/', icon: Monitor },
   { id: 'medical-history', label: 'Historia clínica', href: '/medical-history', icon: FileText },
   { id: 'reproductive-health', label: 'Salud Reproductiva', href: '/reproductive-health', icon: Heart },
@@ -101,7 +99,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'care-team', label: 'Equipo médico', href: '#', icon: Stethoscope },
 ]
 
-const SECONDARY_ITEMS: NavItem[] = [
+const _SECONDARY_ITEMS: NavItem[] = [
   { id: 'settings', label: 'Configuración', href: '#', icon: Settings },
   { id: 'help', label: 'Ayuda', href: '#', icon: HelpCircle },
 ]
@@ -111,11 +109,11 @@ type PatientRootLayoutProps = {
 }
 
 export function PatientRootLayout({ children }: PatientRootLayoutProps): JSX.Element {
-  const pathname = usePathname()
+  const _pathname = usePathname()
   const [themeId, setThemeId] = useState<ThemeId>('autamedica')
-  const [fontScale, setFontScale] = useState<FontScale>('md')
-  const [highContrast, setHighContrast] = useState(false)
-  const [clock, setClock] = useState(() => formatClock(new Date()))
+  const [_fontScale, _setFontScale] = useState<FontScale>('md')
+  const [_highContrast, _setHighContrast] = useState(false)
+  const [_clock, setClock] = useState(() => formatClock(new Date()))
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -127,7 +125,7 @@ export function PatientRootLayout({ children }: PatientRootLayoutProps): JSX.Ele
 
   const theme = THEMES[themeId]
 
-  const cssVariables = useMemo(() => {
+  const _cssVariables = useMemo(() => {
     return {
       '--patient-bg': theme.background,
       '--patient-surface': theme.surface,
@@ -139,12 +137,12 @@ export function PatientRootLayout({ children }: PatientRootLayoutProps): JSX.Ele
     } satisfies CSSProperties
   }, [theme])
 
-  const mainClasses = clsx(
+  const _mainClasses = clsx(
     'flex-1 overflow-y-auto px-6 py-6',
-    FONT_SCALE_CLASS[fontScale],
+    FONT_SCALE_CLASS[_fontScale],
   )
 
-  const handleThemeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  const _handleThemeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setThemeId(event.target.value as ThemeId)
   }
 

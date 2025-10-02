@@ -7,19 +7,15 @@ import {
   Share2,
   Bookmark,
   Shield,
-  TrendingUp,
   Search,
-  Filter,
   Plus,
   User,
   CheckCircle2,
-  Clock,
-  Eye
+  Clock
 } from 'lucide-react'
 import { CollapsibleSidebar } from '@/components/layout/CollapsibleSidebar'
 import { CollapsibleRightPanel } from '@/components/layout/CollapsibleRightPanel'
 import { useCommunity } from '@/hooks'
-import type { CommunityGroup, CommunityPost } from '@autamedica/types'
 
 type FilterType = 'all' | 'my-groups' | 'popular' | 'questions'
 
@@ -35,8 +31,8 @@ export default function CommunityPage() {
     error,
     loadGroups,
     loadPosts,
-    createPost,
-    addReaction,
+    createPost: _createPost,
+    addReaction: _addReaction,
   } = useCommunity();
 
   // Cargar datos iniciales

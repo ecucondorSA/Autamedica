@@ -25,7 +25,7 @@ type CallStatus = 'waiting' | 'incoming' | 'connecting' | 'connected' | 'ended'
 
 export default function SimplePatientVideoCall({
   roomId,
-  patientName = 'Paciente'
+  patientName: _patientName = 'Paciente'
 }: SimplePatientVideoCallProps) {
   const [callStatus, setCallStatus] = useState<CallStatus>('waiting')
   const [isMuted, setIsMuted] = useState(false)

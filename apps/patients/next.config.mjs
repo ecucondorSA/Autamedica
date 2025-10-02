@@ -23,10 +23,10 @@ const nextConfig = {
   },
   outputFileTracingRoot: path.join(__dirname, '../../'),
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   webpack: (config) => {
     config.resolve.alias = config.resolve.alias || {}

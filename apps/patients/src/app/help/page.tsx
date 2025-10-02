@@ -1,6 +1,6 @@
 'use client'
 
-import { HelpCircle, Book, MessageCircle, Phone, Mail, ExternalLink } from 'lucide-react'
+import { Book, MessageCircle, Phone, Mail, ExternalLink } from 'lucide-react'
 import { CompactSidebar } from '@/components/layout/CompactSidebar'
 import { DynamicRightPanel } from '@/components/layout/DynamicRightPanel'
 
