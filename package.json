@@ -152,5 +152,10 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.15.2"
+  "packageManager": "pnpm@9.15.2",
+  "pnpm": {
+    "overrides": {
+      "esbuild": "^0.25.4"
+    }
+  }
 }
