@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Importar estilos compartidos de AutaMedica */
-@import "@autamedica/tailwind-config/shared-styles.css";
-
 /* Driver.js para tours interactivos */
 @import "driver.js/dist/driver.css";
 
