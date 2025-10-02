@@ -16,6 +16,8 @@ import {
   Settings,
   Stethoscope,
   Video,
+  Heart,
+  Shield,
 } from 'lucide-react'
 import { PatientPortalProvider } from '@/components/layout/PatientPortalShell'
 
@@ -90,6 +92,8 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { id: 'dashboard', label: 'Inicio', href: '/', icon: Monitor },
   { id: 'medical-history', label: 'Historia clínica', href: '/medical-history', icon: FileText },
+  { id: 'reproductive-health', label: 'Salud Reproductiva', href: '/reproductive-health', icon: Heart },
+  { id: 'preventive-health', label: 'Salud Preventiva', href: '/preventive-health', icon: Shield },
   { id: 'appointments', label: 'Citas', href: '#', icon: Calendar, badge: 'Próx.' },
   { id: 'telemedicine', label: 'Videollamada', href: '#', icon: Video },
   { id: 'analytics', label: 'Indicadores', href: '#', icon: Activity, badge: 'Beta' },
