@@ -291,36 +291,36 @@ export class WebRTCDebugger {
 
 // Helper function to create and attach debugger
 export function attachWebRTCDebugger(pc: RTCPeerConnection, role: 'doctor' | 'patient'): WebRTCDebugger {
-  const debugger = new WebRTCDebugger(role)
+  const webrtcDebugger = new WebRTCDebugger(role)
 
   // Attach event listeners for automatic logging
   const originalOnTrack = pc.ontrack
   pc.ontrack = (event) => {
-    debugger.logTrackEvent(event)
+    webrtcDebugger.logTrackEvent(event)
     if (originalOnTrack) originalOnTrack(event)
   }
 
   const originalOnIceCandidate = pc.onicecandidate
   pc.onicecandidate = (event) => {
     if (event.candidate) {
-      debugger.logICECandidate(event.candidate, 'sending')
+      webrtcDebugger.logICECandidate(event.candidate, 'sending')
     }
     if (originalOnIceCandidate) originalOnIceCandidate(event)
   }
 
   const originalOnConnectionStateChange = pc.onconnectionstatechange
   pc.onconnectionstatechange = () => {
-    debugger.info(`Connection state changed to: ${pc.connectionState}`)
+    webrtcDebugger.info(`Connection state changed to: ${pc.connectionState}`)
     if (originalOnConnectionStateChange) originalOnConnectionStateChange()
   }
 
   const originalOnIceConnectionStateChange = pc.oniceconnectionstatechange
   pc.oniceconnectionstatechange = () => {
-    debugger.info(`ICE connection state changed to: ${pc.iceConnectionState}`)
+    webrtcDebugger.info(`ICE connection state changed to: ${pc.iceConnectionState}`)
     if (originalOnIceConnectionStateChange) originalOnIceConnectionStateChange()
   }
 
-  return debugger
+  return webrtcDebugger
 }
 
 // Console helper for quick diagnosis
