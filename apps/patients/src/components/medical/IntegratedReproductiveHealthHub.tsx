@@ -136,21 +136,21 @@ export function IntegratedReproductiveHealthHub({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header con información y acciones rápidas */}
-      <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-2xl p-6">
+      <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-stone-300 rounded-2xl p-6">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-14 h-14 bg-purple-500/20 rounded-full flex items-center justify-center">
-              <Heart className="h-7 w-7 text-purple-300" />
+            <div className="w-14 h-14 bg-stone-100 border border-stone-300 rounded-full flex items-center justify-center">
+              <Heart className="h-7 w-7 text-stone-700" />
             </div>
           </div>
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-white mb-2">
               Centro de Salud Reproductiva
             </h1>
-            <p className="text-purple-100 text-sm leading-relaxed mb-4">
+            <p className="text-stone-900 text-sm leading-relaxed mb-4">
               Información confiable sobre IVE/ILE según la Ley 27.610.
               {specialists.length > 0 && (
-                <span className="block mt-1 font-semibold text-purple-200">
+                <span className="block mt-1 font-semibold text-stone-800">
                   {specialists.filter(s => s.availability_status === 'available').length} especialistas disponibles ahora
                 </span>
               )}
@@ -201,7 +201,7 @@ export function IntegratedReproductiveHealthHub({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition relative ${
                   activeTab === tab.id
-                    ? 'bg-purple-600/20 text-purple-200 border border-purple-500/30'
+                    ? 'bg-stone-50 text-stone-800 border border-stone-300'
                     : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -284,9 +284,9 @@ function DoctorsTabIntegrated({
 
   return (
     <div className="space-y-6">
-      <div className="bg-purple-600/10 border border-purple-500/30 rounded-xl p-6">
+      <div className="bg-stone-50 border border-stone-300 rounded-xl p-6">
         <h2 className="text-xl font-bold text-white mb-2">Especialistas Certificados</h2>
-        <p className="text-purple-100 text-sm mb-4">
+        <p className="text-stone-900 text-sm mb-4">
           Todos nuestros especialistas están certificados en IVE/ILE según la Ley 27.610
         </p>
       </div>
@@ -296,7 +296,7 @@ function DoctorsTabIntegrated({
           <div key={doctor.id} className="bg-white/5 border border-white/10 rounded-xl p-4">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-3 flex-1">
-                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-stone-100 border border-stone-300 rounded-full flex items-center justify-center flex-shrink-0">
                   {doctor.profile_image_url ? (
                     <img
                       src={doctor.profile_image_url}
@@ -419,7 +419,7 @@ function CentersTabIntegrated({
                       </span>
                     )}
                     {center.accepts_walk_ins && (
-                      <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded">
+                      <span className="bg-stone-100 border border-stone-300 text-stone-700 px-2 py-1 rounded">
                         Sin cita previa
                       </span>
                     )}
@@ -484,7 +484,7 @@ function ChatTabIntegrated({
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="font-semibold text-white">{chat.specialist_name}</h4>
                     {chat.is_urgent && (
-                      <span className="bg-red-500/20 text-red-300 text-xs px-2 py-0.5 rounded">
+                      <span className="bg-red-50 border-2 border-red-300 text-red-800 text-xs px-2 py-0.5 rounded">
                         Urgente
                       </span>
                     )}
@@ -517,7 +517,7 @@ function ChatTabIntegrated({
 function AppointmentModal({ onClose, onCreate, specialistId }: any) {
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-purple-500/30 rounded-2xl max-w-md w-full p-6">
+      <div className="bg-slate-900 border border-stone-300 rounded-2xl max-w-md w-full p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-white">Agendar Consulta</h3>
           <button

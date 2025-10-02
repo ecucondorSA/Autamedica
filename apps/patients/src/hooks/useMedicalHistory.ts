@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { ensureClientEnv } from '@autamedica/shared'
+import { patientsEnv } from '@/lib/env'
 import type {
   MedicalHistoryTimeline,
   MedicalHistorySummary,
@@ -8,8 +8,8 @@ import type {
 } from '@autamedica/types'
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://gtyvdircfhmdjiaelqkg.supabase.co',
-  ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  patientsEnv.supabase.url,
+  patientsEnv.supabase.anonKey,
 )
 
 export function useMedicalHistory(patientId?: PatientId) {

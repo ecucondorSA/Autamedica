@@ -14,6 +14,7 @@ export default [
       '**/build/**',
       '**/out/**',
       '**/.turbo/**',
+      '**/.vercel/**',
       '.open-next/**',
       '**/.open-next/**',
 

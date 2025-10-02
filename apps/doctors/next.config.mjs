@@ -10,6 +10,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  output: 'standalone',
   // Para production build, disabled estricto linting por el momento
   eslint: {
     ignoreDuringBuilds: true,
@@ -32,6 +33,7 @@ const nextConfig = {
     // Mejorar builds de monorepo
     externalDir: true,
   },
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   webpack: (config) => {
     // Alias para imports específicos
     config.resolve.alias = config.resolve.alias || {}

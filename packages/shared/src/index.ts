@@ -85,3 +85,26 @@ export {
   AVAILABLE_ROLES,
   VERIFIED_ROLES,
 } from './roles';
+
+// Boundary transformation utilities (snake_case ↔ camelCase)
+export {
+  toCamel,
+  toSnake,
+  type CamelCased,
+  type SnakeCased
+} from './casing';
+
+// Supabase database wrapper with auto soft-delete filtering
+export {
+  supabase,
+  selectActive,
+  selectActiveRaw,
+  selectById,
+  insertRecord,
+  updateRecord,
+  softDelete,
+  hardDelete,
+  restoreRecord,
+  countActive,
+  type SelectOptions
+} from './db';

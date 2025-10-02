@@ -1,4 +1,5 @@
 import { UserRole } from '@autamedica/types'
+import { patientsEnv, patientsLoginUrlBuilder } from '@/lib/env'
 
 export interface SessionData {
   user: {
@@ -23,12 +24,36 @@ export interface SessionData {
  * Fetch session data from Auth Hub
  */
 export async function fetchSessionData(): Promise<SessionData | null> {
-  try {
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
+  // TEMP: Disabled auth hub sync - using Supabase directly
+  // Return null to allow app to use Supabase auth instead
+  return null
 
-    const response = await fetch(`${authHubUrl}/api/session-sync`, {
+  // Development bypass - return mock session data
+  /* eslint-disable-next-line no-unreachable */
+  if (patientsEnv.authDevBypassEnabled) {
+    return {
+      user: {
+        id: 'dev-user-id',
+        email: 'dev@patient.local'
+      },
+      profile: {
+        id: 'dev-profile-id',
+        role: 'patient' as UserRole,
+        first_name: 'Dev',
+        last_name: 'Patient',
+        company_name: null,
+        last_path: null
+      },
+      session: {
+        expires_at: Date.now() + 86400000, // 24h from now
+        issued_at: Date.now()
+      }
+    }
+  }
+
+  /* eslint-disable-next-line no-unreachable */
+  try {
+    const response = await fetch(`${patientsEnv.authHubOrigin}/api/session-sync`, {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -64,18 +89,8 @@ export async function fetchSessionData(): Promise<SessionData | null> {
  * Get login URL with return path
  */
 export function getLoginUrl(returnTo?: string): string {
-  const authHubUrl = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3005'
-    : 'https://auth.autamedica.com'
-
-  const currentUrl = returnTo || (typeof window !== 'undefined' ? window.location.href : '')
-  const params = new URLSearchParams()
-
-  if (currentUrl) {
-    params.set('returnTo', currentUrl)
-  }
-
-  return `${authHubUrl}/login?${params.toString()}`
+  const fallbackReturn = typeof window !== 'undefined' ? window.location.href : patientsEnv.appOrigin
+  return patientsLoginUrlBuilder.build(returnTo ?? fallbackReturn)
 }
 
 /**
@@ -83,11 +98,7 @@ export function getLoginUrl(returnTo?: string): string {
  */
 export async function logout() {
   try {
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    await fetch(`${authHubUrl}/api/session-sync`, {
+    await fetch(`${patientsEnv.authHubOrigin}/api/session-sync`, {
       method: 'POST',
       credentials: 'include',
       headers: {

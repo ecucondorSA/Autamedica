@@ -9,23 +9,8 @@ import type { CompanyId, UserId, UUID } from "../primitives/id";
 import type { ISODateString } from "../primitives/date";
 
 // ==========================================
-// Company Member Roles & Constants
+// Company Size
 // ==========================================
-
-export type CompanyMemberRole =
-  | "owner"
-  | "admin"
-  | "hr_manager"
-  | "member"
-  | "viewer";
-
-export const COMPANY_MEMBER_ROLES: readonly CompanyMemberRole[] = [
-  "owner",
-  "admin",
-  "hr_manager",
-  "member",
-  "viewer"
-] as const;
 
 /**
  * Tamaño de la empresa
@@ -79,40 +64,8 @@ export interface CompanyContact {
 }
 
 // ==========================================
-// Company Member Interfaces
-// ==========================================
-
-/**
- * Miembro de empresa - relación usuario-empresa
- */
-export interface CompanyMember {
-  id: UUID;
-  userId: UserId;
-  companyId: CompanyId;
-  role: CompanyMemberRole;
-  isActive: boolean;
-  invitedAt: ISODateString;
-  joinedAt?: ISODateString;
-  invitedBy: UserId;
-}
-
-// ==========================================
 // Supabase DTOs
 // ==========================================
-
-export interface CompanyMemberInsert {
-  userId: UserId;
-  companyId: CompanyId;
-  role: CompanyMemberRole;
-  invitedBy: UserId;
-  // invitedAt: auto-generated
-}
-
-export interface CompanyMemberUpdate {
-  role?: CompanyMemberRole;
-  isActive?: boolean;
-  // Audit: modifiedBy, modifiedAt auto-generated
-}
 
 export interface CompanyUpdate {
   name?: string;
@@ -124,36 +77,24 @@ export interface CompanyUpdate {
 }
 
 export interface CompanyWithMembers extends Company {
-  members: (CompanyMember & {
+  members: {
+    id: UUID;
+    userId: UserId;
+    companyId: CompanyId;
+    role: string;
+    isActive: boolean;
+    invitedAt: ISODateString;
+    joinedAt?: ISODateString;
+    invitedBy: UserId;
     user: {
       id: UserId;
       firstName: string;
       lastName: string;
       email: string;
     };
-  })[];
+  }[];
   memberCount: number;
   activeMemberCount: number;
 }
-
-// ==========================================
-// Type Guards & Utilities
-// ==========================================
-
-export const isCompanyMemberRole = (v: unknown): v is CompanyMemberRole => {
-  return typeof v === 'string' && COMPANY_MEMBER_ROLES.includes(v as CompanyMemberRole);
-};
-
-export const canManageBilling = (role: CompanyMemberRole): boolean => {
-  return role === "owner" || role === "admin";
-};
-
-export const canInviteMembers = (role: CompanyMemberRole): boolean => {
-  return role === "owner" || role === "admin" || role === "hr_manager";
-};
-
-export const canManageCompany = (role: CompanyMemberRole): boolean => {
-  return role === "owner" || role === "admin";
-};
 
 export type { CompanyId };

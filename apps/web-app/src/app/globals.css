@@ -2,22 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Importar estilos compartidos de AutaMedica */
-@import "@autamedica/tailwind-config/shared-styles.css";
-
 :root {
+  /* Sistema de colores unificado AutaMedica */
   --au-bg: #0f0f10;
-  --au-surface: #111111;
-  --au-surface-soft: #181818;
-  --au-surface-alt: #1f1f1f;
-  --au-border: #2a2a2a;
-  --au-text-primary: #f5f5f5;
-  --au-text-secondary: #c7c7c7;
-  --au-text-tertiary: #8f8f8f;
+  --au-surface: #1a1a1a;
+  --au-border: #333333;
   --au-accent: #d9d9d9;
-  --au-accent-strong: #ffffff;
-  --primary: #d4d4d4;
-  --primary-dark: #a6a6a6;
+  --au-text-primary: #ffffff;
+  --au-text-secondary: #a0a0a0;
+  --au-text-tertiary: #707070;
+  --au-hover: #404040;
+  --au-hover-border: #4a4a4a;
+
+  /* Sistema de espaciado */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
 }
 
 body {
@@ -31,12 +33,23 @@ body {
 }
 
 html {
+  background-color: #0f0f10 !important;
+  background-image: none !important;
+  background: #0f0f10 !important;
+}
+
+html {
   scrollbar-gutter: stable;
 }
 
 html,
 body {
   overflow-x: auto;
+}
+
+html.hx-scroll-lock,
+body.hx-scroll-lock {
+  overflow-x: hidden;
 }
 
 @media (min-width: 1280px) {
@@ -58,4 +71,10 @@ a {
 
 a:hover {
   text-decoration: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }

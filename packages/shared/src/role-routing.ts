@@ -154,7 +154,7 @@ export function getLoginUrl(returnTo?: string, portal?: string): string {
   try {
     webAppUrl = ensureServerEnv('NEXT_PUBLIC_APP_URL');
   } catch {
-    webAppUrl = BASE_URL_BY_ROLE[ROLES.PLATFORM_ADMIN];
+    webAppUrl = BASE_URL_BY_ROLE[ROLES.PLATFORM_ADMIN]!; // Safe: all roles are defined
   }
   const loginUrl = new URL(AUTH_URLS.LOGIN, webAppUrl);
 

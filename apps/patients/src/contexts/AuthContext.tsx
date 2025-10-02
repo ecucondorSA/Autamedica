@@ -29,22 +29,12 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
 
       const sessionData = await fetchSessionData()
 
-      if (!sessionData) {
-        // No session - redirect to login
-        window.location.href = getLoginUrl()
-        return
-      }
-
       setSession(sessionData)
 
     } catch (err) {
-      console.error('Auth refresh error:', err)
-      setError(err instanceof Error ? err.message : 'Authentication failed')
-
-      // On error, redirect to login
-      setTimeout(() => {
-        window.location.href = getLoginUrl()
-      }, 1000)
+      // Silently handle auth hub sync errors - app uses Supabase directly
+      console.debug('Auth hub sync unavailable (expected):', err)
+      setSession(null)
 
     } finally {
       setLoading(false)
@@ -95,13 +85,5 @@ export function useRequireAuth() {
     return { session: null, loading: true, error: null }
   }
 
-  if (!session || error) {
-    // Redirect to login
-    if (typeof window !== 'undefined') {
-      window.location.href = getLoginUrl()
-    }
-    return { session: null, loading: false, error: error || 'No session' }
-  }
-
-  return { session, loading: false, error: null }
+  return { session, loading: false, error }
 }

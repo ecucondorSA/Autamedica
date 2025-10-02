@@ -1,0 +1,176 @@
+/* Estilos personalizados para Driver.js - AutaMedica */
+
+/* Popover principal */
+.autamedica-onboarding-popover {
+  background: white !important;
+  border: 2px solid #e7e5e4 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  max-width: 380px !important;
+}
+
+/* Título del popover */
+.autamedica-onboarding-popover .driver-popover-title {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  color: #1c1917 !important;
+  margin-bottom: 0.75rem !important;
+  padding: 1.25rem 1.25rem 0 1.25rem !important;
+}
+
+/* Descripción del popover */
+.autamedica-onboarding-popover .driver-popover-description {
+  font-size: 0.9375rem !important;
+  line-height: 1.6 !important;
+  color: #57534e !important;
+  padding: 0 1.25rem 1rem 1.25rem !important;
+}
+
+/* Footer con botones */
+.autamedica-onboarding-popover .driver-popover-footer {
+  padding: 0.75rem 1.25rem 1.25rem 1.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-top: 1px solid #e7e5e4 !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Botón Anterior */
+.autamedica-onboarding-popover .driver-popover-prev-btn {
+  background: #f5f5f4 !important;
+  color: #44403c !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-prev-btn:hover {
+  background: #e7e5e4 !important;
+  transform: translateX(-2px) !important;
+}
+
+/* Botón Siguiente */
+.autamedica-onboarding-popover .driver-popover-next-btn {
+  background: linear-gradient(to right, #2563eb, #7c3aed) !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2) !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-next-btn:hover {
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Botón Finalizar (Done) */
+.autamedica-onboarding-popover .driver-popover-next-btn:last-child {
+  background: linear-gradient(to right, #059669, #10b981) !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-next-btn:last-child:hover {
+  box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3) !important;
+}
+
+/* Botón Cerrar */
+.autamedica-onboarding-popover .driver-popover-close-btn {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  background: transparent !important;
+  border: none !important;
+  color: #78716c !important;
+  font-size: 1.25rem !important;
+  cursor: pointer !important;
+  padding: 0.25rem !important;
+  line-height: 1 !important;
+  transition: all 0.2s !important;
+  border-radius: 4px !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-close-btn:hover {
+  background: #f5f5f4 !important;
+  color: #1c1917 !important;
+}
+
+/* Progreso */
+.autamedica-onboarding-popover .driver-popover-progress-text {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: #78716c !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Flecha del popover */
+.autamedica-onboarding-popover .driver-popover-arrow {
+  border-color: #e7e5e4 !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-arrow-side-left .driver-popover-arrow {
+  border-left-color: white !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-arrow-side-right .driver-popover-arrow {
+  border-right-color: white !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-arrow-side-top .driver-popover-arrow {
+  border-top-color: white !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-arrow-side-bottom .driver-popover-arrow {
+  border-bottom-color: white !important;
+}
+
+/* Overlay */
+.driver-overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+/* Elemento destacado */
+.driver-active-element {
+  border-radius: 12px !important;
+}
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.autamedica-onboarding-popover {
+  animation: fadeInUp 0.3s ease-out !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .autamedica-onboarding-popover {
+    max-width: 90vw !important;
+    margin: 0 1rem !important;
+  }
+
+  .autamedica-onboarding-popover .driver-popover-title {
+    font-size: 1rem !important;
+  }
+
+  .autamedica-onboarding-popover .driver-popover-description {
+    font-size: 0.875rem !important;
+  }
+}

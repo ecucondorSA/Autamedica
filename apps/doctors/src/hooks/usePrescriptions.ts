@@ -1,9 +1,14 @@
 /**
- * Hook para manejar prescripciones con integración Supabase
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() e insertRecord() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { selectActive, insertRecord, updateRecord } from '@autamedica/shared'
 import type {
   Prescription,
   UsePrescriptionsResult,
@@ -13,6 +18,25 @@ import type {
 
 interface UsePrescriptionsOptions {
   filters?: PrescriptionFilters
+}
+
+// Tipo UI (camelCase) para Prescription
+interface UiPrescription {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  medicationName: string;
+  dosage: string;
+  frequency: string;
+  prescribedDate: string;
+  startDate: string;
+  endDate: string | null;
+  status: string;
+  notes: string | null;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 }
 
 export function usePrescriptions(
@@ -35,41 +59,35 @@ export function usePrescriptions(
     setError(null)
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      const allPrescriptions = await selectActive<UiPrescription>('prescriptions', '*', {
+        orderBy: { column: 'prescribed_date', ascending: false }
+      });
 
-      let query = supabase
-        .from('prescriptions')
-        .select('*')
-        .eq('patient_id', patientId)
-        .order('prescribed_date', { ascending: false })
+      // Filtrar por patient_id
+      let filtered = allPrescriptions.filter(p => p.patientId === patientId);
 
       // Aplicar filtros
       if (filters.status) {
-        query = query.eq('status', filters.status)
+        filtered = filtered.filter(p => p.status === filters.status);
       }
 
       if (filters.medication_name) {
-        query = query.ilike('medication_name', `%${filters.medication_name}%`)
+        filtered = filtered.filter(p =>
+          p.medicationName.toLowerCase().includes(filters.medication_name!.toLowerCase())
+        );
       }
 
       if (filters.active_only) {
-        const today = new Date().toISOString()
-        query = query
-          .eq('status', 'activa')
-          .lte('start_date', today)
-          .or(`end_date.is.null,end_date.gte.${today}`)
+        const today = new Date().toISOString();
+        filtered = filtered.filter(p =>
+          p.status === 'activa' &&
+          p.startDate <= today &&
+          (!p.endDate || p.endDate >= today)
+        );
       }
 
-      const { data, error: fetchError } = await query
-
-      if (fetchError) {
-        throw new Error(fetchError.message)
-      }
-
-      setPrescriptions(data || [])
+      setPrescriptions(filtered as unknown as Prescription[])
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
@@ -88,23 +106,11 @@ export function usePrescriptions(
     }
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
-
-      const { error: insertError } = await (supabase as any)
-        .from('prescriptions')
-        .insert({
-          ...prescription,
-          patient_id: patientId,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
-
-      if (insertError) {
-        throw new Error(insertError.message)
-      }
+      // Sistema híbrido: insertRecord() auto-transforma a snake_case
+      await insertRecord<UiPrescription>('prescriptions', {
+        ...prescription,
+        patient_id: patientId
+      } as any);
 
       // Refrescar la lista
       await fetchPrescriptions()
@@ -117,27 +123,13 @@ export function usePrescriptions(
     }
   }, [patientId, fetchPrescriptions])
 
-  const updatePrescription = useCallback(async (
+  const updatePrescriptionFn = useCallback(async (
     id: UUID,
     updates: Partial<Prescription>
   ): Promise<void> => {
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
-
-      const { error: updateError } = await (supabase as any)
-        .from('prescriptions')
-        .update({
-          ...updates,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', id)
-
-      if (updateError) {
-        throw new Error(updateError.message)
-      }
+      // Sistema híbrido: updateRecord() auto-transforma a snake_case
+      await updateRecord<UiPrescription>('prescriptions', id, updates as any);
 
       // Actualizar la lista local
       setPrescriptions(prev =>
@@ -169,6 +161,6 @@ export function usePrescriptions(
     loading,
     error,
     addPrescription,
-    updatePrescription
+    updatePrescription: updatePrescriptionFn
   }
 }

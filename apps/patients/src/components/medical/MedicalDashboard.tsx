@@ -40,7 +40,7 @@ export function MedicalDashboard({ className = '' }: MedicalDashboardProps) {
       title: 'Reportar Síntoma',
       description: 'Registra síntomas para tu médico',
       icon: <Heart className="h-5 w-5" />,
-      color: 'bg-red-500/20 border-red-500/30 text-red-200 hover:bg-red-500/30',
+      color: 'bg-red-50 border-red-300 text-red-800 hover:bg-red-500/30',
       action: () => setShowSymptomModal(true)
     },
     {

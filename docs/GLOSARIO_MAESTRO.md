@@ -3522,5 +3522,675 @@ if (!hasRole(sess, ['organization_admin','company_admin'])) return 403;
 - **Descripción:** Obtiene URL de redirect por defecto
 - **Contrato:** Default redirect resolver
 
+## 📋 Exports Auto-generados
+
+### AUDIT_ACTIONS
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para audit actions.
+- **Contrato:** Pendiente de documentación detallada
+
+### AUDIT_RESOURCE_TYPES
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para audit resource types.
+- **Contrato:** Pendiente de documentación detallada
+
+### AppointmentInsertSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para appointmentinsertsnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### AppointmentSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para appointmentsnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### AppointmentUpdateSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para appointmentupdatesnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### COMPANY_DEPARTMENTS
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para company departments.
+- **Contrato:** Pendiente de documentación detallada
+
+### CompanyMemberInsertSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para companymemberinsertsnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### CompanyMemberSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para companymembersnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### CompanyMemberUpdateSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para companymemberupdatesnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### PatientInsertSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para patientinsertsnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### PatientProfileSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para patientprofilesnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### PatientUpdateSnakeSchema
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para patientupdatesnakeschema.
+- **Contrato:** Pendiente de documentación detallada
+
+### SCREENING_CATALOG
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para screening catalog.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateDistance
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculatedistance.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateNextDueDate
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculatenextduedate.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateUrgency
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculateurgency.
+- **Contrato:** Pendiente de documentación detallada
+
+### canAcceptEmergency
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canacceptemergency.
+- **Contrato:** Pendiente de documentación detallada
+
+### canApprovExpenses
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canapprovexpenses.
+- **Contrato:** Pendiente de documentación detallada
+
+### canManageMembers
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canmanagemembers.
+- **Contrato:** Pendiente de documentación detallada
+
+### containsPHI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para containsphi.
+- **Contrato:** Pendiente de documentación detallada
+
+### estimateTravelTime
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para estimatetraveltime.
+- **Contrato:** Pendiente de documentación detallada
+
+### formatAuditDescription
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para formatauditdescription.
+- **Contrato:** Pendiente de documentación detallada
+
+### formatDistance
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para formatdistance.
+- **Contrato:** Pendiente de documentación detallada
+
+### getBMICategory
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getbmicategory en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getConsultationTypeDisplayName
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getconsultationtypedisplayname en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getDepartmentDisplayName
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getdepartmentdisplayname en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getEmploymentDuration
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getemploymentduration en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getSpecialtyDisplayName
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getspecialtydisplayname en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getYearsOfService
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getyearsofservice en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasAccessToSensitiveData
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para hasaccesstosensitivedata.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasAdminPermissions
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para hasadminpermissions.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasInsurance
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para hasinsurance.
+- **Contrato:** Pendiente de documentación detallada
+
+### hasValidEmergencyContact
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para hasvalidemergencycontact.
+- **Contrato:** Pendiente de documentación detallada
+
+### isActiveMember
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isactivemember.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAppointmentConsultationType
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isappointmentconsultationtype.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAuditAction
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isauditaction.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAuditLog
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isauditlog.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAuditResourceType
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isauditresourcetype.
+- **Contrato:** Pendiente de documentación detallada
+
+### isChatActive
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ischatactive.
+- **Contrato:** Pendiente de documentación detallada
+
+### isCompanyDepartment
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para iscompanydepartment.
+- **Contrato:** Pendiente de documentación detallada
+
+### isCriticalAction
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para iscriticalaction.
+- **Contrato:** Pendiente de documentación detallada
+
+### isDurationConsistent
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isdurationconsistent.
+- **Contrato:** Pendiente de documentación detallada
+
+### isHealthCenterType
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ishealthcentertype.
+- **Contrato:** Pendiente de documentación detallada
+
+### isMinor
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isminor.
+- **Contrato:** Pendiente de documentación detallada
+
+### isOnProbation
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isonprobation.
+- **Contrato:** Pendiente de documentación detallada
+
+### isPatientProfileComplete
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ispatientprofilecomplete.
+- **Contrato:** Pendiente de documentación detallada
+
+### isPermanentRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ispermanentrecord.
+- **Contrato:** Pendiente de documentación detallada
+
+### isReproductiveHealthSpecialty
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isreproductivehealthspecialty.
+- **Contrato:** Pendiente de documentación detallada
+
+### isScreeningApplicable
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isscreeningapplicable.
+- **Contrato:** Pendiente de documentación detallada
+
+### isSpecialistAvailable
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isspecialistavailable.
+- **Contrato:** Pendiente de documentación detallada
+
+### isValidAppointmentForDisplay
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isvalidappointmentfordisplay.
+- **Contrato:** Pendiente de documentación detallada
+
+### parseAppointmentForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parseappointmentforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### parseAppointmentsForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parseappointmentsforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### parseCompanyMemberForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parsecompanymemberforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### parseCompanyMembersForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parsecompanymembersforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### parsePatientForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parsepatientforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### parsePatientsForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para parsepatientsforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresGuardianConsent
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresguardianconsent.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresMeetingUrl
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresmeetingurl.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresPhysicalLocation
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresphysicallocation.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresUrgentAttention
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresurgentattention.
+- **Contrato:** Pendiente de documentación detallada
+
+### safeParseAppointmentForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para safeparseappointmentforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### safeParseCompanyMemberForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para safeparsecompanymemberforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### safeParsePatientForUI
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para safeparsepatientforui.
+- **Contrato:** Pendiente de documentación detallada
+
+### sortByDistance
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para sortbydistance.
+- **Contrato:** Pendiente de documentación detallada
+
+### type AppointmentInsertSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type appointmentinsertsnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type AppointmentSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type appointmentsnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type AppointmentUpdateSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type appointmentupdatesnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type CompanyMemberInsertSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type companymemberinsertsnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type CompanyMemberSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type companymembersnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type CompanyMemberUpdateSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type companymemberupdatesnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type PatientInsertSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type patientinsertsnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type PatientSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type patientsnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type PatientUpdateSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para type patientupdatesnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### countActive
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para countactive.
+- **Contrato:** Pendiente de documentación detallada
+
+### hardDelete
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para harddelete.
+- **Contrato:** Pendiente de documentación detallada
+
+### insertRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para insertrecord.
+- **Contrato:** Pendiente de documentación detallada
+
+### restoreRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para restorerecord.
+- **Contrato:** Pendiente de documentación detallada
+
+### selectActive
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para selectactive.
+- **Contrato:** Pendiente de documentación detallada
+
+### selectActiveRaw
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para selectactiveraw.
+- **Contrato:** Pendiente de documentación detallada
+
+### selectById
+- **Tipo:** type
+- **Package:** @autamedica/shared
+- **Descripción:** Identificador único tipado para selectby en el sistema.
+- **Contrato:** Pendiente de documentación detallada
+
+### softDelete
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para softdelete.
+- **Contrato:** Pendiente de documentación detallada
+
+### supabase
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para supabase.
+- **Contrato:** Pendiente de documentación detallada
+
+### toCamel
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para tocamel.
+- **Contrato:** Pendiente de documentación detallada
+
+### toSnake
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para tosnake.
+- **Contrato:** Pendiente de documentación detallada
+
+### type CamelCased
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type camelcased.
+- **Contrato:** Pendiente de documentación detallada
+
+### type SelectOptions
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type selectoptions.
+- **Contrato:** Pendiente de documentación detallada
+
+### type SnakeCased
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type snakecased.
+- **Contrato:** Pendiente de documentación detallada
+
+### updateRecord
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para updaterecord.
+- **Contrato:** Pendiente de documentación detallada
+
+## 📋 Exports Auto-generados
+
+### GROUP_CATEGORIES_DISPLAY
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para group categories display.
+- **Contrato:** Pendiente de documentación detallada
+
+### REACTION_DISPLAY
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para reaction display.
+- **Contrato:** Pendiente de documentación detallada
+
+### SECTION_DISPLAY_NAMES
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para section display names.
+- **Contrato:** Pendiente de documentación detallada
+
+### SECTION_ORDER
+- **Tipo:** const
+- **Package:** @autamedica/types
+- **Descripción:** Constante del sistema para section order.
+- **Contrato:** Pendiente de documentación detallada
+
+### anonymizeDisplayName
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para anonymizedisplayname.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateReputationScore
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculatereputationscore.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateSectionWeight
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculatesectionweight.
+- **Contrato:** Pendiente de documentación detallada
+
+### calculateSessionDuration
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para calculatesessionduration.
+- **Contrato:** Pendiente de documentación detallada
+
+### canEditAnamnesis
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para caneditanamnesis.
+- **Contrato:** Pendiente de documentación detallada
+
+### canJoinSession
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canjoinsession.
+- **Contrato:** Pendiente de documentación detallada
+
+### canModerateContent
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canmoderatecontent.
+- **Contrato:** Pendiente de documentación detallada
+
+### canPostInGroup
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para canpostingroup.
+- **Contrato:** Pendiente de documentación detallada
+
+### getConnectionQualityScore
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getconnectionqualityscore en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getNextPendingSection
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getnextpendingsection en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getQualityRecommendation
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Función utilitaria para getqualityrecommendation en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### isAnamnesisComplete
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para isanamnesiscomplete.
+- **Contrato:** Pendiente de documentación detallada
+
+### isContentApproved
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para iscontentapproved.
+- **Contrato:** Pendiente de documentación detallada
+
+### isHighRiskContent
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para ishighriskcontent.
+- **Contrato:** Pendiente de documentación detallada
+
+### isSessionActive
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para issessionactive.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresDoctorReview
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresdoctorreview.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresModerationReview
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresmoderationreview.
+- **Contrato:** Pendiente de documentación detallada
+
+### requiresRecordingConsent
+- **Tipo:** unknown
+- **Package:** @autamedica/types
+- **Descripción:** Utilidad del sistema AutaMedica para requiresrecordingconsent.
+- **Contrato:** Pendiente de documentación detallada
+
 ## 🔗 Base de Datos
 Ver glosario actualizado: [`docs/database/schema.md`](../docs/database/schema.md)

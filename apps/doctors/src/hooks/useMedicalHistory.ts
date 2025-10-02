@@ -1,9 +1,15 @@
 /**
- * Hook para manejar historial médico con integración Supabase
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
+ * - Implementa paginación con fetch manual
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { selectActive } from '@autamedica/shared'
 import type {
   MedicalRecord,
   UseMedicalHistoryResult,
@@ -14,6 +20,23 @@ import type {
 interface UseMedicalHistoryOptions {
   pageSize?: number
   filters?: MedicalRecordFilters
+}
+
+// Tipo UI (camelCase) para MedicalRecord
+interface UiMedicalRecord {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  consultationDate: string;
+  consultationType: string;
+  diagnosis: string | null;
+  treatment: string | null;
+  notes: string | null;
+  attachments: Record<string, unknown> | null;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 }
 
 export function useMedicalHistory(
@@ -41,53 +64,47 @@ export function useMedicalHistory(
     setError(null)
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      const allRecords = await selectActive<UiMedicalRecord>('medical_records', '*', {
+        orderBy: { column: 'consultation_date', ascending: false }
+      });
 
-      let query = supabase
-        .from('medical_records')
-        .select('*')
-        .eq('patient_id', patientId)
-        .order('consultation_date', { ascending: false })
-        .range(page * pageSize, (page + 1) * pageSize - 1)
+      // Filtrar por patient_id
+      let filtered = allRecords.filter(r => r.patientId === patientId);
 
-      // Aplicar filtros
+      // Aplicar filtros adicionales
       if (filters.consultation_type) {
-        query = query.eq('consultation_type', filters.consultation_type)
+        filtered = filtered.filter(r => r.consultationType === filters.consultation_type);
       }
 
       if (filters.date_from) {
-        query = query.gte('consultation_date', filters.date_from)
+        filtered = filtered.filter(r => r.consultationDate >= filters.date_from!);
       }
 
       if (filters.date_to) {
-        query = query.lte('consultation_date', filters.date_to)
+        filtered = filtered.filter(r => r.consultationDate <= filters.date_to!);
       }
 
       if (filters.diagnosis_contains) {
-        query = query.ilike('diagnosis', `%${filters.diagnosis_contains}%`)
+        filtered = filtered.filter(r =>
+          r.diagnosis?.toLowerCase().includes(filters.diagnosis_contains!.toLowerCase())
+        );
       }
 
-      const { data, error: fetchError, count } = await query
-
-      if (fetchError) {
-        throw new Error(fetchError.message)
-      }
-
-      const newRecords = data || []
+      // Paginación manual
+      const startIdx = page * pageSize;
+      const endIdx = (page + 1) * pageSize;
+      const newRecords = filtered.slice(startIdx, endIdx);
 
       if (reset) {
-        setRecords(newRecords)
+        setRecords(newRecords as unknown as MedicalRecord[]);
       } else {
-        setRecords(prev => [...prev, ...newRecords])
+        setRecords(prev => [...prev, ...(newRecords as unknown as MedicalRecord[])]);
       }
 
       // Verificar si hay más páginas
-      const totalLoaded = (page + 1) * pageSize
-      setHasMore(newRecords.length === pageSize && (count === null || totalLoaded < count))
-      setCurrentPage(page)
+      setHasMore(endIdx < filtered.length);
+      setCurrentPage(page);
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'

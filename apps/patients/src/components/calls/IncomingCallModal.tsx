@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { patientsEnv } from '@/lib/env'
 
 interface IncomingCall {
   id: string
@@ -23,7 +24,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
 
   useEffect(() => {
     // Listen for incoming calls via WebSocket
-    const signalingUrl = process.env.NEXT_PUBLIC_SIGNALING_URL
+    const signalingUrl = patientsEnv.signalingUrl
     if (!signalingUrl) return
 
     // Get current user ID from Supabase session
@@ -133,12 +134,12 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         return
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/update-call-status`, {
+      const response = await fetch(`${patientsEnv.supabase.url}/functions/v1/update-call-status`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
-          'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+          'apikey': patientsEnv.supabase.anonKey,
         },
         body: JSON.stringify({
           callId: incomingCall.id,
@@ -183,12 +184,12 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         return
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/update-call-status`, {
+      const response = await fetch(`${patientsEnv.supabase.url}/functions/v1/update-call-status`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
-          'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+          'apikey': patientsEnv.supabase.anonKey,
         },
         body: JSON.stringify({
           callId: incomingCall.id,

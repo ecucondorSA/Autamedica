@@ -1,4 +1,4 @@
 name = "autamedica-doctors"
 compatibility_date = "2025-03-25"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".open-next/dist"

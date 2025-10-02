@@ -2,6 +2,7 @@
 
 import { createClient as createSupabaseClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
+import { patientsEnv } from '@/lib/env';
 
 // Mock Supabase client for dev bypass mode
 const createMockClient = () => {
@@ -45,7 +46,7 @@ export function createClient(): SupabaseClient<Database> {
   }
 
   // Check if dev bypass is enabled
-  const isDevBypass = process.env.NEXT_PUBLIC_AUTH_DEV_BYPASS === 'true';
+  const isDevBypass = patientsEnv.authDevBypassEnabled;
 
   if (isDevBypass) {
     return createMockClient() as any;
@@ -54,13 +55,15 @@ export function createClient(): SupabaseClient<Database> {
   // Create real client only once on client-side
   if (!supabaseClient) {
     supabaseClient = createSupabaseClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      { auth: { persistSession: false } }
+      patientsEnv.supabase.url,
+      patientsEnv.supabase.anonKey,
+      { auth: { persistSession: false } },
     );
   }
 
   return supabaseClient;
 }
 
-export const supabase: SupabaseClient<Database> = typeof window !== 'undefined' ? createClient() : createMockClient() as any;
+export const supabase: SupabaseClient<Database> = typeof window !== 'undefined'
+  ? createClient()
+  : (createMockClient() as any);

@@ -6,7 +6,7 @@ const __dirname = path.dirname(__filename)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true
@@ -21,6 +21,7 @@ const nextConfig = {
   experimental: {
     externalDir: true,
   },
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   eslint: {
     ignoreDuringBuilds: true,
   },

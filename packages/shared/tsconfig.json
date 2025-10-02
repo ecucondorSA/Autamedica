@@ -2,15 +2,17 @@
   "extends": "@autamedica/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
-    "composite": false,
-    "incremental": false,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "target": "ES2022"
+    "target": "ES2022",
+    "incremental": false,
+    "baseUrl": ".",
+    "paths": {
+      "@autamedica/types": ["../types/src"]
+    }
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules", "**/*.test.ts"]
 }

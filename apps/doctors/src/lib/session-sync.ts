@@ -1,4 +1,5 @@
 import { UserRole } from '@autamedica/types'
+import { doctorsEnv, loginUrlBuilder } from '@/lib/env'
 
 export interface SessionData {
   user: {
@@ -24,11 +25,7 @@ export interface SessionData {
  */
 export async function fetchSessionData(): Promise<SessionData | null> {
   try {
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    const response = await fetch(`${authHubUrl}/api/session-sync`, {
+    const response = await fetch(`${doctorsEnv.authHubOrigin}/api/session-sync`, {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -64,18 +61,8 @@ export async function fetchSessionData(): Promise<SessionData | null> {
  * Get login URL with return path
  */
 export function getLoginUrl(returnTo?: string): string {
-  const authHubUrl = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3005'
-    : 'https://auth.autamedica.com'
-
-  const currentUrl = returnTo || (typeof window !== 'undefined' ? window.location.href : '')
-  const params = new URLSearchParams()
-
-  if (currentUrl) {
-    params.set('returnTo', currentUrl)
-  }
-
-  return `${authHubUrl}/login?${params.toString()}`
+  const fallbackReturn = typeof window !== 'undefined' ? window.location.href : doctorsEnv.appOrigin
+  return loginUrlBuilder.build(returnTo ?? fallbackReturn)
 }
 
 /**
@@ -83,11 +70,7 @@ export function getLoginUrl(returnTo?: string): string {
  */
 export async function logout() {
   try {
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    await fetch(`${authHubUrl}/api/session-sync`, {
+    await fetch(`${doctorsEnv.authHubOrigin}/api/session-sync`, {
       method: 'POST',
       credentials: 'include',
       headers: {

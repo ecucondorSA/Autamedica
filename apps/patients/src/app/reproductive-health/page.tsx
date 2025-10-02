@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { ReproductiveHealthHub } from '@/components/medical/ReproductiveHealthHub';
+import { CollapsibleSidebar } from '@/components/layout/CollapsibleSidebar';
+import { CollapsibleRightPanel } from '@/components/layout/CollapsibleRightPanel';
 
 export default function ReproductiveHealthPage() {
   const router = useRouter();
@@ -9,14 +11,17 @@ export default function ReproductiveHealthPage() {
   const handleRequestConsultation = () => {
     // Navigate to video call page with reproductive health context
     router.push('/?consultation=reproductive-health');
-
-    // Alternatively, if there's a dedicated call route:
-    // router.push('/call/reproductive-health');
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-6">
-      <ReproductiveHealthHub onRequestConsultation={handleRequestConsultation} />
+    <div className="flex h-screen w-full overflow-hidden bg-ivory-base">
+      <CollapsibleSidebar />
+
+      <main className="flex flex-1 overflow-y-auto">
+        <ReproductiveHealthHub onRequestConsultation={handleRequestConsultation} />
+      </main>
+
+      <CollapsibleRightPanel context="dashboard" />
     </div>
   );
 }

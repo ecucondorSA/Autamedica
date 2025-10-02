@@ -634,6 +634,152 @@ export {
 } from './reproductive-health/reproductive-health.types';
 
 // ==========================================
+// Patient Portal Types (Anamnesis, Telemedicine, Community)
+// ==========================================
+
+// Anamnesis types
+export type {
+  AnamnesisId,
+  AnamnesisSection,
+  AnamnesisStatus,
+  AnamnesisSectionStatus,
+  Anamnesis,
+  AnamnesisInsert,
+  AnamnesisUpdate,
+  PersonalDataSection,
+  EmergencyContactSection,
+  MedicalHistoryItem,
+  FamilyHistoryItem,
+  AllergyItem,
+  CurrentMedicationItem,
+  ChronicConditionItem,
+  SurgicalHistoryItem,
+  HospitalizationItem,
+  GynecologicalHistorySection,
+  LifestyleSection,
+  MentalHealthSection,
+  ConsentSection,
+  AnamnesisSectionData,
+  AnamnesisAPIResponse,
+  AnamnesisProgressResponse,
+} from './patient/anamnesis.types';
+
+export {
+  SECTION_ORDER,
+  SECTION_DISPLAY_NAMES,
+  isAnamnesisComplete,
+  calculateSectionWeight,
+  getNextPendingSection,
+  canEditAnamnesis,
+  requiresDoctorReview,
+} from './patient/anamnesis.types';
+
+// Telemedicine types
+export type {
+  TelemedicineSessionId,
+  WebRTCPeerId,
+  SignalingRoomId,
+  SessionStatus,
+  ConnectionQuality,
+  ParticipantRole,
+  TelemedicineSession,
+  TelemedicineSessionMetadata,
+  DeviceInfo,
+  NetworkStats,
+  VideoQualitySettings,
+  AudioQualitySettings,
+  SignalingMessage,
+  SignalingMessageType,
+  SignalingPayload,
+  JoinPayload,
+  LeavePayload,
+  OfferPayload,
+  AnswerPayload,
+  ICECandidatePayload,
+  RenegotiatePayload,
+  MediaCapabilities,
+  SessionParticipant,
+  MediaState,
+  RTCPeerConnectionState,
+  SessionEvent,
+  SessionEventType,
+  TelemedicineQuickAction,
+  QuickActionType,
+  QuickActionData,
+  WaitingRoomEntry,
+  PreCallChecklist,
+  TelemedicineSessionAPIResponse,
+  StartSessionRequest,
+  StartSessionResponse,
+  TURNServerConfig,
+  ICEServerConfig,
+} from './patient/telemedicine.types';
+
+export {
+  isSessionActive,
+  canJoinSession,
+  getConnectionQualityScore,
+  calculateSessionDuration,
+  requiresRecordingConsent,
+  getQualityRecommendation,
+} from './patient/telemedicine.types';
+
+// Community types
+export type {
+  CommunityGroupId,
+  GroupMembershipId,
+  PostId,
+  CommentId,
+  ReactionId,
+  ReportId,
+  CommunityNotificationId,
+  CommunityGroup,
+  GroupCategory,
+  GroupRule,
+  CommunityGroupInsert,
+  GroupMembership,
+  MemberRole,
+  MembershipStatus,
+  GroupMembershipInsert,
+  CommunityPost,
+  ModerationStatus,
+  CommunityPostInsert,
+  CommunityPostUpdate,
+  PostComment,
+  PostCommentInsert,
+  PostCommentUpdate,
+  PostReaction,
+  ReactionType,
+  PostReactionInsert,
+  ContentReport,
+  ReportReason,
+  ReportStatus,
+  ModerationAction,
+  ContentReportInsert,
+  CommunityNotification,
+  CommunityNotificationType,
+  UserReputation,
+  ReputationBadge,
+  CommunityFeedFilters,
+  TrendingTopic,
+  CommunityPostAPIResponse,
+  CommunityFeedAPIResponse,
+  CommunityGroupAPIResponse,
+} from './patient/community.types';
+
+export {
+  GROUP_CATEGORIES_DISPLAY,
+  REACTION_DISPLAY,
+  canModerateContent,
+  isContentApproved,
+  requiresModerationReview,
+  calculateReputationScore,
+  canPostInGroup,
+  anonymizeDisplayName,
+  isHighRiskContent,
+} from './patient/community.types';
+
+// ==========================================
 // Preventive Care Types (Medical Screenings)
 // ==========================================
 

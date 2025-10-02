@@ -204,8 +204,8 @@ export default function TestimonialsSection() {
         }
 
         .stat-card {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 16px;
           padding: 2rem;
           text-align: center;
@@ -215,9 +215,9 @@ export default function TestimonialsSection() {
 
         .stat-card:hover {
           transform: translateY(-5px);
-          background: rgba(255, 255, 255, 0.08);
-          border-color: #808080;
-          box-shadow: 0 10px 30px rgba(128, 128, 128, 0.2);
+          background: var(--au-hover);
+          border-color: var(--au-accent);
+          box-shadow: 0 10px 30px rgba(217, 217, 217, 0.2);
         }
 
         .stat-icon {
@@ -228,13 +228,13 @@ export default function TestimonialsSection() {
         .stat-value {
           font-size: clamp(2rem, 3vw, 3rem);
           font-weight: 700;
-          color: #ffffff;
+          color: var(--au-text-primary);
           margin-bottom: 0.5rem;
         }
 
         .stat-label {
           font-size: clamp(1rem, 1.5vw, 1.2rem);
-          opacity: 0.8;
+          color: var(--au-text-secondary);
         }
 
         /* Testimonials Carousel */
@@ -257,8 +257,8 @@ export default function TestimonialsSection() {
         .testimonial-card {
           flex: 0 0 100%;
           padding: 3rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 20px;
           backdrop-filter: blur(10px);
         }
@@ -274,7 +274,8 @@ export default function TestimonialsSection() {
           font-size: 4rem;
           width: 80px;
           height: 80px;
-          background: linear-gradient(135deg, #606060, #909090);
+          background: var(--au-accent)/10;
+          border: 2px solid var(--au-border);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -289,17 +290,18 @@ export default function TestimonialsSection() {
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 0.25rem;
+          color: var(--au-text-primary);
         }
 
         .testimonial-role {
           font-size: 1.1rem;
-          opacity: 0.8;
+          color: var(--au-text-secondary);
           margin-bottom: 0.25rem;
         }
 
         .testimonial-location {
           font-size: 0.9rem;
-          opacity: 0.6;
+          color: var(--au-text-tertiary);
         }
 
         .testimonial-rating {
@@ -310,7 +312,7 @@ export default function TestimonialsSection() {
           font-size: clamp(1.2rem, 2vw, 1.6rem);
           line-height: 1.6;
           font-style: italic;
-          opacity: 0.9;
+          color: var(--au-text-secondary);
           text-align: center;
           max-width: 900px;
           margin: 0 auto;
@@ -327,21 +329,21 @@ export default function TestimonialsSection() {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
+          background: var(--au-border);
           border: none;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .carousel-dots .dot.active {
-          background: #ffffff;
+          background: var(--au-accent);
           transform: scale(1.3);
         }
 
         /* Final CTA */
         .final-cta {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
-          border: 2px solid rgba(255, 255, 255, 0.2);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 30px;
           padding: 4rem;
           text-align: center;
@@ -353,15 +355,12 @@ export default function TestimonialsSection() {
           font-size: clamp(2rem, 3.5vw, 3.5rem);
           font-weight: 700;
           margin-bottom: 1rem;
-          background: linear-gradient(135deg, #ffffff, #e0e0e0);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          color: var(--au-text-primary);
         }
 
         .cta-subtitle {
           font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-          opacity: 0.9;
+          color: var(--au-text-secondary);
           margin-bottom: 2rem;
           max-width: 700px;
           margin-left: auto;
@@ -381,10 +380,11 @@ export default function TestimonialsSection() {
           align-items: center;
           gap: 0.5rem;
           font-size: 1.2rem;
+          color: var(--au-text-secondary);
         }
 
         .cta-icon {
-          color: #b0b0b0;
+          color: var(--au-accent);
           font-size: 1.5rem;
           font-weight: bold;
         }
@@ -412,24 +412,26 @@ export default function TestimonialsSection() {
         }
 
         .btn-primary-large {
-          background: linear-gradient(135deg, #505050, #707070);
-          color: white;
+          background: var(--au-accent);
+          color: var(--au-bg);
+          font-weight: 600;
         }
 
         .btn-primary-large:hover {
           transform: translateY(-3px);
-          box-shadow: 0 15px 40px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 15px 40px rgba(217, 217, 217, 0.3);
+          background: var(--au-text-primary);
         }
 
         .btn-secondary-large {
-          background: transparent;
-          color: white;
-          border: 2px solid rgba(255, 255, 255, 0.3);
+          background: var(--au-hover);
+          color: var(--au-text-primary);
+          border: 2px solid var(--au-border);
         }
 
         .btn-secondary-large:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: #ffffff;
+          background: var(--au-surface);
+          border-color: var(--au-accent);
         }
 
         .btn-arrow,
@@ -439,7 +441,7 @@ export default function TestimonialsSection() {
 
         .cta-disclaimer {
           font-size: 0.9rem;
-          opacity: 0.7;
+          color: var(--au-text-tertiary);
           margin-top: 2rem;
         }
 

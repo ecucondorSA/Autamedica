@@ -64,3 +64,14 @@ export {
   getLastPath,
   clearLastPath
 } from './utils/redirect'
+
+// Export session utilities
+export {
+  getSession,
+  requireSession,
+  requirePortalAccess,
+  signOut,
+  getCurrentUser,
+  hasRole,
+  hasPortalAccess
+} from './session'

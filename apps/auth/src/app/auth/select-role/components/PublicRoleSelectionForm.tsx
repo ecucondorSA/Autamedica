@@ -8,6 +8,8 @@ import {
   AVAILABLE_ROLES
 } from '@autamedica/shared/roles';
 import type { UserRole } from '@autamedica/types';
+import { AuthCard } from '@/components/AuthCard';
+import { AuthButton } from '@/components/AuthButton';
 
 export function PublicRoleSelectionForm() {
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
@@ -25,7 +27,7 @@ export function PublicRoleSelectionForm() {
   };
 
   const getRoleIcon = (role: UserRole) => {
-    const iconClass = "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6";
+    const iconClass = "w-6 h-6";
     switch (role) {
       case 'doctor':
         return (
@@ -68,118 +70,69 @@ export function PublicRoleSelectionForm() {
   };
 
   return (
-    <div className="space-y-2 sm:space-y-3">
-      <div className="space-y-1.5 sm:space-y-2">
-        <div className="flex items-center mb-2 sm:mb-3">
-          <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 bg-gradient-to-br from-gray-600 to-gray-700 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
-            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m0 0V3m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <h2 className="text-sm sm:text-base md:text-lg font-bold text-white">
-              Selecciona tu rol profesional
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-400">
-              <span className="hidden sm:inline">Elige la opción que mejor describa tu actividad profesional</span>
-              <span className="sm:hidden">Elige tu actividad profesional</span>
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      {/* Header Section */}
+      <div className="text-center mb-2">
+        <h2 className="text-lg font-bold text-[var(--au-text-primary)] mb-2">
+          Selecciona tu rol profesional
+        </h2>
+        <p className="text-sm text-[var(--au-text-secondary)]">
+          Elige la opción que mejor describa tu actividad profesional
+        </p>
+      </div>
 
+      {/* Role Cards */}
+      <div className="space-y-3">
         {AVAILABLE_ROLES.map((role) => (
-          <label
+          <AuthCard
             key={role}
-            className={`
-              relative flex items-start p-3 sm:p-3.5 md:p-4 lg:p-5 border-2 rounded-lg sm:rounded-xl cursor-pointer transition-all duration-200 group transform hover:scale-[1.01]
-              ${
-                selectedRole === role
-                  ? 'border-gray-400 bg-gradient-to-br from-gray-800/60 to-gray-700/40 shadow-lg scale-[1.02]'
-                  : 'border-gray-600 bg-gray-800/20 hover:border-gray-500 hover:bg-gray-800/40'
-              }
-            `}
+            onClick={() => setSelectedRole(role)}
+            selected={selectedRole === role}
+            icon={getRoleIcon(role)}
           >
-            <input
-              type="radio"
-              name="role"
-              value={role}
-              checked={selectedRole === role}
-              onChange={(e) => setSelectedRole(e.target.value as UserRole)}
-              className="sr-only"
-            />
-
-            <div
-              className={`
-                flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl flex items-center justify-center mr-3 sm:mr-3.5 md:mr-4 transition-all duration-200 shadow-sm
-                ${
-                  selectedRole === role
-                    ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-900 shadow-lg transform scale-105'
-                    : 'bg-gray-700/50 text-gray-400 group-hover:bg-gray-600/50 group-hover:text-white'
-                }
-              `}
-            >
-              {getRoleIcon(role)}
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className={`
-                    text-sm sm:text-base md:text-lg font-bold transition-colors
-                    ${selectedRole === role ? 'text-white' : 'text-gray-200 group-hover:text-white'}
-                  `}>
-                    {getRoleDisplayName(role)}
-                  </h3>
-                  <p className="text-xs sm:text-sm md:text-base text-gray-300 group-hover:text-gray-200 transition-colors leading-tight mt-0.5 sm:mt-1">
-                    {getRoleDescription(role)}
-                  </p>
-                </div>
-                {selectedRole === role && (
-                  <div className="flex-shrink-0 ml-2 sm:ml-3">
-                    <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                  </div>
-                )}
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="text-base font-bold text-[var(--au-text-primary)] mb-1">
+                  {getRoleDisplayName(role)}
+                </h3>
+                <p className="text-sm text-[var(--au-text-secondary)] leading-snug">
+                  {getRoleDescription(role)}
+                </p>
               </div>
+              {selectedRole === role && (
+                <div className="flex-shrink-0 ml-3">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              )}
             </div>
-
-          </label>
+          </AuthCard>
         ))}
       </div>
 
-      <button
+      {/* Continue Button */}
+      <AuthButton
         onClick={handleContinue}
         disabled={!selectedRole}
-        className={`
-          w-full relative overflow-hidden py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all duration-200 transform
-          ${
-            selectedRole
-              ? 'bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white shadow-lg hover:scale-[1.01] active:scale-[0.99]'
-              : 'bg-gray-500 text-gray-400 cursor-not-allowed'
-          }
-        `}
+        variant="primary"
+        fullWidth
       >
-        <div className="relative flex items-center justify-center">
-          {selectedRole && (
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          )}
-          <span className="hidden sm:inline">
-            Continuar {selectedRole ? `como ${getRoleDisplayName(selectedRole)}` : 'con rol seleccionado'}
-          </span>
-          <span className="sm:hidden">
-            {selectedRole ? `Continuar` : 'Continuar'}
-          </span>
-        </div>
-      </button>
+        {selectedRole && (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        )}
+        <span>
+          Continuar {selectedRole ? `como ${getRoleDisplayName(selectedRole)}` : ''}
+        </span>
+      </AuthButton>
 
-      {/* Copyright */}
-      <div className="mt-4 text-center">
-        <p className="text-xs text-gray-500">
+      {/* Footer */}
+      <div className="text-center pt-4">
+        <p className="text-xs text-[var(--au-text-tertiary)]">
           © {new Date().getFullYear()} AutaMedica. Todos los derechos reservados.
         </p>
       </div>

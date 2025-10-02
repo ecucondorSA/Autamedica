@@ -1,9 +1,16 @@
 /**
- * Hook para manejar análisis de IA médica con integración Supabase
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
+ * - Mantiene simulación de IA para pruebas
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { selectActive } from '@autamedica/shared'
+import { createBrowserClient } from '@autamedica/auth'
 import type {
   AIAnalysis,
   UseAIAnalysisResult,
@@ -11,6 +18,27 @@ import type {
   AIDiagnosis,
   AITreatmentSuggestion
 } from '@/types/medical'
+
+// Tipo UI (camelCase) para AIAnalysis
+interface UiAIAnalysis {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  medicalRecordId: string | null;
+  inputSymptoms: string[];
+  inputText: string;
+  additionalContext: string | null;
+  primaryDiagnosis: AIDiagnosis;
+  differentialDiagnoses: AIDiagnosis[];
+  treatmentSuggestions: AITreatmentSuggestion[];
+  riskFactors: string[];
+  modelVersion: string;
+  confidenceScore: number;
+  processingTimeMs: number;
+  active: boolean;
+  createdAt: string;
+  deletedAt: string | null;
+}
 
 export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
   const [analyses, setAnalyses] = useState<AIAnalysis[]>([])
@@ -27,22 +55,15 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
     setError(null)
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      const allAnalyses = await selectActive<UiAIAnalysis>('ai_analyses', '*', {
+        orderBy: { column: 'created_at', ascending: false }
+      });
 
-      const { data, error: fetchError } = await supabase
-        .from('ai_analyses')
-        .select('*')
-        .eq('patient_id', patientId)
-        .order('created_at', { ascending: false })
+      // Filtrar por patient_id
+      const filtered = allAnalyses.filter(a => a.patientId === patientId);
 
-      if (fetchError) {
-        throw new Error(fetchError.message)
-      }
-
-      setAnalyses(data || [])
+      setAnalyses(filtered as unknown as AIAnalysis[])
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
@@ -66,10 +87,7 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
     setError(null)
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
+      const supabase = createBrowserClient()
 
       // Obtener información del doctor actual
       const { data: { user }, error: userError } = await supabase.auth.getUser()

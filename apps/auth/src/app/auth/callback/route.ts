@@ -133,23 +133,43 @@ export async function GET(request: Request) {
       if (!profile?.role) {
         // No role assigned yet
         if (preselectedRole) {
-          // User has preselected role, assign it using RPC function
+          // User has preselected role, try to assign it
           console.log(`Assigning preselected role ${preselectedRole} to user ${user.email}`);
 
-          const { error: setRoleError } = await supabase.rpc('set_user_role', {
+          // Try using RPC function first (preferred method)
+          const { error: rpcError } = await supabase.rpc('set_user_role', {
             p_role: preselectedRole
           });
 
-          if (setRoleError) {
-            console.error('Failed to set user role:', setRoleError);
-            return NextResponse.redirect(
-              new URL(`/auth/login?error=${encodeURIComponent('Error assigning role')}&role=${preselectedRole}`, requestUrl.origin)
-            );
+          if (rpcError) {
+            console.warn('RPC set_user_role failed, trying direct upsert:', rpcError.message);
+
+            // Fallback: Direct upsert to profiles table
+            const { error: upsertError } = await supabase
+              .from('profiles')
+              .upsert({
+                user_id: user.id,
+                email: user.email,
+                role: preselectedRole,
+                updated_at: new Date().toISOString()
+              }, {
+                onConflict: 'user_id'
+              });
+
+            if (upsertError) {
+              console.error('Failed to set user role via upsert:', upsertError);
+              return NextResponse.redirect(
+                new URL(`/auth/login?error=${encodeURIComponent('Error assigning role: ' + upsertError.message)}&role=${preselectedRole}`, requestUrl.origin)
+              );
+            }
+
+            console.log(`Role ${preselectedRole} assigned via upsert to user ${user.email}`);
+          } else {
+            console.log(`Role ${preselectedRole} assigned via RPC to user ${user.email}`);
           }
 
           // Role assigned successfully, use it for redirect
           role = preselectedRole;
-          console.log(`Role ${preselectedRole} assigned successfully to user ${user.email}`);
         } else {
           // No preselected role, redirect to role selection page
           console.log(`User ${user.email} has no role and no preselected role, redirecting to role selection`);

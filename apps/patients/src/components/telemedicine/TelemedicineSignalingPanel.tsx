@@ -102,9 +102,9 @@ export function TelemedicineSignalingPanel({
           </div>
         )}
         {state.lastCandidate && (
-          <div className="rounded-md border border-purple-500/30 bg-purple-500/10 p-2">
-            <p className="font-semibold text-purple-200">ICE candidate</p>
-            <p className="text-[11px] text-purple-100">Origen: {state.lastCandidate.from}</p>
+          <div className="rounded-md border border-stone-300 bg-stone-50 p-2">
+            <p className="font-semibold text-stone-800">ICE candidate</p>
+            <p className="text-[11px] text-stone-900">Origen: {state.lastCandidate.from}</p>
           </div>
         )}
         {state.error && (

@@ -4,3 +4,128 @@
 
 /* Importar estilos compartidos de AutaMedica */
 @import "@autamedica/tailwind-config/shared-styles.css";
+
+/* Driver.js para tours interactivos */
+@import "driver.js/dist/driver.css";
+
+/* ============================================
+   TEMA MARFIL - APP PACIENTES
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Colores base Marfil/Stone */
+    --color-ivory: #FDFCF9;
+    --color-ivory-dark: #FAF8F4;
+    --color-stone-primary: #292524;  /* stone-800 */
+    --color-stone-secondary: #57534e; /* stone-600 */
+    --color-stone-border: #e7e5e4;   /* stone-200 */
+
+    /* Acciones */
+    --color-action-primary: #292524;    /* stone-800 */
+    --color-action-hover: #1c1917;      /* stone-900 */
+    --color-action-secondary: #57534e;  /* stone-600 */
+    --color-success: #059669;           /* emerald-600 */
+    --color-warning: #d97706;           /* amber-600 */
+    --color-danger: #e11d48;            /* rose-600 */
+  }
+}
+
+@layer components {
+  /* Fondo base de la aplicación */
+  .bg-ivory-base {
+    background-color: var(--color-ivory);
+  }
+
+  /* Botón primario con nuevo estilo */
+  .btn-primary-ivory {
+    @apply bg-stone-800 hover:bg-stone-900 text-white font-semibold rounded-lg shadow-md transition-all;
+  }
+
+  .btn-secondary-ivory {
+    @apply bg-stone-600 hover:bg-stone-700 text-white font-semibold rounded-lg shadow-sm transition-all;
+  }
+
+  /* Card estándar */
+  .card-ivory {
+    @apply bg-white border border-stone-200 rounded-xl shadow-sm;
+  }
+
+  /* Card destacada */
+  .card-ivory-elevated {
+    @apply bg-white border-2 border-stone-300 rounded-xl shadow-lg;
+  }
+
+  /* Jerarquía de texto */
+  .heading-1 {
+    @apply text-2xl font-bold text-stone-900;
+  }
+
+  .heading-2 {
+    @apply text-lg font-semibold text-stone-800;
+  }
+
+  .heading-3 {
+    @apply text-base font-semibold text-stone-700;
+  }
+
+  .text-body {
+    @apply text-sm text-stone-700;
+  }
+
+  .text-secondary {
+    @apply text-sm text-stone-600;
+  }
+
+  .text-tertiary {
+    @apply text-xs text-stone-500;
+  }
+
+  .text-label {
+    @apply text-xs text-stone-500 uppercase tracking-wide font-medium;
+  }
+}
+
+/* ============================================
+   DRIVER.JS TOURS - ESTILOS PERSONALIZADOS
+   ============================================ */
+
+/* Personalización del popover de Driver.js */
+.autamedica-tour-popover .driver-popover {
+  @apply bg-white border-2 border-stone-300 shadow-2xl rounded-xl;
+}
+
+.autamedica-tour-popover .driver-popover-title {
+  @apply text-lg font-bold text-stone-900 mb-2;
+}
+
+.autamedica-tour-popover .driver-popover-description {
+  @apply text-sm text-stone-700 leading-relaxed;
+}
+
+.autamedica-tour-popover .driver-popover-progress-text {
+  @apply text-xs font-semibold text-stone-600;
+}
+
+/* Botones del tour */
+.autamedica-tour-popover .driver-popover-next-btn {
+  @apply bg-stone-800 hover:bg-stone-900 text-white font-semibold px-4 py-2 rounded-lg transition-all shadow-md;
+}
+
+.autamedica-tour-popover .driver-popover-prev-btn {
+  @apply bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold px-4 py-2 rounded-lg transition-all;
+}
+
+.autamedica-tour-popover .driver-popover-close-btn {
+  @apply text-stone-500 hover:text-stone-900 transition-colors;
+}
+
+/* Overlay del tour */
+.driver-overlay {
+  @apply bg-black/50 backdrop-blur-sm;
+}
+
+/* Elemento resaltado */
+.driver-active-element {
+  @apply ring-4 ring-stone-800 ring-offset-4;
+}
