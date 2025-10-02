@@ -165,7 +165,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
       const response: StartSessionResponse = {
         session_id: sessionData.id as any,
         signaling_room_id: signalingRoomId as any,
-        signaling_server_url: process.env.NEXT_PUBLIC_SIGNALING_SERVER_URL || 'ws://localhost:8888',
+        signaling_server_url: typeof window !== 'undefined' ? (window as any).ENV?.NEXT_PUBLIC_SIGNALING_SERVER_URL || 'ws://localhost:8888' : 'ws://localhost:8888',
         turn_servers: [],
         ice_servers: [
           { urls: ['stun:stun.l.google.com:19302'] },

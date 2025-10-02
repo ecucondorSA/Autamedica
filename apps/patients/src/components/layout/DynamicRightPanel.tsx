@@ -13,8 +13,7 @@ import {
   Eye,
   Shield,
   Clock,
-  TrendingUp,
-  Sparkles
+  TrendingUp
 } from 'lucide-react'
 import { usePatientScreenings } from '@/hooks/usePatientScreenings'
 

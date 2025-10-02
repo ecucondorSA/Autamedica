@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  CreditCard,
   Shield,
   QrCode,
   Phone,

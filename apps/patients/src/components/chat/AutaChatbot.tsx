@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, User, Bot, Loader2 } from 'lucide-react';
+import { Send, User, Bot, Loader2 } from 'lucide-react';
 import { usePatientScreenings } from '@/hooks/usePatientScreenings';
 
 interface Message {

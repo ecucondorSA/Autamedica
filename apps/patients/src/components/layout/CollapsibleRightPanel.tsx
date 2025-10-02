@@ -1,19 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
-  MessageSquare,
-  Activity,
-  Trophy,
-  Zap,
-  Heart,
-  Pill,
-  AlertTriangle,
-  FileText,
-  Eye,
-  Shield,
-  Clock,
-  TrendingUp,
   PanelRightClose,
   PanelRightOpen
 } from 'lucide-react'

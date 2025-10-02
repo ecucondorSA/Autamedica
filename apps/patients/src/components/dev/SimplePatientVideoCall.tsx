@@ -94,7 +94,7 @@ export default function SimplePatientVideoCall({
     // Handle incoming remote stream
     pc.ontrack = (event) => {
       console.log('Received remote stream track:', event.track.kind)
-      if (event.streams && event.streams[0]) {
+      if (event.streams?.[0]) {
         console.log('Setting remote stream')
         setRemoteStream(event.streams[0])
         if (remoteVideoRef.current) {

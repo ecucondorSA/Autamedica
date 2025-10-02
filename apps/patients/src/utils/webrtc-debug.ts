@@ -115,7 +115,7 @@ export class WebRTCDebugger {
     const hasAudio = sdp.includes('m=audio')
 
     // Extract video codec
-    const videoCodec = sdp.match(/a=rtpmap:\d+ ([^\/]+)\//)
+    const videoCodec = sdp.match(/a=rtpmap:\d+ ([^/]+)\//)
 
     // Count ICE candidates
     const candidateCount = (sdp.match(/a=candidate/g) || []).length

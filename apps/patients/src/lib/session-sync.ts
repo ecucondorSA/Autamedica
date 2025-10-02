@@ -51,7 +51,7 @@ export async function fetchSessionData(): Promise<SessionData | null> {
     }
   }
 
-  /* eslint-disable-next-line no-unreachable */
+   
   try {
     const response = await fetch(`${patientsEnv.authHubOrigin}/api/session-sync`, {
       credentials: 'include',

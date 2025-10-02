@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import type {
-  ReproductiveHealthAppointment,
   ReproductiveHealthAppointmentInsert,
   ReproductiveHealthAppointmentUpdate,
   ReproductiveHealthAppointmentWithDetails,

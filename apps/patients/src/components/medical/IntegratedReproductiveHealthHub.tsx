@@ -15,7 +15,6 @@ import {
   Heart,
   Shield,
   FileText,
-  AlertCircle,
   Phone,
   Video,
   Info,

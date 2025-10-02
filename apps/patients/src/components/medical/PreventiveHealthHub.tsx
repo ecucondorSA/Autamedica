@@ -6,14 +6,11 @@ import {
   Calendar,
   CheckCircle2,
   AlertCircle,
-  Clock,
   FileText,
   Heart,
   Eye,
-  Stethoscope,
   Shield,
   Bell,
-  ChevronRight,
   Info
 } from 'lucide-react';
 import { usePreventiveScreenings } from '@/hooks/usePreventiveScreenings';

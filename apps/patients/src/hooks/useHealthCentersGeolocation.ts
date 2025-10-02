@@ -3,8 +3,7 @@ import type {
   HealthCenter,
   HealthCenterWithDistance,
   HealthCenterSearchFilters,
-  Coordinates,
-  GeolocationQuery
+  Coordinates
 } from '@autamedica/types';
 import { calculateDistance, sortByDistance, formatDistance, estimateTravelTime } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';

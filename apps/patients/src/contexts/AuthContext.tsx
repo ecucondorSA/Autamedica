@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { SessionData, fetchSessionData, getLoginUrl } from '@/lib/session-sync'
+import { SessionData, fetchSessionData } from '@/lib/session-sync'
 
 interface AuthContextType {
   session: SessionData | null

@@ -12,8 +12,7 @@ import {
   Calendar,
   Activity,
   Microscope,
-  Image,
-  Bell
+  Image
 } from 'lucide-react'
 import { CollapsibleSidebar } from '@/components/layout/CollapsibleSidebar'
 import { CollapsibleRightPanel } from '@/components/layout/CollapsibleRightPanel'
