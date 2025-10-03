@@ -170,6 +170,15 @@ export {
   type UseNotificationsReturn,
 } from './hooks/useNotifications';
 
+// Reconnection Hook
+export {
+  useReconnection,
+  type ConnectionState,
+  type ReconnectionConfig,
+  type UseReconnectionOptions,
+  type UseReconnectionReturn,
+} from './hooks/useReconnection';
+
 // ========== COMPONENTS EXPORTS ==========
 
 // Connection Quality Indicator
@@ -195,3 +204,15 @@ export type { WaitingRoomProps } from './components/WaitingRoom';
 // Notification Center
 export { NotificationCenter } from './components/NotificationCenter';
 export type { NotificationCenterProps } from './components/NotificationCenter';
+
+// Reconnection Indicator
+export {
+  ReconnectionIndicator,
+  ReconnectionBadge,
+  ReconnectionStatus,
+} from './components/ReconnectionIndicator';
+export type {
+  ReconnectionIndicatorProps,
+  ReconnectionBadgeProps,
+  ReconnectionStatusProps,
+} from './components/ReconnectionIndicator';
