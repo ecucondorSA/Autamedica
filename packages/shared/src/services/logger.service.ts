@@ -120,7 +120,7 @@ class LoggerService implements Logger {
     return LOG_LEVEL_ORDER.indexOf(level) <= this.thresholdIndex;
   }
 
-  private prepareParts(message: string, args: unknown[]): unknown[] {
+  private prepareParts(message: string, args: unknown[]): [string, ...unknown[]] {
     const parts: unknown[] = [message];
 
     const [firstArg, ...restArgs] = args;
@@ -149,7 +149,7 @@ class LoggerService implements Logger {
       parts.push(...extraArgs);
     }
 
-    return parts;
+    return parts as [string, ...unknown[]];
   }
 }
 
