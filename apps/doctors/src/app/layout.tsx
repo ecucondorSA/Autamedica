@@ -5,9 +5,7 @@ import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
 import { ClientWrapper } from '@/components/ClientWrapper'
 import { AuthProvider } from '@/contexts/AuthContext'
-import { doctorsEnv, loginUrlBuilder } from '@/lib/env'
 import { fetchSessionData } from '@/lib/session-sync'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
@@ -20,12 +18,14 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
-  // SSR session sync
-  const sessionData = await fetchSessionData()
-
-  if (!sessionData) {
-    // No session - redirect to Auth Hub
-    redirect(loginUrlBuilder.build(doctorsEnv.appOrigin))
+  // SSR session sync - Trust the middleware for auth protection
+  // Middleware already handles redirects, so we just fetch session data if available
+  let sessionData = null
+  try {
+    sessionData = await fetchSessionData()
+  } catch (error) {
+    // If session fetch fails, middleware will handle redirect on next navigation
+    console.error('Session sync error:', error)
   }
   return (
     <html lang="es" suppressHydrationWarning>

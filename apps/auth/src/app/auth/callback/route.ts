@@ -87,7 +87,7 @@ export async function GET(request: Request) {
     } else if (role === 'doctor') {
       destination = process.env.NODE_ENV === 'production'
         ? 'https://doctors.autamedica.com'
-        : 'http://localhost:3002';
+        : 'http://localhost:3001';
     } else {
       destination = '/auth/select-role';
     }

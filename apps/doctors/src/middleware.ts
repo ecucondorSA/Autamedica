@@ -23,8 +23,13 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Check for session cookie
-  const sessionCookie = request.cookies.get('sb-access-token')
+  // Check for Supabase session cookie
+  // Supabase uses the format: sb-{project-ref}-auth-token
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+  const projectRef = supabaseUrl.split('//')[1]?.split('.')[0] || 'gtyvdircfhmdjiaelqkg'
+  const cookieName = `sb-${projectRef}-auth-token`
+
+  const sessionCookie = request.cookies.get(cookieName)
 
   if (!sessionCookie) {
     // No session - redirect to Auth Hub
