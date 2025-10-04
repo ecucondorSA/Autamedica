@@ -10,7 +10,7 @@
     "prebuild:cloudflare": "rm -rf .next .open-next || true",
     "build:cloudflare": "pnpm run build && node ../../scripts/next/ensure-required-server-files.mjs --app admin && opennextjs-cloudflare build --skip-next-build && node ../../scripts/next/patch-open-next.mjs",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
