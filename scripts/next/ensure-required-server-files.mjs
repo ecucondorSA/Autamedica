@@ -104,11 +104,14 @@ if (!fs.existsSync(prerenderManifestPath)) {
   console.log('ℹ️  prerender-manifest.json already present.');
 }
 
+const standaloneDirFromNext = path.join(nextDir, 'standalone');
 const standaloneRoot = options.standaloneDir
   ? path.resolve(cwd, options.standaloneDir)
-  : path.join(nextDir, 'standalone', 'apps', appName, '.next');
+  : path.join(standaloneDirFromNext, 'apps', appName, '.next');
 
-if (!fs.existsSync(standaloneRoot)) {
+if (!fs.existsSync(standaloneDirFromNext)) {
+  console.log('ℹ️  Next no generó salida `standalone` (posiblemente `output: export`). Se omite la copia.');
+} else if (!fs.existsSync(standaloneRoot)) {
   fs.mkdirSync(path.dirname(standaloneRoot), { recursive: true });
   fs.cpSync(nextDir, standaloneRoot, { recursive: true });
   console.log(`🛠️  Created standalone copy of .next directory for ${appName}`);
