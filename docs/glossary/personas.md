@@ -217,5 +217,133 @@ export interface Appointment {
 
 ---
 
+## Registros Médicos (MedicalRecord) ⚕️
+
+### Tipos Base
+
+```typescript
+// Visibilidad de registro médico
+export type MedicalRecordVisibility =
+  | "normal"        // Visibilidad estándar según RLS
+  | "permanent"     // No se aplica data retention (crítico)
+  | "private"       // Solo doctor que lo creó
+  | "care_team"     // Equipo médico del paciente
+  | "patient"       // Paciente puede ver
+  | "emergency"     // Acceso en emergencias
+  | "restricted";   // Solo con autorización explícita
+
+export const MEDICAL_RECORD_VISIBILITIES: readonly MedicalRecordVisibility[];
+
+export type MedicalRecordType =
+  | "consultation"
+  | "diagnosis"
+  | "treatment"
+  | "lab_result"
+  | "prescription"
+  | "imaging"
+  | "procedure";
+```
+
+### Interfaz Principal
+
+```typescript
+/**
+ * Registro médico - Refleja esquema de tabla medical_records
+ *
+ * HIPAA Compliant: Incluye audit trail y soft delete
+ * CAMPOS: snake_case para coincidir con BD Supabase
+ */
+export interface MedicalRecord {
+  id: UUID;
+  patient_id: UUID | null;
+  doctor_id: UUID | null;
+  appointment_id: UUID | null;
+  type: string; // MedicalRecordType
+  title: string; // NOT NULL
+  content: Record<string, unknown>; // JSONB NOT NULL
+  attachments: Record<string, unknown>[] | null; // JSONB
+  visibility: string | null; // MedicalRecordVisibility
+  date_recorded: ISODateString | null; // Fecha del evento médico
+  created_at: ISODateString | null;
+  updated_at: ISODateString | null;
+  deleted_at: ISODateString | null; // Soft delete
+}
+
+// DTOs para Supabase
+export interface MedicalRecordInsert {
+  patient_id?: UUID | null;
+  doctor_id?: UUID | null;
+  appointment_id?: UUID | null;
+  type: string; // REQUIRED
+  title: string; // REQUIRED
+  content: Record<string, unknown>; // REQUIRED
+  attachments?: Record<string, unknown>[] | null;
+  visibility?: string | null;
+  date_recorded?: ISODateString | null;
+}
+
+export interface MedicalRecordUpdate {
+  patient_id?: UUID | null;
+  doctor_id?: UUID | null;
+  appointment_id?: UUID | null;
+  type?: string;
+  title?: string;
+  content?: Record<string, unknown>;
+  attachments?: Record<string, unknown>[] | null;
+  visibility?: string | null;
+  date_recorded?: ISODateString | null;
+  updated_at?: ISODateString;
+  deleted_at?: ISODateString | null; // Para soft delete
+}
+
+// Con detalles de relaciones
+export interface MedicalRecordWithDetails extends MedicalRecord {
+  patient: {
+    id: UUID;
+    email: string | null;
+  } | null;
+  doctor: {
+    id: UUID;
+    specialty: string | null;
+    license_number: string;
+  } | null;
+  appointment: {
+    id: UUID;
+    start_time: ISODateString;
+    type: string | null;
+    status: string | null;
+  } | null;
+  access_log?: {
+    id: string;
+    user_id: UUID | null;
+    action: string;
+    created_at: ISODateString;
+  }[];
+}
+```
+
+### Utilidades de MedicalRecord
+
+```typescript
+// Type guards
+export const isMedicalRecordVisibility: (v: unknown) => v is MedicalRecordVisibility;
+
+// Control de acceso
+export const canAccessRecord: (userRole: string, visibility: MedicalRecordVisibility) => boolean;
+
+// Clasificación de sensibilidad
+export const isHighSensitivityRecord: (recordType: MedicalRecordType) => boolean;
+export const isPermanentRecord: (visibility: string | null) => boolean;
+```
+
+**Notas de Seguridad**:
+- ✅ HIPAA Compliant: Audit logs automáticos via RLS
+- ✅ Soft Delete: `deleted_at` para retención de datos
+- ✅ Data Retention: `visibility: "permanent"` previene eliminación automática
+- ✅ Access Control: Niveles granulares de visibilidad
+- ✅ Immutability: Solo additive updates en `content`
+
+---
+
 **Última actualización**: 2025-10-04
 **Mantenido por**: Sistema de validación automática
