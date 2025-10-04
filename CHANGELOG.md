@@ -3,6 +3,19 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
+- acb00c5 feat: Add comprehensive GitHub Actions workflows for auth tests
+- 33720e5 feat: implement complete GitOps automation system 🤖
+- 73ab8ac feat: enhance patients app with dynamic routes, security improvements, and WebRTC TURN config
+- d6459eb feat: complete HIPAA compliance suite + enhanced audit + data retention
+- dc006d6 feat: HIPAA compliance migration + validation refactor + security audit
+- fdea697 feat(scripts): add smart-commit script for handling permissions and git workflow
+- ef64ecb feat(patients): complete integration with telemedicine and deployment improvements
+- f6ad984 feat(telemedicine): Sistema de reconexión automática (FASE 12)
+- 87c9b45 feat(telemedicine): Implementar sistema de notificaciones push (FASE 11)
+- 9616809 feat(patients): add GitHub Actions workflow for automated Cloudflare Pages deployment
+- 9b6cd6d feat(patients): Actualizar configuración y componentes para deploy
+- 3ca6bb9 feat(patients): Sistema completo de salud reproductiva y preventiva
+- b658c36 feat(web-app): responsive overhaul (Testimonials + Footer)
 - 94dc705 ✨ feat(workflows): agregar deployment de Auth al workflow de producción
 - c0c28a5 feat(cloudflare): usar adapter oficial @cloudflare/next-on-pages
 - 4afe632 feat: merge deploy/auth-cloudflare - configuración Cloudflare Pages
@@ -34,6 +47,87 @@
 - 7ce21a4 feat: Implement comprehensive validation infrastructure and multi-app architecture planning
 
 ### 🔧 Mejoras y Optimizaciones
+- f99e1d4 chore: auto-commit 2025-10-04_17:04:38 🤖
+- c5da77a chore: auto-commit 2025-10-04_16:59:36 🤖
+- 1811f1e chore: auto-commit 2025-10-04_16:54:29 🤖
+- 16e5c6a chore: auto-commit 2025-10-04_16:49:15 🤖
+- f8aebb3 chore: auto-commit 2025-10-04_16:44:00 🤖
+- 7c089aa chore: auto-commit 2025-10-04_16:38:51 🤖
+- 67be098 chore: auto-commit 2025-10-04_16:33:47 🤖
+- 9392b2c chore: auto-commit 2025-10-04_16:23:39 🤖
+- 86234bd chore: auto-commit 2025-10-04_16:18:19 🤖
+- 2d6cd85 chore: auto-commit 2025-10-04_16:08:09 🤖
+- 5da1f65 chore: auto-commit 2025-10-04_16:03:00 🤖
+- eb7dc36 chore: auto-commit 2025-10-04_15:57:57 🤖
+- 5cd9ff8 chore: auto-commit 2025-10-04_15:52:49 🤖
+- 56b861e chore: auto-commit 2025-10-04_14:27:40 🤖
+- 72d463c chore: auto-commit 2025-10-04_14:22:29 🤖
+- 35acd8b chore: auto-commit 2025-10-04_14:17:16 🤖
+- 6d6bffd chore: auto-commit 2025-10-04_14:12:02 🤖
+- 8002e37 chore: auto-commit 2025-10-04_14:01:41 🤖
+- 35b9b6e chore: auto-commit 2025-10-04_13:56:32 🤖
+- 4d35a60 chore: auto-commit 2025-10-04_13:51:21 🤖
+- 7afd278 chore: auto-commit 2025-10-04_13:41:03 🤖
+- a8cb89e chore: auto-commit 2025-10-04_13:35:51 🤖
+- d5530e9 chore: auto-commit 2025-10-04_13:30:44 🤖
+- 8a0ba6d chore: auto-commit 2025-10-04_13:25:40 🤖
+- 72c382b chore: auto-commit 2025-10-04_13:10:38 🤖
+- a283a10 chore: auto-commit 2025-10-04_12:50:29 🤖
+- 7a9d923 chore: auto-commit 2025-10-04_12:45:20 🤖
+- 05d9e2f chore: auto-commit 2025-10-04_12:39:56 🤖
+- 94f890d chore: auto-commit 2025-10-04_12:34:43 🤖
+- feaa086 chore: auto-commit 2025-10-04_12:29:28 🤖
+- cbc64c6 chore: auto-commit 2025-10-04_12:24:07 🤖
+- e97ce90 chore: auto-commit 2025-10-04_12:18:42 🤖
+- 9d46ac7 chore: auto-commit 2025-10-04_12:13:09 🤖
+- 9889af3 chore: auto-commit 2025-10-04_12:07:50 🤖
+- 17a6542 chore: auto-commit 2025-10-04_12:02:44 🤖
+- 6966d48 chore: auto-commit 2025-10-04_11:42:35 🤖
+- 3d36d4a chore: auto-commit 2025-10-04_11:37:33 🤖
+- 8952b3c chore: auto-commit 2025-10-04_11:32:26 🤖
+- c0888ba chore: auto-commit 2025-10-04_11:27:02 🤖
+- e4ce8e5 chore: auto-commit 2025-10-04_11:21:52 🤖
+- 75ddce9 chore: auto-commit 2025-10-04_11:16:40 🤖
+- 27a72ae chore: auto-commit 2025-10-04_11:11:23 🤖
+- ee4f3d0 chore: auto-commit 2025-10-04_11:06:14 🤖
+- 523163d chore: auto-commit 2025-10-04_11:01:04 🤖
+- c8cad3e chore: auto-commit 2025-10-04_10:56:02 🤖
+- a51743f chore: auto-commit 2025-10-04_10:41:00 🤖
+- 575adc1 chore: auto-commit 2025-10-04_10:05:53 🤖
+- 6bfe856 chore: auto-commit 2025-10-04_10:00:51 🤖
+- 3b6d1af chore: auto-commit 2025-10-04_09:55:49 🤖
+- d4a58b8 chore: auto-commit 2025-10-04_09:50:45 🤖
+- ddf2756 chore: auto-commit 2025-10-04_09:45:43 🤖
+- 87d7eb8 chore: auto-commit 2025-10-04_09:40:41 🤖
+- e7a96ef chore: auto-commit 2025-10-04_09:35:32 🤖
+- d102b04 chore: auto-commit 2025-10-04_09:30:29 🤖
+- 2cefba3 chore: auto-commit 2025-10-04_09:25:27 🤖
+- 19f5ca3 chore: auto-commit 2025-10-04_09:20:19 🤖
+- 45f37ce chore: auto-commit 2025-10-04_09:15:13 🤖
+- 894043e chore: auto-commit 2025-10-04_09:10:06 🤖
+- 72a58cd chore: auto-commit 2025-10-04_09:04:58 🤖
+- 8378bf3 chore: auto-commit 2025-10-04_08:49:53 🤖
+- 708868e chore: auto-commit 2025-10-04_08:44:52 🤖
+- c547dd9 chore: auto-commit 2025-10-04_08:39:38 🤖
+- 0353d3f chore: auto-commit 2025-10-04_08:34:22 🤖
+- 9dcaa73 chore: auto-commit 2025-10-04_08:29:06 🤖
+- b8fdf66 chore: auto-commit 2025-10-04_08:14:05 🤖
+- 514d497 chore: auto-commit 2025-10-04_08:08:55 🤖
+- 10755a2 chore: auto-commit 2025-10-04_08:03:50 🤖
+- f232c2f chore: auto-commit 2025-10-04_07:58:48 🤖
+- c316a17 chore: auto-commit 2025-10-04_07:53:45 🤖
+- b8d9613 chore: auto-commit 2025-10-04_07:48:37 🤖
+- 0be7fd3 chore: auto-commit 2025-10-04_07:43:35 🤖
+- eaa7bc7 chore: auto-commit 2025-10-04_07:38:33 🤖
+- 5da90b2 chore: auto-commit 2025-10-04_07:33:28 🤖
+- 6084c2c chore: auto-commit 2025-10-04_07:28:20 🤖
+- ce23c9c chore: auto-commit 2025-10-04_07:23:12 🤖
+- a2fee11 docs: refactor glossary + document patients deployment pipeline
+- cd34743 refactor(patients): Clean up codebase and improve code quality
+- 975dcb2 chore(web-app,ci): migrate to ESLint flat + add per-app deploy workflows
+- d47ab2f refactor(web-app): remove auth routes (moved to auth app)
+- e913cc5 chore(devx): implement fast pre-push + supabase peerDependency optimization
+- 2e522b6 chore(monorepo): implement hardening improvements for build reliability
 - cbea0fb 🔧 fix(workflows): FASE 3 COMPLETA - Todos los fixes de deployment aplicados
 - 44357bd 🔧 fix(deployment): resolver errores deployment FASE 3 - web-app, auth, companies
 - e0b1e46 🔧 fix(workflows): FASE 3 - Aislar build core y optimizar deployment
@@ -52,6 +146,17 @@
 - 2c00bed chore: centralize vercel.json in monorepo root
 
 ### 🐛 Correcciones
+- 0485bb3 fix(ci): Add verification step for TypeScript declaration files in workflows
+- c08bd09 fix: Remove unnecessary escape characters in anamnesis strings
+- 1260208 fix: Complete video URLs and fix Supabase client initialization
+- 2d615f2 fix: Sprint 2 - Auth server dynamic import + ESM fixes
+- b75264a fix: add comprehensive permission management scripts for edu user
+- 8df28c3 docs: fix broken documentation links and improve link checker
+- aa704a7 docs: fix incorrect status claims and add comprehensive audit report
+- f3bbf7e security: fix exposed credentials and improve CI security scanning
+- a6562a6 fix(patients): Remover import problemático de shared-styles.css
+- f69dca9 fix(patients): resolve SSR errors in Supabase hooks
+- e32e8a4 fix(webrtc): Corregir uso de palabra reservada debugger
 - 608f223 fix(deployment): configurar nodejs_compat en wrangler.toml correctamente
 - 4f2aa59 fix(deployment): migrar de @cloudflare/next-on-pages a soporte nativo Next.js
 - 81cfba5 fix(build): simplificar tsconfig telemedicine y agregar tsbuildinfo a turbo outputs
@@ -104,6 +209,13 @@
 - 7746094 🔐 ops tarea: configurar secrets de Cloudflare para deployments automáticos
 
 ### 📚 Documentación
+- 6dcbb26 docs: add comprehensive GitOps system status report 📊
+- ef8c564 docs: add automation README and improve gitignore
+- a7683be docs: add MedicalRecord docs + improve validation script
+- b6d5477 docs: update README with smart-commit script documentation
+- 72e0ca8 docs: add database glossary generator and latest documentation
+- 0423b08 docs(devx): add comprehensive Developer Experience guide
+- c2f4ddb 📝 docs: actualizar changelog automático
 - c8ae1dc 📝 docs: actualizar changelog automático
 - d1a9828 📝 docs: actualizar changelog automático
 - 5cdc35e 📝 docs: actualizar changelog automático
@@ -165,6 +277,8 @@
 ---
 
 ### 🔄 Otros Cambios
+- dc8feb7 perf(hooks): optimize git hooks to prevent OOM and timeout issues
+- fdbfbc4 Fix Next.js 15 build - Preserve 'use client' directives in auth package
 - 84b3426 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - d23e61f Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 - 3150767 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
@@ -213,4 +327,4 @@
 - faac46d Fix all client-side NEXT_PUBLIC environment variable access
 - 985ae3e Fix client-side NODE_ENV errors
 
-*Generado automáticamente el 2025-10-01 05:43:04*
+*Generado automáticamente el 2025-10-04 20:22:12*
