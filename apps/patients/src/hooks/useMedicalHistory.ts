@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createBrowserClient } from '@autamedica/auth'
+import { logger } from '@autamedica/shared'
 import type {
   MedicalHistoryTimeline,
   MedicalHistorySummary,

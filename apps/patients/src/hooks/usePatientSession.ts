@@ -3,12 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
-import {
-  createBrowserClient,
-  type PatientsSupabaseClient,
-} from '@autamedica/auth';
+import { createBrowserClient } from '@autamedica/auth';
 import { parseProfile, type Profile } from '@/lib/zod/profiles';
 import { parsePatient, type Patient } from '@/lib/zod/patients';
+
+type SupabaseClient = ReturnType<typeof createBrowserClient>;
 
 interface PatientSessionState {
   user: User | null;
@@ -40,7 +39,7 @@ export interface UsePatientSessionResult extends PatientSessionState {
 }
 
 export function usePatientSession(): UsePatientSessionResult {
-  const [supabase, setSupabase] = useState<PatientsSupabaseClient | null>(null);
+  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
   const [state, setState] = useState<PatientSessionState>(INITIAL_STATE);
   const isMountedRef = useRef(false);
 
@@ -54,7 +53,7 @@ export function usePatientSession(): UsePatientSessionResult {
   );
 
   const fetchOrCreateProfile = useCallback(
-    async (client: PatientsSupabaseClient, user: User): Promise<Profile> => {
+    async (client: SupabaseClient, user: User): Promise<Profile> => {
       const email = ensureEmail(user);
 
       const { data, error } = await client
@@ -123,7 +122,7 @@ export function usePatientSession(): UsePatientSessionResult {
   );
 
   const fetchOrCreatePatient = useCallback(
-    async (client: PatientsSupabaseClient, userId: string): Promise<Patient | null> => {
+    async (client: SupabaseClient, userId: string): Promise<Patient | null> => {
       const { data, error } = await client
         .from('patients')
         .select('*')
