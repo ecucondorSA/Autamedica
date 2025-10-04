@@ -47,6 +47,10 @@ logs/sessions/
 .claude/
 ~/**
 
+# GitOps Automation
+.git-watcher.pid
+git-watcher.log
+
 # App-specific lockfiles
 apps/*/pnpm-lock.yaml
 
