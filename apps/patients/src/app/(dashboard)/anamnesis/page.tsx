@@ -272,29 +272,29 @@ export default function AnamnesisPage() {
         <PausaCognitiva stepNumber={currentStepIndex + 1} onContinue={handleContinueAfterPause} />
       )}
 
-      {/* Progress Bar - Ultra Compacto */}
+      {/* Progress Bar - Micro */}
       <div className="sticky top-0 z-10 bg-white border-b border-stone-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-3 py-1">
-          <div className="flex items-center justify-between mb-1">
+        <div className="max-w-5xl mx-auto px-2 py-0.5">
+          <div className="flex items-center justify-between mb-0.5">
             <div>
-              <p className="text-xs font-semibold text-stone-900">
+              <p className="text-[10px] font-semibold text-stone-900">
                 Paso {currentStepIndex + 1}/{anamnesisSteps.length}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {/* Indicador de guardado */}
               {isSaving ? (
-                <div className="flex items-center gap-1">
-                  <Save className="h-3 w-3 text-blue-600 animate-pulse" />
-                  <span className="text-xs text-blue-600">Guardando...</span>
+                <div className="flex items-center gap-0.5">
+                  <Save className="h-2.5 w-2.5 text-blue-600 animate-pulse" />
+                  <span className="text-[9px] text-blue-600">Guardando...</span>
                 </div>
               ) : lastSaved ? (
-                <span className="text-xs text-green-600">✓ Guardado</span>
+                <span className="text-[9px] text-green-600">✓ Guardado</span>
               ) : null}
-              <p className="text-xs font-bold text-stone-900">{Math.round(progress)}%</p>
+              <p className="text-[10px] font-bold text-stone-900">{Math.round(progress)}%</p>
             </div>
           </div>
-          <div className="h-1.5 bg-stone-200 rounded-full overflow-hidden">
+          <div className="h-1 bg-stone-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}

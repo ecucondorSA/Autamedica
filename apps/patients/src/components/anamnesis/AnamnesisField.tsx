@@ -137,18 +137,18 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       case 'scale':
         return (
-          <div className="space-y-2">
+          <div className="space-y-1">
             <input
               type="range"
               min={field.validation?.min || 1}
               max={field.validation?.max || 10}
               value={value || field.validation?.min || 1}
               onChange={(e) => handleChange(Number(e.target.value))}
-              className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-700"
+              className="w-full h-1.5 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-700"
             />
-            <div className="flex justify-between text-xs text-stone-600">
+            <div className="flex justify-between text-[10px] text-stone-600">
               <span>1 (Leve)</span>
-              <span className="text-xl font-bold text-stone-900">{value || field.validation?.min || 1}</span>
+              <span className="text-base font-bold text-stone-900">{value || field.validation?.min || 1}</span>
               <span>10 (Insoportable)</span>
             </div>
           </div>
@@ -203,12 +203,12 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       {/* Nota educativa al completar */}
       {showEducationalNote && field.educationalNote && (
-        <div className="bg-green-50 border-l-4 border-green-500 p-2 rounded-r-lg animate-fade-in">
-          <div className="flex items-start gap-2">
-            <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+        <div className="bg-green-50 border-l-4 border-green-500 p-1.5 rounded-r-lg animate-fade-in">
+          <div className="flex items-start gap-1.5">
+            <CheckCircle className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs text-green-900 font-medium mb-0.5">¡Excelente!</p>
-              <p className="text-xs text-green-800">{field.educationalNote}</p>
+              <p className="text-[10px] text-green-900 font-medium mb-0.5">¡Excelente!</p>
+              <p className="text-[10px] text-green-800">{field.educationalNote}</p>
             </div>
           </div>
         </div>
