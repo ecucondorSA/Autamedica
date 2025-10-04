@@ -131,7 +131,8 @@
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "eslint-config-next": "15.5.4"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
