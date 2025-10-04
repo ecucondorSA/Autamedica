@@ -3,11 +3,11 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
+- be3f1d8 feat(doctors): Eliminate hardcoded data and implement production-ready auth
 
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 615680d fix(ci): remover especificación duplicada de versión PNPM
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 21:01:27*
+*Generado automáticamente el 2025-10-04 21:11:22*
