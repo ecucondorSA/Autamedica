@@ -6,7 +6,8 @@
     "declaration": true,
     "composite": true,
     "declarationMap": true,
-    "incremental": true
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
