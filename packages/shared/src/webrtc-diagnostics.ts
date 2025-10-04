@@ -3,6 +3,8 @@
  * Handles getUserMedia failures, connection monitoring, and TURN fallbacks
  */
 
+import { logger } from './services/logger.service';
+
 export interface MediaDiagnostics {
   devices: MediaDeviceInfo[]
   permissions: {

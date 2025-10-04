@@ -6,9 +6,12 @@ export default defineConfig({
     roles: 'src/roles.ts'
   },
   format: ['esm'],
-  dts: true,
+  dts: {
+    resolve: true,
+  },
   sourcemap: true,
   clean: true,
+  tsconfig: './tsconfig.json',
   external: [
     '@autamedica/types',
     'next',

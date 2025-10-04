@@ -1,4 +1,5 @@
- 
+import { logger } from './services/logger.service';
+
 // Tipos de configuración de entorno
 export interface EnvironmentConfig {
   // Variables públicas (cliente)
