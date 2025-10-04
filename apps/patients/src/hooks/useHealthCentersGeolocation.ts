@@ -6,7 +6,7 @@ import type {
   Coordinates
 } from '@autamedica/types';
 import { calculateDistance, sortByDistance, formatDistance, estimateTravelTime } from '@autamedica/types';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseHealthCentersOptions {
@@ -27,6 +27,7 @@ interface UseHealthCentersResult {
 export function useHealthCentersGeolocation(
   options: UseHealthCentersOptions = {}
 ): UseHealthCentersResult {
+  const supabase = useSupabase();
   const [centers, setCenters] = useState<HealthCenterWithDistance[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,8 +78,6 @@ export function useHealthCentersGeolocation(
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -146,15 +145,13 @@ export function useHealthCentersGeolocation(
     } finally {
       setIsLoading(false);
     }
-  }, [options.filters]);
+  }, [supabase, options.filters]);
 
   // Fetch all centers (fallback when no location available)
   const fetchAllCenters = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       let query = supabase
         .from('health_centers')
@@ -180,7 +177,7 @@ export function useHealthCentersGeolocation(
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   const refetch = useCallback(async () => {
     if (userLocation) {
@@ -228,6 +225,7 @@ export function useHealthCentersGeolocation(
 
 // Hook para obtener detalles de un centro específico
 export function useHealthCenterById(centerId: string | null) {
+  const supabase = useSupabase();
   const [center, setCenter] = useState<HealthCenter | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -243,8 +241,6 @@ export function useHealthCenterById(centerId: string | null) {
       try {
         setIsLoading(true);
         setError(null);
-
-        const supabase = createBrowserClient();
 
         const { data, error: fetchError } = await supabase
           .from('health_centers')
@@ -264,7 +260,7 @@ export function useHealthCenterById(centerId: string | null) {
     };
 
     fetchCenter();
-  }, [centerId]);
+  }, [centerId, supabase]);
 
   return { center, isLoading, error };
 }
