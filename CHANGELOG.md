@@ -7,6 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 033ec30 fix: Corregir flujo de autenticación OAuth y middleware
 
 ### 🔒 Seguridad
 
@@ -17,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 21:31:29*
+*Generado automáticamente el 2025-10-04 23:54:13*
