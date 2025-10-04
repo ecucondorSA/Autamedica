@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
-import { useAuth } from '@autamedica/auth/hooks';
+import { useAuth } from '@autamedica/auth';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
