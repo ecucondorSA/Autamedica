@@ -5,8 +5,8 @@
  * Run with: pnpm test:auth:extensive
  */
 
-import { test, expect, page } from '@vitest/browser/context'
-import { beforeEach, describe } from 'vitest'
+import { test, page } from '@vitest/browser/context'
+import { beforeEach, describe, expect } from 'vitest'
 
 // Configuration
 const URLS = {

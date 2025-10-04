@@ -8,8 +8,12 @@ export default defineConfig({
     // Browser mode configuration
     browser: {
       enabled: true,
-      name: 'chromium',
-      provider: 'playwright',
+      instances: [
+        {
+          browser: 'chromium',
+          provider: 'playwright',
+        }
+      ],
       headless: false, // Set to false for debugging, true for CI
       screenshotFailures: true,
       slowMo: 500, // Slow down interactions for visibility
