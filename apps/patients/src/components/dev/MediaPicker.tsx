@@ -102,7 +102,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
 
     for (const constraint of constraints) {
       try {
-        console.log('Trying constraints:', constraint)
+        // console.log('Trying constraints:', constraint)
         const stream = await navigator.mediaDevices.getUserMedia(constraint)
 
         // Save successful device selection
@@ -159,7 +159,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
             stream.addTrack(track)
           })
         } catch (err) {
-          console.log('Could not add audio to screen share:', err)
+          // console.log('Could not add audio to screen share:', err)
         }
       }
 

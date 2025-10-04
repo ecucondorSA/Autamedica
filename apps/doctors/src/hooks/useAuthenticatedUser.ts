@@ -121,7 +121,7 @@ export function useAuthenticatedUser(): UseAuthenticatedUserReturn {
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.id)
+        // console.log('Auth state changed:', event, session?.user?.id)
 
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
           if (session?.user) {

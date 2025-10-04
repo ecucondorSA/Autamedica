@@ -92,7 +92,7 @@ export class SignalingService extends EventEmitter {
    */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      console.log('[SignalingService] Connecting to:', this.config.serverUrl);
+      // console.log('[SignalingService] Connecting to:', this.config.serverUrl);
 
       try {
         // Crear WebSocket connection
@@ -104,7 +104,7 @@ export class SignalingService extends EventEmitter {
 
         // Handler: Connection opened
         this.ws.onopen = () => {
-          console.log('[SignalingService] Connected successfully');
+          // console.log('[SignalingService] Connected successfully');
           this.isConnected = true;
           this.emit(SignalingEvent.CONNECTED);
           this.startHeartbeat();
@@ -125,14 +125,14 @@ export class SignalingService extends EventEmitter {
 
         // Handler: Connection closed
         this.ws.onclose = (event) => {
-          console.log('[SignalingService] Connection closed:', event.code, event.reason);
+          // console.log('[SignalingService] Connection closed:', event.code, event.reason);
           this.isConnected = false;
           this.stopHeartbeat();
           this.emit(SignalingEvent.DISCONNECTED);
 
           // Auto-reconnect si está habilitado
           if (this.config.autoReconnect && event.code !== 1000) {
-            console.log('[SignalingService] Attempting reconnection in 5s...');
+            // console.log('[SignalingService] Attempting reconnection in 5s...');
             this.reconnectTimer = setTimeout(() => {
               this.connect();
             }, 5000);
@@ -149,7 +149,7 @@ export class SignalingService extends EventEmitter {
    * Desconectar del servidor
    */
   disconnect(): void {
-    console.log('[SignalingService] Disconnecting...');
+    // console.log('[SignalingService] Disconnecting...');
 
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
@@ -171,7 +171,7 @@ export class SignalingService extends EventEmitter {
    * Unirse a una sala de videoconsulta
    */
   joinRoom(roomId: string): void {
-    console.log('[SignalingService] Joining room:', roomId);
+    // console.log('[SignalingService] Joining room:', roomId);
 
     this.currentRoomId = roomId;
 
@@ -193,7 +193,7 @@ export class SignalingService extends EventEmitter {
       return;
     }
 
-    console.log('[SignalingService] Leaving room:', this.currentRoomId);
+    // console.log('[SignalingService] Leaving room:', this.currentRoomId);
 
     const message: SignalingMessage = {
       type: 'leave-room',
@@ -209,7 +209,7 @@ export class SignalingService extends EventEmitter {
    * Enviar oferta SDP al peer remoto
    */
   sendOffer(roomId: string, offer: RTCSessionDescriptionInit): void {
-    console.log('[SignalingService] Sending SDP offer to room:', roomId);
+    // console.log('[SignalingService] Sending SDP offer to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'offer',
@@ -225,7 +225,7 @@ export class SignalingService extends EventEmitter {
    * Enviar respuesta SDP al peer remoto
    */
   sendAnswer(roomId: string, answer: RTCSessionDescriptionInit): void {
-    console.log('[SignalingService] Sending SDP answer to room:', roomId);
+    // console.log('[SignalingService] Sending SDP answer to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'answer',
@@ -241,7 +241,7 @@ export class SignalingService extends EventEmitter {
    * Enviar ICE candidate al peer remoto
    */
   sendIceCandidate(roomId: string, candidate: RTCIceCandidate): void {
-    console.log('[SignalingService] Sending ICE candidate to room:', roomId);
+    // console.log('[SignalingService] Sending ICE candidate to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'ice-candidate',
@@ -280,7 +280,7 @@ export class SignalingService extends EventEmitter {
     try {
       const message: SignalingMessage = JSON.parse(data);
 
-      console.log('[SignalingService] Message received:', message.type);
+      // console.log('[SignalingService] Message received:', message.type);
 
       switch (message.type) {
         case 'offer':

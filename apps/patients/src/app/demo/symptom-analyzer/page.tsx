@@ -19,7 +19,7 @@ export default function SymptomAnalyzerPage() {
 
   useEffect(() => {
     // Verificar que ONNX está disponible
-    console.log('🧠 ONNX Runtime version:', ort.env.versions.web);
+    // console.log('🧠 ONNX Runtime version:', ort.env.versions.web);
     setOnnxReady(true);
   }, []);
 
@@ -40,7 +40,7 @@ export default function SymptomAnalyzerPage() {
         [1, features.length]
       );
 
-      console.log('📊 Tensor creado:', {
+      // console.log('📊 Tensor creado:', {
         shape: input.dims,
         size: input.size,
         type: input.type

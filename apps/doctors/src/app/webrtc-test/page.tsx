@@ -46,7 +46,7 @@ export default function WebRTCTestPage() {
     }
 
     pc.onconnectionstatechange = () => {
-      console.log('[webrtc-test] PeerConnection state:', pc.connectionState)
+      // console.log('[webrtc-test] PeerConnection state:', pc.connectionState)
     }
 
     pc.ontrack = (event) => {
@@ -107,7 +107,7 @@ export default function WebRTCTestPage() {
 
     globalWindow.__webrtcTest = exposed
     globalWindow.__pc = pc
-    console.log('[webrtc-test] window.__webrtcTest ready', { role: ROLE })
+    // console.log('[webrtc-test] window.__webrtcTest ready', { role: ROLE })
 
     return () => {
       if (globalWindow.__webrtcTest === exposed) {
@@ -136,17 +136,17 @@ export default function WebRTCTestPage() {
     try {
       const userId = `${ROLE}-${Date.now()}`
       const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
-      console.log('[webrtc-test] Connecting to:', wsUrl)
+      // console.log('[webrtc-test] Connecting to:', wsUrl)
       const socket = new WebSocket(wsUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
-      console.log('[webrtc-test] WebSocket connected')
+      // console.log('[webrtc-test] WebSocket connected')
       // El server espera que la conexión se haga con query params, no mensajes
     }
 
     socket.onclose = (event) => {
-      console.log('[webrtc-test] WebSocket closed', {
+      // console.log('[webrtc-test] WebSocket closed', {
         code: event.code,
         reason: event.reason,
         wasClean: event.wasClean,
@@ -169,7 +169,7 @@ export default function WebRTCTestPage() {
 
       try {
         const message = JSON.parse(event.data)
-        console.log('[webrtc-test] signaling message', message)
+        // console.log('[webrtc-test] signaling message', message)
 
         if (message.type === 'offer' && ROLE === 'patient') {
           await pc.setRemoteDescription({ type: 'offer', sdp: message.sdp })

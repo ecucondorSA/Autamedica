@@ -137,7 +137,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   const handleSwapVideos = () => {
     // Swap será manejado internamente por VideoLayout
-    console.log('[EnhancedVideoCall] Videos swapped');
+    // console.log('[EnhancedVideoCall] Videos swapped');
   };
 
   const handlePIPPositionChange = (position: PIPPosition) => {

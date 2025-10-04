@@ -16,7 +16,7 @@ export function ClientWrapper({ children }: ClientWrapperProps) {
       router.push('/auth/login?portal=medico')
     }
     if (event === 'SIGNED_IN' && session?.user) {
-      console.log('🔐 Doctor authenticated:', session.user.email)
+      // console.log('🔐 Doctor authenticated:', session.user.email)
     }
   }
 

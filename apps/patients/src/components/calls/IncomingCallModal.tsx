@@ -51,13 +51,13 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         const ws = new WebSocket(`${signalingUrl}?userId=${userId}&userType=patient`)
 
         ws.onopen = () => {
-          console.log('🔗 Connected to signaling server as patient')
+          // console.log('🔗 Connected to signaling server as patient')
         }
 
         ws.onmessage = (event) => {
           try {
             const message = JSON.parse(event.data)
-            console.log('📞 Received signaling message:', message)
+            // console.log('📞 Received signaling message:', message)
 
             // Handle incoming call invitation
             if (message.type === 'call-invitation') {
@@ -91,7 +91,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         }
 
         ws.onclose = (event) => {
-          console.log('🔌 Disconnected from signaling server', {
+          // console.log('🔌 Disconnected from signaling server', {
             code: event.code,
             reason: event.reason
           })
@@ -149,7 +149,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       })
 
       if (response.ok) {
-        console.log('✅ Call accepted successfully')
+        // console.log('✅ Call accepted successfully')
 
         // Close modal
         setIsVisible(false)
@@ -199,7 +199,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       })
 
       if (response.ok) {
-        console.log('✅ Call declined successfully')
+        // console.log('✅ Call declined successfully')
 
         // Notify parent component
         onDecline(incomingCall.id)

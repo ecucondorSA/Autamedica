@@ -93,9 +93,9 @@ export default function SimplePatientVideoCall({
 
     // Handle incoming remote stream
     pc.ontrack = (event) => {
-      console.log('Received remote stream track:', event.track.kind)
+      // console.log('Received remote stream track:', event.track.kind)
       if (event.streams?.[0]) {
-        console.log('Setting remote stream')
+        // console.log('Setting remote stream')
         setRemoteStream(event.streams[0])
         if (remoteVideoRef.current) {
           remoteVideoRef.current.srcObject = event.streams[0]
@@ -106,7 +106,7 @@ export default function SimplePatientVideoCall({
     // Handle ICE candidates
     pc.onicecandidate = async (event) => {
       if (event.candidate) {
-        console.log('Sending ICE candidate')
+        // console.log('Sending ICE candidate')
         const signalingBase = 'http://localhost:8787'
         try {
           await fetch(`${signalingBase}/api/message`, {
@@ -127,7 +127,7 @@ export default function SimplePatientVideoCall({
 
     // Connection state monitoring
     pc.onconnectionstatechange = () => {
-      console.log('Connection state:', pc.connectionState)
+      // console.log('Connection state:', pc.connectionState)
       if (pc.connectionState === 'failed') {
         console.error('WebRTC connection failed')
         setMediaError(true)
@@ -160,7 +160,7 @@ export default function SimplePatientVideoCall({
         })
 
         if (response.ok && isActive) {
-          console.log('Conectado a la sala de espera:', roomId)
+          // console.log('Conectado a la sala de espera:', roomId)
           startPolling()
         }
       } catch (error) {
@@ -202,7 +202,7 @@ export default function SimplePatientVideoCall({
                   seenMessagesRef.current = new Set(entries.slice(-50))
                 }
 
-                console.log('Mensaje recibido:', msg)
+                // console.log('Mensaje recibido:', msg)
 
                 // Recibir llamada entrante
                 if (msg.type === 'incoming-call') {
@@ -214,13 +214,13 @@ export default function SimplePatientVideoCall({
 
                 // Handle WebRTC offer from doctor
                 if (msg.type === 'webrtc-offer') {
-                  console.log('Received WebRTC offer')
+                  // console.log('Received WebRTC offer')
                   setCurrentOffer(msg.data.offer)
                 }
 
                 // Handle ICE candidates from doctor
                 if (msg.type === 'ice-candidate' && peerConnectionRef.current) {
-                  console.log('Received ICE candidate')
+                  // console.log('Received ICE candidate')
 
                   if (!msg.data?.candidate) {
                     console.warn('ICE candidate payload missing candidate data')
@@ -234,7 +234,7 @@ export default function SimplePatientVideoCall({
                     if (pc.remoteDescription) {
                       await pc.addIceCandidate(new RTCIceCandidate(candidateInit))
                     } else {
-                      console.log('Remote description not set yet, queueing ICE candidate')
+                      // console.log('Remote description not set yet, queueing ICE candidate')
                       pendingIceCandidatesRef.current.push(candidateInit)
                     }
                   } catch (err) {
@@ -399,7 +399,7 @@ export default function SimplePatientVideoCall({
       }
 
       if (pc.currentRemoteDescription) {
-        console.log('Remote description already set, skipping duplicate offer')
+        // console.log('Remote description already set, skipping duplicate offer')
         return
       }
 
@@ -407,7 +407,7 @@ export default function SimplePatientVideoCall({
         await pc.setRemoteDescription(new RTCSessionDescription(offer))
 
         if (pendingIceCandidatesRef.current.length) {
-          console.log('Applying queued ICE candidates...')
+          // console.log('Applying queued ICE candidates...')
           const queuedCandidates = [...pendingIceCandidatesRef.current]
           pendingIceCandidatesRef.current.length = 0
 
@@ -440,7 +440,7 @@ export default function SimplePatientVideoCall({
           })
         })
 
-        console.log('Answer sent successfully')
+        // console.log('Answer sent successfully')
         setCallStatus('connected')
         startCallTimer()
         setCurrentOffer(null)
@@ -470,10 +470,10 @@ export default function SimplePatientVideoCall({
 
       const pc = createPeerConnection()
 
-      console.log('Adding tracks to peer connection:')
+      // console.log('Adding tracks to peer connection:')
       mediaStream.getTracks().forEach(track => {
         pc.addTrack(track, mediaStream)
-        console.log(`  - Added ${track.kind} track: ${track.label}`)
+        // console.log(`  - Added ${track.kind} track: ${track.label}`)
       })
 
       const signalingBase = 'http://localhost:8787'
@@ -489,10 +489,10 @@ export default function SimplePatientVideoCall({
       })
 
       if (currentOffer) {
-        console.log('Offer already available, processing immediately')
+        // console.log('Offer already available, processing immediately')
         await processOffer(currentOffer)
       } else {
-        console.log('Awaiting offer from doctor to complete handshake')
+        // console.log('Awaiting offer from doctor to complete handshake')
       }
     } catch (error) {
       console.error('Error al aceptar llamada:', error)

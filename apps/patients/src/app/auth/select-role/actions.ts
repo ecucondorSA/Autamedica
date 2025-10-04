@@ -50,7 +50,7 @@ export async function chooseRole(role: UserRole) {
       throw new Error(error.message);
     }
 
-    console.log(`Role set successfully for user ${user.email}: ${role}`);
+    // console.log(`Role set successfully for user ${user.email}: ${role}`);
 
     // Redirect to the correct portal for this role
     const portalUrl = getPortalForRole(role);

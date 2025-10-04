@@ -322,7 +322,7 @@ export function useChatMessages(
           filter: `chat_id=eq.${chatId}`
         },
         (payload) => {
-          console.log('New message received:', payload);
+          // console.log('New message received:', payload);
           const newMessage = payload.new as MedicalMessage;
           setMessages((prev) => [...prev, newMessage]);
         }

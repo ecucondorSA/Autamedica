@@ -40,18 +40,18 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     // Set up event listeners
     webrtcClient.on('connection-state', (state) => {
       setConnectionState(state)
-      console.log('Connection state changed:', state)
+      // console.log('Connection state changed:', state)
     })
 
     webrtcClient.on('local-stream', (stream) => {
-      console.log('Got local stream')
+      // console.log('Got local stream')
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream
       }
     })
 
     webrtcClient.on('remote-stream', (stream, remoteUserId) => {
-      console.log('Got remote stream from:', remoteUserId)
+      // console.log('Got remote stream from:', remoteUserId)
 
       setRemoteUsers(prev => {
         const updated = new Map(prev)
@@ -68,7 +68,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     })
 
     webrtcClient.on('user-joined', (remoteUserId, remoteUserType) => {
-      console.log('User joined:', remoteUserId, remoteUserType)
+      // console.log('User joined:', remoteUserId, remoteUserType)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         const existingUser = updated.get(remoteUserId)
@@ -82,7 +82,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     })
 
     webrtcClient.on('user-left', (remoteUserId) => {
-      console.log('User left:', remoteUserId)
+      // console.log('User left:', remoteUserId)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         updated.delete(remoteUserId)

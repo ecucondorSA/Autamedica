@@ -82,7 +82,7 @@ export class ONNXService {
     }
 
     if (this.loadingState === 'ready') {
-      console.log('Model already loaded');
+      // console.log('Model already loaded');
       return;
     }
 
@@ -101,7 +101,7 @@ export class ONNXService {
       });
 
       this.loadingState = 'ready';
-      console.log('✅ ONNX model loaded successfully');
+      // console.log('✅ ONNX model loaded successfully');
     } catch (error) {
       this.loadingState = 'error';
       console.error('❌ Failed to load ONNX model:', error);
@@ -274,7 +274,7 @@ export class ONNXService {
       await this.session.release();
       this.session = null;
       this.loadingState = 'idle';
-      console.log('🗑️ ONNX session disposed');
+      // console.log('🗑️ ONNX session disposed');
     }
   }
 
@@ -285,7 +285,7 @@ export class ONNXService {
     try {
       // Precarga WASM files
       await ort.env.wasm.proxy;
-      console.log('✅ ONNX Runtime WASM preloaded');
+      // console.log('✅ ONNX Runtime WASM preloaded');
     } catch (error) {
       console.warn('⚠️ Failed to preload ONNX Runtime:', error);
     }
@@ -313,5 +313,5 @@ export function getONNXService(config?: ONNXServiceConfig): ONNXService {
 export async function initializeONNX(): Promise<void> {
   await ONNXService.preload();
   getONNXService(); // Crea instancia
-  console.log('🚀 ONNX Service initialized');
+  // console.log('🚀 ONNX Service initialized');
 }

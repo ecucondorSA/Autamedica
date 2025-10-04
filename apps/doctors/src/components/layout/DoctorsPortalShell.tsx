@@ -244,7 +244,7 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
 
         const user = data.user
         if (!user) {
-          console.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
+          // console.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
           return
         }
 
@@ -256,7 +256,7 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
           FALLBACK_USER
 
         setUserName(`Dr. ${resolvedName}`)
-        console.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
+        // console.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
       } catch (error) {
         console.error('[DoctorsPortalShell] Error al obtener usuario:', error)
       }

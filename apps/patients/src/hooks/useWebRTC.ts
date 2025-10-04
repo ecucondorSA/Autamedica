@@ -122,7 +122,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    * Inicializar RTCPeerConnection con configuración completa
    */
   const initializePeerConnection = useCallback(() => {
-    console.log('[useWebRTC] Initializing peer connection...');
+    // console.log('[useWebRTC] Initializing peer connection...');
 
     try {
       // Crear peer connection con ICE servers
@@ -136,16 +136,16 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       // Event: ICE Candidate generado (enviar al peer remoto vía signaling)
       pc.onicecandidate = (event) => {
         if (event.candidate) {
-          console.log('[useWebRTC] New ICE candidate:', event.candidate.candidate);
+          // console.log('[useWebRTC] New ICE candidate:', event.candidate.candidate);
           onIceCandidate?.(event.candidate);
         } else {
-          console.log('[useWebRTC] ICE gathering completed');
+          // console.log('[useWebRTC] ICE gathering completed');
         }
       };
 
       // Event: Remote stream recibido
       pc.ontrack = (event) => {
-        console.log('[useWebRTC] Remote track received:', event.track.kind);
+        // console.log('[useWebRTC] Remote track received:', event.track.kind);
 
         // Agregar track al remote stream
         let stream = remoteStreamRef.current;
@@ -162,7 +162,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
 
       // Event: Connection state cambió
       pc.onconnectionstatechange = () => {
-        console.log('[useWebRTC] Connection state:', pc.connectionState);
+        // console.log('[useWebRTC] Connection state:', pc.connectionState);
         setState(prev => ({ ...prev, connectionState: pc.connectionState }));
         onConnectionStateChange?.(pc.connectionState);
 
@@ -175,32 +175,32 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
 
       // Event: ICE connection state cambió
       pc.oniceconnectionstatechange = () => {
-        console.log('[useWebRTC] ICE connection state:', pc.iceConnectionState);
+        // console.log('[useWebRTC] ICE connection state:', pc.iceConnectionState);
         setState(prev => ({ ...prev, iceConnectionState: pc.iceConnectionState }));
       };
 
       // Event: ICE gathering state cambió
       pc.onicegatheringstatechange = () => {
-        console.log('[useWebRTC] ICE gathering state:', pc.iceGatheringState);
+        // console.log('[useWebRTC] ICE gathering state:', pc.iceGatheringState);
         setState(prev => ({ ...prev, iceGatheringState: pc.iceGatheringState }));
       };
 
       // Event: Signaling state cambió
       pc.onsignalingstatechange = () => {
-        console.log('[useWebRTC] Signaling state:', pc.signalingState);
+        // console.log('[useWebRTC] Signaling state:', pc.signalingState);
         setState(prev => ({ ...prev, signalingState: pc.signalingState }));
       };
 
       // Event: Negotiation needed (renegotiar SDP)
       pc.onnegotiationneeded = async () => {
-        console.log('[useWebRTC] Negotiation needed');
+        // console.log('[useWebRTC] Negotiation needed');
         // TODO: Trigger renegotiación vía signaling
       };
 
       peerConnectionRef.current = pc;
       setState(prev => ({ ...prev, peerConnection: pc, error: null }));
 
-      console.log('[useWebRTC] Peer connection initialized successfully');
+      // console.log('[useWebRTC] Peer connection initialized successfully');
     } catch (error) {
       console.error('[useWebRTC] Failed to initialize peer connection:', error);
       setState(prev => ({
@@ -220,11 +220,11 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       return;
     }
 
-    console.log('[useWebRTC] Adding local stream tracks...');
+    // console.log('[useWebRTC] Adding local stream tracks...');
 
     // Agregar cada track del stream
     stream.getTracks().forEach(track => {
-      console.log(`[useWebRTC] Adding ${track.kind} track to peer connection`);
+      // console.log(`[useWebRTC] Adding ${track.kind} track to peer connection`);
       pc.addTrack(track, stream);
     });
   }, []);
@@ -240,17 +240,17 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
     }
 
     try {
-      console.log('[useWebRTC] Creating SDP offer...');
+      // console.log('[useWebRTC] Creating SDP offer...');
 
       const offer = await pc.createOffer({
         offerToReceiveAudio: true,
         offerToReceiveVideo: true,
       });
 
-      console.log('[useWebRTC] Setting local description...');
+      // console.log('[useWebRTC] Setting local description...');
       await pc.setLocalDescription(offer);
 
-      console.log('[useWebRTC] Offer created successfully');
+      // console.log('[useWebRTC] Offer created successfully');
       return offer;
     } catch (error) {
       console.error('[useWebRTC] Failed to create offer:', error);
@@ -273,14 +273,14 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
     }
 
     try {
-      console.log('[useWebRTC] Creating SDP answer...');
+      // console.log('[useWebRTC] Creating SDP answer...');
 
       const answer = await pc.createAnswer();
 
-      console.log('[useWebRTC] Setting local description...');
+      // console.log('[useWebRTC] Setting local description...');
       await pc.setLocalDescription(answer);
 
-      console.log('[useWebRTC] Answer created successfully');
+      // console.log('[useWebRTC] Answer created successfully');
       return answer;
     } catch (error) {
       console.error('[useWebRTC] Failed to create answer:', error);
@@ -303,9 +303,9 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
     }
 
     try {
-      console.log('[useWebRTC] Setting remote description:', description.type);
+      // console.log('[useWebRTC] Setting remote description:', description.type);
       await pc.setRemoteDescription(new RTCSessionDescription(description));
-      console.log('[useWebRTC] Remote description set successfully');
+      // console.log('[useWebRTC] Remote description set successfully');
     } catch (error) {
       console.error('[useWebRTC] Failed to set remote description:', error);
       setState(prev => ({
@@ -326,9 +326,9 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
     }
 
     try {
-      console.log('[useWebRTC] Adding remote ICE candidate');
+      // console.log('[useWebRTC] Adding remote ICE candidate');
       await pc.addIceCandidate(new RTCIceCandidate(candidate));
-      console.log('[useWebRTC] ICE candidate added successfully');
+      // console.log('[useWebRTC] ICE candidate added successfully');
     } catch (error) {
       console.error('[useWebRTC] Failed to add ICE candidate:', error);
       // No marcar como error crítico - algunos candidates pueden fallar
@@ -398,7 +398,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    * Cerrar peer connection y limpiar recursos
    */
   const closePeerConnection = useCallback(() => {
-    console.log('[useWebRTC] Closing peer connection...');
+    // console.log('[useWebRTC] Closing peer connection...');
 
     const pc = peerConnectionRef.current;
     if (pc) {
@@ -429,7 +429,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       error: null,
     });
 
-    console.log('[useWebRTC] Peer connection closed');
+    // console.log('[useWebRTC] Peer connection closed');
   }, []);
 
   /**
@@ -437,12 +437,12 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    */
   useEffect(() => {
     if (state.connectionState === 'connected' && !statsIntervalRef.current) {
-      console.log('[useWebRTC] Starting stats polling...');
+      // console.log('[useWebRTC] Starting stats polling...');
       statsIntervalRef.current = setInterval(() => {
         getConnectionStats();
       }, 1000); // Cada 1 segundo
     } else if (state.connectionState !== 'connected' && statsIntervalRef.current) {
-      console.log('[useWebRTC] Stopping stats polling...');
+      // console.log('[useWebRTC] Stopping stats polling...');
       clearInterval(statsIntervalRef.current);
       statsIntervalRef.current = null;
     }

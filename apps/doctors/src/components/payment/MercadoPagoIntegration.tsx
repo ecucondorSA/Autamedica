@@ -65,7 +65,7 @@ export function MercadoPagoCheckout({
       const publicKey = 'TEST-your-public-key'
 
       // Simulación de inicialización del SDK
-      console.log('Inicializando MercadoPago SDK con clave:', publicKey)
+      // console.log('Inicializando MercadoPago SDK con clave:', publicKey)
 
       // En implementación real:
       // await window.MercadoPago.initialize({ locale: 'es-AR', environment: 'sandbox' })

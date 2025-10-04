@@ -106,7 +106,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
   // WebRTC hook
   const [webrtcState, webrtcActions] = useWebRTC({
     onRemoteStream: (stream) => {
-      console.log('[useWebRTCCall] Remote stream received');
+      // console.log('[useWebRTCCall] Remote stream received');
     },
     onIceCandidate: (candidate) => {
       // Enviar ICE candidate al peer remoto vía signaling
@@ -115,7 +115,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
       }
     },
     onConnectionStateChange: (state) => {
-      console.log('[useWebRTCCall] Connection state:', state);
+      // console.log('[useWebRTCCall] Connection state:', state);
 
       if (state === 'connected') {
         setCallStatus('connected');
@@ -135,9 +135,9 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
    */
   const getLocalStream = useCallback(async (): Promise<MediaStream | null> => {
     try {
-      console.log('[useWebRTCCall] Requesting local media...');
+      // console.log('[useWebRTCCall] Requesting local media...');
       const stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
-      console.log('[useWebRTCCall] Local stream obtained');
+      // console.log('[useWebRTCCall] Local stream obtained');
       setLocalStream(stream);
       return stream;
     } catch (err) {
@@ -153,7 +153,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
   const setupSignalingListeners = useCallback((signaling: SignalingService) => {
     // Oferta recibida (soy el receptor)
     signaling.on(SignalingEvent.OFFER_RECEIVED, async ({ offer }) => {
-      console.log('[useWebRTCCall] Offer received, creating answer...');
+      // console.log('[useWebRTCCall] Offer received, creating answer...');
       isInitiatorRef.current = false;
 
       // Establecer remote description (la oferta)
@@ -168,19 +168,19 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
 
     // Respuesta recibida (soy el iniciador)
     signaling.on(SignalingEvent.ANSWER_RECEIVED, async ({ answer }) => {
-      console.log('[useWebRTCCall] Answer received');
+      // console.log('[useWebRTCCall] Answer received');
       await webrtcActions.setRemoteDescription(answer);
     });
 
     // ICE candidate recibido
     signaling.on(SignalingEvent.ICE_CANDIDATE_RECEIVED, async ({ candidate }) => {
-      console.log('[useWebRTCCall] ICE candidate received');
+      // console.log('[useWebRTCCall] ICE candidate received');
       await webrtcActions.addIceCandidate(candidate);
     });
 
     // Usuario se unió a la sala
     signaling.on(SignalingEvent.USER_JOINED, async ({ userId: remoteUserId }) => {
-      console.log('[useWebRTCCall] User joined:', remoteUserId);
+      // console.log('[useWebRTCCall] User joined:', remoteUserId);
 
       // Si soy el primer usuario en la sala, espero
       // Si llega otro usuario, inicio la negociación
@@ -195,7 +195,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
 
     // Usuario salió de la sala
     signaling.on(SignalingEvent.USER_LEFT, () => {
-      console.log('[useWebRTCCall] User left');
+      // console.log('[useWebRTCCall] User left');
       setCallStatus('ended');
     });
 
@@ -212,7 +212,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
    */
   const startCall = useCallback(async () => {
     try {
-      console.log('[useWebRTCCall] Starting call...');
+      // console.log('[useWebRTCCall] Starting call...');
       setCallStatus('connecting');
       setError(null);
 
@@ -224,7 +224,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
       }
 
       // 2. Conectar a signaling server
-      console.log('[useWebRTCCall] Connecting to signaling server...');
+      // console.log('[useWebRTCCall] Connecting to signaling server...');
       const signaling = getSignalingService({
         serverUrl: signalingServerUrl,
         userId,
@@ -240,17 +240,17 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
       await signaling.connect();
 
       // 3. Unirse a sala
-      console.log('[useWebRTCCall] Joining room:', roomId);
+      // console.log('[useWebRTCCall] Joining room:', roomId);
       signaling.joinRoom(roomId);
 
       // 4. Inicializar peer connection
-      console.log('[useWebRTCCall] Initializing peer connection...');
+      // console.log('[useWebRTCCall] Initializing peer connection...');
       webrtcActions.initializePeerConnection();
 
       // 5. Agregar local stream a peer connection
       webrtcActions.addLocalStream(stream);
 
-      console.log('[useWebRTCCall] Call started successfully');
+      // console.log('[useWebRTCCall] Call started successfully');
     } catch (err) {
       console.error('[useWebRTCCall] Failed to start call:', err);
       setError('No se pudo iniciar la llamada');
@@ -270,7 +270,7 @@ export function useWebRTCCall(config: WebRTCCallConfig): [WebRTCCallState, WebRT
    * Finalizar llamada
    */
   const endCall = useCallback(() => {
-    console.log('[useWebRTCCall] Ending call...');
+    // console.log('[useWebRTCCall] Ending call...');
 
     // Detener local stream
     if (localStream) {

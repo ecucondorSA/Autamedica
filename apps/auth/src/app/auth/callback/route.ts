@@ -57,11 +57,11 @@ export async function GET(request: Request) {
       );
     }
 
-    console.log('Session created successfully for user:', data.user?.email);
+    // console.log('Session created successfully for user:', data.user?.email);
 
     // Persist role to user_metadata if provided
     if (role && data.user) {
-      console.log('Persisting role to user_metadata:', role);
+      // console.log('Persisting role to user_metadata:', role);
       const { error: updateError } = await supabase.auth.updateUser({
         data: { role }
       });
@@ -69,7 +69,7 @@ export async function GET(request: Request) {
       if (updateError) {
         console.error('Error updating user metadata with role:', updateError);
       } else {
-        console.log('Role successfully saved to user_metadata');
+        // console.log('Role successfully saved to user_metadata');
       }
     }
 
@@ -91,7 +91,7 @@ export async function GET(request: Request) {
       destination = '/auth/select-role';
     }
 
-    console.log('Redirecting to:', destination);
+    // console.log('Redirecting to:', destination);
 
     return NextResponse.redirect(destination);
   } catch (error) {

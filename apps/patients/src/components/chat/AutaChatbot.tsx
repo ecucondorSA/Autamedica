@@ -38,7 +38,7 @@ export function AutaChatbot() {
       try {
         await initializeONNX();
         setAiReady(true);
-        console.log('✅ Auta AI initialized with ONNX');
+        // console.log('✅ Auta AI initialized with ONNX');
       } catch (error) {
         console.error('⚠️ Failed to initialize ONNX, using fallback mode:', error);
         setAiReady(true); // Continuar con modo fallback
@@ -140,7 +140,7 @@ export function AutaChatbot() {
 
         // Log para debugging (solo en desarrollo)
         if (process.env.NODE_ENV === 'development') {
-          console.log('🤖 Auta AI Response:', {
+          // console.log('🤖 Auta AI Response:', {
             intent: classification.intent,
             confidence: classification.confidence,
             processingTime: `${processingTime.toFixed(2)}ms`,

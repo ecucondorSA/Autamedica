@@ -44,7 +44,7 @@ export function WaitingRoom({ callId, doctorId, roomId }: WaitingRoomProps) {
 
         // Subscribe to realtime changes on this specific call
         const subscription = callService.subscribeToCall(callId, (updatedCall) => {
-          console.log('[WaitingRoom] Call status changed:', updatedCall.status)
+          // console.log('[WaitingRoom] Call status changed:', updatedCall.status)
           setCall(updatedCall)
 
           switch (updatedCall.status) {

@@ -107,7 +107,7 @@ export const useAuth = (): UseAuthReturn => {
       async (event, session) => {
         if (!mounted) return;
 
-        console.log('Auth event:', event, session?.user?.id);
+        // console.log('Auth event:', event, session?.user?.id);
 
         updateState({
           user: session?.user ?? null,
@@ -125,7 +125,7 @@ export const useAuth = (): UseAuthReturn => {
             router.push('/auth/select-role');
             break;
           case 'TOKEN_REFRESHED':
-            console.log('Token refreshed successfully');
+            // console.log('Token refreshed successfully');
             break;
           case 'PASSWORD_RECOVERY':
             router.push('/auth/reset-password');

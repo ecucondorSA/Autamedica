@@ -26,32 +26,32 @@ export function StartCallButton({
     setError(null)
 
     try {
-      console.log('Starting call flow...', { doctorId, patientId })
+      // console.log('Starting call flow...', { doctorId, patientId })
 
       // Create call service
-      console.log('Creating call service...')
+      // console.log('Creating call service...')
       const callService = createCallService()
-      console.log('Call service created successfully')
+      // console.log('Call service created successfully')
 
       // Create call record (status will be 'requested')
-      console.log('Creating call record...')
+      // console.log('Creating call record...')
       const call = await callService.createCall(doctorId, patientId)
-      console.log('Call created:', call)
+      // console.log('Call created:', call)
 
       // Create signaling client for sending invite
-      console.log('Creating signaling client...')
+      // console.log('Creating signaling client...')
       const signaling = createSignalingClient(doctorId, 'doctor')
-      console.log('Connecting to signaling server...')
+      // console.log('Connecting to signaling server...')
       await signaling.connect()
-      console.log('Signaling connected successfully')
+      // console.log('Signaling connected successfully')
 
       // Update call status to 'ringing' when sending invite
-      console.log('Updating call status to ringing...')
+      // console.log('Updating call status to ringing...')
       await callService.updateCallStatus(call.id, 'ringing')
-      console.log('Call status updated to ringing')
+      // console.log('Call status updated to ringing')
 
       // Send invite to patient
-      console.log('Sending invite to patient...')
+      // console.log('Sending invite to patient...')
       signaling.sendToUser(patientId, {
         type: 'invite',
         callId: call.id,
@@ -59,10 +59,10 @@ export function StartCallButton({
         from: { doctorId, name: 'Doctor' },
         to: { patientId }
       })
-      console.log('Invite sent successfully')
+      // console.log('Invite sent successfully')
 
       // Navigate to waiting room
-      console.log('Navigating to waiting room...')
+      // console.log('Navigating to waiting room...')
       router.push(`/call/${call.room_id}?callId=${call.id}&waiting=true`)
 
     } catch (err) {

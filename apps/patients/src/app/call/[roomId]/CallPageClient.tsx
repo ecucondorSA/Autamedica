@@ -62,11 +62,11 @@ function PatientCallContent({ roomId }: { roomId: string }) {
   }
 
   const handleCallStart = () => {
-    console.log('[UnifiedVideoCall][patient] start')
+    // console.log('[UnifiedVideoCall][patient] start')
   }
 
   const handleStatusChange = (status: string) => {
-    console.log('[UnifiedVideoCall][patient] status:', status)
+    // console.log('[UnifiedVideoCall][patient] status:', status)
   }
 
   const handleError = (error: unknown) => {

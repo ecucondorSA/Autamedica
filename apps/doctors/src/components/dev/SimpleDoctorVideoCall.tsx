@@ -215,7 +215,7 @@ export default function SimpleDoctorVideoCall({
         })
 
         if (response.ok && isActive) {
-          console.log('Conectado a la sala:', roomId)
+          // console.log('Conectado a la sala:', roomId)
           startPolling()
         }
       } catch (error) {
@@ -340,7 +340,7 @@ export default function SimpleDoctorVideoCall({
   // Handle patient joined - create WebRTC offer
   const handlePatientJoined = async () => {
     if (offerInFlightRef.current) {
-      console.log('Offer already in flight, skipping duplicate handling')
+      // console.log('Offer already in flight, skipping duplicate handling')
       return
     }
 
@@ -460,7 +460,7 @@ export default function SimpleDoctorVideoCall({
     }
 
     if (callStatusRef.current === 'calling' && pendingOfferRef.current && !offerInFlightRef.current) {
-      console.log('Media ready after pending offer request, creating offer now')
+      // console.log('Media ready after pending offer request, creating offer now')
       handlePatientJoined()
     }
   }
@@ -482,7 +482,7 @@ export default function SimpleDoctorVideoCall({
           handleMediaReady(mediaStream)
           return
         } catch (error: any) {
-          console.log(`Failed with constraint:`, constraint, error.name)
+          // console.log(`Failed with constraint:`, constraint, error.name)
 
           if (error.name === 'NotAllowedError') {
             setMediaError('Permisos de cámara/micrófono denegados')
@@ -497,7 +497,7 @@ export default function SimpleDoctorVideoCall({
 
       // If all attempts failed, show media picker
       if (!stream) {
-        console.log('Auto-init failed, showing media picker')
+        // console.log('Auto-init failed, showing media picker')
         setShowMediaPicker(true)
       }
     }
@@ -541,7 +541,7 @@ export default function SimpleDoctorVideoCall({
     // Prevent spam calling - only allow one call attempt every 10 seconds
     const now = Date.now()
     if (now - lastCallAttemptRef.current < 10000) {
-      console.log('Por favor espera antes de llamar nuevamente')
+      // console.log('Por favor espera antes de llamar nuevamente')
       return
     }
     lastCallAttemptRef.current = now

@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   // Debug logging in development
   React.useEffect(() => {
     if (enableDebug && process.env.NODE_ENV === 'development') {
-      console.log('AuthProvider state:', {
+      // console.log('AuthProvider state:', {
         user: authValue.user?.id,
         loading: authValue.loading,
         error: authValue.error?.message,
