@@ -1,10 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
-  trailingSlash: true,
-};
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createNextAppConfig } from '../../config/next-app.config.mjs';
 
-export default nextConfig;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default createNextAppConfig({
+  appDir: __dirname,
+  output: 'export',
+  aliasAuthHooks: false,
+  extraTranspile: [],
+});

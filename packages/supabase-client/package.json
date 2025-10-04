@@ -7,9 +7,9 @@
   "dependencies": {
     "@autamedica/auth": "workspace:*",
     "@autamedica/types": "workspace:*",
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "^2.57.4"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": "^5.9.2"
   }
 }

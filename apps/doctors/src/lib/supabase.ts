@@ -1,24 +1,12 @@
 'use client';
 
 import {
-  getSupabaseBrowserClient,
   AppSupabaseClient,
+  getOptionalSupabaseBrowserClient,
 } from '@autamedica/supabase-client';
 
-let supabaseClient: AppSupabaseClient | null = null;
-
 export function createClient(): AppSupabaseClient | null {
-  // Only create client in browser environment
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  // Create real client only once on client-side
-  if (!supabaseClient) {
-    supabaseClient = getSupabaseBrowserClient();
-  }
-
-  return supabaseClient;
+  return getOptionalSupabaseBrowserClient();
 }
 
 // Lazy getter para evitar ejecución en build time

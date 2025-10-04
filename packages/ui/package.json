@@ -7,9 +7,9 @@
   "dependencies": {
     "@autamedica/hooks": "workspace:*",
     "@autamedica/telemedicine": "workspace:*",
-    "react": "^18.3.1"
+    "react": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": "^5.9.2"
   }
 }

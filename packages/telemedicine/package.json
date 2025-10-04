@@ -31,13 +31,13 @@
     "@types/react": "^19.1.14",
     "@types/react-dom": "^19.1.0",
     "rimraf": "^5.0.0",
-    "typescript": "5.9.2",
+    "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@supabase/supabase-js": "^2.45.0",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "@supabase/supabase-js": "^2.57.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "peerDependenciesMeta": {
     "@supabase/supabase-js": {

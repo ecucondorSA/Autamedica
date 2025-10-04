@@ -1,10 +1,19 @@
+#!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const workerDir = path.resolve(__dirname, '../.open-next');
+const args = process.argv.slice(2);
+const options = {};
+for (let i = 0; i < args.length; i += 1) {
+  const arg = args[i];
+  if (arg === '--dir' || arg === '-d') {
+    options.outputDir = args[i + 1];
+    i += 1;
+  }
+}
+
+const cwd = process.cwd();
+const workerDir = path.resolve(cwd, options.outputDir ?? '.open-next');
 const workerPath = path.join(workerDir, '_worker.js');
 const originalWorkerPath = path.join(workerDir, 'worker.js');
 const routesPath = path.join(workerDir, '_routes.json');
@@ -45,17 +54,18 @@ if (!source.includes(snippetSignature)) {
   console.log('ℹ️  Patch ya aplicado en _worker.js.');
 }
 
-// Siempre regenerar _routes.json para asegurar configuración correcta
-fs.writeFileSync(
-  routesPath,
-  JSON.stringify(
-    {
-      version: 1,
-      include: ['/*'],
-      exclude: ['/assets/*']
-    },
-    null,
-    2
-  ) + '\n'
-);
-console.log('✅ _routes.json creado (worker maneja /_next/static/* para redirect 307).');
+if (!fs.existsSync(routesPath)) {
+  fs.writeFileSync(
+    routesPath,
+    JSON.stringify(
+      {
+        version: 1,
+        include: ['/*'],
+        exclude: ['/assets/*', '/_next/static/*'],
+      },
+      null,
+      2,
+    ) + '\n',
+  );
+  console.log('✅ _routes.json creado.');
+}

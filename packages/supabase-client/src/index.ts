@@ -27,6 +27,14 @@ export function getSupabaseBrowserClient(): AppSupabaseClient {
 }
 
 /**
+ * Obtiene el cliente de navegador sin lanzar excepción en entornos SSR.
+ * Retorna null cuando se invoca fuera del browser.
+ */
+export function getOptionalSupabaseBrowserClient(): AppSupabaseClient | null {
+  return typeof window === 'undefined' ? null : getSupabaseBrowserClient();
+}
+
+/**
  * Get server client for SSR operations
  * Creates new instance with server-side cookie handling
  */

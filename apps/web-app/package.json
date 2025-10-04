@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "prebuild:cloudflare": "rm -rf .next .open-next || true",
-    "build:cloudflare": "pnpm run build && node scripts/ensure-required-server-files.mjs && opennextjs-cloudflare build --skip-next-build && node scripts/patch-open-next.mjs",
+    "build:cloudflare": "pnpm run build && node ../../scripts/next/ensure-required-server-files.mjs --app web-app && opennextjs-cloudflare build --skip-next-build && node ../../scripts/next/patch-open-next.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -17,9 +17,9 @@
     "@autamedica/tailwind-config": "workspace:^",
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
-    "next": "^15.5.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "15.5.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",
@@ -32,6 +32,6 @@
     "eslint": "^9.34.0",
     "postcss": "^8.0.0",
     "tailwindcss": "^3.4.0",
-    "typescript": "5.9.2"
+    "typescript": "^5.9.2"
   }
 }

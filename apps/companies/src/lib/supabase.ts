@@ -1,14 +1,10 @@
 'use client'
 
-import { createBrowserClient } from '@supabase/ssr'
-import { ensureClientEnv } from '@autamedica/shared'
+import {
+  AppSupabaseClient,
+  getOptionalSupabaseBrowserClient,
+} from '@autamedica/supabase-client'
 
-export function createClient() {
-  const supabaseUrl = ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL')
-  const supabaseAnonKey = ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
-
-  return createBrowserClient(
-    supabaseUrl,
-    supabaseAnonKey
-  )
+export function createClient(): AppSupabaseClient | null {
+  return getOptionalSupabaseBrowserClient()
 }

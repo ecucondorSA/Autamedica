@@ -1,31 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true
-  },
-  // Para production build, disabled estricto linting por el momento
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true, // Ignorar errores de TypeScript temporalmente
-  },
-  // Transpile packages del monorepo
-  transpilePackages: [
-    '@autamedica/types',
-    '@autamedica/shared', 
-    '@autamedica/auth',
-    '@autamedica/hooks',
-    '@autamedica/ui',
-    '@autamedica/utils'
-  ],
-  // Configuración experimental para mejor performance
-  experimental: {
-    // Mejorar builds de monorepo
-    externalDir: true,
-  },
-};
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createNextAppConfig } from '../../config/next-app.config.mjs';
 
-export default nextConfig;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default createNextAppConfig({
+  appDir: __dirname,
+  output: 'export',
+});
