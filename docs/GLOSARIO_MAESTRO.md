@@ -2367,6 +2367,64 @@ pnpm docs:validate
 - **Descripción:** Función utilitaria para createserverclient en el ecosistema AutaMedica.
 - **Contrato:** Pendiente de documentación detallada
 
+## 📋 Exports Auto-generados
+
+### APP_NAMES
+- **Tipo:** const
+- **Package:** @autamedica/auth
+- **Descripción:** Constantes de nombres de aplicaciones del ecosistema AutaMedica.
+- **Contrato:** Objeto constante con los nombres de todas las aplicaciones del sistema:
+  ```typescript
+  {
+    WEB_APP: 'web-app',
+    AUTH: 'auth',
+    PATIENTS: 'patients',
+    DOCTORS: 'doctors',
+    COMPANIES: 'companies',
+    ADMIN: 'admin'
+  } satisfies Record<string, AppName>
+  ```
+
+### AppNameConstant
+- **Tipo:** type
+- **Package:** @autamedica/auth
+- **Descripción:** Tipo derivado de los valores del objeto APP_NAMES.
+- **Contrato:**
+  ```typescript
+  type AppNameConstant = typeof APP_NAMES[keyof typeof APP_NAMES]
+  // Equivalente a: 'web-app' | 'auth' | 'patients' | 'doctors' | 'companies' | 'admin'
+  ```
+
+### UserMetadata
+- **Tipo:** interface
+- **Package:** @autamedica/auth
+- **Descripción:** Metadata de usuario almacenada en Supabase auth.users.user_metadata.
+- **Contrato:**
+  ```typescript
+  interface UserMetadata {
+    full_name?: string      // Nombre completo del usuario
+    first_name?: string     // Nombre
+    last_name?: string      // Apellido
+    role?: string           // Rol en el sistema
+    company_name?: string   // Nombre de empresa (para admins de organización)
+    avatar_url?: string     // URL del avatar
+    phone?: string          // Teléfono del usuario
+    [key: string]: unknown  // Metadata adicional personalizada
+  }
+  ```
+
+### useSupabase
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Hook de React para obtener una instancia singleton del cliente Supabase.
+- **Contrato:**
+  ```typescript
+  function useSupabase(): SupabaseClient
+  ```
+  - Retorna una instancia memoizada del cliente Supabase para optimizar performance
+  - Solo para uso en componentes cliente (require 'use client')
+  - Reutiliza la misma instancia a través de componentes
+
 ## 🔗 Referencias Relacionadas
 
 - **[CLAUDE.md](../CLAUDE.md)** - Guía para Claude Code

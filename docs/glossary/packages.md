@@ -145,6 +145,7 @@ export type {
   UserRole,
   AppName,
   UserProfile,
+  UserMetadata,
   AuthState,
   Environment,
   DomainConfig,
@@ -158,6 +159,14 @@ export {
   APP_ALLOWED_ROLES,
   AuthError,
 } from "./types";
+
+export {
+  APP_NAMES,
+} from "./constants";
+
+export type {
+  AppNameConstant,
+} from "./constants";
 
 // Clientes Supabase (browser)
 export {
@@ -191,6 +200,10 @@ export {
   useRequireAuth,
   useRequireRole,
 } from "./hooks/useAuth";
+
+export {
+  useSupabase,
+} from "./hooks/useSupabase";
 
 export {
   authMiddleware,
