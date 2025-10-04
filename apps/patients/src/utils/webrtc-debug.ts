@@ -188,7 +188,7 @@ export class WebRTCDebugger {
     const senders = pc.getSenders()
     senders.forEach((sender, i) => {
       if (sender.track) {
-        // logger.info(`  Sender ${i + 1}:`, {
+        this.info(`  Sender ${i + 1}:`, {
           kind: sender.track.kind,
           enabled: sender.track.enabled,
           muted: sender.track.muted,
@@ -196,7 +196,7 @@ export class WebRTCDebugger {
           label: sender.track.label
         })
       } else {
-        // logger.info(`  Sender ${i + 1}: No track`)
+        this.info(`  Sender ${i + 1}: No track`)
       }
     })
 
@@ -205,7 +205,7 @@ export class WebRTCDebugger {
     const receivers = pc.getReceivers()
     receivers.forEach((receiver, i) => {
       if (receiver.track) {
-        // logger.info(`  Receiver ${i + 1}:`, {
+        this.info(`  Receiver ${i + 1}:`, {
           kind: receiver.track.kind,
           enabled: receiver.track.enabled,
           muted: receiver.track.muted,
@@ -213,7 +213,7 @@ export class WebRTCDebugger {
           id: receiver.track.id
         })
       } else {
-        // logger.info(`  Receiver ${i + 1}: No track`)
+        this.info(`  Receiver ${i + 1}: No track`)
       }
     })
 

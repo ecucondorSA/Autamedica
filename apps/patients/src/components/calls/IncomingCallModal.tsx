@@ -91,7 +91,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         }
 
         ws.onclose = (event) => {
-          // logger.info('🔌 Disconnected from signaling server', {
+          logger.info('🔌 Disconnected from signaling server', {
             code: event.code,
             reason: event.reason
           })

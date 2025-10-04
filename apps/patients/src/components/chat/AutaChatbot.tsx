@@ -141,7 +141,7 @@ export function AutaChatbot() {
 
         // Log para debugging (solo en desarrollo)
         if (process.env.NODE_ENV === 'development') {
-          // logger.info('🤖 Auta AI Response:', {
+          logger.info('🤖 Auta AI Response:', {
             intent: classification.intent,
             confidence: classification.confidence,
             processingTime: `${processingTime.toFixed(2)}ms`,
