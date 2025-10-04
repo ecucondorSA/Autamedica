@@ -18,19 +18,18 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
   console.log('MediaEducativa - Loading video:', url, 'isLocal:', isLocalVideo);
 
   return (
-    <div className="mb-1.5 flex justify-center">
+    <div>
       {type === 'video' && isLocalVideo ? (
-        // Video local con autoplay - Compacto y centrado
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-1.5 overflow-hidden max-w-xl w-full">
-          {/* Video más pequeño - max height de 180px y max width limitado */}
-          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '180px', maxWidth: '420px' }}>
+        // Video local con autoplay - Diseño limpio
+        <div className="rounded-xl bg-sky-50 p-4 border border-sky-200">
+          <div className="relative rounded-lg overflow-hidden bg-black">
             <video
               src={url}
               controls
               autoPlay
               playsInline
               preload="auto"
-              className="w-full h-auto max-h-[180px] object-contain"
+              className="w-full aspect-video object-contain"
               onLoadedMetadata={(e) => {
                 console.log('Video metadata loaded:', url);
                 const video = e.target as HTMLVideoElement;
@@ -53,18 +52,15 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               Tu navegador no soporta el elemento de video.
             </video>
           </div>
-          <div className="mt-1 px-1">
-            <div className="flex items-center gap-1">
-              <Play className="h-3 w-3 text-indigo-600 flex-shrink-0" />
-              <h4 className="text-[10px] font-semibold text-indigo-900">{title}</h4>
-            </div>
-            <p className="text-[9px] text-indigo-700 mt-0.5">{description}</p>
+          <div className="mt-3">
+            <p className="text-sm text-gray-700 font-medium mb-1">🎥 Video educativo</p>
+            <p className="text-sm text-gray-600">{description}</p>
           </div>
         </div>
       ) : type === 'video' ? (
-        // Video de iframe (YouTube, Vimeo, etc.) - Compacto y centrado
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
-          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '240px', maxWidth: '520px', aspectRatio: '16/9' }}>
+        // Video de iframe (YouTube, Vimeo, etc.)
+        <div className="rounded-xl bg-sky-50 p-4 border border-sky-200">
+          <div className="relative rounded-lg overflow-hidden bg-black aspect-video">
             <iframe
               src={url}
               className="w-full h-full"
@@ -72,24 +68,18 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               allowFullScreen
             ></iframe>
           </div>
-          <div className="mt-1 px-1">
-            <div className="flex items-center gap-1">
-              <Play className="h-3 w-3 text-indigo-600 flex-shrink-0" />
-              <h4 className="text-[10px] font-semibold text-indigo-900">{title}</h4>
-            </div>
-            <p className="text-[9px] text-indigo-700 mt-0.5">{description}</p>
+          <div className="mt-3">
+            <p className="text-sm text-gray-700 font-medium mb-1">🎥 Video educativo</p>
+            <p className="text-sm text-gray-600">{description}</p>
           </div>
         </div>
       ) : (
-        // Imagen - Compacto y centrado
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
-          <img src={url} alt={title} className="w-full h-auto max-h-[240px] object-contain rounded-lg mx-auto" style={{ maxWidth: '520px' }} />
-          <div className="mt-1.5 px-1">
-            <div className="flex items-center gap-1.5">
-              <ImageIcon className="h-3.5 w-3.5 text-indigo-600 flex-shrink-0" />
-              <h4 className="text-xs font-semibold text-indigo-900">{title}</h4>
-            </div>
-            <p className="text-[11px] text-indigo-700 mt-0.5">{description}</p>
+        // Imagen
+        <div className="rounded-xl bg-green-50 p-4 border border-green-200">
+          <img src={url} alt={title} className="w-full h-auto rounded-lg" />
+          <div className="mt-3">
+            <p className="text-sm font-medium text-green-900">{title}</p>
+            <p className="text-sm text-green-800 mt-1">{description}</p>
           </div>
         </div>
       )}

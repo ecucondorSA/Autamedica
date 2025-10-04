@@ -272,29 +272,29 @@ export default function AnamnesisPage() {
         <PausaCognitiva stepNumber={currentStepIndex + 1} onContinue={handleContinueAfterPause} />
       )}
 
-      {/* Progress Bar - Micro */}
+      {/* Progress Bar */}
       <div className="sticky top-0 z-10 bg-white border-b border-stone-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-2 py-0.5">
-          <div className="flex items-center justify-between mb-0.5">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <div className="flex items-center justify-between mb-2">
             <div>
-              <p className="text-[10px] font-semibold text-stone-900">
+              <p className="text-sm text-stone-500">
                 Paso {currentStepIndex + 1}/{anamnesisSteps.length}
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {/* Indicador de guardado */}
               {isSaving ? (
-                <div className="flex items-center gap-0.5">
-                  <Save className="h-2.5 w-2.5 text-blue-600 animate-pulse" />
-                  <span className="text-[9px] text-blue-600">Guardando...</span>
+                <div className="flex items-center gap-1.5">
+                  <Save className="h-4 w-4 text-blue-600 animate-pulse" />
+                  <span className="text-sm text-blue-600">Guardando...</span>
                 </div>
               ) : lastSaved ? (
-                <span className="text-[9px] text-green-600">✓ Guardado</span>
+                <span className="text-sm text-green-600">✓ Guardado</span>
               ) : null}
-              <p className="text-[10px] font-bold text-stone-900">{Math.round(progress)}%</p>
+              <p className="text-sm font-bold text-stone-900">{Math.round(progress)}%</p>
             </div>
           </div>
-          <div className="h-1 bg-stone-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-stone-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -303,119 +303,127 @@ export default function AnamnesisPage() {
         </div>
       </div>
 
-      {/* Main Content - Micro Compacto */}
-      <div className="max-w-5xl mx-auto px-2 py-1">
-        {/* Step Header - Micro */}
-        <div className="mb-1">
-          <h1 className="text-lg font-bold text-stone-900 mb-0.5">
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto px-6 py-10 space-y-8">
+        {/* Step Header */}
+        <header>
+          <h1 className="text-2xl font-semibold text-stone-900 mt-1">
             {currentStep.title}
           </h1>
-          <p className="text-[10px] text-stone-600">
+          <p className="text-stone-600 mt-2">
             {currentStep.subtitle}
           </p>
-        </div>
+        </header>
 
-        {/* Story Cards - Solo si no hay video */}
-        {currentStep.story && (
-          <StoryCard
-            intro={currentStep.story.intro}
-            why={currentStep.story.why}
-            example={currentStep.story.example}
-            didYouKnow={currentStep.story.didYouKnow}
-          />
-        )}
-
-        {/* Media Educativa (Video/Imagen) - Sin margen extra */}
-        {currentStep.mediaUrl && (
-          <MediaEducativa
-            type="video"
-            url={currentStep.mediaUrl}
-            title={`Video educativo: ${currentStep.title}`}
-            description="Aprende más sobre este tema"
-            duration="3:45"
-          />
-        )}
-
-        {/* Formulario - Micro Compacto */}
-        <div className="card-ivory-elevated p-2 mb-1">
-          <h2 className="text-xs font-bold mb-1 flex items-center gap-1 text-stone-900">
-            <span className="text-sm">📝</span>
-            Ahora cuéntanos sobre ti
-          </h2>
-
-          <div className="space-y-2">
-            {currentStep.fields.map((field) => {
-              // Check si el campo depende de otro
-              if (field.dependsOn) {
-                const dependsValue = anamnesisData[field.dependsOn.fieldId];
-                if (dependsValue !== field.dependsOn.value) {
-                  return null;
-                }
-              }
-
-              return (
-                <AnamnesisField
-                  key={field.id}
-                  field={field}
-                  value={anamnesisData[field.id]}
-                  onChange={(value) => handleFieldChange(field.id, value)}
-                />
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Navigation - Ultra Compacto */}
-        <div className="flex items-center justify-between gap-3">
-          <button
-            onClick={handlePrevious}
-            disabled={currentStepIndex === 0}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
-              currentStepIndex === 0
-                ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
-                : 'btn-secondary-ivory'
-            }`}
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Anterior
-          </button>
-
-          <div className="text-center">
-            <p className="text-[10px] text-stone-600">
-              {currentStepIndex === anamnesisSteps.length - 1
-                ? '¡Último paso!'
-                : `Faltan ${anamnesisSteps.length - currentStepIndex - 1} pasos`}
-            </p>
-          </div>
-
-          {currentStepIndex === anamnesisSteps.length - 1 ? (
-            <button
-              onClick={handleFinish}
-              disabled={!canGoNext()}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
-                !canGoNext()
-                  ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
-                  : 'btn-primary-ivory'
-              }`}
-            >
-              <CheckCircle className="h-3.5 w-3.5" />
-              Finalizar
-            </button>
-          ) : (
-            <button
-              onClick={handleNext}
-              disabled={!canGoNext()}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
-                !canGoNext()
-                  ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
-                  : 'btn-primary-ivory'
-              }`}
-            >
-              Siguiente
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+        {/* Two-column layout: Video + Form */}
+        <section className="grid md:grid-cols-5 gap-8">
+          {/* Left column: Video (if present) */}
+          {currentStep.mediaUrl && (
+            <div className="md:col-span-2">
+              <MediaEducativa
+                type="video"
+                url={currentStep.mediaUrl}
+                title={`Video educativo: ${currentStep.title}`}
+                description="Aprende más sobre este tema"
+                duration="3:45"
+              />
+            </div>
           )}
-        </div>
+
+          {/* Story Cards - Solo si no hay video */}
+          {!currentStep.mediaUrl && currentStep.story && (
+            <div className="md:col-span-5">
+              <StoryCard
+                intro={currentStep.story.intro}
+                why={currentStep.story.why}
+                example={currentStep.story.example}
+                didYouKnow={currentStep.story.didYouKnow}
+              />
+            </div>
+          )}
+
+          {/* Right column: Form (or full width if no video) */}
+          <div className={currentStep.mediaUrl ? "md:col-span-3 space-y-6" : "md:col-span-5 space-y-6"}>
+            <div>
+              <h2 className="font-medium text-lg text-stone-900 mb-2">Ahora cuéntanos sobre ti</h2>
+
+              <div className="space-y-4">
+                {currentStep.fields.map((field) => {
+                  // Check si el campo depende de otro
+                  if (field.dependsOn) {
+                    const dependsValue = anamnesisData[field.dependsOn.fieldId];
+                    if (dependsValue !== field.dependsOn.value) {
+                      return null;
+                    }
+                  }
+
+                  return (
+                    <AnamnesisField
+                      key={field.id}
+                      field={field}
+                      value={anamnesisData[field.id]}
+                      onChange={(value) => handleFieldChange(field.id, value)}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Navigation - Sticky Footer */}
+        <footer className="sticky bottom-0 bg-white border-t border-stone-200 pt-4 pb-4 -mx-6 px-6">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={handlePrevious}
+              disabled={currentStepIndex === 0}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+                currentStepIndex === 0
+                  ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
+                  : 'btn-secondary-ivory'
+              }`}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Anterior
+            </button>
+
+            <div className="text-center">
+              <p className="text-sm text-stone-600">
+                {currentStepIndex === anamnesisSteps.length - 1
+                  ? '¡Último paso!'
+                  : `Faltan ${anamnesisSteps.length - currentStepIndex - 1} pasos`}
+              </p>
+            </div>
+
+            {currentStepIndex === anamnesisSteps.length - 1 ? (
+              <button
+                onClick={handleFinish}
+                disabled={!canGoNext()}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+                  !canGoNext()
+                    ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
+                    : 'btn-primary-ivory'
+                }`}
+              >
+                <CheckCircle className="h-4 w-4" />
+                Finalizar
+              </button>
+            ) : (
+              <button
+                onClick={handleNext}
+                disabled={!canGoNext()}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+                  !canGoNext()
+                    ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
+                    : 'btn-primary-ivory'
+                }`}
+              >
+                Siguiente
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        </footer>
       </div>
     </div>
   );

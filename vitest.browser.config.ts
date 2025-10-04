@@ -12,11 +12,12 @@ export default defineConfig({
       provider: 'playwright',
       headless: false, // Set to false for debugging, true for CI
       screenshotFailures: true,
+      slowMo: 500, // Slow down interactions for visibility
     },
 
-    // Test settings
-    testTimeout: 30000, // 30 segundos para navegación
-    hookTimeout: 30000,
+    // Test settings - EXTENDED TIMEOUTS para tests largos
+    testTimeout: 300000, // 5 minutos para tests extensos
+    hookTimeout: 120000, // 2 minutos para hooks
 
     // Include test files
     include: [
