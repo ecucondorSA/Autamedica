@@ -7,14 +7,11 @@
   "scripts": {
     "dev": "next dev -p 3003",
     "build": "next build",
-    "build:cloudflare": "opennextjs-cloudflare build",
+    "prebuild:cloudflare": "rm -rf .next .open-next || true",
+    "build:cloudflare": "pnpm run build && node scripts/ensure-required-server-files.mjs && opennextjs-cloudflare build --skip-next-build && node scripts/patch-open-next.mjs",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .open-next/dist --project-name=autamedica-companies",
-    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@autamedica/auth": "workspace:^",

@@ -88,13 +88,5 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
   console.log('ℹ️  prerender-manifest.json already present.');
 }
 
-// Detect app name from current directory
-const appName = path.basename(path.resolve('.'));
-const STANDALONE_NEXT_DIR = path.join(NEXT_DIR, 'standalone', 'apps', appName, '.next');
-if (!fs.existsSync(STANDALONE_NEXT_DIR)) {
-  fs.mkdirSync(path.dirname(STANDALONE_NEXT_DIR), { recursive: true });
-  fs.cpSync(NEXT_DIR, STANDALONE_NEXT_DIR, { recursive: true });
-  console.log(`🛠️  Created standalone copy of .next directory for ${appName}`);
-} else {
-  console.log('ℹ️  standalone .next directory already present.');
-}
+// Skip standalone copy - OpenNext.js will handle it
+console.log('ℹ️  Skipping standalone copy (handled by OpenNext.js)');

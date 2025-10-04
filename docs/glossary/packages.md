@@ -98,12 +98,10 @@ export {
   validateStagingEnvironment,
   validateEnvironmentByType,
 } from "./env";
+export type { EnvironmentConfig, EnvironmentValidation } from "./env";
 
 // Validaciones
 export { validateEmail, validatePhone } from "./validators";
-
-// Tipos de entorno
-export type { EnvironmentConfig, EnvironmentValidation } from "./env";
 
 // Logger centralizado
 export { logger } from "./services/logger.service";
@@ -117,11 +115,13 @@ export {
   PORTAL_TO_ROLE,
   getTargetUrlByRole,
   getCookieDomain,
-  isValidRole,
   getPortalForRole,
   getRoleForPortal,
-  getLoginUrl
+  getLoginUrl,
 } from "./role-routing";
+
+// Session management
+export { getSession, hasRole } from "./session";
 ```
 
 ---
@@ -141,26 +141,21 @@ export type {
   DomainConfig,
   RedirectConfig,
   SessionConfig,
-  AuthErrorType
+  AuthErrorType,
 } from "./types";
 
 export {
   ROLE_APP_MAPPING,
   APP_ALLOWED_ROLES,
-  AuthError
+  AuthError,
 } from "./types";
 
 // Clientes Supabase
 export {
   createBrowserClient,
   getSupabaseClient,
-  signOutGlobally
+  signOutGlobally,
 } from "./client/supabase";
-export {
-  createServerClient,
-  createMiddlewareClient,
-  createRouteHandlerClient,
-} from "./server";
 
 // Manejo de sesiones
 export {
@@ -173,25 +168,17 @@ export {
   hasPortalAccess,
 } from "./session";
 
-// Autenticación por email (Magic Links)
-export {
-  signInWithOtp,
-  validateEmailForSignIn,
-  getPortalRedirectUrl,
-} from "./email";
-export type { SignInWithOtpOptions, SignInWithOtpResult } from "./email";
-
 // Middleware y hooks de aplicación
 export {
   AuthProvider,
   useAuth,
   useRequireAuth,
-  useRequireRole
+  useRequireRole,
 } from "./hooks/useAuth";
 
 export {
   authMiddleware,
-  createAppMiddleware
+  createAppMiddleware,
 } from "./middleware/auth";
 
 // Utilidades de configuración y redirección
@@ -201,14 +188,10 @@ export {
   getSessionConfig,
   getSupabaseConfig,
   isSameOrigin,
-  sanitizeReturnUrl
-} from "./utils/config";
-
-export {
+  sanitizeReturnUrl,
   getRedirectUrl,
-  buildAuthRedirectUrl,
-  getCallbackUrl
-} from "./utils/redirect";
+  getLoginUrl,
+} from "./utils";
 ```
 
 ---
@@ -218,11 +201,13 @@ export {
 **Ubicación**: `packages/hooks/src/index.ts`
 
 ```typescript
-// React hooks médicos y de utilidad
-export { useAsync } from "./useAsync";
-export { useDebounce } from "./useDebounce";
+// React hooks médicos
 export { usePatients } from "./usePatients";
 export { useAppointments } from "./useAppointments";
+
+// React hooks de utilidad
+export { useAsync } from "./useAsync";
+export { useDebounce } from "./useDebounce";
 ```
 
 ---
@@ -251,6 +236,10 @@ export { default } from "./tailwind.config";
 ```
 
 ---
+
+<!-- AUTOGEN_PACKAGES:START -->
+<!-- Esta sección es auto-generada por scripts/validate-exports.mjs -->
+<!-- AUTOGEN_PACKAGES:END -->
 
 **Última actualización**: 2025-10-04
 **Mantenido por**: Sistema de validación automática (`pnpm docs:validate`)

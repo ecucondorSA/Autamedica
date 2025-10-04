@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
 import { useSearchParams } from 'next/navigation';
-import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared/roles';
+import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared/roles';
+import { createBrowserClient } from '@autamedica/auth';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
@@ -30,10 +30,7 @@ function LoginForm() {
     setError(null);
 
     try {
-      const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
+      const supabase = createBrowserClient();
 
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
@@ -60,10 +57,7 @@ function LoginForm() {
     setError(null);
 
     try {
-      const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
+      const supabase = createBrowserClient();
 
       const callbackUrl = new URL(`${window.location.origin}/auth/callback`);
       callbackUrl.searchParams.set('role', role!);

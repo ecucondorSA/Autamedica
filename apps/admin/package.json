@@ -7,16 +7,18 @@
   "scripts": {
     "dev": "next dev -p 3004",
     "build": "next build",
+    "prebuild:cloudflare": "rm -rf .next .open-next || true",
+    "build:cloudflare": "pnpm run build && node scripts/ensure-required-server-files.mjs && opennextjs-cloudflare build --skip-next-build && node scripts/patch-open-next.mjs",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@autamedica/types": "workspace:^",
-    "@autamedica/shared": "workspace:^",
     "@autamedica/auth": "workspace:^",
     "@autamedica/hooks": "workspace:^",
+    "@autamedica/shared": "workspace:^",
     "@autamedica/tailwind-config": "workspace:^",
+    "@autamedica/types": "workspace:^",
     "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.8",
     "@supabase/ssr": "^0.5.2",
@@ -34,6 +36,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.9.1",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",

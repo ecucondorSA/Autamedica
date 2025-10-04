@@ -206,17 +206,45 @@ pnpm build:cloudflare
 
 ## 🔐 Environment Variables
 
-**Required en Cloudflare Pages:**
+**⚠️ CRÍTICO: Variables Server-Side Requeridas**
 
+El portal de pacientes requiere **variables de entorno duplicadas** para operaciones client-side Y server-side:
+
+### Server-Side (Next.js SSR/Middleware)
+```bash
+SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
+SUPABASE_ANON_KEY=<anon_key>
+SUPABASE_SERVICE_ROLE_KEY=<service_role_key>  # Para callback OAuth
+```
+
+### Client-Side (Browser)
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
+```
+
+### Auth Configuration
+```bash
+AUTH_COOKIE_DOMAIN=.autamedica.com  # Para SSO cross-subdomain
 NODE_ENV=production
 ```
 
+**Documentación**: Ver `apps/patients/.env.example` para configuración completa
+
 ## 📝 Changelog
 
-### [Current] - Cloudflare Deployment Fix
+### [2025-10-04] - Auth Integration Fixes
+- ✅ **Habilitado Auth Hub sync** en `session-sync.ts` (eliminado `return null`)
+- ✅ **Eliminado middleware duplicado** `src/middleware.ts` (solo usar `middleware.ts`)
+- ✅ **Refactorizado `supabaseClient.ts`** para SSR real (eliminado mock)
+  - Usa `createServerClient()` de `@autamedica/auth` en SSR
+  - Mantiene `createBrowserClient()` para cliente
+  - Error explicativo si se usa incorrectamente
+- ✅ **Login page** usa `@autamedica/auth` centralizado
+- ✅ **Variables de entorno** server-side documentadas (`.env.example`)
+- ✅ **`getDomainConfig()`** corregido: `.autamedica.com` en producción (no `.pages.dev`)
+
+### [Previous] - Cloudflare Deployment Fix
 - ✅ Agregado `prebuild:cloudflare` hook
 - ✅ Refactorizado `build:cloudflare` pipeline
 - ✅ Creado `patch-open-next.mjs` con redirect logic
@@ -227,4 +255,4 @@ NODE_ENV=production
 
 **Última actualización**: 2025-10-04
 **Ambiente**: Cloudflare Pages con OpenNext.js adapter
-**Status**: ✅ OPERATIVO
+**Status**: ✅ OPERATIVO (Auth integrado)

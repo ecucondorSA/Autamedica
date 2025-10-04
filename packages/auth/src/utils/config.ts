@@ -23,15 +23,15 @@ export function getDomainConfig(): DomainConfig {
 
   const configs: Record<Environment, DomainConfig> = {
     production: {
-      base: 'pages.dev',
-      cookie: '.pages.dev', // Cloudflare Pages cookie domain
+      base: 'autamedica.com',
+      cookie: process.env.AUTH_COOKIE_DOMAIN || '.autamedica.com',
       apps: {
-        web: 'https://autamedica-web-app.pages.dev',
-        auth: 'https://autamedica-auth.pages.dev',
-        patients: 'https://autamedica-patients.pages.dev',
-        doctors: 'https://autamedica-doctors.pages.dev',
-        companies: 'https://autamedica-companies.pages.dev',
-        admin: 'https://autamedica-admin.pages.dev'
+        web: 'https://www.autamedica.com',
+        auth: 'https://auth.autamedica.com',
+        patients: 'https://patients.autamedica.com',
+        doctors: 'https://doctors.autamedica.com',
+        companies: 'https://companies.autamedica.com',
+        admin: 'https://admin.autamedica.com'
       }
     },
     staging: {

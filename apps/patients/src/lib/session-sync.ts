@@ -24,12 +24,7 @@ export interface SessionData {
  * Fetch session data from Auth Hub
  */
 export async function fetchSessionData(): Promise<SessionData | null> {
-  // TEMP: Disabled auth hub sync - using Supabase directly
-  // Return null to allow app to use Supabase auth instead
-  return null
-
   // Development bypass - return mock session data
-  /* eslint-disable-next-line no-unreachable */
   if (patientsEnv.authDevBypassEnabled) {
     return {
       user: {

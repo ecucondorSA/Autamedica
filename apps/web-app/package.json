@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild:cloudflare": "rm -rf .next .open-next || true",
+    "build:cloudflare": "pnpm run build && node scripts/ensure-required-server-files.mjs && opennextjs-cloudflare build --skip-next-build && node scripts/patch-open-next.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "check-types": "tsc --noEmit",
-    "build:cloudflare": "cd ../.. && pnpm build:packages:core && cd apps/web-app && next build",
-    "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy .next --project-name=autamedica-web-app"
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@autamedica/tailwind-config": "workspace:^",
