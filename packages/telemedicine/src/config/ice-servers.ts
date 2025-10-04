@@ -2,6 +2,7 @@ import {
   getClientEnvOrDefault,
   getOptionalClientEnv,
   getServerEnvOrDefault,
+  logger,
 } from '@autamedica/shared'
 
 /** Lee ICE desde env (cliente o server) */

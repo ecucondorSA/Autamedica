@@ -48,7 +48,7 @@ export class WebRTCDebugger {
       success: 'color: #10B981; font-weight: bold;'
     }
 
-    // logger.info(`%c${fullMessage}`, styles[level], data || '')
+    console.log(`%c${fullMessage}`, styles[level], data || '')
   }
 
   info(message: string, data?: any) {
@@ -132,7 +132,7 @@ export class WebRTCDebugger {
     // Log first few lines for quick check
     const lines = sdp.split('\n').slice(0, 10)
     console.groupCollapsed(`${this.prefix} SDP ${type} preview`)
-    lines.forEach(line => logger.info(line))
+    lines.forEach(line => console.log(line))
     console.groupEnd()
   }
 
@@ -188,7 +188,7 @@ export class WebRTCDebugger {
     const senders = pc.getSenders()
     senders.forEach((sender, i) => {
       if (sender.track) {
-        // logger.info(`  Sender ${i + 1}:`, {
+        this.info(`  Sender ${i + 1}:`, {
           kind: sender.track.kind,
           enabled: sender.track.enabled,
           muted: sender.track.muted,
@@ -196,7 +196,7 @@ export class WebRTCDebugger {
           label: sender.track.label
         })
       } else {
-        // logger.info(`  Sender ${i + 1}: No track`)
+        this.info(`  Sender ${i + 1}: No track`)
       }
     })
 
@@ -205,7 +205,7 @@ export class WebRTCDebugger {
     const receivers = pc.getReceivers()
     receivers.forEach((receiver, i) => {
       if (receiver.track) {
-        // logger.info(`  Receiver ${i + 1}:`, {
+        this.info(`  Receiver ${i + 1}:`, {
           kind: receiver.track.kind,
           enabled: receiver.track.enabled,
           muted: receiver.track.muted,
@@ -213,7 +213,7 @@ export class WebRTCDebugger {
           id: receiver.track.id
         })
       } else {
-        // logger.info(`  Receiver ${i + 1}: No track`)
+        this.info(`  Receiver ${i + 1}: No track`)
       }
     })
 
@@ -325,7 +325,7 @@ export function attachWebRTCDebugger(pc: RTCPeerConnection, role: 'doctor' | 'pa
 
 // Console helper for quick diagnosis
 export function quickDiagnosis() {
-  // logger.info(`
+  console.log(`
   %c🔧 QUICK WEBRTC DIAGNOSIS
 
   Run these commands in console:

@@ -1,4 +1,4 @@
-import { ensureClientEnv } from '@autamedica/shared'
+import { ensureClientEnv, logger } from '@autamedica/shared'
 import type { WSMessage, ControlMessage, SignalingMessage } from '../calls/types'
 
 // WebSocket signaling client

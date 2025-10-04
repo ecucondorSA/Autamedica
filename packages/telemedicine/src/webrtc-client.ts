@@ -3,6 +3,7 @@
  * Handles peer-to-peer video/audio connections with signaling server
  */
 
+import { logger } from '@autamedica/shared'
 import { loadIceServers } from './config/ice-servers'
 
 export interface WebRTCConfig {

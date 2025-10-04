@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@autamedica/types'
+import { logger } from '@autamedica/shared'
 import type { Call, CallStatus, CallEvent } from './types'
 
 // Service for call management

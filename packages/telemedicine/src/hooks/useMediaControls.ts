@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import { logger } from '@autamedica/shared'
 import type { WebRTCClient } from '../webrtc-client'
 
 export interface MediaControlsState {

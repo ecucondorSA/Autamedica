@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { logger } from '@autamedica/shared'
 import { WebRTCClient, type ConnectionState, type MediaConstraints } from '../webrtc-client'
 
 export interface TelemedicineClientState {

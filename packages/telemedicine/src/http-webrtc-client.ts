@@ -3,6 +3,8 @@
  * Uses fetch and polling instead of WebSockets for better reliability
  */
 
+import { logger } from '@autamedica/shared'
+
 export interface HttpWebRTCConfig {
   signalingUrl: string
   iceServers: RTCIceServer[]

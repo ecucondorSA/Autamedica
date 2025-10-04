@@ -1,4 +1,4 @@
-import { getClientEnvOrDefault } from '@autamedica/shared'
+import { getClientEnvOrDefault, logger } from '@autamedica/shared'
 import type { SignalingClient } from '../signaling/client'
 
 // WebRTC peer connection manager
