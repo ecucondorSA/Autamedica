@@ -325,7 +325,7 @@ export function attachWebRTCDebugger(pc: RTCPeerConnection, role: 'doctor' | 'pa
 
 // Console helper for quick diagnosis
 export function quickDiagnosis() {
-  // logger.info(`
+  console.log(`
   %c🔧 QUICK WEBRTC DIAGNOSIS
 
   Run these commands in console:
