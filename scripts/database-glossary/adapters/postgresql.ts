@@ -23,6 +23,7 @@ import type {
   AdapterInfo,
   DatabaseError
 } from '../types/index.js';
+import { logger } from '@autamedica/shared';
 
 /**
  * PostgreSQL introspection adapter implementation
@@ -69,7 +70,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
       const client = await this.pool.connect();
       try {
         await client.query('SELECT 1');
-        console.log('✅ PostgreSQL connection established successfully');
+        logger.info('✅ PostgreSQL connection established successfully');
       } finally {
         client.release();
       }
@@ -88,7 +89,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
     if (this.pool) {
       await this.pool.end();
       this.pool = null;
-      console.log('✅ PostgreSQL connection closed');
+      logger.info('✅ PostgreSQL connection closed');
     }
   }
 
@@ -104,13 +105,13 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
       const client = await this.pool.connect();
       try {
         const result = await client.query('SELECT current_database(), current_user, version()');
-        console.log(`📊 Connected to: ${result.rows[0].current_database} as ${result.rows[0].current_user}`);
+        logger.info(`📊 Connected to: ${result.rows[0].current_database} as ${result.rows[0].current_user}`);
         return true;
       } finally {
         client.release();
       }
     } catch (error) {
-      console.error('❌ Database connection validation failed:', error);
+      logger.error('❌ Database connection validation failed:', error);
       return false;
     }
   }
@@ -170,7 +171,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
       throw new DatabaseError('Database connection not established. Call connect() first.');
     }
 
-    console.log('🔍 Starting PostgreSQL schema introspection...');
+    logger.info('🔍 Starting PostgreSQL schema introspection...');
     const startTime = Date.now();
 
     try {
@@ -198,8 +199,8 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
         };
 
         const duration = Date.now() - startTime;
-        console.log(`✅ Schema introspection completed in ${duration}ms`);
-        console.log(`📊 Found: ${tables.length} tables, ${functions.length} functions, ${triggers.length} triggers, ${extensions.length} extensions`);
+        logger.info(`✅ Schema introspection completed in ${duration}ms`);
+        logger.info(`📊 Found: ${tables.length} tables, ${functions.length} functions, ${triggers.length} triggers, ${extensions.length} extensions`);
 
         return schema;
       } finally {
@@ -234,7 +235,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
    * Introspect all tables with their metadata
    */
   private async introspectTables(client: PoolClient): Promise<DatabaseTable[]> {
-    console.log('📋 Introspecting tables...');
+    logger.info('📋 Introspecting tables...');
 
     // Build schema filter condition
     const schemaFilter = this.buildSchemaFilter();
@@ -259,7 +260,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
     const tables: DatabaseTable[] = [];
 
     for (const tableRow of tablesResult.rows) {
-      console.log(`  📄 Processing table: ${tableRow.table_schema}.${tableRow.table_name}`);
+      logger.info(`  📄 Processing table: ${tableRow.table_schema}.${tableRow.table_name}`);
 
       const [columns, indexes, constraints] = await Promise.all([
         this.introspectTableColumns(client, tableRow.table_schema, tableRow.table_name),
@@ -278,7 +279,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
       });
     }
 
-    console.log(`✅ Introspected ${tables.length} tables`);
+    logger.info(`✅ Introspected ${tables.length} tables`);
     return tables;
   }
 
@@ -446,7 +447,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
    * Introspect database functions
    */
   private async introspectFunctions(client: PoolClient): Promise<DatabaseFunction[]> {
-    console.log('⚙️ Introspecting functions...');
+    logger.info('⚙️ Introspecting functions...');
 
     const schemaFilter = this.buildSchemaFilter();
 
@@ -479,7 +480,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
     `;
 
     const result = await client.query(functionsQuery);
-    console.log(`✅ Introspected ${result.rows.length} functions`);
+    logger.info(`✅ Introspected ${result.rows.length} functions`);
 
     return result.rows.map(row => ({
       function_name: row.function_name,
@@ -498,7 +499,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
    * Introspect database triggers
    */
   private async introspectTriggers(client: PoolClient): Promise<DatabaseTrigger[]> {
-    console.log('🔫 Introspecting triggers...');
+    logger.info('🔫 Introspecting triggers...');
 
     const schemaFilter = this.buildSchemaFilter();
 
@@ -519,7 +520,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
     `;
 
     const result = await client.query(triggersQuery);
-    console.log(`✅ Introspected ${result.rows.length} triggers`);
+    logger.info(`✅ Introspected ${result.rows.length} triggers`);
 
     return result.rows.map(row => ({
       trigger_name: row.trigger_name,
@@ -535,7 +536,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
    * Introspect database extensions
    */
   private async introspectExtensions(client: PoolClient): Promise<DatabaseExtension[]> {
-    console.log('🧩 Introspecting extensions...');
+    logger.info('🧩 Introspecting extensions...');
 
     const extensionsQuery = `
       SELECT
@@ -548,7 +549,7 @@ export class PostgreSQLAdapter implements DatabaseAdapter {
     `;
 
     const result = await client.query(extensionsQuery);
-    console.log(`✅ Found ${result.rows.length} extensions`);
+    logger.info(`✅ Found ${result.rows.length} extensions`);
 
     return result.rows.map(row => ({
       extension_name: row.extension_name,

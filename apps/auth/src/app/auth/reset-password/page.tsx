@@ -5,6 +5,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import { useSearchParams } from 'next/navigation';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
+import { logger } from '@autamedica/shared';
 
 function ResetPasswordForm() {
   const [password, setPassword] = useState('');
@@ -64,7 +65,7 @@ function ResetPasswordForm() {
       }, 2000);
 
     } catch (error: any) {
-      console.error('Reset password error:', error);
+      logger.error('Reset password error:', error);
       setError(error.message || 'Error al actualizar la contraseña');
     } finally {
       setIsLoading(false);

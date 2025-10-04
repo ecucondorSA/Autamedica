@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Heart, Thermometer, Activity, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
+import { logger } from '@autamedica/shared';
 
 interface SymptomReportModalProps {
   isOpen: boolean;
@@ -112,7 +113,7 @@ export function SymptomReportModal({ isOpen, onClose, patientId = 'current-patie
         handleClose();
       }, 2000);
     } catch (error) {
-      console.error('Error recording symptom:', error);
+      logger.error('Error recording symptom:', error);
     } finally {
       setIsSubmitting(false);
     }

@@ -7,6 +7,7 @@ import type {
   PatientScreeningInsert
 } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 interface UsePreventiveScreeningsOptions {
   patientId?: string;
@@ -130,7 +131,7 @@ export function usePreventiveScreenings(
 
       setMyScreenings(transformedData);
     } catch (err) {
-      console.error('Error fetching patient screenings:', err);
+      logger.error('Error fetching patient screenings:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -180,7 +181,7 @@ export function usePreventiveScreenings(
 
       setRecommendations(transformedRecommendations);
     } catch (err) {
-      console.error('Error fetching recommendations:', err);
+      logger.error('Error fetching recommendations:', err);
       // No setear error aquí para no bloquear el resto de la UI
     } finally {
       setIsLoadingRecommendations(false);
@@ -246,7 +247,7 @@ export function usePreventiveScreenings(
 
       return { success: true };
     } catch (err) {
-      console.error('Error scheduling screening:', err);
+      logger.error('Error scheduling screening:', err);
       return { success: false, error: err };
     }
   }, [options.patientId, fetchMyScreenings, fetchRecommendations]);
@@ -324,7 +325,7 @@ export function usePreventiveScreenings(
 
       return { success: true };
     } catch (err) {
-      console.error('Error marking screening as completed:', err);
+      logger.error('Error marking screening as completed:', err);
       return { success: false, error: err };
     }
   }, [fetchMyScreenings, fetchRecommendations]);
@@ -351,7 +352,7 @@ export function usePreventiveScreenings(
 
       return { success: true };
     } catch (err) {
-      console.error('Error cancelling screening:', err);
+      logger.error('Error cancelling screening:', err);
       return { success: false, error: err };
     }
   }, [fetchMyScreenings, fetchRecommendations]);

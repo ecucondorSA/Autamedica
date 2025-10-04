@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { createBrowserClient, type PatientsSupabaseClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 export interface CommunityGroup {
   id: string;
@@ -252,7 +253,7 @@ export function useAutoJoinGroup() {
             status: 'active',
           });
       } catch (err) {
-        console.error('Error auto-joining group:', err);
+        logger.error('Error auto-joining group:', err);
       }
     },
     [supabase],

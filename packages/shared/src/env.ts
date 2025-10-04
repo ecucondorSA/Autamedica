@@ -369,11 +369,11 @@ export function validateEnvironmentSecurity(): void {
     process.env.NEXT_PUBLIC_OPENAI_API_KEY &&
     !process.env.ALLOW_CLIENT_OPENAI_KEY
   ) {
-    console.warn(
+    logger.warn(
       "⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.",
     );
-    console.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
-    console.warn(
+    logger.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
+    logger.warn(
       "⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.",
     );
   }
@@ -388,7 +388,7 @@ export function validateEnvironmentSecurity(): void {
     const clientVal = process.env[clientVar];
 
     if (serverVal && clientVal && serverVal !== clientVal) {
-      console.warn(
+      logger.warn(
         `Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`,
       );
     }

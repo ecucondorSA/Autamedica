@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Activity, Heart, Thermometer, Scale, TrendingUp, CheckCircle2 } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
+import { logger } from '@autamedica/shared';
 
 interface VitalSignsModalProps {
   isOpen: boolean;
@@ -167,7 +168,7 @@ export function VitalSignsModal({ isOpen, onClose, patientId = 'current-patient'
         handleClose();
       }, 2000);
     } catch (error) {
-      console.error('Error recording vital signs:', error);
+      logger.error('Error recording vital signs:', error);
     } finally {
       setIsSubmitting(false);
     }

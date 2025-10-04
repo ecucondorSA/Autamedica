@@ -71,7 +71,7 @@ class ContractsValidator {
         }
       }
 
-      console.log(`📚 Tipos documentados en glosario: ${this.documentedTypes.size}`);
+      logger.info(`📚 Tipos documentados en glosario: ${this.documentedTypes.size}`);
 
     } catch (error) {
       this.log('error', `Error leyendo glosario: ${error.message}`, this.glossaryPath);
@@ -122,7 +122,7 @@ class ContractsValidator {
         });
       }
 
-      console.log(`📦 Exports reales en @autamedica/types: ${this.actualExports.size}`);
+      logger.info(`📦 Exports reales en @autamedica/types: ${this.actualExports.size}`);
 
     } catch (error) {
       this.log('error', `Error leyendo exports: ${error.message}`, this.typesPath);
@@ -221,10 +221,10 @@ class ContractsValidator {
    * Ejecuta todas las validaciones
    */
   async validate() {
-    console.log(`${colors.blue}🏛️  Autamedica Contracts Validator${colors.reset}`);
-    console.log(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
-    console.log(`📋 Validando contratos según Glosario Maestro v1.0`);
-    console.log('');
+    logger.info(`${colors.blue}🏛️  Autamedica Contracts Validator${colors.reset}`);
+    logger.info(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
+    logger.info(`📋 Validando contratos según Glosario Maestro v1.0`);
+    logger.info('');
 
     // Ejecutar validaciones
     this.parseGlossary();
@@ -240,85 +240,85 @@ class ContractsValidator {
    * Imprime resultados del análisis
    */
   printResults() {
-    console.log(`${colors.blue}📊 RESULTADOS DE VALIDACIÓN${colors.reset}`);
-    console.log(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
+    logger.info(`${colors.blue}📊 RESULTADOS DE VALIDACIÓN${colors.reset}`);
+    logger.info(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
 
     const totalIssues = this.errors.length + this.warnings.length;
 
-    console.log(`📈 Total de issues: ${totalIssues}`);
-    console.log(`${colors.red}❌ Errores críticos: ${this.errors.length}${colors.reset}`);
-    console.log(`${colors.yellow}⚠️  Warnings: ${this.warnings.length}${colors.reset}`);
-    console.log(`${colors.blue}💡 Sugerencias: ${this.suggestions.length}${colors.reset}`);
-    console.log('');
+    logger.info(`📈 Total de issues: ${totalIssues}`);
+    logger.info(`${colors.red}❌ Errores críticos: ${this.errors.length}${colors.reset}`);
+    logger.info(`${colors.yellow}⚠️  Warnings: ${this.warnings.length}${colors.reset}`);
+    logger.info(`${colors.blue}💡 Sugerencias: ${this.suggestions.length}${colors.reset}`);
+    logger.info('');
 
     // Mostrar errores críticos
     if (this.errors.length > 0) {
-      console.log(`${colors.red}${colors.bold}ERRORES CRÍTICOS:${colors.reset}`);
+      logger.info(`${colors.red}${colors.bold}ERRORES CRÍTICOS:${colors.reset}`);
       this.errors.forEach((error, index) => {
-        console.log(`${colors.red}${index + 1}. ${error.message}${colors.reset}`);
+        logger.info(`${colors.red}${index + 1}. ${error.message}${colors.reset}`);
         if (error.context) {
-          console.log(`   📁 ${error.context}`);
+          logger.info(`   📁 ${error.context}`);
         }
       });
-      console.log('');
+      logger.info('');
     }
 
     // Mostrar warnings importantes
     if (this.warnings.length > 0) {
-      console.log(`${colors.yellow}${colors.bold}WARNINGS (Documentación):${colors.reset}`);
+      logger.info(`${colors.yellow}${colors.bold}WARNINGS (Documentación):${colors.reset}`);
       this.warnings.slice(0, 5).forEach((warning, index) => {
-        console.log(`${colors.yellow}${index + 1}. ${warning.message}${colors.reset}`);
+        logger.info(`${colors.yellow}${index + 1}. ${warning.message}${colors.reset}`);
       });
       if (this.warnings.length > 5) {
-        console.log(`${colors.yellow}... y ${this.warnings.length - 5} warnings más${colors.reset}`);
+        logger.info(`${colors.yellow}... y ${this.warnings.length - 5} warnings más${colors.reset}`);
       }
-      console.log('');
+      logger.info('');
     }
 
     // Mostrar sugerencias
     if (this.suggestions.length > 0) {
-      console.log(`${colors.blue}💡 SUGERENCIAS DE MEJORA:${colors.reset}`);
+      logger.info(`${colors.blue}💡 SUGERENCIAS DE MEJORA:${colors.reset}`);
       this.suggestions.slice(0, 3).forEach((suggestion, index) => {
-        console.log(`${colors.blue}${index + 1}. ${suggestion.message}${colors.reset}`);
+        logger.info(`${colors.blue}${index + 1}. ${suggestion.message}${colors.reset}`);
       });
-      console.log('');
+      logger.info('');
     }
 
     // Resumen y acción requerida
     if (totalIssues === 0) {
-      console.log(`${colors.green}🎉 ¡PERFECTO! Todos los contratos están validados${colors.reset}`);
-      console.log(`${colors.green}✅ Exports documentados: ${this.actualExports.size}${colors.reset}`);
-      console.log(`${colors.green}✅ Glosario sincronizado${colors.reset}`);
-      console.log(`${colors.green}✅ Naming conventions OK${colors.reset}`);
+      logger.info(`${colors.green}🎉 ¡PERFECTO! Todos los contratos están validados${colors.reset}`);
+      logger.info(`${colors.green}✅ Exports documentados: ${this.actualExports.size}${colors.reset}`);
+      logger.info(`${colors.green}✅ Glosario sincronizado${colors.reset}`);
+      logger.info(`${colors.green}✅ Naming conventions OK${colors.reset}`);
     } else {
-      console.log(`${colors.yellow}🛠️  PLAN DE CORRECCIÓN:${colors.reset}`);
+      logger.info(`${colors.yellow}🛠️  PLAN DE CORRECCIÓN:${colors.reset}`);
 
       if (this.errors.length > 0) {
-        console.log('1️⃣ Documentar tipos faltantes en docs/GLOSARIO_MAESTRO.md');
-        console.log('2️⃣ Seguir convenciones de naming (IDs, branded types)');
+        logger.info('1️⃣ Documentar tipos faltantes en docs/GLOSARIO_MAESTRO.md');
+        logger.info('2️⃣ Seguir convenciones de naming (IDs, branded types)');
       }
 
       if (this.warnings.length > 0) {
-        console.log('3️⃣ Revisar tipos documentados pero no exportados');
-        console.log('4️⃣ Actualizar glosario si tipos fueron removidos');
+        logger.info('3️⃣ Revisar tipos documentados pero no exportados');
+        logger.info('4️⃣ Actualizar glosario si tipos fueron removidos');
       }
 
-      console.log('');
-      console.log(`${colors.blue}📚 Referencias:${colors.reset}`);
-      console.log('• Glosario Maestro: docs/GLOSARIO_MAESTRO.md');
-      console.log('• Package Types: packages/types/src/index.ts');
-      console.log('• Reglas de naming: ver glosario sección "Convenciones"');
+      logger.info('');
+      logger.info(`${colors.blue}📚 Referencias:${colors.reset}`);
+      logger.info('• Glosario Maestro: docs/GLOSARIO_MAESTRO.md');
+      logger.info('• Package Types: packages/types/src/index.ts');
+      logger.info('• Reglas de naming: ver glosario sección "Convenciones"');
     }
 
     // Exit code
     if (this.errors.length > 0) {
-      console.log(`${colors.red}❌ Validación de contratos falló${colors.reset}`);
+      logger.info(`${colors.red}❌ Validación de contratos falló${colors.reset}`);
       process.exit(1);
     } else if (this.warnings.length > 3) {
-      console.log(`${colors.yellow}⚠️  Demasiados warnings, revisar sincronización${colors.reset}`);
+      logger.info(`${colors.yellow}⚠️  Demasiados warnings, revisar sincronización${colors.reset}`);
       process.exit(1);
     } else {
-      console.log(`${colors.green}✅ Validación de contratos exitosa${colors.reset}`);
+      logger.info(`${colors.green}✅ Validación de contratos exitosa${colors.reset}`);
       process.exit(0);
     }
   }
@@ -328,7 +328,7 @@ class ContractsValidator {
 if (require.main === module) {
   const validator = new ContractsValidator();
   validator.validate().catch(error => {
-    console.error(`${colors.red}❌ Error ejecutando validator: ${error.message}${colors.reset}`);
+    logger.error(`${colors.red}❌ Error ejecutando validator: ${error.message}${colors.reset}`);
     process.exit(1);
   });
 }

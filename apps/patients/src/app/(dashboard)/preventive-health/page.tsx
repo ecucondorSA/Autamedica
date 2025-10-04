@@ -8,6 +8,7 @@ import { Heart, Calculator, Clock, ListChecks, Loader2 } from 'lucide-react';
 import { PersonalizedScreeningCalculator } from '@/components/preventive/PersonalizedScreeningCalculator';
 import { ScreeningTimeline } from '@/components/preventive/ScreeningTimeline';
 import { createBrowserClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 type TabId = 'calculator' | 'timeline' | 'education';
 
@@ -52,7 +53,7 @@ export default function PreventiveHealthPage() {
           }
         }
       } catch (err) {
-        console.error('Error fetching patient data:', err);
+        logger.error('Error fetching patient data:', err);
       } finally {
         setLoading(false);
       }

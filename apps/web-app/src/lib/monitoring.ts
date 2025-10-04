@@ -424,7 +424,7 @@ class ObservabilityManager {
 
     // For now, we'll just log in development
     if ((process.env.NEXT_PUBLIC_NODE_ENV ?? 'development') === 'development' && process.env.DEBUG_MONITORING) {
-      console.log(`[MONITORING:${type.toUpperCase()}]`, data);
+      logger.info(`[MONITORING:${type.toUpperCase()}]`, data);
     }
   }
 
@@ -439,7 +439,7 @@ class ObservabilityManager {
 
     // For now, we'll just log in development
     if ((process.env.NEXT_PUBLIC_NODE_ENV ?? 'development') === 'development' && process.env.DEBUG_LOGGING) {
-      console.log('[LOGGING]', event);
+      logger.info('[LOGGING]', event);
     }
   }
 }

@@ -7,6 +7,7 @@
 
 import { getSupabaseClient } from './supabaseClient';
 import type { RealtimeChannel } from '@supabase/supabase-js';
+import { logger } from '@autamedica/shared';
 
 /**
  * Notification types
@@ -383,7 +384,7 @@ export async function savePushSubscription(
   });
 
   if (error) {
-    console.warn('Failed to save push subscription:', error.message);
+    logger.warn('Failed to save push subscription:', error.message);
   }
 }
 
@@ -415,12 +416,12 @@ export function showBrowserNotification(
   options?: NotificationOptions
 ): Notification | null {
   if (!('Notification' in window)) {
-    console.warn('Browser does not support notifications');
+    logger.warn('Browser does not support notifications');
     return null;
   }
 
   if (Notification.permission !== 'granted') {
-    console.warn('Notification permission not granted');
+    logger.warn('Notification permission not granted');
     return null;
   }
 

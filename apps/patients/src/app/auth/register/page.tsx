@@ -7,6 +7,7 @@ import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
+import { logger } from '@autamedica/shared';
 
 function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -66,7 +67,7 @@ function RegisterForm() {
 
       setMessage('Te hemos enviado un enlace de confirmación a tu email. Revisa tu bandeja de entrada para activar tu cuenta.');
     } catch (error: any) {
-      console.error('Registration error:', error);
+      logger.error('Registration error:', error);
       if (error.message?.includes('User already registered')) {
         setError('Este email ya está registrado. ¿Quieres iniciar sesión?');
       } else {

@@ -8,6 +8,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { logger } from '@autamedica/shared';
 
 export interface WaitingRoomProps {
   sessionId: string;
@@ -59,7 +60,7 @@ export function WaitingRoom({
       setStream(mediaStream);
       setCameraStatus('success');
     } catch (error) {
-      console.error('Camera test failed:', error);
+      logger.error('Camera test failed:', error);
       setCameraStatus('failed');
     }
   }, []);
@@ -110,7 +111,7 @@ export function WaitingRoom({
 
       setMicStatus('success');
     } catch (error) {
-      console.error('Microphone test failed:', error);
+      logger.error('Microphone test failed:', error);
       setMicStatus('failed');
     }
   }, [stream]);
@@ -131,7 +132,7 @@ export function WaitingRoom({
 
       setSpeakerStatus('success');
     } catch (error) {
-      console.error('Speaker test failed:', error);
+      logger.error('Speaker test failed:', error);
       // Assume success if autoplay blocked (common in browsers)
       setSpeakerStatus('success');
     }

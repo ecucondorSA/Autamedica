@@ -5,6 +5,7 @@
 
 import { jwtVerify } from 'jose';
 import type { NextRequest } from 'next/server';
+import { logger } from '@autamedica/shared';
 
 export type SessionRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'platform_admin';
 
@@ -62,7 +63,7 @@ export async function getSession(req: NextRequest): Promise<Session | null> {
     };
   } catch (error) {
     // Invalid or expired token
-    console.error('Session verification failed:', error);
+    logger.error('Session verification failed:', error);
     return null;
   }
 }

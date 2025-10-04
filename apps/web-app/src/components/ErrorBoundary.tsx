@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, ReactNode } from 'react';
+import { logger } from '@autamedica/shared';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -23,7 +24,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error capturado por ErrorBoundary:', error, errorInfo);
+    logger.error('Error capturado por ErrorBoundary:', error, errorInfo);
   }
 
   render() {

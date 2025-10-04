@@ -46,7 +46,7 @@ export class CallService {
 
       return result.call as Call
     } catch (err) {
-      console.error('Error in createCall:', err)
+      logger.error('Error in createCall:', err)
       throw err
     }
   }
@@ -88,7 +88,7 @@ export class CallService {
 
       return result.updated as boolean
     } catch (err) {
-      console.error('Error in updateCallStatus:', err)
+      logger.error('Error in updateCallStatus:', err)
       throw err
     }
   }

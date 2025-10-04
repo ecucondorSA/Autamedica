@@ -11,7 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Test simple table creation first
 async function testSimpleTable() {
   try {
-    console.log('Testing basic table operations...')
+    logger.info('Testing basic table operations...')
 
     // Try to create a simple test table first
     const createTableSQL = `
@@ -29,18 +29,18 @@ async function testSimpleTable() {
       .limit(1)
 
     if (error && error.code === '42P01') {
-      console.log('Table does not exist, which is expected')
+      logger.info('Table does not exist, which is expected')
       return false
     } else if (error) {
-      console.log('Different error:', error)
+      logger.info('Different error:', error)
       return false
     } else {
-      console.log('Test table already exists')
+      logger.info('Test table already exists')
       return true
     }
 
   } catch (err) {
-    console.log('Error in test:', err.message)
+    logger.info('Error in test:', err.message)
     return false
   }
 }
@@ -48,11 +48,11 @@ async function testSimpleTable() {
 // Create a minimal migration
 async function createMinimalMigration() {
   try {
-    console.log('Creating minimal calls table via API...')
+    logger.info('Creating minimal calls table via API...')
 
     // First, let's check what we can access
     const { data: userData, error: userError } = await supabase.auth.getUser()
-    console.log('Auth status:', userError ? 'Not authenticated' : 'Authenticated')
+    logger.info('Auth status:', userError ? 'Not authenticated' : 'Authenticated')
 
     // Let's try to check existing tables
     const { data: tablesData, error: tablesError } = await supabase
@@ -60,28 +60,28 @@ async function createMinimalMigration() {
       .select('table_name')
       .eq('table_schema', 'public')
 
-    console.log('Tables query result:', { tablesData, tablesError })
+    logger.info('Tables query result:', { tablesData, tablesError })
 
     return true
 
   } catch (err) {
-    console.log('Error in migration:', err.message)
+    logger.info('Error in migration:', err.message)
     return false
   }
 }
 
 async function main() {
-  console.log('Starting migration process...')
+  logger.info('Starting migration process...')
 
   await testSimpleTable()
   await createMinimalMigration()
 
-  console.log('Migration process completed.')
-  console.log('\n📋 Manual migration required:')
-  console.log('1. Open Supabase Dashboard: https://supabase.com/dashboard/project/gtyvdircfhmdjiaelqkg/sql/new')
-  console.log('2. Copy and paste the content from: scripts/complete-migration.sql')
-  console.log('3. Execute the SQL script')
-  console.log('4. Verify with the verification queries at the end')
+  logger.info('Migration process completed.')
+  logger.info('\n📋 Manual migration required:')
+  logger.info('1. Open Supabase Dashboard: https://supabase.com/dashboard/project/gtyvdircfhmdjiaelqkg/sql/new')
+  logger.info('2. Copy and paste the content from: scripts/complete-migration.sql')
+  logger.info('3. Execute the SQL script')
+  logger.info('4. Verify with the verification queries at the end')
 }
 
 main().catch(console.error)

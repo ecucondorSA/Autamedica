@@ -8,6 +8,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSessionChat } from '../../hooks/useSessionChat';
 import type { SenderRole } from '../../lib/sessionChat';
+import { logger } from '@autamedica/shared';
 
 export interface SessionChatProps {
   sessionId: string;
@@ -55,7 +56,7 @@ export function SessionChat({ sessionId, userId, userRole, className = '' }: Ses
       setInputMessage('');
       inputRef.current?.focus();
     } catch (err) {
-      console.error('Failed to send message:', err);
+      logger.error('Failed to send message:', err);
     } finally {
       setIsSending(false);
     }

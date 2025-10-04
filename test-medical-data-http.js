@@ -1,12 +1,12 @@
 // Test final: Verificar que los datos médicos se obtienen via HTTP + fetch Node.js
-console.log('🧪 Testing Medical Data API with HTTP + Node.js fetch...');
+logger.info('🧪 Testing Medical Data API with HTTP + Node.js fetch...');
 
 // Simular el comportamiento del servicio MedicalDataAPI
 const testMedicalDataHTTP = {
   baseUrl: 'http://localhost:3000/api',
 
   async fetchWithHTTP(endpoint, data) {
-    console.log(`📡 Making HTTP request to: ${endpoint}`);
+    logger.info(`📡 Making HTTP request to: ${endpoint}`);
 
     // Simular una llamada HTTP real usando fetch
     return new Promise((resolve) => {
@@ -50,7 +50,7 @@ const testMedicalDataHTTP = {
           ]
         };
 
-        console.log(`✅ HTTP response received for ${endpoint}`);
+        logger.info(`✅ HTTP response received for ${endpoint}`);
         resolve(mockResponse[data.type] || []);
       }, Math.random() * 200 + 50); // Simular latencia de red variable
     });
@@ -94,48 +94,48 @@ async function runMedicalDataTests() {
   const patientId = '550e8400-e29b-41d4-a716-446655440000';
 
   try {
-    console.log('🏥 Testing Medical Data APIs with HTTP fetch...\n');
+    logger.info('🏥 Testing Medical Data APIs with HTTP fetch...\n');
 
     // Test 1: Signos vitales
-    console.log('1️⃣ Testing Vital Signs API...');
+    logger.info('1️⃣ Testing Vital Signs API...');
     const vitals = await testMedicalDataHTTP.getVitalSigns(patientId);
-    console.log(`   ✅ Received ${vitals.length} vital signs records via HTTP`);
-    console.log(`   📊 Latest heart rate: ${vitals[0]?.heart_rate} bpm\n`);
+    logger.info(`   ✅ Received ${vitals.length} vital signs records via HTTP`);
+    logger.info(`   📊 Latest heart rate: ${vitals[0]?.heart_rate} bpm\n`);
 
     // Test 2: Historial médico
-    console.log('2️⃣ Testing Medical Records API...');
+    logger.info('2️⃣ Testing Medical Records API...');
     const records = await testMedicalDataHTTP.getMedicalRecords(patientId);
-    console.log(`   ✅ Received ${records.length} medical records via HTTP`);
-    console.log(`   🩺 Latest diagnosis: ${records[0]?.diagnosis}\n`);
+    logger.info(`   ✅ Received ${records.length} medical records via HTTP`);
+    logger.info(`   🩺 Latest diagnosis: ${records[0]?.diagnosis}\n`);
 
     // Test 3: Prescripciones
-    console.log('3️⃣ Testing Prescriptions API...');
+    logger.info('3️⃣ Testing Prescriptions API...');
     const prescriptions = await testMedicalDataHTTP.getPrescriptions(patientId);
-    console.log(`   ✅ Received ${prescriptions.length} prescriptions via HTTP`);
-    console.log(`   💊 Active medication: ${prescriptions[0]?.medication_name} ${prescriptions[0]?.dosage}\n`);
+    logger.info(`   ✅ Received ${prescriptions.length} prescriptions via HTTP`);
+    logger.info(`   💊 Active medication: ${prescriptions[0]?.medication_name} ${prescriptions[0]?.dosage}\n`);
 
     // Test 4: Análisis de IA
-    console.log('4️⃣ Testing AI Analysis API...');
+    logger.info('4️⃣ Testing AI Analysis API...');
     const analyses = await testMedicalDataHTTP.getAIAnalyses(patientId);
-    console.log(`   ✅ Received ${analyses.length} AI analyses via HTTP`);
-    console.log(`   🤖 AI confidence score: ${(analyses[0]?.confidence_score * 100).toFixed(1)}%\n`);
+    logger.info(`   ✅ Received ${analyses.length} AI analyses via HTTP`);
+    logger.info(`   🤖 AI confidence score: ${(analyses[0]?.confidence_score * 100).toFixed(1)}%\n`);
 
-    console.log('🎉 All Medical Data APIs tested successfully!');
-    console.log('✅ All data obtained via HTTP + Node.js fetch');
-    console.log('✅ No direct database queries - only HTTP endpoints');
-    console.log('✅ Simulated network latency and error handling');
+    logger.info('🎉 All Medical Data APIs tested successfully!');
+    logger.info('✅ All data obtained via HTTP + Node.js fetch');
+    logger.info('✅ No direct database queries - only HTTP endpoints');
+    logger.info('✅ Simulated network latency and error handling');
 
     // Verificar también el HTTP signaling server
-    console.log('\n🔄 Testing HTTP WebRTC Signaling...');
+    logger.info('\n🔄 Testing HTTP WebRTC Signaling...');
     const signaling = await fetch('https://autamedica-http-signaling-server.ecucondor.workers.dev/health')
       .then(r => r.json());
-    console.log(`✅ HTTP Signaling Server: ${signaling.status}`);
-    console.log(`📡 Service: ${signaling.service}`);
+    logger.info(`✅ HTTP Signaling Server: ${signaling.status}`);
+    logger.info(`📡 Service: ${signaling.service}`);
 
-    console.log('\n🏆 COMPLETE SUCCESS: All systems using HTTP + fetch!');
+    logger.info('\n🏆 COMPLETE SUCCESS: All systems using HTTP + fetch!');
 
   } catch (error) {
-    console.error('❌ Test failed:', error.message);
+    logger.error('❌ Test failed:', error.message);
   }
 }
 

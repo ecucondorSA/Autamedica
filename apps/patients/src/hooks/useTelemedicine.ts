@@ -11,6 +11,7 @@ import type {
   MediaState,
   ConnectionQuality,
 } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 interface UseTelemedicineReturn {
   session: TelemedicineSession | null;
@@ -112,7 +113,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       setEvents((eventsData || []) as unknown as SessionEvent[]);
     } catch (err) {
-      console.error('Error fetching session:', err);
+      logger.error('Error fetching session:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -176,7 +177,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       return response;
     } catch (err) {
-      console.error('Error starting session:', err);
+      logger.error('Error starting session:', err);
       setError(err instanceof Error ? err.message : 'Error al iniciar sesión');
       return null;
     }
@@ -217,7 +218,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       return true;
     } catch (err) {
-      console.error('Error ending session:', err);
+      logger.error('Error ending session:', err);
       setError(err instanceof Error ? err.message : 'Error al finalizar sesión');
       return false;
     }
@@ -256,7 +257,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       return true;
     } catch (err) {
-      console.error('Error toggling video:', err);
+      logger.error('Error toggling video:', err);
       return false;
     }
   }, [session, localMediaState, supabase]);
@@ -294,7 +295,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       return true;
     } catch (err) {
-      console.error('Error toggling audio:', err);
+      logger.error('Error toggling audio:', err);
       return false;
     }
   }, [session, localMediaState, supabase]);
@@ -323,7 +324,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
 
       return true;
     } catch (err) {
-      console.error('Error toggling screen share:', err);
+      logger.error('Error toggling screen share:', err);
       return false;
     }
   }, [session, localMediaState, supabase]);
@@ -349,7 +350,7 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
               });
           }
         })
-        .catch(err => console.error('Error updating connection quality:', err));
+        .catch(err => logger.error('Error updating connection quality:', err));
     }
   }, [session, supabase]);
 

@@ -51,7 +51,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
         setSelectedMic(mics[0].deviceId)
       }
     } catch (err) {
-      console.error('Error enumerating devices:', err)
+      logger.error('Error enumerating devices:', err)
       setError('No se pudieron detectar dispositivos')
     }
   }
@@ -102,7 +102,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
 
     for (const constraint of constraints) {
       try {
-        // console.log('Trying constraints:', constraint)
+        // logger.info('Trying constraints:', constraint)
         const stream = await navigator.mediaDevices.getUserMedia(constraint)
 
         // Save successful device selection
@@ -114,7 +114,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
         setError('')
         return
       } catch (err: any) {
-        console.error('Failed with constraint:', constraint, err)
+        logger.error('Failed with constraint:', constraint, err)
 
         // Continue trying if it's a constraint error
         if (err.name === 'OverconstrainedError' || err.name === 'NotFoundError') {
@@ -159,7 +159,7 @@ export default function MediaPicker({ onMediaReady, onError }: MediaPickerProps)
             stream.addTrack(track)
           })
         } catch (err) {
-          // console.log('Could not add audio to screen share:', err)
+          // logger.info('Could not add audio to screen share:', err)
         }
       }
 

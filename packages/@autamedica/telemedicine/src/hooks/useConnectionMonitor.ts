@@ -13,6 +13,7 @@ import {
   type ConnectionStats,
 } from './useConnectionQuality';
 import { reportConnectionQuality } from '@/lib/telemedicine';
+import { logger } from '@autamedica/shared';
 
 export interface UseConnectionMonitorOptions extends UseConnectionQualityOptions {
   participantId: string | null;
@@ -57,7 +58,7 @@ export function useConnectionMonitor(options: UseConnectionMonitorOptions): UseC
 
         lastReportedStatsRef.current = stats;
       } catch (error) {
-        console.error('Failed to report connection quality:', error);
+        logger.error('Failed to report connection quality:', error);
       }
     },
     [participantId, enableAutoReport]
@@ -66,7 +67,7 @@ export function useConnectionMonitor(options: UseConnectionMonitorOptions): UseC
   // On quality change callback
   const handleQualityChange = useCallback(
     (quality: ConnectionQuality) => {
-      console.log(`[ConnectionMonitor] Quality changed to: ${quality}`);
+      logger.info(`[ConnectionMonitor] Quality changed to: ${quality}`);
 
       // Immediately report significant quality changes
       if (quality === 'poor' || quality === 'disconnected') {

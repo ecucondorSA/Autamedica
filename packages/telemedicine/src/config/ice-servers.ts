@@ -38,7 +38,7 @@ export function getProductionICEServers(): RTCIceServer[] {
     })
   } else {
     // Fallback a servidores TURN públicos temporales (solo desarrollo)
-    console.warn('⚠️ No TURN servers configured. Using public fallback (not recommended for production)')
+    logger.warn('⚠️ No TURN servers configured. Using public fallback (not recommended for production)')
     iceServers.push({
       urls: ['turns:global.relay.metered.ca:443?transport=tcp'],
       username: 'demo',

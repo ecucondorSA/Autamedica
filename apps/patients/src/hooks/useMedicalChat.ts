@@ -8,6 +8,7 @@ import type {
 } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';
 import type { RealtimeChannel } from '@supabase/supabase-js';
+import { logger } from '@autamedica/shared';
 
 interface UseMedicalChatsOptions {
   patientId?: string;
@@ -98,7 +99,7 @@ export function useMedicalChats(
 
       setChats(transformedData);
     } catch (err) {
-      console.error('Error fetching medical chats:', err);
+      logger.error('Error fetching medical chats:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -136,7 +137,7 @@ export function useMedicalChats(
         chatId: result?.id
       };
     } catch (err) {
-      console.error('Error creating chat:', err);
+      logger.error('Error creating chat:', err);
       return {
         success: false,
         error: err
@@ -166,7 +167,7 @@ export function useMedicalChats(
 
       return { success: true };
     } catch (err) {
-      console.error('Error updating chat status:', err);
+      logger.error('Error updating chat status:', err);
       return {
         success: false,
         error: err
@@ -229,7 +230,7 @@ export function useChatMessages(
 
       setMessages((data || []) as MedicalMessage[]);
     } catch (err) {
-      console.error('Error fetching messages:', err);
+      logger.error('Error fetching messages:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -281,7 +282,7 @@ export function useChatMessages(
 
       return { success: true };
     } catch (err) {
-      console.error('Error sending message:', err);
+      logger.error('Error sending message:', err);
       return {
         success: false,
         error: err
@@ -301,7 +302,7 @@ export function useChatMessages(
         })
         .eq('id', messageId);
     } catch (err) {
-      console.error('Error marking message as read:', err);
+      logger.error('Error marking message as read:', err);
     }
   }, []);
 
@@ -322,7 +323,7 @@ export function useChatMessages(
           filter: `chat_id=eq.${chatId}`
         },
         (payload) => {
-          // console.log('New message received:', payload);
+          // logger.info('New message received:', payload);
           const newMessage = payload.new as MedicalMessage;
           setMessages((prev) => [...prev, newMessage]);
         }

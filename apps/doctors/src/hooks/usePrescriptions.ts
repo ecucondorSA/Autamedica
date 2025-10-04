@@ -23,6 +23,7 @@ interface UsePrescriptionsOptions {
 // Tipo UI (camelCase) para Prescription
 interface UiPrescription {
   id: string;
+import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   medicationName: string;
@@ -92,7 +93,7 @@ export function usePrescriptions(
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar prescripciones: ${errorMessage}`)
-      console.error('[usePrescriptions] Error:', err)
+      logger.error('[usePrescriptions] Error:', err)
     } finally {
       setLoading(false)
     }
@@ -118,7 +119,7 @@ export function usePrescriptions(
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al agregar prescripción: ${errorMessage}`)
-      console.error('[usePrescriptions] addPrescription error:', err)
+      logger.error('[usePrescriptions] addPrescription error:', err)
       throw err
     }
   }, [patientId, fetchPrescriptions])
@@ -143,7 +144,7 @@ export function usePrescriptions(
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al actualizar prescripción: ${errorMessage}`)
-      console.error('[usePrescriptions] updatePrescription error:', err)
+      logger.error('[usePrescriptions] updatePrescription error:', err)
       throw err
     }
   }, [])

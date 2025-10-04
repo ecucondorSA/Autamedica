@@ -21,6 +21,7 @@ import {
 import { createClient } from '@/lib/supabase';
 import './globals.css';
 import { canManageCompany, type MemberRole } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           .limit(1);
 
         if (error) {
-          console.error('Error fetching member role:', error);
+          logger.error('Error fetching member role:', error);
           setUserMemberRole('member'); // Default to non-admin on error
         } else {
           // If we found at least one admin membership, set role to admin.

@@ -25,6 +25,7 @@ interface UseMedicalHistoryOptions {
 // Tipo UI (camelCase) para MedicalRecord
 interface UiMedicalRecord {
   id: string;
+import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   consultationDate: string;
@@ -109,7 +110,7 @@ export function useMedicalHistory(
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar historial médico: ${errorMessage}`)
-      console.error('[useMedicalHistory] Error:', err)
+      logger.error('[useMedicalHistory] Error:', err)
     } finally {
       setLoading(false)
     }

@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import { FileText, Download, Eye, Loader2 } from 'lucide-react';
 import { createBrowserClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 const recordTypeConfig = {
   diagnosis: { label: 'Diagnóstico', color: 'bg-blue-50 text-blue-700 border-blue-300', icon: '🩺' },
@@ -45,7 +46,7 @@ export default function MedicalHistoryPage() {
 
         setMedicalRecords(recordsData || []);
       } catch (err) {
-        console.error('Error fetching medical records:', err);
+        logger.error('Error fetching medical records:', err);
         setError(err instanceof Error ? err.message : 'Error al cargar historial médico');
       } finally {
         setLoading(false);

@@ -135,19 +135,19 @@ export function SubscriptionPanel(): JSX.Element {
   }
 
   const handlePaymentSuccess = (paymentData: any) => {
-    // console.log('Pago exitoso:', paymentData)
+    // logger.info('Pago exitoso:', paymentData)
     setShowCheckout(false)
     setCheckoutPlan(null)
     // Aquí actualizarías el plan del usuario en el backend
   }
 
   const handlePaymentError = (error: any) => {
-    console.error('Error en el pago:', error)
+    logger.error('Error en el pago:', error)
     // Mostrar notificación de error al usuario
   }
 
   const handlePlanChange = (action: string) => {
-    // console.log('Acción de plan:', action)
+    // logger.info('Acción de plan:', action)
     // Manejar cambios en la suscripción
   }
 

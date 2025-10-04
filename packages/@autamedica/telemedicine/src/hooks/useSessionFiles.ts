@@ -14,6 +14,7 @@ import {
   type SessionFile,
   type FileUploadResult,
 } from '../lib/sessionFiles';
+import { logger } from '@autamedica/shared';
 
 export interface UseSessionFilesOptions {
   userId: string;
@@ -51,7 +52,7 @@ export function useSessionFiles(options: UseSessionFilesOptions): UseSessionFile
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al cargar archivos';
       setError(errorMessage);
-      console.error('Error loading files:', err);
+      logger.error('Error loading files:', err);
     }
   }, [userId, sessionId]);
 

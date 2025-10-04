@@ -8,7 +8,7 @@ const path = require('path')
 const supabaseUrl = 'https://gtyvdircfhmdjiaelqkg.supabase.co'
 const supabaseKey = 'REPLACE_WITH_ROTATED_KEY.DeEm08k7QOrKObWaz8AUaOB5N6Z2QZhZHFaUf2siALA'
 
-console.log('Connecting to Supabase:', supabaseUrl)
+logger.info('Connecting to Supabase:', supabaseUrl)
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
@@ -179,30 +179,30 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 async function executeSqlChunk(sql, description) {
   try {
-    console.log(`Executing: ${description}...`)
+    logger.info(`Executing: ${description}...`)
     const { data, error } = await supabase.rpc('exec', { sql })
 
     if (error) {
-      console.error(`Error in ${description}:`, error.message)
+      logger.error(`Error in ${description}:`, error.message)
       return false
     } else {
-      console.log(`✅ ${description} completed successfully`)
+      logger.info(`✅ ${description} completed successfully`)
       return true
     }
   } catch (err) {
-    console.error(`Exception in ${description}:`, err.message)
+    logger.error(`Exception in ${description}:`, err.message)
     return false
   }
 }
 
 async function main() {
-  console.log('Starting migration application...')
+  logger.info('Starting migration application...')
 
   // Try to execute each chunk
   for (let i = 0; i < migrationChunks.length; i++) {
     const success = await executeSqlChunk(migrationChunks[i], `Migration chunk ${i + 1}`)
     if (!success) {
-      console.log(`⚠️  Chunk ${i + 1} failed, but continuing...`)
+      logger.info(`⚠️  Chunk ${i + 1} failed, but continuing...`)
     }
     await new Promise(resolve => setTimeout(resolve, 1000)) // Wait 1 second between chunks
   }
@@ -213,22 +213,22 @@ async function main() {
   await executeSqlChunk(updateCallStatusFunction, 'update_call_status function')
 
   // Test the installation
-  console.log('\nTesting installation...')
+  logger.info('\nTesting installation...')
   try {
     const { data, error } = await supabase
       .from('calls')
       .select('count', { count: 'exact', head: true })
 
     if (error) {
-      console.log('❌ Calls table test failed:', error.message)
+      logger.info('❌ Calls table test failed:', error.message)
     } else {
-      console.log('✅ Calls table is accessible')
+      logger.info('✅ Calls table is accessible')
     }
   } catch (err) {
-    console.log('❌ Connection test failed:', err.message)
+    logger.info('❌ Connection test failed:', err.message)
   }
 
-  console.log('\nMigration application completed!')
+  logger.info('\nMigration application completed!')
 }
 
 main().catch(console.error)

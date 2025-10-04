@@ -73,7 +73,7 @@ export default function TestCallPage() {
               userType="doctor"
               userName="Dr. Test"
               onCallEnd={() => setCallStarted(false)}
-              onCallStart={() => console.log('✅ Llamada iniciada exitosamente')}
+              onCallStart={() => logger.info('✅ Llamada iniciada exitosamente')}
               theme="doctor"
               className="h-full"
             />

@@ -10,6 +10,7 @@ import { createServerClient } from '@supabase/ssr';
 import { createClient } from '@supabase/supabase-js';
 import { ensureEnv } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 // Simple URL validation helper
 function isValidUrl(url: string): boolean {
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
 
   // Handle OAuth errors
   if (error) {
-    console.error('OAuth error:', error, errorDescription);
+    logger.error('OAuth error:', error, errorDescription);
     return NextResponse.redirect(
       new URL(`/auth/login?error=${encodeURIComponent(errorDescription || error)}`, requestUrl.origin)
     );
@@ -46,7 +47,7 @@ export async function GET(request: Request) {
       const pkceKeys = ['sb-gtyvdircfhmdjiaelqkg-auth-token-code-verifier', 'pkce_code_verifier'];
       pkceKeys.forEach(key => {
         if (cookieStore.get(key)) {
-          // console.log(`Clearing stale PKCE cookie: ${key}`);
+          // logger.info(`Clearing stale PKCE cookie: ${key}`);
         }
       });
 
@@ -88,11 +89,11 @@ export async function GET(request: Request) {
       const { data: sessionData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
       if (exchangeError) {
-        console.error('Code exchange error:', exchangeError);
+        logger.error('Code exchange error:', exchangeError);
 
         // If PKCE error, try alternative approach
         if (exchangeError.message?.includes('code challenge') || exchangeError.message?.includes('code verifier')) {
-          // console.log('PKCE error detected, attempting workaround...');
+          // logger.info('PKCE error detected, attempting workaround...');
 
           // Clear all auth cookies and redirect to login
           const authCookies = ['sb-access-token', 'sb-refresh-token'];
@@ -110,7 +111,7 @@ export async function GET(request: Request) {
         );
       }
 
-      // console.log('Session exchange successful:', {
+      // logger.info('Session exchange successful:', {
         userId: sessionData?.user?.id,
         email: sessionData?.user?.email,
         sessionPresent: !!sessionData?.session
@@ -139,7 +140,7 @@ export async function GET(request: Request) {
         // No role assigned yet
         if (preselectedRole) {
           // User has preselected role, try to assign it
-          // console.log(`Assigning preselected role ${preselectedRole} to user ${user.email}`);
+          // logger.info(`Assigning preselected role ${preselectedRole} to user ${user.email}`);
 
           // Try using RPC function first (preferred method)
           const { error: rpcError } = await supabase.rpc('set_user_role', {
@@ -147,7 +148,7 @@ export async function GET(request: Request) {
           });
 
           if (rpcError) {
-            console.warn('RPC set_user_role failed, trying direct upsert:', rpcError.message);
+            logger.warn('RPC set_user_role failed, trying direct upsert:', rpcError.message);
 
             // Fallback: Direct upsert to profiles table
             const { error: upsertError } = await supabase
@@ -162,22 +163,22 @@ export async function GET(request: Request) {
               });
 
             if (upsertError) {
-              console.error('Failed to set user role via upsert:', upsertError);
+              logger.error('Failed to set user role via upsert:', upsertError);
               return NextResponse.redirect(
                 new URL(`/auth/login?error=${encodeURIComponent('Error assigning role: ' + upsertError.message)}&role=${preselectedRole}`, requestUrl.origin)
               );
             }
 
-            // console.log(`Role ${preselectedRole} assigned via upsert to user ${user.email}`);
+            // logger.info(`Role ${preselectedRole} assigned via upsert to user ${user.email}`);
           } else {
-            // console.log(`Role ${preselectedRole} assigned via RPC to user ${user.email}`);
+            // logger.info(`Role ${preselectedRole} assigned via RPC to user ${user.email}`);
           }
 
           // Role assigned successfully, use it for redirect
           role = preselectedRole;
         } else {
           // No preselected role, redirect to role selection page
-          // console.log(`User ${user.email} has no role and no preselected role, redirecting to role selection`);
+          // logger.info(`User ${user.email} has no role and no preselected role, redirecting to role selection`);
           return NextResponse.redirect(
             new URL('/auth/select-role', requestUrl.origin)
           );
@@ -203,14 +204,14 @@ export async function GET(request: Request) {
           );
 
           if (updateError) {
-            console.error('Failed to update user role in app_metadata:', updateError);
+            logger.error('Failed to update user role in app_metadata:', updateError);
           } else {
-            // console.log(`Synced role for user ${user.email}: ${profile.role}`);
+            // logger.info(`Synced role for user ${user.email}: ${profile.role}`);
             role = profile.role as UserRole;
           }
         } catch {
           // Service role key not available, skip role sync (ensureEnv throws if not found)
-          // console.log('Service role key not available, skipping role sync');
+          // logger.info('Service role key not available, skipping role sync');
         }
       }
 
@@ -219,7 +220,7 @@ export async function GET(request: Request) {
 
       if (!finalRole) {
         // This should not happen, but safety check
-        console.error('No role determined for user');
+        logger.error('No role determined for user');
         return NextResponse.redirect(
           new URL('/auth/select-role', requestUrl.origin)
         );
@@ -228,11 +229,11 @@ export async function GET(request: Request) {
       // Determine destination (always redirect within same app)
       const destination = returnTo || '/';
 
-      // console.log(`User ${user.email} authenticated with role: ${finalRole}, redirecting to: ${destination}`);
+      // logger.info(`User ${user.email} authenticated with role: ${finalRole}, redirecting to: ${destination}`);
 
       return NextResponse.redirect(destination, { status: 302 });
     } catch (err) {
-      console.error('Callback processing error:', err);
+      logger.error('Callback processing error:', err);
       return NextResponse.redirect(
         new URL('/auth/login?error=callback_error', requestUrl.origin)
       );
@@ -240,7 +241,7 @@ export async function GET(request: Request) {
   }
 
   // No code parameter - this shouldn't happen in normal flow
-  console.warn('OAuth callback called without code parameter');
+  logger.warn('OAuth callback called without code parameter');
   return NextResponse.redirect(
     new URL('/auth/login?error=no_code', requestUrl.origin)
   );

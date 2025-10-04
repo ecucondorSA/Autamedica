@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { DoctorWithProfile } from '@autamedica/types';
 import { selectActive } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 /**
  * Hook migrado al sistema híbrido
@@ -70,7 +71,7 @@ export function useRealDoctors(): UseDoctorsResult {
 
       setDoctors(activeDoctors as unknown as DoctorWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctors:', err);
+      logger.error('Error fetching doctors:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -130,7 +131,7 @@ export function useCurrentDoctor(userId?: string): UseCurrentDoctorResult {
 
       setDoctor(currentDoctor as unknown as DoctorWithProfile);
     } catch (err) {
-      console.error('Error fetching current doctor:', err);
+      logger.error('Error fetching current doctor:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -186,7 +187,7 @@ export function useDoctorsBySpecialty(specialty: string): UseDoctorsBySpecialtyR
 
       setDoctors(filtered as unknown as DoctorWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctors by specialty:', err);
+      logger.error('Error fetching doctors by specialty:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);

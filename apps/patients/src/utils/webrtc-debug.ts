@@ -48,7 +48,7 @@ export class WebRTCDebugger {
       success: 'color: #10B981; font-weight: bold;'
     }
 
-    // console.log(`%c${fullMessage}`, styles[level], data || '')
+    // logger.info(`%c${fullMessage}`, styles[level], data || '')
   }
 
   info(message: string, data?: any) {
@@ -132,7 +132,7 @@ export class WebRTCDebugger {
     // Log first few lines for quick check
     const lines = sdp.split('\n').slice(0, 10)
     console.groupCollapsed(`${this.prefix} SDP ${type} preview`)
-    lines.forEach(line => console.log(line))
+    lines.forEach(line => logger.info(line))
     console.groupEnd()
   }
 
@@ -180,15 +180,15 @@ export class WebRTCDebugger {
     }
 
     // 1. Connection States
-    // console.log('%c📊 Connection States:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📊 Connection States:', 'font-weight: bold; color: #6B7280;')
     this.logPeerConnection(pc)
 
     // 2. Local Streams/Tracks (Senders)
-    // console.log('%c📤 Outgoing Tracks (Senders):', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📤 Outgoing Tracks (Senders):', 'font-weight: bold; color: #6B7280;')
     const senders = pc.getSenders()
     senders.forEach((sender, i) => {
       if (sender.track) {
-        // console.log(`  Sender ${i + 1}:`, {
+        // logger.info(`  Sender ${i + 1}:`, {
           kind: sender.track.kind,
           enabled: sender.track.enabled,
           muted: sender.track.muted,
@@ -196,16 +196,16 @@ export class WebRTCDebugger {
           label: sender.track.label
         })
       } else {
-        // console.log(`  Sender ${i + 1}: No track`)
+        // logger.info(`  Sender ${i + 1}: No track`)
       }
     })
 
     // 3. Remote Streams/Tracks (Receivers)
-    // console.log('%c📥 Incoming Tracks (Receivers):', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📥 Incoming Tracks (Receivers):', 'font-weight: bold; color: #6B7280;')
     const receivers = pc.getReceivers()
     receivers.forEach((receiver, i) => {
       if (receiver.track) {
-        // console.log(`  Receiver ${i + 1}:`, {
+        // logger.info(`  Receiver ${i + 1}:`, {
           kind: receiver.track.kind,
           enabled: receiver.track.enabled,
           muted: receiver.track.muted,
@@ -213,12 +213,12 @@ export class WebRTCDebugger {
           id: receiver.track.id
         })
       } else {
-        // console.log(`  Receiver ${i + 1}: No track`)
+        // logger.info(`  Receiver ${i + 1}: No track`)
       }
     })
 
     // 4. Get Stats
-    // console.log('%c📈 Connection Stats:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📈 Connection Stats:', 'font-weight: bold; color: #6B7280;')
     try {
       const stats = await pc.getStats()
       const statsReport: any = {}
@@ -265,7 +265,7 @@ export class WebRTCDebugger {
     }
 
     // 5. Check Local and Remote Descriptions
-    // console.log('%c📝 Session Descriptions:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📝 Session Descriptions:', 'font-weight: bold; color: #6B7280;')
     if (pc.localDescription) {
       this.logSDP(pc.localDescription, 'offer')
     }
@@ -325,7 +325,7 @@ export function attachWebRTCDebugger(pc: RTCPeerConnection, role: 'doctor' | 'pa
 
 // Console helper for quick diagnosis
 export function quickDiagnosis() {
-  // console.log(`
+  // logger.info(`
   %c🔧 QUICK WEBRTC DIAGNOSIS
 
   Run these commands in console:

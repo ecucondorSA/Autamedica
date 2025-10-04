@@ -96,7 +96,7 @@ export class WebRTCClient {
           // @ts-ignore
           listener(...args)
         } catch (error) {
-          console.error(`Error in ${event} listener:`, error)
+          logger.error(`Error in ${event} listener:`, error)
         }
       })
     }
@@ -123,7 +123,7 @@ export class WebRTCClient {
       this.ws = new WebSocket(wsUrl)
 
       this.ws.onopen = () => {
-        console.log('WebSocket connected')
+        logger.info('WebSocket connected')
         // Join the room
         this.sendSignalingMessage({
           type: 'join',
@@ -137,13 +137,13 @@ export class WebRTCClient {
       }
 
       this.ws.onerror = (error) => {
-        console.error('WebSocket error:', error)
+        logger.error('WebSocket error:', error)
         this.setConnectionState('failed')
         this.emit('error', new Error('WebSocket connection failed'))
       }
 
       this.ws.onclose = () => {
-        console.log('WebSocket disconnected')
+        logger.info('WebSocket disconnected')
         this.setConnectionState('disconnected')
         this.cleanup()
       }
@@ -187,7 +187,7 @@ export class WebRTCClient {
 
       return this.localStream
     } catch (error) {
-      console.error('Failed to get local stream:', error)
+      logger.error('Failed to get local stream:', error)
       this.emit('error', new Error('Failed to access camera/microphone'))
       throw error
     }
@@ -230,7 +230,7 @@ export class WebRTCClient {
   }
 
   private async handleSignalingMessage(message: any): Promise<void> {
-    console.log('Received signaling message:', message)
+    logger.info('Received signaling message:', message)
 
     switch (message.type) {
       case 'room-state':
@@ -269,7 +269,7 @@ export class WebRTCClient {
         break
 
       case 'error':
-        console.error('Signaling error:', message.data)
+        logger.error('Signaling error:', message.data)
         this.emit('error', new Error(message.data))
         break
     }
@@ -294,7 +294,7 @@ export class WebRTCClient {
     }
 
     pc.ontrack = (event) => {
-      console.log('Received remote stream from', userId)
+      logger.info('Received remote stream from', userId)
       const stream = event.streams?.[0]
       if (stream) {
         this.emit('remote-stream', stream, userId)
@@ -312,7 +312,7 @@ export class WebRTCClient {
     }
 
     pc.onconnectionstatechange = () => {
-      console.log(`Peer connection with ${userId} state:`, pc.connectionState)
+      logger.info(`Peer connection with ${userId} state:`, pc.connectionState)
       if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
         this.peerConnections.delete(userId)
       }
@@ -335,7 +335,7 @@ export class WebRTCClient {
           })
         }
       } catch (error) {
-        console.error('Failed to handle negotiationneeded:', error)
+        logger.error('Failed to handle negotiationneeded:', error)
       } finally {
         if (peerState) {
           peerState.isMakingOffer = false
@@ -374,13 +374,13 @@ export class WebRTCClient {
 
     peerState.ignoreOffer = !peerState.isPolite && offerCollision
     if (peerState.ignoreOffer) {
-      console.warn('Ignoring offer due to collision (impolite peer)')
+      logger.warn('Ignoring offer due to collision (impolite peer)')
       return
     }
 
     try {
       if (offerCollision) {
-        console.log('Offer collision detected, rolling back local description')
+        logger.info('Offer collision detected, rolling back local description')
         await pc.setLocalDescription({ type: 'rollback' })
       }
 
@@ -399,7 +399,7 @@ export class WebRTCClient {
       await this.flushPendingIceCandidates(peerState)
       peerState.ignoreOffer = false
     } catch (error) {
-      console.error('Failed to handle offer:', error)
+      logger.error('Failed to handle offer:', error)
     }
   }
 
@@ -412,7 +412,7 @@ export class WebRTCClient {
       await peerState.pc.setRemoteDescription(new RTCSessionDescription(answer))
       await this.flushPendingIceCandidates(peerState)
     } catch (error) {
-      console.error('Failed to handle answer:', error)
+      logger.error('Failed to handle answer:', error)
     } finally {
       peerState.isSettingRemoteAnswerPending = false
       peerState.ignoreOffer = false
@@ -427,10 +427,10 @@ export class WebRTCClient {
       try {
         await pc.addIceCandidate(new RTCIceCandidate(candidate))
       } catch (error) {
-        console.error('Failed to add ICE candidate:', error)
+        logger.error('Failed to add ICE candidate:', error)
       }
     } else {
-      console.log('Remote description not set yet, queuing ICE candidate')
+      logger.info('Remote description not set yet, queuing ICE candidate')
       peerState.pendingIceCandidates.push(candidate)
     }
   }
@@ -445,7 +445,7 @@ export class WebRTCClient {
       try {
         await peerState.pc.addIceCandidate(new RTCIceCandidate(candidateInit))
       } catch (error) {
-        console.error('Failed to add queued ICE candidate:', error)
+        logger.error('Failed to add queued ICE candidate:', error)
       }
     }
   }

@@ -6,6 +6,7 @@
  */
 
 import Handlebars from 'handlebars';
+import { logger } from '@autamedica/shared';
 
 // Simple text transformation functions to replace change-case dependency
 function pascalCase(str) {
@@ -474,7 +475,7 @@ export function registerHelpers() {
     return `> ${icons[type] || 'ℹ️'} **${type.toUpperCase()}**: ${message}\n`;
   });
 
-  console.log('✅ Handlebars helpers registered successfully');
+  logger.info('✅ Handlebars helpers registered successfully');
 }
 
 /**

@@ -79,7 +79,7 @@ export function CollapsibleSidebar() {
 
         setUserInitials(initials)
       } catch (error) {
-        console.error('Error fetching user data', error)
+        logger.error('Error fetching user data', error)
       }
     }
 

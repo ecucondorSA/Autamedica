@@ -34,7 +34,7 @@ class GlossaryChecker {
       const glossaryPath = path.join(process.cwd(), 'glossary.json');
       return JSON.parse(fs.readFileSync(glossaryPath, 'utf8'));
     } catch (error) {
-      console.error(`${colors.red}❌ Error cargando glossary.json: ${error.message}${colors.reset}`);
+      logger.error(`${colors.red}❌ Error cargando glossary.json: ${error.message}${colors.reset}`);
       process.exit(1);
     }
   }
@@ -204,10 +204,10 @@ class GlossaryChecker {
   }
 
   async checkProject() {
-    console.log(`${colors.blue}🔍 Autamedica Glossary Checker${colors.reset}`);
-    console.log(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
-    console.log(`📋 Validando terminología médica según ${this.glossary.metadata.name} v${this.glossary.metadata.version}`);
-    console.log('');
+    logger.info(`${colors.blue}🔍 Autamedica Glossary Checker${colors.reset}`);
+    logger.info(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
+    logger.info(`📋 Validando terminología médica según ${this.glossary.metadata.name} v${this.glossary.metadata.version}`);
+    logger.info('');
 
     // Patrones de archivos a validar (solo nuestro código fuente)
     const patterns = [
@@ -231,8 +231,8 @@ class GlossaryChecker {
     });
 
     const uniqueFiles = [...new Set(files)];
-    console.log(`📁 Analizando ${uniqueFiles.length} archivos...`);
-    console.log('');
+    logger.info(`📁 Analizando ${uniqueFiles.length} archivos...`);
+    logger.info('');
 
     // Procesar archivos
     for (const file of uniqueFiles) {
@@ -243,81 +243,81 @@ class GlossaryChecker {
   }
 
   printResults() {
-    console.log(`${colors.blue}📊 RESULTADOS DEL ANÁLISIS${colors.reset}`);
-    console.log(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
+    logger.info(`${colors.blue}📊 RESULTADOS DEL ANÁLISIS${colors.reset}`);
+    logger.info(`${colors.blue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${colors.reset}`);
 
     const totalIssues = this.errors.length + this.warnings.length;
 
-    console.log(`📈 Total de issues: ${totalIssues}`);
-    console.log(`${colors.red}❌ Errores: ${this.errors.length}${colors.reset}`);
-    console.log(`${colors.yellow}⚠️  Warnings: ${this.warnings.length}${colors.reset}`);
-    console.log(`${colors.blue}💡 Sugerencias: ${this.suggestions.length}${colors.reset}`);
-    console.log('');
+    logger.info(`📈 Total de issues: ${totalIssues}`);
+    logger.info(`${colors.red}❌ Errores: ${this.errors.length}${colors.reset}`);
+    logger.info(`${colors.yellow}⚠️  Warnings: ${this.warnings.length}${colors.reset}`);
+    logger.info(`${colors.blue}💡 Sugerencias: ${this.suggestions.length}${colors.reset}`);
+    logger.info('');
 
     if (this.errors.length > 0) {
-      console.log(`${colors.red}${colors.bold}ERRORES CRÍTICOS:${colors.reset}`);
+      logger.info(`${colors.red}${colors.bold}ERRORES CRÍTICOS:${colors.reset}`);
       this.errors.slice(0, 10).forEach((error, index) => {
-        console.log(`${colors.red}${index + 1}. ${error.file}: ${error.message}${colors.reset}`);
+        logger.info(`${colors.red}${index + 1}. ${error.file}: ${error.message}${colors.reset}`);
       });
       if (this.errors.length > 10) {
-        console.log(`${colors.red}... y ${this.errors.length - 10} errores más${colors.reset}`);
+        logger.info(`${colors.red}... y ${this.errors.length - 10} errores más${colors.reset}`);
       }
-      console.log('');
+      logger.info('');
     }
 
     if (this.warnings.length > 0) {
-      console.log(`${colors.yellow}${colors.bold}WARNINGS (Terminología):${colors.reset}`);
+      logger.info(`${colors.yellow}${colors.bold}WARNINGS (Terminología):${colors.reset}`);
       this.warnings.slice(0, 5).forEach((warning, index) => {
-        console.log(`${colors.yellow}${index + 1}. ${warning.file}: ${warning.message}${colors.reset}`);
+        logger.info(`${colors.yellow}${index + 1}. ${warning.file}: ${warning.message}${colors.reset}`);
       });
       if (this.warnings.length > 5) {
-        console.log(`${colors.yellow}... y ${this.warnings.length - 5} warnings más${colors.reset}`);
+        logger.info(`${colors.yellow}... y ${this.warnings.length - 5} warnings más${colors.reset}`);
       }
-      console.log('');
+      logger.info('');
     }
 
     if (this.suggestions.length > 0) {
-      console.log(`${colors.blue}💡 SUGERENCIAS DE MEJORA:${colors.reset}`);
+      logger.info(`${colors.blue}💡 SUGERENCIAS DE MEJORA:${colors.reset}`);
       this.suggestions.slice(0, 3).forEach((suggestion, index) => {
-        console.log(`${colors.blue}${index + 1}. ${suggestion.message}${colors.reset}`);
+        logger.info(`${colors.blue}${index + 1}. ${suggestion.message}${colors.reset}`);
       });
-      console.log('');
+      logger.info('');
     }
 
     // Resumen y recomendaciones
     if (totalIssues === 0) {
-      console.log(`${colors.green}🎉 ¡PERFECTO! El código cumple con todas las convenciones de Autamedica${colors.reset}`);
-      console.log(`${colors.green}✅ Terminología médica consistente${colors.reset}`);
-      console.log(`${colors.green}✅ Naming conventions correctas${colors.reset}`);
-      console.log(`${colors.green}✅ Compliance HIPAA verificado${colors.reset}`);
+      logger.info(`${colors.green}🎉 ¡PERFECTO! El código cumple con todas las convenciones de Autamedica${colors.reset}`);
+      logger.info(`${colors.green}✅ Terminología médica consistente${colors.reset}`);
+      logger.info(`${colors.green}✅ Naming conventions correctas${colors.reset}`);
+      logger.info(`${colors.green}✅ Compliance HIPAA verificado${colors.reset}`);
     } else {
-      console.log(`${colors.yellow}🛠️  PLAN DE CORRECCIÓN:${colors.reset}`);
+      logger.info(`${colors.yellow}🛠️  PLAN DE CORRECCIÓN:${colors.reset}`);
 
       if (this.errors.length > 0) {
-        console.log('1️⃣ Corregir errores críticos (términos prohibidos, violaciones HIPAA)');
+        logger.info('1️⃣ Corregir errores críticos (términos prohibidos, violaciones HIPAA)');
       }
 
       if (this.warnings.length > 0) {
-        console.log('2️⃣ Revisar warnings de terminología médica');
+        logger.info('2️⃣ Revisar warnings de terminología médica');
       }
 
       if (this.suggestions.length > 0) {
-        console.log('3️⃣ Considerar sugerencias de naming conventions');
+        logger.info('3️⃣ Considerar sugerencias de naming conventions');
       }
 
-      console.log('');
-      console.log(`${colors.blue}📚 Referencia: consultar glossary.json para convenciones completas${colors.reset}`);
+      logger.info('');
+      logger.info(`${colors.blue}📚 Referencia: consultar glossary.json para convenciones completas${colors.reset}`);
     }
 
     // Exit code
     if (this.errors.length > 0) {
-      console.log(`${colors.red}❌ Falló la validación de glosario${colors.reset}`);
+      logger.info(`${colors.red}❌ Falló la validación de glosario${colors.reset}`);
       process.exit(1);
     } else if (this.warnings.length > 5) {
-      console.log(`${colors.yellow}⚠️  Demasiados warnings, revisar terminología${colors.reset}`);
+      logger.info(`${colors.yellow}⚠️  Demasiados warnings, revisar terminología${colors.reset}`);
       process.exit(1);
     } else {
-      console.log(`${colors.green}✅ Validación de glosario exitosa${colors.reset}`);
+      logger.info(`${colors.green}✅ Validación de glosario exitosa${colors.reset}`);
       process.exit(0);
     }
   }
@@ -327,7 +327,7 @@ class GlossaryChecker {
 if (require.main === module) {
   const checker = new GlossaryChecker();
   checker.checkProject().catch(error => {
-    console.error(`${colors.red}❌ Error ejecutando glossary checker: ${error.message}${colors.reset}`);
+    logger.error(`${colors.red}❌ Error ejecutando glossary checker: ${error.message}${colors.reset}`);
     process.exit(1);
   });
 }

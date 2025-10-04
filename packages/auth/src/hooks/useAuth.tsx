@@ -221,7 +221,7 @@ export function AuthProvider({
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event)
+        logger.info('Auth state changed:', event)
 
         if (session) {
           const profile = extractUserProfile(session.user)
@@ -262,7 +262,7 @@ export function AuthProvider({
   // Sign in with email and password
   const signIn = useCallback(async (email: string, password: string) => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping sign in')
+      logger.info('Dev bypass mode - skipping sign in')
       return
     }
 
@@ -292,7 +292,7 @@ export function AuthProvider({
   // Sign in with magic link
   const signInWithMagicLink = useCallback(async (email: string) => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping magic link')
+      logger.info('Dev bypass mode - skipping magic link')
       return
     }
 
@@ -324,7 +324,7 @@ export function AuthProvider({
   // Sign out
   const signOut = useCallback(async () => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping sign out')
+      logger.info('Dev bypass mode - skipping sign out')
       setState({
         user: null,
         profile: null,
@@ -365,7 +365,7 @@ export function AuthProvider({
   // Sign in with OAuth
   const signInWithOAuth = useCallback(async (provider: 'google') => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping OAuth sign in')
+      logger.info('Dev bypass mode - skipping OAuth sign in')
       return
     }
 
@@ -397,7 +397,7 @@ export function AuthProvider({
   // Refresh session
   const refreshSession = useCallback(async () => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping refresh')
+      logger.info('Dev bypass mode - skipping refresh')
       return
     }
 

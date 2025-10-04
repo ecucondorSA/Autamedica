@@ -93,9 +93,9 @@ export default function SimplePatientVideoCall({
 
     // Handle incoming remote stream
     pc.ontrack = (event) => {
-      // console.log('Received remote stream track:', event.track.kind)
+      // logger.info('Received remote stream track:', event.track.kind)
       if (event.streams?.[0]) {
-        // console.log('Setting remote stream')
+        // logger.info('Setting remote stream')
         setRemoteStream(event.streams[0])
         if (remoteVideoRef.current) {
           remoteVideoRef.current.srcObject = event.streams[0]
@@ -106,7 +106,7 @@ export default function SimplePatientVideoCall({
     // Handle ICE candidates
     pc.onicecandidate = async (event) => {
       if (event.candidate) {
-        // console.log('Sending ICE candidate')
+        // logger.info('Sending ICE candidate')
         const signalingBase = 'http://localhost:8787'
         try {
           await fetch(`${signalingBase}/api/message`, {
@@ -120,16 +120,16 @@ export default function SimplePatientVideoCall({
             })
           })
         } catch (error) {
-          console.error('Error sending ICE candidate:', error)
+          logger.error('Error sending ICE candidate:', error)
         }
       }
     }
 
     // Connection state monitoring
     pc.onconnectionstatechange = () => {
-      // console.log('Connection state:', pc.connectionState)
+      // logger.info('Connection state:', pc.connectionState)
       if (pc.connectionState === 'failed') {
-        console.error('WebRTC connection failed')
+        logger.error('WebRTC connection failed')
         setMediaError(true)
       }
     }
@@ -160,11 +160,11 @@ export default function SimplePatientVideoCall({
         })
 
         if (response.ok && isActive) {
-          // console.log('Conectado a la sala de espera:', roomId)
+          // logger.info('Conectado a la sala de espera:', roomId)
           startPolling()
         }
       } catch (error) {
-        console.error('Error al unirse a la sala:', error)
+        logger.error('Error al unirse a la sala:', error)
       }
     }
 
@@ -202,7 +202,7 @@ export default function SimplePatientVideoCall({
                   seenMessagesRef.current = new Set(entries.slice(-50))
                 }
 
-                // console.log('Mensaje recibido:', msg)
+                // logger.info('Mensaje recibido:', msg)
 
                 // Recibir llamada entrante
                 if (msg.type === 'incoming-call') {
@@ -214,16 +214,16 @@ export default function SimplePatientVideoCall({
 
                 // Handle WebRTC offer from doctor
                 if (msg.type === 'webrtc-offer') {
-                  // console.log('Received WebRTC offer')
+                  // logger.info('Received WebRTC offer')
                   setCurrentOffer(msg.data.offer)
                 }
 
                 // Handle ICE candidates from doctor
                 if (msg.type === 'ice-candidate' && peerConnectionRef.current) {
-                  // console.log('Received ICE candidate')
+                  // logger.info('Received ICE candidate')
 
                   if (!msg.data?.candidate) {
-                    console.warn('ICE candidate payload missing candidate data')
+                    logger.warn('ICE candidate payload missing candidate data')
                     continue
                   }
 
@@ -234,11 +234,11 @@ export default function SimplePatientVideoCall({
                     if (pc.remoteDescription) {
                       await pc.addIceCandidate(new RTCIceCandidate(candidateInit))
                     } else {
-                      // console.log('Remote description not set yet, queueing ICE candidate')
+                      // logger.info('Remote description not set yet, queueing ICE candidate')
                       pendingIceCandidatesRef.current.push(candidateInit)
                     }
                   } catch (err) {
-                    console.error('Failed to add ICE candidate:', err)
+                    logger.error('Failed to add ICE candidate:', err)
                   }
                 }
 
@@ -250,7 +250,7 @@ export default function SimplePatientVideoCall({
             }
           }
         } catch (error) {
-          console.error('Error en polling:', error)
+          logger.error('Error en polling:', error)
         }
       }, 1000) // Poll every second
     }
@@ -294,7 +294,7 @@ export default function SimplePatientVideoCall({
 
       return mediaStream
     } catch (error: any) {
-      console.error('Error al acceder a la cámara:', error)
+      logger.error('Error al acceder a la cámara:', error)
       setMediaError(true)
       setShowMediaPicker(true)
 
@@ -312,7 +312,7 @@ export default function SimplePatientVideoCall({
 
         return audioStream
       } catch (err) {
-        console.error('Failed to get even audio:', err)
+        logger.error('Failed to get even audio:', err)
         return null
       }
     }
@@ -394,12 +394,12 @@ export default function SimplePatientVideoCall({
       const pc = peerConnectionRef.current
 
       if (!pc) {
-        console.warn('processOffer called but no peer connection is ready yet')
+        logger.warn('processOffer called but no peer connection is ready yet')
         return
       }
 
       if (pc.currentRemoteDescription) {
-        // console.log('Remote description already set, skipping duplicate offer')
+        // logger.info('Remote description already set, skipping duplicate offer')
         return
       }
 
@@ -407,7 +407,7 @@ export default function SimplePatientVideoCall({
         await pc.setRemoteDescription(new RTCSessionDescription(offer))
 
         if (pendingIceCandidatesRef.current.length) {
-          // console.log('Applying queued ICE candidates...')
+          // logger.info('Applying queued ICE candidates...')
           const queuedCandidates = [...pendingIceCandidatesRef.current]
           pendingIceCandidatesRef.current.length = 0
 
@@ -415,7 +415,7 @@ export default function SimplePatientVideoCall({
             try {
               await pc.addIceCandidate(new RTCIceCandidate(candidateInit))
             } catch (candidateError) {
-              console.error('Failed to add queued ICE candidate:', candidateError)
+              logger.error('Failed to add queued ICE candidate:', candidateError)
             }
           }
         }
@@ -440,12 +440,12 @@ export default function SimplePatientVideoCall({
           })
         })
 
-        // console.log('Answer sent successfully')
+        // logger.info('Answer sent successfully')
         setCallStatus('connected')
         startCallTimer()
         setCurrentOffer(null)
       } catch (error) {
-        console.error('Error processing offer:', error)
+        logger.error('Error processing offer:', error)
         setMediaError(true)
         setShowMediaPicker(true)
       }
@@ -470,10 +470,10 @@ export default function SimplePatientVideoCall({
 
       const pc = createPeerConnection()
 
-      // console.log('Adding tracks to peer connection:')
+      // logger.info('Adding tracks to peer connection:')
       mediaStream.getTracks().forEach(track => {
         pc.addTrack(track, mediaStream)
-        // console.log(`  - Added ${track.kind} track: ${track.label}`)
+        // logger.info(`  - Added ${track.kind} track: ${track.label}`)
       })
 
       const signalingBase = 'http://localhost:8787'
@@ -489,13 +489,13 @@ export default function SimplePatientVideoCall({
       })
 
       if (currentOffer) {
-        // console.log('Offer already available, processing immediately')
+        // logger.info('Offer already available, processing immediately')
         await processOffer(currentOffer)
       } else {
-        // console.log('Awaiting offer from doctor to complete handshake')
+        // logger.info('Awaiting offer from doctor to complete handshake')
       }
     } catch (error) {
-      console.error('Error al aceptar llamada:', error)
+      logger.error('Error al aceptar llamada:', error)
       setMediaError(true)
       setShowMediaPicker(true)
       if (peerConnectionRef.current) {
@@ -533,7 +533,7 @@ export default function SimplePatientVideoCall({
         })
       })
     } catch (error) {
-      console.error('Error al rechazar llamada:', error)
+      logger.error('Error al rechazar llamada:', error)
     }
   }
 
@@ -555,7 +555,7 @@ export default function SimplePatientVideoCall({
         })
       })
     } catch (error) {
-      console.error('Error al finalizar llamada:', error)
+      logger.error('Error al finalizar llamada:', error)
     }
   }
 
@@ -658,7 +658,7 @@ export default function SimplePatientVideoCall({
             <MediaPicker
               onMediaReady={handleMediaReady}
               onError={(error) => {
-                console.error('MediaPicker error:', error)
+                logger.error('MediaPicker error:', error)
                 setMediaError(true)
               }}
             />

@@ -7,6 +7,7 @@ import { useAuth } from '@autamedica/auth/hooks';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
+import { logger } from '@autamedica/shared';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ function LoginForm() {
       await signIn(email, password);
       // On success, the auth provider will redirect automatically
     } catch (error: any) {
-      console.error('Login error:', error);
+      logger.error('Login error:', error);
       setError(error.message || 'Error al iniciar sesión');
     } finally {
       setIsLoading(false);
@@ -50,7 +51,7 @@ function LoginForm() {
     try {
       await signInWithOAuth('google');
     } catch (error: any) {
-      console.error('Google sign in error:', error);
+      logger.error('Google sign in error:', error);
       setError(error.message || 'Error al iniciar sesión con Google');
       setIsLoading(false);
     }
@@ -63,7 +64,7 @@ function LoginForm() {
       await signInWithMagicLink(email);
       setMagicLinkSent(true);
     } catch (error: any) {
-      console.error('Magic link error:', error);
+      logger.error('Magic link error:', error);
       setError(error.message || 'Error al enviar el enlace de acceso');
     } finally {
       setIsLoading(false);

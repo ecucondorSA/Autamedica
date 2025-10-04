@@ -14,13 +14,13 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const DATABASE_URL = process.env.SUPABASE_DB_URL;
 
 async function applyMigration() {
-  console.log('🔧 Aplicando Auth Lifecycle Hooks...');
+  logger.info('🔧 Aplicando Auth Lifecycle Hooks...');
 
   // Leer archivo de migración
   const migrationPath = path.join(__dirname, '../supabase/migrations/20250930_auth_lifecycle_hooks.sql');
 
   if (!fs.existsSync(migrationPath)) {
-    console.error('❌ No se encontró el archivo de migración:', migrationPath);
+    logger.error('❌ No se encontró el archivo de migración:', migrationPath);
     process.exit(1);
   }
 
@@ -28,7 +28,7 @@ async function applyMigration() {
 
   if (DATABASE_URL) {
     // Opción 1: Usar psql directo
-    console.log('📊 Aplicando vía psql...');
+    logger.info('📊 Aplicando vía psql...');
 
     const { spawn } = require('child_process');
     const psql = spawn('psql', [DATABASE_URL, '-f', migrationPath], {
@@ -37,17 +37,17 @@ async function applyMigration() {
 
     psql.on('close', (code) => {
       if (code === 0) {
-        console.log('✅ Migración aplicada exitosamente vía psql');
+        logger.info('✅ Migración aplicada exitosamente vía psql');
         testHooks();
       } else {
-        console.error('❌ Error aplicando migración:', code);
+        logger.error('❌ Error aplicando migración:', code);
         process.exit(1);
       }
     });
 
   } else if (SUPABASE_SERVICE_KEY) {
     // Opción 2: Usar Supabase REST API
-    console.log('🌐 Aplicando vía Supabase REST API...');
+    logger.info('🌐 Aplicando vía Supabase REST API...');
 
     try {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/exec_sql`, {
@@ -61,58 +61,58 @@ async function applyMigration() {
       });
 
       if (response.ok) {
-        console.log('✅ Migración aplicada exitosamente vía REST API');
+        logger.info('✅ Migración aplicada exitosamente vía REST API');
         await testHooks();
       } else {
         const error = await response.text();
-        console.error('❌ Error aplicando migración:', error);
+        logger.error('❌ Error aplicando migración:', error);
         process.exit(1);
       }
     } catch (error) {
-      console.error('❌ Excepción aplicando migración:', error);
+      logger.error('❌ Excepción aplicando migración:', error);
       process.exit(1);
     }
 
   } else {
-    console.log('📋 Variables de entorno no encontradas.');
-    console.log('');
-    console.log('Para aplicar la migración, usa una de estas opciones:');
-    console.log('');
-    console.log('1️⃣ **Con psql directo:**');
-    console.log('   export SUPABASE_DB_URL="postgresql://postgres.PROJECT:PASSWORD@HOST:6543/postgres"');
-    console.log('   node scripts/apply-auth-hooks.js');
-    console.log('');
-    console.log('2️⃣ **Con Supabase CLI:**');
-    console.log('   supabase db push');
-    console.log('');
-    console.log('3️⃣ **Manualmente:**');
-    console.log('   Copia el contenido de supabase/migrations/20250930_auth_lifecycle_hooks.sql');
-    console.log('   y ejecútalo en el SQL Editor de Supabase Dashboard');
-    console.log('');
+    logger.info('📋 Variables de entorno no encontradas.');
+    logger.info('');
+    logger.info('Para aplicar la migración, usa una de estas opciones:');
+    logger.info('');
+    logger.info('1️⃣ **Con psql directo:**');
+    logger.info('   export SUPABASE_DB_URL="postgresql://postgres.PROJECT:PASSWORD@HOST:6543/postgres"');
+    logger.info('   node scripts/apply-auth-hooks.js');
+    logger.info('');
+    logger.info('2️⃣ **Con Supabase CLI:**');
+    logger.info('   supabase db push');
+    logger.info('');
+    logger.info('3️⃣ **Manualmente:**');
+    logger.info('   Copia el contenido de supabase/migrations/20250930_auth_lifecycle_hooks.sql');
+    logger.info('   y ejecútalo en el SQL Editor de Supabase Dashboard');
+    logger.info('');
   }
 }
 
 async function testHooks() {
-  console.log('');
-  console.log('🧪 Testear hooks (opcional):');
-  console.log('');
-  console.log('1️⃣ **Test trigger de creación:**');
-  console.log('   - Crear usuario en Auth Hub');
-  console.log('   - Verificar que se crea automáticamente en profiles');
-  console.log('   - Verificar audit log entry');
-  console.log('');
-  console.log('2️⃣ **Test RPC set_portal_and_role:**');
-  console.log('   ```sql');
-  console.log('   SELECT set_portal_and_role(\'doctors\', \'doctor\');');
-  console.log('   SELECT * FROM profiles WHERE id = auth.uid();');
-  console.log('   ```');
-  console.log('');
-  console.log('3️⃣ **Test audit log:**');
-  console.log('   ```sql');
-  console.log('   SELECT * FROM get_user_audit_log();');
-  console.log('   ```');
-  console.log('');
-  console.log('✅ Auth Lifecycle Hooks listos para producción!');
+  logger.info('');
+  logger.info('🧪 Testear hooks (opcional):');
+  logger.info('');
+  logger.info('1️⃣ **Test trigger de creación:**');
+  logger.info('   - Crear usuario en Auth Hub');
+  logger.info('   - Verificar que se crea automáticamente en profiles');
+  logger.info('   - Verificar audit log entry');
+  logger.info('');
+  logger.info('2️⃣ **Test RPC set_portal_and_role:**');
+  logger.info('   ```sql');
+  logger.info('   SELECT set_portal_and_role(\'doctors\', \'doctor\');');
+  logger.info('   SELECT * FROM profiles WHERE id = auth.uid();');
+  logger.info('   ```');
+  logger.info('');
+  logger.info('3️⃣ **Test audit log:**');
+  logger.info('   ```sql');
+  logger.info('   SELECT * FROM get_user_audit_log();');
+  logger.info('   ```');
+  logger.info('');
+  logger.info('✅ Auth Lifecycle Hooks listos para producción!');
 }
 
 // Ejecutar script

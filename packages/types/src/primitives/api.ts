@@ -4,6 +4,7 @@
  */
 
 import type { ISODateString } from "./date";
+import { logger } from '@autamedica/shared';
 
 /**
  * Error de API estandarizado
@@ -54,10 +55,10 @@ export interface APIErrorResponse {
  * function handleResponse(response: APIResponse<User>) {
  *   if (response.success) {
  *     // TypeScript sabe que response.data existe
- *     console.log(response.data.name);
+ *     logger.info(response.data.name);
  *   } else {
  *     // TypeScript sabe que response.error existe
- *     console.error(response.error.message);
+ *     logger.error(response.error.message);
  *   }
  * }
  * ```

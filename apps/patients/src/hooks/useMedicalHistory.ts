@@ -129,7 +129,7 @@ export function useMedicalHistory(patientId?: PatientId) {
       setTimeline(timelineData)
 
     } catch (err) {
-      console.error('Error fetching medical history:', err)
+      logger.error('Error fetching medical history:', err)
       setError(err instanceof Error ? err.message : 'Error loading medical history')
     } finally {
       setLoading(false)
@@ -162,7 +162,7 @@ export function useMedicalHistory(patientId?: PatientId) {
       // Refresh data
       await fetchMedicalHistory()
     } catch (error) {
-      console.error('Error adding condition:', error)
+      logger.error('Error adding condition:', error)
       setError('Error adding medical condition')
     }
   }
@@ -191,7 +191,7 @@ export function useMedicalHistory(patientId?: PatientId) {
       // Refresh data
       await fetchMedicalHistory()
     } catch (error) {
-      console.error('Error adding medication:', error)
+      logger.error('Error adding medication:', error)
       setError('Error adding medication')
     }
   }
@@ -219,7 +219,7 @@ export function useMedicalHistory(patientId?: PatientId) {
       // Refresh data
       await fetchMedicalHistory()
     } catch (error) {
-      console.error('Error adding allergy:', error)
+      logger.error('Error adding allergy:', error)
       setError('Error adding allergy')
     }
   }

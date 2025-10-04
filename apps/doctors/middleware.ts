@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, hasRole, getPortalForRole, isCorrectPortal, buildSafeLoginUrl } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 // Public routes that don't require authentication
 const PUBLIC_ROUTES = [
@@ -53,7 +54,7 @@ export async function middleware(request: NextRequest) {
     // All checks passed
     return NextResponse.next();
   } catch (error) {
-    console.error('Middleware error:', error);
+    logger.error('Middleware error:', error);
 
     // On error, redirect to login
     const loginUrl = buildSafeLoginUrl('doctors', request.url, 'auth_error');

@@ -40,18 +40,18 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     // Set up event listeners
     webrtcClient.on('connection-state', (state) => {
       setConnectionState(state)
-      // console.log('Connection state changed:', state)
+      // logger.info('Connection state changed:', state)
     })
 
     webrtcClient.on('local-stream', (stream) => {
-      // console.log('Got local stream')
+      // logger.info('Got local stream')
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream
       }
     })
 
     webrtcClient.on('remote-stream', (stream, remoteUserId) => {
-      // console.log('Got remote stream from:', remoteUserId)
+      // logger.info('Got remote stream from:', remoteUserId)
 
       setRemoteUsers(prev => {
         const updated = new Map(prev)
@@ -68,7 +68,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     })
 
     webrtcClient.on('user-joined', (remoteUserId, remoteUserType) => {
-      // console.log('User joined:', remoteUserId, remoteUserType)
+      // logger.info('User joined:', remoteUserId, remoteUserType)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         const existingUser = updated.get(remoteUserId)
@@ -82,7 +82,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     })
 
     webrtcClient.on('user-left', (remoteUserId) => {
-      // console.log('User left:', remoteUserId)
+      // logger.info('User left:', remoteUserId)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         updated.delete(remoteUserId)
@@ -92,7 +92,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
     })
 
     webrtcClient.on('error', (error) => {
-      console.error('WebRTC error:', error)
+      logger.error('WebRTC error:', error)
       // Could show error toast here
     })
 
@@ -118,7 +118,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
       await client.startLocalStream(constraints)
 
     } catch (error) {
-      console.error('Failed to start call:', error)
+      logger.error('Failed to start call:', error)
     }
   }, [client])
 
@@ -130,7 +130,7 @@ export function VideoCallComponent({ roomId, userId, userType, onCallEnd }: Vide
       await client.disconnect()
       onCallEnd?.()
     } catch (error) {
-      console.error('Failed to end call:', error)
+      logger.error('Failed to end call:', error)
     }
   }, [client, onCallEnd])
 

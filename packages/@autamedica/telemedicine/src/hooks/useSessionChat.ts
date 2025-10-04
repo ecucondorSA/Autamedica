@@ -19,6 +19,7 @@ import {
   sendTypingIndicator,
   unsubscribeFromChat,
 } from '../lib/sessionChat';
+import { logger } from '@autamedica/shared';
 
 export interface UseSessionChatOptions {
   sessionId: string;
@@ -82,7 +83,7 @@ export function useSessionChat(options: UseSessionChatOptions): UseSessionChatRe
       setUnreadCount(unreadCountData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load messages');
-      console.error('Error loading messages:', err);
+      logger.error('Error loading messages:', err);
     } finally {
       setLoading(false);
     }
@@ -152,7 +153,7 @@ export function useSessionChat(options: UseSessionChatOptions): UseSessionChatRe
       setUnreadCount(0);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to mark messages as read');
-      console.error('Error marking messages as read:', err);
+      logger.error('Error marking messages as read:', err);
     }
   }, [sessionId, userId]);
 
@@ -170,14 +171,14 @@ export function useSessionChat(options: UseSessionChatOptions): UseSessionChatRe
 
       // Send typing indicator
       sendTypingIndicator(sessionId, userId, isTyping).catch((err) => {
-        console.error('Error sending typing indicator:', err);
+        logger.error('Error sending typing indicator:', err);
       });
 
       // Auto-stop typing after 3 seconds
       if (isTyping) {
         typingTimeoutRef.current = setTimeout(() => {
           sendTypingIndicator(sessionId, userId, false).catch((err) => {
-            console.error('Error stopping typing indicator:', err);
+            logger.error('Error stopping typing indicator:', err);
           });
         }, 3000);
       }

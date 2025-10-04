@@ -9,6 +9,7 @@
 
 import { useState } from 'react';
 import { useSessionRecording } from '@/hooks/useSessionRecording';
+import { logger } from '@autamedica/shared';
 
 export interface RecordingControlsProps {
   sessionId: string;
@@ -57,7 +58,7 @@ export function RecordingControls({
       await giveConsent();
       setShowConsentModal(false);
     } catch (err) {
-      console.error('Failed to give consent:', err);
+      logger.error('Failed to give consent:', err);
     }
   };
 
@@ -66,7 +67,7 @@ export function RecordingControls({
       await startRecording();
       onRecordingStart?.();
     } catch (err) {
-      console.error('Failed to start recording:', err);
+      logger.error('Failed to start recording:', err);
     }
   };
 
@@ -75,7 +76,7 @@ export function RecordingControls({
       await stopRecording();
       onRecordingStop?.();
     } catch (err) {
-      console.error('Failed to stop recording:', err);
+      logger.error('Failed to stop recording:', err);
     }
   };
 

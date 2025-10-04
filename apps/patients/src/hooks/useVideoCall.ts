@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { VideoCallState, VideoCallActions, CallStatus, VideoStreamConfig } from '@/types/telemedicine';
+import { logger } from '@autamedica/shared';
 
 /**
  * Default video configuration
@@ -43,7 +44,7 @@ export function useVideoCall() {
       setIsMuted(false);
       setCallStatus('live');
     } catch (error) {
-      console.error('[useVideoCall] Error accessing camera:', error);
+      logger.error('[useVideoCall] Error accessing camera:', error);
       const message = error instanceof DOMException
         ? error.message
         : 'No se pudo acceder a la cámara. Verifica los permisos del navegador.';
@@ -129,7 +130,7 @@ export function useVideoCall() {
         setIsScreenSharing(false);
       });
     } catch (error) {
-      console.warn('[useVideoCall] Screen sharing cancelled by user:', error);
+      logger.warn('[useVideoCall] Screen sharing cancelled by user:', error);
       setIsScreenSharing(false);
     }
   }, [isScreenSharing, screenStream]);

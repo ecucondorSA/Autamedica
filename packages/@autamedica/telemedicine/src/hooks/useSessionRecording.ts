@@ -14,6 +14,7 @@ import {
   getSessionRecording,
   type SessionRecording,
 } from '@/lib/sessionRecording';
+import { logger } from '@autamedica/shared';
 
 export interface UseSessionRecordingOptions {
   sessionId: string;
@@ -85,7 +86,7 @@ export function useSessionRecording(options: UseSessionRecordingOptions): UseSes
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to load recording data';
       setError(errorMessage);
-      console.error('Error loading recording data:', err);
+      logger.error('Error loading recording data:', err);
     } finally {
       setLoading(false);
     }

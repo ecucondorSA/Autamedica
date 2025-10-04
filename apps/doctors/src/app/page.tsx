@@ -218,7 +218,7 @@ export default function DoctorsHomePage(): JSX.Element {
       setCallDuration(0)
       setCallStatus('live')
     } catch (error) {
-      console.error('[VideoCall] Error al activar la cámara', error)
+      logger.error('[VideoCall] Error al activar la cámara', error)
       const message =
         error instanceof DOMException
           ? error.message
@@ -263,7 +263,7 @@ export default function DoctorsHomePage(): JSX.Element {
       setScreenStream(stream)
       setIsScreenSharing(true)
     } catch (error) {
-      console.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
+      logger.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
       setIsScreenSharing(false)
     }
   }

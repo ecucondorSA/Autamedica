@@ -4,6 +4,7 @@ import { updateRecord } from '@autamedica/shared';
 import { requireSession } from '@autamedica/auth';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { logger } from '@autamedica/shared';
 
 /**
  * Server Action: Completar onboarding de paciente
@@ -75,7 +76,7 @@ export async function completePatientOnboarding(
     return { success: true };
 
   } catch (err) {
-    console.error('[completePatientOnboarding] Error:', err);
+    logger.error('[completePatientOnboarding] Error:', err);
 
     if (err instanceof z.ZodError) {
       return {

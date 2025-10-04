@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import * as ort from 'onnxruntime-web';
+import { logger } from '@autamedica/shared';
 
 interface SymptomAnalysis {
   category: string;
@@ -19,7 +20,7 @@ export default function SymptomAnalyzerPage() {
 
   useEffect(() => {
     // Verificar que ONNX está disponible
-    // console.log('🧠 ONNX Runtime version:', ort.env.versions.web);
+    // logger.info('🧠 ONNX Runtime version:', ort.env.versions.web);
     setOnnxReady(true);
   }, []);
 
@@ -40,7 +41,7 @@ export default function SymptomAnalyzerPage() {
         [1, features.length]
       );
 
-      // console.log('📊 Tensor creado:', {
+      // logger.info('📊 Tensor creado:', {
         shape: input.dims,
         size: input.size,
         type: input.type
@@ -53,7 +54,7 @@ export default function SymptomAnalyzerPage() {
 
       setAnalysis(predictions);
     } catch (error) {
-      console.error('Error analyzing symptoms:', error);
+      logger.error('Error analyzing symptoms:', error);
       alert('Error al analizar síntomas. Ver consola para detalles.');
     } finally {
       setLoading(false);

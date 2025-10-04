@@ -7,6 +7,7 @@ import type {
 } from '@autamedica/types';
 import { calculateDistance, sortByDistance, formatDistance, estimateTravelTime } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 interface UseHealthCentersOptions {
   filters?: HealthCenterSearchFilters;
@@ -51,7 +52,7 @@ export function useHealthCentersGeolocation(
             resolve();
           },
           (err) => {
-            console.error('Error getting location:', err);
+            logger.error('Error getting location:', err);
             setError('No se pudo obtener tu ubicación. Por favor, permite el acceso a la ubicación.');
             reject(err);
           },
@@ -63,7 +64,7 @@ export function useHealthCentersGeolocation(
         );
       });
     } catch (err) {
-      console.error('Geolocation error:', err);
+      logger.error('Geolocation error:', err);
       setError(err instanceof Error ? err.message : 'Error de geolocalización');
     }
   }, []);
@@ -140,7 +141,7 @@ export function useHealthCentersGeolocation(
 
       setCenters(limitedCenters);
     } catch (err) {
-      console.error('Error searching health centers:', err);
+      logger.error('Error searching health centers:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -174,7 +175,7 @@ export function useHealthCentersGeolocation(
 
       setCenters(centersData);
     } catch (err) {
-      console.error('Error fetching health centers:', err);
+      logger.error('Error fetching health centers:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -255,7 +256,7 @@ export function useHealthCenterById(centerId: string | null) {
 
         setCenter(data as HealthCenter);
       } catch (err) {
-        console.error('Error fetching health center:', err);
+        logger.error('Error fetching health center:', err);
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
         setIsLoading(false);

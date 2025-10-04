@@ -5,6 +5,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 import { AuthLogo } from '@/components/AuthLogo';
+import { logger } from '@autamedica/shared';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -53,7 +54,7 @@ function LoginForm() {
       const redirectUrl = returnTo || getPortalForRole(role!);
       window.location.href = redirectUrl;
     } catch (error: any) {
-      console.error('Login error:', error);
+      logger.error('Login error:', error);
       setError(error.message || 'Error al iniciar sesión');
     } finally {
       setIsLoading(false);
@@ -87,7 +88,7 @@ function LoginForm() {
         throw error;
       }
     } catch (error: any) {
-      console.error('Google sign in error:', error);
+      logger.error('Google sign in error:', error);
       setError(error.message || 'Error al iniciar sesión con Google');
       setIsLoading(false);
     }

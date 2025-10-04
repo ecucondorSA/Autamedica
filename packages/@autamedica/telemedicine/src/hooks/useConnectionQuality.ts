@@ -6,6 +6,7 @@
  */
 
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { logger } from '@autamedica/shared';
 
 /**
  * Connection Quality Levels
@@ -307,7 +308,7 @@ export function useConnectionQuality(options: UseConnectionQualityOptions): UseC
         previousQualityRef.current = basic.quality;
       }
     } catch (error) {
-      console.error('Failed to collect WebRTC stats:', error);
+      logger.error('Failed to collect WebRTC stats:', error);
     }
   }, [peerConnection, onStatsUpdate, onQualityChange]);
 

@@ -6,6 +6,7 @@
  */
 
 import { getSupabaseClient } from './supabaseClient';
+import { logger } from '@autamedica/shared';
 
 /**
  * Recording Status Types
@@ -267,7 +268,7 @@ export async function logRecordingAccess(
     .eq('id', recordingId);
 
   if (error) {
-    console.error('Failed to log recording access:', error.message);
+    logger.error('Failed to log recording access:', error.message);
   }
 }
 

@@ -1,5 +1,6 @@
 import { UserRole } from '@autamedica/types';
 import { getAppEnv, getLoginUrlBuilder } from '@autamedica/config';
+import { logger } from '@autamedica/shared';
 
 export interface SessionData {
   user: {
@@ -73,7 +74,7 @@ export async function fetchSessionData(
 
     return sessionData;
   } catch (error) {
-    console.error('Session sync error:', error);
+    logger.error('Session sync error:', error);
     return null;
   }
 }
@@ -106,7 +107,7 @@ export async function logout(appName: 'patients' | 'doctors') {
 
     window.location.href = loginUrl;
   } catch (error) {
-    console.error('Logout error:', error);
+    logger.error('Logout error:', error);
     window.location.href = loginUrl;
   }
 }

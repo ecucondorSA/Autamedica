@@ -7,6 +7,7 @@
 
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { getSupabaseClient } from './supabaseClient';
+import { logger } from '@autamedica/shared';
 
 /**
  * Session Status Types
@@ -547,7 +548,7 @@ export async function reportConnectionQuality(
     .eq('id', participantId);
 
   if (error) {
-    console.error('Failed to report connection quality:', error.message);
+    logger.error('Failed to report connection quality:', error.message);
   }
 }
 

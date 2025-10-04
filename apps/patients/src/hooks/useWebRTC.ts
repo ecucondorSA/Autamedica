@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { logger } from '@autamedica/shared';
 
 /**
  * Hook principal para gestión de WebRTC Peer Connection
@@ -122,7 +123,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    * Inicializar RTCPeerConnection con configuración completa
    */
   const initializePeerConnection = useCallback(() => {
-    // console.log('[useWebRTC] Initializing peer connection...');
+    // logger.info('[useWebRTC] Initializing peer connection...');
 
     try {
       // Crear peer connection con ICE servers
@@ -136,16 +137,16 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       // Event: ICE Candidate generado (enviar al peer remoto vía signaling)
       pc.onicecandidate = (event) => {
         if (event.candidate) {
-          // console.log('[useWebRTC] New ICE candidate:', event.candidate.candidate);
+          // logger.info('[useWebRTC] New ICE candidate:', event.candidate.candidate);
           onIceCandidate?.(event.candidate);
         } else {
-          // console.log('[useWebRTC] ICE gathering completed');
+          // logger.info('[useWebRTC] ICE gathering completed');
         }
       };
 
       // Event: Remote stream recibido
       pc.ontrack = (event) => {
-        // console.log('[useWebRTC] Remote track received:', event.track.kind);
+        // logger.info('[useWebRTC] Remote track received:', event.track.kind);
 
         // Agregar track al remote stream
         let stream = remoteStreamRef.current;
@@ -162,47 +163,47 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
 
       // Event: Connection state cambió
       pc.onconnectionstatechange = () => {
-        // console.log('[useWebRTC] Connection state:', pc.connectionState);
+        // logger.info('[useWebRTC] Connection state:', pc.connectionState);
         setState(prev => ({ ...prev, connectionState: pc.connectionState }));
         onConnectionStateChange?.(pc.connectionState);
 
         // Auto-reconnect si falla
         if (autoReconnect && pc.connectionState === 'failed') {
-          console.warn('[useWebRTC] Connection failed, attempting reconnect...');
+          logger.warn('[useWebRTC] Connection failed, attempting reconnect...');
           // TODO: Implementar lógica de reconexión
         }
       };
 
       // Event: ICE connection state cambió
       pc.oniceconnectionstatechange = () => {
-        // console.log('[useWebRTC] ICE connection state:', pc.iceConnectionState);
+        // logger.info('[useWebRTC] ICE connection state:', pc.iceConnectionState);
         setState(prev => ({ ...prev, iceConnectionState: pc.iceConnectionState }));
       };
 
       // Event: ICE gathering state cambió
       pc.onicegatheringstatechange = () => {
-        // console.log('[useWebRTC] ICE gathering state:', pc.iceGatheringState);
+        // logger.info('[useWebRTC] ICE gathering state:', pc.iceGatheringState);
         setState(prev => ({ ...prev, iceGatheringState: pc.iceGatheringState }));
       };
 
       // Event: Signaling state cambió
       pc.onsignalingstatechange = () => {
-        // console.log('[useWebRTC] Signaling state:', pc.signalingState);
+        // logger.info('[useWebRTC] Signaling state:', pc.signalingState);
         setState(prev => ({ ...prev, signalingState: pc.signalingState }));
       };
 
       // Event: Negotiation needed (renegotiar SDP)
       pc.onnegotiationneeded = async () => {
-        // console.log('[useWebRTC] Negotiation needed');
+        // logger.info('[useWebRTC] Negotiation needed');
         // TODO: Trigger renegotiación vía signaling
       };
 
       peerConnectionRef.current = pc;
       setState(prev => ({ ...prev, peerConnection: pc, error: null }));
 
-      // console.log('[useWebRTC] Peer connection initialized successfully');
+      // logger.info('[useWebRTC] Peer connection initialized successfully');
     } catch (error) {
-      console.error('[useWebRTC] Failed to initialize peer connection:', error);
+      logger.error('[useWebRTC] Failed to initialize peer connection:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to initialize peer connection'
@@ -216,15 +217,15 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
   const addLocalStream = useCallback((stream: MediaStream) => {
     const pc = peerConnectionRef.current;
     if (!pc) {
-      console.error('[useWebRTC] Cannot add local stream: peer connection not initialized');
+      logger.error('[useWebRTC] Cannot add local stream: peer connection not initialized');
       return;
     }
 
-    // console.log('[useWebRTC] Adding local stream tracks...');
+    // logger.info('[useWebRTC] Adding local stream tracks...');
 
     // Agregar cada track del stream
     stream.getTracks().forEach(track => {
-      // console.log(`[useWebRTC] Adding ${track.kind} track to peer connection`);
+      // logger.info(`[useWebRTC] Adding ${track.kind} track to peer connection`);
       pc.addTrack(track, stream);
     });
   }, []);
@@ -235,25 +236,25 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
   const createOffer = useCallback(async (): Promise<RTCSessionDescriptionInit | null> => {
     const pc = peerConnectionRef.current;
     if (!pc) {
-      console.error('[useWebRTC] Cannot create offer: peer connection not initialized');
+      logger.error('[useWebRTC] Cannot create offer: peer connection not initialized');
       return null;
     }
 
     try {
-      // console.log('[useWebRTC] Creating SDP offer...');
+      // logger.info('[useWebRTC] Creating SDP offer...');
 
       const offer = await pc.createOffer({
         offerToReceiveAudio: true,
         offerToReceiveVideo: true,
       });
 
-      // console.log('[useWebRTC] Setting local description...');
+      // logger.info('[useWebRTC] Setting local description...');
       await pc.setLocalDescription(offer);
 
-      // console.log('[useWebRTC] Offer created successfully');
+      // logger.info('[useWebRTC] Offer created successfully');
       return offer;
     } catch (error) {
-      console.error('[useWebRTC] Failed to create offer:', error);
+      logger.error('[useWebRTC] Failed to create offer:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to create offer'
@@ -268,22 +269,22 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
   const createAnswer = useCallback(async (): Promise<RTCSessionDescriptionInit | null> => {
     const pc = peerConnectionRef.current;
     if (!pc) {
-      console.error('[useWebRTC] Cannot create answer: peer connection not initialized');
+      logger.error('[useWebRTC] Cannot create answer: peer connection not initialized');
       return null;
     }
 
     try {
-      // console.log('[useWebRTC] Creating SDP answer...');
+      // logger.info('[useWebRTC] Creating SDP answer...');
 
       const answer = await pc.createAnswer();
 
-      // console.log('[useWebRTC] Setting local description...');
+      // logger.info('[useWebRTC] Setting local description...');
       await pc.setLocalDescription(answer);
 
-      // console.log('[useWebRTC] Answer created successfully');
+      // logger.info('[useWebRTC] Answer created successfully');
       return answer;
     } catch (error) {
-      console.error('[useWebRTC] Failed to create answer:', error);
+      logger.error('[useWebRTC] Failed to create answer:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to create answer'
@@ -298,16 +299,16 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
   const setRemoteDescription = useCallback(async (description: RTCSessionDescriptionInit) => {
     const pc = peerConnectionRef.current;
     if (!pc) {
-      console.error('[useWebRTC] Cannot set remote description: peer connection not initialized');
+      logger.error('[useWebRTC] Cannot set remote description: peer connection not initialized');
       return;
     }
 
     try {
-      // console.log('[useWebRTC] Setting remote description:', description.type);
+      // logger.info('[useWebRTC] Setting remote description:', description.type);
       await pc.setRemoteDescription(new RTCSessionDescription(description));
-      // console.log('[useWebRTC] Remote description set successfully');
+      // logger.info('[useWebRTC] Remote description set successfully');
     } catch (error) {
-      console.error('[useWebRTC] Failed to set remote description:', error);
+      logger.error('[useWebRTC] Failed to set remote description:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : 'Failed to set remote description'
@@ -321,16 +322,16 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
   const addIceCandidate = useCallback(async (candidate: RTCIceCandidateInit) => {
     const pc = peerConnectionRef.current;
     if (!pc) {
-      console.error('[useWebRTC] Cannot add ICE candidate: peer connection not initialized');
+      logger.error('[useWebRTC] Cannot add ICE candidate: peer connection not initialized');
       return;
     }
 
     try {
-      // console.log('[useWebRTC] Adding remote ICE candidate');
+      // logger.info('[useWebRTC] Adding remote ICE candidate');
       await pc.addIceCandidate(new RTCIceCandidate(candidate));
-      // console.log('[useWebRTC] ICE candidate added successfully');
+      // logger.info('[useWebRTC] ICE candidate added successfully');
     } catch (error) {
-      console.error('[useWebRTC] Failed to add ICE candidate:', error);
+      logger.error('[useWebRTC] Failed to add ICE candidate:', error);
       // No marcar como error crítico - algunos candidates pueden fallar
     }
   }, []);
@@ -389,7 +390,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       setState(prev => ({ ...prev, stats: connectionStats }));
       return connectionStats;
     } catch (error) {
-      console.error('[useWebRTC] Failed to get connection stats:', error);
+      logger.error('[useWebRTC] Failed to get connection stats:', error);
       return null;
     }
   }, []);
@@ -398,7 +399,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    * Cerrar peer connection y limpiar recursos
    */
   const closePeerConnection = useCallback(() => {
-    // console.log('[useWebRTC] Closing peer connection...');
+    // logger.info('[useWebRTC] Closing peer connection...');
 
     const pc = peerConnectionRef.current;
     if (pc) {
@@ -429,7 +430,7 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
       error: null,
     });
 
-    // console.log('[useWebRTC] Peer connection closed');
+    // logger.info('[useWebRTC] Peer connection closed');
   }, []);
 
   /**
@@ -437,12 +438,12 @@ export function useWebRTC(config: WebRTCConfig = {}): [WebRTCState, WebRTCAction
    */
   useEffect(() => {
     if (state.connectionState === 'connected' && !statsIntervalRef.current) {
-      // console.log('[useWebRTC] Starting stats polling...');
+      // logger.info('[useWebRTC] Starting stats polling...');
       statsIntervalRef.current = setInterval(() => {
         getConnectionStats();
       }, 1000); // Cada 1 segundo
     } else if (state.connectionState !== 'connected' && statsIntervalRef.current) {
-      // console.log('[useWebRTC] Stopping stats polling...');
+      // logger.info('[useWebRTC] Stopping stats polling...');
       clearInterval(statsIntervalRef.current);
       statsIntervalRef.current = null;
     }

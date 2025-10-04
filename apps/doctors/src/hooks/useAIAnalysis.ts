@@ -22,6 +22,7 @@ import type {
 // Tipo UI (camelCase) para AIAnalysis
 interface UiAIAnalysis {
   id: string;
+import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   medicalRecordId: string | null;
@@ -68,7 +69,7 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar análisis de IA: ${errorMessage}`)
-      console.error('[useAIAnalysis] Error:', err)
+      logger.error('[useAIAnalysis] Error:', err)
     } finally {
       setLoading(false)
     }
@@ -134,7 +135,7 @@ export function useAIAnalysis(patientId: UUID | null): UseAIAnalysisResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al crear análisis de IA: ${errorMessage}`)
-      console.error('[useAIAnalysis] createAnalysis error:', err)
+      logger.error('[useAIAnalysis] createAnalysis error:', err)
       throw err
     } finally {
       setLoading(false)

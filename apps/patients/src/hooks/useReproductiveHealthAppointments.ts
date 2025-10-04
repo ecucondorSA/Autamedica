@@ -6,6 +6,7 @@ import type {
   AppointmentStatusType
 } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 interface UseAppointmentsOptions {
   patientId?: string;
@@ -103,7 +104,7 @@ export function useReproductiveHealthAppointments(
 
       setAppointments(transformedData);
     } catch (err) {
-      console.error('Error fetching appointments:', err);
+      logger.error('Error fetching appointments:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -146,7 +147,7 @@ export function useReproductiveHealthAppointments(
         appointmentId: result?.id
       };
     } catch (err) {
-      console.error('Error creating appointment:', err);
+      logger.error('Error creating appointment:', err);
       return {
         success: false,
         error: err
@@ -176,7 +177,7 @@ export function useReproductiveHealthAppointments(
 
       return { success: true };
     } catch (err) {
-      console.error('Error updating appointment:', err);
+      logger.error('Error updating appointment:', err);
       return {
         success: false,
         error: err
@@ -225,7 +226,7 @@ export function useSpecialistAvailableSlots(specialistId: string | null) {
         const slots = generateMockSlots(new Date(), 7);
         setAvailableSlots(slots);
       } catch (err) {
-        console.error('Error fetching available slots:', err);
+        logger.error('Error fetching available slots:', err);
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
         setIsLoading(false);

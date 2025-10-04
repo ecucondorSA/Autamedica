@@ -8,6 +8,7 @@ import type { PatientProfile, UUID } from '@autamedica/types'
 // TODO: Define this interface
 interface UsePatientDataResult {
   patient: PatientProfile | null;
+import { logger } from '@autamedica/shared';
   loading: boolean;
   error: string | null;
   refresh?: () => void;
@@ -83,7 +84,7 @@ export function usePatientData(patientId: UUID | null): UsePatientDataResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar datos del paciente: ${errorMessage}`)
-      console.error('[usePatientData] Error:', err)
+      logger.error('[usePatientData] Error:', err)
 
       // TODO: Handle demo patient case if needed
     } finally {

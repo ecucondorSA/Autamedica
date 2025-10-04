@@ -9,6 +9,7 @@ import { createBrowserClient } from "./client";
 import { ensureClientEnv } from "@autamedica/shared";
 import type { ApiResponse } from "@autamedica/types";
 import { ok, fail } from "@autamedica/types";
+import { logger } from '@autamedica/shared';
 
 export interface SignInWithOtpOptions {
   email: string;
@@ -82,7 +83,7 @@ export async function signInWithOtp(
       message: `Se ha enviado un enlace de acceso a ${email}. Revisa tu bandeja de entrada.`,
     });
   } catch (error) {
-    console.error("Error in signInWithOtp:", error);
+    logger.error("Error in signInWithOtp:", error);
     return fail({
       code: "INTERNAL",
       message: "Error inesperado al enviar el enlace de acceso",
@@ -117,7 +118,7 @@ export async function validateEmailForSignIn(
       exists: true, // Por defecto, permitimos todos los emails válidos
     });
   } catch (error) {
-    console.error("Error validating email:", error);
+    logger.error("Error validating email:", error);
     return fail({
       code: "INTERNAL",
       message: "Error al validar el email",
@@ -152,7 +153,7 @@ export function getPortalRedirectUrl(
 
     return portalUrls[portal] ?? fallback ?? "/";
   } catch (error) {
-    console.error("Error getting portal redirect URL:", error);
+    logger.error("Error getting portal redirect URL:", error);
     return fallback ?? "/";
   }
 }

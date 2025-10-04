@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { AuthLogo } from '@/components/AuthLogo';
+import { logger } from '@autamedica/shared';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ export default function ForgotPassword() {
 
       setMessage('Te hemos enviado un enlace de recuperación a tu email. Revisa tu bandeja de entrada.');
     } catch (error: any) {
-      console.error('Reset password error:', error);
+      logger.error('Reset password error:', error);
       setError(error.message || 'Error al enviar el enlace de recuperación');
     } finally {
       setIsLoading(false);

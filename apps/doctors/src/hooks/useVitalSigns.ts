@@ -18,6 +18,7 @@ import type {
 // Tipo UI (camelCase) para VitalSigns
 interface UiVitalSigns {
   id: string;
+import { logger } from '@autamedica/shared';
   patientId: string;
   recordedAt: string;
   bloodPressureSystolic: number | null;
@@ -66,7 +67,7 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar signos vitales: ${errorMessage}`)
-      console.error('[useVitalSigns] Error:', err)
+      logger.error('[useVitalSigns] Error:', err)
     } finally {
       setLoading(false)
     }
@@ -101,7 +102,7 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al agregar signos vitales: ${errorMessage}`)
-      console.error('[useVitalSigns] addVitalSigns error:', err)
+      logger.error('[useVitalSigns] addVitalSigns error:', err)
       throw err
     }
   }, [patientId])

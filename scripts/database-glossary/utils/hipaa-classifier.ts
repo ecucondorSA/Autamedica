@@ -21,6 +21,7 @@ import type {
   HIPAAAnonymizationMethod,
   ComplianceGap
 } from '../types/index.js';
+import { logger } from '@autamedica/shared';
 
 /**
  * HIPAA classification engine for automatic PHI detection
@@ -42,14 +43,14 @@ export class HIPAAClassifier {
     compliance_gaps: ComplianceGap[];
     total_phi_columns: number;
   }> {
-    console.log('🔐 Starting HIPAA classification of database schema...');
+    logger.info('🔐 Starting HIPAA classification of database schema...');
 
     const classifiedTables: (DatabaseTable & { hipaa_classification: HIPAATableClassification })[] = [];
     const allComplianceGaps: ComplianceGap[] = [];
     let totalPhiColumns = 0;
 
     for (const table of schema.tables) {
-      console.log(`  📋 Classifying table: ${table.table_name}`);
+      logger.info(`  📋 Classifying table: ${table.table_name}`);
 
       const { classification, annotatedColumns, gaps } = await this.classifyTable(table);
 
@@ -63,7 +64,7 @@ export class HIPAAClassifier {
       totalPhiColumns += annotatedColumns.filter(col => col.hipaa_annotation?.contains_phi).length;
     }
 
-    console.log(`✅ HIPAA classification completed. Found ${totalPhiColumns} PHI columns across ${classifiedTables.length} tables`);
+    logger.info(`✅ HIPAA classification completed. Found ${totalPhiColumns} PHI columns across ${classifiedTables.length} tables`);
 
     return {
       tables: classifiedTables,

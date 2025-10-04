@@ -38,7 +38,7 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
       setSession(sessionData)
 
     } catch (err) {
-      console.error('Auth refresh error:', err)
+      logger.error('Auth refresh error:', err)
       setError(err instanceof Error ? err.message : 'Authentication failed')
 
       // On error, redirect to login

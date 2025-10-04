@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { logger } from '@autamedica/shared';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -51,25 +52,25 @@ export async function GET(request: Request) {
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
-      console.error('Error exchanging code for session:', error);
+      logger.error('Error exchanging code for session:', error);
       return NextResponse.redirect(
         new URL(`/auth/login?error=${encodeURIComponent(error.message)}`, requestUrl.origin)
       );
     }
 
-    // console.log('Session created successfully for user:', data.user?.email);
+    // logger.info('Session created successfully for user:', data.user?.email);
 
     // Persist role to user_metadata if provided
     if (role && data.user) {
-      // console.log('Persisting role to user_metadata:', role);
+      // logger.info('Persisting role to user_metadata:', role);
       const { error: updateError } = await supabase.auth.updateUser({
         data: { role }
       });
 
       if (updateError) {
-        console.error('Error updating user metadata with role:', updateError);
+        logger.error('Error updating user metadata with role:', updateError);
       } else {
-        // console.log('Role successfully saved to user_metadata');
+        // logger.info('Role successfully saved to user_metadata');
       }
     }
 
@@ -91,11 +92,11 @@ export async function GET(request: Request) {
       destination = '/auth/select-role';
     }
 
-    // console.log('Redirecting to:', destination);
+    // logger.info('Redirecting to:', destination);
 
     return NextResponse.redirect(destination);
   } catch (error) {
-    console.error('Callback error:', error);
+    logger.error('Callback error:', error);
     return NextResponse.redirect(
       new URL('/auth/login?error=callback_error', requestUrl.origin)
     );

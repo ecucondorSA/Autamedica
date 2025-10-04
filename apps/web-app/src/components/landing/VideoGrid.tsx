@@ -2,6 +2,7 @@
 /* global IntersectionObserver */
 
 import { useEffect, useRef, useState } from 'react';
+import { logger } from '@autamedica/shared';
 
 const videoSources = [
   { src: '/videos/video1.mp4', title: 'Consultorio Digital' },
@@ -41,7 +42,7 @@ export default function VideoGrid() {
                       playPromise.catch((error) => {
                         // Ignore AbortError silently
                         if (error.name !== 'AbortError') {
-                          console.debug('Video play error:', error.name);
+                          logger.debug('Video play error:', error.name);
                         }
                       });
                     }

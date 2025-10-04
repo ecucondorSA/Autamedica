@@ -69,7 +69,7 @@ export function useTelemedicineClient(
 
   // Initialize WebRTC client
   useEffect(() => {
-    console.log(`[useTelemedicineClient] Initializing for ${userType}: ${userId} in room ${roomId}`)
+    logger.info(`[useTelemedicineClient] Initializing for ${userType}: ${userId} in room ${roomId}`)
 
     const client = new WebRTCClient({
       userId,
@@ -81,7 +81,7 @@ export function useTelemedicineClient(
 
     // Set up event listeners
     client.on('connection-state', (connectionState: any) => {
-      console.log(`[useTelemedicineClient] Connection state:`, connectionState)
+      logger.info(`[useTelemedicineClient] Connection state:`, connectionState)
       setState(prev => ({
         ...prev,
         connectionState,
@@ -92,12 +92,12 @@ export function useTelemedicineClient(
       // Handle reconnection on failure
       if (connectionState === 'failed' && state.reconnectAttempts < opts.maxReconnectAttempts) {
         const delay = calculateBackoffDelay(state.reconnectAttempts)
-        console.log(`[useTelemedicineClient] Scheduling reconnection in ${delay}ms (attempt ${state.reconnectAttempts + 1})`)
+        logger.info(`[useTelemedicineClient] Scheduling reconnection in ${delay}ms (attempt ${state.reconnectAttempts + 1})`)
 
         reconnectTimeoutRef.current = setTimeout(() => {
           setState(prev => ({ ...prev, reconnectAttempts: prev.reconnectAttempts + 1 }))
           client.connect(roomId).catch(error => {
-            console.error('[useTelemedicineClient] Reconnection failed:', error)
+            logger.error('[useTelemedicineClient] Reconnection failed:', error)
           })
         }, delay)
       }
@@ -113,12 +113,12 @@ export function useTelemedicineClient(
     })
 
     client.on('local-stream', (stream: any) => {
-      console.log(`[useTelemedicineClient] Got local stream`)
+      logger.info(`[useTelemedicineClient] Got local stream`)
       setState(prev => ({ ...prev, localStream: stream }))
     })
 
     client.on('remote-stream', (stream: any, userId: any) => {
-      console.log(`[useTelemedicineClient] Got remote stream from:`, userId)
+      logger.info(`[useTelemedicineClient] Got remote stream from:`, userId)
       setState(prev => ({
         ...prev,
         remoteStreams: new Map(prev.remoteStreams).set(userId, stream)
@@ -126,7 +126,7 @@ export function useTelemedicineClient(
     })
 
     client.on('user-left', (userId: any) => {
-      console.log(`[useTelemedicineClient] User left:`, userId)
+      logger.info(`[useTelemedicineClient] User left:`, userId)
       setState(prev => {
         const newRemoteStreams = new Map(prev.remoteStreams)
         newRemoteStreams.delete(userId)
@@ -135,7 +135,7 @@ export function useTelemedicineClient(
     })
 
     client.on('error', (error) => {
-      console.error(`[useTelemedicineClient] WebRTC error:`, error)
+      logger.error(`[useTelemedicineClient] WebRTC error:`, error)
       setState(prev => ({ ...prev, error }))
     })
 
@@ -144,13 +144,13 @@ export function useTelemedicineClient(
     // Auto-connect if enabled
     if (opts.autoConnect) {
       client.connect(roomId).catch(error => {
-        console.error('[useTelemedicineClient] Auto-connect failed:', error)
+        logger.error('[useTelemedicineClient] Auto-connect failed:', error)
         setState(prev => ({ ...prev, error }))
       })
     }
 
     return () => {
-      console.log(`[useTelemedicineClient] Cleaning up`)
+      logger.info(`[useTelemedicineClient] Cleaning up`)
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current)
       }
@@ -169,7 +169,7 @@ export function useTelemedicineClient(
     try {
       await clientRef.current.connect(roomId)
     } catch (error) {
-      console.error('[useTelemedicineClient] Connect failed:', error)
+      logger.error('[useTelemedicineClient] Connect failed:', error)
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error : new Error('Connection failed'),
@@ -207,7 +207,7 @@ export function useTelemedicineClient(
       const stream = await clientRef.current.startLocalStream(constraints || opts.mediaConstraints)
       return stream
     } catch (error) {
-      console.error('[useTelemedicineClient] Failed to start local stream:', error)
+      logger.error('[useTelemedicineClient] Failed to start local stream:', error)
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error : new Error('Failed to access media devices')

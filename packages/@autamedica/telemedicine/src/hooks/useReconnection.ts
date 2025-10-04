@@ -8,6 +8,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { logger } from '@autamedica/shared';
 
 export type ConnectionState =
   | 'connected'
@@ -134,7 +135,7 @@ export function useReconnection(
    */
   const performReconnection = useCallback(async () => {
     if (!peerConnection || !signaling) {
-      console.warn('[Reconnection] Missing peer connection or signaling');
+      logger.warn('[Reconnection] Missing peer connection or signaling');
       return;
     }
 
@@ -145,7 +146,7 @@ export function useReconnection(
       } else {
         // Default: ICE restart
         if (enableIceRestart && peerConnection.restartIce) {
-          console.log('[Reconnection] Performing ICE restart');
+          logger.info('[Reconnection] Performing ICE restart');
           peerConnection.restartIce();
         }
 
@@ -161,12 +162,12 @@ export function useReconnection(
         }
       }
 
-      console.log('[Reconnection] Reconnection successful');
+      logger.info('[Reconnection] Reconnection successful');
       setState('connected');
       reset();
       onReconnectSuccess?.();
     } catch (error) {
-      console.error('[Reconnection] Reconnection failed:', error);
+      logger.error('[Reconnection] Reconnection failed:', error);
       throw error;
     }
   }, [peerConnection, signaling, enableIceRestart, reconnectFn, reset, onReconnectSuccess]);
@@ -177,7 +178,7 @@ export function useReconnection(
   const attemptReconnection = useCallback(
     async (attemptNumber: number) => {
       if (attemptNumber >= maxAttempts) {
-        console.error('[Reconnection] Max attempts reached');
+        logger.error('[Reconnection] Max attempts reached');
         setState('failed');
         isReconnectingRef.current = false;
         onReconnectFailed?.(attemptNumber);
@@ -187,7 +188,7 @@ export function useReconnection(
       const delay = calculateBackoff(attemptNumber, initialDelay, maxDelay);
       const delaySeconds = Math.ceil(delay / 1000);
 
-      console.log(
+      logger.info(
         `[Reconnection] Attempt ${attemptNumber + 1}/${maxAttempts} in ${delaySeconds}s`
       );
 
@@ -223,7 +224,7 @@ export function useReconnection(
    */
   const reconnect = useCallback(async () => {
     if (isReconnectingRef.current) {
-      console.warn('[Reconnection] Already reconnecting');
+      logger.warn('[Reconnection] Already reconnecting');
       return;
     }
 
@@ -247,7 +248,7 @@ export function useReconnection(
 
     const handleConnectionStateChange = () => {
       const connectionState = peerConnection.connectionState;
-      console.log('[Reconnection] Connection state:', connectionState);
+      logger.info('[Reconnection] Connection state:', connectionState);
 
       switch (connectionState) {
         case 'connected':
@@ -259,7 +260,7 @@ export function useReconnection(
         case 'disconnected':
         case 'failed':
           if (state === 'connected' && !isReconnectingRef.current) {
-            console.warn('[Reconnection] Connection lost, starting reconnection');
+            logger.warn('[Reconnection] Connection lost, starting reconnection');
             setState('disconnected');
             reconnect();
           }
@@ -274,10 +275,10 @@ export function useReconnection(
 
     const handleIceConnectionStateChange = () => {
       const iceState = peerConnection.iceConnectionState;
-      console.log('[Reconnection] ICE state:', iceState);
+      logger.info('[Reconnection] ICE state:', iceState);
 
       if (iceState === 'failed' && state === 'connected' && !isReconnectingRef.current) {
-        console.warn('[Reconnection] ICE failed, starting reconnection');
+        logger.warn('[Reconnection] ICE failed, starting reconnection');
         setState('disconnected');
         reconnect();
       }
@@ -299,7 +300,7 @@ export function useReconnection(
     if (!enabled || !signaling) return;
 
     const handleDisconnect = () => {
-      console.warn('[Reconnection] Signaling disconnected');
+      logger.warn('[Reconnection] Signaling disconnected');
       if (state === 'connected' && !isReconnectingRef.current) {
         setState('disconnected');
         reconnect();
@@ -307,7 +308,7 @@ export function useReconnection(
     };
 
     const handleReconnect = () => {
-      console.log('[Reconnection] Signaling reconnected');
+      logger.info('[Reconnection] Signaling reconnected');
       if (state !== 'connected') {
         reconnect();
       }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { Patient, Appointment } from "@autamedica/types";
+import { logger } from '@autamedica/shared';
 
 /**
  * Hook para obtener pacientes del doctor actual
@@ -34,7 +35,7 @@ export function usePatients(supabaseClient?: any) {
 
       setPatients(data || []);
     } catch (err) {
-      console.error('Error fetching patients:', err);
+      logger.error('Error fetching patients:', err);
       setError(err instanceof Error ? err.message : 'Error al cargar pacientes');
     } finally {
       setLoading(false);
@@ -89,7 +90,7 @@ export function useAppointments(supabaseClient?: any, doctorId?: string) {
 
       setAppointments(data || []);
     } catch (err) {
-      console.error('Error fetching appointments:', err);
+      logger.error('Error fetching appointments:', err);
       setError(err instanceof Error ? err.message : 'Error al cargar citas');
     } finally {
       setLoading(false);
@@ -148,7 +149,7 @@ export function useAppointmentsWithDetails(supabaseClient?: any, doctorId?: stri
 
       setAppointments(data || []);
     } catch (err) {
-      console.error('Error fetching appointments with details:', err);
+      logger.error('Error fetching appointments with details:', err);
       setError(err instanceof Error ? err.message : 'Error al cargar citas');
     } finally {
       setLoading(false);

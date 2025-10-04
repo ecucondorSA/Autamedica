@@ -31,9 +31,9 @@ export class WebRTCPeer {
       const iceServersStr = getClientEnvOrDefault('NEXT_PUBLIC_ICE_SERVERS', '[]')
       const parsed = JSON.parse(iceServersStr)
       if (Array.isArray(parsed)) return parsed
-      console.warn('[WebRTCPeer] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to default')
+      logger.warn('[WebRTCPeer] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to default')
     } catch (error) {
-      console.error('[WebRTCPeer] Failed to parse NEXT_PUBLIC_ICE_SERVERS:', error)
+      logger.error('[WebRTCPeer] Failed to parse NEXT_PUBLIC_ICE_SERVERS:', error)
     }
 
     // Default ICE servers
@@ -53,7 +53,7 @@ export class WebRTCPeer {
     }
 
     this.pc.onconnectionstatechange = () => {
-      console.log('[WebRTCPeer] Connection state:', this.pc.connectionState)
+      logger.info('[WebRTCPeer] Connection state:', this.pc.connectionState)
       this.emit('connectionstatechange', { state: this.pc.connectionState })
 
       if (this.pc.connectionState === 'connected') {
@@ -64,12 +64,12 @@ export class WebRTCPeer {
     }
 
     this.pc.oniceconnectionstatechange = () => {
-      console.log('[WebRTCPeer] ICE connection state:', this.pc.iceConnectionState)
+      logger.info('[WebRTCPeer] ICE connection state:', this.pc.iceConnectionState)
       this.emit('iceconnectionstatechange', { state: this.pc.iceConnectionState })
     }
 
     this.pc.ontrack = (event) => {
-      console.log('[WebRTCPeer] Received remote track')
+      logger.info('[WebRTCPeer] Received remote track')
 
       if (!this.remoteStream) {
         this.remoteStream = new MediaStream()
@@ -101,7 +101,7 @@ export class WebRTCPeer {
             break
         }
       } catch (error) {
-        console.error('[WebRTCPeer] Error handling signaling message:', error)
+        logger.error('[WebRTCPeer] Error handling signaling message:', error)
         this.emit('error', { error })
       }
     })
@@ -137,7 +137,7 @@ export class WebRTCPeer {
       }
 
     } catch (error) {
-      console.error('[WebRTCPeer] Failed to start call:', error)
+      logger.error('[WebRTCPeer] Failed to start call:', error)
       this.emit('error', { error })
       throw error
     }

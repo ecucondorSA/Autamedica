@@ -33,8 +33,8 @@ const TELEMEDICINE_TERMS = [
   'Doctor', 'Paciente', 'compartir pantalla'
 ];
 
-console.log('🚀 VERIFICACIÓN HTTP DE TELEMEDICINA - AUTAMEDICA');
-console.log('='.repeat(60));
+logger.info('🚀 VERIFICACIÓN HTTP DE TELEMEDICINA - AUTAMEDICA');
+logger.info('='.repeat(60));
 
 /**
  * Fetch con timeout y manejo de errores
@@ -60,7 +60,7 @@ async function fetchWithTimeout(url, options = {}) {
  * Verificar URL con fetch
  */
 async function verifyUrlWithFetch(url, name) {
-  console.log(`\n📡 Verificando ${name}: ${url}`);
+  logger.info(`\n📡 Verificando ${name}: ${url}`);
 
   const startTime = performance.now();
 
@@ -69,23 +69,23 @@ async function verifyUrlWithFetch(url, name) {
     const endTime = performance.now();
     const responseTime = Math.round(endTime - startTime);
 
-    console.log(`   Status: ${response.status} ${response.statusText}`);
-    console.log(`   Tiempo: ${responseTime}ms`);
-    console.log(`   Headers: ${JSON.stringify(Object.fromEntries(response.headers), null, 2)}`);
+    logger.info(`   Status: ${response.status} ${response.statusText}`);
+    logger.info(`   Tiempo: ${responseTime}ms`);
+    logger.info(`   Headers: ${JSON.stringify(Object.fromEntries(response.headers), null, 2)}`);
 
     if (response.ok) {
       const text = await response.text();
       const contentLength = text.length;
-      console.log(`   Contenido: ${contentLength} caracteres`);
+      logger.info(`   Contenido: ${contentLength} caracteres`);
 
       // Verificar términos de telemedicina
       const foundTerms = TELEMEDICINE_TERMS.filter(term =>
         text.toLowerCase().includes(term.toLowerCase())
       );
 
-      console.log(`   Términos telemedicina: ${foundTerms.length}/${TELEMEDICINE_TERMS.length} encontrados`);
+      logger.info(`   Términos telemedicina: ${foundTerms.length}/${TELEMEDICINE_TERMS.length} encontrados`);
       if (foundTerms.length > 0) {
-        console.log(`   ✅ Términos encontrados: ${foundTerms.slice(0, 5).join(', ')}${foundTerms.length > 5 ? '...' : ''}`);
+        logger.info(`   ✅ Términos encontrados: ${foundTerms.slice(0, 5).join(', ')}${foundTerms.length > 5 ? '...' : ''}`);
       }
 
       // Verificar elementos específicos de video calling
@@ -100,7 +100,7 @@ async function verifyUrlWithFetch(url, name) {
       );
 
       if (foundIndicators.length > 0) {
-        console.log(`   🎥 Indicadores video calling: ${foundIndicators.join(', ')}`);
+        logger.info(`   🎥 Indicadores video calling: ${foundIndicators.join(', ')}`);
       }
 
       return {
@@ -113,7 +113,7 @@ async function verifyUrlWithFetch(url, name) {
         hasTelemedicine: foundTerms.length > 0 || foundIndicators.length > 0
       };
     } else {
-      console.log(`   ❌ Error HTTP: ${response.status}`);
+      logger.info(`   ❌ Error HTTP: ${response.status}`);
       return {
         success: false,
         status: response.status,
@@ -126,7 +126,7 @@ async function verifyUrlWithFetch(url, name) {
     const endTime = performance.now();
     const responseTime = Math.round(endTime - startTime);
 
-    console.log(`   ❌ Error: ${error.message}`);
+    logger.info(`   ❌ Error: ${error.message}`);
     return {
       success: false,
       responseTime,
@@ -139,7 +139,7 @@ async function verifyUrlWithFetch(url, name) {
  * Verificar WebSocket (HTTP Upgrade)
  */
 async function verifyWebSocketWithHttp(url, name) {
-  console.log(`\n🔌 Verificando WebSocket ${name}: ${url}`);
+  logger.info(`\n🔌 Verificando WebSocket ${name}: ${url}`);
 
   // Convertir WSS a HTTPS para hacer request HTTP
   const httpUrl = url.replace('wss://', 'https://').replace('ws://', 'http://');
@@ -147,23 +147,23 @@ async function verifyWebSocketWithHttp(url, name) {
   try {
     const response = await fetchWithTimeout(httpUrl, { timeout: 10000 });
 
-    console.log(`   Status: ${response.status} ${response.statusText}`);
+    logger.info(`   Status: ${response.status} ${response.statusText}`);
 
     // Para WebSocket servers, esperamos 426 Upgrade Required o similar
     if (response.status === 426) {
-      console.log(`   ✅ WebSocket server detectado (HTTP 426 Upgrade Required)`);
+      logger.info(`   ✅ WebSocket server detectado (HTTP 426 Upgrade Required)`);
       return { success: true, wsReady: true, status: 426 };
     } else if (response.status === 400) {
-      console.log(`   ✅ WebSocket server activo (HTTP 400 - Bad Request normal para WS)`);
+      logger.info(`   ✅ WebSocket server activo (HTTP 400 - Bad Request normal para WS)`);
       return { success: true, wsReady: true, status: 400 };
     } else {
       const text = await response.text();
-      console.log(`   📄 Contenido: ${text.substring(0, 200)}...`);
+      logger.info(`   📄 Contenido: ${text.substring(0, 200)}...`);
       return { success: true, status: response.status, content: text };
     }
 
   } catch (error) {
-    console.log(`   ❌ Error: ${error.message}`);
+    logger.info(`   ❌ Error: ${error.message}`);
     return { success: false, error: error.message };
   }
 }
@@ -173,7 +173,7 @@ async function verifyWebSocketWithHttp(url, name) {
  */
 function verifyWithNodeHttp(url, name) {
   return new Promise((resolve) => {
-    console.log(`\n⚡ Verificando con Node HTTP ${name}: ${url}`);
+    logger.info(`\n⚡ Verificando con Node HTTP ${name}: ${url}`);
 
     const startTime = performance.now();
     const urlObj = new URL(url);
@@ -191,9 +191,9 @@ function verifyWithNodeHttp(url, name) {
       const endTime = performance.now();
       const responseTime = Math.round(endTime - startTime);
 
-      console.log(`   Status: ${res.statusCode} ${res.statusMessage}`);
-      console.log(`   Tiempo: ${responseTime}ms`);
-      console.log(`   Headers: ${JSON.stringify(res.headers, null, 2)}`);
+      logger.info(`   Status: ${res.statusCode} ${res.statusMessage}`);
+      logger.info(`   Tiempo: ${responseTime}ms`);
+      logger.info(`   Headers: ${JSON.stringify(res.headers, null, 2)}`);
 
       let data = '';
       res.on('data', (chunk) => {
@@ -202,13 +202,13 @@ function verifyWithNodeHttp(url, name) {
 
       res.on('end', () => {
         const contentLength = data.length;
-        console.log(`   Contenido: ${contentLength} caracteres`);
+        logger.info(`   Contenido: ${contentLength} caracteres`);
 
         const foundTerms = TELEMEDICINE_TERMS.filter(term =>
           data.toLowerCase().includes(term.toLowerCase())
         );
 
-        console.log(`   Términos telemedicina: ${foundTerms.length}/${TELEMEDICINE_TERMS.length}`);
+        logger.info(`   Términos telemedicina: ${foundTerms.length}/${TELEMEDICINE_TERMS.length}`);
 
         resolve({
           success: res.statusCode >= 200 && res.statusCode < 400,
@@ -225,7 +225,7 @@ function verifyWithNodeHttp(url, name) {
       const endTime = performance.now();
       const responseTime = Math.round(endTime - startTime);
 
-      console.log(`   ❌ Error: ${error.message}`);
+      logger.info(`   ❌ Error: ${error.message}`);
       resolve({
         success: false,
         responseTime,
@@ -235,7 +235,7 @@ function verifyWithNodeHttp(url, name) {
 
     req.setTimeout(10000, () => {
       req.destroy();
-      console.log(`   ❌ Timeout`);
+      logger.info(`   ❌ Timeout`);
       resolve({
         success: false,
         error: 'Timeout'
@@ -250,7 +250,7 @@ function verifyWithNodeHttp(url, name) {
  * Ejecutar todas las verificaciones
  */
 async function runAllVerifications() {
-  console.log(`🕐 Iniciando verificación: ${new Date().toISOString()}\n`);
+  logger.info(`🕐 Iniciando verificación: ${new Date().toISOString()}\n`);
 
   const results = {
     production: {},
@@ -265,7 +265,7 @@ async function runAllVerifications() {
   };
 
   // 1. Verificar URLs de producción con fetch
-  console.log('\n🌐 === VERIFICACIÓN DE PRODUCCIÓN (FETCH) ===');
+  logger.info('\n🌐 === VERIFICACIÓN DE PRODUCCIÓN (FETCH) ===');
 
   for (const [name, url] of Object.entries(URLS.production)) {
     const result = await verifyUrlWithFetch(url, name);
@@ -277,7 +277,7 @@ async function runAllVerifications() {
   }
 
   // 2. Verificar desarrollo con fetch
-  console.log('\n🏠 === VERIFICACIÓN DE DESARROLLO (FETCH) ===');
+  logger.info('\n🏠 === VERIFICACIÓN DE DESARROLLO (FETCH) ===');
 
   for (const [name, url] of Object.entries(URLS.development)) {
     const result = await verifyUrlWithFetch(url, name);
@@ -289,7 +289,7 @@ async function runAllVerifications() {
   }
 
   // 3. Verificar infraestructura
-  console.log('\n🔧 === VERIFICACIÓN DE INFRAESTRUCTURA ===');
+  logger.info('\n🔧 === VERIFICACIÓN DE INFRAESTRUCTURA ===');
 
   const wsResult = await verifyWebSocketWithHttp(URLS.infrastructure.signalingServer, 'Signaling Server');
   results.infrastructure.signaling = wsResult;
@@ -298,7 +298,7 @@ async function runAllVerifications() {
   if (!wsResult.success) results.summary.errors.push(`Signaling: ${wsResult.error}`);
 
   // 4. Verificación adicional con Node.js HTTP nativo
-  console.log('\n⚡ === VERIFICACIÓN CON NODE HTTP NATIVO ===');
+  logger.info('\n⚡ === VERIFICACIÓN CON NODE HTTP NATIVO ===');
 
   const nodeHttpResults = [];
 
@@ -307,51 +307,51 @@ async function runAllVerifications() {
   nodeHttpResults.push(nodeResult);
 
   // 5. Resumen final
-  console.log('\n📊 === RESUMEN DE VERIFICACIÓN ===');
-  console.log(`Total verificaciones: ${results.summary.total}`);
-  console.log(`Exitosas: ${results.summary.successful}/${results.summary.total}`);
-  console.log(`Con telemedicina: ${results.summary.withTelemedicine}`);
+  logger.info('\n📊 === RESUMEN DE VERIFICACIÓN ===');
+  logger.info(`Total verificaciones: ${results.summary.total}`);
+  logger.info(`Exitosas: ${results.summary.successful}/${results.summary.total}`);
+  logger.info(`Con telemedicina: ${results.summary.withTelemedicine}`);
 
   if (results.summary.errors.length > 0) {
-    console.log(`\n❌ Errores encontrados:`);
-    results.summary.errors.forEach(error => console.log(`   - ${error}`));
+    logger.info(`\n❌ Errores encontrados:`);
+    results.summary.errors.forEach(error => logger.info(`   - ${error}`));
   }
 
   // 6. Verificaciones específicas de telemedicina
-  console.log('\n🎥 === ANÁLISIS DE TELEMEDICINA ===');
+  logger.info('\n🎥 === ANÁLISIS DE TELEMEDICINA ===');
 
   let telemedicineImplementations = 0;
 
   Object.entries(results.production).forEach(([name, result]) => {
     if (result.success && result.hasTelemedicine) {
-      console.log(`✅ ${name}: ${result.foundTerms} términos, ${result.foundIndicators} indicadores`);
+      logger.info(`✅ ${name}: ${result.foundTerms} términos, ${result.foundIndicators} indicadores`);
       telemedicineImplementations++;
     }
   });
 
   Object.entries(results.development).forEach(([name, result]) => {
     if (result.success && result.hasTelemedicine) {
-      console.log(`✅ ${name} (dev): ${result.foundTerms} términos, ${result.foundIndicators} indicadores`);
+      logger.info(`✅ ${name} (dev): ${result.foundTerms} términos, ${result.foundIndicators} indicadores`);
       telemedicineImplementations++;
     }
   });
 
-  console.log(`\n🏆 RESULTADO FINAL:`);
-  console.log(`📡 Aplicaciones funcionando: ${results.summary.successful}/${results.summary.total}`);
-  console.log(`🎥 Implementaciones de telemedicina: ${telemedicineImplementations}`);
-  console.log(`🔌 WebRTC Signaling: ${results.infrastructure.signaling.success ? '✅ Activo' : '❌ Inactivo'}`);
+  logger.info(`\n🏆 RESULTADO FINAL:`);
+  logger.info(`📡 Aplicaciones funcionando: ${results.summary.successful}/${results.summary.total}`);
+  logger.info(`🎥 Implementaciones de telemedicina: ${telemedicineImplementations}`);
+  logger.info(`🔌 WebRTC Signaling: ${results.infrastructure.signaling.success ? '✅ Activo' : '❌ Inactivo'}`);
 
   if (results.summary.successful >= results.summary.total * 0.8 && telemedicineImplementations > 0) {
-    console.log(`\n🎉 ✅ VERIFICACIÓN EXITOSA - TELEMEDICINA IMPLEMENTADA Y FUNCIONANDO`);
+    logger.info(`\n🎉 ✅ VERIFICACIÓN EXITOSA - TELEMEDICINA IMPLEMENTADA Y FUNCIONANDO`);
     process.exit(0);
   } else {
-    console.log(`\n⚠️ VERIFICACIÓN PARCIAL - Revisar errores`);
+    logger.info(`\n⚠️ VERIFICACIÓN PARCIAL - Revisar errores`);
     process.exit(1);
   }
 }
 
 // Ejecutar verificación
 runAllVerifications().catch(error => {
-  console.error('💥 Error fatal en verificación:', error);
+  logger.error('💥 Error fatal en verificación:', error);
   process.exit(1);
 });

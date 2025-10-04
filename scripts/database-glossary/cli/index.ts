@@ -28,6 +28,7 @@ import type {
   GenerationMetadata,
   ValidationResult
 } from '../types/index';
+import { logger } from '@autamedica/shared';
 
 /**
  * Main CLI class for database glossary operations
@@ -71,12 +72,12 @@ class DatabaseGlossaryCLI {
           this.showHelp();
           break;
         default:
-          console.error(`❌ Unknown command: ${command}`);
+          logger.error(`❌ Unknown command: ${command}`);
           this.showHelp();
           process.exit(1);
       }
     } catch (error) {
-      console.error('❌ Error executing command:', error);
+      logger.error('❌ Error executing command:', error);
       process.exit(1);
     }
   }
@@ -85,10 +86,10 @@ class DatabaseGlossaryCLI {
    * Run PostgreSQL introspection mode
    */
   async runIntrospection(): Promise<void> {
-    console.log('🐘 Starting PostgreSQL introspection mode...');
+    logger.info('🐘 Starting PostgreSQL introspection mode...');
 
     if (!this.config.introspection.enabled) {
-      console.log('⚠️ PostgreSQL introspection is disabled in configuration');
+      logger.info('⚠️ PostgreSQL introspection is disabled in configuration');
       return;
     }
 
@@ -109,7 +110,7 @@ class DatabaseGlossaryCLI {
 
       // Perform introspection
       const schema = await adapter.introspectSchema();
-      console.log(`✅ Introspected ${schema.tables.length} tables, ${schema.functions.length} functions`);
+      logger.info(`✅ Introspected ${schema.tables.length} tables, ${schema.functions.length} functions`);
 
       // Save raw schema
       await this.saveSchemaData(schema, 'postgresql');
@@ -133,10 +134,10 @@ class DatabaseGlossaryCLI {
    * Run SQL parsing mode
    */
   async runSQLParsing(): Promise<void> {
-    console.log('📄 Starting SQL parsing mode...');
+    logger.info('📄 Starting SQL parsing mode...');
 
     if (!this.config.sql_parsing.enabled) {
-      console.log('⚠️ SQL parsing is disabled in configuration');
+      logger.info('⚠️ SQL parsing is disabled in configuration');
       return;
     }
 
@@ -147,21 +148,21 @@ class DatabaseGlossaryCLI {
     const sqlFiles = await discoverSQLFiles(this.config.sql_parsing);
 
     if (sqlFiles.length === 0) {
-      console.log('⚠️ No SQL files found to parse');
+      logger.info('⚠️ No SQL files found to parse');
       return;
     }
 
-    console.log(`📁 Found ${sqlFiles.length} SQL files to parse`);
+    logger.info(`📁 Found ${sqlFiles.length} SQL files to parse`);
 
     // Parse files
     const results = await adapter.parseFiles(sqlFiles);
     const successfulResults = results.filter(r => r.errors.length === 0);
 
-    console.log(`✅ Successfully parsed ${successfulResults.length}/${results.length} files`);
+    logger.info(`✅ Successfully parsed ${successfulResults.length}/${results.length} files`);
 
     // Convert to schema format
     const schema = sqlResultsToSchema(results);
-    console.log(`📊 Extracted ${schema.tables.length} tables, ${schema.functions.length} functions`);
+    logger.info(`📊 Extracted ${schema.tables.length} tables, ${schema.functions.length} functions`);
 
     // Save raw schema
     await this.saveSchemaData(schema, 'sql-parsing');
@@ -179,11 +180,11 @@ class DatabaseGlossaryCLI {
     // Report parsing errors
     const errorResults = results.filter(r => r.errors.length > 0);
     if (errorResults.length > 0) {
-      console.log(`⚠️ ${errorResults.length} files had parsing errors:`);
+      logger.info(`⚠️ ${errorResults.length} files had parsing errors:`);
       for (const result of errorResults) {
-        console.log(`  📄 ${result.file_path}: ${result.errors.length} errors`);
+        logger.info(`  📄 ${result.file_path}: ${result.errors.length} errors`);
         for (const error of result.errors.slice(0, 3)) { // Show first 3 errors
-          console.log(`    - ${error.message}`);
+          logger.info(`    - ${error.message}`);
         }
       }
     }
@@ -193,7 +194,7 @@ class DatabaseGlossaryCLI {
    * Run hybrid mode (both introspection and parsing)
    */
   async runHybridMode(): Promise<void> {
-    console.log('🔄 Starting hybrid mode (PostgreSQL + SQL parsing)...');
+    logger.info('🔄 Starting hybrid mode (PostgreSQL + SQL parsing)...');
 
     let pgSchema: DatabaseSchema | null = null;
     let sqlSchema: DatabaseSchema | null = null;
@@ -201,7 +202,7 @@ class DatabaseGlossaryCLI {
     // Try PostgreSQL introspection first
     if (this.config.introspection.enabled) {
       try {
-        console.log('🐘 Phase 1: PostgreSQL introspection...');
+        logger.info('🐘 Phase 1: PostgreSQL introspection...');
         const adapter = createPostgreSQLAdapter(
           this.config.database,
           this.config.introspection
@@ -211,28 +212,28 @@ class DatabaseGlossaryCLI {
         pgSchema = await adapter.introspectSchema();
         await adapter.disconnect();
 
-        console.log(`✅ PostgreSQL: ${pgSchema.tables.length} tables, ${pgSchema.functions.length} functions`);
+        logger.info(`✅ PostgreSQL: ${pgSchema.tables.length} tables, ${pgSchema.functions.length} functions`);
       } catch (error) {
-        console.warn('⚠️ PostgreSQL introspection failed, falling back to SQL parsing only');
-        console.warn('Error:', error instanceof Error ? error.message : error);
+        logger.warn('⚠️ PostgreSQL introspection failed, falling back to SQL parsing only');
+        logger.warn('Error:', error instanceof Error ? error.message : error);
       }
     }
 
     // Run SQL parsing
     if (this.config.sql_parsing.enabled) {
       try {
-        console.log('📄 Phase 2: SQL parsing...');
+        logger.info('📄 Phase 2: SQL parsing...');
         const adapter = await createSQLParsingAdapter(this.config.sql_parsing);
         const sqlFiles = await discoverSQLFiles(this.config.sql_parsing);
 
         if (sqlFiles.length > 0) {
           const results = await adapter.parseFiles(sqlFiles);
           sqlSchema = sqlResultsToSchema(results);
-          console.log(`✅ SQL parsing: ${sqlSchema.tables.length} tables, ${sqlSchema.functions.length} functions`);
+          logger.info(`✅ SQL parsing: ${sqlSchema.tables.length} tables, ${sqlSchema.functions.length} functions`);
         }
       } catch (error) {
-        console.warn('⚠️ SQL parsing failed');
-        console.warn('Error:', error instanceof Error ? error.message : error);
+        logger.warn('⚠️ SQL parsing failed');
+        logger.warn('Error:', error instanceof Error ? error.message : error);
       }
     }
 
@@ -243,7 +244,7 @@ class DatabaseGlossaryCLI {
       throw new Error('Both PostgreSQL introspection and SQL parsing failed');
     }
 
-    console.log(`🔄 Merged schema: ${mergedSchema.tables.length} tables, ${mergedSchema.functions.length} functions`);
+    logger.info(`🔄 Merged schema: ${mergedSchema.tables.length} tables, ${mergedSchema.functions.length} functions`);
 
     // Save merged schema
     await this.saveSchemaData(mergedSchema, 'hybrid');
@@ -263,7 +264,7 @@ class DatabaseGlossaryCLI {
    * Run validation checks
    */
   async runValidation(): Promise<void> {
-    console.log('🔍 Running validation checks...');
+    logger.info('🔍 Running validation checks...');
 
     const results: ValidationResult[] = [];
 
@@ -288,14 +289,14 @@ class DatabaseGlossaryCLI {
     const failed = results.filter(r => r.status === 'FAILED').length;
     const warnings = results.filter(r => r.status === 'WARNING').length;
 
-    console.log(`📊 Validation results: ${passed} passed, ${warnings} warnings, ${failed} failed`);
+    logger.info(`📊 Validation results: ${passed} passed, ${warnings} warnings, ${failed} failed`);
 
     for (const result of results) {
       const icon = result.status === 'PASSED' ? '✅' : result.status === 'WARNING' ? '⚠️' : '❌';
-      console.log(`  ${icon} ${result.validation_type}: ${result.message}`);
+      logger.info(`  ${icon} ${result.validation_type}: ${result.message}`);
 
       if (result.suggestion) {
-        console.log(`     💡 ${result.suggestion}`);
+        logger.info(`     💡 ${result.suggestion}`);
       }
     }
 
@@ -319,13 +320,13 @@ class DatabaseGlossaryCLI {
     for (const filename of schemaFiles) {
       const filepath = join(this.config.output.output_directory, filename);
       if (existsSync(filepath) && statSync(filepath).size > 20) {
-        console.log(`📄 Found existing schema: ${filename}`);
+        logger.info(`📄 Found existing schema: ${filename}`);
         return filepath;
       }
     }
 
     // No valid schema found - auto-generate based on mode
-    console.log(`🔄 No schema data found. Auto-generating using ${mode} mode...`);
+    logger.info(`🔄 No schema data found. Auto-generating using ${mode} mode...`);
 
     if (mode === 'sql') {
       await this.runSQLParsing();
@@ -342,7 +343,7 @@ class DatabaseGlossaryCLI {
    * Run documentation generation from existing schema data
    */
   async runDocumentationGeneration(): Promise<void> {
-    console.log('📚 Generating documentation from existing schema data...');
+    logger.info('📚 Generating documentation from existing schema data...');
 
     // Determine mode from environment or config
     const mode = (process.env.GLOSSARY_MODE || 'pg') as 'pg' | 'sql';
@@ -363,7 +364,7 @@ class DatabaseGlossaryCLI {
       docMode = filename.includes('postgresql') ? 'POSTGRESQL' :
                 filename.includes('sql-parsing') ? 'SQL_PARSING' : 'HYBRID';
 
-      console.log(`📄 Using schema data from: ${filename}`);
+      logger.info(`📄 Using schema data from: ${filename}`);
     } catch (error) {
       throw new Error(`Failed to load schema data from ${schemaFilePath}: ${error}`);
     }
@@ -379,21 +380,21 @@ class DatabaseGlossaryCLI {
    * Run comprehensive tests
    */
   async runTests(): Promise<void> {
-    console.log('🧪 Running comprehensive tests...');
+    logger.info('🧪 Running comprehensive tests...');
 
-    console.log('📋 Test 1: Configuration validation');
+    logger.info('📋 Test 1: Configuration validation');
     await this.runValidation();
 
-    console.log('\n📋 Test 2: SQL parsing with sample data');
+    logger.info('\n📋 Test 2: SQL parsing with sample data');
     await this.testSQLParsing();
 
-    console.log('\n📋 Test 3: HIPAA classification');
+    logger.info('\n📋 Test 3: HIPAA classification');
     await this.testHIPAAClassification();
 
-    console.log('\n📋 Test 4: Template rendering');
+    logger.info('\n📋 Test 4: Template rendering');
     await this.testTemplateRendering();
 
-    console.log('\n✅ All tests completed successfully!');
+    logger.info('\n✅ All tests completed successfully!');
   }
 
   /**
@@ -442,14 +443,14 @@ class DatabaseGlossaryCLI {
       const results = await adapter.parseFiles([testFile]);
       const schema = sqlResultsToSchema(results);
 
-      console.log(`  ✅ Parsed ${schema.tables.length} tables, ${schema.functions.length} functions`);
+      logger.info(`  ✅ Parsed ${schema.tables.length} tables, ${schema.functions.length} functions`);
 
       if (schema.tables.length > 0) {
         const table = schema.tables[0];
-        console.log(`  📊 Table '${table.table_name}' has ${table.columns.length} columns`);
+        logger.info(`  📊 Table '${table.table_name}' has ${table.columns.length} columns`);
       }
     } catch (error) {
-      console.warn('  ⚠️ SQL parsing test failed:', error);
+      logger.warn('  ⚠️ SQL parsing test failed:', error);
     }
   }
 
@@ -501,18 +502,18 @@ class DatabaseGlossaryCLI {
     try {
       const result = await classifier.classifySchema(testSchema);
 
-      console.log(`  ✅ Classified ${result.tables.length} tables`);
-      console.log(`  🔒 Found ${result.total_phi_columns} PHI columns`);
-      console.log(`  ⚠️ Identified ${result.compliance_gaps.length} compliance gaps`);
+      logger.info(`  ✅ Classified ${result.tables.length} tables`);
+      logger.info(`  🔒 Found ${result.total_phi_columns} PHI columns`);
+      logger.info(`  ⚠️ Identified ${result.compliance_gaps.length} compliance gaps`);
 
       if (result.total_phi_columns > 0) {
         const phiTable = result.tables.find(t => t.hipaa_classification.contains_phi);
         if (phiTable) {
-          console.log(`  📊 Table '${phiTable.table_name}' sensitivity: ${phiTable.hipaa_classification.overall_sensitivity}`);
+          logger.info(`  📊 Table '${phiTable.table_name}' sensitivity: ${phiTable.hipaa_classification.overall_sensitivity}`);
         }
       }
     } catch (error) {
-      console.warn('  ⚠️ HIPAA classification test failed:', error);
+      logger.warn('  ⚠️ HIPAA classification test failed:', error);
     }
   }
 
@@ -572,10 +573,10 @@ class DatabaseGlossaryCLI {
 
       const rendered = template(testContext);
 
-      console.log('  ✅ Template rendering successful');
-      console.log(`  📄 Generated ${rendered.length} characters of documentation`);
+      logger.info('  ✅ Template rendering successful');
+      logger.info(`  📄 Generated ${rendered.length} characters of documentation`);
     } catch (error) {
-      console.warn('  ⚠️ Template rendering test failed:', error);
+      logger.warn('  ⚠️ Template rendering test failed:', error);
     }
   }
 
@@ -583,15 +584,15 @@ class DatabaseGlossaryCLI {
    * Run HIPAA classification on schema
    */
   private async runHIPAAClassification(schema: DatabaseSchema): Promise<void> {
-    console.log('🔐 Running HIPAA classification...');
+    logger.info('🔐 Running HIPAA classification...');
 
     const classifier = createHIPAAClassifier(this.config.hipaa);
     const result = await classifier.classifySchema(schema);
 
-    console.log(`✅ HIPAA classification completed:`);
-    console.log(`  📊 Tables classified: ${result.tables.length}`);
-    console.log(`  🔒 PHI columns found: ${result.total_phi_columns}`);
-    console.log(`  ⚠️ Compliance gaps: ${result.compliance_gaps.length}`);
+    logger.info(`✅ HIPAA classification completed:`);
+    logger.info(`  📊 Tables classified: ${result.tables.length}`);
+    logger.info(`  🔒 PHI columns found: ${result.total_phi_columns}`);
+    logger.info(`  ⚠️ Compliance gaps: ${result.compliance_gaps.length}`);
 
     // Save HIPAA results
     const hipaaFile = join(this.config.output.output_directory, 'hipaa-classification.json');
@@ -600,9 +601,9 @@ class DatabaseGlossaryCLI {
     // Report critical gaps
     const criticalGaps = result.compliance_gaps.filter(gap => gap.severity === 'CRITICAL');
     if (criticalGaps.length > 0) {
-      console.log(`🚨 ${criticalGaps.length} CRITICAL compliance gaps found:`);
+      logger.info(`🚨 ${criticalGaps.length} CRITICAL compliance gaps found:`);
       for (const gap of criticalGaps) {
-        console.log(`  ❌ ${gap.gap_type}: ${gap.recommendation}`);
+        logger.info(`  ❌ ${gap.gap_type}: ${gap.recommendation}`);
       }
     }
   }
@@ -614,7 +615,7 @@ class DatabaseGlossaryCLI {
     schema: DatabaseSchema,
     mode: 'POSTGRESQL' | 'SQL_PARSING'
   ): Promise<void> {
-    console.log('📚 Generating documentation...');
+    logger.info('📚 Generating documentation...');
 
     // Register Handlebars helpers
     registerHelpers();
@@ -627,7 +628,7 @@ class DatabaseGlossaryCLI {
         const data = await readFile(hipaaFile, 'utf-8');
         hipaaData = JSON.parse(data);
       } catch (error) {
-        console.warn('⚠️ Could not load HIPAA classification data');
+        logger.warn('⚠️ Could not load HIPAA classification data');
       }
     }
 
@@ -713,7 +714,7 @@ class DatabaseGlossaryCLI {
     try {
       formattedDocs = await prettier.format(documentation, { parser: 'markdown' });
     } catch (error) {
-      console.warn('⚠️ Could not format documentation with Prettier');
+      logger.warn('⚠️ Could not format documentation with Prettier');
     }
 
     // Save documentation
@@ -724,8 +725,8 @@ class DatabaseGlossaryCLI {
 
     await writeFile(outputFile, formattedDocs);
 
-    console.log(`✅ Documentation generated: ${outputFile}`);
-    console.log(`📄 Generated ${formattedDocs.length} characters of documentation`);
+    logger.info(`✅ Documentation generated: ${outputFile}`);
+    logger.info(`📄 Generated ${formattedDocs.length} characters of documentation`);
   }
 
   /**
@@ -759,7 +760,7 @@ class DatabaseGlossaryCLI {
     const filepath = join(this.config.output.output_directory, filename);
 
     await writeFile(filepath, JSON.stringify(schema, null, 2));
-    console.log(`💾 Schema data saved: ${filepath}`);
+    logger.info(`💾 Schema data saved: ${filepath}`);
   }
 
   /**
@@ -1025,7 +1026,7 @@ class DatabaseGlossaryCLI {
    * Show help message
    */
   private showHelp(): void {
-    console.log(`
+    logger.info(`
 🗃️ Database Glossary CLI - AutaMedica
 
 USAGE:
@@ -1167,10 +1168,10 @@ async function main() {
       const configData = await readFile(configPath, 'utf-8');
       const fileConfig = JSON.parse(configData);
       config = { ...defaultConfig, ...fileConfig };
-      console.log(`📋 Configuration loaded from: ${configPath}`);
+      logger.info(`📋 Configuration loaded from: ${configPath}`);
     } catch (error) {
-      console.warn(`⚠️ Could not load config file: ${error}`);
-      console.warn('Using default configuration');
+      logger.warn(`⚠️ Could not load config file: ${error}`);
+      logger.warn('Using default configuration');
     }
   }
 
@@ -1181,7 +1182,7 @@ async function main() {
 // Run CLI if this file is executed directly
 if (require.main === module) {
   main().catch(error => {
-    console.error('💥 Fatal error:', error);
+    logger.error('💥 Fatal error:', error);
     process.exit(1);
   });
 }

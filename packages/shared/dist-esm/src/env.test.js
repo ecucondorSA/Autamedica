@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { ensureEnv, ensureClientEnv, ensureServerEnv, validateEnvironment, validateEnvironmentSecurity } from './env.js';
+import { logger } from '@autamedica/shared';
 describe('Environment Validation', () => {
     const originalEnv = process.env;
     beforeEach(() => {

@@ -26,32 +26,32 @@ export function StartCallButton({
     setError(null)
 
     try {
-      // console.log('Starting call flow...', { doctorId, patientId })
+      // logger.info('Starting call flow...', { doctorId, patientId })
 
       // Create call service
-      // console.log('Creating call service...')
+      // logger.info('Creating call service...')
       const callService = createCallService()
-      // console.log('Call service created successfully')
+      // logger.info('Call service created successfully')
 
       // Create call record (status will be 'requested')
-      // console.log('Creating call record...')
+      // logger.info('Creating call record...')
       const call = await callService.createCall(doctorId, patientId)
-      // console.log('Call created:', call)
+      // logger.info('Call created:', call)
 
       // Create signaling client for sending invite
-      // console.log('Creating signaling client...')
+      // logger.info('Creating signaling client...')
       const signaling = createSignalingClient(doctorId, 'doctor')
-      // console.log('Connecting to signaling server...')
+      // logger.info('Connecting to signaling server...')
       await signaling.connect()
-      // console.log('Signaling connected successfully')
+      // logger.info('Signaling connected successfully')
 
       // Update call status to 'ringing' when sending invite
-      // console.log('Updating call status to ringing...')
+      // logger.info('Updating call status to ringing...')
       await callService.updateCallStatus(call.id, 'ringing')
-      // console.log('Call status updated to ringing')
+      // logger.info('Call status updated to ringing')
 
       // Send invite to patient
-      // console.log('Sending invite to patient...')
+      // logger.info('Sending invite to patient...')
       signaling.sendToUser(patientId, {
         type: 'invite',
         callId: call.id,
@@ -59,17 +59,17 @@ export function StartCallButton({
         from: { doctorId, name: 'Doctor' },
         to: { patientId }
       })
-      // console.log('Invite sent successfully')
+      // logger.info('Invite sent successfully')
 
       // Navigate to waiting room
-      // console.log('Navigating to waiting room...')
+      // logger.info('Navigating to waiting room...')
       router.push(`/call/${call.room_id}?callId=${call.id}&waiting=true`)
 
     } catch (err) {
-      console.error('Failed to start call - detailed error:', err)
-      console.error('Error name:', err?.constructor?.name)
-      console.error('Error message:', err?.message)
-      console.error('Error stack:', err?.stack)
+      logger.error('Failed to start call - detailed error:', err)
+      logger.error('Error name:', err?.constructor?.name)
+      logger.error('Error message:', err?.message)
+      logger.error('Error stack:', err?.stack)
 
       let errorMessage = 'Error al iniciar la llamada'
       if (err instanceof Error) {

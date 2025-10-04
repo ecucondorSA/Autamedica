@@ -6,6 +6,7 @@ import { Calendar, Plus, Loader2 } from 'lucide-react';
 import { useRequireAuth } from '@autamedica/auth';
 import { createBrowserClient } from '@/lib/supabase';
 import type { Appointment } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 // Disable SSG for this page since it uses auth and client-side data fetching
 export const dynamic = 'force-dynamic';
@@ -38,7 +39,7 @@ export default function AppointmentsPage() {
 
         setAppointments((appointmentsData || []) as unknown as Appointment[]);
       } catch (err) {
-        console.error('Error fetching appointments:', err);
+        logger.error('Error fetching appointments:', err);
         setError(err instanceof Error ? err.message : 'Error al cargar citas');
       } finally {
         setLoading(false);

@@ -14,6 +14,7 @@ import {
   ALLOWED_FILE_TYPES,
   MAX_FILE_SIZE,
 } from '../../lib/sessionFiles';
+import { logger } from '@autamedica/shared';
 
 export interface FileSharingProps {
   userId: string;
@@ -61,7 +62,7 @@ export function FileSharing({
           results.forEach((result) => onFileShared?.(result.url));
         }
       } catch (err) {
-        console.error('Upload failed:', err);
+        logger.error('Upload failed:', err);
       }
 
       // Reset input
@@ -110,7 +111,7 @@ export function FileSharing({
           results.forEach((result) => onFileShared?.(result.url));
         }
       } catch (err) {
-        console.error('Upload failed:', err);
+        logger.error('Upload failed:', err);
       }
     },
     [uploadFile, uploadFiles, onFileShared]
@@ -126,7 +127,7 @@ export function FileSharing({
       try {
         await deleteFile(filePath);
       } catch (err) {
-        console.error('Delete failed:', err);
+        logger.error('Delete failed:', err);
       }
     },
     [deleteFile]
@@ -140,7 +141,7 @@ export function FileSharing({
       try {
         await downloadFile(filePath, fileName);
       } catch (err) {
-        console.error('Download failed:', err);
+        logger.error('Download failed:', err);
       }
     },
     [downloadFile]

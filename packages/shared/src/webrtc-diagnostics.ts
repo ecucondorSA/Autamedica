@@ -95,10 +95,10 @@ export class WebRTCDiagnostics {
 
     for (const constraints of this.FALLBACK_CONSTRAINTS) {
       try {
-        console.log('🎥 Intentando getUserMedia con:', constraints)
+        logger.info('🎥 Intentando getUserMedia con:', constraints)
         const stream = await this.attemptGetUserMedia(constraints, retryConfig)
 
-        console.log('✅ getUserMedia exitoso:', {
+        logger.info('✅ getUserMedia exitoso:', {
           video: stream.getVideoTracks().length > 0,
           audio: stream.getAudioTracks().length > 0,
           videoTrack: stream.getVideoTracks()[0]?.getSettings(),
@@ -107,7 +107,7 @@ export class WebRTCDiagnostics {
 
         return stream
       } catch (error) {
-        console.warn('⚠️ getUserMedia falló con constraints:', constraints, error)
+        logger.warn('⚠️ getUserMedia falló con constraints:', constraints, error)
         continue
       }
     }
@@ -143,7 +143,7 @@ export class WebRTCDiagnostics {
             config.maxDelay
           )
 
-          console.log(`🔄 Reintentando getUserMedia en ${delay}ms (intento ${attempt + 1}/${config.maxRetries})`)
+          logger.info(`🔄 Reintentando getUserMedia en ${delay}ms (intento ${attempt + 1}/${config.maxRetries})`)
           await this.delay(delay)
         }
       }
@@ -164,7 +164,7 @@ export class WebRTCDiagnostics {
 
     const handleICEConnectionStateChange = () => {
       const state = peerConnection.iceConnectionState
-      console.log('🔗 ICE Connection State:', state)
+      logger.info('🔗 ICE Connection State:', state)
 
       // Clear any existing timer
       if (disconnectedTimer) {
@@ -175,16 +175,16 @@ export class WebRTCDiagnostics {
       switch (state) {
         case 'connected':
         case 'completed':
-          console.log('✅ Conexión WebRTC establecida')
+          logger.info('✅ Conexión WebRTC establecida')
           isReconnecting = false
           break
 
         case 'disconnected':
-          console.warn('⚠️ Conexión WebRTC desconectada, esperando reconexión...')
+          logger.warn('⚠️ Conexión WebRTC desconectada, esperando reconexión...')
           // Wait 5 seconds before attempting reconnection
           disconnectedTimer = setTimeout(() => {
             if (peerConnection.iceConnectionState === 'disconnected' && !isReconnecting) {
-              console.log('🔄 Iniciando reconexión WebRTC...')
+              logger.info('🔄 Iniciando reconexión WebRTC...')
               isReconnecting = true
               onReconnectNeeded?.()
             }
@@ -192,7 +192,7 @@ export class WebRTCDiagnostics {
           break
 
         case 'failed':
-          console.error('❌ Conexión WebRTC falló')
+          logger.error('❌ Conexión WebRTC falló')
           if (!isReconnecting) {
             isReconnecting = true
             onReconnectNeeded?.()
@@ -200,7 +200,7 @@ export class WebRTCDiagnostics {
           break
 
         case 'closed':
-          console.log('🔐 Conexión WebRTC cerrada')
+          logger.info('🔐 Conexión WebRTC cerrada')
           break
       }
     }
@@ -266,11 +266,11 @@ export class WebRTCDiagnostics {
 
         pc.onicecandidate = (event) => {
           if (event.candidate) {
-            console.log('🧊 ICE Candidate encontrado:', event.candidate.candidate)
+            logger.info('🧊 ICE Candidate encontrado:', event.candidate.candidate)
             hasValidCandidate = true
           } else {
             // ICE gathering complete
-            console.log('🧊 ICE gathering completado, válido:', hasValidCandidate)
+            logger.info('🧊 ICE gathering completado, válido:', hasValidCandidate)
             pc.close()
             resolve(hasValidCandidate)
           }
@@ -278,13 +278,13 @@ export class WebRTCDiagnostics {
 
         // Timeout after 10 seconds
         setTimeout(() => {
-          console.log('⏰ Timeout en test ICE servers')
+          logger.info('⏰ Timeout en test ICE servers')
           pc.close()
           resolve(false)
         }, 10000)
       })
     } catch (error) {
-      console.error('❌ Error testing ICE servers:', error)
+      logger.error('❌ Error testing ICE servers:', error)
       return false
     }
   }
@@ -344,11 +344,11 @@ export class WebRTCDiagnostics {
    * Comprehensive media diagnostics
    */
   static async diagnose(): Promise<MediaDiagnostics> {
-    console.log('🔍 Starting WebRTC diagnostics...')
+    logger.info('🔍 Starting WebRTC diagnostics...')
 
     // Check devices
     const devices = await navigator.mediaDevices.enumerateDevices()
-    console.log('📱 Available devices:', devices.map(d => ({
+    logger.info('📱 Available devices:', devices.map(d => ({
       kind: d.kind,
       label: d.label || 'Unknown device',
       deviceId: d.deviceId.substring(0, 8) + '...'
@@ -359,7 +359,7 @@ export class WebRTCDiagnostics {
       camera: await this.checkPermission('camera'),
       microphone: await this.checkPermission('microphone')
     }
-    console.log('🔐 Permissions:', permissions)
+    logger.info('🔐 Permissions:', permissions)
 
     return {
       devices,

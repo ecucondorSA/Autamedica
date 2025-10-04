@@ -35,7 +35,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         const { data: { session } } = await supabase.auth.getSession()
         return session?.user?.id
       } catch (error) {
-        console.error('Error getting user ID:', error)
+        logger.error('Error getting user ID:', error)
         return null
       }
     }
@@ -43,7 +43,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
     const setupWebSocket = async () => {
       const userId = await getCurrentUserId()
       if (!userId) {
-        console.warn('⚠️ No user ID available for WebSocket connection')
+        logger.warn('⚠️ No user ID available for WebSocket connection')
         return
       }
 
@@ -51,13 +51,13 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         const ws = new WebSocket(`${signalingUrl}?userId=${userId}&userType=patient`)
 
         ws.onopen = () => {
-          // console.log('🔗 Connected to signaling server as patient')
+          // logger.info('🔗 Connected to signaling server as patient')
         }
 
         ws.onmessage = (event) => {
           try {
             const message = JSON.parse(event.data)
-            // console.log('📞 Received signaling message:', message)
+            // logger.info('📞 Received signaling message:', message)
 
             // Handle incoming call invitation
             if (message.type === 'call-invitation') {
@@ -86,12 +86,12 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
             }
 
           } catch (error) {
-            console.error('Error parsing signaling message:', error)
+            logger.error('Error parsing signaling message:', error)
           }
         }
 
         ws.onclose = (event) => {
-          // console.log('🔌 Disconnected from signaling server', {
+          // logger.info('🔌 Disconnected from signaling server', {
             code: event.code,
             reason: event.reason
           })
@@ -102,7 +102,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         }
 
         ws.onerror = (error) => {
-          console.warn('⚠️ WebSocket connection failed. Signaling server may be unavailable.', {
+          logger.warn('⚠️ WebSocket connection failed. Signaling server may be unavailable.', {
             url: signalingUrl,
             error: error
           })
@@ -110,7 +110,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
 
         return ws
       } catch (error) {
-        console.warn('⚠️ Failed to create WebSocket connection:', {
+        logger.warn('⚠️ Failed to create WebSocket connection:', {
           url: signalingUrl,
           error: error instanceof Error ? error.message : String(error)
         })
@@ -130,7 +130,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       const { data: { session } } = await supabase.auth.getSession()
 
       if (!session?.access_token) {
-        console.error('No session token available')
+        logger.error('No session token available')
         return
       }
 
@@ -149,7 +149,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       })
 
       if (response.ok) {
-        // console.log('✅ Call accepted successfully')
+        // logger.info('✅ Call accepted successfully')
 
         // Close modal
         setIsVisible(false)
@@ -160,11 +160,11 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
         // Notify parent component
         onAccept(incomingCall.id, incomingCall.roomId)
       } else {
-        console.error('❌ Failed to accept call:', await response.text())
+        logger.error('❌ Failed to accept call:', await response.text())
       }
 
     } catch (error) {
-      console.error('❌ Error accepting call:', error)
+      logger.error('❌ Error accepting call:', error)
     } finally {
       setIncomingCall(null)
     }
@@ -180,7 +180,7 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       const { data: { session } } = await supabase.auth.getSession()
 
       if (!session?.access_token) {
-        console.error('No session token available')
+        logger.error('No session token available')
         return
       }
 
@@ -199,16 +199,16 @@ export function IncomingCallModal({ onAccept, onDecline }: IncomingCallModalProp
       })
 
       if (response.ok) {
-        // console.log('✅ Call declined successfully')
+        // logger.info('✅ Call declined successfully')
 
         // Notify parent component
         onDecline(incomingCall.id)
       } else {
-        console.error('❌ Failed to decline call:', await response.text())
+        logger.error('❌ Failed to decline call:', await response.text())
       }
 
     } catch (error) {
-      console.error('❌ Error declining call:', error)
+      logger.error('❌ Error declining call:', error)
     } finally {
       setIsVisible(false)
       setIncomingCall(null)

@@ -5,6 +5,7 @@ import type {
   SpecialistAvailabilityStatus
 } from '@autamedica/types';
 import { createClient } from '@/lib/supabase';
+import { logger } from '@autamedica/shared';
 
 interface UseSpecialistsOptions {
   specialty?: ReproductiveHealthSpecialtyType;
@@ -93,7 +94,7 @@ export function useReproductiveHealthSpecialists(
 
       setSpecialists(transformedData);
     } catch (err) {
-      console.error('Error fetching reproductive health specialists:', err);
+      logger.error('Error fetching reproductive health specialists:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setIsLoading(false);
@@ -175,7 +176,7 @@ export function useSpecialistById(specialistId: string | null) {
           setSpecialist(transformedData);
         }
       } catch (err) {
-        console.error('Error fetching specialist:', err);
+        logger.error('Error fetching specialist:', err);
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
         setIsLoading(false);
@@ -215,7 +216,7 @@ export function useUpdateSpecialistAvailability() {
 
       return { success: true };
     } catch (err) {
-      console.error('Error updating availability:', err);
+      logger.error('Error updating availability:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
       return { success: false, error: err };
     } finally {

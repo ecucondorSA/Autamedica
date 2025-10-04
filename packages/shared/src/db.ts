@@ -22,6 +22,7 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import { toCamel, toSnake } from './casing';
+import { logger } from '@autamedica/shared';
 
 type PublicSchema = Database extends { public: infer Schema }
   ? Schema extends Record<string, unknown>
@@ -181,7 +182,7 @@ export async function selectActiveRaw<Table extends TableName, TResult = TableRo
  * ```ts
  * const appointment = await selectById<UiAppointment>('appointments', '123');
  * if (appointment) {
- *   console.log(appointment.patientId); // camelCase
+ *   logger.info(appointment.patientId); // camelCase
  * }
  * ```
  */

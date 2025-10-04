@@ -5,6 +5,7 @@ import { Send, User, Bot, Loader2, Sparkles } from 'lucide-react';
 import { usePatientScreenings } from '@/hooks/usePatientScreenings';
 import { getONNXService, initializeONNX } from '@/lib/ai/onnx-service';
 import type { PatientContext } from '@/lib/ai/medical-qa';
+import { logger } from '@autamedica/shared';
 
 interface Message {
   id: string;
@@ -38,9 +39,9 @@ export function AutaChatbot() {
       try {
         await initializeONNX();
         setAiReady(true);
-        // console.log('✅ Auta AI initialized with ONNX');
+        // logger.info('✅ Auta AI initialized with ONNX');
       } catch (error) {
-        console.error('⚠️ Failed to initialize ONNX, using fallback mode:', error);
+        logger.error('⚠️ Failed to initialize ONNX, using fallback mode:', error);
         setAiReady(true); // Continuar con modo fallback
       }
     };
@@ -140,7 +141,7 @@ export function AutaChatbot() {
 
         // Log para debugging (solo en desarrollo)
         if (process.env.NODE_ENV === 'development') {
-          // console.log('🤖 Auta AI Response:', {
+          // logger.info('🤖 Auta AI Response:', {
             intent: classification.intent,
             confidence: classification.confidence,
             processingTime: `${processingTime.toFixed(2)}ms`,
@@ -150,7 +151,7 @@ export function AutaChatbot() {
       }, typingDelay);
 
     } catch (error) {
-      console.error('Error processing query:', error);
+      logger.error('Error processing query:', error);
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),

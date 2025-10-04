@@ -7,6 +7,7 @@ import * as ort from 'onnxruntime-web';
 import { medicalTokenizer } from './tokenizer';
 import { intentClassifier, type IntentClassification } from './intent-classifier';
 import { medicalQA, type PatientContext, type MedicalResponse } from './medical-qa';
+import { logger } from '@autamedica/shared';
 
 /**
  * Configuración del servicio ONNX
@@ -82,7 +83,7 @@ export class ONNXService {
     }
 
     if (this.loadingState === 'ready') {
-      // console.log('Model already loaded');
+      // logger.info('Model already loaded');
       return;
     }
 
@@ -101,10 +102,10 @@ export class ONNXService {
       });
 
       this.loadingState = 'ready';
-      // console.log('✅ ONNX model loaded successfully');
+      // logger.info('✅ ONNX model loaded successfully');
     } catch (error) {
       this.loadingState = 'error';
-      console.error('❌ Failed to load ONNX model:', error);
+      logger.error('❌ Failed to load ONNX model:', error);
       throw error;
     }
   }
@@ -125,7 +126,7 @@ export class ONNXService {
       const results = await this.session.run(feeds);
       return results[Object.keys(results)[0]];
     } catch (error) {
-      console.error('Error running inference:', error);
+      logger.error('Error running inference:', error);
       throw error;
     }
   }
@@ -184,7 +185,7 @@ export class ONNXService {
    */
   public async extractEmbeddings(text: string): Promise<Float32Array | null> {
     if (this.loadingState !== 'ready' || !this.session) {
-      console.warn('Model not ready, cannot extract embeddings');
+      logger.warn('Model not ready, cannot extract embeddings');
       return null;
     }
 
@@ -204,7 +205,7 @@ export class ONNXService {
 
       return null;
     } catch (error) {
-      console.error('Error extracting embeddings:', error);
+      logger.error('Error extracting embeddings:', error);
       return null;
     }
   }
@@ -274,7 +275,7 @@ export class ONNXService {
       await this.session.release();
       this.session = null;
       this.loadingState = 'idle';
-      // console.log('🗑️ ONNX session disposed');
+      // logger.info('🗑️ ONNX session disposed');
     }
   }
 
@@ -285,9 +286,9 @@ export class ONNXService {
     try {
       // Precarga WASM files
       await ort.env.wasm.proxy;
-      // console.log('✅ ONNX Runtime WASM preloaded');
+      // logger.info('✅ ONNX Runtime WASM preloaded');
     } catch (error) {
-      console.warn('⚠️ Failed to preload ONNX Runtime:', error);
+      logger.warn('⚠️ Failed to preload ONNX Runtime:', error);
     }
   }
 }
@@ -313,5 +314,5 @@ export function getONNXService(config?: ONNXServiceConfig): ONNXService {
 export async function initializeONNX(): Promise<void> {
   await ONNXService.preload();
   getONNXService(); // Crea instancia
-  // console.log('🚀 ONNX Service initialized');
+  // logger.info('🚀 ONNX Service initialized');
 }

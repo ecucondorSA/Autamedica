@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PatientWithProfile } from '@autamedica/types';
 import { selectActive } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 /**
  * Hook migrado al sistema híbrido
@@ -70,7 +71,7 @@ export function useRealPatients(): UsePatientsResult {
 
       setPatients(activePatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching patients:', err);
+      logger.error('Error fetching patients:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -126,7 +127,7 @@ export function useCurrentPatient(userId?: string): UseCurrentPatientResult {
 
       setPatient(currentPatient as unknown as PatientWithProfile);
     } catch (err) {
-      console.error('Error fetching current patient:', err);
+      logger.error('Error fetching current patient:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -211,7 +212,7 @@ export function useDoctorPatients(doctorUserId?: string): UseDoctorPatientsResul
 
       setPatients(doctorPatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctor patients:', err);
+      logger.error('Error fetching doctor patients:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -266,7 +267,7 @@ export function usePatientsByCompany(companyId?: string): UsePatientsByCompanyRe
 
       setPatients(companyPatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching patients by company:', err);
+      logger.error('Error fetching patients by company:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);

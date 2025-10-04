@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useTelemedicineSignaling } from '@autamedica/hooks';
 import type { TelemedicineRole } from '@autamedica/telemedicine';
 import type { SignalingConnectionState } from '@autamedica/hooks';
+import { logger } from '@autamedica/shared';
 
 interface TelemedicineSignalingPanelProps {
   roomId: string;
@@ -78,7 +79,7 @@ export function TelemedicineSignalingPanel({
           type="button"
           className="flex-1 rounded-lg bg-emerald-500 px-3 py-2 text-xs font-semibold text-slate-900 transition hover:bg-emerald-400"
           onClick={() => {
-            controls.connect().catch((error) => console.error('[Telemedicina] error al conectar', error));
+            controls.connect().catch((error) => logger.error('[Telemedicina] error al conectar', error));
           }}
         >
           Conectar

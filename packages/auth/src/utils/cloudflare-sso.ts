@@ -61,7 +61,7 @@ export async function createKVSession(
   ttl: number = 86400 // 24 hours default
 ): Promise<void> {
   if (typeof AUTH_SESSIONS === 'undefined') {
-    console.warn('AUTH_SESSIONS KV namespace not available')
+    logger.warn('AUTH_SESSIONS KV namespace not available')
     return
   }
 
@@ -96,7 +96,7 @@ export async function createKVSession(
  */
 export async function getKVSession(sessionId: string): Promise<KVSession | null> {
   if (typeof AUTH_SESSIONS === 'undefined') {
-    console.warn('AUTH_SESSIONS KV namespace not available')
+    logger.warn('AUTH_SESSIONS KV namespace not available')
     return null
   }
 
@@ -122,7 +122,7 @@ export async function getKVSession(sessionId: string): Promise<KVSession | null>
 
     return session
   } catch (error) {
-    console.error('Error getting KV session:', error)
+    logger.error('Error getting KV session:', error)
     return null
   }
 }
@@ -132,7 +132,7 @@ export async function getKVSession(sessionId: string): Promise<KVSession | null>
  */
 export async function deleteKVSession(sessionId: string): Promise<void> {
   if (typeof AUTH_SESSIONS === 'undefined') {
-    console.warn('AUTH_SESSIONS KV namespace not available')
+    logger.warn('AUTH_SESSIONS KV namespace not available')
     return
   }
 
@@ -180,13 +180,13 @@ export async function refreshKVSession(
  */
 export async function getUserSessions(userId: string): Promise<string[]> {
   if (typeof AUTH_SESSIONS === 'undefined') {
-    console.warn('AUTH_SESSIONS KV namespace not available')
+    logger.warn('AUTH_SESSIONS KV namespace not available')
     return []
   }
 
   // This would require listing keys which is expensive in KV
   // In production, you'd want to maintain a separate index
-  console.warn('getUserSessions not fully implemented - requires KV list operation')
+  logger.warn('getUserSessions not fully implemented - requires KV list operation')
   return []
 }
 

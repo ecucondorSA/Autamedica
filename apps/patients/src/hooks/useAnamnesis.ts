@@ -10,6 +10,7 @@ import type {
   AnamnesisInsert,
   AnamnesisUpdate,
 } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 interface UseAnamnesisReturn {
   anamnesis: Anamnesis | null;
@@ -127,7 +128,7 @@ export function useAnamnesis(): UseAnamnesisReturn {
         estimated_time_remaining_minutes: pendingSections.length * 5,
       });
     } catch (err) {
-      console.error('Error fetching anamnesis:', err);
+      logger.error('Error fetching anamnesis:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -162,7 +163,7 @@ export function useAnamnesis(): UseAnamnesisReturn {
       await fetchAnamnesis();
       return data as unknown as Anamnesis;
     } catch (err) {
-      console.error('Error creating anamnesis:', err);
+      logger.error('Error creating anamnesis:', err);
       setError(err instanceof Error ? err.message : 'Error al crear anamnesis');
       return null;
     }
@@ -184,7 +185,7 @@ export function useAnamnesis(): UseAnamnesisReturn {
       await fetchAnamnesis();
       return true;
     } catch (err) {
-      console.error('Error updating anamnesis:', err);
+      logger.error('Error updating anamnesis:', err);
       setError(err instanceof Error ? err.message : 'Error al actualizar anamnesis');
       return false;
     }
@@ -227,7 +228,7 @@ export function useAnamnesis(): UseAnamnesisReturn {
 
       return true;
     } catch (err) {
-      console.error('Error updating section:', err);
+      logger.error('Error updating section:', err);
       setError(err instanceof Error ? err.message : 'Error al actualizar sección');
       return false;
     }

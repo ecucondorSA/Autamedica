@@ -203,7 +203,7 @@ export async function authMiddleware(
 
       return response
     } catch (error) {
-      console.error('Auth middleware error:', error)
+      logger.error('Auth middleware error:', error)
 
       // On error, redirect to login
       const loginUrl = getLoginUrl(request.url)

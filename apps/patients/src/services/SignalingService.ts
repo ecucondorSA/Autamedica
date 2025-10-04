@@ -11,6 +11,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { logger } from '@autamedica/shared';
 
 /**
  * Eventos que emite el servicio de señalización
@@ -92,7 +93,7 @@ export class SignalingService extends EventEmitter {
    */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      // console.log('[SignalingService] Connecting to:', this.config.serverUrl);
+      // logger.info('[SignalingService] Connecting to:', this.config.serverUrl);
 
       try {
         // Crear WebSocket connection
@@ -104,7 +105,7 @@ export class SignalingService extends EventEmitter {
 
         // Handler: Connection opened
         this.ws.onopen = () => {
-          // console.log('[SignalingService] Connected successfully');
+          // logger.info('[SignalingService] Connected successfully');
           this.isConnected = true;
           this.emit(SignalingEvent.CONNECTED);
           this.startHeartbeat();
@@ -118,28 +119,28 @@ export class SignalingService extends EventEmitter {
 
         // Handler: Connection error
         this.ws.onerror = (error) => {
-          console.error('[SignalingService] WebSocket error:', error);
+          logger.error('[SignalingService] WebSocket error:', error);
           this.emit(SignalingEvent.ERROR, error);
           reject(error);
         };
 
         // Handler: Connection closed
         this.ws.onclose = (event) => {
-          // console.log('[SignalingService] Connection closed:', event.code, event.reason);
+          // logger.info('[SignalingService] Connection closed:', event.code, event.reason);
           this.isConnected = false;
           this.stopHeartbeat();
           this.emit(SignalingEvent.DISCONNECTED);
 
           // Auto-reconnect si está habilitado
           if (this.config.autoReconnect && event.code !== 1000) {
-            // console.log('[SignalingService] Attempting reconnection in 5s...');
+            // logger.info('[SignalingService] Attempting reconnection in 5s...');
             this.reconnectTimer = setTimeout(() => {
               this.connect();
             }, 5000);
           }
         };
       } catch (error) {
-        console.error('[SignalingService] Failed to create WebSocket:', error);
+        logger.error('[SignalingService] Failed to create WebSocket:', error);
         reject(error);
       }
     });
@@ -149,7 +150,7 @@ export class SignalingService extends EventEmitter {
    * Desconectar del servidor
    */
   disconnect(): void {
-    // console.log('[SignalingService] Disconnecting...');
+    // logger.info('[SignalingService] Disconnecting...');
 
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
@@ -171,7 +172,7 @@ export class SignalingService extends EventEmitter {
    * Unirse a una sala de videoconsulta
    */
   joinRoom(roomId: string): void {
-    // console.log('[SignalingService] Joining room:', roomId);
+    // logger.info('[SignalingService] Joining room:', roomId);
 
     this.currentRoomId = roomId;
 
@@ -189,11 +190,11 @@ export class SignalingService extends EventEmitter {
    */
   leaveRoom(): void {
     if (!this.currentRoomId) {
-      console.warn('[SignalingService] Not in any room');
+      logger.warn('[SignalingService] Not in any room');
       return;
     }
 
-    // console.log('[SignalingService] Leaving room:', this.currentRoomId);
+    // logger.info('[SignalingService] Leaving room:', this.currentRoomId);
 
     const message: SignalingMessage = {
       type: 'leave-room',
@@ -209,7 +210,7 @@ export class SignalingService extends EventEmitter {
    * Enviar oferta SDP al peer remoto
    */
   sendOffer(roomId: string, offer: RTCSessionDescriptionInit): void {
-    // console.log('[SignalingService] Sending SDP offer to room:', roomId);
+    // logger.info('[SignalingService] Sending SDP offer to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'offer',
@@ -225,7 +226,7 @@ export class SignalingService extends EventEmitter {
    * Enviar respuesta SDP al peer remoto
    */
   sendAnswer(roomId: string, answer: RTCSessionDescriptionInit): void {
-    // console.log('[SignalingService] Sending SDP answer to room:', roomId);
+    // logger.info('[SignalingService] Sending SDP answer to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'answer',
@@ -241,7 +242,7 @@ export class SignalingService extends EventEmitter {
    * Enviar ICE candidate al peer remoto
    */
   sendIceCandidate(roomId: string, candidate: RTCIceCandidate): void {
-    // console.log('[SignalingService] Sending ICE candidate to room:', roomId);
+    // logger.info('[SignalingService] Sending ICE candidate to room:', roomId);
 
     const message: SignalingMessage = {
       type: 'ice-candidate',
@@ -262,14 +263,14 @@ export class SignalingService extends EventEmitter {
    */
   private send(message: SignalingMessage): void {
     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
-      console.error('[SignalingService] Cannot send message: WebSocket not connected');
+      logger.error('[SignalingService] Cannot send message: WebSocket not connected');
       return;
     }
 
     try {
       this.ws.send(JSON.stringify(message));
     } catch (error) {
-      console.error('[SignalingService] Failed to send message:', error);
+      logger.error('[SignalingService] Failed to send message:', error);
     }
   }
 
@@ -280,7 +281,7 @@ export class SignalingService extends EventEmitter {
     try {
       const message: SignalingMessage = JSON.parse(data);
 
-      // console.log('[SignalingService] Message received:', message.type);
+      // logger.info('[SignalingService] Message received:', message.type);
 
       switch (message.type) {
         case 'offer':
@@ -322,10 +323,10 @@ export class SignalingService extends EventEmitter {
           break;
 
         default:
-          console.warn('[SignalingService] Unknown message type:', message.type);
+          logger.warn('[SignalingService] Unknown message type:', message.type);
       }
     } catch (error) {
-      console.error('[SignalingService] Failed to parse message:', error);
+      logger.error('[SignalingService] Failed to parse message:', error);
     }
   }
 

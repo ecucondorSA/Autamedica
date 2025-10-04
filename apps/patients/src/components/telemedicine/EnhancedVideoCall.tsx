@@ -10,6 +10,7 @@ import { useMockRemoteStream } from '@/hooks/useMockRemoteStream';
 import { VideoLayout, ViewModeSelector } from '@/components/telemedicine/VideoLayout';
 import { VideoControls } from '@/components/telemedicine/VideoControls';
 import type { EnhancedVideoCallProps, VideoViewMode, PIPPosition } from '@/types/telemedicine';
+import { logger } from '@autamedica/shared';
 
 /**
  * Componente principal de videollamada refactorizado
@@ -81,7 +82,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
       try {
         await telemedicine.logEvent(eventType, details);
       } catch (error) {
-        console.error('Error logging telemedicine event:', error);
+        logger.error('Error logging telemedicine event:', error);
       }
     };
 
@@ -137,7 +138,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   const handleSwapVideos = () => {
     // Swap será manejado internamente por VideoLayout
-    // console.log('[EnhancedVideoCall] Videos swapped');
+    // logger.info('[EnhancedVideoCall] Videos swapped');
   };
 
   const handlePIPPositionChange = (position: PIPPosition) => {

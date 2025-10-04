@@ -67,7 +67,7 @@ export function LeafletMap({ jobs, doctors, selectedItem, onItemSelect, filters 
 
         setLeafletLoaded(true)
       } catch (error) {
-        console.error('Error loading Leaflet:', error)
+        logger.error('Error loading Leaflet:', error)
       }
     }
 
@@ -86,6 +86,7 @@ export function LeafletMap({ jobs, doctors, selectedItem, onItemSelect, filters 
       html: `
         <div style="
           background-color: ${color};
+import { logger } from '@autamedica/shared';
           width: ${size}px;
           height: ${size}px;
           border-radius: 50%;

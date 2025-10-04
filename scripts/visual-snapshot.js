@@ -56,11 +56,11 @@ async function captureScreenshot(app, theme = 'default') {
       fullPage: true
     });
 
-    console.log(`✅ Screenshot capturado: ${filename}`);
+    logger.info(`✅ Screenshot capturado: ${filename}`);
     return { success: true, filepath, filename };
 
   } catch (error) {
-    console.error(`❌ Error capturando ${app.name}:`, error.message);
+    logger.error(`❌ Error capturando ${app.name}:`, error.message);
     return { success: false, error: error.message };
   } finally {
     await browser.close();
@@ -68,17 +68,17 @@ async function captureScreenshot(app, theme = 'default') {
 }
 
 async function captureAll() {
-  console.log('🎯 Iniciando captura de screenshots automática...\n');
+  logger.info('🎯 Iniciando captura de screenshots automática...\n');
 
   const results = [];
 
   for (const app of APPS) {
-    console.log(`📱 Procesando ${app.name} (${app.url})...`);
+    logger.info(`📱 Procesando ${app.name} (${app.url})...`);
 
     // Verificar que el servidor esté corriendo
     const isRunning = await checkServerStatus(app.url);
     if (!isRunning) {
-      console.log(`⚠️  Servidor ${app.name} no está corriendo en puerto ${app.port}`);
+      logger.info(`⚠️  Servidor ${app.name} no está corriendo en puerto ${app.port}`);
       results.push({ app: app.name, status: 'offline' });
       continue;
     }
@@ -88,31 +88,31 @@ async function captureAll() {
     results.push({ app: app.name, status: 'captured', ...result });
   }
 
-  console.log('\n📊 Resumen de capturas:');
+  logger.info('\n📊 Resumen de capturas:');
   results.forEach(result => {
     if (result.status === 'offline') {
-      console.log(`  ⚠️  ${result.app}: Servidor offline`);
+      logger.info(`  ⚠️  ${result.app}: Servidor offline`);
     } else if (result.success) {
-      console.log(`  ✅ ${result.app}: ${result.filename}`);
+      logger.info(`  ✅ ${result.app}: ${result.filename}`);
     } else {
-      console.log(`  ❌ ${result.app}: ${result.error}`);
+      logger.info(`  ❌ ${result.app}: ${result.error}`);
     }
   });
 
-  console.log(`\n📁 Screenshots guardados en: ${SCREENSHOTS_DIR}`);
+  logger.info(`\n📁 Screenshots guardados en: ${SCREENSHOTS_DIR}`);
   return results;
 }
 
 async function watchMode() {
-  console.log('👁️  Modo watch activado - Capturando cada 30 segundos...');
-  console.log('🔄 Presiona Ctrl+C para detener\n');
+  logger.info('👁️  Modo watch activado - Capturando cada 30 segundos...');
+  logger.info('🔄 Presiona Ctrl+C para detener\n');
 
   // Captura inicial
   await captureAll();
 
   // Capturar cada 30 segundos
   setInterval(async () => {
-    console.log('\n🔄 Actualizando screenshots...');
+    logger.info('\n🔄 Actualizando screenshots...');
     await captureAll();
   }, 30000);
 }
@@ -128,7 +128,7 @@ switch (command) {
     captureAll();
     break;
   default:
-    console.log(`
+    logger.info(`
 🎯 AutaMedica Visual Snapshot Tool
 
 Uso:

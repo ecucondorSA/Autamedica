@@ -12,6 +12,7 @@ import { anamnesisSteps } from '@/data/anamnesis-steps';
 import { BookOpen, ArrowRight, ArrowLeft, CheckCircle, Play, Save } from 'lucide-react';
 import { useAnamnesis } from '@/hooks';
 import type { AnamnesisSection } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 export default function AnamnesisPage() {
   // Hook de Supabase para anamnesis
@@ -56,7 +57,7 @@ export default function AnamnesisPage() {
         setAnamnesisData(parsed.data || {});
         setCurrentStepIndex(parsed.currentStep || 0);
       } catch (e) {
-        console.error('Error loading saved data:', e);
+        logger.error('Error loading saved data:', e);
       }
     }
   }, []);
@@ -82,7 +83,7 @@ export default function AnamnesisPage() {
 
       setLastSaved(new Date());
     } catch (e) {
-      console.error('Error saving:', e);
+      logger.error('Error saving:', e);
     } finally {
       setTimeout(() => setIsSaving(false), 500);
     }
@@ -166,7 +167,7 @@ export default function AnamnesisPage() {
       // Refresh para obtener datos actualizados
       await refreshAnamnesis();
     } catch (error) {
-      console.error('Error al completar anamnesis:', error);
+      logger.error('Error al completar anamnesis:', error);
       alert('Hubo un error al guardar la anamnesis. Por favor intenta nuevamente.');
     } finally {
       setIsSaving(false);
