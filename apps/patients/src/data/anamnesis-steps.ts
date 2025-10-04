@@ -52,10 +52,8 @@ export const anamnesisSteps: AnamnesisStep[] = [
     completed: false,
     mediaUrl: '/videos/anamnesis/Tu_Trabajo_Tu_Salud_1.4x.mp4',
     story: {
-      intro: 'Un pintor de 50 años llega con tos crónica. Un oficinista de la misma edad también. ¿Misma causa?',
-      why: 'El médico piensa diferente según tu trabajo. El pintor puede tener daño pulmonar por vapores de pintura durante 30 años. El oficinista puede tener alergia al aire acondicionado. ¡Tu trabajo cuenta historias!',
-      example: '🎨 Pintor de construcción por 25 años + tos → Médico piensa: ¿exposición a químicos? ¿Asma ocupacional?\n\n💻 Programador + dolor de cuello → Médico piensa: postura, ergonomía, síndrome del túnel carpiano.',
-      didYouKnow: '💡 Algunas profesiones tienen enfermedades típicas:\n- Mineros: silicosis (pulmón)\n- Dentistas: problemas de columna y visión\n- Músicos de viento: lesiones de labios\n- Programadores: síndrome del túnel carpiano',
+      intro: 'Tu ocupación puede influir directamente en tu salud.',
+      why: 'Cada profesión tiene factores de riesgo únicos que el médico debe conocer.',
     },
     fields: [
       {
@@ -102,10 +100,8 @@ export const anamnesisSteps: AnamnesisStep[] = [
     completed: false,
     mediaUrl: '/videos/anamnesis/Comunicar_tus_Síntomas_1.4x.mp4',
     story: {
-      intro: 'Este es el momento más importante: ¿qué te está molestando? El médico va a escuchar cada palabra.',
-      why: 'La forma en que describes tu síntoma da pistas enormes. "Me duele la cabeza" es muy diferente a "me duele la cabeza como si me apretaran con una banda" o "me duele la cabeza y veo lucecitas".',
-      example: '🤕 Paciente A: "Me duele la cabeza"\n→ Médico pregunta: ¿dónde? ¿cuándo? ¿cómo?\n\n🤕 Paciente B: "Me duele la cabeza del lado derecho, como pulsaciones, cuando veo luz me molesta más, y me empezó hace 3 días después de comer chocolate"\n→ Médico piensa: ¡Migraña! Ya tengo mucha información.',
-      didYouKnow: '💡 Los médicos usan el "ALICIA" para analizar síntomas:\n- A: Aparición (¿cuándo empezó?)\n- L: Localización (¿dónde?)\n- I: Intensidad (del 1 al 10)\n- C: Carácter (¿cómo es? ¿punzante, opresivo?)\n- I: Irradiación (¿se mueve a otro lugar?)\n- A: Asociaciones (¿viene con otros síntomas?)',
+      intro: 'Comunicar bien tus síntomas es clave para un diagnóstico preciso.',
+      why: 'Los detalles sobre tu molestia ayudan al médico a entender qué está pasando.',
     },
     fields: [
       {
@@ -255,10 +251,8 @@ export const anamnesisSteps: AnamnesisStep[] = [
     completed: false,
     mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x.mp4',
     story: {
-      intro: 'Una mujer de 30 años consulta por un bulto en el seno. El médico pregunta: ¿alguien en tu familia tuvo cáncer de mama? "Sí, mi mamá, mi tía y mi abuela". El médico CAMBIA completamente su enfoque: esto no es un bulto común, es probable síndrome hereditario de cáncer. Necesita estudios genéticos urgentes.',
-      why: 'Muchas enfermedades tienen componente hereditario. Saber que tu papá tuvo infarto a los 45 años significa que TÚ tienes riesgo alto de infarto joven. El médico puede PREVENIR con chequeos y tratamiento temprano.',
-      example: '🧬 ENFERMEDADES CON FUERTE COMPONENTE FAMILIAR:\n\n❤️ Cardiovasculares:\n- Infarto antes de 55 años en hombre o 65 en mujer → riesgo 2-3x para hijos\n- Colesterol familiar (genético) → puede causar infartos en jóvenes\n\n🎗️ Cánceres hereditarios:\n- Cáncer de mama/ovario (genes BRCA) → 50-80% riesgo heredar\n- Cáncer de colon familiar → screening desde los 25 años (vs 45 en población general)\n\n🩺 Otras condiciones:\n- Diabetes tipo 2: riesgo 40% si un padre tiene, 70% si ambos\n- Hipertensión: riesgo 2x si padres hipertensos\n- Alzheimer: riesgo 3x si padre/madre con Alzheimer temprano',
-      didYouKnow: '💡 CURIOSIDADES GENÉTICAS:\n- Tener UN familiar con diabetes tipo 2 = riesgo 40%\n- Tener DOS padres con diabetes tipo 2 = riesgo 70%\n- Cáncer de mama en hombre de la familia = señal de gen BRCA (todos en riesgo)\n- Muerte súbita cardíaca en familiar joven = puede indicar canalopatías hereditarias\n- Algunos genes protegen: poblaciones con gen APOC3 mutado tienen 40% menos infartos',
+      intro: 'Tu historia familiar es clave para entender tu salud futura.',
+      why: 'Muchas enfermedades tienen componente hereditario que permite prevenir con anticipación.',
     },
     fields: [
       {
