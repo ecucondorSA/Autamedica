@@ -66,17 +66,18 @@ jobs:
         run: |
           # Build in explicit order to ensure .d.ts files exist before dependent packages build
           echo "📦 Building @autamedica/types..."
+          # Clean any existing build artifacts first
+          rm -rf packages/types/dist packages/types/.tsbuildinfo
           pnpm --filter @autamedica/types build
           echo "Checking if dist folder exists..."
-          ls -la packages/types/ || true
-          ls -la packages/types/dist/ || true
+          ls -la packages/types/dist/ | grep "index\."
           if [ ! -f "packages/types/dist/index.d.ts" ]; then
-            echo "❌ TypeScript build didn't generate dist files!"
-            echo "Checking for TypeScript errors..."
-            cd packages/types && pnpm exec tsc -p tsconfig.json --noEmit && cd ../..
+            echo "❌ TypeScript build didn't generate .d.ts files!"
+            echo "Running tsc directly to see errors..."
+            cd packages/types && tsc -p tsconfig.json --listEmittedFiles && cd ../..
             exit 1
           fi
-          ls -la packages/types/dist/index.d.ts
+          echo "✅ Types package built successfully"
 
           echo "📦 Building @autamedica/utils..."
           pnpm --filter @autamedica/utils build
