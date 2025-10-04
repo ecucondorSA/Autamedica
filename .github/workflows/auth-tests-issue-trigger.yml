@@ -132,10 +132,32 @@ jobs:
 
       - name: 🏗️ Build packages
         run: |
-          pnpm build:packages
-          # Verify critical packages generated .d.ts files
+          # Build in explicit order to ensure .d.ts files exist before dependent packages build
+          echo "📦 Building @autamedica/types..."
+          pnpm --filter @autamedica/types build
           ls -la packages/types/dist/index.d.ts
-          ls -la packages/shared/dist/index.d.ts || echo "Warning: shared types not found"
+
+          echo "📦 Building @autamedica/utils..."
+          pnpm --filter @autamedica/utils build
+
+          echo "📦 Building @autamedica/shared..."
+          pnpm --filter @autamedica/shared build
+          ls -la packages/shared/dist/index.d.ts
+
+          echo "📦 Building @autamedica/auth..."
+          pnpm --filter @autamedica/auth build
+
+          echo "📦 Building @autamedica/hooks..."
+          pnpm --filter @autamedica/hooks build
+
+          echo "📦 Building @autamedica/tailwind-config..."
+          pnpm --filter @autamedica/tailwind-config build
+
+          echo "📦 Building @autamedica/telemedicine..."
+          pnpm --filter @autamedica/telemedicine build
+
+          echo "📦 Building @autamedica/ui..."
+          pnpm --filter @autamedica/ui build
 
       - name: 🎭 Install Playwright browsers
         run: pnpm exec playwright install chromium --with-deps
