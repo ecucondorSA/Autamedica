@@ -37,6 +37,7 @@ import {
 interface AuthContextValue extends AuthState {
   signIn: (email: string, password: string) => Promise<void>
   signInWithMagicLink: (email: string) => Promise<void>
+  signInWithOAuth: (provider: 'google') => Promise<void>
   signOut: () => Promise<void>
   refreshSession: () => Promise<void>
   redirectToRole: (returnUrl?: string) => void
@@ -360,6 +361,38 @@ export function AuthProvider({
     }
   }, [state.user])
 
+  // Sign in with OAuth
+  const signInWithOAuth = useCallback(async (provider: 'google') => {
+    if (isDevBypass) {
+      console.log('Dev bypass mode - skipping OAuth sign in')
+      return
+    }
+
+    if (!supabase) {
+      throw new AuthError('CONFIGURATION_ERROR', 'Supabase client not initialized')
+    }
+
+    setState(prev => ({ ...prev, loading: true, error: null }))
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin + '/auth/callback'
+        }
+      })
+
+      if (error) throw error
+    } catch (error) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error as Error
+      }))
+      throw error
+    }
+  }, [supabase])
+
   // Refresh session
   const refreshSession = useCallback(async () => {
     if (isDevBypass) {
@@ -431,6 +464,7 @@ export function AuthProvider({
     ...state,
     signIn,
     signInWithMagicLink,
+    signInWithOAuth,
     signOut,
     refreshSession,
     redirectToRole,

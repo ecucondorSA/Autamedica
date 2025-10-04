@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
-import { createBrowserClient } from '@autamedica/auth';
+import { useAuth } from '@autamedica/auth/hooks';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
@@ -12,10 +12,13 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const role = searchParams.get('role') as UserRole | null;
   const returnTo = searchParams.get('returnTo');
+
+  const { signIn, signInWithOAuth, signInWithMagicLink } = useAuth();
 
   useEffect(() => {
     // Si no hay rol preseleccionado, redirigir a select-role
@@ -30,20 +33,8 @@ function LoginForm() {
     setError(null);
 
     try {
-      const supabase = createBrowserClient();
-
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (signInError) {
-        throw signInError;
-      }
-
-      // Redirect to returnTo URL or dashboard
-      const redirectUrl = returnTo || '/';
-      window.location.href = redirectUrl;
+      await signIn(email, password);
+      // On success, the auth provider will redirect automatically
     } catch (error: any) {
       console.error('Login error:', error);
       setError(error.message || 'Error al iniciar sesión');
@@ -57,27 +48,24 @@ function LoginForm() {
     setError(null);
 
     try {
-      const supabase = createBrowserClient();
-
-      const callbackUrl = new URL(`${window.location.origin}/auth/callback`);
-      callbackUrl.searchParams.set('role', role!);
-      if (returnTo) {
-        callbackUrl.searchParams.set('returnTo', returnTo);
-      }
-
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: callbackUrl.toString(),
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
+      await signInWithOAuth('google');
     } catch (error: any) {
       console.error('Google sign in error:', error);
       setError(error.message || 'Error al iniciar sesión con Google');
+      setIsLoading(false);
+    }
+  };
+
+  const handleMagicLinkSignIn = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      await signInWithMagicLink(email);
+      setMagicLinkSent(true);
+    } catch (error: any) {
+      console.error('Magic link error:', error);
+      setError(error.message || 'Error al enviar el enlace de acceso');
+    } finally {
       setIsLoading(false);
     }
   };
