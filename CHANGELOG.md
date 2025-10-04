@@ -7,6 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- db08faf fix(auth): corregir URLs de redirección para login centralizado
 
 ### 🔒 Seguridad
 
@@ -17,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:36:53*
+*Generado automáticamente el 2025-10-04 20:43:13*
