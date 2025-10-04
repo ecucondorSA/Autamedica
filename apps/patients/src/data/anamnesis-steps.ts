@@ -137,6 +137,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'El pasado médico explica el presente',
     category: 'antecedentes_personales',
     completed: false,
+    mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x_h264.mp4',
     story: {
       intro: 'Un paciente llega con cansancio y piel amarilla. El médico pregunta: ¿has tenido hepatitis? Si dice "sí, hace 10 años", ¡eureka! Ya tiene una pista enorme.',
       why: 'Las enfermedades previas pueden reactivarse, complicarse o causar síntomas años después. Por ejemplo, la hepatitis B puede dormir 20 años y despertar causando cirrosis.',
@@ -241,7 +242,6 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Las enfermedades de tu familia son pistas de tu futuro',
     category: 'antecedentes_familiares',
     completed: false,
-    mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x_h264.mp4',
     fields: [
       {
         id: 'padre_vivo',
