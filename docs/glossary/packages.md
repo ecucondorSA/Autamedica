@@ -122,6 +122,15 @@ export {
 
 // Session management
 export { getSession, hasRole } from "./session";
+
+// Security helpers
+export {
+  isAllowedRedirect,
+  safeRedirectOrFallback,
+  buildSafeLoginUrl,
+  isSameOrigin,
+  sanitizeReturnUrl,
+} from "./security/redirects";
 ```
 
 ---
@@ -150,12 +159,19 @@ export {
   AuthError,
 } from "./types";
 
-// Clientes Supabase
+// Clientes Supabase (browser)
 export {
   createBrowserClient,
   getSupabaseClient,
   signOutGlobally,
 } from "./client/supabase";
+
+// Clientes Supabase (server-side)
+export {
+  createServerClient,
+  createMiddlewareClient,
+  createRouteHandlerClient,
+} from "./server";
 
 // Manejo de sesiones
 export {
