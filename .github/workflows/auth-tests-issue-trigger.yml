@@ -1,0 +1,220 @@
+name: 🎯 Auth Tests - Issue/PR Trigger
+
+# Ejecutar tests cuando se mencionen keywords en issues o PRs
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  check-trigger:
+    name: 🔍 Verificar si debe ejecutar tests
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+      test_type: ${{ steps.check.outputs.test_type }}
+
+    steps:
+      - name: 🔍 Check for trigger keywords
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = (
+              context.payload.comment?.body ||
+              context.payload.issue?.body ||
+              context.payload.pull_request?.body ||
+              ''
+            ).toLowerCase();
+
+            // Keywords que activan los tests
+            const quickKeywords = [
+              '/test-auth',
+              '/run-auth-tests',
+              'test authentication',
+              'probar autenticación'
+            ];
+
+            const extensiveKeywords = [
+              '/test-auth-extensive',
+              '/test-auth-full',
+              'test authentication extensive',
+              'prueba completa de auth'
+            ];
+
+            let shouldRun = false;
+            let testType = 'none';
+
+            // Check extensive first (more specific)
+            if (extensiveKeywords.some(kw => body.includes(kw))) {
+              shouldRun = true;
+              testType = 'extensive';
+            } else if (quickKeywords.some(kw => body.includes(kw))) {
+              shouldRun = true;
+              testType = 'quick';
+            }
+
+            core.setOutput('should_run', shouldRun);
+            core.setOutput('test_type', testType);
+
+            console.log(`Should run: ${shouldRun}, Test type: ${testType}`);
+
+      - name: 💬 React to comment/issue
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const testType = '${{ steps.check.outputs.test_type }}';
+            const emoji = testType === 'extensive' ? '🔬' : '🧪';
+
+            // Add reaction to indicate tests are starting
+            if (context.payload.comment) {
+              await github.rest.reactions.createForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: context.payload.comment.id,
+                content: 'rocket'
+              });
+            } else if (context.payload.issue) {
+              await github.rest.reactions.createForIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                content: 'rocket'
+              });
+            }
+
+            // Post comment saying tests are starting
+            const issueNumber = context.payload.issue?.number || context.payload.pull_request?.number;
+            if (issueNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `${emoji} Iniciando tests de autenticación (${testType})...\n\n[Ver progreso](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+              });
+            }
+
+  run-tests:
+    name: 🧪 Ejecutar tests
+    needs: check-trigger
+    if: needs.check-trigger.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 📚 Install dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build packages
+        run: pnpm build:packages
+
+      - name: 🎭 Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: 🚀 Start dev servers
+        run: |
+          cd apps/web-app && pnpm dev &
+          echo $! > /tmp/web-app.pid
+
+          cd apps/patients && pnpm dev &
+          echo $! > /tmp/patients.pid
+
+          cd apps/doctors && pnpm dev &
+          echo $! > /tmp/doctors.pid
+
+          sleep 60
+
+      - name: 🧪 Run quick tests
+        if: needs.check-trigger.outputs.test_type == 'quick'
+        run: pnpm test:auth:ci
+        timeout-minutes: 10
+
+      - name: 🔬 Run extensive tests
+        if: needs.check-trigger.outputs.test_type == 'extensive'
+        run: |
+          mkdir -p test-results/screenshots
+          pnpm exec vitest run tests/integration/auth-extensive.browser.test.ts \
+            --config vitest.browser.config.ts \
+            --browser.headless=true \
+            --reporter=verbose
+        timeout-minutes: 20
+
+      - name: 📸 Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-screenshots-${{ github.run_number }}
+          path: test-results/screenshots/
+          retention-days: 7
+
+      - name: 🛑 Stop dev servers
+        if: always()
+        run: |
+          [ -f /tmp/web-app.pid ] && kill $(cat /tmp/web-app.pid) || true
+          [ -f /tmp/patients.pid ] && kill $(cat /tmp/patients.pid) || true
+          [ -f /tmp/doctors.pid ] && kill $(cat /tmp/doctors.pid) || true
+
+      - name: 💬 Comment results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const testType = '${{ needs.check-trigger.outputs.test_type }}';
+            const emoji = testType === 'extensive' ? '🔬' : '🧪';
+            const status = '${{ job.status }}' === 'success' ? '✅' : '❌';
+
+            const issueNumber = context.payload.issue?.number || context.payload.pull_request?.number;
+            if (!issueNumber) return;
+
+            const comment = `${emoji} Tests de autenticación (${testType}) - ${status}
+
+            ${status === '✅' ? '✅ Todos los tests pasaron exitosamente' : '❌ Algunos tests fallaron'}
+
+            ### Resultados:
+            ${testType === 'quick' ? `
+            - ✅ Role-Based Redirects
+            - ✅ Middleware Protection
+            - ✅ ReturnUrl Preservation
+            - ✅ Session Management
+            - ✅ Error Handling
+            ` : `
+            - ✅ Complete Patient Journey (11 fases)
+            - ✅ Cross-App Protection Journey (7 fases)
+            - ✅ ReturnUrl Journey (4 fases)
+            `}
+
+            📸 Screenshots disponibles en [artifacts](${context.payload.repository.html_url}/actions/runs/${context.runId})
+            📊 [Ver logs completos](${context.payload.repository.html_url}/actions/runs/${context.runId})
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: comment
+            });

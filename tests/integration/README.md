@@ -2,6 +2,15 @@
 
 Tests automatizados para el flujo de autenticación y redirección usando Vitest Browser Mode + Playwright.
 
+## 📚 **Documentación Disponible**
+
+- **🚀 [Quick Start](#-quick-start)** - Cómo ejecutar tests localmente
+- **📋 [Tests Implementados](#-tests-implementados)** - Lista de tests estándar
+- **🔬 [Tests Extensivos](./EXTENSIVE_TESTS.md)** - Tests largos con validación exhaustiva
+- **🎯 [GitHub Actions](./GITHUB_ACTIONS.md)** - Ejecutar tests en CI/CD, PRs e Issues
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisitos

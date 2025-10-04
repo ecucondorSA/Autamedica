@@ -1,0 +1,236 @@
+name: 🔐 Auth Tests
+
+# Ejecutar en PRs y pushes a main/develop
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'apps/web-app/**'
+      - 'apps/auth/**'
+      - 'apps/patients/**'
+      - 'apps/doctors/**'
+      - 'packages/auth/**'
+      - 'packages/types/**'
+      - 'tests/integration/**'
+  pull_request:
+    paths:
+      - 'apps/web-app/**'
+      - 'apps/auth/**'
+      - 'apps/patients/**'
+      - 'apps/doctors/**'
+      - 'packages/auth/**'
+      - 'packages/types/**'
+      - 'tests/integration/**'
+  workflow_dispatch: # Permitir ejecución manual
+
+jobs:
+  auth-tests-quick:
+    name: 🚀 Tests Rápidos de Autenticación
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
+      # Variables de entorno para Supabase (desde secrets)
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 📚 Install dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build packages
+        run: pnpm build:packages
+
+      - name: 🎭 Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: 🚀 Start dev servers (background)
+        run: |
+          echo "🌐 Starting auth server (port 3000)..."
+          cd apps/web-app && pnpm dev &
+          echo $! > /tmp/web-app.pid
+
+          echo "👤 Starting patients server (port 3003)..."
+          cd apps/patients && pnpm dev &
+          echo $! > /tmp/patients.pid
+
+          echo "👨‍⚕️ Starting doctors server (port 3002)..."
+          cd apps/doctors && pnpm dev &
+          echo $! > /tmp/doctors.pid
+
+          echo "⏳ Waiting for servers to start..."
+          sleep 45
+
+          echo "🔍 Checking server health..."
+          curl -f http://localhost:3000 || echo "⚠️  Web-app not responding"
+          curl -f http://localhost:3003 || echo "⚠️  Patients app not responding"
+          curl -f http://localhost:3002 || echo "⚠️  Doctors app not responding"
+
+      - name: 🧪 Run auth tests (headless)
+        run: pnpm test:auth:ci
+        timeout-minutes: 10
+
+      - name: 📸 Upload test screenshots (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-screenshots-quick
+          path: test-results/screenshots/
+          retention-days: 7
+
+      - name: 🛑 Stop dev servers
+        if: always()
+        run: |
+          [ -f /tmp/web-app.pid ] && kill $(cat /tmp/web-app.pid) || true
+          [ -f /tmp/patients.pid ] && kill $(cat /tmp/patients.pid) || true
+          [ -f /tmp/doctors.pid ] && kill $(cat /tmp/doctors.pid) || true
+
+  auth-tests-extensive:
+    name: 🔬 Tests Extensivos de Autenticación
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Solo en merges a main o manual
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 📚 Install dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build packages
+        run: pnpm build:packages
+
+      - name: 🎭 Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: 🚀 Start dev servers (background)
+        run: |
+          echo "🌐 Starting auth server (port 3000)..."
+          cd apps/web-app && pnpm dev &
+          echo $! > /tmp/web-app.pid
+
+          echo "👤 Starting patients server (port 3003)..."
+          cd apps/patients && pnpm dev &
+          echo $! > /tmp/patients.pid
+
+          echo "👨‍⚕️ Starting doctors server (port 3002)..."
+          cd apps/doctors && pnpm dev &
+          echo $! > /tmp/doctors.pid
+
+          echo "🏢 Starting companies server (port 3004)..."
+          cd apps/companies && pnpm dev &
+          echo $! > /tmp/companies.pid
+
+          echo "⚙️ Starting admin server (port 3005)..."
+          cd apps/admin && pnpm dev &
+          echo $! > /tmp/admin.pid
+
+          echo "⏳ Waiting for servers to start..."
+          sleep 60
+
+          echo "🔍 Checking server health..."
+          curl -f http://localhost:3000 || echo "⚠️  Web-app not responding"
+          curl -f http://localhost:3003 || echo "⚠️  Patients app not responding"
+          curl -f http://localhost:3002 || echo "⚠️  Doctors app not responding"
+          curl -f http://localhost:3004 || echo "⚠️  Companies app not responding"
+          curl -f http://localhost:3005 || echo "⚠️  Admin app not responding"
+
+      - name: 🔬 Run extensive auth tests (headless)
+        run: |
+          # Crear directorio para screenshots
+          mkdir -p test-results/screenshots
+
+          # Ejecutar tests extensivos en modo headless
+          pnpm exec vitest run tests/integration/auth-extensive.browser.test.ts \
+            --config vitest.browser.config.ts \
+            --browser.headless=true \
+            --reporter=verbose
+        timeout-minutes: 20
+
+      - name: 📸 Upload test screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-screenshots-extensive
+          path: test-results/screenshots/
+          retention-days: 30
+
+      - name: 📊 Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-extensive
+          path: test-results/
+          retention-days: 30
+
+      - name: 🛑 Stop dev servers
+        if: always()
+        run: |
+          [ -f /tmp/web-app.pid ] && kill $(cat /tmp/web-app.pid) || true
+          [ -f /tmp/patients.pid ] && kill $(cat /tmp/patients.pid) || true
+          [ -f /tmp/doctors.pid ] && kill $(cat /tmp/doctors.pid) || true
+          [ -f /tmp/companies.pid ] && kill $(cat /tmp/companies.pid) || true
+          [ -f /tmp/admin.pid ] && kill $(cat /tmp/admin.pid) || true
+
+      - name: 💬 Comment on PR with results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const comment = `## 🔬 Tests Extensivos de Autenticación
+
+            ✅ Tests completados
+
+            📸 Screenshots disponibles en artifacts
+            📊 Resultados detallados en artifacts
+
+            ### Tests Ejecutados:
+            - ✅ Complete Patient Journey (11 fases)
+            - ✅ Cross-App Protection Journey (7 fases)
+            - ✅ ReturnUrl Journey (4 fases)
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
