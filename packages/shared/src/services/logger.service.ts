@@ -146,7 +146,10 @@ class LoggerService implements Logger {
     }
 
     if (extraArgs.length > 0) {
-      parts.push(...extraArgs);
+      const normalized = extraArgs.map((arg) =>
+        typeof arg === 'symbol' ? arg.toString() : arg
+      );
+      parts.push(...normalized);
     }
 
     return parts as [string, ...unknown[]];
