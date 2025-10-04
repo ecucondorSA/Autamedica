@@ -51,10 +51,6 @@ export const anamnesisSteps: AnamnesisStep[] = [
     category: 'filiacion',
     completed: false,
     mediaUrl: '/videos/anamnesis/Tu_Trabajo_Tu_Salud_1.4x.mp4',
-    story: {
-      intro: 'Tu ocupación puede influir directamente en tu salud.',
-      why: 'Cada profesión tiene factores de riesgo únicos que el médico debe conocer.',
-    },
     fields: [
       {
         id: 'ocupacion_actual',
@@ -99,10 +95,6 @@ export const anamnesisSteps: AnamnesisStep[] = [
     category: 'motivo_consulta',
     completed: false,
     mediaUrl: '/videos/anamnesis/Comunicar_tus_Síntomas_1.4x.mp4',
-    story: {
-      intro: 'Comunicar bien tus síntomas es clave para un diagnóstico preciso.',
-      why: 'Los detalles sobre tu molestia ayudan al médico a entender qué está pasando.',
-    },
     fields: [
       {
         id: 'sintoma_principal',
@@ -250,10 +242,6 @@ export const anamnesisSteps: AnamnesisStep[] = [
     category: 'antecedentes_familiares',
     completed: false,
     mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x.mp4',
-    story: {
-      intro: 'Tu historia familiar es clave para entender tu salud futura.',
-      why: 'Muchas enfermedades tienen componente hereditario que permite prevenir con anticipación.',
-    },
     fields: [
       {
         id: 'padre_vivo',

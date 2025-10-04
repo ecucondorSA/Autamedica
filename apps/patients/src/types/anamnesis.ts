@@ -7,7 +7,7 @@ export interface AnamnesisStep {
   id: string;
   title: string;
   subtitle: string;
-  story: {
+  story?: {
     intro: string;
     why: string;
     example?: string;
