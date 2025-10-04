@@ -7,6 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 7f30d04 Add debugging to packages build step
 
 ### 🔒 Seguridad
 
@@ -16,7 +17,5 @@
 
 ---
 
-### 🔄 Otros Cambios
-- 56dcb04 Fix package build order in CI workflows
 
-*Generado automáticamente el 2025-10-04 20:28:25*
+*Generado automáticamente el 2025-10-04 20:31:32*
