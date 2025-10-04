@@ -13,7 +13,8 @@ export type {
   DomainConfig,
   RedirectConfig,
   SessionConfig,
-  AuthErrorType
+  AuthErrorType,
+  UserMetadata
 } from './types'
 
 export {
@@ -21,6 +22,10 @@ export {
   APP_ALLOWED_ROLES,
   AuthError
 } from './types'
+
+// Export constants
+export { APP_NAMES } from './constants'
+export type { AppNameConstant } from './constants'
 
 // Export client utilities
 export {
@@ -43,6 +48,8 @@ export {
   useRequireAuth,
   useRequireRole
 } from './hooks/useAuth'
+
+export { useSupabase } from './hooks/useSupabase'
 
 // Export middleware
 export {
