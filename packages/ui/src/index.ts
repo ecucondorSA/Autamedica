@@ -1,1 +1,1 @@
-export * from './components/TelemedicineSignalingPanel';
+export { TelemedicineSignalingPanel } from './components/TelemedicineSignalingPanel';
