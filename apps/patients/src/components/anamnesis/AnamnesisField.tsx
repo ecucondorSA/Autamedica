@@ -36,7 +36,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             required={field.required}
             min={field.validation?.min}
             max={field.validation?.max}
-            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-2 py-1 text-xs border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-1 focus:ring-stone-200 outline-none transition-all text-stone-900"
           />
         );
 
@@ -58,7 +58,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             value={value || ''}
             onChange={(e) => handleChange(e.target.value)}
             required={field.required}
-            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-2 py-1 text-xs border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-1 focus:ring-stone-200 outline-none transition-all text-stone-900"
           >
             <option value="">Selecciona una opción</option>
             {field.options?.map((option) => (
@@ -71,13 +71,13 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       case 'multiselect':
         return (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {field.options?.map((option) => {
               const isSelected = Array.isArray(value) && value.includes(option.value);
               return (
                 <label
                   key={option.value}
-                  className={`flex items-start gap-2 p-2 border-2 rounded-lg cursor-pointer transition-all ${
+                  className={`flex items-start gap-1.5 p-1.5 border-2 rounded-lg cursor-pointer transition-all ${
                     isSelected
                       ? 'border-stone-700 bg-stone-50'
                       : 'border-stone-200 hover:border-stone-400 hover:bg-stone-50'
@@ -96,9 +96,9 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                     className="mt-0.5 h-4 w-4 text-stone-700 border-stone-300 rounded focus:ring-stone-500"
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-stone-900">{option.label}</p>
+                    <p className="text-[11px] font-semibold text-stone-900">{option.label}</p>
                     {option.explanation && (
-                      <p className="text-xs text-stone-600 mt-0.5">{option.explanation}</p>
+                      <p className="text-[10px] text-stone-600 mt-0.5">{option.explanation}</p>
                     )}
                   </div>
                 </label>
@@ -109,8 +109,8 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       case 'boolean':
         return (
-          <div className="flex gap-3">
-            <label className={`flex-1 p-2 border-2 rounded-lg cursor-pointer transition-all text-center ${
+          <div className="flex gap-2">
+            <label className={`flex-1 p-1.5 border-2 rounded-lg cursor-pointer transition-all text-center ${
               value === true ? 'border-green-500 bg-green-50' : 'border-stone-200 hover:border-stone-400'
             }`}>
               <input
@@ -119,9 +119,9 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                 onChange={() => handleChange(true)}
                 className="sr-only"
               />
-              <span className="text-sm font-semibold text-stone-900">✓ Sí</span>
+              <span className="text-xs font-semibold text-stone-900">✓ Sí</span>
             </label>
-            <label className={`flex-1 p-2 border-2 rounded-lg cursor-pointer transition-all text-center ${
+            <label className={`flex-1 p-1.5 border-2 rounded-lg cursor-pointer transition-all text-center ${
               value === false ? 'border-red-500 bg-red-50' : 'border-stone-200 hover:border-stone-400'
             }`}>
               <input
@@ -130,7 +130,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                 onChange={() => handleChange(false)}
                 className="sr-only"
               />
-              <span className="text-sm font-semibold text-stone-900">✗ No</span>
+              <span className="text-xs font-semibold text-stone-900">✗ No</span>
             </label>
           </div>
         );
@@ -161,7 +161,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             value={value || ''}
             onChange={(e) => handleChange(e.target.value)}
             required={field.required}
-            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-2 py-1 text-xs border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-1 focus:ring-stone-200 outline-none transition-all text-stone-900"
           />
         );
 
@@ -171,12 +171,12 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1">
       {/* Label con tooltip */}
-      <div className="flex items-start justify-between gap-2">
-        <label className="text-sm font-medium text-stone-900 flex-1">
+      <div className="flex items-start justify-between gap-1.5">
+        <label className="text-[10px] font-medium text-stone-900 flex-1">
           {field.label}
-          {field.required && <span className="text-red-600 ml-1">*</span>}
+          {field.required && <span className="text-red-600 ml-0.5">*</span>}
         </label>
         {field.tooltip && (
           <div className="relative">

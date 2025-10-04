@@ -18,25 +18,26 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
   console.log('MediaEducativa - Loading video:', url, 'isLocal:', isLocalVideo);
 
   return (
-    <div className="mb-2 flex justify-center">
+    <div className="mb-1.5 flex justify-center">
       {type === 'video' && isLocalVideo ? (
         // Video local con autoplay - Compacto y centrado
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
-          {/* Video más pequeño - max height de 240px y max width limitado */}
-          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '240px', maxWidth: '520px' }}>
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-1.5 overflow-hidden max-w-xl w-full">
+          {/* Video más pequeño - max height de 180px y max width limitado */}
+          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '180px', maxWidth: '420px' }}>
             <video
               src={url}
               controls
               autoPlay
-              muted
               playsInline
               preload="auto"
-              className="w-full h-auto max-h-[240px] object-contain"
+              className="w-full h-auto max-h-[180px] object-contain"
               onLoadedMetadata={(e) => {
                 console.log('Video metadata loaded:', url);
                 const video = e.target as HTMLVideoElement;
+                video.volume = 0.3; // Set volume to 30%
                 console.log('Video dimensions:', video.videoWidth, 'x', video.videoHeight);
                 console.log('Video duration:', video.duration);
+                console.log('Video volume set to:', video.volume);
               }}
               onCanPlay={() => {
                 console.log('Video can play:', url);
@@ -52,12 +53,12 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               Tu navegador no soporta el elemento de video.
             </video>
           </div>
-          <div className="mt-1.5 px-1">
-            <div className="flex items-center gap-1.5">
-              <Play className="h-3.5 w-3.5 text-indigo-600 flex-shrink-0" />
-              <h4 className="text-xs font-semibold text-indigo-900">{title}</h4>
+          <div className="mt-1 px-1">
+            <div className="flex items-center gap-1">
+              <Play className="h-3 w-3 text-indigo-600 flex-shrink-0" />
+              <h4 className="text-[10px] font-semibold text-indigo-900">{title}</h4>
             </div>
-            <p className="text-[11px] text-indigo-700 mt-0.5">{description}</p>
+            <p className="text-[9px] text-indigo-700 mt-0.5">{description}</p>
           </div>
         </div>
       ) : type === 'video' ? (
@@ -71,12 +72,12 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               allowFullScreen
             ></iframe>
           </div>
-          <div className="mt-1.5 px-1">
-            <div className="flex items-center gap-1.5">
-              <Play className="h-3.5 w-3.5 text-indigo-600 flex-shrink-0" />
-              <h4 className="text-xs font-semibold text-indigo-900">{title}</h4>
+          <div className="mt-1 px-1">
+            <div className="flex items-center gap-1">
+              <Play className="h-3 w-3 text-indigo-600 flex-shrink-0" />
+              <h4 className="text-[10px] font-semibold text-indigo-900">{title}</h4>
             </div>
-            <p className="text-[11px] text-indigo-700 mt-0.5">{description}</p>
+            <p className="text-[9px] text-indigo-700 mt-0.5">{description}</p>
           </div>
         </div>
       ) : (

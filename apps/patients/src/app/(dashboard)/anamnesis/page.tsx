@@ -303,14 +303,14 @@ export default function AnamnesisPage() {
         </div>
       </div>
 
-      {/* Main Content - Ultra Compacto */}
-      <div className="max-w-5xl mx-auto px-3 py-1.5">
-        {/* Step Header - Ultra Reducido */}
-        <div className="mb-1.5">
-          <h1 className="text-xl font-bold text-stone-900 mb-0.5">
+      {/* Main Content - Micro Compacto */}
+      <div className="max-w-5xl mx-auto px-2 py-1">
+        {/* Step Header - Micro */}
+        <div className="mb-1">
+          <h1 className="text-lg font-bold text-stone-900 mb-0.5">
             {currentStep.title}
           </h1>
-          <p className="text-xs text-stone-600">
+          <p className="text-[10px] text-stone-600">
             {currentStep.subtitle}
           </p>
         </div>
@@ -336,14 +336,14 @@ export default function AnamnesisPage() {
           />
         )}
 
-        {/* Formulario - Ultra Compacto */}
-        <div className="card-ivory-elevated p-2.5 mb-1.5">
-          <h2 className="text-sm font-bold mb-1.5 flex items-center gap-1.5 text-stone-900">
-            <span className="text-base">📝</span>
+        {/* Formulario - Micro Compacto */}
+        <div className="card-ivory-elevated p-2 mb-1">
+          <h2 className="text-xs font-bold mb-1 flex items-center gap-1 text-stone-900">
+            <span className="text-sm">📝</span>
             Ahora cuéntanos sobre ti
           </h2>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {currentStep.fields.map((field) => {
               // Check si el campo depende de otro
               if (field.dependsOn) {
@@ -412,7 +412,7 @@ export default function AnamnesisPage() {
               }`}
             >
               Siguiente
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3.5 w-3.5" />
             </button>
           )}
         </div>
