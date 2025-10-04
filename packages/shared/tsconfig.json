@@ -10,12 +10,9 @@
     "target": "ES2022",
     "composite": true,
     "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@autamedica/types": ["../types/src"]
-    }
+    "tsBuildInfoFile": ".tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules", "**/*.test.ts"]
+  "exclude": ["dist", "node_modules", "**/*.test.ts"],
+  "references": [{ "path": "../types/tsconfig.json" }]
 }

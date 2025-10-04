@@ -35,18 +35,23 @@ export const supabase: SupabaseClient<Database> = createClient<Database>(
 /**
  * Opciones para queries de lectura
  */
-export interface SelectOptions {
+type TableName = keyof Database['Tables'];
+type TableRow<Table extends TableName> = Database['Tables'][Table]['Row'];
+
+interface BaseSelectOptions<Table extends TableName> {
   /** Incluir soft-deleted (deleted_at NOT NULL) - Default: false */
   includeDeleted?: boolean;
   /** Transformar a camelCase - Default: true */
   transform?: boolean;
   /** Ordenamiento */
-  orderBy?: { column: string; ascending?: boolean };
+  orderBy?: { column: keyof TableRow<Table> & string; ascending?: boolean };
   /** Límite de resultados */
   limit?: number;
   /** Offset para paginación */
   offset?: number;
 }
+
+export type SelectOptions<Table extends TableName> = BaseSelectOptions<Table>;
 
 /**
  * SELECT con auto-filtro de soft-deleted y transformación a camelCase
@@ -72,10 +77,10 @@ export interface SelectOptions {
  * // appointments[0].patientId (camelCase)
  * ```
  */
-export async function selectActive<T>(
-  table: string,
+export async function selectActive<Table extends TableName, T = TableRow<Table>>(
+  table: Table,
   query = '*',
-  options: SelectOptions = {}
+  options: SelectOptions<Table> = {}
 ): Promise<T[]> {
   const {
     includeDeleted = false,
@@ -129,10 +134,10 @@ export async function selectActive<T>(
  * @param options - Opciones de query
  * @returns Promise con array de registros en snake_case
  */
-export async function selectActiveRaw<T>(
-  table: string,
+export async function selectActiveRaw<Table extends TableName, T = TableRow<Table>>(
+  table: Table,
   query = '*',
-  options: Omit<SelectOptions, 'transform'> = {}
+  options: Omit<SelectOptions<Table>, 'transform'> = {}
 ): Promise<T[]> {
   return selectActive<T>(table, query, { ...options, transform: false });
 }
@@ -154,10 +159,10 @@ export async function selectActiveRaw<T>(
  * }
  * ```
  */
-export async function selectById<T>(
-  table: string,
+export async function selectById<Table extends TableName, T = TableRow<Table>>(
+  table: Table,
   id: string,
-  options: SelectOptions = {}
+  options: SelectOptions<Table> = {}
 ): Promise<T | null> {
   const { includeDeleted = false, transform = true } = options;
 
