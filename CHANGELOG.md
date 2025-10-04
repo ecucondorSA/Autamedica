@@ -7,7 +7,6 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 58901e5 fix(types): usar tsc --build para proyectos composite
 
 ### 🔒 Seguridad
 
@@ -18,4 +17,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:54:59*
+*Generado automáticamente el 2025-10-04 20:59:22*
