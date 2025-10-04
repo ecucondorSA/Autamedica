@@ -13,7 +13,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   outDir: 'dist',
-  external: ['react', 'next', '@supabase/supabase-js', '@supabase/ssr'],
+  external: ['react', 'next', '@supabase/supabase-js', '@supabase/ssr', '@autamedica/shared', '@autamedica/types'],
   treeshake: false,
   minify: false,
   bundle: false, // Compile each file separately

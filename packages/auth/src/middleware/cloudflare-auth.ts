@@ -92,6 +92,7 @@ export async function onRequest(context: {
 function getAppUrl(app: AppName, path: string = '/'): string {
   const appUrls: Record<AppName, string> = {
     'web-app': 'https://autamedica-web-app.pages.dev',
+    'auth': 'https://autamedica-auth.pages.dev',
     'patients': 'https://autamedica-patients.pages.dev',
     'doctors': 'https://autamedica-doctors.pages.dev',
     'companies': 'https://autamedica-companies.pages.dev',

@@ -23,6 +23,7 @@ import {
   isCorrectAppForRole,
   getCorrectAppUrl
 } from '../utils/redirect'
+import logger from '../utils/logger'
 
 /**
  * Create Supabase server client for middleware
@@ -224,6 +225,7 @@ export function createAppMiddleware(appName: AppName) {
     // Define public paths for each app
     const publicPaths: Record<AppName, string[]> = {
       'web-app': ['/auth', '/api/health', '/', '/terms', '/privacy'],
+      'auth': ['/api/health', '/'],
       'patients': ['/api/health'],
       'doctors': ['/api/health'],
       'companies': ['/api/health'],

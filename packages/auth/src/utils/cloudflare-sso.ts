@@ -4,6 +4,7 @@
  */
 
 import type { UserProfile, UserRole } from '../types'
+import logger from './logger'
 
 /**
  * Basic KV interface for Cloudflare Workers
