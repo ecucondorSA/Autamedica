@@ -7,8 +7,6 @@ import type {
   PatientId
 } from '@autamedica/types'
 
-const supabase = createBrowserClient()
-
 export function useMedicalHistory(patientId?: PatientId) {
   const [summary, setSummary] = useState<MedicalHistorySummary | null>(null)
   const [timeline, setTimeline] = useState<MedicalHistoryTimeline | null>(null)
@@ -19,6 +17,8 @@ export function useMedicalHistory(patientId?: PatientId) {
     try {
       setLoading(true)
       setError(null)
+
+      const supabase = createBrowserClient()
 
       // Get current user session
       const { data: { user } } = await supabase.auth.getUser()
@@ -139,6 +139,7 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addCondition = async (condition: any) => {
     try {
+      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 
@@ -166,6 +167,7 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addMedication = async (medication: any) => {
     try {
+      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 
@@ -197,6 +199,7 @@ export function useMedicalHistory(patientId?: PatientId) {
     try {
       // Allergies are stored in anamnesis, not medical_records
       // For now, we'll add a note in medical_records
+      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 

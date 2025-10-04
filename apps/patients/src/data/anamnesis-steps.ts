@@ -253,6 +253,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Las enfermedades de tu familia son pistas de tu futuro',
     category: 'antecedentes_familiares',
     completed: false,
+    mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x.mp4',
     story: {
       intro: 'Una mujer de 30 años consulta por un bulto en el seno. El médico pregunta: ¿alguien en tu familia tuvo cáncer de mama? "Sí, mi mamá, mi tía y mi abuela". El médico CAMBIA completamente su enfoque: esto no es un bulto común, es probable síndrome hereditario de cáncer. Necesita estudios genéticos urgentes.',
       why: 'Muchas enfermedades tienen componente hereditario. Saber que tu papá tuvo infarto a los 45 años significa que TÚ tienes riesgo alto de infarto joven. El médico puede PREVENIR con chequeos y tratamiento temprano.',
