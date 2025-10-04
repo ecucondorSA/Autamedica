@@ -26,6 +26,8 @@ coverage
 out/
 build
 dist
+.open-next/
+*.open-next/
 
 
 # Debug
@@ -45,5 +47,12 @@ logs/sessions/
 .claude/
 ~/**
 
+# GitOps Automation
+.git-watcher.pid
+git-watcher.log
+
 # App-specific lockfiles
 apps/*/pnpm-lock.yaml
+
+# ESLint cache
+.eslintcache

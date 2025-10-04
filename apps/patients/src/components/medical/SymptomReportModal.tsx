@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Heart, Thermometer, Activity, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
+import { logger } from '@autamedica/shared';
 
 interface SymptomReportModalProps {
   isOpen: boolean;
@@ -112,7 +113,7 @@ export function SymptomReportModal({ isOpen, onClose, patientId = 'current-patie
         handleClose();
       }, 2000);
     } catch (error) {
-      console.error('Error recording symptom:', error);
+      logger.error('Error recording symptom:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -134,7 +135,7 @@ export function SymptomReportModal({ isOpen, onClose, patientId = 'current-patie
     switch (sev) {
       case 'leve': return 'border-green-500/50 bg-green-500/10 text-green-200';
       case 'moderado': return 'border-yellow-500/50 bg-yellow-500/10 text-yellow-200';
-      case 'severo': return 'border-red-500/50 bg-red-500/10 text-red-200';
+      case 'severo': return 'border-red-500/50 bg-red-50 text-red-800';
     }
   };
 
@@ -153,7 +154,7 @@ export function SymptomReportModal({ isOpen, onClose, patientId = 'current-patie
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/20">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/20 text-red-200">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-red-800">
               <Heart className="h-5 w-5" />
             </div>
             <div>
@@ -296,8 +297,8 @@ export function SymptomReportModal({ isOpen, onClose, patientId = 'current-patie
               <div className="flex items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-3">
                 <AlertTriangle className="h-5 w-5 text-red-400" />
                 <div>
-                  <p className="text-sm font-medium text-red-200">Síntoma de alta prioridad</p>
-                  <p className="text-xs text-red-300/80">Se notificará inmediatamente a tu equipo médico</p>
+                  <p className="text-sm font-medium text-red-800">Síntoma de alta prioridad</p>
+                  <p className="text-xs text-red-700">Se notificará inmediatamente a tu equipo médico</p>
                 </div>
               </div>
             )}

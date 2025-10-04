@@ -9,12 +9,15 @@ import { createServerClient as createSupabaseServerClient } from "@supabase/ssr"
 import { ensureServerEnv } from "@autamedica/shared";
 import { NextRequest, NextResponse } from "next/server";
 
-// Import cookies dinamically para evitar problemas en build
+// Import cookies dynamically to avoid build-time issues with Next.js
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const getCookies = () => {
   try {
+    // Dynamic require is necessary here to avoid Next.js build errors
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { cookies } = require("next/headers");
     return cookies;
-  } catch (error) {
+  } catch{
     return null;
   }
 };
@@ -23,11 +26,11 @@ const getCookies = () => {
  * Crea un cliente Supabase para Server Components y Server Actions
  */
 export async function createServerClient() {
-  const cookies = getCookies();
-  if (!cookies) {
+  const cookiesFunction = getCookies();
+  if (!cookiesFunction) {
     throw new Error("cookies() not available in this context");
   }
-  const cookieStore = cookies();
+  const cookieStore = await cookiesFunction();
 
   return createSupabaseServerClient(
     ensureServerEnv("SUPABASE_URL"),
@@ -56,7 +59,7 @@ export async function createServerClient() {
  * Crea un cliente Supabase para middleware
  */
 export function createMiddlewareClient(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request,
   });
 

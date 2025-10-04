@@ -47,7 +47,7 @@ export function getPortalForRole(
   isDev: boolean = typeof window !== 'undefined' && window.location.hostname === 'localhost'
 ): string {
   const portals = isDev ? roleToPortalDev : roleToPortal;
-  return portals[role];
+  return portals[role]!; // Safe: all UserRole keys are defined in roleToPortal/Dev
 }
 
 /**
@@ -57,7 +57,7 @@ export function getPortalForRole(
  * @returns URL to redirect to after role selection
  */
 export function getDefaultRedirectUrl(role: UserRole, isDev?: boolean): string {
-  return getPortalForRole(role, isDev);
+  return getPortalForRole(role, isDev ?? (typeof window !== 'undefined' && window.location.hostname === 'localhost'));
 }
 
 /**
@@ -110,7 +110,7 @@ export function getRoleDisplayName(role: UserRole): string {
     platform_admin: 'Administrador de Plataforma'
   };
 
-  return roleNames[role];
+  return roleNames[role]!; // Safe: all UserRole keys are defined
 }
 
 /**
@@ -127,7 +127,7 @@ export function getRoleDescription(role: UserRole): string {
     platform_admin: 'Control total de la plataforma y todas sus funcionalidades'
   };
 
-  return descriptions[role];
+  return descriptions[role]!; // Safe: all UserRole keys are defined
 }
 
 // ==========================================

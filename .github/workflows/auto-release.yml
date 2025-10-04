@@ -1,0 +1,269 @@
+name: 📦 Auto Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # Cada lunes a las 9am
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  auto-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip release]')"
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Verificar si necesita release
+        id: check_release
+        run: |
+          # Obtener último tag
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LAST_TAG" ]; then
+            echo "needs_release=true" >> $GITHUB_OUTPUT
+            echo "is_first_release=true" >> $GITHUB_OUTPUT
+            echo "ℹ️ Primer release del repositorio"
+            exit 0
+          fi
+
+          # Verificar si hay commits desde último tag
+          COMMITS_SINCE=$(git rev-list ${LAST_TAG}..HEAD --count)
+
+          if [ "$COMMITS_SINCE" -gt 0 ]; then
+            echo "needs_release=true" >> $GITHUB_OUTPUT
+            echo "is_first_release=false" >> $GITHUB_OUTPUT
+            echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
+            echo "commits_since=$COMMITS_SINCE" >> $GITHUB_OUTPUT
+            echo "✅ Hay $COMMITS_SINCE commits desde último tag"
+          else
+            echo "needs_release=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No hay commits nuevos desde último tag"
+          fi
+
+      - name: 📊 Analizar tipo de cambios
+        if: steps.check_release.outputs.needs_release == 'true'
+        id: analyze_changes
+        run: |
+          LAST_TAG="${{ steps.check_release.outputs.last_tag }}"
+
+          if [ -z "$LAST_TAG" ]; then
+            # Primer release
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" --max-count=50)
+            BUMP_TYPE="minor"
+          else
+            # Analizar commits desde último tag
+            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"%s")
+
+            # Detectar tipo de bump basado en conventional commits
+            if echo "$COMMITS" | grep -qi "^BREAKING CHANGE\|^feat!:\|^fix!:"; then
+              BUMP_TYPE="major"
+            elif echo "$COMMITS" | grep -qi "^feat:"; then
+              BUMP_TYPE="minor"
+            else
+              BUMP_TYPE="patch"
+            fi
+
+            # Generar changelog categorizado
+            CHANGELOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s (%h)" --max-count=100)
+          fi
+
+          # Override si se especificó manualmente
+          if [[ "${{ github.event.inputs.version_bump }}" != "auto" ]] && [[ -n "${{ github.event.inputs.version_bump }}" ]]; then
+            BUMP_TYPE="${{ github.event.inputs.version_bump }}"
+          fi
+
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+
+          # Guardar changelog
+          echo "$CHANGELOG" > /tmp/changelog.txt
+
+          echo "✅ Tipo de bump detectado: $BUMP_TYPE"
+
+      - name: 🏷️ Calcular nueva versión
+        if: steps.check_release.outputs.needs_release == 'true'
+        id: calc_version
+        run: |
+          LAST_TAG="${{ steps.check_release.outputs.last_tag }}"
+          BUMP_TYPE="${{ steps.analyze_changes.outputs.bump_type }}"
+
+          if [ -z "$LAST_TAG" ]; then
+            # Primer release
+            NEW_VERSION="v1.0.0"
+          else
+            # Extraer versión sin 'v'
+            CURRENT=$(echo "$LAST_TAG" | sed 's/^v//')
+
+            # Separar major.minor.patch
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+
+            # Incrementar según tipo
+            case "$BUMP_TYPE" in
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+            esac
+
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "✅ Nueva versión: $NEW_VERSION"
+
+      - name: 📝 Generar Release Notes
+        if: steps.check_release.outputs.needs_release == 'true'
+        id: release_notes
+        run: |
+          NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+          BUMP_TYPE="${{ steps.analyze_changes.outputs.bump_type }}"
+          LAST_TAG="${{ steps.check_release.outputs.last_tag }}"
+          COMMITS_COUNT="${{ steps.check_release.outputs.commits_since }}"
+
+          # Categorizar commits
+          if [ -z "$LAST_TAG" ]; then
+            ALL_COMMITS=$(git log --pretty=format:"%s|||%h")
+          else
+            ALL_COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"%s|||%h")
+          fi
+
+          # Separar por categorías
+          FEATURES=$(echo "$ALL_COMMITS" | grep "^feat:" | sed 's/|||/ /' || echo "")
+          FIXES=$(echo "$ALL_COMMITS" | grep "^fix:" | sed 's/|||/ /' || echo "")
+          CHORES=$(echo "$ALL_COMMITS" | grep "^chore:" | sed 's/|||/ /' || echo "")
+          DOCS=$(echo "$ALL_COMMITS" | grep "^docs:" | sed 's/|||/ /' || echo "")
+          REFACTOR=$(echo "$ALL_COMMITS" | grep "^refactor:" | sed 's/|||/ /' || echo "")
+          OTHERS=$(echo "$ALL_COMMITS" | grep -v "^feat:\|^fix:\|^chore:\|^docs:\|^refactor:" | sed 's/|||/ /' || echo "")
+
+          # Generar release notes
+          cat > /tmp/release-notes.md <<EOF
+          # Release $NEW_VERSION
+
+          **Release Type:** ${BUMP_TYPE^^}
+          **Date:** $(date +%Y-%m-%d)
+          **Commits:** $COMMITS_COUNT
+
+          ## 📋 What's Changed
+
+          EOF
+
+          if [ -n "$FEATURES" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### ✨ Features
+
+          $FEATURES
+
+          EOF
+          fi
+
+          if [ -n "$FIXES" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### 🐛 Bug Fixes
+
+          $FIXES
+
+          EOF
+          fi
+
+          if [ -n "$REFACTOR" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### ♻️ Refactoring
+
+          $REFACTOR
+
+          EOF
+          fi
+
+          if [ -n "$DOCS" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### 📚 Documentation
+
+          $DOCS
+
+          EOF
+          fi
+
+          if [ -n "$CHORES" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### 🔧 Chores
+
+          $CHORES
+
+          EOF
+          fi
+
+          if [ -n "$OTHERS" ]; then
+            cat >> /tmp/release-notes.md <<EOF
+          ### 🔄 Other Changes
+
+          $OTHERS
+
+          EOF
+          fi
+
+          # Footer
+          cat >> /tmp/release-notes.md <<EOF
+
+          ---
+
+          **Full Changelog**: https://github.com/${{ github.repository }}/compare/${LAST_TAG:-$(git rev-list --max-parents=0 HEAD)}...$NEW_VERSION
+
+          🤖 Auto-generated by GitHub Actions
+          EOF
+
+          echo "✅ Release notes generadas"
+
+      - name: 🚀 Crear Release
+        if: steps.check_release.outputs.needs_release == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+
+          gh release create "$NEW_VERSION" \
+            --title "Release $NEW_VERSION" \
+            --notes-file /tmp/release-notes.md \
+            --latest
+
+          echo "✅ Release $NEW_VERSION creado exitosamente"
+
+      - name: 📢 Resumen
+        run: |
+          if [[ "${{ steps.check_release.outputs.needs_release }}" == "true" ]]; then
+            echo "✅ Release ${{ steps.calc_version.outputs.new_version }} creado"
+            echo "   Tipo: ${{ steps.analyze_changes.outputs.bump_type }}"
+            echo "   Commits: ${{ steps.check_release.outputs.commits_since }}"
+          else
+            echo "ℹ️ No se requiere release (sin commits nuevos)"
+          fi

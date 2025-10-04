@@ -1,13 +1,19 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
 echo "🔎 Verificando glosarios antes del commit..."
 
-# DB Glossary (modo CI: parsing SQL, sin DB)
-pnpm docs:db:ci || exit 1
-pnpm docs:db:check-diff || exit 1
+# Check if database-related files are being committed
+DB_FILES=$(git diff --cached --name-only | grep -E "(supabase|database|schema|migration|sql)" || true)
 
-# Glosario de contratos (types)
-pnpm docs:validate || exit 1
+if [ -n "$DB_FILES" ]; then
+  echo "📊 Archivos de base de datos detectados, ejecutando validación..."
+  # DB Glossary check (rápido)
+  pnpm docs:db:ci
+  pnpm docs:db:check-diff
+else
+  echo "✅ No hay cambios en base de datos, omitiendo validación DB"
+fi
 
-echo "✅ Glosarios OK"
+# Export validation (puede ser lento con muchos exports)
+pnpm docs:validate

@@ -183,7 +183,7 @@ Build command: pnpm install --frozen-lockfile && pnpm build:packages:core && cd 
 ## 📚 Referencias
 
 - [Next.js on Cloudflare Pages](https://developers.cloudflare.com/pages/framework-guides/nextjs/)
-- [Turborepo on Cloudflare](https://turbo.build/repo/docs/guides/deploying#cloudflare-pages)
+- [Turborepo Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
 - [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) - Guía completa deployment
 - [DEPLOYMENT_ATTEMPTS_REPORT.md](./DEPLOYMENT_ATTEMPTS_REPORT.md) - Historial de intentos
 

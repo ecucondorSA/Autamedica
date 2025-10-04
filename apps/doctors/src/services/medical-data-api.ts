@@ -43,7 +43,7 @@ class MedicalDataAPI {
 
       return await response.json()
     } catch (error) {
-      console.error(`API Error [${endpoint}]:`, error)
+      logger.error(`API Error [${endpoint}]:`, error)
       throw error
     }
   }

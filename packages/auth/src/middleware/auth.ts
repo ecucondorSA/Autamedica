@@ -23,6 +23,7 @@ import {
   isCorrectAppForRole,
   getCorrectAppUrl
 } from '../utils/redirect'
+import logger from '../utils/logger'
 
 /**
  * Create Supabase server client for middleware
@@ -32,7 +33,7 @@ function createMiddlewareClient(request: NextRequest) {
   const sessionConfig = getSessionConfig()
   const domainConfig = getDomainConfig()
 
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request
   })
 
@@ -203,7 +204,7 @@ export async function authMiddleware(
 
       return response
     } catch (error) {
-      console.error('Auth middleware error:', error)
+      logger.error('Auth middleware error:', error)
 
       // On error, redirect to login
       const loginUrl = getLoginUrl(request.url)
@@ -224,6 +225,7 @@ export function createAppMiddleware(appName: AppName) {
     // Define public paths for each app
     const publicPaths: Record<AppName, string[]> = {
       'web-app': ['/auth', '/api/health', '/', '/terms', '/privacy'],
+      'auth': ['/api/health', '/'],
       'patients': ['/api/health'],
       'doctors': ['/api/health'],
       'companies': ['/api/health'],

@@ -1,6 +1,24 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
 echo "🧪 Post-commit QA rápido..."
 
-pnpm -s lint && pnpm -s typecheck || echo "⚠️ Revisar lint/typecheck"
+# Correr en background con timeout de 30 segundos
+(
+  # Timeout después de 30 segundos
+  timeout 30s bash << 'INNEREOF'
+    export NODE_OPTIONS="--max-old-space-size=4096"
+
+    # Solo lint el último commit (mucho más rápido)
+    LAST_COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | grep -E '\.(ts|tsx|js|jsx)$' | head -20)
+
+    if [ -n "$LAST_COMMIT_FILES" ]; then
+      echo "$LAST_COMMIT_FILES" | xargs npx eslint --cache --quiet 2>&1 | head -50 || true
+    fi
+
+    echo "✅ Post-commit QA completado"
+INNEREOF
+) &
+
+# No esperar al background job
+echo "⚡ QA corriendo en background (max 30s)"

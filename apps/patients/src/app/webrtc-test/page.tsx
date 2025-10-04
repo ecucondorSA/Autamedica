@@ -11,9 +11,9 @@ const parseIceServers = () => {
     const raw = ensureClientEnv('NEXT_PUBLIC_ICE_SERVERS')
     const parsed = JSON.parse(raw)
     if (Array.isArray(parsed)) return parsed
-    console.warn('[webrtc-test] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to []')
+    logger.warn('[webrtc-test] NEXT_PUBLIC_ICE_SERVERS must be a JSON array; falling back to []')
   } catch (error) {
-    console.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS or variable not set', error)
+    logger.error('[webrtc-test] Failed to parse NEXT_PUBLIC_ICE_SERVERS or variable not set', error)
   }
   return []
 }
@@ -39,7 +39,7 @@ export default function WebRTCTestPage() {
     }
 
     pc.onconnectionstatechange = () => {
-      console.log('[webrtc-test] PeerConnection state:', pc.connectionState)
+      // logger.info('[webrtc-test] PeerConnection state:', pc.connectionState)
     }
 
     pc.ontrack = (event) => {
@@ -100,7 +100,7 @@ export default function WebRTCTestPage() {
 
     globalWindow.__webrtcTest = exposed
     globalWindow.__pc = pc
-    console.log('[webrtc-test] window.__webrtcTest ready', { role: ROLE })
+    // logger.info('[webrtc-test] window.__webrtcTest ready', { role: ROLE })
 
     return () => {
       if (globalWindow.__webrtcTest === exposed) {
@@ -122,17 +122,17 @@ export default function WebRTCTestPage() {
       const signalingUrl = ensureClientEnv('NEXT_PUBLIC_SIGNALING_URL')
       const userId = `${ROLE}-${Date.now()}`
       const wsUrl = `${signalingUrl}?roomId=${ROOM_ID}&userId=${userId}&userType=${ROLE}`
-      console.log('[webrtc-test] Connecting to:', wsUrl)
+      // logger.info('[webrtc-test] Connecting to:', wsUrl)
       const socket = new WebSocket(wsUrl)
     wsRef.current = socket
 
     socket.onopen = () => {
-      console.log('[webrtc-test] WebSocket connected')
+      // logger.info('[webrtc-test] WebSocket connected')
       // El server espera que la conexión se haga con query params, no mensajes
     }
 
     socket.onclose = (event) => {
-      console.log('[webrtc-test] WebSocket closed', {
+      logger.info('[webrtc-test] WebSocket closed', {
         code: event.code,
         reason: event.reason,
         wasClean: event.wasClean,
@@ -140,7 +140,7 @@ export default function WebRTCTestPage() {
     }
 
     socket.onerror = (event) => {
-      console.error('[webrtc-test] WebSocket error', {
+      logger.error('[webrtc-test] WebSocket error', {
         type: event.type,
         readyState: socket.readyState,
       })
@@ -149,13 +149,13 @@ export default function WebRTCTestPage() {
     socket.onmessage = async (event) => {
       const pc = pcRef.current
       if (!pc) {
-        console.warn('[webrtc-test] Received signaling message but RTCPeerConnection is not ready')
+        logger.warn('[webrtc-test] Received signaling message but RTCPeerConnection is not ready')
         return
       }
 
       try {
         const message = JSON.parse(event.data)
-        console.log('[webrtc-test] signaling message', message)
+        // logger.info('[webrtc-test] signaling message', message)
 
         if (message.type === 'offer' && ROLE === 'patient') {
           await pc.setRemoteDescription({ type: 'offer', sdp: message.sdp })
@@ -172,11 +172,11 @@ export default function WebRTCTestPage() {
           try {
             await pc.addIceCandidate(message.candidate)
           } catch (error) {
-            console.error('[webrtc-test] Failed to add ICE candidate', error)
+            logger.error('[webrtc-test] Failed to add ICE candidate', error)
           }
         }
       } catch (error) {
-        console.error('[webrtc-test] Failed to parse signaling message', error)
+        logger.error('[webrtc-test] Failed to parse signaling message', error)
       }
     }
 
@@ -187,7 +187,7 @@ export default function WebRTCTestPage() {
       socket.close()
     }
     } catch (error) {
-      console.error('[webrtc-test] Failed to initialize WebSocket:', error)
+      logger.error('[webrtc-test] Failed to initialize WebSocket:', error)
     }
   }, [])
 
@@ -196,12 +196,12 @@ export default function WebRTCTestPage() {
     const socket = wsRef.current
 
     if (!pc) {
-      console.error('[webrtc-test] Cannot start call: RTCPeerConnection not ready')
+      logger.error('[webrtc-test] Cannot start call: RTCPeerConnection not ready')
       return
     }
 
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      console.warn('[webrtc-test] WebSocket not open yet; wait for connection before starting call')
+      logger.warn('[webrtc-test] WebSocket not open yet; wait for connection before starting call')
       return
     }
 
@@ -233,7 +233,7 @@ export default function WebRTCTestPage() {
         socket.send(JSON.stringify({ type: 'offer', sdp: offer.sdp }))
       }
     } catch (error) {
-      console.error('[webrtc-test] Failed to start media', error)
+      logger.error('[webrtc-test] Failed to start media', error)
       alert('Could not start camera/microphone. Check permissions and console logs.')
     }
   }

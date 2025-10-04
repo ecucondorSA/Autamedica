@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { logger } from '@autamedica/shared'
 import type { WebRTCClient } from '../webrtc-client'
 
 export interface RtcStatsData {
@@ -166,7 +167,7 @@ export function useRtcStats(
       return statsData
 
     } catch (error) {
-      console.error('[useRtcStats] Failed to collect stats:', error)
+      logger.error('[useRtcStats] Failed to collect stats:', error)
       throw error
     }
   }, [client])
@@ -207,7 +208,7 @@ export function useRtcStats(
 
     // Set up interval
     intervalRef.current = setInterval(collect, opts.interval)
-    console.log(`[useRtcStats] Started stats collection (interval: ${opts.interval}ms)`)
+    logger.info(`[useRtcStats] Started stats collection (interval: ${opts.interval}ms)`)
   }, [client, collectStats, opts.interval, opts.maxHistorySize])
 
   // Stop stats collection
@@ -218,7 +219,7 @@ export function useRtcStats(
     }
 
     setState(prev => ({ ...prev, isCollecting: false }))
-    console.log('[useRtcStats] Stopped stats collection')
+    logger.info('[useRtcStats] Stopped stats collection')
   }, [])
 
   // Calculate average stats over last N samples

@@ -193,7 +193,7 @@ if (!isValid) {
 
 - [RTCIceServer - MDN](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceServer)
 - [STUN/TURN Protocols](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols)
-- [Cloudflare Pages Environment Variables](https://developers.cloudflare.com/pages/configuration/environment-variables/)
+- [Cloudflare Pages Environment Variables](https://developers.cloudflare.com/pages/configuration/build-configuration/)
 
 ## 📝 Ejemplo Completo
 

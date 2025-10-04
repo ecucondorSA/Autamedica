@@ -1,0 +1,159 @@
+name: 🔀 Auto PR Creation
+
+on:
+  push:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+      - 'chore/**'
+      - 'docs/**'
+      - 'refactor/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    name: Create PR Automático
+    runs-on: ubuntu-latest
+
+    # Solo correr si no es un auto-commit
+    if: "!contains(github.event.head_commit.message, 'auto-commit')"
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Verificar si PR existe
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH=${GITHUB_REF##*/}
+
+          # Buscar PR existente
+          EXISTING_PR=$(gh pr list \
+            --head "$BRANCH" \
+            --json number \
+            --jq '.[0].number' || echo "")
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+            echo "pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
+            echo "✅ PR #$EXISTING_PR ya existe para branch $BRANCH"
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            echo "📝 No existe PR para branch $BRANCH"
+          fi
+
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+
+      - name: 📊 Generar información del PR
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        id: pr_info
+        run: |
+          BRANCH="${{ steps.check_pr.outputs.branch }}"
+
+          # Título desde último commit
+          TITLE=$(git log -1 --pretty=%s)
+
+          # Determinar tipo de PR desde branch name
+          if [[ "$BRANCH" == feat/* ]]; then
+            PR_TYPE="✨ Feature"
+            LABEL="enhancement"
+          elif [[ "$BRANCH" == fix/* ]]; then
+            PR_TYPE="🐛 Bug Fix"
+            LABEL="bug"
+          elif [[ "$BRANCH" == chore/* ]]; then
+            PR_TYPE="🔧 Chore"
+            LABEL="maintenance"
+          elif [[ "$BRANCH" == docs/* ]]; then
+            PR_TYPE="📚 Documentation"
+            LABEL="documentation"
+          elif [[ "$BRANCH" == refactor/* ]]; then
+            PR_TYPE="♻️ Refactor"
+            LABEL="refactor"
+          else
+            PR_TYPE="🔄 Update"
+            LABEL="auto-generated"
+          fi
+
+          echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
+          echo "label=$LABEL" >> $GITHUB_OUTPUT
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+      - name: 🚀 Crear PR
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ steps.check_pr.outputs.branch }}"
+          TITLE="${{ steps.pr_info.outputs.title }}"
+          PR_TYPE="${{ steps.pr_info.outputs.pr_type }}"
+          LABEL="${{ steps.pr_info.outputs.label }}"
+
+          # Generar lista de commits
+          COMMITS=$(git log origin/main..HEAD \
+            --pretty=format:"- %s (%h)" \
+            --max-count=20 || echo "- Initial commit")
+
+          # Generar lista de archivos modificados
+          FILES=$(git diff --name-status origin/main..HEAD \
+            --diff-filter=ADMR \
+            | head -30 || echo "No files")
+
+          # Crear body del PR
+          cat > /tmp/pr-body.md <<EOF
+          ## $PR_TYPE
+
+          ### 📝 Descripción
+
+          $TITLE
+
+          ### 📋 Commits incluidos
+
+          $COMMITS
+
+          ### 📂 Archivos modificados
+
+          \`\`\`
+          $FILES
+          \`\`\`
+
+          ### ✅ Checklist
+
+          - [ ] Código revisado
+          - [ ] Tests pasando
+          - [ ] Documentación actualizada
+          - [ ] Sin errores de linting
+
+          ---
+
+          🤖 **PR creado automáticamente por GitHub Actions**
+
+          - Workflow: \`${{ github.workflow }}\`
+          - Branch: \`$BRANCH\`
+          - Triggered by: @${{ github.actor }}
+          EOF
+
+          # Crear PR
+          gh pr create \
+            --title "$TITLE" \
+            --body-file /tmp/pr-body.md \
+            --base main \
+            --head "$BRANCH" \
+            --label "$LABEL,auto-generated"
+
+          echo "✅ PR creado exitosamente"
+
+      - name: 📢 Resumen
+        run: |
+          if [[ "${{ steps.check_pr.outputs.pr_exists }}" == "true" ]]; then
+            echo "✅ PR #${{ steps.check_pr.outputs.pr_number }} ya existe"
+          else
+            echo "✅ Nuevo PR creado para branch ${{ steps.check_pr.outputs.branch }}"
+          fi

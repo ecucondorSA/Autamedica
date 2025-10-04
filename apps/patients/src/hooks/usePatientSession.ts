@@ -1,171 +1,271 @@
-import { useState, useEffect, useMemo } from 'react'
+'use client';
 
-interface PatientSession {
-  sessionId: string
-  doctorId: string
-  doctorName: string
-  appointmentType: 'consulta' | 'control' | 'emergencia' | 'telemedicina'
-  startTime: string
-  duration?: number
-  status: 'scheduled' | 'active' | 'completed' | 'cancelled'
-}
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { User } from '@supabase/supabase-js';
+import { logger } from '@autamedica/shared';
+import { useSupabase } from '@autamedica/auth';
+import { parseProfile, type Profile } from '@/lib/zod/profiles';
+import { parsePatient, type Patient } from '@/lib/zod/patients';
 
 interface PatientSessionState {
-  currentSession: PatientSession | null
-  sessionHistory: PatientSession[]
-  isLoading: boolean
-  error: string | null
+  user: User | null;
+  profile: Profile | null;
+  patient: Patient | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export function usePatientSession() {
-  const [state, setState] = useState<PatientSessionState>({
-    currentSession: null,
-    sessionHistory: [],
-    isLoading: false,
-    error: null
-  })
+const INITIAL_STATE: PatientSessionState = {
+  user: null,
+  profile: null,
+  patient: null,
+  loading: true,
+  error: null,
+};
 
-  // Simular datos de sesión para desarrollo
-  const mockCurrentSession: PatientSession = useMemo(() => ({
-    sessionId: 'session-' + Date.now(),
-    doctorId: 'dr-garcia-001',
-    doctorName: 'Dr. García López',
-    appointmentType: 'telemedicina',
-    startTime: new Date().toISOString(),
-    status: 'active'
-  }), [])
-
-  useEffect(() => {
-    // Simular carga inicial de sesión
-    setState(prev => ({
-      ...prev,
-      isLoading: true
-    }))
-
-    setTimeout(() => {
-      setState(prev => ({
-        ...prev,
-        currentSession: mockCurrentSession,
-        sessionHistory: [
-          {
-            sessionId: 'session-001',
-            doctorId: 'dr-garcia-001',
-            doctorName: 'Dr. García López',
-            appointmentType: 'consulta',
-            startTime: '2024-01-15T10:00:00Z',
-            duration: 30,
-            status: 'completed'
-          },
-          {
-            sessionId: 'session-002',
-            doctorId: 'dr-martinez-002',
-            doctorName: 'Dr. Martínez Silva',
-            appointmentType: 'control',
-            startTime: '2024-01-10T14:30:00Z',
-            duration: 20,
-            status: 'completed'
-          }
-        ],
-        isLoading: false,
-        error: null
-      }))
-    }, 1000)
-  }, [mockCurrentSession])
-
-  const startSession = async (sessionId: string) => {
-    setState(prev => ({
-      ...prev,
-      isLoading: true,
-      error: null
-    }))
-
-    try {
-      // Simular inicio de sesión
-      await new Promise(resolve => setTimeout(resolve, 500))
-
-      setState(prev => ({
-        ...prev,
-        currentSession: prev.currentSession ? {
-          ...prev.currentSession,
-          status: 'active',
-          startTime: new Date().toISOString()
-        } : null,
-        isLoading: false
-      }))
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        error: 'Error al iniciar la sesión',
-        isLoading: false
-      }))
-    }
+function ensureEmail(user: User): string {
+  const candidate = user.email ?? (user.user_metadata as Record<string, unknown> | undefined)?.email;
+  if (typeof candidate === 'string' && candidate.length > 0) {
+    return candidate;
   }
+  return `${user.id}@patients.autamedica.local`;
+}
 
-  const endSession = async () => {
-    if (!state.currentSession) return
+export interface UsePatientSessionResult extends PatientSessionState {
+  refresh: () => Promise<void>;
+  signOut: () => Promise<void>;
+}
 
-    setState(prev => ({
-      ...prev,
-      isLoading: true,
-      error: null
-    }))
+export function usePatientSession(): UsePatientSessionResult {
+  const supabase = useSupabase();
+  const [state, setState] = useState<PatientSessionState>(INITIAL_STATE);
+  const isMountedRef = useRef(false);
 
-    try {
-      // Simular finalización de sesión
-      await new Promise(resolve => setTimeout(resolve, 500))
+  const safeSetState = useCallback(
+    (updater: (prev: PatientSessionState) => PatientSessionState) => {
+      if (isMountedRef.current) {
+        setState(updater);
+      }
+    },
+    [],
+  );
 
-      const completedSession = {
-        ...state.currentSession,
-        status: 'completed' as const,
-        duration: Math.floor((Date.now() - new Date(state.currentSession.startTime).getTime()) / 1000 / 60)
+  const fetchOrCreateProfile = useCallback(
+    async (user: User): Promise<Profile> => {
+      const email = ensureEmail(user);
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (error && error.code !== 'PGRST116') {
+        throw error;
       }
 
-      setState(prev => ({
-        ...prev,
-        currentSession: null,
-        sessionHistory: [completedSession, ...prev.sessionHistory],
-        isLoading: false
-      }))
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        error: 'Error al finalizar la sesión',
-        isLoading: false
-      }))
+      let profileRow = data ?? null;
+
+      if (!profileRow) {
+        const { data: inserted, error: insertError } = await supabase
+          .from('profiles')
+          .insert({
+            user_id: user.id,
+            email,
+            role: 'patient',
+            external_id: user.id,
+          })
+          .select('*')
+          .single();
+
+        if (insertError) {
+          throw insertError;
+        }
+
+        profileRow = inserted;
+      } else {
+        const updates: Record<string, unknown> = {};
+
+        if (!profileRow.email) {
+          updates.email = email;
+        }
+
+        if (!profileRow.role) {
+          updates.role = 'patient';
+        }
+
+        if (!profileRow.external_id) {
+          updates.external_id = user.id;
+        }
+
+        if (Object.keys(updates).length > 0) {
+          const { data: updated, error: updateError } = await supabase
+            .from('profiles')
+            .update(updates)
+            .eq('user_id', user.id)
+            .select('*')
+            .single();
+
+          if (updateError) {
+            throw updateError;
+          }
+
+          profileRow = updated;
+        }
+      }
+
+      return parseProfile(profileRow);
+    },
+    [supabase],
+  );
+
+  const fetchOrCreatePatient = useCallback(
+    async (userId: string): Promise<Patient | null> => {
+      const { data, error } = await supabase
+        .from('patients')
+        .select('*')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+
+      let patientRow = data ?? null;
+
+      if (!patientRow) {
+        const { data: inserted, error: insertError } = await supabase
+          .from('patients')
+          .insert({
+            user_id: userId,
+            active: true,
+          })
+          .select('*');
+
+        if (insertError) {
+          throw insertError;
+        }
+
+        if (Array.isArray(inserted) && inserted.length > 0) {
+          patientRow = inserted[0];
+        } else if (inserted && !Array.isArray(inserted)) {
+          patientRow = inserted as Record<string, unknown>;
+        }
+      }
+
+      return patientRow ? parsePatient(patientRow) : null;
+    },
+    [supabase],
+  );
+
+  const refresh = useCallback(async () => {
+    if (!supabase) {
+      if (typeof window === 'undefined') {
+        safeSetState(prev => ({ ...prev, loading: false }));
+      }
+      return;
     }
-  }
 
-  const getSessionDuration = () => {
-    if (!state.currentSession || state.currentSession.status !== 'active') return 0
+    safeSetState(prev => ({ ...prev, loading: true, error: null }));
 
-    const startTime = new Date(state.currentSession.startTime).getTime()
-    const currentTime = Date.now()
-    return Math.floor((currentTime - startTime) / 1000) // en segundos
-  }
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
-  const formatSessionDuration = (durationInSeconds?: number) => {
-    const duration = durationInSeconds ?? getSessionDuration()
-    const minutes = Math.floor(duration / 60)
-    const seconds = duration % 60
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-  }
+      if (sessionError) {
+        throw sessionError;
+      }
 
-  const hasActiveSession = () => {
-    return state.currentSession?.status === 'active'
-  }
+      const session = sessionData.session;
 
-  const canStartSession = () => {
-    return state.currentSession && state.currentSession.status === 'scheduled'
-  }
+      if (!session?.user) {
+        safeSetState(() => ({ ...INITIAL_STATE, loading: false, error: 'Necesitás iniciar sesión para continuar.' }));
+        return;
+      }
+
+      const user = session.user;
+      const profile = await fetchOrCreateProfile(user);
+
+      if (profile.role && profile.role !== 'patient') {
+        safeSetState(() => ({
+          user,
+          profile,
+          patient: null,
+          loading: false,
+          error: 'Tu cuenta no tiene acceso al portal de pacientes.',
+        }));
+        return;
+      }
+
+      const patient = await fetchOrCreatePatient(user.id);
+
+      safeSetState(() => ({
+        user,
+        profile,
+        patient,
+        loading: false,
+        error: null,
+      }));
+    } catch (error) {
+      logger.error('[usePatientSession] Failed to sync session', error);
+      safeSetState(prev => ({
+        ...prev,
+        loading: false,
+        error: 'No pudimos cargar tu sesión. Intentá nuevamente.',
+      }));
+    }
+  }, [fetchOrCreatePatient, fetchOrCreateProfile, safeSetState, supabase]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+
+    if (typeof window === 'undefined') {
+      safeSetState(prev => ({ ...prev, loading: false }));
+      return () => {
+        isMountedRef.current = false;
+      };
+    }
+
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [safeSetState]);
+
+  useEffect(() => {
+    if (!supabase) {
+      return;
+    }
+
+    refresh();
+
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!isMountedRef.current) {
+        return;
+      }
+
+      if (event === 'SIGNED_OUT') {
+        safeSetState(() => ({ ...INITIAL_STATE, loading: false }));
+        return;
+      }
+
+      if (session?.user) {
+        refresh();
+      }
+    });
+
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, [refresh, safeSetState, supabase]);
+
+  const signOut = useCallback(async () => {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    safeSetState(() => ({ ...INITIAL_STATE, loading: false }));
+  }, [safeSetState, supabase]);
 
   return {
     ...state,
-    startSession,
-    endSession,
-    getSessionDuration,
-    formatSessionDuration,
-    hasActiveSession,
-    canStartSession,
-    formattedDuration: formatSessionDuration()
-  }
+    refresh,
+    signOut,
+  };
 }

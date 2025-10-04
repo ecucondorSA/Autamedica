@@ -1,4 +1,4 @@
-import { ensureClientEnv } from '@autamedica/shared'
+import { ensureClientEnv, logger } from '@autamedica/shared'
 import type { WSMessage, ControlMessage, SignalingMessage } from '../calls/types'
 
 // WebSocket signaling client
@@ -31,7 +31,7 @@ export class SignalingClient {
         this.ws = new WebSocket(wsUrl)
 
         this.ws.onopen = () => {
-          console.log('[SignalingClient] Connected')
+          logger.info('[SignalingClient] Connected')
           this.reconnectAttempts = 0
 
           // Send queued messages
@@ -44,19 +44,19 @@ export class SignalingClient {
         }
 
         this.ws.onclose = (event) => {
-          console.log('[SignalingClient] Disconnected:', event.code, event.reason)
+          logger.info('[SignalingClient] Disconnected:', event.code, event.reason)
 
           if (event.code !== 1000 && this.reconnectAttempts < this.maxReconnectAttempts) {
             this.reconnectAttempts++
             setTimeout(() => {
-              console.log(`[SignalingClient] Reconnecting... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`)
+              logger.info(`[SignalingClient] Reconnecting... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`)
               this.connect()
             }, 1000 * this.reconnectAttempts)
           }
         }
 
         this.ws.onerror = (error) => {
-          console.error('[SignalingClient] Error:', error)
+          logger.error('[SignalingClient] Error:', error)
           reject(error)
         }
 
@@ -65,7 +65,7 @@ export class SignalingClient {
             const message = JSON.parse(event.data)
             this.handleMessage(message)
           } catch (error) {
-            console.error('[SignalingClient] Failed to parse message:', error)
+            logger.error('[SignalingClient] Failed to parse message:', error)
           }
         }
 
@@ -147,7 +147,7 @@ export class SignalingClient {
   }
 
   private handleMessage(message: WSMessage) {
-    console.log('[SignalingClient] Received:', message)
+    logger.info('[SignalingClient] Received:', message)
 
     // Emit to specific event listeners
     const listeners = this.listeners.get(message.type)

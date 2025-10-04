@@ -1,7 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 
-console.log("Create Call function started")
+logger.info("Create Call function started")
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Creating call for:', { doctorId, patientId })
+    logger.info('Creating call for:', { doctorId, patientId })
 
     // Create Supabase client with service role key
     const supabaseAdmin = createClient(
@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
     )
 
     if (authError || !user) {
-      console.error('Auth error:', authError)
+      logger.error('Auth error:', authError)
       return new Response(
         JSON.stringify({ error: 'Invalid or expired token' }),
         {
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Authenticated user:', user.id)
+    logger.info('Authenticated user:', user.id)
 
     // Optional: Verify user has permission to create calls as this doctor
     // For now, we'll trust the frontend sends the correct doctorId
@@ -87,7 +87,7 @@ Deno.serve(async (req) => {
       })
 
     if (callError) {
-      console.error('Error creating call:', callError)
+      logger.error('Error creating call:', callError)
       return new Response(
         JSON.stringify({
           error: 'Failed to create call',
@@ -100,7 +100,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Call created successfully:', callData)
+    logger.info('Call created successfully:', callData)
 
     // Return the call data
     return new Response(
@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Unexpected error:', error)
+    logger.error('Unexpected error:', error)
     return new Response(
       JSON.stringify({
         error: 'Internal server error',

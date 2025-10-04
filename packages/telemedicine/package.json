@@ -1,6 +1,7 @@
 {
   "name": "@autamedica/telemedicine",
   "version": "0.2.0",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -13,16 +14,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "dev": "tsc --build --watch tsconfig.json",
-    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "build": "tsc --build tsconfig.build.json",
+    "dev": "tsc --build --watch tsconfig.build.json",
+    "clean": "rimraf dist *.tsbuildinfo",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@autamedica/shared": "workspace:*",
     "@autamedica/types": "workspace:*",
-    "@supabase/supabase-js": "^2.45.0",
     "lucide-react": "^0.544.0"
   },
   "devDependencies": {
@@ -31,11 +31,17 @@
     "@types/react": "^19.1.14",
     "@types/react-dom": "^19.1.0",
     "rimraf": "^5.0.0",
-    "typescript": "5.9.2",
+    "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "@supabase/supabase-js": "^2.57.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@supabase/supabase-js": {
+      "optional": false
+    }
   }
 }

@@ -1,0 +1,51 @@
+name: Deploy Web-App (Static)
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web-app/**"
+      - "packages/**"
+      - ".github/workflows/deploy-web-app.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      
+      - name: Build packages (dependencies)
+        run: pnpm build:packages:core
+      
+      - name: Build web-app (Static Export)
+        working-directory: apps/web-app
+        run: pnpm build
+      
+      - name: Verify out/ directory
+        working-directory: apps/web-app
+        run: |
+          echo "📦 Verificando export estático..."
+          ls -lh out/ | head -20
+          echo "📄 Archivos HTML generados:"
+          find out/ -name "*.html" | head -10
+      
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/web-app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler pages deploy out \
+            --project-name=autamedica-web-app \
+            --branch=main \
+            --commit-dirty=true

@@ -1,15 +1,16 @@
-import type { Config } from "tailwindcss";
+import preset from '@autamedica/tailwind-config';
+import type { Config } from 'tailwindcss';
 
-export default {
+const config: Config = {
+  presets: [preset],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        // AutaMedica brand colors
         'autamedica-blue': '#1E40AF',
         'autamedica-light-blue': '#3B82F6',
         'autamedica-green': '#059669',
@@ -17,5 +18,6 @@ export default {
       },
     },
   },
-  plugins: [],
-} satisfies Config;
+};
+
+export default config;

@@ -44,7 +44,7 @@ export function WaitingRoom({ callId, doctorId, roomId }: WaitingRoomProps) {
 
         // Subscribe to realtime changes on this specific call
         const subscription = callService.subscribeToCall(callId, (updatedCall) => {
-          console.log('[WaitingRoom] Call status changed:', updatedCall.status)
+          // logger.info('[WaitingRoom] Call status changed:', updatedCall.status)
           setCall(updatedCall)
 
           switch (updatedCall.status) {
@@ -79,7 +79,7 @@ export function WaitingRoom({ callId, doctorId, roomId }: WaitingRoomProps) {
 
         return subscription
       } catch (error) {
-        console.error('Failed to setup call:', error)
+        logger.error('Failed to setup call:', error)
         setState('canceled')
         return null
       }
@@ -103,7 +103,7 @@ export function WaitingRoom({ callId, doctorId, roomId }: WaitingRoomProps) {
       // The realtime subscription will handle UI updates
       router.back()
     } catch (error) {
-      console.error('Failed to cancel call:', error)
+      logger.error('Failed to cancel call:', error)
     }
   }
 

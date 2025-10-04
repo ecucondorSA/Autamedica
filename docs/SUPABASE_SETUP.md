@@ -24,7 +24,7 @@ The production Supabase instance is already configured with:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=***REDACTED***
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 DATABASE_URL=postgresql://postgres:R00tP@ssw0rd!@db.gtyvdircfhmdjiaelqkg.supabase.co:5432/postgres
 ```

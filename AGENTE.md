@@ -32,8 +32,8 @@ Esta guía establece la metodología de desarrollo para agentes IA trabajando en
 ✅ Web-App:     http://localhost:3000  - Status 200 (16,844 chars)
 ✅ Doctors:     http://localhost:3001  - Status 200 (33,972 chars)
 ✅ Companies:   http://localhost:3003  - Status 200 (42,462 chars)
-⚠️ Patients:    http://localhost:3002  - Status 500 (AUDITORIA PENDIENTE)
-❌ Admin:       http://localhost:3004  - Error: No pages/app directory
+✅ Patients:    http://localhost:3002  - Portal pacientes (AUDITADO - Funcional)
+✅ Admin:       http://localhost:3004  - Panel administrativo (AUDITADO - Funcional)
 ```
 
 ### 🚀 **INFRAESTRUCTURA CI/CD ENTERPRISE (OPERATIVA)**

@@ -30,7 +30,7 @@ const EnhancedLandingExperience: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<Array<{ text: string; isBot: boolean }>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Router needed for future navigation features
+   
   const _router = useRouter();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const EnhancedLandingExperience: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Chat toggle reserved for Doctor3D integration
+   
   const _toggleChat = () => {
     setChatOpen(!chatOpen);
     if (!chatOpen && chatMessages.length === 0) {
@@ -158,18 +158,8 @@ const EnhancedLandingExperience: React.FC = () => {
             variant="default"
           />
 
-          {/* Testimonials and Stats Section - "Descubre AutaMedica en Acción" + "Números que Hablan por Sí Solos" */}
-          <section className="py-20 bg-gradient-to-b from-gray-900 to-black" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="container mx-auto px-4 text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Descubre AutaMedica en Acción
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Explora nuestras herramientas avanzadas de telemedicina, desde consultas virtuales hasta diagnósticos con IA
-              </p>
-            </div>
-            <TestimonialsSection />
-          </section>
+          {/* Testimonials and Stats Section */}
+          <TestimonialsSection />
 
           {/* Footer después del recorrido completo */}
           <ProfessionalFooter />

@@ -60,7 +60,7 @@ export function useAuthenticatedUser(): UseAuthenticatedUserReturn {
         .single()
 
       if (profileError && profileError.code !== 'PGRST116') {
-        console.warn('Error fetching profile:', profileError.message)
+        logger.warn('Error fetching profile:', profileError.message)
       }
 
       const authenticatedUser: AuthenticatedUser = {
@@ -79,7 +79,7 @@ export function useAuthenticatedUser(): UseAuthenticatedUserReturn {
       return authenticatedUser
 
     } catch (err) {
-      console.error('Error fetching user profile:', err)
+      logger.error('Error fetching user profile:', err)
       throw err
     }
   }
@@ -107,7 +107,7 @@ export function useAuthenticatedUser(): UseAuthenticatedUserReturn {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error loading user'
       setError(errorMessage)
-      console.error('Error in refreshUser:', err)
+      logger.error('Error in refreshUser:', err)
     } finally {
       setLoading(false)
     }
@@ -121,7 +121,7 @@ export function useAuthenticatedUser(): UseAuthenticatedUserReturn {
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.id)
+        // logger.info('Auth state changed:', event, session?.user?.id)
 
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
           if (session?.user) {

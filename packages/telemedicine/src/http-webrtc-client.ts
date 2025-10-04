@@ -3,6 +3,8 @@
  * Uses fetch and polling instead of WebSockets for better reliability
  */
 
+import { logger } from '@autamedica/shared'
+
 export interface HttpWebRTCConfig {
   signalingUrl: string
   iceServers: RTCIceServer[]
@@ -81,7 +83,7 @@ export class HttpWebRTCClient {
           // @ts-ignore
           listener(...args)
         } catch (error) {
-          console.error(`Error in ${event} listener:`, error)
+          logger.error(`Error in ${event} listener:`, error)
         }
       })
     }
@@ -127,7 +129,7 @@ export class HttpWebRTCClient {
         throw new Error(`Join failed: ${joinData.error}`)
       }
 
-      console.log('Successfully joined room:', finalRoomId)
+      logger.info('Successfully joined room:', finalRoomId)
 
       // Process existing users in the room
       if (joinData.roomState?.users) {
@@ -142,7 +144,7 @@ export class HttpWebRTCClient {
       this.startPolling()
 
     } catch (error) {
-      console.error('Connection failed:', error)
+      logger.error('Connection failed:', error)
       this.setConnectionState('failed')
       this.emit('error', error as Error)
       throw error
@@ -163,7 +165,7 @@ export class HttpWebRTCClient {
 
       return this.localStream
     } catch (error) {
-      console.error('Failed to get local stream:', error)
+      logger.error('Failed to get local stream:', error)
       this.emit('error', new Error('Failed to access camera/microphone'))
       throw error
     }
@@ -196,7 +198,7 @@ export class HttpWebRTCClient {
           })
         })
       } catch (error) {
-        console.error('Error leaving room:', error)
+        logger.error('Error leaving room:', error)
       }
     }
 
@@ -246,7 +248,7 @@ export class HttpWebRTCClient {
           }
         }
       } catch (error) {
-        console.error('Polling error:', error)
+        logger.error('Polling error:', error)
         // Don't emit error for polling failures - just retry
       }
 
@@ -284,13 +286,13 @@ export class HttpWebRTCClient {
         throw new Error(`Failed to send message: ${response.status}`)
       }
     } catch (error) {
-      console.error('Failed to send signaling message:', error)
+      logger.error('Failed to send signaling message:', error)
       this.emit('error', error as Error)
     }
   }
 
   private async handleSignalingMessage(message: any): Promise<void> {
-    console.log('Received signaling message:', message)
+    logger.info('Received signaling message:', message)
 
     switch (message.type) {
       case 'user-joined':
@@ -324,7 +326,7 @@ export class HttpWebRTCClient {
         break
 
       default:
-        console.warn('Unknown message type:', message.type)
+        logger.warn('Unknown message type:', message.type)
     }
   }
 
@@ -340,7 +342,7 @@ export class HttpWebRTCClient {
 
     // Handle remote stream
     pc.ontrack = (event) => {
-      console.log('Received remote stream from', userId)
+      logger.info('Received remote stream from', userId)
       const stream = event.streams?.[0]
       if (stream) {
         this.emit('remote-stream', stream, userId)
@@ -360,7 +362,7 @@ export class HttpWebRTCClient {
 
     // Handle connection state changes
     pc.onconnectionstatechange = () => {
-      console.log(`Peer connection with ${userId} state:`, pc.connectionState)
+      logger.info(`Peer connection with ${userId} state:`, pc.connectionState)
       if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
         this.peerConnections.delete(userId)
       }
@@ -473,7 +475,7 @@ export class HttpWebRTCClient {
           })
         })
       } catch (error) {
-        console.error('Ping failed:', error)
+        logger.error('Ping failed:', error)
       }
     }
   }

@@ -34,8 +34,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@autamedica/shared": "workspace:*",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.51.0",
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
@@ -47,7 +47,13 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
+    "@supabase/supabase-js": "^2.57.4",
     "next": "^15.5.0",
     "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@supabase/supabase-js": {
+      "optional": false
+    }
   }
 }

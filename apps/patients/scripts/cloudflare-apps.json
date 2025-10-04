@@ -1,0 +1,42 @@
+{
+  "cloudflare": {
+    "accountId": "",
+    "previewHostnameSuffix": "pages.dev"
+  },
+  "apps": [
+    {
+      "name": "patients",
+      "package": "@autamedica/patients",
+      "directory": "apps/patients",
+      "projectName": "autamedica-patients",
+      "domain": "patients.autamedica.com",
+      "buildCommand": "pnpm --filter @autamedica/patients build",
+      "deployCommand": "pnpm deploy:patients",
+      "outputDir": "apps/patients/.open-next",
+      "envFiles": [
+        "apps/patients/.env.example",
+        "apps/patients/.env.production"
+      ],
+      "dns": [
+        { "type": "CNAME", "name": "patients", "target": "pages.cloudflare.com" }
+      ]
+    },
+    {
+      "name": "auth",
+      "package": "@autamedica/auth",
+      "directory": "apps/auth",
+      "projectName": "autamedica-auth",
+      "domain": "auth.autamedica.com",
+      "buildCommand": "pnpm --filter @autamedica/auth build",
+      "deployCommand": "pnpm deploy:auth",
+      "outputDir": "apps/auth/.vercel/output/static",
+      "envFiles": [
+        "apps/auth/.env.example",
+        "apps/auth/.env.production"
+      ],
+      "dns": [
+        { "type": "CNAME", "name": "auth", "target": "pages.cloudflare.com" }
+      ]
+    }
+  ]
+}

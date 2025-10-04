@@ -20,7 +20,8 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import './globals.css';
-import { canManageCompany, MemberRole } from '@autamedica/shared/roles';
+import { canManageCompany, type MemberRole } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           .limit(1);
 
         if (error) {
-          console.error('Error fetching member role:', error);
+          logger.error('Error fetching member role:', error);
           setUserMemberRole('member'); // Default to non-admin on error
         } else {
           // If we found at least one admin membership, set role to admin.
@@ -90,6 +91,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   ];
 
+  if (profiles.length === 0) {
+    throw new Error('No hay perfiles configurados para el panel de compañías');
+  }
+
+  const defaultProfile = profiles[0];
+
   const sidebarItems = useMemo(() => {
     const allItems = [
       { id: 'overview', icon: Eye, label: 'Vista General', count: 24 },
@@ -114,7 +121,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     });
   }, [userMemberRole, notifications]);
 
-  const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0]!;
+  const currentProfile = profiles.find((profile) => profile.id === activeProfile) ?? defaultProfile;
 
   return (
     <html lang="es">

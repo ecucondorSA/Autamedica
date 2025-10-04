@@ -14,22 +14,23 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "dev": "tsc --build --watch tsconfig.json",
+    "build": "tsc --build tsconfig.build.json",
+    "dev": "tsc --build --watch tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
-    "clean": "rimraf dist tsconfig.tsbuildinfo"
+    "clean": "rimraf dist *.tsbuildinfo"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^19.0.0"
   },
   "dependencies": {
-    "@autamedica/types": "workspace:*"
+    "@autamedica/types": "workspace:*",
+    "@autamedica/shared": "workspace:*"
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",
     "@types/react": "^18.0.0 || ^19.0.0",
     "rimraf": "^5.0.0",
-    "typescript": "5.9.2"
+    "typescript": "^5.9.2"
   }
 }

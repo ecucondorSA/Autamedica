@@ -5,6 +5,7 @@ import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
 import { ClientWrapper } from '@/components/ClientWrapper'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { doctorsEnv, loginUrlBuilder } from '@/lib/env'
 import { fetchSessionData } from '@/lib/session-sync'
 import { redirect } from 'next/navigation'
 
@@ -24,11 +25,7 @@ export default async function RootLayout({ children }: RootLayoutProps): Promise
 
   if (!sessionData) {
     // No session - redirect to Auth Hub
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    redirect(`${authHubUrl}/login?returnTo=${encodeURIComponent('http://localhost:3001')}`)
+    redirect(loginUrlBuilder.build(doctorsEnv.appOrigin))
   }
   return (
     <html lang="es" suppressHydrationWarning>

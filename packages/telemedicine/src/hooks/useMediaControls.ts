@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import { logger } from '@autamedica/shared'
 import type { WebRTCClient } from '../webrtc-client'
 
 export interface MediaControlsState {
@@ -82,19 +83,19 @@ export function useMediaControls(client: WebRTCClient | null): MediaControlsHook
   // Toggle microphone
   const toggleMic = useCallback((enabled?: boolean): boolean => {
     if (!client) {
-      console.warn('[useMediaControls] No client available for mic toggle')
+      logger.warn('[useMediaControls] No client available for mic toggle')
       return false
     }
 
     try {
       const newState = client.toggleAudio(enabled)
       setState(prev => ({ ...prev, isMicOn: newState, mediaError: null }))
-      console.log(`[useMediaControls] Microphone ${newState ? 'enabled' : 'disabled'}`)
+      logger.info(`[useMediaControls] Microphone ${newState ? 'enabled' : 'disabled'}`)
       return newState
     } catch (error) {
       const mediaError = error instanceof Error ? error : new Error('Failed to toggle microphone')
       setState(prev => ({ ...prev, mediaError }))
-      console.error('[useMediaControls] Failed to toggle microphone:', error)
+      logger.error('[useMediaControls] Failed to toggle microphone:', error)
       return false
     }
   }, [client])
@@ -102,19 +103,19 @@ export function useMediaControls(client: WebRTCClient | null): MediaControlsHook
   // Toggle camera
   const toggleCam = useCallback((enabled?: boolean): boolean => {
     if (!client) {
-      console.warn('[useMediaControls] No client available for camera toggle')
+      logger.warn('[useMediaControls] No client available for camera toggle')
       return false
     }
 
     try {
       const newState = client.toggleVideo(enabled)
       setState(prev => ({ ...prev, isCamOn: newState, mediaError: null }))
-      console.log(`[useMediaControls] Camera ${newState ? 'enabled' : 'disabled'}`)
+      logger.info(`[useMediaControls] Camera ${newState ? 'enabled' : 'disabled'}`)
       return newState
     } catch (error) {
       const mediaError = error instanceof Error ? error : new Error('Failed to toggle camera')
       setState(prev => ({ ...prev, mediaError }))
-      console.error('[useMediaControls] Failed to toggle camera:', error)
+      logger.error('[useMediaControls] Failed to toggle camera:', error)
       return false
     }
   }, [client])
@@ -145,14 +146,14 @@ export function useMediaControls(client: WebRTCClient | null): MediaControlsHook
       })
 
       setState(prev => ({ ...prev, isSharing: true }))
-      console.log('[useMediaControls] Screen sharing started')
+      logger.info('[useMediaControls] Screen sharing started')
 
       // Handle when user stops screen sharing via browser UI
       const videoTrack = screenStream.getVideoTracks()[0]
       if (videoTrack) {
         videoTrack.onended = () => {
           setState(prev => ({ ...prev, isSharing: false }))
-          console.log('[useMediaControls] Screen sharing ended by user')
+          logger.info('[useMediaControls] Screen sharing ended by user')
         }
       }
 
@@ -163,7 +164,7 @@ export function useMediaControls(client: WebRTCClient | null): MediaControlsHook
     } catch (error) {
       const mediaError = error instanceof Error ? error : new Error('Failed to start screen sharing')
       setState(prev => ({ ...prev, mediaError, isSharing: false }))
-      console.error('[useMediaControls] Failed to start screen sharing:', error)
+      logger.error('[useMediaControls] Failed to start screen sharing:', error)
       throw error
     }
   }, [client])
@@ -171,7 +172,7 @@ export function useMediaControls(client: WebRTCClient | null): MediaControlsHook
   // Stop screen sharing
   const stopShare = useCallback((): void => {
     setState(prev => ({ ...prev, isSharing: false, mediaError: null }))
-    console.log('[useMediaControls] Screen sharing stopped')
+    logger.info('[useMediaControls] Screen sharing stopped')
 
     // TODO: Stop screen stream in WebRTC client
     // This would require client.stopScreenShare() or similar

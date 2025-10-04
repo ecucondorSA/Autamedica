@@ -73,7 +73,7 @@ export default function TestCallPage() {
               userType="patient"
               userName="Paciente Test"
               onCallEnd={() => setCallStarted(false)}
-              onCallStart={() => console.log('✅ Conectado a consulta médica')}
+              onCallStart={() => logger.info('✅ Conectado a consulta médica')}
               theme="patient"
               className="h-full"
             />

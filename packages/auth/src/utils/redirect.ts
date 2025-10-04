@@ -50,6 +50,7 @@ export function getDefaultRedirectUrl(role: UserRole): string {
   // Default dashboard path for each app
   const defaultPaths: Record<AppName, string> = {
     'web-app': '/',
+    'auth': '/login',
     'patients': '/dashboard',
     'doctors': '/dashboard',
     'companies': '/dashboard',
@@ -61,10 +62,11 @@ export function getDefaultRedirectUrl(role: UserRole): string {
 
 /**
  * Get the login URL with optional return URL
+ * Redirects to centralized auth app
  */
 export function getLoginUrl(returnUrl?: string): string {
   const domainConfig = getDomainConfig()
-  const baseLoginUrl = `${domainConfig.apps.web}/auth/login`
+  const baseLoginUrl = `${domainConfig.apps.auth}/login`
 
   if (returnUrl) {
     const sanitized = sanitizeReturnUrl(returnUrl)

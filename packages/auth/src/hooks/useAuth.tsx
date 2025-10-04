@@ -30,6 +30,7 @@ import {
   getLastPath,
   clearLastPath
 } from '../utils/redirect'
+import logger from '../utils/logger'
 
 /**
  * Authentication context
@@ -37,6 +38,7 @@ import {
 interface AuthContextValue extends AuthState {
   signIn: (email: string, password: string) => Promise<void>
   signInWithMagicLink: (email: string) => Promise<void>
+  signInWithOAuth: (provider: 'google') => Promise<void>
   signOut: () => Promise<void>
   refreshSession: () => Promise<void>
   redirectToRole: (returnUrl?: string) => void
@@ -59,7 +61,7 @@ function normalizeRole(role: unknown): UserRole | null {
     }
   }
 
-  console.error('User does not have a role assigned')
+  logger.error('User does not have a role assigned')
   return null
 }
 
@@ -125,7 +127,7 @@ export function AuthProvider({
     try {
       return getSupabaseClient()
     } catch (error) {
-      console.error('Failed to initialize Supabase client:', error)
+      logger.error('Failed to initialize Supabase client:', error)
       setState(prev => ({
         ...prev,
         error: error as Error,
@@ -199,7 +201,7 @@ export function AuthProvider({
           })
         }
       } catch (error) {
-        console.error('Failed to load session:', error)
+        logger.error('Failed to load session:', error)
         setState({
           user: null,
           profile: null,
@@ -219,7 +221,7 @@ export function AuthProvider({
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event)
+        logger.info('Auth state changed:', event)
 
         if (session) {
           const profile = extractUserProfile(session.user)
@@ -260,7 +262,7 @@ export function AuthProvider({
   // Sign in with email and password
   const signIn = useCallback(async (email: string, password: string) => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping sign in')
+      logger.info('Dev bypass mode - skipping sign in')
       return
     }
 
@@ -290,7 +292,7 @@ export function AuthProvider({
   // Sign in with magic link
   const signInWithMagicLink = useCallback(async (email: string) => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping magic link')
+      logger.info('Dev bypass mode - skipping magic link')
       return
     }
 
@@ -322,7 +324,7 @@ export function AuthProvider({
   // Sign out
   const signOut = useCallback(async () => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping sign out')
+      logger.info('Dev bypass mode - skipping sign out')
       setState({
         user: null,
         profile: null,
@@ -360,10 +362,42 @@ export function AuthProvider({
     }
   }, [state.user])
 
+  // Sign in with OAuth
+  const signInWithOAuth = useCallback(async (provider: 'google') => {
+    if (isDevBypass) {
+      logger.info('Dev bypass mode - skipping OAuth sign in')
+      return
+    }
+
+    if (!supabase) {
+      throw new AuthError('CONFIGURATION_ERROR', 'Supabase client not initialized')
+    }
+
+    setState(prev => ({ ...prev, loading: true, error: null }))
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin + '/auth/callback'
+        }
+      })
+
+      if (error) throw error
+    } catch (error) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error as Error
+      }))
+      throw error
+    }
+  }, [supabase])
+
   // Refresh session
   const refreshSession = useCallback(async () => {
     if (isDevBypass) {
-      console.log('Dev bypass mode - skipping refresh')
+      logger.info('Dev bypass mode - skipping refresh')
       return
     }
 
@@ -385,7 +419,7 @@ export function AuthProvider({
         })
       }
     } catch (error) {
-      console.error('Failed to refresh session:', error)
+      logger.error('Failed to refresh session:', error)
       setState(prev => ({
         ...prev,
         error: error as Error
@@ -396,7 +430,7 @@ export function AuthProvider({
   // Redirect to user's role-appropriate app
   const redirectToRole = useCallback((returnUrl?: string) => {
     if (!state.profile) {
-      console.warn('Cannot redirect: no user profile')
+      logger.warn('Cannot redirect: no user profile')
       return
     }
 
@@ -431,6 +465,7 @@ export function AuthProvider({
     ...state,
     signIn,
     signInWithMagicLink,
+    signInWithOAuth,
     signOut,
     refreshSession,
     redirectToRole,

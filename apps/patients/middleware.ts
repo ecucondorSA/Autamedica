@@ -1,78 +1,25 @@
 /**
- * Secure middleware for Patients portal
- * Uses JWT verification instead of Supabase client
+ * @fileoverview Authentication middleware for Patients Portal
+ * Uses @autamedica/auth package for centralized authentication
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { getSession, hasRole } from '@autamedica/shared/auth/session';
-import { getPortalForRole, isCorrectPortal } from '@autamedica/shared/env/portals';
-import { buildSafeLoginUrl } from '@autamedica/shared/security/redirects';
+import { createAppMiddleware, APP_NAMES } from '@autamedica/auth'
 
-// Public routes that don't require authentication
-const PUBLIC_ROUTES = [
-  '/_next',
-  '/favicon.ico',
-  '/public',
-  '/api/health',
-  '/manifest.webmanifest',
-];
-
-// Allowed roles for patients portal
-const ALLOWED_ROLES = ['patient', 'organization_admin', 'platform_admin'] as const;
-
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const origin = request.nextUrl.origin;
-
-  // Allow public routes
-  if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
-    return NextResponse.next();
-  }
-
-  try {
-    // Get session using JWT verification (no Supabase client needed)
-    const session = await getSession(request);
-
-    // No session - redirect to login
-    if (!session) {
-      const loginUrl = buildSafeLoginUrl('patients', request.url, 'session_expired');
-      return NextResponse.redirect(loginUrl);
-    }
-
-    // Check if user has allowed role for patients portal
-    if (!hasRole(session, [...ALLOWED_ROLES])) {
-      // User has wrong role - redirect to their correct portal
-      const correctPortal = getPortalForRole(session.user.role);
-      return NextResponse.redirect(new URL('/', correctPortal));
-    }
-
-    // Verify user is on correct portal for their role
-    if (!isCorrectPortal(origin, session.user.role)) {
-      const correctPortal = getPortalForRole(session.user.role);
-      return NextResponse.redirect(new URL(pathname, correctPortal));
-    }
-
-    // All checks passed
-    return NextResponse.next();
-  } catch (error) {
-    console.error('Middleware error:', error);
-
-    // On error, redirect to login
-    const loginUrl = buildSafeLoginUrl('patients', request.url, 'auth_error');
-    return NextResponse.redirect(loginUrl);
-  }
-}
+/**
+ * Patients portal middleware
+ * Requires authentication and validates 'patient' role
+ */
+export const middleware = createAppMiddleware(APP_NAMES.PATIENTS)
 
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
+     * Match all paths except:
      * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, manifest.webmanifest (metadata files)
-     * - public folder
-     * - api/health (health check endpoint)
+     * - _next/image (image optimization)
+     * - favicon.ico, manifest.json
+     * - images directory
      */
-    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|images).*)',
   ],
-};
+}

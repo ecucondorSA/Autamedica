@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
 import type { AuthState } from "./types";
+import { logger } from '@autamedica/shared';
 
 interface AuthContextType extends AuthState {
   logout: () => Promise<void>;
@@ -19,7 +20,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   });
 
   const logout = async () => {
-    console.log('Logout functionality to be implemented');
+    logger.info('Logout functionality to be implemented');
   };
 
   const contextValue: AuthContextType = {

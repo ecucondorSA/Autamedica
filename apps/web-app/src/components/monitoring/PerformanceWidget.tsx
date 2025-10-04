@@ -64,7 +64,7 @@ export default function PerformanceWidget() {
         })
 
       } catch (error) {
-        console.warn('Performance measurement not available:', error)
+        logger.warn('Performance measurement not available:', error)
       }
     }
 

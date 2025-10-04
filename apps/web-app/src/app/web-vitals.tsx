@@ -1,12 +1,13 @@
 'use client';
 
 import { useReportWebVitals } from 'next/web-vitals';
+import { logger } from '@autamedica/shared';
 
 export function WebVitals() {
   useReportWebVitals((metric) => {
     // Log metrics in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Web Vital:', metric);
+      logger.info('📊 Web Vital:', metric);
     }
 
     // Send to analytics in production

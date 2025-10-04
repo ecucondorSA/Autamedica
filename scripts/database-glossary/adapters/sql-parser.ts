@@ -23,6 +23,7 @@ import type {
   DatabaseConstraint,
   DatabaseFunction
 } from '../types/index.js';
+import { logger } from '@autamedica/shared';
 
 /**
  * SQL parsing adapter implementation
@@ -41,7 +42,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
    * Parse multiple SQL files and return aggregated results
    */
   async parseFiles(filePaths: string[]): Promise<SQLParsingResult[]> {
-    console.log(`🔍 Parsing ${filePaths.length} SQL files...`);
+    logger.info(`🔍 Parsing ${filePaths.length} SQL files...`);
     const results: SQLParsingResult[] = [];
 
     for (const filePath of filePaths) {
@@ -49,7 +50,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
         const result = await this.parseSingleFile(filePath);
         results.push(result);
       } catch (error) {
-        console.error(`❌ Failed to parse ${filePath}:`, error);
+        logger.error(`❌ Failed to parse ${filePath}:`, error);
         results.push({
           file_path: filePath,
           statements: [],
@@ -63,7 +64,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
       }
     }
 
-    console.log(`✅ Parsed ${results.length} files`);
+    logger.info(`✅ Parsed ${results.length} files`);
     return results;
   }
 
@@ -71,7 +72,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
    * Parse a single SQL file
    */
   async parseSingleFile(filePath: string): Promise<SQLParsingResult> {
-    console.log(`📄 Parsing file: ${filePath}`);
+    logger.info(`📄 Parsing file: ${filePath}`);
 
     try {
       // Check file size limit
@@ -112,7 +113,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
       await this.parseSQL(sql, 'inline');
       return true;
     } catch (error) {
-      console.error('SQL validation failed:', error);
+      logger.error('SQL validation failed:', error);
       return false;
     }
   }
@@ -177,7 +178,7 @@ export class SQLParsingAdapter implements SQLParsingAdapter {
           statements.push(parsed);
         }
       } catch (error) {
-        console.warn(`⚠️ Failed to parse statement at line ${i + 1}:`, error);
+        logger.warn(`⚠️ Failed to parse statement at line ${i + 1}:`, error);
       }
     }
 
@@ -715,7 +716,7 @@ export async function createSQLParsingAdapter(config: SQLParsingConfig): Promise
  * Discover SQL files in the configured directories
  */
 export async function discoverSQLFiles(config: SQLParsingConfig): Promise<string[]> {
-  console.log('🔍 Discovering SQL files...');
+  logger.info('🔍 Discovering SQL files...');
 
   const patterns: string[] = [];
 
@@ -742,17 +743,17 @@ export async function discoverSQLFiles(config: SQLParsingConfig): Promise<string
         if (stats.size <= maxSizeBytes) {
           validFiles.push(file);
         } else {
-          console.warn(`⚠️ Skipping ${file}: file size ${stats.size} bytes exceeds limit`);
+          logger.warn(`⚠️ Skipping ${file}: file size ${stats.size} bytes exceeds limit`);
         }
       } catch (error) {
-        console.warn(`⚠️ Error checking ${file}:`, error);
+        logger.warn(`⚠️ Error checking ${file}:`, error);
       }
     }
 
-    console.log(`✅ Discovered ${validFiles.length} SQL files`);
+    logger.info(`✅ Discovered ${validFiles.length} SQL files`);
     return validFiles;
   } catch (error) {
-    console.error('❌ Error discovering SQL files:', error);
+    logger.error('❌ Error discovering SQL files:', error);
     return [];
   }
 }

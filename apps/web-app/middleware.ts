@@ -11,6 +11,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { ensureClientEnv } from "@autamedica/shared";
+import { logger } from '@autamedica/shared';
 
 // Rutas que requieren autenticación
 const PROTECTED_ROUTES = [
@@ -93,7 +94,7 @@ export async function middleware(request: NextRequest) {
 
     // Si hay error al obtener la sesión, permitir continuar
     if (error) {
-      console.error("Middleware auth error:", error);
+      logger.error("Middleware auth error:", error);
       return NextResponse.next();
     }
 
@@ -175,7 +176,7 @@ export async function middleware(request: NextRequest) {
     return response;
 
   } catch (error) {
-    console.error("Middleware error:", error);
+    logger.error("Middleware error:", error);
 
     // En caso de error, permitir continuar pero redirigir rutas protegidas al login
     if (PROTECTED_ROUTES.some(route => pathname.startsWith(route))) {

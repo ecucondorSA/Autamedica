@@ -5,6 +5,9 @@
 
 import type { User, Session } from '@supabase/supabase-js'
 
+// Re-export user metadata types
+export type { UserMetadata } from './types/user-metadata'
+
 /**
  * User roles in the AutaMedica platform
  * Each user has exactly one role that determines their app access
@@ -21,7 +24,7 @@ export type UserRole =
 /**
  * Application identifiers
  */
-export type AppName = 'web-app' | 'patients' | 'doctors' | 'companies' | 'admin'
+export type AppName = 'web-app' | 'auth' | 'patients' | 'doctors' | 'companies' | 'admin'
 
 /**
  * Extended user profile with role information
@@ -62,6 +65,7 @@ export interface DomainConfig {
   cookie: string
   apps: {
     web: string
+    auth: string
     patients: string
     doctors: string
     companies: string
@@ -87,6 +91,15 @@ export const ROLE_APP_MAPPING: Record<UserRole, AppName> = {
  */
 export const APP_ALLOWED_ROLES: Record<AppName, UserRole[]> = {
   'web-app': [
+    'patient',
+    'doctor',
+    'company',
+    'company_admin',
+    'organization_admin',
+    'admin',
+    'platform_admin'
+  ],
+  'auth': [
     'patient',
     'doctor',
     'company',

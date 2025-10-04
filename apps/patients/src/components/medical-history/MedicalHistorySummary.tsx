@@ -22,7 +22,7 @@ export function MedicalHistorySummary({ summary, className = '' }: MedicalHistor
       title: 'Condiciones Activas',
       value: summary.active_conditions_count,
       icon: '🩺',
-      color: summary.active_conditions_count > 3 ? 'border-red-500 bg-red-500/10' : 'border-blue-500 bg-blue-500/10',
+      color: summary.active_conditions_count > 3 ? 'border-red-500 bg-red-50' : 'border-blue-500 bg-blue-500/10',
       description: `${summary.active_conditions_count} condiciones requieren seguimiento`
     },
     {
@@ -83,14 +83,14 @@ export function MedicalHistorySummary({ summary, className = '' }: MedicalHistor
 
           {/* Critical Allergies */}
           {summary.critical_allergies.length > 0 && (
-            <div className="p-4 rounded-lg border border-red-500 bg-red-500/10 backdrop-blur-sm">
-              <h3 className="font-medium text-red-300 mb-2 flex items-center">
+            <div className="p-4 rounded-lg border border-red-500 bg-red-50 backdrop-blur-sm">
+              <h3 className="font-medium text-red-800 mb-2 flex items-center">
                 <span className="mr-2">⚠️</span>
                 Alergias Críticas
               </h3>
               <div className="space-y-1">
                 {summary.critical_allergies.map((allergy, index) => (
-                  <div key={index} className="text-red-200 text-sm">
+                  <div key={index} className="text-red-900 text-sm">
                     • {allergy}
                   </div>
                 ))}
@@ -100,14 +100,14 @@ export function MedicalHistorySummary({ summary, className = '' }: MedicalHistor
 
           {/* Chronic Conditions */}
           {summary.chronic_conditions.length > 0 && (
-            <div className="p-4 rounded-lg border border-orange-500 bg-orange-500/10 backdrop-blur-sm">
-              <h3 className="font-medium text-orange-300 mb-2 flex items-center">
+            <div className="p-4 rounded-lg border border-orange-500 bg-orange-50 backdrop-blur-sm">
+              <h3 className="font-medium text-orange-800 mb-2 flex items-center">
                 <span className="mr-2">🔄</span>
                 Condiciones Crónicas
               </h3>
               <div className="space-y-1">
                 {summary.chronic_conditions.map((condition, index) => (
-                  <div key={index} className="text-orange-200 text-sm">
+                  <div key={index} className="text-orange-900 text-sm">
                     • {condition}
                   </div>
                 ))}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { AuthUser, AuthSession, SupabaseClientType } from '../lib/supabase';
 import { getBrowserSupabaseClient } from '../lib/supabase';
 import type { UserRole } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 export interface AuthState {
   user: AuthUser | null;
@@ -107,7 +108,7 @@ export const useAuth = (): UseAuthReturn => {
       async (event, session) => {
         if (!mounted) return;
 
-        console.log('Auth event:', event, session?.user?.id);
+        // logger.info('Auth event:', event, session?.user?.id);
 
         updateState({
           user: session?.user ?? null,
@@ -125,7 +126,7 @@ export const useAuth = (): UseAuthReturn => {
             router.push('/auth/select-role');
             break;
           case 'TOKEN_REFRESHED':
-            console.log('Token refreshed successfully');
+            // logger.info('Token refreshed successfully');
             break;
           case 'PASSWORD_RECOVERY':
             router.push('/auth/reset-password');

@@ -238,13 +238,13 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
 
         const { data, error } = await supabase.auth.getUser()
         if (error) {
-          console.warn('[DoctorsPortalShell] No se pudo obtener el usuario actual', error.message)
+          logger.warn('[DoctorsPortalShell] No se pudo obtener el usuario actual', error.message)
           return
         }
 
         const user = data.user
         if (!user) {
-          console.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
+          // logger.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
           return
         }
 
@@ -256,9 +256,9 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
           FALLBACK_USER
 
         setUserName(`Dr. ${resolvedName}`)
-        console.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
+        // logger.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
       } catch (error) {
-        console.error('[DoctorsPortalShell] Error al obtener usuario:', error)
+        logger.error('[DoctorsPortalShell] Error al obtener usuario:', error)
       }
     }
 

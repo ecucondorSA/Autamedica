@@ -12,7 +12,7 @@ class LoggerService {
         console.warn(`[WARN] ${message}`, ...args);
     }
     info(message, ...args) {
-        console.info(`[INFO] ${message}`, ...args);
+        console.log(`[INFO] ${message}`, ...args);
     }
     debug(message, ...args) {
         console.debug(`[DEBUG] ${message}`, ...args);

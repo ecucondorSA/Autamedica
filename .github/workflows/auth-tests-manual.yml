@@ -1,0 +1,177 @@
+name: 🎮 Auth Tests - Manual
+
+# Solo ejecución manual con opciones personalizables
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Tipo de tests a ejecutar'
+        required: true
+        type: choice
+        options:
+          - quick
+          - extensive
+          - both
+        default: 'quick'
+
+      apps_to_test:
+        description: 'Apps a incluir (separadas por comas)'
+        required: false
+        default: 'web-app,patients,doctors'
+
+      headless:
+        description: 'Ejecutar en modo headless'
+        required: true
+        type: boolean
+        default: true
+
+      upload_artifacts:
+        description: 'Subir screenshots y resultados'
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  auth-tests-manual:
+    name: 🧪 Tests de Autenticación (Manual)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      CI: true
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.2
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 📚 Install dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build packages
+        run: pnpm build:packages
+
+      - name: 🎭 Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: 🚀 Start dev servers
+        run: |
+          apps="${{ github.event.inputs.apps_to_test }}"
+          IFS=',' read -ra APPS <<< "$apps"
+
+          for app in "${APPS[@]}"; do
+            app=$(echo "$app" | xargs) # trim whitespace
+            echo "🚀 Starting $app..."
+
+            case $app in
+              web-app)
+                cd apps/web-app && pnpm dev &
+                echo $! > /tmp/web-app.pid
+                cd ../..
+                ;;
+              patients)
+                cd apps/patients && pnpm dev &
+                echo $! > /tmp/patients.pid
+                cd ../..
+                ;;
+              doctors)
+                cd apps/doctors && pnpm dev &
+                echo $! > /tmp/doctors.pid
+                cd ../..
+                ;;
+              companies)
+                cd apps/companies && pnpm dev &
+                echo $! > /tmp/companies.pid
+                cd ../..
+                ;;
+              admin)
+                cd apps/admin && pnpm dev &
+                echo $! > /tmp/admin.pid
+                cd ../..
+                ;;
+            esac
+          done
+
+          echo "⏳ Waiting for servers to start..."
+          sleep 60
+
+          echo "🔍 Checking server health..."
+          curl -f http://localhost:3000 || echo "⚠️  Port 3000 not responding"
+          curl -f http://localhost:3002 || echo "⚠️  Port 3002 not responding"
+          curl -f http://localhost:3003 || echo "⚠️  Port 3003 not responding"
+
+      - name: 🧪 Run quick tests
+        if: github.event.inputs.test_type == 'quick' || github.event.inputs.test_type == 'both'
+        run: |
+          mkdir -p test-results/screenshots
+
+          if [ "${{ github.event.inputs.headless }}" == "true" ]; then
+            pnpm test:auth:ci
+          else
+            pnpm test:auth:browser
+          fi
+        timeout-minutes: 15
+
+      - name: 🔬 Run extensive tests
+        if: github.event.inputs.test_type == 'extensive' || github.event.inputs.test_type == 'both'
+        run: |
+          mkdir -p test-results/screenshots
+
+          if [ "${{ github.event.inputs.headless }}" == "true" ]; then
+            pnpm exec vitest run tests/integration/auth-extensive.browser.test.ts \
+              --config vitest.browser.config.ts \
+              --browser.headless=true \
+              --reporter=verbose
+          else
+            pnpm test:auth:extensive
+          fi
+        timeout-minutes: 25
+
+      - name: 📸 Upload screenshots
+        if: always() && github.event.inputs.upload_artifacts == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-screenshots-manual-${{ github.run_number }}
+          path: test-results/screenshots/
+          retention-days: 14
+
+      - name: 📊 Upload full test results
+        if: always() && github.event.inputs.upload_artifacts == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-manual-${{ github.run_number }}
+          path: test-results/
+          retention-days: 14
+
+      - name: 🛑 Stop dev servers
+        if: always()
+        run: |
+          for pid_file in /tmp/*.pid; do
+            [ -f "$pid_file" ] && kill $(cat "$pid_file") 2>/dev/null || true
+          done
+
+      - name: 📋 Summary
+        if: always()
+        run: |
+          echo "## 🎮 Auth Tests - Ejecución Manual" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tipo de tests:** ${{ github.event.inputs.test_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Apps probadas:** ${{ github.event.inputs.apps_to_test }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Modo headless:** ${{ github.event.inputs.headless }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Artifacts subidos:** ${{ github.event.inputs.upload_artifacts }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Tests completados" >> $GITHUB_STEP_SUMMARY

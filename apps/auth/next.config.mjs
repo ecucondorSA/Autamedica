@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
+  output: 'standalone', // Required for OpenNext.js Cloudflare
+  trailingSlash: true,
   experimental: {
     externalDir: true
   },

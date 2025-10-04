@@ -1,7 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 
-console.log("Update Call Status function started")
+logger.info("Update Call Status function started")
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Updating call status:', { callId, status, reason })
+    logger.info('Updating call status:', { callId, status, reason })
 
     // Create Supabase client with service role key
     const supabaseAdmin = createClient(
@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
     )
 
     if (authError || !user) {
-      console.error('Auth error:', authError)
+      logger.error('Auth error:', authError)
       return new Response(
         JSON.stringify({ error: 'Invalid or expired token' }),
         {
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Authenticated user:', user.id)
+    logger.info('Authenticated user:', user.id)
 
     // Call the update_call_status function using admin privileges
     const { data: updated, error: updateError } = await supabaseAdmin
@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
       })
 
     if (updateError) {
-      console.error('Error updating call status:', updateError)
+      logger.error('Error updating call status:', updateError)
       return new Response(
         JSON.stringify({
           error: 'Failed to update call status',
@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Call status updated successfully:', updated)
+    logger.info('Call status updated successfully:', updated)
 
     // Return success
     return new Response(
@@ -112,7 +112,7 @@ Deno.serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Unexpected error:', error)
+    logger.error('Unexpected error:', error)
     return new Response(
       JSON.stringify({
         error: 'Internal server error',

@@ -65,13 +65,13 @@ export function MercadoPagoCheckout({
       const publicKey = 'TEST-your-public-key'
 
       // Simulación de inicialización del SDK
-      console.log('Inicializando MercadoPago SDK con clave:', publicKey)
+      // logger.info('Inicializando MercadoPago SDK con clave:', publicKey)
 
       // En implementación real:
       // await window.MercadoPago.initialize({ locale: 'es-AR', environment: 'sandbox' })
       // await window.MercadoPago.setPublishableKey(publicKey)
     } catch (error) {
-      console.error('Error inicializando MercadoPago:', error)
+      logger.error('Error inicializando MercadoPago:', error)
       onError(error)
     }
   }
@@ -98,7 +98,7 @@ export function MercadoPagoCheckout({
 
       setPaymentMethods(mockPaymentMethods)
     } catch (error) {
-      console.error('Error cargando métodos de pago:', error)
+      logger.error('Error cargando métodos de pago:', error)
     }
   }
 

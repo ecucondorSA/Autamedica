@@ -16,18 +16,19 @@ const isProductionBuild = runtimeEnv === 'production'
 
 export function logDebug(...args: unknown[]): void {
   if (!isProductionBuild) {
-    console.log(...args);
+    logger.info(...args);
+import { logger } from '@autamedica/shared';
   }
 }
 
 export function logInfo(...args: unknown[]): void {
   if (!isProductionBuild) {
-    console.info(...args);
+    logger.info(...args);
   }
 }
 
 export function logWarn(...args: unknown[]): void {
   if (!isProductionBuild) {
-    console.warn(...args);
+    logger.warn(...args);
   }
 }

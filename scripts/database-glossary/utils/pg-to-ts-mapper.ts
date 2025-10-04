@@ -6,6 +6,7 @@
  */
 
 import { pascalCase } from 'change-case';
+import { logger } from '@autamedica/shared';
 
 /**
  * Map PostgreSQL types to TypeScript branded types
@@ -170,7 +171,7 @@ export function mapPgToTs(table: string, col: string, pgType: string): string {
   }
 
   // Default fallback
-  console.warn(`Unknown PostgreSQL type: ${pgType} for column ${table}.${col}`);
+  logger.warn(`Unknown PostgreSQL type: ${pgType} for column ${table}.${col}`);
   return "unknown";
 }
 

@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-import type { Database } from '@autamedica/types/database';
+import type { Database } from '@autamedica/types';
 
 // Environment validation with detailed error messages
 const getSupabaseConfig = () => {

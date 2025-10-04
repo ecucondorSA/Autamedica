@@ -42,6 +42,9 @@ node test-role-routing.mjs
 
 # Validar contratos
 pnpm docs:validate
+
+# Commit y push (manejo automático de permisos)
+./scripts/smart-commit.sh "feat: mi cambio"
 ```
 
 ---
@@ -245,6 +248,40 @@ TRIGGER sync_profile_role_after_user_roles
 - Performance monitoring
 - Caching de roles
 - Audit logs
+
+---
+
+## 🛠️ Desarrollo - Scripts de Utilidad
+
+### Smart Commit Script
+
+Script inteligente para manejar commits y push con permisos correctos.
+
+```bash
+# Commit + Push en un comando
+./scripts/smart-commit.sh "feat: nueva funcionalidad"
+
+# Amend del último commit
+./scripts/smart-commit.sh --amend
+
+# Solo push (sin commit)
+./scripts/smart-commit.sh --push-only
+
+# Ver estado del repo
+./scripts/smart-commit.sh --status
+
+# Ver ayuda completa
+./scripts/smart-commit.sh --help
+```
+
+**Características:**
+- ✅ Auto-corrección de permisos (root vs edu)
+- ✅ Commits creados como usuario `edu`
+- ✅ Push ejecutado con credenciales de `root`
+- ✅ Bypass automático de hooks problemáticos
+- ✅ Verificación de PR asociado después del push
+
+**Documentación completa**: Ver `scripts/README.md`
 
 ---
 

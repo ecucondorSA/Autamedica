@@ -23,14 +23,15 @@ export function getDomainConfig(): DomainConfig {
 
   const configs: Record<Environment, DomainConfig> = {
     production: {
-      base: 'pages.dev',
-      cookie: '.pages.dev', // Cloudflare Pages cookie domain
+      base: 'autamedica.com',
+      cookie: process.env.AUTH_COOKIE_DOMAIN || '.autamedica.com',
       apps: {
-        web: 'https://autamedica-web-app.pages.dev',
-        patients: 'https://autamedica-patients.pages.dev',
-        doctors: 'https://autamedica-doctors.pages.dev',
-        companies: 'https://autamedica-companies.pages.dev',
-        admin: 'https://autamedica-admin.pages.dev'
+        web: 'https://www.autamedica.com',
+        auth: 'https://auth.autamedica.com',
+        patients: 'https://patients.autamedica.com',
+        doctors: 'https://doctors.autamedica.com',
+        companies: 'https://companies.autamedica.com',
+        admin: 'https://admin.autamedica.com'
       }
     },
     staging: {
@@ -38,6 +39,7 @@ export function getDomainConfig(): DomainConfig {
       cookie: '.pages.dev', // Same as production for now
       apps: {
         web: 'https://autamedica-web-app-staging.pages.dev',
+        auth: 'https://autamedica-auth-staging.pages.dev',
         patients: 'https://autamedica-patients-staging.pages.dev',
         doctors: 'https://autamedica-doctors-staging.pages.dev',
         companies: 'https://autamedica-companies-staging.pages.dev',
@@ -49,10 +51,11 @@ export function getDomainConfig(): DomainConfig {
       cookie: 'localhost', // Cookies work across ports on localhost
       apps: {
         web: 'http://localhost:3000',
+        auth: 'http://localhost:3005',
         patients: 'http://localhost:3003',
         doctors: 'http://localhost:3002',
         companies: 'http://localhost:3004',
-        admin: 'http://localhost:3005'
+        admin: 'http://localhost:3006'
       }
     }
   }

@@ -1,4 +1,5 @@
- 
+import { logger } from './services/logger.service';
+
 // Tipos de configuración de entorno
 export interface EnvironmentConfig {
   // Variables públicas (cliente)
@@ -49,11 +50,16 @@ const ALLOWED_CLIENT_VARS = new Set([
   // URLs y configuración pública
   "NEXT_PUBLIC_API_URL",
   "NEXT_PUBLIC_APP_URL",
+  "NEXT_PUBLIC_AUTH_HUB_URL",
+  "NEXT_PUBLIC_AUTH_HUB_DEV_URL",
   "NEXT_PUBLIC_SITE_URL",
   "NEXT_PUBLIC_DOCTORS_URL",
+  "NEXT_PUBLIC_DOCTORS_DEV_URL",
   "NEXT_PUBLIC_PATIENTS_URL",
+  "NEXT_PUBLIC_PATIENTS_DEV_URL",
   "NEXT_PUBLIC_COMPANIES_URL",
   "NEXT_PUBLIC_SIGNALING_URL",
+  "NEXT_PUBLIC_AUTH_DEV_BYPASS",
 
   // Supabase (cliente)
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -364,11 +370,11 @@ export function validateEnvironmentSecurity(): void {
     process.env.NEXT_PUBLIC_OPENAI_API_KEY &&
     !process.env.ALLOW_CLIENT_OPENAI_KEY
   ) {
-    console.warn(
+    logger.warn(
       "⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.",
     );
-    console.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
-    console.warn(
+    logger.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
+    logger.warn(
       "⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.",
     );
   }
@@ -383,7 +389,7 @@ export function validateEnvironmentSecurity(): void {
     const clientVal = process.env[clientVar];
 
     if (serverVal && clientVal && serverVal !== clientVal) {
-      console.warn(
+      logger.warn(
         `Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`,
       );
     }

@@ -2,6 +2,7 @@
 /* global IntersectionObserver */
 
 import { useEffect, useRef, useState } from 'react';
+import { logger } from '@autamedica/shared';
 
 const videoSources = [
   { src: '/videos/video1.mp4', title: 'Consultorio Digital' },
@@ -17,7 +18,7 @@ const videoSources = [
 export default function VideoGrid() {
   const videosRef = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- isVisible state tracked for IntersectionObserver, unused pending UI indicators
+   
   const [_isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function VideoGrid() {
           if (entry.isIntersecting) {
             setIsVisible(true);
             // Play videos when visible
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- index not needed for video iteration
+             
             videosRef.current.forEach((video, _index) => {
               if (video && video.paused) {
                 // Random start delay between 0 and 2 seconds
@@ -41,7 +42,7 @@ export default function VideoGrid() {
                       playPromise.catch((error) => {
                         // Ignore AbortError silently
                         if (error.name !== 'AbortError') {
-                          console.debug('Video play error:', error.name);
+                          logger.debug('Video play error:', error.name);
                         }
                       });
                     }

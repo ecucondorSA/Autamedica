@@ -1,0 +1,21 @@
+# Build outputs
+dist/
+.next/
+.turbo/
+build/
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Supabase functions (Deno environment)
+supabase/
+
+# Cloudflare Workers
+worker/
+
+# Test seeds
+scripts/seeds/
+
+# Generated files
+.open-next/

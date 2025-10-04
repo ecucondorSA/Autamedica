@@ -49,7 +49,7 @@ jobs:
           FOUND_HARDCODED=false
 
           for pattern in "${HARDCODED_PATTERNS[@]}"; do
-            if grep -r -E "$pattern" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" . ; then
+            if grep -r -E "$pattern" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=.open-next --exclude-dir=dist --exclude="*.md" . ; then
               echo "❌ FOUND HARDCODED ENV VAR: $pattern"
               FOUND_HARDCODED=true
             fi
@@ -67,7 +67,7 @@ jobs:
           )
 
           # Find all process.env usages
-          PROCESS_ENV_FILES=$(grep -r "process\.env" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude="*.lock" . || true)
+          PROCESS_ENV_FILES=$(grep -r "process\.env" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=.open-next --exclude-dir=dist --exclude="*.md" --exclude="*.lock" . || true)
 
           if [ ! -z "$PROCESS_ENV_FILES" ]; then
             echo "Found process.env usages:"
@@ -106,7 +106,7 @@ jobs:
           echo "🔍 Validating ensureEnv usage patterns..."
 
           # Check for proper ensureEnv imports
-          if grep -r "ensureEnv" --exclude-dir=node_modules --exclude-dir=.git . | grep -v "@autamedica/shared"; then
+          if grep -r "ensureEnv" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=.open-next --exclude-dir=dist . | grep -v "@autamedica/shared"; then
             echo "❌ ensureEnv should only be imported from @autamedica/shared"
             exit 1
           fi

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Pill, Clock, CheckCircle2, Plus, Calendar } from 'lucide-react';
 import { usePatientMedicalStore } from '@/stores/patientMedicalStore';
+import { logger } from '@autamedica/shared';
 
 interface MedicationTrackerModalProps {
   isOpen: boolean;
@@ -74,7 +75,7 @@ export function MedicationTrackerModal({ isOpen, onClose, patientId = 'current-p
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
-      console.error('Error recording medication:', error);
+      logger.error('Error recording medication:', error);
     } finally {
       setIsSubmitting(false);
     }

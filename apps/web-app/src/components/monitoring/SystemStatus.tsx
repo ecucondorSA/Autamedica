@@ -37,7 +37,7 @@ export default function SystemStatus() {
           tags: { page: 'landing', component: 'platform_status' }
         })
       } catch (error) {
-        console.error('Error checking platform status:', error)
+        logger.error('Error checking platform status:', error)
         // Set fallback status
         setStatus({
           status: 'disponible',

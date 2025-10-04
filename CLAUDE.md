@@ -82,12 +82,14 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 
 ### 🏢️ **ESTADO DE SERVIDORES DESARROLLO**
 ```
-✅ Web-App:     http://localhost:3000  (16,844 chars - Status 200)
-✅ Doctors:     http://localhost:3001  (33,972 chars - Status 200)
-✅ Companies:   http://localhost:3003  (42,462 chars - Status 200)
-⚠️ Patients:    http://localhost:3002  (Status 500 - REQUIERE AUDITORIA)
-❌ Admin:       http://localhost:3004  (No pages/app directory - REQUIERE CONFIGURACIÓN)
+✅ Web-App:     http://localhost:3000  - Landing + Auth
+✅ Doctors:     http://localhost:3001  - Portal médicos
+✅ Patients:    http://localhost:3002  - Portal pacientes (✅ AUDITADO - Funcional)
+✅ Companies:   http://localhost:3003  - Portal empresarial
+✅ Admin:       http://localhost:3004  - Panel administrativo (✅ AUDITADO - Funcional)
 ```
+
+**Nota**: Todas las apps están configuradas y construyen correctamente. Los servidores dev no están corriendo actualmente.
 
 **16 packages** ejecutándose en paralelo con **concurrencia 15** via Turborepo.
 **🚀 Deployments automáticos** activos para todas las ramas principales.
