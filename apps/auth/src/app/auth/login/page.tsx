@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { useSearchParams } from 'next/navigation';
 import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared/roles';
 import type { UserRole } from '@autamedica/types';
-import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';
 
 function LoginForm() {
@@ -13,15 +11,23 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-  const role = searchParams.get('role') as UserRole | null;
+  const [role, setRole] = useState<UserRole | null>(null);
+  const [returnTo, setReturnTo] = useState<string | null>(null);
 
   useEffect(() => {
+    // Obtener parámetros de la URL usando window.location
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlRole = urlParams.get('role') as UserRole | null;
+    const urlReturnTo = urlParams.get('returnTo');
+    
+    setRole(urlRole);
+    setReturnTo(urlReturnTo);
+
     // Si no hay rol preseleccionado, redirigir a select-role
-    if (!role || !isValidUserRole(role)) {
+    if (!urlRole || !isValidUserRole(urlRole)) {
       window.location.href = '/auth/select-role';
     }
-  }, [role]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,8 +49,9 @@ function LoginForm() {
         throw signInError;
       }
 
-      // Redirect to portal
-      window.location.href = getPortalForRole(role!);
+      // Redirect to returnTo URL or default portal
+      const redirectUrl = returnTo || getPortalForRole(role!);
+      window.location.href = redirectUrl;
     } catch (error: any) {
       console.error('Login error:', error);
       setError(error.message || 'Error al iniciar sesión');
@@ -63,10 +70,16 @@ function LoginForm() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
 
+      const callbackUrl = new URL(`${window.location.origin}/auth/callback`);
+      callbackUrl.searchParams.set('role', role!);
+      if (returnTo) {
+        callbackUrl.searchParams.set('returnTo', returnTo);
+      }
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?role=${role}`,
+          redirectTo: callbackUrl.toString(),
         },
       });
 
@@ -229,9 +242,5 @@ function LoginForm() {
 }
 
 export default function LoginPage() {
-  return (
-    <SearchParamsWrapper>
-      <LoginForm />
-    </SearchParamsWrapper>
-  );
+  return <LoginForm />;
 }

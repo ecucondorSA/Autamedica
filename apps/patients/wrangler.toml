@@ -1,7 +1,11 @@
 name = "autamedica-patients"
 compatibility_date = "2025-09-30"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".open-next"
+
+# Variables de entorno
+[vars]
+SUPABASE_URL = "https://gtyvdircfhmdjiaelqkg.supabase.co"
 
 [env.production]
 name = "autamedica-patients"

@@ -1,7 +1,6 @@
 'use client'
 
 import type { CSSProperties, ReactNode, ChangeEvent } from 'react'
-import { AuthProvider } from '@autamedica/auth'
 import { useEffect, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -147,11 +146,10 @@ export function PatientRootLayout({ children }: PatientRootLayoutProps): JSX.Ele
   }
 
   // Simplificado: solo envolver con providers, sin UI propia
+  // AuthProvider ya está en el root layout (layout.tsx)
   return (
-    <AuthProvider>
-      <PatientPortalProvider>
-        {children}
-      </PatientPortalProvider>
-    </AuthProvider>
+    <PatientPortalProvider>
+      {children}
+    </PatientPortalProvider>
   )
 }

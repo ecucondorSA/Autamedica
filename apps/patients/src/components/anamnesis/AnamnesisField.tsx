@@ -36,7 +36,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             required={field.required}
             min={field.validation?.min}
             max={field.validation?.max}
-            className="w-full px-4 py-3 border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
           />
         );
 
@@ -47,8 +47,8 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             onChange={(e) => handleChange(e.target.value)}
             placeholder={field.placeholder}
             required={field.required}
-            rows={4}
-            className="w-full px-4 py-3 border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900 resize-none"
+            rows={3}
+            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900 resize-none"
           />
         );
 
@@ -58,7 +58,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             value={value || ''}
             onChange={(e) => handleChange(e.target.value)}
             required={field.required}
-            className="w-full px-4 py-3 border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
           >
             <option value="">Selecciona una opción</option>
             {field.options?.map((option) => (
@@ -77,7 +77,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
               return (
                 <label
                   key={option.value}
-                  className={`flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  className={`flex items-start gap-2 p-2 border-2 rounded-lg cursor-pointer transition-all ${
                     isSelected
                       ? 'border-stone-700 bg-stone-50'
                       : 'border-stone-200 hover:border-stone-400 hover:bg-stone-50'
@@ -93,12 +93,12 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                         : currentValue.filter((v) => v !== option.value);
                       handleChange(newValue);
                     }}
-                    className="mt-1 h-5 w-5 text-stone-700 border-stone-300 rounded focus:ring-stone-500"
+                    className="mt-0.5 h-4 w-4 text-stone-700 border-stone-300 rounded focus:ring-stone-500"
                   />
                   <div className="flex-1">
-                    <p className="font-semibold text-stone-900">{option.label}</p>
+                    <p className="text-sm font-semibold text-stone-900">{option.label}</p>
                     {option.explanation && (
-                      <p className="text-sm text-stone-600 mt-1">{option.explanation}</p>
+                      <p className="text-xs text-stone-600 mt-0.5">{option.explanation}</p>
                     )}
                   </div>
                 </label>
@@ -109,8 +109,8 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       case 'boolean':
         return (
-          <div className="flex gap-4">
-            <label className={`flex-1 p-4 border-2 rounded-lg cursor-pointer transition-all text-center ${
+          <div className="flex gap-3">
+            <label className={`flex-1 p-2 border-2 rounded-lg cursor-pointer transition-all text-center ${
               value === true ? 'border-green-500 bg-green-50' : 'border-stone-200 hover:border-stone-400'
             }`}>
               <input
@@ -119,9 +119,9 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                 onChange={() => handleChange(true)}
                 className="sr-only"
               />
-              <span className="font-semibold text-stone-900">✓ Sí</span>
+              <span className="text-sm font-semibold text-stone-900">✓ Sí</span>
             </label>
-            <label className={`flex-1 p-4 border-2 rounded-lg cursor-pointer transition-all text-center ${
+            <label className={`flex-1 p-2 border-2 rounded-lg cursor-pointer transition-all text-center ${
               value === false ? 'border-red-500 bg-red-50' : 'border-stone-200 hover:border-stone-400'
             }`}>
               <input
@@ -130,25 +130,25 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
                 onChange={() => handleChange(false)}
                 className="sr-only"
               />
-              <span className="font-semibold text-stone-900">✗ No</span>
+              <span className="text-sm font-semibold text-stone-900">✗ No</span>
             </label>
           </div>
         );
 
       case 'scale':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             <input
               type="range"
               min={field.validation?.min || 1}
               max={field.validation?.max || 10}
               value={value || field.validation?.min || 1}
               onChange={(e) => handleChange(Number(e.target.value))}
-              className="w-full h-3 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-700"
+              className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-700"
             />
-            <div className="flex justify-between text-sm text-stone-600">
+            <div className="flex justify-between text-xs text-stone-600">
               <span>1 (Leve)</span>
-              <span className="text-2xl font-bold text-stone-900">{value || field.validation?.min || 1}</span>
+              <span className="text-xl font-bold text-stone-900">{value || field.validation?.min || 1}</span>
               <span>10 (Insoportable)</span>
             </div>
           </div>
@@ -161,7 +161,7 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
             value={value || ''}
             onChange={(e) => handleChange(e.target.value)}
             required={field.required}
-            className="w-full px-4 py-3 border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
+            className="w-full px-3 py-2 text-sm border-2 border-stone-300 rounded-lg focus:border-stone-700 focus:ring-2 focus:ring-stone-200 outline-none transition-all text-stone-900"
           />
         );
 
@@ -171,10 +171,10 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {/* Label con tooltip */}
       <div className="flex items-start justify-between gap-2">
-        <label className="text-label text-stone-900 flex-1">
+        <label className="text-sm font-medium text-stone-900 flex-1">
           {field.label}
           {field.required && <span className="text-red-600 ml-1">*</span>}
         </label>
@@ -186,12 +186,12 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
               onMouseLeave={() => setShowTooltip(false)}
               className="text-stone-500 hover:text-stone-700 transition-colors"
             >
-              <HelpCircle className="h-5 w-5" />
+              <HelpCircle className="h-4 w-4" />
             </button>
             {showTooltip && (
-              <div className="absolute right-0 top-8 z-10 w-64 p-3 bg-stone-900 text-white text-sm rounded-lg shadow-xl">
+              <div className="absolute right-0 top-6 z-10 w-64 p-2 bg-stone-900 text-white text-xs rounded-lg shadow-xl">
                 <p className="whitespace-pre-line">{field.tooltip}</p>
-                <div className="absolute -top-2 right-2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-stone-900"></div>
+                <div className="absolute -top-1 right-2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-stone-900"></div>
               </div>
             )}
           </div>
@@ -203,12 +203,12 @@ export function AnamnesisField({ field, value, onChange, onComplete }: Anamnesis
 
       {/* Nota educativa al completar */}
       {showEducationalNote && field.educationalNote && (
-        <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg animate-fade-in">
-          <div className="flex items-start gap-3">
-            <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+        <div className="bg-green-50 border-l-4 border-green-500 p-2 rounded-r-lg animate-fade-in">
+          <div className="flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-green-900 font-medium mb-1">¡Excelente!</p>
-              <p className="text-sm text-green-800">{field.educationalNote}</p>
+              <p className="text-xs text-green-900 font-medium mb-0.5">¡Excelente!</p>
+              <p className="text-xs text-green-800">{field.educationalNote}</p>
             </div>
           </div>
         </div>

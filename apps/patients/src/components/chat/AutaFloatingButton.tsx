@@ -1,11 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sparkles, X } from 'lucide-react';
 import { AutaChatbot } from './AutaChatbot';
 
 export function AutaFloatingButton() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Escuchar eventos para abrir chat desde onboarding
+  useEffect(() => {
+    const handleOpenChat = () => {
+      setIsOpen(true);
+    };
+
+    window.addEventListener('open-auta-chat', handleOpenChat);
+    return () => window.removeEventListener('open-auta-chat', handleOpenChat);
+  }, []);
 
   return (
     <>

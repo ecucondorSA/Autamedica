@@ -1,177 +1,291 @@
 'use client';
 
-import { User, Mail, Phone, Calendar, MapPin, Edit } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  AlertCircle,
+  Calendar,
+  CheckCircle2,
+  Edit,
+  Loader2,
+  Mail,
+  Phone,
+  User,
+} from 'lucide-react';
+import { PatientProfileForm, type PatientProfileFormPayload } from '@/components/forms/PatientProfileForm';
+import { usePatientSession } from '@/hooks/usePatientSession';
+import { usePatientProfile } from '@/hooks/useProfile';
 
 export default function ProfilePage() {
-  // Mock patient data - will be replaced with real data from Supabase
-  const patient = {
-    first_name: 'María',
-    last_name: 'González',
-    email: 'maria.gonzalez@email.com',
-    phone: '+54 9 11 1234-5678',
-    date_of_birth: '1985-03-15',
-    gender: 'female',
-    address: 'Av. Corrientes 1234, CABA',
-    medical_history_summary: 'Hipertensión controlada desde 2022',
-    allergies: ['Penicilina', 'Mariscos'],
-    emergency_contact: {
-      name: 'Juan González',
-      relationship: 'Esposo',
-      phone: '+54 9 11 9876-5432',
-    },
+  const { user, profile, patient, loading, error, refresh } = usePatientSession();
+  const { updateProfile, isSaving, success, error: updateError, resetStatus } = usePatientProfile(user?.id ?? null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      setShowSuccess(true);
+      const timer = setTimeout(() => setShowSuccess(false), 4000);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [success]);
+
+  const age = useMemo(() => {
+    if (!patient?.birthDate) return null;
+    return computeAge(patient.birthDate);
+  }, [patient?.birthDate]);
+
+  const bmi = useMemo(() => {
+    if (!patient?.heightCm || !patient?.weightKg) return null;
+    const heightMeters = patient.heightCm / 100;
+    if (!heightMeters) return null;
+    const value = patient.weightKg / (heightMeters * heightMeters);
+    return Number.isFinite(value) ? Number(value.toFixed(1)) : null;
+  }, [patient?.heightCm, patient?.weightKg]);
+
+  const toggleEditing = () => {
+    setIsEditing(prev => !prev);
+    resetStatus();
   };
 
-  const calculateAge = (birthDate: string) => {
-    const today = new Date();
-    const birth = new Date(birthDate);
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-      age--;
-    }
-    return age;
+  const handleCancel = () => {
+    setIsEditing(false);
+    resetStatus();
   };
+
+  const handleSubmit = async (payload: PatientProfileFormPayload) => {
+    const result = await updateProfile(payload);
+    if (result) {
+      await refresh();
+      setIsEditing(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-3 text-stone-600">
+          <Loader2 className="h-10 w-10 animate-spin" />
+          <p>Cargando perfil…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-8 max-w-3xl mx-auto">
+        <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 flex items-start gap-3">
+          <AlertCircle className="h-6 w-6 text-red-500 mt-1" />
+          <div>
+            <h2 className="text-lg font-semibold text-red-900">No pudimos cargar tu perfil</h2>
+            <p className="text-red-700 mt-1">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="p-8 max-w-3xl mx-auto">
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-6 flex items-start gap-3">
+          <AlertCircle className="h-6 w-6 text-amber-500 mt-1" />
+          <div>
+            <h2 className="text-lg font-semibold text-amber-900">No encontramos tu perfil</h2>
+            <p className="text-amber-700 mt-1">Contactanos para completar el registro de tu cuenta.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="heading-1 flex items-center gap-3">
-            <User className="h-8 w-8 text-stone-700" />
-            Mi Perfil
-          </h1>
-          <button className="btn-primary-ivory px-6 py-3 text-sm inline-flex items-center gap-2">
-            <Edit className="h-4 w-4" />
-            Editar perfil
-          </button>
-        </div>
-        <p className="text-stone-600">
-          Información personal y configuración de tu cuenta
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        {/* Personal Information */}
-        <div className="card-ivory-elevated p-8">
-          <h2 className="heading-2 mb-6">Información Personal</h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Nombre Completo</label>
-              <p className="text-body font-semibold text-stone-900">
-                {patient.first_name} {patient.last_name}
-              </p>
-            </div>
-
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Edad</label>
-              <p className="text-body font-semibold text-stone-900">
-                {calculateAge(patient.date_of_birth)} años
-              </p>
-            </div>
-
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Fecha de Nacimiento</label>
-              <div className="flex items-center gap-2 text-body text-stone-900">
-                <Calendar className="h-4 w-4 text-stone-500" />
-                {new Date(patient.date_of_birth).toLocaleDateString('es-AR', {
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </div>
-            </div>
-
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Género</label>
-              <p className="text-body text-stone-900">
-                {patient.gender === 'female' ? 'Femenino' : patient.gender === 'male' ? 'Masculino' : 'Otro'}
-              </p>
-            </div>
+    <div className="p-8 max-w-5xl mx-auto space-y-6">
+      <header className="mb-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h1 className="heading-1 flex items-center gap-3">
+              <User className="h-8 w-8 text-stone-700" />
+              Mi Perfil
+            </h1>
+            <p className="text-stone-600 mt-1">Gestioná tu información personal y médica básica.</p>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => refresh()}
+              className="btn-secondary-ivory px-4 py-2 text-sm"
+              disabled={loading}
+            >
+              Actualizar datos
+            </button>
+            <button
+              onClick={toggleEditing}
+              className="btn-primary-ivory px-5 py-2 text-sm inline-flex items-center gap-2"
+            >
+              <Edit className="h-4 w-4" />
+              {isEditing ? 'Cerrar edición' : 'Editar perfil'}
+            </button>
           </div>
         </div>
+      </header>
 
-        {/* Contact Information */}
-        <div className="card-ivory p-8">
-          <h2 className="heading-2 mb-6">Información de Contacto</h2>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Mail className="h-5 w-5 text-stone-500" />
-              <div>
-                <label className="text-label text-stone-600 block">Email</label>
-                <p className="text-body text-stone-900">{patient.email}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Phone className="h-5 w-5 text-stone-500" />
-              <div>
-                <label className="text-label text-stone-600 block">Teléfono</label>
-                <p className="text-body text-stone-900">{patient.phone}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-stone-500" />
-              <div>
-                <label className="text-label text-stone-600 block">Dirección</label>
-                <p className="text-body text-stone-900">{patient.address}</p>
-              </div>
-            </div>
-          </div>
+      {showSuccess && (
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg px-4 py-3 flex items-center gap-3">
+          <CheckCircle2 className="h-5 w-5" />
+          <span>Guardamos tus cambios correctamente.</span>
         </div>
+      )}
 
-        {/* Medical Information */}
-        <div className="card-ivory p-8">
-          <h2 className="heading-2 mb-6">Información Médica</h2>
-
-          <div className="space-y-4">
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Resumen Clínico</label>
-              <p className="text-body text-stone-900">{patient.medical_history_summary}</p>
-            </div>
-
-            <div>
-              <label className="text-label text-stone-600 mb-2 block">Alergias</label>
-              <div className="flex gap-2">
-                {patient.allergies.map((allergy) => (
-                  <span
-                    key={allergy}
-                    className="px-3 py-1 bg-red-50 text-red-700 border-2 border-red-300 rounded-full text-sm font-semibold"
-                  >
-                    {allergy}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+      {updateError && (
+        <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 flex items-center gap-3">
+          <AlertCircle className="h-5 w-5" />
+          <span>{updateError}</span>
         </div>
+      )}
 
-        {/* Emergency Contact */}
-        <div className="card-ivory p-8">
-          <h2 className="heading-2 mb-6">Contacto de Emergencia</h2>
-
-          <div className="space-y-4">
-            <div>
-              <label className="text-label text-stone-600 block">Nombre</label>
-              <p className="text-body text-stone-900">{patient.emergency_contact.name}</p>
-            </div>
-            <div>
-              <label className="text-label text-stone-600 block">Relación</label>
-              <p className="text-body text-stone-900">{patient.emergency_contact.relationship}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-stone-500" />
+      {isEditing ? (
+        <PatientProfileForm
+          profile={profile}
+          patient={patient ?? null}
+          isSaving={isSaving}
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
+        />
+      ) : (
+        <div className="space-y-6">
+          <section className="card-ivory-elevated p-8">
+            <h2 className="heading-2 mb-6">Información personal</h2>
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="text-label text-stone-600 block">Teléfono</label>
-                <p className="text-body text-stone-900">{patient.emergency_contact.phone}</p>
+                <span className="text-label text-stone-600 block mb-1">Nombre completo</span>
+                <p className="text-body text-stone-900 font-semibold">
+                  {[profile.firstName, profile.lastName].filter(Boolean).join(' ') || '—'}
+                </p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Edad</span>
+                <div className="flex items-center gap-2 text-body text-stone-900">
+                  <Calendar className="h-4 w-4 text-stone-500" />
+                  {age !== null ? `${age} años` : '—'}
+                </div>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Fecha de nacimiento</span>
+                <p className="text-body text-stone-900">
+                  {patient?.birthDate
+                    ? new Date(patient.birthDate).toLocaleDateString('es-AR', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                      })
+                    : '—'}
+                </p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Género</span>
+                <p className="text-body text-stone-900">
+                  {patient?.gender
+                    ? GENDER_LABELS[patient.gender] ?? patient.gender
+                    : '—'}
+                </p>
               </div>
             </div>
-          </div>
+          </section>
+
+          <section className="card-ivory p-8">
+            <h2 className="heading-2 mb-6">Contacto</h2>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-stone-500" />
+                <div>
+                  <span className="text-label text-stone-600 block">Email</span>
+                  <p className="text-body text-stone-900">{profile.email ?? user?.email ?? '—'}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-stone-500" />
+                <div>
+                  <span className="text-label text-stone-600 block">Teléfono</span>
+                  <p className="text-body text-stone-900">{profile.phone ?? '—'}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="card-ivory p-8">
+            <h2 className="heading-2 mb-6">Datos médicos</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Tipo de sangre</span>
+                <p className="text-body text-stone-900">{patient?.bloodType ?? '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Altura</span>
+                <p className="text-body text-stone-900">{patient?.heightCm ? `${patient.heightCm} cm` : '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Peso</span>
+                <p className="text-body text-stone-900">{patient?.weightKg ? `${patient.weightKg} kg` : '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">IMC</span>
+                <p className="text-body text-stone-900">{bmi ?? '—'}</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="card-ivory p-8">
+            <h2 className="heading-2 mb-6">Contacto de emergencia</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Nombre</span>
+                <p className="text-body text-stone-900">{patient?.emergencyContact?.name ?? '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Relación</span>
+                <p className="text-body text-stone-900">{patient?.emergencyContact?.relationship ?? '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Teléfono</span>
+                <p className="text-body text-stone-900">{patient?.emergencyContact?.phone ?? '—'}</p>
+              </div>
+              <div>
+                <span className="text-label text-stone-600 block mb-1">Email</span>
+                <p className="text-body text-stone-900">{patient?.emergencyContact?.email ?? '—'}</p>
+              </div>
+            </div>
+          </section>
         </div>
-      </div>
+      )}
     </div>
   );
+}
+
+const GENDER_LABELS: Record<string, string> = {
+  male: 'Masculino',
+  female: 'Femenino',
+  other: 'Otro',
+  prefer_not_to_say: 'Prefiero no decirlo',
+};
+
+function computeAge(birthDate: string): number | null {
+  if (!birthDate) {
+    return null;
+  }
+
+  const today = new Date();
+  const date = new Date(birthDate);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  let computed = today.getFullYear() - date.getFullYear();
+  const monthDiff = today.getMonth() - date.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+    computed -= 1;
+  }
+
+  return computed;
 }

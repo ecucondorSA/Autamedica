@@ -86,6 +86,71 @@ export interface EnhancedVideoCallProps {
 }
 
 /**
+ * Posición del PIP (Picture-in-Picture)
+ */
+export type PIPPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+/**
+ * Modo de visualización de video
+ */
+export type VideoViewMode = 'speaker' | 'grid' | 'sidebar';
+
+/**
+ * Props para el layout de video dual
+ */
+export interface VideoLayoutProps {
+  localStream: MediaStream | null;
+  remoteStream: MediaStream | null;
+  isLocalVideoEnabled: boolean;
+  isRemoteVideoEnabled: boolean;
+  viewMode: VideoViewMode;
+  pipPosition: PIPPosition;
+  onSwapVideos: () => void;
+  onPIPPositionChange: (position: PIPPosition) => void;
+  className?: string;
+}
+
+/**
+ * Props para el video remoto (médico)
+ */
+export interface RemoteVideoStreamProps {
+  remoteStream: MediaStream | null;
+  isVideoEnabled: boolean;
+  participantName?: string;
+  participantRole?: string;
+  className?: string;
+}
+
+/**
+ * Props para el PIP local (paciente)
+ */
+export interface LocalVideoPIPProps {
+  localStream: MediaStream | null;
+  isVideoEnabled: boolean;
+  position: PIPPosition;
+  isDraggable?: boolean;
+  onPositionChange?: (position: PIPPosition) => void;
+  onSwap?: () => void;
+  className?: string;
+}
+
+/**
+ * Calidad de video (para adaptive bitrate)
+ */
+export type VideoQuality = 'auto' | 'hd' | 'sd' | 'ld';
+
+/**
+ * Props para indicador de calidad
+ */
+export interface VideoQualityIndicatorProps {
+  quality: VideoQuality;
+  bitrate?: number;
+  latency?: number;
+  packetLoss?: number;
+  className?: string;
+}
+
+/**
  * Props para overlays de video
  */
 export interface VideoOverlaysProps {

@@ -47,6 +47,8 @@ export const patientsLoginUrlBuilder = {
       params.set('returnTo', returnTo);
     }
     const query = params.toString();
-    return query ? `${AUTH_HUB_ORIGIN}/login?${query}` : `${AUTH_HUB_ORIGIN}/login`;
+    // Usar dominio personalizado configurado en DNS
+    const authUrl = AUTH_HUB_ORIGIN;
+    return query ? `${authUrl}/auth/login/?${query}` : `${authUrl}/auth/login/`;
   },
 };

@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Home,
   Calendar,
@@ -11,9 +11,11 @@ import {
   User,
   LogOut,
   BookOpen,
+  ShieldCheck,
 } from 'lucide-react';
 import { TourHub } from '@/components/tours/TourHub';
 import { AutaFloatingButton } from '@/components/chat/AutaFloatingButton';
+import { useAuth, signOut } from '@autamedica/auth';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -25,11 +27,24 @@ const navigation = [
   { name: 'Mi Anamnesis', href: '/anamnesis', icon: BookOpen },
   { name: 'Historial Médico', href: '/medical-history', icon: FileText },
   { name: 'Salud Preventiva', href: '/preventive-health', icon: Heart },
+  { name: 'Prevención Embarazo', href: '/pregnancy-prevention', icon: ShieldCheck },
   { name: 'Perfil', href: '/profile', icon: User },
 ];
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { session } = useAuth();
+  const user = session?.user;
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push('/');
+  };
+
+  // Obtener nombre y email del usuario
+  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
+  const userEmail = user?.email || 'No disponible';
 
   return (
     <div className="flex h-screen bg-ivory-base">
@@ -71,14 +86,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-stone-900 truncate">
-                Paciente Demo
+                {userName}
               </p>
               <p className="text-xs text-stone-500 truncate">
-                paciente@demo.com
+                {userEmail}
               </p>
             </div>
           </div>
-          <button className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors"
+          >
             <LogOut className="h-4 w-4" />
             Cerrar sesión
           </button>

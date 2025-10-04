@@ -9,7 +9,12 @@ const config = {
       queue: "dummy",
     },
   },
-  edgeExternals: ["node:crypto"],
+  edgeExternals: [
+    "node:crypto",
+    "onnxruntime-common",
+    "onnxruntime-node",
+    "onnxruntime-web"
+  ],
   middleware: {
     external: true,
     override: {

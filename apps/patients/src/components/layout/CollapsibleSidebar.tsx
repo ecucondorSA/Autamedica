@@ -14,7 +14,10 @@ import {
   Bot,
   User,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Brain,
+  ClipboardList,
+  ShieldCheck
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -22,8 +25,11 @@ import { createClient } from '@/lib/supabase'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
+  { icon: Brain, label: 'IA Diagnóstico', href: '/demo/symptom-analyzer', badge: 'NUEVO' },
+  { icon: ClipboardList, label: 'Anamnesis', href: '/anamnesis' },
   { icon: FileText, label: 'Historia clínica', href: '/medical-history', disabled: true },
   { icon: Heart, label: 'Salud Reproductiva', href: '/reproductive-health' },
+  { icon: ShieldCheck, label: 'Prevención Embarazo', href: '/pregnancy-prevention', badge: 'NUEVO' },
   { icon: Shield, label: 'Salud Preventiva', href: '/preventive-health' },
   { icon: Calendar, label: 'Citas', href: '/appointments', badge: 'PRÓX.' },
   { icon: Video, label: 'Videollamada', href: '#video', highlight: true },

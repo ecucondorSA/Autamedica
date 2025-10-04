@@ -16,6 +16,14 @@ import {
   TrendingUp
 } from 'lucide-react'
 import { usePatientScreenings } from '@/hooks/usePatientScreenings'
+import { useCommunityPosts } from '@/hooks/useCommunity'
+import {
+  BloodPressureModal,
+  MedicationModal,
+  SymptomModal,
+  LabResultModal,
+  CommunityPostModal,
+} from '@/components/quick-actions/QuickActionModals'
 
 type PanelTab = 'community' | 'progress' | 'actions' | 'medical'
 
@@ -95,34 +103,72 @@ export function DynamicRightPanel({ context = 'dashboard' }: DynamicRightPanelPr
 }
 
 function CommunityPanel() {
+  const { posts, loading, error, refetch } = useCommunityPosts(5);
+  const [showCreatePost, setShowCreatePost] = useState(false);
+
+  const handlePostCreated = () => {
+    setShowCreatePost(false);
+    refetch(); // Recargar publicaciones
+  };
+
   return (
-    <div className="space-y-4">
-      <div>
-        <h3 className="mb-3 text-sm font-semibold text-stone-900">💬 Tu Comunidad</h3>
-        <div className="space-y-3">
-          <CommunityPost
-            group="Diabetes Tipo 2"
-            members={1200}
-            author="María, 45 años"
-            content="¿Alguien más tiene bajones de azúcar después del ejercicio?"
-            replies={23}
-            likes={45}
-          />
-          <CommunityPost
-            group="Hipertensión"
-            members={850}
-            author="Carlos, 52 años"
-            content="Mi médico cambió mi dosis de Lisinopril, ¿experiencias?"
-            replies={18}
-            likes={32}
-          />
+    <>
+      <div className="space-y-4">
+        <div>
+          <h3 className="mb-3 text-sm font-semibold text-stone-900">💬 Tu Comunidad</h3>
+
+          {loading && (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-stone-900 mx-auto"></div>
+              <p className="mt-2 text-xs text-stone-600">Cargando publicaciones...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-900">
+              {error}
+            </div>
+          )}
+
+          {!loading && !error && posts.length === 0 && (
+            <div className="text-center py-8">
+              <MessageSquare className="h-12 w-12 text-stone-300 mx-auto mb-2" />
+              <p className="text-sm text-stone-600">No hay publicaciones aún</p>
+              <p className="text-xs text-stone-500 mt-1">¡Sé el primero en publicar!</p>
+            </div>
+          )}
+
+          {!loading && !error && posts.length > 0 && (
+            <div className="space-y-3">
+              {posts.map((post) => (
+                <CommunityPost
+                  key={post.id}
+                  group={post.group?.name || 'Grupo'}
+                  members={post.group?.member_count || 0}
+                  author={post.is_anonymous ? 'Anónimo' : (post.author_display_name || 'Usuario')}
+                  content={post.title}
+                  replies={post.comment_count}
+                  likes={post.reaction_count}
+                />
+              ))}
+            </div>
+          )}
         </div>
+
+        <button
+          onClick={() => setShowCreatePost(true)}
+          className="w-full btn-primary-ivory py-2.5 text-sm"
+        >
+          + Crear publicación
+        </button>
       </div>
 
-      <button className="w-full btn-primary-ivory py-2.5 text-sm">
-        + Crear publicación
-      </button>
-    </div>
+      <CommunityPostModal
+        isOpen={showCreatePost}
+        onClose={() => setShowCreatePost(false)}
+        onSuccess={handlePostCreated}
+      />
+    </>
   )
 }
 
@@ -234,16 +280,67 @@ function ProgressPanel() {
 }
 
 function QuickActionsPanel() {
-  return (
-    <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-stone-900">⚡ Acciones Rápidas</h3>
+  const [activeModal, setActiveModal] = useState<string | null>(null);
 
-      <ActionButton icon={<Activity className="h-4 w-4" />} label="Registrar presión arterial" />
-      <ActionButton icon={<Pill className="h-4 w-4" />} label="Confirmar medicamento" />
-      <ActionButton icon={<FileText className="h-4 w-4" />} label="Agregar síntoma" />
-      <ActionButton icon={<TrendingUp className="h-4 w-4" />} label="Subir resultado" />
-      <ActionButton icon={<MessageSquare className="h-4 w-4" />} label="Publicar en comunidad" />
-    </div>
+  return (
+    <>
+      <div className="space-y-3">
+        <h3 className="text-sm font-semibold text-stone-900">⚡ Acciones Rápidas</h3>
+
+        <ActionButton
+          icon={<Activity className="h-4 w-4" />}
+          label="Registrar presión arterial"
+          onClick={() => setActiveModal('blood-pressure')}
+          data-tour="action-blood-pressure"
+        />
+        <ActionButton
+          icon={<Pill className="h-4 w-4" />}
+          label="Confirmar medicamento"
+          onClick={() => setActiveModal('medication')}
+          data-tour="action-medication"
+        />
+        <ActionButton
+          icon={<FileText className="h-4 w-4" />}
+          label="Agregar síntoma"
+          onClick={() => setActiveModal('symptom')}
+          data-tour="action-symptom"
+        />
+        <ActionButton
+          icon={<TrendingUp className="h-4 w-4" />}
+          label="Subir resultado"
+          onClick={() => setActiveModal('lab-result')}
+          data-tour="action-lab-result"
+        />
+        <ActionButton
+          icon={<MessageSquare className="h-4 w-4" />}
+          label="Publicar en comunidad"
+          onClick={() => setActiveModal('community-post')}
+          data-tour="action-community-post"
+        />
+      </div>
+
+      {/* Modales */}
+      <BloodPressureModal
+        isOpen={activeModal === 'blood-pressure'}
+        onClose={() => setActiveModal(null)}
+      />
+      <MedicationModal
+        isOpen={activeModal === 'medication'}
+        onClose={() => setActiveModal(null)}
+      />
+      <SymptomModal
+        isOpen={activeModal === 'symptom'}
+        onClose={() => setActiveModal(null)}
+      />
+      <LabResultModal
+        isOpen={activeModal === 'lab-result'}
+        onClose={() => setActiveModal(null)}
+      />
+      <CommunityPostModal
+        isOpen={activeModal === 'community-post'}
+        onClose={() => setActiveModal(null)}
+      />
+    </>
   )
 }
 
@@ -367,9 +464,23 @@ function GoalItem({ label, completed, total }: { label: string; completed: numbe
   )
 }
 
-function ActionButton({ icon, label }: { icon: React.ReactNode; label: string }) {
+function ActionButton({
+  icon,
+  label,
+  onClick,
+  ...props
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  [key: string]: any;
+}) {
   return (
-    <button className="flex w-full items-center gap-3 rounded-lg bg-stone-50 border border-stone-200 px-4 py-3 text-left text-sm font-medium text-stone-700 transition hover:bg-stone-100 hover:border-stone-700 hover:text-stone-900">
+    <button
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-lg bg-stone-50 border border-stone-200 px-4 py-3 text-left text-sm font-medium text-stone-700 transition hover:bg-stone-100 hover:border-stone-700 hover:text-stone-900"
+      {...props}
+    >
       <span className="text-stone-700">{icon}</span>
       {label}
     </button>

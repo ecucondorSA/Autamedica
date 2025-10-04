@@ -23,31 +23,31 @@ export function MediaEducativa({ type, url, thumbnail, title, description, durat
 
   return (
     <>
-      {/* Card de preview */}
+      {/* Card de preview - Compacto */}
       <button
         onClick={handleOpen}
-        className="w-full bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-300 rounded-xl p-4 hover:shadow-lg transition-all group"
+        className="w-full bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 hover:shadow-lg transition-all group"
       >
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-3">
           {/* Thumbnail */}
           <div className="relative flex-shrink-0">
-            <div className="w-24 h-24 bg-indigo-200 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-16 h-16 bg-indigo-200 rounded-lg flex items-center justify-center overflow-hidden">
               {thumbnail ? (
                 <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
               ) : type === 'video' ? (
-                <Play className="h-10 w-10 text-indigo-600" />
+                <Play className="h-6 w-6 text-indigo-600" />
               ) : (
-                <ImageIcon className="h-10 w-10 text-indigo-600" />
+                <ImageIcon className="h-6 w-6 text-indigo-600" />
               )}
             </div>
             {type === 'video' && duration && (
-              <span className="absolute bottom-1 right-1 bg-black/70 text-white text-xs px-2 py-0.5 rounded">
+              <span className="absolute bottom-0.5 right-0.5 bg-black/70 text-white text-xs px-1 py-0.5 rounded text-[10px]">
                 {duration}
               </span>
             )}
             {hasWatched && (
-              <div className="absolute -top-2 -right-2 bg-green-500 rounded-full p-1">
-                <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="absolute -top-1 -right-1 bg-green-500 rounded-full p-0.5">
+                <svg className="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
@@ -56,16 +56,16 @@ export function MediaEducativa({ type, url, thumbnail, title, description, durat
 
           {/* Info */}
           <div className="flex-1 text-left">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-1.5 mb-0.5">
               {type === 'video' ? (
-                <Play className="h-5 w-5 text-indigo-600" />
+                <Play className="h-3 w-3 text-indigo-600" />
               ) : (
-                <ImageIcon className="h-5 w-5 text-indigo-600" />
+                <ImageIcon className="h-3 w-3 text-indigo-600" />
               )}
-              <h4 className="font-semibold text-indigo-900">{title}</h4>
+              <h4 className="text-sm font-semibold text-indigo-900">{title}</h4>
             </div>
-            <p className="text-sm text-indigo-700">{description}</p>
-            <p className="text-xs text-indigo-600 mt-2 font-medium group-hover:underline">
+            <p className="text-xs text-indigo-700">{description}</p>
+            <p className="text-xs text-indigo-600 mt-1 font-medium group-hover:underline">
               {hasWatched ? '✓ Vista' : 'Click para ver'} →
             </p>
           </div>

@@ -4192,5 +4192,151 @@ if (!hasRole(sess, ['organization_admin','company_admin'])) return 403;
 - **Descripción:** Utilidad del sistema AutaMedica para requiresrecordingconsent.
 - **Contrato:** Pendiente de documentación detallada
 
+## 📋 Exports Auto-generados
+
+### getCurrentUser
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Obtiene el usuario autenticado actual desde Supabase session
+- **Contrato:** `() => Promise<User | null>`
+
+### hasPortalAccess
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Verifica si el usuario tiene acceso a un portal específico basado en su rol
+- **Contrato:** `(portal: 'patient' | 'doctor' | 'company' | 'admin') => Promise<boolean>`
+
+### requirePortalAccess
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Requiere acceso a portal específico, redirige si no autorizado
+- **Contrato:** `(portal: string) => Promise<Session>`
+
+### requireSession
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Requiere sesión activa, redirige a login si no existe
+- **Contrato:** `(redirectTo?: string) => Promise<Session>`
+
+### getSession
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Obtiene la sesión actual de Supabase (nullable)
+- **Contrato:** `() => Promise<Session | null>`
+
+### hasRole
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Verifica si el usuario tiene un rol específico
+- **Contrato:** `(role: UserRole) => Promise<boolean>`
+
+### signOut
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Cierra la sesión del usuario actual
+- **Contrato:** `() => Promise<void>`
+
+### canInviteMembers
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Verifica si un rol de empresa puede invitar nuevos miembros
+- **Contrato:** `(role: CompanyMemberRole) => boolean`
+
+### requiresEquipment
+- **Tipo:** function
+- **Package:** @autamedica/types
+- **Descripción:** Determina si un tipo de consulta requiere equipamiento especial
+- **Contrato:** `(consultationType: string) => boolean`
+
+### toCamel
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Convierte objeto de snake_case a camelCase
+- **Contrato:** `<T>(obj: T) => CamelCased<T>`
+
+### toSnake
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Convierte objeto de camelCase a snake_case
+- **Contrato:** `<T>(obj: T) => SnakeCased<T>`
+
+### typeCamelCased
+- **Tipo:** type-guard
+- **Package:** @autamedica/shared
+- **Descripción:** Type guard para objetos en camelCase
+- **Contrato:** `<T>(obj: unknown) => obj is CamelCased<T>`
+
+### typeSnakeCased
+- **Tipo:** type-guard
+- **Package:** @autamedica/shared
+- **Descripción:** Type guard para objetos en snake_case
+- **Contrato:** `<T>(obj: unknown) => obj is SnakeCased<T>`
+
+### supabase
+- **Tipo:** client
+- **Package:** @autamedica/shared
+- **Descripción:** Cliente Supabase compartido configurado
+- **Contrato:** `SupabaseClient<Database>`
+
+### selectActive
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Query helper para seleccionar registros activos (no eliminados)
+- **Contrato:** `<T>(table: string) => Promise<T[]>`
+
+### selectActiveRaw
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Query builder raw para registros activos
+- **Contrato:** `(table: string) => PostgrestFilterBuilder`
+
+### selectById
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Selecciona registro por ID
+- **Contrato:** `<T>(table: string, id: UUID) => Promise<T | null>`
+
+### insertRecord
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Inserta registro con metadata automática (created_at, etc)
+- **Contrato:** `<T>(table: string, data: Partial<T>) => Promise<T>`
+
+### updateRecord
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Actualiza registro con metadata automática (updated_at)
+- **Contrato:** `<T>(table: string, id: UUID, data: Partial<T>) => Promise<T>`
+
+### softDelete
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Elimina registro de forma soft (marca deleted_at)
+- **Contrato:** `(table: string, id: UUID) => Promise<void>`
+
+### hardDelete
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Elimina registro permanentemente de BD
+- **Contrato:** `(table: string, id: UUID) => Promise<void>`
+
+### restoreRecord
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Restaura registro eliminado soft (limpia deleted_at)
+- **Contrato:** `(table: string, id: UUID) => Promise<void>`
+
+### countActive
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Cuenta registros activos en tabla
+- **Contrato:** `(table: string) => Promise<number>`
+
+### typeSelectOptions
+- **Tipo:** type
+- **Package:** @autamedica/shared
+- **Descripción:** Tipo para opciones de select queries
+- **Contrato:** `interface SelectOptions { filter?: Record<string, any>; sort?: SortOptions }`
+
 ## 🔗 Base de Datos
 Ver glosario actualizado: [`docs/database/schema.md`](../docs/database/schema.md)

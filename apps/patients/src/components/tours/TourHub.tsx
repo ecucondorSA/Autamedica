@@ -11,24 +11,45 @@ export function TourHub() {
 
   const tours = [
     {
+      id: 'onboarding',
+      title: '🏥 Tour Principal',
+      description: 'Conoce todas las funcionalidades de AutaMedica (2 min)',
+      color: 'blue',
+      storageKey: 'autamedica_onboarding_completed',
+    },
+    {
       id: 'anamnesis',
       title: '🩺 Anamnesis Digital',
       description: 'Aprende a completar tu historia clínica paso a paso',
-      color: 'blue',
+      color: 'green',
       storageKey: 'autamedica_anamnesis_tour_completed',
+    },
+    {
+      id: 'preventive',
+      title: '🛡️ Salud Preventiva',
+      description: 'Chequeos y screenings según tu edad y género',
+      color: 'emerald',
+      storageKey: 'autamedica_preventive_tour_completed',
+    },
+    {
+      id: 'reproductive',
+      title: '💜 Salud Reproductiva',
+      description: 'IVE/ILE según Ley 27.610 - Tus derechos',
+      color: 'purple',
+      storageKey: 'autamedica_reproductive_tour_completed',
     },
     {
       id: 'appointments',
       title: '📅 Agendar Citas',
       description: 'Cómo reservar consultas con especialistas',
-      color: 'green',
+      color: 'orange',
       storageKey: 'autamedica_appointments_tour_completed',
     },
     {
       id: 'telemedicine',
-      title: '💻 Telemedicina',
+      title: '🎥 Telemedicina',
       description: 'Prepárate para videollamadas con tu médico',
-      color: 'purple',
+      color: 'cyan',
       storageKey: 'autamedica_telemedicine_tour_completed',
     },
     {

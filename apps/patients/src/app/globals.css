@@ -126,3 +126,80 @@
 .driver-active-element {
   @apply ring-4 ring-stone-800 ring-offset-4;
 }
+
+/* ============================================
+   ONBOARDING POPOVER - CONTROL DE ESPACIO
+   ============================================ */
+
+/* Limitar altura de popovers de onboarding */
+.autamedica-onboarding-popover {
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.autamedica-onboarding-popover .driver-popover-description {
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Scroll suave para contenido de Auta */
+.auta-minichat-content {
+  scrollbar-width: thin;
+  scrollbar-color: #a8a29e #f5f5f4;
+}
+
+.auta-minichat-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.auta-minichat-content::-webkit-scrollbar-track {
+  background: #f5f5f4;
+  border-radius: 3px;
+}
+
+.auta-minichat-content::-webkit-scrollbar-thumb {
+  background: #a8a29e;
+  border-radius: 3px;
+}
+
+.auta-minichat-content::-webkit-scrollbar-thumb:hover {
+  background: #78716c;
+}
+
+/* Scroll del popover principal también */
+.autamedica-onboarding-popover .driver-popover-description::-webkit-scrollbar {
+  width: 8px;
+}
+
+.autamedica-onboarding-popover .driver-popover-description::-webkit-scrollbar-track {
+  background: #f5f5f4;
+  border-radius: 4px;
+}
+
+.autamedica-onboarding-popover .driver-popover-description::-webkit-scrollbar-thumb {
+  background: #a8a29e;
+  border-radius: 4px;
+}
+
+.autamedica-onboarding-popover .driver-popover-description::-webkit-scrollbar-thumb:hover {
+  background: #78716c;
+}
+
+/* Animaciones para el componente de síntomas */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}

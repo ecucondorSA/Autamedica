@@ -8,7 +8,7 @@
 // Core hooks
 export { useAnamnesis } from './useAnamnesis';
 export { useTelemedicine } from './useTelemedicine';
-export { useCommunity } from './useCommunity';
+export { useCommunity, useCommunityGroups, useCommunityPosts, useAutoJoinGroup } from './useCommunity';
 export { usePatientScreenings } from './usePatientScreenings';
 export { useMedicalHistory } from './useMedicalHistory';
 export { usePreventiveScreenings } from './usePreventiveScreenings';
@@ -25,6 +25,7 @@ export { useVideoCall } from './useVideoCall';
 
 // Session hooks
 export { usePatientSession } from './usePatientSession';
+export { usePatientProfile } from './useProfile';
 
 // Legacy hooks (deprecated - to be removed)
 export function useActiveSession() {
@@ -61,3 +62,6 @@ export type {
   GroupMembership,
   CommunityFeedFilters,
 } from '@autamedica/types';
+
+// Re-export community types from local hooks
+export type { CommunityGroup as CommunityGroupLocal, CommunityPost as CommunityPostLocal } from './useCommunity';

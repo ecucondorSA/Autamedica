@@ -13,7 +13,9 @@ import {
   HelpCircle,
   Bot,
   User,
-  MessageSquare
+  MessageSquare,
+  Brain,
+  ClipboardList
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -21,6 +23,8 @@ import { createClient } from '@/lib/supabase'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
+  { icon: Brain, label: 'IA Diagnóstico', href: '/demo/symptom-analyzer', badge: 'NUEVO' },
+  { icon: ClipboardList, label: 'Anamnesis', href: '/anamnesis' },
   { icon: FileText, label: 'Historia clínica', href: '/medical-history' },
   { icon: Heart, label: 'Salud Reproductiva', href: '/reproductive-health' },
   { icon: Shield, label: 'Salud Preventiva', href: '/preventive-health' },

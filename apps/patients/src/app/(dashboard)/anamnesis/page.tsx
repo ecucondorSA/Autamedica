@@ -268,37 +268,29 @@ export default function AnamnesisPage() {
         <PausaCognitiva stepNumber={currentStepIndex + 1} onContinue={handleContinueAfterPause} />
       )}
 
-      {/* Progress Bar */}
-      <div className="sticky top-0 z-10 bg-white border-b-2 border-stone-200 shadow-md">
-        <div className="max-w-5xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-2">
+      {/* Progress Bar - Compacto */}
+      <div className="sticky top-0 z-10 bg-white border-b border-stone-200 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 py-2">
+          <div className="flex items-center justify-between mb-1">
             <div>
-              <p className="text-sm font-semibold text-stone-900">
-                Paso {currentStepIndex + 1} de {anamnesisSteps.length}
+              <p className="text-xs font-semibold text-stone-900">
+                Paso {currentStepIndex + 1}/{anamnesisSteps.length}
               </p>
-              <p className="text-xs text-stone-600">{currentStep.category.replace('_', ' ').toUpperCase()}</p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {/* Indicador de guardado */}
-              <div className="flex items-center gap-2">
-                {isSaving ? (
-                  <>
-                    <Save className="h-4 w-4 text-blue-600 animate-pulse" />
-                    <span className="text-xs text-blue-600">Guardando...</span>
-                  </>
-                ) : lastSaved ? (
-                  <>
-                    <Save className="h-4 w-4 text-green-600" />
-                    <span className="text-xs text-green-600">
-                      ✓ Guardado {Math.floor((Date.now() - lastSaved.getTime()) / 1000)}s atrás
-                    </span>
-                  </>
-                ) : null}
-              </div>
-              <p className="text-sm font-bold text-stone-900">{Math.round(progress)}% completo</p>
+              {isSaving ? (
+                <div className="flex items-center gap-1">
+                  <Save className="h-3 w-3 text-blue-600 animate-pulse" />
+                  <span className="text-xs text-blue-600">Guardando...</span>
+                </div>
+              ) : lastSaved ? (
+                <span className="text-xs text-green-600">✓ Guardado</span>
+              ) : null}
+              <p className="text-xs font-bold text-stone-900">{Math.round(progress)}%</p>
             </div>
           </div>
-          <div className="h-3 bg-stone-200 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-stone-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -307,14 +299,14 @@ export default function AnamnesisPage() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Step Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-stone-900 mb-3">
+      {/* Main Content - Compacto */}
+      <div className="max-w-5xl mx-auto px-4 py-4">
+        {/* Step Header - Reducido */}
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold text-stone-900 mb-1">
             {currentStep.title}
           </h1>
-          <p className="text-xl text-stone-600">
+          <p className="text-sm text-stone-600">
             {currentStep.subtitle}
           </p>
         </div>
@@ -327,27 +319,27 @@ export default function AnamnesisPage() {
           didYouKnow={currentStep.story.didYouKnow}
         />
 
-        {/* Media Educativa (Video/Imagen) */}
+        {/* Media Educativa (Video/Imagen) - Compacto */}
         {currentStep.mediaUrl && (
-          <div className="mb-8">
+          <div className="mb-4">
             <MediaEducativa
               type="video"
               url={currentStep.mediaUrl}
               title={`Video educativo: ${currentStep.title}`}
-              description="Aprende más sobre este tema con nuestro contenido visual"
+              description="Aprende más sobre este tema"
               duration="3:45"
             />
           </div>
         )}
 
-        {/* Formulario */}
-        <div className="card-ivory-elevated p-8 mb-8">
-          <h2 className="heading-2 mb-6 flex items-center gap-2">
-            <span className="text-2xl">📝</span>
+        {/* Formulario - Compacto */}
+        <div className="card-ivory-elevated p-4 mb-4">
+          <h2 className="text-lg font-bold mb-4 flex items-center gap-2 text-stone-900">
+            <span className="text-xl">📝</span>
             Ahora cuéntanos sobre ti
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {currentStep.fields.map((field) => {
               // Check si el campo depende de otro
               if (field.dependsOn) {
@@ -369,23 +361,23 @@ export default function AnamnesisPage() {
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation - Compacto */}
         <div className="flex items-center justify-between gap-4">
           <button
             onClick={handlePrevious}
             disabled={currentStepIndex === 0}
-            className={`px-6 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-all ${
+            className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
               currentStepIndex === 0
                 ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
                 : 'btn-secondary-ivory'
             }`}
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-4 w-4" />
             Anterior
           </button>
 
           <div className="text-center">
-            <p className="text-sm text-stone-600">
+            <p className="text-xs text-stone-600">
               {currentStepIndex === anamnesisSteps.length - 1
                 ? '¡Último paso!'
                 : `Faltan ${anamnesisSteps.length - currentStepIndex - 1} pasos`}
@@ -396,27 +388,27 @@ export default function AnamnesisPage() {
             <button
               onClick={handleFinish}
               disabled={!canGoNext()}
-              className={`px-6 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
                 !canGoNext()
                   ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
                   : 'btn-primary-ivory'
               }`}
             >
-              <CheckCircle className="h-5 w-5" />
+              <CheckCircle className="h-4 w-4" />
               Finalizar
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={!canGoNext()}
-              className={`px-6 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
                 !canGoNext()
                   ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
                   : 'btn-primary-ivory'
               }`}
             >
               Siguiente
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-4 w-4" />
             </button>
           )}
         </div>

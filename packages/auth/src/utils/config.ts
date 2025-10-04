@@ -27,6 +27,7 @@ export function getDomainConfig(): DomainConfig {
       cookie: '.pages.dev', // Cloudflare Pages cookie domain
       apps: {
         web: 'https://autamedica-web-app.pages.dev',
+        auth: 'https://autamedica-auth.pages.dev',
         patients: 'https://autamedica-patients.pages.dev',
         doctors: 'https://autamedica-doctors.pages.dev',
         companies: 'https://autamedica-companies.pages.dev',
@@ -38,6 +39,7 @@ export function getDomainConfig(): DomainConfig {
       cookie: '.pages.dev', // Same as production for now
       apps: {
         web: 'https://autamedica-web-app-staging.pages.dev',
+        auth: 'https://autamedica-auth-staging.pages.dev',
         patients: 'https://autamedica-patients-staging.pages.dev',
         doctors: 'https://autamedica-doctors-staging.pages.dev',
         companies: 'https://autamedica-companies-staging.pages.dev',
@@ -49,10 +51,11 @@ export function getDomainConfig(): DomainConfig {
       cookie: 'localhost', // Cookies work across ports on localhost
       apps: {
         web: 'http://localhost:3000',
+        auth: 'http://localhost:3005',
         patients: 'http://localhost:3003',
         doctors: 'http://localhost:3002',
         companies: 'http://localhost:3004',
-        admin: 'http://localhost:3005'
+        admin: 'http://localhost:3006'
       }
     }
   }
