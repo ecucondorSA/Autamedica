@@ -19,7 +19,8 @@ import {
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createBrowserClient } from '@autamedica/auth'
+import { useSupabase } from '@autamedica/auth'
+import { logger } from '@autamedica/shared'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
@@ -42,6 +43,7 @@ const bottomItems = [
 ]
 
 export function CompactSidebar() {
+  const supabase = useSupabase()
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [userName, setUserName] = useState<string>('')
   const [userInitials, setUserInitials] = useState<string>('U')
@@ -50,8 +52,6 @@ export function CompactSidebar() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const supabase = createBrowserClient()
-        if (!supabase) return
 
         const {
           data: { user },
@@ -80,7 +80,7 @@ export function CompactSidebar() {
     }
 
     fetchUserData()
-  }, [])
+  }, [supabase])
 
   return (
     <aside className="flex w-[12%] min-w-[80px] max-w-[120px] flex-col border-r border-stone-200 bg-white py-6 shadow-sm">

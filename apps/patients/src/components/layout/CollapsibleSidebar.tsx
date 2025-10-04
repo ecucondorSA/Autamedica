@@ -21,7 +21,8 @@ import {
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createBrowserClient } from '@autamedica/auth'
+import { useSupabase } from '@autamedica/auth'
+import { logger } from '@autamedica/shared'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
@@ -44,6 +45,7 @@ const bottomItems = [
 ]
 
 export function CollapsibleSidebar() {
+  const supabase = useSupabase()
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [userName, setUserName] = useState<string>('')
   const [userInitials, setUserInitials] = useState<string>('U')
@@ -57,8 +59,6 @@ export function CollapsibleSidebar() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const supabase = createBrowserClient()
-        if (!supabase) return
 
         const {
           data: { user },
@@ -84,7 +84,7 @@ export function CollapsibleSidebar() {
     }
 
     fetchUserData()
-  }, [])
+  }, [supabase])
 
   const toggleSidebar = () => {
     const newState = !isCollapsed
