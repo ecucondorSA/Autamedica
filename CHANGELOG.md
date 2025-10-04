@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- bb69771 fix(ci): remover .tsbuildinfo del caché de Turborepo
+- 58901e5 fix(types): usar tsc --build para proyectos composite
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:52:17*
+*Generado automáticamente el 2025-10-04 20:54:59*
