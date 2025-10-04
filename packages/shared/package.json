@@ -22,12 +22,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rimraf dist .tsbuildinfo && tsc --build tsconfig.json",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
     "test:unit": "vitest run",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist .tsbuildinfo"
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",
