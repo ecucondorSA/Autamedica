@@ -35,17 +35,19 @@ type Tables = PublicSchema extends { Tables: infer T }
 
 type TableName = Extract<keyof Tables, string>;
 
-type TableRow<Table extends TableName> = Tables[Table] extends { Row: infer Row }
-  ? Row
+type TableDefinition<Table extends TableName> = Tables[Table] extends {
+  Row: infer Row;
+  Insert: infer Insert;
+  Update: infer Update;
+}
+  ? { Row: Row; Insert: Insert; Update: Update }
   : never;
 
-type TableInsert<Table extends TableName> = Tables[Table] extends { Insert: infer Insert }
-  ? Insert
-  : never;
+type TableRow<Table extends TableName> = TableDefinition<Table>['Row'];
 
-type TableUpdate<Table extends TableName> = Tables[Table] extends { Update: infer Update }
-  ? Update
-  : never;
+type TableInsert<Table extends TableName> = TableDefinition<Table>['Insert'];
+
+type TableUpdate<Table extends TableName> = TableDefinition<Table>['Update'];
 
 /**
  * Cliente Supabase singleton
@@ -111,7 +113,7 @@ export async function selectActive<Table extends TableName, TResult = TableRow<T
     offset,
   } = options;
 
-  let queryBuilder = supabase.from(table).select(query);
+  let queryBuilder = supabase.from(table as any).select(query);
 
   // Auto-filtro de soft-deleted (a menos que explícitamente se incluyan)
   if (!includeDeleted) {
@@ -120,7 +122,7 @@ export async function selectActive<Table extends TableName, TResult = TableRow<T
 
   // Ordenamiento
   if (orderBy) {
-    queryBuilder = queryBuilder.order(orderBy.column as keyof TableRow<Table> & string, {
+    queryBuilder = queryBuilder.order(orderBy.column as any, {
       ascending: orderBy.ascending ?? true,
     });
   }
@@ -191,7 +193,7 @@ export async function selectById<Table extends TableName, TResult = TableRow<Tab
   const { includeDeleted = false, transform = true } = options;
 
   let queryBuilder = supabase
-    .from(table)
+    .from(table as any)
     .select('*')
     .eq('id', id);
 
@@ -234,19 +236,19 @@ export async function selectById<Table extends TableName, TResult = TableRow<Tab
  * // Retorna: { id, patientId, startTime, ... } (camelCase)
  * ```
  */
-export async function insertRecord<TInput, TOutput>(
-  table: string,
+export async function insertRecord<Table extends TableName, TInput extends Record<string, unknown>, TResult = TableRow<Table>>(
+  table: Table,
   data: TInput,
   options: { transform?: boolean } = {}
-): Promise<TOutput> {
+): Promise<TResult> {
   const { transform = true } = options;
 
   // Transformar input a snake_case para BD
-  const dbPayload = transform ? toSnake(data) : data;
+  const dbPayload = (transform ? toSnake(data) : data) as TableInsert<Table>;
 
   const { data: inserted, error } = await supabase
-    .from(table)
-    .insert(dbPayload as never)
+    .from(table as any)
+    .insert(dbPayload as any)
     .select()
     .single();
 
@@ -255,7 +257,9 @@ export async function insertRecord<TInput, TOutput>(
   }
 
   // Transformar output a camelCase para UI
-  return transform ? toCamel<TOutput>(inserted) : (inserted as unknown as TOutput);
+  return transform
+    ? (toCamel<TableRow<Table>>(inserted) as unknown as TResult)
+    : (inserted as unknown as TResult);
 }
 
 /**
@@ -269,20 +273,20 @@ export async function insertRecord<TInput, TOutput>(
  * @param options - Opciones de update
  * @returns Promise con registro actualizado en camelCase
  */
-export async function updateRecord<TInput, TOutput>(
-  table: string,
+export async function updateRecord<Table extends TableName, TInput extends Record<string, unknown>, TResult = TableRow<Table>>(
+  table: Table,
   id: string,
   data: TInput,
   options: { transform?: boolean } = {}
-): Promise<TOutput> {
+): Promise<TResult> {
   const { transform = true } = options;
 
   // Transformar input a snake_case para BD
-  const dbPayload = transform ? toSnake(data) : data;
+  const dbPayload = (transform ? toSnake(data) : data) as TableUpdate<Table>;
 
   const { data: updated, error } = await supabase
-    .from(table)
-    .update(dbPayload as never)
+    .from(table as any)
+    .update(dbPayload as any)
     .eq('id', id)
     .select()
     .single();
@@ -292,7 +296,9 @@ export async function updateRecord<TInput, TOutput>(
   }
 
   // Transformar output a camelCase para UI
-  return transform ? toCamel<TOutput>(updated) : (updated as unknown as TOutput);
+  return transform
+    ? (toCamel<TableRow<Table>>(updated) as unknown as TResult)
+    : (updated as unknown as TResult);
 }
 
 /**
@@ -308,15 +314,15 @@ export async function updateRecord<TInput, TOutput>(
  * // BD: UPDATE appointments SET deleted_at = NOW() WHERE id = '123'
  * ```
  */
-export async function softDelete(
-  table: string,
+export async function softDelete<Table extends TableName>(
+  table: Table,
   id: string
 ): Promise<void> {
   const now = new Date().toISOString();
 
   const { error } = await supabase
-    .from(table)
-    .update({ deleted_at: now } as never)
+    .from(table as any)
+    .update({ deleted_at: now } as any)
     .eq('id', id);
 
   if (error) {
@@ -333,12 +339,12 @@ export async function softDelete(
  * @param id - ID del registro a borrar
  * @returns Promise con éxito de operación
  */
-export async function hardDelete(
-  table: string,
+export async function hardDelete<Table extends TableName>(
+  table: Table,
   id: string
 ): Promise<void> {
   const { error } = await supabase
-    .from(table)
+    .from(table as any)
     .delete()
     .eq('id', id);
 
@@ -354,13 +360,13 @@ export async function hardDelete(
  * @param id - ID del registro a restaurar
  * @returns Promise con éxito de operación
  */
-export async function restoreRecord(
-  table: string,
+export async function restoreRecord<Table extends TableName>(
+  table: Table,
   id: string
 ): Promise<void> {
   const { error } = await supabase
-    .from(table)
-    .update({ deleted_at: null } as never)
+    .from(table as any)
+    .update({ deleted_at: null } as any)
     .eq('id', id);
 
   if (error) {
@@ -375,14 +381,14 @@ export async function restoreRecord(
  * @param options - Opciones de query
  * @returns Promise con conteo de registros
  */
-export async function countActive(
-  table: string,
+export async function countActive<Table extends TableName>(
+  table: Table,
   options: { includeDeleted?: boolean } = {}
 ): Promise<number> {
   const { includeDeleted = false } = options;
 
   let queryBuilder = supabase
-    .from(table)
+    .from(table as any)
     .select('*', { count: 'exact', head: true });
 
   if (!includeDeleted) {
