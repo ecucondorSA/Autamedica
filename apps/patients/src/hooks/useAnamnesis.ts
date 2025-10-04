@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { createBrowserClient } from '@autamedica/auth';
+import { useState, useEffect, useCallback } from 'react';
+import { useSupabase } from '@autamedica/auth';
 import type {
   Anamnesis,
   AnamnesisSection,
@@ -37,22 +37,15 @@ interface UseAnamnesisReturn {
  * ```
  */
 export function useAnamnesis(): UseAnamnesisReturn {
+  const supabase = useSupabase();
   const [anamnesis, setAnamnesis] = useState<Anamnesis | null>(null);
   const [sections, setSections] = useState<AnamnesisSectionData[]>([]);
   const [progress, setProgress] = useState<AnamnesisProgressResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Only create client in browser environment
-  const supabaseRef = useRef<ReturnType<typeof createBrowserClient> | null>(null);
-  if (typeof window !== 'undefined' && !supabaseRef.current) {
-    supabaseRef.current = createBrowserClient();
-  }
-  const supabase = supabaseRef.current;
-
   // Fetch anamnesis data
   const fetchAnamnesis = useCallback(async () => {
-    if (!supabase) return;
     try {
       setLoading(true);
       setError(null);
@@ -137,7 +130,6 @@ export function useAnamnesis(): UseAnamnesisReturn {
 
   // Create new anamnesis
   const createAnamnesis = useCallback(async (): Promise<Anamnesis | null> => {
-    if (!supabase) return null;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -171,7 +163,6 @@ export function useAnamnesis(): UseAnamnesisReturn {
 
   // Update anamnesis
   const updateAnamnesis = useCallback(async (update: AnamnesisUpdate): Promise<boolean> => {
-    if (!supabase) return false;
     try {
       if (!anamnesis) return false;
 
@@ -196,7 +187,6 @@ export function useAnamnesis(): UseAnamnesisReturn {
     section: AnamnesisSection,
     data: any
   ): Promise<boolean> => {
-    if (!supabase) return false;
     try {
       if (!anamnesis) return false;
 

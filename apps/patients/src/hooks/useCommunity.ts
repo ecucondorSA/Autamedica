@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { createBrowserClient, type PatientsSupabaseClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 export interface CommunityGroup {
@@ -38,19 +38,8 @@ interface LoadPostsOptions {
 
 const DEFAULT_POST_LIMIT = 10;
 
-function useSupabaseClient(): PatientsSupabaseClient | null {
-  const [client, setClient] = useState<PatientsSupabaseClient | null>(null);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    setClient((current) => current ?? createBrowserClient());
-  }, []);
-
-  return client;
-}
-
 export function useCommunity() {
-  const supabase = useSupabaseClient();
+  const supabase = useSupabase();
 
   const [groups, setGroups] = useState<CommunityGroup[]>([]);
   const [posts, setPosts] = useState<CommunityPost[]>([]);
@@ -224,11 +213,10 @@ export function useCommunityPosts(limit = DEFAULT_POST_LIMIT) {
 }
 
 export function useAutoJoinGroup() {
-  const supabase = useSupabaseClient();
+  const supabase = useSupabase();
 
   const autoJoin = useCallback(
     async (groupId: string) => {
-      if (!supabase) return;
 
       try {
         const { data: { user } } = await supabase.auth.getUser();

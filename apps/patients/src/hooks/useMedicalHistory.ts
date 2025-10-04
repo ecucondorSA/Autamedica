@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { createBrowserClient } from '@autamedica/auth'
+import { useSupabase } from '@autamedica/auth'
 import { logger } from '@autamedica/shared'
 import type {
   MedicalHistoryTimeline,
@@ -8,6 +8,7 @@ import type {
 } from '@autamedica/types'
 
 export function useMedicalHistory(patientId?: PatientId) {
+  const supabase = useSupabase()
   const [summary, setSummary] = useState<MedicalHistorySummary | null>(null)
   const [timeline, setTimeline] = useState<MedicalHistoryTimeline | null>(null)
   const [loading, setLoading] = useState(true)
@@ -17,8 +18,6 @@ export function useMedicalHistory(patientId?: PatientId) {
     try {
       setLoading(true)
       setError(null)
-
-      const supabase = createBrowserClient()
 
       // Get current user session
       const { data: { user } } = await supabase.auth.getUser()
@@ -131,7 +130,7 @@ export function useMedicalHistory(patientId?: PatientId) {
     } finally {
       setLoading(false)
     }
-  }, [patientId])
+  }, [supabase, patientId])
 
   useEffect(() => {
     fetchMedicalHistory()
@@ -139,7 +138,6 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addCondition = async (condition: any) => {
     try {
-      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 
@@ -167,7 +165,6 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addMedication = async (medication: any) => {
     try {
-      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 
@@ -199,7 +196,6 @@ export function useMedicalHistory(patientId?: PatientId) {
     try {
       // Allergies are stored in anamnesis, not medical_records
       // For now, we'll add a note in medical_records
-      const supabase = createBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('No authenticated user')
 

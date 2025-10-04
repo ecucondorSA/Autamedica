@@ -6,7 +6,7 @@ import type {
   ScreeningStatusType,
   PatientScreeningInsert
 } from '@autamedica/types';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UsePreventiveScreeningsOptions {
@@ -38,6 +38,7 @@ interface UsePreventiveScreeningsResult {
 export function usePreventiveScreenings(
   options: UsePreventiveScreeningsOptions = {}
 ): UsePreventiveScreeningsResult {
+  const supabase = useSupabase();
   const [myScreenings, setMyScreenings] = useState<PatientScreeningWithDetails[]>([]);
   const [recommendations, setRecommendations] = useState<ScreeningRecommendation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,8 +56,6 @@ export function usePreventiveScreenings(
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -136,7 +135,7 @@ export function usePreventiveScreenings(
     } finally {
       setIsLoading(false);
     }
-  }, [options.patientId, options.status, options.categoryFilter, options.includeCompleted]);
+  }, [supabase, options.patientId, options.status, options.categoryFilter, options.includeCompleted]);
 
   // Fetch recommendations usando función SQL
   const fetchRecommendations = useCallback(async () => {
@@ -148,8 +147,6 @@ export function usePreventiveScreenings(
 
     try {
       setIsLoadingRecommendations(true);
-
-      const supabase = createBrowserClient();
 
       // Llamar función SQL que calcula recomendaciones
       const { data, error: rpcError } = await supabase.rpc('get_recommended_screenings', {
@@ -186,7 +183,7 @@ export function usePreventiveScreenings(
     } finally {
       setIsLoadingRecommendations(false);
     }
-  }, [options.patientId]);
+  }, [supabase, options.patientId]);
 
   // Schedule a screening
   const scheduleScreening = useCallback(async (
@@ -198,7 +195,6 @@ export function usePreventiveScreenings(
     }
 
     try {
-      const supabase = createBrowserClient();
 
       // Check if patient_screening already exists
       const { data: existing } = await supabase
@@ -250,7 +246,7 @@ export function usePreventiveScreenings(
       logger.error('Error scheduling screening:', err);
       return { success: false, error: err };
     }
-  }, [options.patientId, fetchMyScreenings, fetchRecommendations]);
+  }, [supabase, options.patientId, fetchMyScreenings, fetchRecommendations]);
 
   // Mark screening as completed
   const markAsCompleted = useCallback(async (
@@ -258,7 +254,6 @@ export function usePreventiveScreenings(
     resultSummary?: string
   ) => {
     try {
-      const supabase = createBrowserClient();
 
       // Get screening details to calculate next due date
       const { data: screening } = await supabase
@@ -328,12 +323,11 @@ export function usePreventiveScreenings(
       logger.error('Error marking screening as completed:', err);
       return { success: false, error: err };
     }
-  }, [fetchMyScreenings, fetchRecommendations]);
+  }, [supabase, fetchMyScreenings, fetchRecommendations]);
 
   // Cancel screening
   const cancelScreening = useCallback(async (patientScreeningId: string) => {
     try {
-      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('patient_screenings')
@@ -355,7 +349,7 @@ export function usePreventiveScreenings(
       logger.error('Error cancelling screening:', err);
       return { success: false, error: err };
     }
-  }, [fetchMyScreenings, fetchRecommendations]);
+  }, [supabase, fetchMyScreenings, fetchRecommendations]);
 
   // Refetch all data
   const refetch = useCallback(async () => {

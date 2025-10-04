@@ -3,11 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { parseProfile, type Profile } from '@/lib/zod/profiles';
 import { parsePatient, type Patient } from '@/lib/zod/patients';
-
-type SupabaseClient = ReturnType<typeof createBrowserClient>;
 
 interface PatientSessionState {
   user: User | null;
@@ -39,7 +37,7 @@ export interface UsePatientSessionResult extends PatientSessionState {
 }
 
 export function usePatientSession(): UsePatientSessionResult {
-  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
+  const supabase = useSupabase();
   const [state, setState] = useState<PatientSessionState>(INITIAL_STATE);
   const isMountedRef = useRef(false);
 
@@ -53,10 +51,10 @@ export function usePatientSession(): UsePatientSessionResult {
   );
 
   const fetchOrCreateProfile = useCallback(
-    async (client: SupabaseClient, user: User): Promise<Profile> => {
+    async (user: User): Promise<Profile> => {
       const email = ensureEmail(user);
 
-      const { data, error } = await client
+      const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('user_id', user.id)
@@ -69,7 +67,7 @@ export function usePatientSession(): UsePatientSessionResult {
       let profileRow = data ?? null;
 
       if (!profileRow) {
-        const { data: inserted, error: insertError } = await client
+        const { data: inserted, error: insertError } = await supabase
           .from('profiles')
           .insert({
             user_id: user.id,
@@ -101,7 +99,7 @@ export function usePatientSession(): UsePatientSessionResult {
         }
 
         if (Object.keys(updates).length > 0) {
-          const { data: updated, error: updateError } = await client
+          const { data: updated, error: updateError } = await supabase
             .from('profiles')
             .update(updates)
             .eq('user_id', user.id)
@@ -118,12 +116,12 @@ export function usePatientSession(): UsePatientSessionResult {
 
       return parseProfile(profileRow);
     },
-    [],
+    [supabase],
   );
 
   const fetchOrCreatePatient = useCallback(
-    async (client: SupabaseClient, userId: string): Promise<Patient | null> => {
-      const { data, error } = await client
+    async (userId: string): Promise<Patient | null> => {
+      const { data, error } = await supabase
         .from('patients')
         .select('*')
         .eq('user_id', userId)
@@ -136,7 +134,7 @@ export function usePatientSession(): UsePatientSessionResult {
       let patientRow = data ?? null;
 
       if (!patientRow) {
-        const { data: inserted, error: insertError } = await client
+        const { data: inserted, error: insertError } = await supabase
           .from('patients')
           .insert({
             user_id: userId,
@@ -157,13 +155,11 @@ export function usePatientSession(): UsePatientSessionResult {
 
       return patientRow ? parsePatient(patientRow) : null;
     },
-    [],
+    [supabase],
   );
 
   const refresh = useCallback(async () => {
-    const client = supabase;
-
-    if (!client) {
+    if (!supabase) {
       if (typeof window === 'undefined') {
         safeSetState(prev => ({ ...prev, loading: false }));
       }
@@ -173,7 +169,7 @@ export function usePatientSession(): UsePatientSessionResult {
     safeSetState(prev => ({ ...prev, loading: true, error: null }));
 
     try {
-      const { data: sessionData, error: sessionError } = await client.auth.getSession();
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
       if (sessionError) {
         throw sessionError;
@@ -187,7 +183,7 @@ export function usePatientSession(): UsePatientSessionResult {
       }
 
       const user = session.user;
-      const profile = await fetchOrCreateProfile(client, user);
+      const profile = await fetchOrCreateProfile(user);
 
       if (profile.role && profile.role !== 'patient') {
         safeSetState(() => ({
@@ -200,7 +196,7 @@ export function usePatientSession(): UsePatientSessionResult {
         return;
       }
 
-      const patient = await fetchOrCreatePatient(client, user.id);
+      const patient = await fetchOrCreatePatient(user.id);
 
       safeSetState(() => ({
         user,
@@ -229,22 +225,19 @@ export function usePatientSession(): UsePatientSessionResult {
       };
     }
 
-    setSupabase(current => current ?? createBrowserClient());
-
     return () => {
       isMountedRef.current = false;
     };
   }, [safeSetState]);
 
   useEffect(() => {
-    const client = supabase;
-    if (!client) {
+    if (!supabase) {
       return;
     }
 
     refresh();
 
-    const { data } = client.auth.onAuthStateChange((event, session) => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (!isMountedRef.current) {
         return;
       }
@@ -265,9 +258,8 @@ export function usePatientSession(): UsePatientSessionResult {
   }, [refresh, safeSetState, supabase]);
 
   const signOut = useCallback(async () => {
-    const client = supabase;
-    if (!client) return;
-    await client.auth.signOut();
+    if (!supabase) return;
+    await supabase.auth.signOut();
     safeSetState(() => ({ ...INITIAL_STATE, loading: false }));
   }, [safeSetState, supabase]);
 

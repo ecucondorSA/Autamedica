@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { logger } from '@autamedica/shared';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import {
   buildProfileUpdatePayload,
   type ProfileUpdateInput,
@@ -33,6 +33,7 @@ export interface UsePatientProfileReturn {
 }
 
 export function usePatientProfile(userId: string | null): UsePatientProfileReturn {
+  const supabase = useSupabase();
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -56,8 +57,6 @@ export function usePatientProfile(userId: string | null): UsePatientProfileRetur
           setError('Las actualizaciones solo están disponibles desde el navegador.');
           return null;
         }
-
-        const supabase = createBrowserClient();
 
         if (profile) {
           const payload = buildProfileUpdatePayload(profile);
@@ -107,7 +106,7 @@ export function usePatientProfile(userId: string | null): UsePatientProfileRetur
         setIsSaving(false);
       }
     },
-    [userId],
+    [supabase, userId],
   );
 
   const resetStatus = useCallback(() => {

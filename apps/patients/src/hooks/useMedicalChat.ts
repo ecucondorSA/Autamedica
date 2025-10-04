@@ -6,7 +6,7 @@ import type {
   MedicalChatWithLastMessage,
   ChatStatusType
 } from '@autamedica/types';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
 
@@ -27,6 +27,7 @@ interface UseMedicalChatsResult {
 export function useMedicalChats(
   options: UseMedicalChatsOptions = {}
 ): UseMedicalChatsResult {
+  const supabase = useSupabase();
   const [chats, setChats] = useState<MedicalChatWithLastMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,8 +36,6 @@ export function useMedicalChats(
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -104,11 +103,10 @@ export function useMedicalChats(
     } finally {
       setIsLoading(false);
     }
-  }, [options.patientId, options.activeOnly]);
+  }, [supabase, options.patientId, options.activeOnly]);
 
   const createChat = useCallback(async (data: MedicalChatInsert) => {
     try {
-      const supabase = createBrowserClient();
 
       const insertData = {
         patient_id: data.patient_id,
@@ -143,14 +141,13 @@ export function useMedicalChats(
         error: err
       };
     }
-  }, [fetchChats]);
+  }, [supabase, fetchChats]);
 
   const updateChatStatus = useCallback(async (
     chatId: string,
     status: ChatStatusType
   ) => {
     try {
-      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('medical_chats')
@@ -173,7 +170,7 @@ export function useMedicalChats(
         error: err
       };
     }
-  }, [fetchChats]);
+  }, [supabase, fetchChats]);
 
   useEffect(() => {
     fetchChats();
@@ -202,6 +199,7 @@ export function useChatMessages(
   chatId: string | null,
   userId: string | null
 ): UseChatMessagesResult {
+  const supabase = useSupabase();
   const [messages, setMessages] = useState<MedicalMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -218,8 +216,6 @@ export function useChatMessages(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createBrowserClient();
-
       const { data, error: fetchError } = await supabase
         .from('medical_messages')
         .select('*')
@@ -235,7 +231,7 @@ export function useChatMessages(
     } finally {
       setIsLoading(false);
     }
-  }, [chatId]);
+  }, [supabase, chatId]);
 
   const sendMessage = useCallback(async (
     content: string,
@@ -249,7 +245,6 @@ export function useChatMessages(
     }
 
     try {
-      const supabase = createBrowserClient();
 
       const messageData: MedicalMessageInsert = {
         chat_id: chatId,
@@ -288,11 +283,10 @@ export function useChatMessages(
         error: err
       };
     }
-  }, [chatId, userId]);
+  }, [supabase, chatId, userId]);
 
   const markAsRead = useCallback(async (messageId: string) => {
     try {
-      const supabase = createBrowserClient();
 
       await supabase
         .from('medical_messages')
@@ -304,13 +298,11 @@ export function useChatMessages(
     } catch (err) {
       logger.error('Error marking message as read:', err);
     }
-  }, []);
+  }, [supabase]);
 
   // Setup Realtime subscription
   useEffect(() => {
-    if (!chatId) return;
-
-    const supabase = createBrowserClient();
+    if (!chatId || !supabase) return;
 
     const channel = supabase
       .channel(`medical_chat:${chatId}`)
@@ -338,7 +330,7 @@ export function useChatMessages(
         channelRef.current = null;
       }
     };
-  }, [chatId]);
+  }, [supabase, chatId]);
 
   useEffect(() => {
     fetchMessages();

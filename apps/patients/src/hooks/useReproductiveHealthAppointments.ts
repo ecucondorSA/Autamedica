@@ -5,7 +5,7 @@ import type {
   ReproductiveHealthAppointmentWithDetails,
   AppointmentStatusType
 } from '@autamedica/types';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseAppointmentsOptions {
@@ -27,6 +27,7 @@ interface UseAppointmentsResult {
 export function useReproductiveHealthAppointments(
   options: UseAppointmentsOptions = {}
 ): UseAppointmentsResult {
+  const supabase = useSupabase();
   const [appointments, setAppointments] = useState<ReproductiveHealthAppointmentWithDetails[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,8 +36,6 @@ export function useReproductiveHealthAppointments(
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -109,11 +108,10 @@ export function useReproductiveHealthAppointments(
     } finally {
       setIsLoading(false);
     }
-  }, [options.patientId, options.status, options.upcoming]);
+  }, [supabase, options.patientId, options.status, options.upcoming]);
 
   const createAppointment = useCallback(async (data: ReproductiveHealthAppointmentInsert) => {
     try {
-      const supabase = createBrowserClient();
 
       const insertData = {
         patient_id: data.patient_id,
@@ -153,14 +151,13 @@ export function useReproductiveHealthAppointments(
         error: err
       };
     }
-  }, [fetchAppointments]);
+  }, [supabase, fetchAppointments]);
 
   const updateAppointment = useCallback(async (
     id: string,
     data: ReproductiveHealthAppointmentUpdate
   ) => {
     try {
-      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('reproductive_health_appointments')
@@ -183,7 +180,7 @@ export function useReproductiveHealthAppointments(
         error: err
       };
     }
-  }, [fetchAppointments]);
+  }, [supabase, fetchAppointments]);
 
   const cancelAppointment = useCallback(async (id: string) => {
     return updateAppointment(id, { status: 'cancelled_by_patient' });

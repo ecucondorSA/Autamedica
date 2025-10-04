@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import type {
   TelemedicineSession,
   SessionParticipant,
@@ -49,6 +49,7 @@ interface UseTelemedicineReturn {
  * ```
  */
 export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
+  const supabase = useSupabase();
   const [session, setSession] = useState<TelemedicineSession | null>(null);
   const [participants, setParticipants] = useState<SessionParticipant[]>([]);
   const [events, setEvents] = useState<SessionEvent[]>([]);
@@ -63,18 +64,10 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Only create client in browser environment
-  const supabaseRef = useRef<ReturnType<typeof createBrowserClient> | null>(null);
-  if (typeof window !== 'undefined' && !supabaseRef.current) {
-    supabaseRef.current = createBrowserClient();
-  }
-  const supabase = supabaseRef.current;
-
   const localStreamRef = useRef<MediaStream | null>(null);
 
   // Fetch session data
   const fetchSession = useCallback(async (sid: string) => {
-    if (!supabase) return;
     try {
       setLoading(true);
       setError(null);

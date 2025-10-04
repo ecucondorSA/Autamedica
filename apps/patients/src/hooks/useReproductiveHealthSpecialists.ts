@@ -4,7 +4,7 @@ import type {
   ReproductiveHealthSpecialtyType,
   SpecialistAvailabilityStatus
 } from '@autamedica/types';
-import { createBrowserClient } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseSpecialistsOptions {
@@ -23,6 +23,7 @@ interface UseSpecialistsResult {
 export function useReproductiveHealthSpecialists(
   options: UseSpecialistsOptions = {}
 ): UseSpecialistsResult {
+  const supabase = useSupabase();
   const [specialists, setSpecialists] = useState<ReproductiveHealthSpecialistWithProfile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,8 +32,6 @@ export function useReproductiveHealthSpecialists(
     try {
       setIsLoading(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -99,7 +98,7 @@ export function useReproductiveHealthSpecialists(
     } finally {
       setIsLoading(false);
     }
-  }, [options.specialty, options.availableOnly, options.certifiedOnly]);
+  }, [supabase, options.specialty, options.availableOnly, options.certifiedOnly]);
 
   useEffect(() => {
     fetchSpecialists();
@@ -115,6 +114,7 @@ export function useReproductiveHealthSpecialists(
 
 // Hook específico para obtener un especialista por ID
 export function useSpecialistById(specialistId: string | null) {
+  const supabase = useSupabase();
   const [specialist, setSpecialist] = useState<ReproductiveHealthSpecialistWithProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -130,8 +130,6 @@ export function useSpecialistById(specialistId: string | null) {
       try {
         setIsLoading(true);
         setError(null);
-
-        const supabase = createBrowserClient();
 
         const { data, error: fetchError } = await supabase
           .from('reproductive_health_specialists')
@@ -184,13 +182,14 @@ export function useSpecialistById(specialistId: string | null) {
     };
 
     fetchSpecialist();
-  }, [specialistId]);
+  }, [supabase, specialistId]);
 
   return { specialist, isLoading, error };
 }
 
 // Hook para actualizar estado de disponibilidad (solo para médicos)
 export function useUpdateSpecialistAvailability() {
+  const supabase = useSupabase();
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -201,8 +200,6 @@ export function useUpdateSpecialistAvailability() {
     try {
       setIsUpdating(true);
       setError(null);
-
-      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('reproductive_health_specialists')
@@ -222,7 +219,7 @@ export function useUpdateSpecialistAvailability() {
     } finally {
       setIsUpdating(false);
     }
-  }, []);
+  }, [supabase]);
 
   return {
     updateAvailability,
