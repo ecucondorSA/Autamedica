@@ -262,9 +262,9 @@ export function validateEnvironmentSecurity() {
     // Verificación especial para OPENAI_API_KEY expuesto al cliente
     if (process.env.NEXT_PUBLIC_OPENAI_API_KEY &&
         !process.env.ALLOW_CLIENT_OPENAI_KEY) {
-        logger.warn("⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.");
-        logger.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
-        logger.warn("⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.");
+        console.warn("⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.");
+        console.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
+        console.warn("⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.");
     }
     // Verificar que no hay variables duplicadas con diferentes prefijos (solo para SUPABASE_URL que puede tener ambas formas)
     const duplicateChecks = [
@@ -274,7 +274,7 @@ export function validateEnvironmentSecurity() {
         const serverVal = process.env[serverVar];
         const clientVal = process.env[clientVar];
         if (serverVal && clientVal && serverVal !== clientVal) {
-            logger.warn(`Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`);
+            console.warn(`Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`);
         }
     }
 }

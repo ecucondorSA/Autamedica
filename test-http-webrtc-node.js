@@ -1,5 +1,5 @@
 // Test HTTP WebRTC Client functionality in Node.js
-logger.info('🧪 Testing HTTP WebRTC Client...');
+console.log('🧪 Testing HTTP WebRTC Client...');
 
 const testHttpClient = {
   config: {
@@ -11,7 +11,7 @@ const testHttpClient = {
   },
 
   async connect() {
-    logger.info('🔗 Testing connection to:', this.config.signalingUrl);
+    console.log('🔗 Testing connection to:', this.config.signalingUrl);
 
     const joinResponse = await fetch(`${this.config.signalingUrl}/api/join`, {
       method: 'POST',
@@ -25,7 +25,7 @@ const testHttpClient = {
 
     const joinData = await joinResponse.json();
     if (joinData.success) {
-      logger.info('✅ Successfully joined room:', this.config.roomId);
+      console.log('✅ Successfully joined room:', this.config.roomId);
     } else {
       throw new Error('Failed to join room: ' + joinData.error);
     }
@@ -34,18 +34,18 @@ const testHttpClient = {
   },
 
   async pollOnce() {
-    logger.info('📡 Testing polling...');
+    console.log('📡 Testing polling...');
     const response = await fetch(
       `${this.config.signalingUrl}/api/poll?roomId=${encodeURIComponent(this.config.roomId)}&userId=${encodeURIComponent(this.config.userId)}&since=0`
     );
 
     const data = await response.json();
-    logger.info('✅ Poll successful, messages:', data.messages.length);
+    console.log('✅ Poll successful, messages:', data.messages.length);
     return data;
   },
 
   async sendMessage() {
-    logger.info('📤 Testing message sending...');
+    console.log('📤 Testing message sending...');
     const response = await fetch(`${this.config.signalingUrl}/api/message`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -58,12 +58,12 @@ const testHttpClient = {
     });
 
     const data = await response.json();
-    logger.info('✅ Message sent successfully:', data.success);
+    console.log('✅ Message sent successfully:', data.success);
     return data;
   },
 
   async disconnect() {
-    logger.info('👋 Testing disconnect...');
+    console.log('👋 Testing disconnect...');
     const response = await fetch(`${this.config.signalingUrl}/api/leave`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -75,7 +75,7 @@ const testHttpClient = {
 
     const data = await response.json();
     if (data.success) {
-      logger.info('✅ Successfully left room');
+      console.log('✅ Successfully left room');
     }
     return data;
   }
@@ -88,9 +88,9 @@ testHttpClient.connect()
   .then(() => testHttpClient.pollOnce())
   .then(() => testHttpClient.disconnect())
   .then(() => {
-    logger.info('🎉 HTTP WebRTC Client test completed successfully!');
-    logger.info('✅ All fetch and HTTP functionality verified');
+    console.log('🎉 HTTP WebRTC Client test completed successfully!');
+    console.log('✅ All fetch and HTTP functionality verified');
   })
   .catch(err => {
-    logger.error('❌ Test failed:', err.message);
+    console.error('❌ Test failed:', err.message);
   });

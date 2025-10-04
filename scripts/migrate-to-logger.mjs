@@ -131,12 +131,13 @@ async function main() {
   if (SINGLE_FILE) {
     files = [SINGLE_FILE];
   } else {
-    files = await glob('**/*.{ts,tsx,js,jsx}', {
+    files = await glob('**/*.{ts,tsx}', {
       cwd: process.cwd(),
       ignore: [
         '**/node_modules/**',
         '**/.next/**',
         '**/dist/**',
+        '**/dist-esm/**',
         '**/.turbo/**',
         '**/build/**',
         '**/*.test.{ts,tsx}',

@@ -12,8 +12,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://gtyvdircfhm
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'REPLACE_WITH_ROTATED_KEY.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4';
 
 async function applyMigration() {
-  logger.info('🚀 Applying profiles table migration...');
-  logger.info(`📍 Supabase URL: ${supabaseUrl}`);
+  console.log('🚀 Applying profiles table migration...');
+  console.log(`📍 Supabase URL: ${supabaseUrl}`);
 
   // Create Supabase client
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -26,27 +26,27 @@ async function applyMigration() {
       .limit(1);
 
     if (testError && !testError.message.includes('relation "public.profiles" does not exist')) {
-      logger.error('❌ Connection test failed:', testError.message);
+      console.error('❌ Connection test failed:', testError.message);
       return;
     }
 
     if (!testError) {
-      logger.info('ℹ️ Profiles table already exists');
+      console.log('ℹ️ Profiles table already exists');
 
       // Check if we have any profiles
       const { count } = await supabase
         .from('profiles')
         .select('*', { count: 'exact', head: true });
 
-      logger.info(`✅ Profiles table has ${count || 0} records`);
+      console.log(`✅ Profiles table has ${count || 0} records`);
       return;
     }
 
-    logger.info('📋 Profiles table does not exist, creating it now...');
+    console.log('📋 Profiles table does not exist, creating it now...');
 
     // Note: Creating tables requires admin/service role access
     // For now, we'll just check the status
-    logger.info(`
+    console.log(`
 ⚠️ To create the profiles table, you need to:
 
 1. Go to Supabase Dashboard: https://supabase.com/dashboard/project/gtyvdircfhmdjiaelqkg/editor
@@ -60,7 +60,7 @@ psql "postgresql://postgres.gtyvdircfhmdjiaelqkg:[YOUR-PASSWORD]@aws-0-us-east-1
 `);
 
   } catch (error) {
-    logger.error('❌ Migration failed:', error.message);
+    console.error('❌ Migration failed:', error.message);
   }
 }
 

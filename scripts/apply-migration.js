@@ -3,9 +3,9 @@
 const fs = require('fs')
 const path = require('path')
 
-logger.info('📋 Migration SQL for 20250929_introduce_role_system:')
-logger.info('=' .repeat(50))
-logger.info(`
+console.log('📋 Migration SQL for 20250929_introduce_role_system:')
+console.log('=' .repeat(50))
+console.log(`
 To apply this migration, please:
 
 1. Go to your Supabase Dashboard: https://supabase.com/dashboard/project/gtyvdircfhmdjiaelqkg/sql
@@ -31,9 +31,9 @@ const migrationContent = fs.readFileSync(
   'utf8'
 )
 
-logger.info('\n📄 First 500 characters of migration:')
-logger.info(migrationContent.substring(0, 500))
-logger.info('...\n')
+console.log('\n📄 First 500 characters of migration:')
+console.log(migrationContent.substring(0, 500))
+console.log('...\n')
 
-logger.info(`Total size: ${migrationContent.length} characters`)
-logger.info(`Statements: ~${migrationContent.split(';').length - 1} SQL statements`)
+console.log(`Total size: ${migrationContent.length} characters`)
+console.log(`Statements: ~${migrationContent.split(';').length - 1} SQL statements`)

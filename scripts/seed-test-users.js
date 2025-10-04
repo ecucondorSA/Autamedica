@@ -59,7 +59,7 @@ const testUsers = [
 ];
 
 async function seedTestUsers() {
-  logger.info('🚀 Iniciando creación de usuarios de prueba...\n');
+  console.log('🚀 Iniciando creación de usuarios de prueba...\n');
   
   for (const user of testUsers) {
     try {
@@ -76,12 +76,12 @@ async function seedTestUsers() {
 
       if (error) {
         if (error.message.includes('already registered')) {
-          logger.info(`⚠️  Usuario ${user.email} ya existe (rol: ${user.role})`);
+          console.log(`⚠️  Usuario ${user.email} ya existe (rol: ${user.role})`);
         } else {
-          logger.error(`❌ Error creando ${user.email}:`, error.message);
+          console.error(`❌ Error creando ${user.email}:`, error.message);
         }
       } else {
-        logger.info(`✅ Usuario creado: ${user.email} (rol: ${user.role})`);
+        console.log(`✅ Usuario creado: ${user.email} (rol: ${user.role})`);
         
         // Crear entrada en tabla profiles
         const { error: profileError } = await supabase
@@ -97,32 +97,32 @@ async function seedTestUsers() {
           });
           
         if (profileError) {
-          logger.error(`   ⚠️  Error creando perfil:`, profileError.message);
+          console.error(`   ⚠️  Error creando perfil:`, profileError.message);
         } else {
-          logger.info(`   ✅ Perfil creado en tabla profiles`);
+          console.log(`   ✅ Perfil creado en tabla profiles`);
         }
       }
       
     } catch (err) {
-      logger.error(`❌ Error inesperado con ${user.email}:`, err.message);
+      console.error(`❌ Error inesperado con ${user.email}:`, err.message);
     }
   }
   
-  logger.info('\n📝 Resumen de usuarios de prueba:');
-  logger.info('================================');
+  console.log('\n📝 Resumen de usuarios de prueba:');
+  console.log('================================');
   testUsers.forEach(user => {
-    logger.info(`📧 ${user.email} | 🔑 ${user.password} | 👤 ${user.role}`);
+    console.log(`📧 ${user.email} | 🔑 ${user.password} | 👤 ${user.role}`);
   });
   
-  logger.info('\n✨ Proceso completado!');
-  logger.info('Puedes usar estos usuarios para probar los flujos de autenticación.');
+  console.log('\n✨ Proceso completado!');
+  console.log('Puedes usar estos usuarios para probar los flujos de autenticación.');
 }
 
 // Ejecutar
 seedTestUsers().then(() => {
-  logger.info('\n👋 Script finalizado');
+  console.log('\n👋 Script finalizado');
   process.exit(0);
 }).catch(err => {
-  logger.error('💥 Error fatal:', err);
+  console.error('💥 Error fatal:', err);
   process.exit(1);
 });

@@ -54,10 +54,10 @@ class AuthMonitor {
   }
 
   async run() {
-    logger.info('🔒 AutaMedica Auth SSO Monitor v1.0');
-    logger.info('=====================================');
-    logger.info(`⏰ ${this.results.timestamp}`);
-    logger.info('');
+    console.log('🔒 AutaMedica Auth SSO Monitor v1.0');
+    console.log('=====================================');
+    console.log(`⏰ ${this.results.timestamp}`);
+    console.log('');
 
     await this.checkAuthRedirects();
     await this.checkSecurityHeaders();
@@ -71,7 +71,7 @@ class AuthMonitor {
   }
 
   async checkAuthRedirects() {
-    logger.info('📍 Verificando redirects de auth...');
+    console.log('📍 Verificando redirects de auth...');
 
     for (const path of MONITORING_CONFIG.criticalPaths) {
       const check = {
@@ -117,14 +117,14 @@ class AuthMonitor {
       }
 
       this.results.checks.push(check);
-      logger.info(`  ${check.message}`);
+      console.log(`  ${check.message}`);
     }
 
     this.results.summary.total += MONITORING_CONFIG.criticalPaths.length;
   }
 
   async checkSecurityHeaders() {
-    logger.info('\n🛡️  Verificando headers de seguridad...');
+    console.log('\n🛡️  Verificando headers de seguridad...');
 
     const check = {
       type: 'security_headers',
@@ -176,15 +176,15 @@ class AuthMonitor {
 
     // Log results
     for (const [header, details] of Object.entries(check.details)) {
-      logger.info(`  ${details.status} ${header}: ${details.value}`);
+      console.log(`  ${details.status} ${header}: ${details.value}`);
     }
     if (check.cspCompliance) {
-      logger.info(`  ${check.cspCompliance}`);
+      console.log(`  ${check.cspCompliance}`);
     }
   }
 
   async checkPortalConnectivity() {
-    logger.info('\n🌐 Verificando conectividad de portales...');
+    console.log('\n🌐 Verificando conectividad de portales...');
 
     const portals = ['doctors', 'patients', 'companies'];
 
@@ -217,14 +217,14 @@ class AuthMonitor {
       }
 
       this.results.checks.push(check);
-      logger.info(`  ${check.message}`);
+      console.log(`  ${check.message}`);
     }
 
     this.results.summary.total += portals.length;
   }
 
   async checkCookieCompliance() {
-    logger.info('\n🍪 Verificando compliance de cookies...');
+    console.log('\n🍪 Verificando compliance de cookies...');
 
     const check = {
       type: 'cookie_compliance',
@@ -251,10 +251,10 @@ class AuthMonitor {
     this.results.checks.push(check);
     this.results.summary.total++;
 
-    logger.info(`  ${check.message}`);
-    logger.info('  📋 Requisitos de cookie am_session:');
+    console.log(`  ${check.message}`);
+    console.log('  📋 Requisitos de cookie am_session:');
     for (const [key, value] of Object.entries(check.requirements)) {
-      logger.info(`    ${key}: ${value}`);
+      console.log(`    ${key}: ${value}`);
     }
   }
 
@@ -294,32 +294,32 @@ class AuthMonitor {
   }
 
   generateReport() {
-    logger.info('\n📊 RESUMEN DEL MONITOREO');
-    logger.info('========================');
-    logger.info(`✅ Passed: ${this.results.summary.passed}`);
-    logger.info(`❌ Failed: ${this.results.summary.failed}`);
-    logger.info(`⚠️ Warnings: ${this.results.summary.warnings}`);
-    logger.info(`📊 Total: ${this.results.summary.total}`);
+    console.log('\n📊 RESUMEN DEL MONITOREO');
+    console.log('========================');
+    console.log(`✅ Passed: ${this.results.summary.passed}`);
+    console.log(`❌ Failed: ${this.results.summary.failed}`);
+    console.log(`⚠️ Warnings: ${this.results.summary.warnings}`);
+    console.log(`📊 Total: ${this.results.summary.total}`);
 
     const successRate = (this.results.summary.passed / this.results.summary.total * 100).toFixed(1);
-    logger.info(`🎯 Success Rate: ${successRate}%`);
+    console.log(`🎯 Success Rate: ${successRate}%`);
 
     if (this.results.summary.failed > 0) {
-      logger.info('\n🚨 ISSUES TO ADDRESS:');
+      console.log('\n🚨 ISSUES TO ADDRESS:');
       this.results.checks
         .filter(check => check.status === 'failed')
         .forEach(check => {
-          logger.info(`  • ${check.message}`);
+          console.log(`  • ${check.message}`);
         });
     }
 
     if (this.results.summary.warnings > 0) {
-      logger.info('\n⚠️ WARNINGS:');
+      console.log('\n⚠️ WARNINGS:');
       this.results.checks
         .filter(check => check.status === 'warning' || check.monitoring?.includes('⚠️'))
         .forEach(check => {
           const message = check.monitoring || check.message;
-          logger.info(`  • ${message}`);
+          console.log(`  • ${message}`);
         });
     }
   }
@@ -334,9 +334,9 @@ class AuthMonitor {
       }
 
       fs.writeFileSync(outputFile, JSON.stringify(this.results, null, 2));
-      logger.info(`\n💾 Resultados guardados en: ${outputFile}`);
+      console.log(`\n💾 Resultados guardados en: ${outputFile}`);
     } catch (error) {
-      logger.error(`❌ Error guardando resultados: ${error.message}`);
+      console.error(`❌ Error guardando resultados: ${error.message}`);
     }
   }
 }
@@ -351,7 +351,7 @@ if (require.main === module) {
       process.exit(exitCode);
     })
     .catch(error => {
-      logger.error('❌ Error ejecutando monitor:', error);
+      console.error('❌ Error ejecutando monitor:', error);
       process.exit(1);
     });
 }

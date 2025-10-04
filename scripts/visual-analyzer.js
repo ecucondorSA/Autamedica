@@ -17,18 +17,18 @@ const APPS = [
 ];
 
 async function analyzeVisualState() {
-  logger.info('🔍 Analizando estado visual de aplicaciones...\n');
+  console.log('🔍 Analizando estado visual de aplicaciones...\n');
 
   const browser = await chromium.launch({ headless: true });
 
   for (const app of APPS) {
-    logger.info(`📱 Analizando ${app.name} (${app.url})...`);
+    console.log(`📱 Analizando ${app.name} (${app.url})...`);
 
     try {
       // Verificar que el servidor esté corriendo
       const response = await fetch(app.url);
       if (!response.ok) {
-        logger.info(`  ⚠️  HTTP ${response.status} - Servidor con problemas`);
+        console.log(`  ⚠️  HTTP ${response.status} - Servidor con problemas`);
         continue;
       }
 
@@ -77,52 +77,52 @@ async function analyzeVisualState() {
       });
 
       // Mostrar análisis
-      logger.info(`  ✅ Cargado correctamente`);
-      logger.info(`  📄 Título: "${pageAnalysis.title}"`);
-      logger.info(`  🎨 Fondo: ${pageAnalysis.backgroundColor}`);
-      logger.info(`  📏 Contenido: ${pageAnalysis.contentHeight}px de alto`);
-      logger.info(`  🔗 Elementos: ${pageAnalysis.buttonCount} botones, ${pageAnalysis.linkCount} enlaces`);
+      console.log(`  ✅ Cargado correctamente`);
+      console.log(`  📄 Título: "${pageAnalysis.title}"`);
+      console.log(`  🎨 Fondo: ${pageAnalysis.backgroundColor}`);
+      console.log(`  📏 Contenido: ${pageAnalysis.contentHeight}px de alto`);
+      console.log(`  🔗 Elementos: ${pageAnalysis.buttonCount} botones, ${pageAnalysis.linkCount} enlaces`);
 
       if (pageAnalysis.hasMainContent) {
-        logger.info(`  ✅ Contenido principal detectado`);
+        console.log(`  ✅ Contenido principal detectado`);
       } else {
-        logger.info(`  ⚠️  Sin contenido principal detectado`);
+        console.log(`  ⚠️  Sin contenido principal detectado`);
       }
 
       if (pageAnalysis.textVisible) {
-        logger.info(`  ✅ Texto visible en la página`);
+        console.log(`  ✅ Texto visible en la página`);
       } else {
-        logger.info(`  ❌ Sin texto visible`);
+        console.log(`  ❌ Sin texto visible`);
       }
 
       if (app.name === 'patients') {
-        logger.info(`  🎨 Temas: ${pageAnalysis.themeButtonsCount} selectores de tema`);
-        logger.info(`  🌈 Elementos coloreados: ${pageAnalysis.coloredElementsCount}`);
+        console.log(`  🎨 Temas: ${pageAnalysis.themeButtonsCount} selectores de tema`);
+        console.log(`  🌈 Elementos coloreados: ${pageAnalysis.coloredElementsCount}`);
       }
 
       if (pageAnalysis.hasErrors) {
-        logger.info(`  ❌ Errores detectados en la página`);
+        console.log(`  ❌ Errores detectados en la página`);
       }
 
       if (pageAnalysis.hasLoader) {
-        logger.info(`  🔄 Elementos de carga detectados`);
+        console.log(`  🔄 Elementos de carga detectados`);
       }
 
       await page.close();
 
     } catch (error) {
-      logger.info(`  ❌ Error: ${error.message}`);
+      console.log(`  ❌ Error: ${error.message}`);
     }
 
-    logger.info(''); // Espacio entre apps
+    console.log(''); // Espacio entre apps
   }
 
   await browser.close();
-  logger.info('📊 Análisis visual completado');
+  console.log('📊 Análisis visual completado');
 }
 
 async function quickHealthCheck() {
-  logger.info('⚡ Health Check Rápido...\n');
+  console.log('⚡ Health Check Rápido...\n');
 
   const results = [];
 
@@ -158,14 +158,14 @@ async function quickHealthCheck() {
     const status = result.ok ? `HTTP ${result.status}` : result.status;
     const timing = result.loadTime > 0 ? ` (${result.loadTime}ms)` : '';
 
-    logger.info(`${statusIcon} ${result.app}: ${status}${timing}`);
+    console.log(`${statusIcon} ${result.app}: ${status}${timing}`);
 
     if (!result.ok && result.error) {
-      logger.info(`   └─ Error: ${result.error}`);
+      console.log(`   └─ Error: ${result.error}`);
     }
   });
 
-  logger.info('');
+  console.log('');
   return results;
 }
 
@@ -183,7 +183,7 @@ switch (command) {
     quickHealthCheck().then(() => analyzeVisualState());
     break;
   default:
-    logger.info(`
+    console.log(`
 🔍 AutaMedica Visual Analyzer
 
 Comandos:

@@ -22,9 +22,9 @@ class HTTPSignalingAuditor {
     const logEntry = { timestamp, phase, message, data }
     this.auditLog.push(logEntry)
 
-    logger.info(`[${timestamp}] 📋 ${phase}: ${message}`)
+    console.log(`[${timestamp}] 📋 ${phase}: ${message}`)
     if (data) {
-      logger.info(`   📄 Data:`, JSON.stringify(data, null, 2))
+      console.log(`   📄 Data:`, JSON.stringify(data, null, 2))
     }
   }
 
@@ -273,7 +273,7 @@ class HTTPSignalingAuditor {
   }
 
   async runFullAudit() {
-    logger.info('\n🔍 INICIANDO AUDITORÍA HTTP SIGNALING COMPLETA\n')
+    console.log('\n🔍 INICIANDO AUDITORÍA HTTP SIGNALING COMPLETA\n')
 
     try {
       // 1. Verificar signaling server
@@ -307,44 +307,44 @@ class HTTPSignalingAuditor {
   }
 
   generateAuditReport(endpointResults = [], error = null) {
-    logger.info('\n📊 REPORTE DE AUDITORÍA HTTP SIGNALING FINAL\n')
-    logger.info('='.repeat(60))
+    console.log('\n📊 REPORTE DE AUDITORÍA HTTP SIGNALING FINAL\n')
+    console.log('='.repeat(60))
 
     if (error) {
-      logger.info('❌ AUDITORÍA FALLIDA:', error.message)
+      console.log('❌ AUDITORÍA FALLIDA:', error.message)
     } else {
-      logger.info('✅ AUDITORÍA COMPLETADA')
+      console.log('✅ AUDITORÍA COMPLETADA')
     }
 
-    logger.info('\n🔗 INFRAESTRUCTURA:')
-    logger.info('  - Supabase DB:', supabaseUrl)
-    logger.info('  - Signaling HTTP:', SIGNALING_URL)
-    logger.info('  - Doctor App: http://localhost:4001')
-    logger.info('  - Patient App: http://localhost:4002')
+    console.log('\n🔗 INFRAESTRUCTURA:')
+    console.log('  - Supabase DB:', supabaseUrl)
+    console.log('  - Signaling HTTP:', SIGNALING_URL)
+    console.log('  - Doctor App: http://localhost:4001')
+    console.log('  - Patient App: http://localhost:4002')
 
-    logger.info('\n📋 ENDPOINTS PROBADOS:')
+    console.log('\n📋 ENDPOINTS PROBADOS:')
     endpointResults.forEach(endpoint => {
       const status = endpoint.available ? '✅' : '❌'
-      logger.info(`  ${status} ${endpoint.method} ${endpoint.path} (${endpoint.status || endpoint.error})`)
+      console.log(`  ${status} ${endpoint.method} ${endpoint.path} (${endpoint.status || endpoint.error})`)
     })
 
-    logger.info('\n🎯 FASES EJECUTADAS:')
+    console.log('\n🎯 FASES EJECUTADAS:')
     const phases = [...new Set(this.auditLog.map(log => log.phase))]
     phases.forEach(phase => {
       const phaseLogs = this.auditLog.filter(log => log.phase === phase)
       const success = phaseLogs.some(log => log.message.includes('✅'))
-      logger.info(`  ${success ? '✅' : '❌'} ${phase} (${phaseLogs.length} eventos)`)
+      console.log(`  ${success ? '✅' : '❌'} ${phase} (${phaseLogs.length} eventos)`)
     })
 
-    logger.info('\n📝 SIGUIENTE PASO:')
+    console.log('\n📝 SIGUIENTE PASO:')
     if (error) {
-      logger.info('  ❌ Revisar signaling server y endpoints')
+      console.log('  ❌ Revisar signaling server y endpoints')
     } else {
-      logger.info('  ✅ Probar manualmente en Doctors App (http://localhost:4001)')
-      logger.info('  ✅ Verificar Patients App (http://localhost:4002)')
+      console.log('  ✅ Probar manualmente en Doctors App (http://localhost:4001)')
+      console.log('  ✅ Verificar Patients App (http://localhost:4002)')
     }
 
-    logger.info('\n📄 Log detallado guardado en audit-http-log.json')
+    console.log('\n📄 Log detallado guardado en audit-http-log.json')
     require('fs').writeFileSync('audit-http-log.json', JSON.stringify(this.auditLog, null, 2))
   }
 }

@@ -11,8 +11,8 @@ const { execSync } = require('child_process');
 const { writeFileSync, mkdirSync, existsSync } = require('fs');
 const { join } = require('path');
 
-logger.info('🧪 Testing Database Glossary System');
-logger.info('===================================\n');
+console.log('🧪 Testing Database Glossary System');
+console.log('===================================\n');
 
 // Create test directories
 const testDir = './test-database-glossary';
@@ -99,7 +99,7 @@ const testConfig = {
 const configPath = join(testDir, 'database-glossary-config.json');
 writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
 
-logger.info(`📋 Test configuration created: ${configPath}`);
+console.log(`📋 Test configuration created: ${configPath}`);
 
 // Create comprehensive test SQL schema
 const testSQL = `
@@ -864,30 +864,30 @@ CREATE POLICY admin_full_access ON patients
 const sqlPath = join(sqlDir, 'autamedica-test-schema.sql');
 writeFileSync(sqlPath, testSQL);
 
-logger.info(`📄 Comprehensive test SQL schema created: ${sqlPath}`);
-logger.info(`   📊 Contains: 10+ tables, indexes, constraints, functions, triggers, views, RLS policies`);
-logger.info(`   🔒 HIPAA-compliant with PHI classification comments`);
-logger.info(`   📈 Medical domains: Patient management, clinical data, prescriptions, billing, lab results`);
+console.log(`📄 Comprehensive test SQL schema created: ${sqlPath}`);
+console.log(`   📊 Contains: 10+ tables, indexes, constraints, functions, triggers, views, RLS policies`);
+console.log(`   🔒 HIPAA-compliant with PHI classification comments`);
+console.log(`   📈 Medical domains: Patient management, clinical data, prescriptions, billing, lab results`);
 
 // Test 1: Validate configuration
-logger.info('\n🧪 Test 1: Configuration Validation');
-logger.info('=====================================');
+console.log('\n🧪 Test 1: Configuration Validation');
+console.log('=====================================');
 
 try {
   // Note: In a real implementation, we would compile and run the TypeScript CLI
   // For this test, we'll simulate the validation
-  logger.info('✅ Configuration file created successfully');
-  logger.info('✅ SQL parsing enabled with test directory');
-  logger.info('✅ HIPAA classification enabled');
-  logger.info('✅ Documentation generation configured');
-  logger.info('✅ Output directory configured');
+  console.log('✅ Configuration file created successfully');
+  console.log('✅ SQL parsing enabled with test directory');
+  console.log('✅ HIPAA classification enabled');
+  console.log('✅ Documentation generation configured');
+  console.log('✅ Output directory configured');
 } catch (error) {
-  logger.error('❌ Configuration validation failed:', error);
+  console.error('❌ Configuration validation failed:', error);
 }
 
 // Test 2: Simulate SQL parsing
-logger.info('\n🧪 Test 2: SQL Parsing Simulation');
-logger.info('==================================');
+console.log('\n🧪 Test 2: SQL Parsing Simulation');
+console.log('==================================');
 
 try {
   // Count SQL constructs in our test file
@@ -901,14 +901,14 @@ try {
   const constraintCount = (sqlContent.match(/ADD CONSTRAINT/gi) || []).length;
   const commentCount = (sqlContent.match(/COMMENT ON/gi) || []).length;
 
-  logger.info(`✅ SQL file parsing would extract:`);
-  logger.info(`   📋 Tables: ${tableCount}`);
-  logger.info(`   📈 Indexes: ${indexCount}`);
-  logger.info(`   ⚙️ Functions: ${functionCount}`);
-  logger.info(`   🔫 Triggers: ${triggerCount}`);
-  logger.info(`   👁️ Views: ${viewCount}`);
-  logger.info(`   ⚖️ Constraints: ${constraintCount}`);
-  logger.info(`   💬 Comments: ${commentCount} (for HIPAA classification)`);
+  console.log(`✅ SQL file parsing would extract:`);
+  console.log(`   📋 Tables: ${tableCount}`);
+  console.log(`   📈 Indexes: ${indexCount}`);
+  console.log(`   ⚙️ Functions: ${functionCount}`);
+  console.log(`   🔫 Triggers: ${triggerCount}`);
+  console.log(`   👁️ Views: ${viewCount}`);
+  console.log(`   ⚖️ Constraints: ${constraintCount}`);
+  console.log(`   💬 Comments: ${commentCount} (for HIPAA classification)`);
 
   // Check for PHI indicators
   const phiIndicators = [
@@ -920,15 +920,15 @@ try {
     sqlContent.toLowerCase().includes(indicator)
   ).length;
 
-  logger.info(`   🔒 Potential PHI columns detected: ${phiColumns}`);
+  console.log(`   🔒 Potential PHI columns detected: ${phiColumns}`);
 
 } catch (error) {
-  logger.error('❌ SQL parsing simulation failed:', error);
+  console.error('❌ SQL parsing simulation failed:', error);
 }
 
 // Test 3: HIPAA Classification Simulation
-logger.info('\n🧪 Test 3: HIPAA Classification Simulation');
-logger.info('==========================================');
+console.log('\n🧪 Test 3: HIPAA Classification Simulation');
+console.log('==========================================');
 
 try {
   // Simulate HIPAA classification based on our SQL content
@@ -953,21 +953,21 @@ try {
       phiColumns += matchCount;
     }
 
-    logger.info(`   ${level}: ${matchCount} columns`);
+    console.log(`   ${level}: ${matchCount} columns`);
   }
 
-  logger.info(`✅ HIPAA classification would process:`);
-  logger.info(`   📊 Total columns classified: ${totalClassified}`);
-  logger.info(`   🔒 PHI columns identified: ${phiColumns}`);
-  logger.info(`   ⚠️ Compliance gaps: 2-3 (estimated - missing encryption, audit setup)`);
+  console.log(`✅ HIPAA classification would process:`);
+  console.log(`   📊 Total columns classified: ${totalClassified}`);
+  console.log(`   🔒 PHI columns identified: ${phiColumns}`);
+  console.log(`   ⚠️ Compliance gaps: 2-3 (estimated - missing encryption, audit setup)`);
 
 } catch (error) {
-  logger.error('❌ HIPAA classification simulation failed:', error);
+  console.error('❌ HIPAA classification simulation failed:', error);
 }
 
 // Test 4: Documentation Generation Simulation
-logger.info('\n🧪 Test 4: Documentation Generation Simulation');
-logger.info('===============================================');
+console.log('\n🧪 Test 4: Documentation Generation Simulation');
+console.log('===============================================');
 
 try {
   // Simulate documentation generation
@@ -1012,50 +1012,50 @@ try {
   const docPath = join(outputDir, 'test-database-glossary.md');
   writeFileSync(docPath, sampleDocumentation.trim());
 
-  logger.info(`✅ Documentation generation would create:`);
-  logger.info(`   📄 Main glossary document: ${docPath}`);
-  logger.info(`   📊 Medical domain sections: 6+ domains`);
-  logger.info(`   🔒 HIPAA compliance report: Detailed gap analysis`);
-  logger.info(`   💻 SQL examples: Query patterns and usage`);
-  logger.info(`   📈 Performance indexes: Optimization recommendations`);
+  console.log(`✅ Documentation generation would create:`);
+  console.log(`   📄 Main glossary document: ${docPath}`);
+  console.log(`   📊 Medical domain sections: 6+ domains`);
+  console.log(`   🔒 HIPAA compliance report: Detailed gap analysis`);
+  console.log(`   💻 SQL examples: Query patterns and usage`);
+  console.log(`   📈 Performance indexes: Optimization recommendations`);
 
 } catch (error) {
-  logger.error('❌ Documentation generation simulation failed:', error);
+  console.error('❌ Documentation generation simulation failed:', error);
 }
 
 // Test Summary
-logger.info('\n📋 Test Summary');
-logger.info('===============');
+console.log('\n📋 Test Summary');
+console.log('===============');
 
-logger.info('✅ Database Glossary System Test Completed Successfully!');
-logger.info('');
-logger.info('🎯 Test Results:');
-logger.info('   ✅ Configuration validation: PASSED');
-logger.info('   ✅ SQL parsing simulation: PASSED');
-logger.info('   ✅ HIPAA classification: PASSED');
-logger.info('   ✅ Documentation generation: PASSED');
-logger.info('');
-logger.info('📁 Generated Test Files:');
-logger.info(`   📋 Configuration: ${configPath}`);
-logger.info(`   📄 Test SQL Schema: ${sqlPath}`);
-logger.info(`   📚 Sample Documentation: ${join(outputDir, 'test-database-glossary.md')}`);
-logger.info('');
-logger.info('🚀 Ready for Production:');
-logger.info('   📊 The database glossary system is ready to process real database schemas');
-logger.info('   🔒 HIPAA compliance classification is functional');
-logger.info('   📚 Documentation templates are working');
-logger.info('   🔄 Both PostgreSQL introspection and SQL parsing modes are implemented');
-logger.info('');
-logger.info('💡 Next Steps:');
-logger.info('   1. Configure real database connection for PostgreSQL mode');
-logger.info('   2. Point to actual SQL migration directories');
-logger.info('   3. Customize HIPAA classification rules as needed');
-logger.info('   4. Run the CLI tool: `node scripts/database-glossary/cli/index.ts`');
-logger.info('');
-logger.info('🛠️ CLI Commands to Try:');
-logger.info('   node scripts/database-glossary/cli/index.ts validate');
-logger.info('   node scripts/database-glossary/cli/index.ts parse');
-logger.info('   node scripts/database-glossary/cli/index.ts test');
-logger.info('   node scripts/database-glossary/cli/index.ts generate');
+console.log('✅ Database Glossary System Test Completed Successfully!');
+console.log('');
+console.log('🎯 Test Results:');
+console.log('   ✅ Configuration validation: PASSED');
+console.log('   ✅ SQL parsing simulation: PASSED');
+console.log('   ✅ HIPAA classification: PASSED');
+console.log('   ✅ Documentation generation: PASSED');
+console.log('');
+console.log('📁 Generated Test Files:');
+console.log(`   📋 Configuration: ${configPath}`);
+console.log(`   📄 Test SQL Schema: ${sqlPath}`);
+console.log(`   📚 Sample Documentation: ${join(outputDir, 'test-database-glossary.md')}`);
+console.log('');
+console.log('🚀 Ready for Production:');
+console.log('   📊 The database glossary system is ready to process real database schemas');
+console.log('   🔒 HIPAA compliance classification is functional');
+console.log('   📚 Documentation templates are working');
+console.log('   🔄 Both PostgreSQL introspection and SQL parsing modes are implemented');
+console.log('');
+console.log('💡 Next Steps:');
+console.log('   1. Configure real database connection for PostgreSQL mode');
+console.log('   2. Point to actual SQL migration directories');
+console.log('   3. Customize HIPAA classification rules as needed');
+console.log('   4. Run the CLI tool: `node scripts/database-glossary/cli/index.ts`');
+console.log('');
+console.log('🛠️ CLI Commands to Try:');
+console.log('   node scripts/database-glossary/cli/index.ts validate');
+console.log('   node scripts/database-glossary/cli/index.ts parse');
+console.log('   node scripts/database-glossary/cli/index.ts test');
+console.log('   node scripts/database-glossary/cli/index.ts generate');
 
-logger.info('\n🎉 Database Glossary System is ready for production use!');
+console.log('\n🎉 Database Glossary System is ready for production use!');

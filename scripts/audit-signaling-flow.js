@@ -24,9 +24,9 @@ class SignalingAuditor {
     const logEntry = { timestamp, phase, message, data }
     this.auditLog.push(logEntry)
 
-    logger.info(`[${timestamp}] 📋 ${phase}: ${message}`)
+    console.log(`[${timestamp}] 📋 ${phase}: ${message}`)
     if (data) {
-      logger.info(`   📄 Data:`, data)
+      console.log(`   📄 Data:`, data)
     }
   }
 
@@ -237,7 +237,7 @@ class SignalingAuditor {
   }
 
   async runFullAudit() {
-    logger.info('\n🔍 INICIANDO AUDITORÍA COMPLETA DEL SISTEMA DE LLAMADAS\n')
+    console.log('\n🔍 INICIANDO AUDITORÍA COMPLETA DEL SISTEMA DE LLAMADAS\n')
 
     try {
       // 1. Verificar signaling server
@@ -289,29 +289,29 @@ class SignalingAuditor {
   }
 
   generateAuditReport(error = null) {
-    logger.info('\n📊 REPORTE DE AUDITORÍA FINAL\n')
-    logger.info('='.repeat(60))
+    console.log('\n📊 REPORTE DE AUDITORÍA FINAL\n')
+    console.log('='.repeat(60))
 
     if (error) {
-      logger.info('❌ AUDITORÍA FALLIDA:', error.message)
+      console.log('❌ AUDITORÍA FALLIDA:', error.message)
     } else {
-      logger.info('✅ AUDITORÍA COMPLETADA')
+      console.log('✅ AUDITORÍA COMPLETADA')
     }
 
-    logger.info('\n📋 Fases ejecutadas:')
+    console.log('\n📋 Fases ejecutadas:')
     const phases = [...new Set(this.auditLog.map(log => log.phase))]
     phases.forEach(phase => {
       const phaseLogs = this.auditLog.filter(log => log.phase === phase)
       const success = phaseLogs.some(log => log.message.includes('✅'))
-      logger.info(`  ${success ? '✅' : '❌'} ${phase} (${phaseLogs.length} eventos)`)
+      console.log(`  ${success ? '✅' : '❌'} ${phase} (${phaseLogs.length} eventos)`)
     })
 
-    logger.info('\n🔗 URLs verificadas:')
-    logger.info('  - Supabase:', supabaseUrl)
-    logger.info('  - Doctor App: http://localhost:4001')
-    logger.info('  - Patient App: http://localhost:4002')
+    console.log('\n🔗 URLs verificadas:')
+    console.log('  - Supabase:', supabaseUrl)
+    console.log('  - Doctor App: http://localhost:4001')
+    console.log('  - Patient App: http://localhost:4002')
 
-    logger.info('\n📝 Log completo guardado en audit-log.json')
+    console.log('\n📝 Log completo guardado en audit-log.json')
     require('fs').writeFileSync('audit-log.json', JSON.stringify(this.auditLog, null, 2))
   }
 
