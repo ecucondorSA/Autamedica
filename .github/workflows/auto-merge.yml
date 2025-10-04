@@ -1,0 +1,149 @@
+name: 🔀 Auto Merge PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+jobs:
+  auto-merge:
+    name: Auto Merge Approved PRs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 🔍 Verificar condiciones de merge
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Si es workflow_dispatch, procesar todos los PRs
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "mode=batch" >> $GITHUB_OUTPUT
+            echo "🔄 Modo batch: procesando todos los PRs"
+            exit 0
+          fi
+
+          # Obtener número del PR
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PR_NUMBER=${{ github.event.pull_request.number }}
+          elif [[ "${{ github.event_name }}" == "pull_request_review" ]]; then
+            PR_NUMBER=${{ github.event.pull_request.number }}
+          else
+            echo "⚠️ Evento no soportado para PR individual"
+            exit 0
+          fi
+
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "mode=single" >> $GITHUB_OUTPUT
+          echo "📋 Procesando PR #$PR_NUMBER"
+
+      - name: 🤖 Auto Merge (Batch Mode)
+        if: steps.check.outputs.mode == 'batch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Buscando PRs listos para auto-merge..."
+
+          # Listar PRs con label auto-merge
+          gh pr list \
+            --state open \
+            --label "auto-merge" \
+            --json number,title,mergeable,reviewDecision,statusCheckRollup \
+            --jq '.[]' \
+          | while IFS= read -r pr_json; do
+
+            PR_NUM=$(echo "$pr_json" | jq -r '.number')
+            TITLE=$(echo "$pr_json" | jq -r '.title')
+            MERGEABLE=$(echo "$pr_json" | jq -r '.mergeable')
+            REVIEW=$(echo "$pr_json" | jq -r '.reviewDecision')
+            CHECKS=$(echo "$pr_json" | jq -r '.statusCheckRollup[0].conclusion // "PENDING"')
+
+            echo ""
+            echo "📋 PR #$PR_NUM: $TITLE"
+            echo "  Mergeable: $MERGEABLE"
+            echo "  Review: $REVIEW"
+            echo "  Checks: $CHECKS"
+
+            # Verificar condiciones
+            if [[ "$MERGEABLE" == "MERGEABLE" ]] && \
+               [[ "$REVIEW" == "APPROVED" ]] && \
+               [[ "$CHECKS" == "SUCCESS" ]]; then
+
+              echo "  ✅ Todas las condiciones cumplidas, mergeando..."
+
+              gh pr merge $PR_NUM \
+                --squash \
+                --auto \
+                --delete-branch \
+                && echo "  ✅ PR #$PR_NUM mergeado exitosamente" \
+                || echo "  ❌ Error mergeando PR #$PR_NUM"
+            else
+              echo "  ⏸️ No cumple condiciones para auto-merge"
+            fi
+          done
+
+      - name: 🤖 Auto Merge (Single PR)
+        if: steps.check.outputs.mode == 'single'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM=${{ steps.check.outputs.pr_number }}
+
+          # Obtener info del PR
+          PR_INFO=$(gh pr view $PR_NUM --json labels,mergeable,reviewDecision,statusCheckRollup)
+
+          # Verificar si tiene label auto-merge
+          HAS_LABEL=$(echo "$PR_INFO" | jq -r '.labels[] | select(.name=="auto-merge") | .name' || echo "")
+
+          if [[ -z "$HAS_LABEL" ]]; then
+            echo "⏸️ PR #$PR_NUM no tiene label 'auto-merge', saltando"
+            exit 0
+          fi
+
+          MERGEABLE=$(echo "$PR_INFO" | jq -r '.mergeable')
+          REVIEW=$(echo "$PR_INFO" | jq -r '.reviewDecision')
+          CHECKS=$(echo "$PR_INFO" | jq -r '.statusCheckRollup[0].conclusion // "PENDING"')
+
+          echo "📋 Verificando PR #$PR_NUM"
+          echo "  Mergeable: $MERGEABLE"
+          echo "  Review: $REVIEW"
+          echo "  Checks: $CHECKS"
+
+          # Verificar condiciones
+          if [[ "$MERGEABLE" == "MERGEABLE" ]] && \
+             [[ "$REVIEW" == "APPROVED" ]] && \
+             [[ "$CHECKS" == "SUCCESS" ]]; then
+
+            echo "✅ Todas las condiciones cumplidas, mergeando..."
+
+            gh pr merge $PR_NUM \
+              --squash \
+              --auto \
+              --delete-branch
+
+            echo "✅ PR #$PR_NUM configurado para auto-merge"
+          else
+            echo "⏸️ PR #$PR_NUM no cumple todas las condiciones"
+          fi
+
+      - name: 📊 Resumen
+        run: |
+          echo "✅ Auto-merge workflow completado"
+          echo ""
+          echo "ℹ️ Para que un PR se auto-merge necesita:"
+          echo "  1. Label 'auto-merge'"
+          echo "  2. Aprobación de al menos 1 reviewer"
+          echo "  3. Todos los checks en verde"
+          echo "  4. Sin conflictos de merge"
