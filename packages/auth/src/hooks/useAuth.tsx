@@ -201,7 +201,7 @@ export function AuthProvider({
           })
         }
       } catch (error) {
-        console.error('Failed to load session:', error)
+        logger.error('Failed to load session:', error)
         setState({
           user: null,
           profile: null,
@@ -419,7 +419,7 @@ export function AuthProvider({
         })
       }
     } catch (error) {
-      console.error('Failed to refresh session:', error)
+      logger.error('Failed to refresh session:', error)
       setState(prev => ({
         ...prev,
         error: error as Error
@@ -430,7 +430,7 @@ export function AuthProvider({
   // Redirect to user's role-appropriate app
   const redirectToRole = useCallback((returnUrl?: string) => {
     if (!state.profile) {
-      console.warn('Cannot redirect: no user profile')
+      logger.warn('Cannot redirect: no user profile')
       return
     }
 
