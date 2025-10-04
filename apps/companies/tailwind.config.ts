@@ -5,6 +5,6 @@ export default {
   ...base,
   content: [
     './src/**/*.{ts,tsx}',
-    '../../packages/ui/**/*.{ts,tsx}'
+    '../../packages/ui/src/**/*.{ts,tsx}'
   ]
 } satisfies Config;

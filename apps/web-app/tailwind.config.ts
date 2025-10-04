@@ -6,6 +6,6 @@ export default {
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    '../../packages/ui/**/*.{ts,tsx}'
+    '../../packages/ui/src/**/*.{ts,tsx}'
   ]
 } satisfies Config;

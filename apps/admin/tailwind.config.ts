@@ -6,7 +6,7 @@ const config: Config = {
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    '../../packages/ui/**/*.{ts,tsx}'
+    '../../packages/ui/src/**/*.{ts,tsx}'
   ]
 };
 
