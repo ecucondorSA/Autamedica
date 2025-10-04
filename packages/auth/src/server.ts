@@ -8,26 +8,13 @@
 import { createServerClient as createSupabaseServerClient } from "@supabase/ssr";
 import { ensureServerEnv } from "@autamedica/shared";
 import { NextRequest, NextResponse } from "next/server";
-
-// Import cookies dinamically para evitar problemas en build
-const getCookies = () => {
-  try {
-    const { cookies } = require("next/headers");
-    return cookies;
-  } catch (error) {
-    return null;
-  }
-};
+import { cookies } from "next/headers";
 
 /**
  * Crea un cliente Supabase para Server Components y Server Actions
  */
 export async function createServerClient() {
-  const cookies = getCookies();
-  if (!cookies) {
-    throw new Error("cookies() not available in this context");
-  }
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return createSupabaseServerClient(
     ensureServerEnv("SUPABASE_URL"),
