@@ -33,7 +33,7 @@ function createMiddlewareClient(request: NextRequest) {
   const sessionConfig = getSessionConfig()
   const domainConfig = getDomainConfig()
 
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request
   })
 

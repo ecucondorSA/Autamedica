@@ -56,7 +56,7 @@ export async function createServerClient() {
  * Crea un cliente Supabase para middleware
  */
 export function createMiddlewareClient(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request,
   });
 
