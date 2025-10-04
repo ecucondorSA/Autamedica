@@ -1,10 +1,13 @@
 'use client';
 
-import { createBrowserClient } from '@autamedica/auth';
+import {
+  getSupabaseBrowserClient,
+  AppSupabaseClient,
+} from '@autamedica/supabase-client';
 
-let supabaseClient: any = null;
+let supabaseClient: AppSupabaseClient | null = null;
 
-export function createClient() {
+export function createClient(): AppSupabaseClient | null {
   // Only create client in browser environment
   if (typeof window === 'undefined') {
     return null;
@@ -12,7 +15,7 @@ export function createClient() {
 
   // Create real client only once on client-side
   if (!supabaseClient) {
-    supabaseClient = createBrowserClient();
+    supabaseClient = getSupabaseBrowserClient();
   }
 
   return supabaseClient;
@@ -32,6 +35,10 @@ export const supabase = {
   },
   get from() {
     const client = createClient();
-    return client?.from || (() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) }));
-  }
+    const from = client?.from;
+    if (from) {
+      return from.bind(client);
+    }
+    return () => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) });
+  },
 };
