@@ -28,7 +28,7 @@ https://supabase.com/dashboard/project/gtyvdircfhmdjiaelqkg/settings/api
 ```bash
 # Supabase (Reemplazar la clave actual)
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...  # ← REEMPLAZAR AQUÍ
+NEXT_PUBLIC_SUPABASE_ANON_KEY=***REDACTED***  # ← REEMPLAZAR AQUÍ
 SUPABASE_JWT_SECRET=l5v/qoRl8SqzvN07iMcott58d3rWp4eiFimpYsm4v6YpegKM6uG3BtQGNMjktD5egtJ1PI92tkCzp2EAkXE7gw==
 ```
 

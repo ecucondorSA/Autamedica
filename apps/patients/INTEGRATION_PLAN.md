@@ -449,7 +449,7 @@ USING (
 ```bash
 # NUNCA commit estas variables
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=***REDACTED***
 ```
 
 ### **2. RLS Obligatorio**
