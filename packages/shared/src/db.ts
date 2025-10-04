@@ -23,6 +23,30 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import { toCamel, toSnake } from './casing';
 
+type PublicSchema = Database extends { public: infer Schema }
+  ? Schema extends Record<string, unknown>
+    ? Schema
+    : never
+  : never;
+
+type Tables = PublicSchema extends { Tables: infer T }
+  ? T
+  : never;
+
+type TableName = Extract<keyof Tables, string>;
+
+type TableRow<Table extends TableName> = Tables[Table] extends { Row: infer Row }
+  ? Row
+  : never;
+
+type TableInsert<Table extends TableName> = Tables[Table] extends { Insert: infer Insert }
+  ? Insert
+  : never;
+
+type TableUpdate<Table extends TableName> = Tables[Table] extends { Update: infer Update }
+  ? Update
+  : never;
+
 /**
  * Cliente Supabase singleton
  * IMPORTANTE: Requiere variables de entorno configuradas
@@ -35,9 +59,6 @@ export const supabase: SupabaseClient<Database> = createClient<Database>(
 /**
  * Opciones para queries de lectura
  */
-type TableName = keyof Database['Tables'];
-type TableRow<Table extends TableName> = Database['Tables'][Table]['Row'];
-
 interface BaseSelectOptions<Table extends TableName> {
   /** Incluir soft-deleted (deleted_at NOT NULL) - Default: false */
   includeDeleted?: boolean;
@@ -77,11 +98,11 @@ export type SelectOptions<Table extends TableName> = BaseSelectOptions<Table>;
  * // appointments[0].patientId (camelCase)
  * ```
  */
-export async function selectActive<Table extends TableName, T = TableRow<Table>>(
+export async function selectActive<Table extends TableName, TResult = TableRow<Table>>(
   table: Table,
   query = '*',
   options: SelectOptions<Table> = {}
-): Promise<T[]> {
+): Promise<TResult[]> {
   const {
     includeDeleted = false,
     transform = true,
@@ -99,7 +120,7 @@ export async function selectActive<Table extends TableName, T = TableRow<Table>>
 
   // Ordenamiento
   if (orderBy) {
-    queryBuilder = queryBuilder.order(orderBy.column, {
+    queryBuilder = queryBuilder.order(orderBy.column as keyof TableRow<Table> & string, {
       ascending: orderBy.ascending ?? true,
     });
   }
@@ -120,7 +141,10 @@ export async function selectActive<Table extends TableName, T = TableRow<Table>>
   }
 
   // Transformar a camelCase si está habilitado
-  return transform ? toCamel<T[]>(data ?? []) : (data as unknown as T[]);
+  const rows = data ?? [];
+  return transform
+    ? (toCamel<TableRow<Table>[]>(rows) as unknown as TResult[])
+    : (rows as unknown as TResult[]);
 }
 
 /**
@@ -134,12 +158,12 @@ export async function selectActive<Table extends TableName, T = TableRow<Table>>
  * @param options - Opciones de query
  * @returns Promise con array de registros en snake_case
  */
-export async function selectActiveRaw<Table extends TableName, T = TableRow<Table>>(
+export async function selectActiveRaw<Table extends TableName, TResult = TableRow<Table>>(
   table: Table,
   query = '*',
   options: Omit<SelectOptions<Table>, 'transform'> = {}
-): Promise<T[]> {
-  return selectActive<T>(table, query, { ...options, transform: false });
+): Promise<TResult[]> {
+  return selectActive<Table, TResult>(table, query, { ...options, transform: false });
 }
 
 /**
@@ -159,11 +183,11 @@ export async function selectActiveRaw<Table extends TableName, T = TableRow<Tabl
  * }
  * ```
  */
-export async function selectById<Table extends TableName, T = TableRow<Table>>(
+export async function selectById<Table extends TableName, TResult = TableRow<Table>>(
   table: Table,
   id: string,
   options: SelectOptions<Table> = {}
-): Promise<T | null> {
+): Promise<TResult | null> {
   const { includeDeleted = false, transform = true } = options;
 
   let queryBuilder = supabase
@@ -183,7 +207,9 @@ export async function selectById<Table extends TableName, T = TableRow<Table>>(
 
   if (!data) return null;
 
-  return transform ? toCamel<T>(data) : (data as unknown as T);
+  return transform
+    ? (toCamel<TableRow<Table>>(data) as unknown as TResult)
+    : (data as unknown as TResult);
 }
 
 /**
