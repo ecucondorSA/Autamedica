@@ -90,6 +90,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   ];
 
+  if (profiles.length === 0) {
+    throw new Error('No hay perfiles configurados para el panel de compañías');
+  }
+
+  const defaultProfile = profiles[0];
+
   const sidebarItems = useMemo(() => {
     const allItems = [
       { id: 'overview', icon: Eye, label: 'Vista General', count: 24 },
@@ -114,7 +120,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     });
   }, [userMemberRole, notifications]);
 
-  const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0]!;
+  const currentProfile = profiles.find((profile) => profile.id === activeProfile) ?? defaultProfile;
 
   return (
     <html lang="es">
