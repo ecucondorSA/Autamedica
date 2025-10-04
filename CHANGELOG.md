@@ -5,9 +5,9 @@
 ### 🚀 Nuevas Funcionalidades
 
 ### 🔧 Mejoras y Optimizaciones
+- b173385 chore: actualizar pnpm-lock.yaml después de agregar rimraf
 
 ### 🐛 Correcciones
-- f04c016 fix(build): forzar clean build en todos los packages composite
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 21:23:55*
+*Generado automáticamente el 2025-10-04 21:27:31*
