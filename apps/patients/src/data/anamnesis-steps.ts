@@ -50,6 +50,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Cada profesión tiene sus propios riesgos de salud',
     category: 'filiacion',
     completed: false,
+    mediaUrl: '/videos/anamnesis/Tu_Trabajo_Tu_Salud_1.4x.mp4',
     story: {
       intro: 'Un pintor de 50 años llega con tos crónica. Un oficinista de la misma edad también. ¿Misma causa?',
       why: 'El médico piensa diferente según tu trabajo. El pintor puede tener daño pulmonar por vapores de pintura durante 30 años. El oficinista puede tener alergia al aire acondicionado. ¡Tu trabajo cuenta historias!',
@@ -99,6 +100,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Cuéntanos qué te trae por aquí',
     category: 'motivo_consulta',
     completed: false,
+    mediaUrl: '/videos/anamnesis/Comunicar_tus_Síntomas_1.4x.mp4',
     story: {
       intro: 'Este es el momento más importante: ¿qué te está molestando? El médico va a escuchar cada palabra.',
       why: 'La forma en que describes tu síntoma da pistas enormes. "Me duele la cabeza" es muy diferente a "me duele la cabeza como si me apretaran con una banda" o "me duele la cabeza y veo lucecitas".',
