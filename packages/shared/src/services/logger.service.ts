@@ -1,4 +1,4 @@
-import pino, { Logger as PinoLogger } from 'pino';
+import consola, { type ConsolaInstance } from 'consola';
 
 export interface LogLevel {
   ERROR: 'error';
@@ -14,6 +14,39 @@ export const LOG_LEVELS: LogLevel = {
   DEBUG: 'debug',
 };
 
+type LogLevelValue = LogLevel[keyof LogLevel];
+
+const LOG_LEVEL_ORDER: readonly LogLevelValue[] = [
+  LOG_LEVELS.ERROR,
+  LOG_LEVELS.WARN,
+  LOG_LEVELS.INFO,
+  LOG_LEVELS.DEBUG,
+];
+
+const processRef: typeof process | undefined =
+  typeof process !== 'undefined' ? process : undefined;
+
+const envLogLevel = processRef?.env?.LOG_LEVEL;
+const nodeEnv = processRef?.env?.NODE_ENV ?? 'development';
+
+function resolveLogLevel(): LogLevelValue {
+  const normalizedEnv = envLogLevel?.toLowerCase();
+  if (normalizedEnv) {
+    const match = LOG_LEVEL_ORDER.find((level) => level === normalizedEnv);
+    if (match) {
+      return match;
+    }
+  }
+
+  return nodeEnv === 'production' ? LOG_LEVELS.INFO : LOG_LEVELS.DEBUG;
+}
+
+const DEFAULT_LOG_LEVEL = resolveLogLevel();
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 export interface Logger {
   error(message: string, ...args: unknown[]): void;
   warn(message: string, ...args: unknown[]): void;
@@ -22,164 +55,114 @@ export interface Logger {
   child(bindings: Record<string, unknown>): Logger;
 }
 
-/**
- * LoggerService - Enterprise logging con Pino
- *
- * Features:
- * - Structured JSON logging
- * - Environment-based log levels
- * - Edge/Browser/Server compatible
- * - Context propagation con child loggers
- * - Pretty printing en desarrollo
- */
 class LoggerService implements Logger {
-  private pinoInstance: PinoLogger | null = null;
-  private isBrowser: boolean;
+  private readonly minLevel: LogLevelValue;
+  private readonly thresholdIndex: number;
 
-  constructor() {
-    this.isBrowser = typeof window !== 'undefined';
-
-    // Solo inicializar Pino en server/Node.js
-    if (!this.isBrowser) {
-      try {
-        const isDevelopment = process.env.NODE_ENV !== 'production';
-
-        this.pinoInstance = pino({
-          level: process.env.LOG_LEVEL || (isDevelopment ? 'debug' : 'info'),
-
-          // Pretty printing solo en desarrollo
-          transport: isDevelopment ? {
-            target: 'pino-pretty',
-            options: {
-              colorize: true,
-              translateTime: 'HH:MM:ss',
-              ignore: 'pid,hostname',
-              singleLine: false,
-            }
-          } : undefined,
-
-          // Formato base
-          base: {
-            env: process.env.NODE_ENV || 'development',
-          },
-
-          // Timestamp
-          timestamp: pino.stdTimeFunctions.isoTime,
-        });
-      } catch (error) {
-        // Fallback si Pino falla (ej. en edge runtime)
-        this.pinoInstance = null;
-      }
-    }
-  }
-
-  error(message: string, ...args: unknown[]): void {
-    if (this.pinoInstance) {
-      const [data, ...rest] = args;
-      this.pinoInstance.error(data && typeof data === 'object' ? data : { args: rest }, message);
-    } else {
-      // Browser fallback
-      console.error(`[ERROR] ${message}`, ...args);
-    }
-  }
-
-  warn(message: string, ...args: unknown[]): void {
-    if (this.pinoInstance) {
-      const [data, ...rest] = args;
-      this.pinoInstance.warn(data && typeof data === 'object' ? data : { args: rest }, message);
-    } else {
-      // Browser fallback
-      console.warn(`[WARN] ${message}`, ...args);
-    }
-  }
-
-  info(message: string, ...args: unknown[]): void {
-    if (this.pinoInstance) {
-      const [data, ...rest] = args;
-      this.pinoInstance.info(data && typeof data === 'object' ? data : { args: rest }, message);
-    } else {
-      // Browser fallback (solo en dev)
-      if (process.env.NODE_ENV !== 'production') {
-        console.info(`[INFO] ${message}`, ...args);
-      }
-    }
-  }
-
-  debug(message: string, ...args: unknown[]): void {
-    if (this.pinoInstance) {
-      const [data, ...rest] = args;
-      this.pinoInstance.debug(data && typeof data === 'object' ? data : { args: rest }, message);
-    } else {
-      // Browser fallback (solo en dev)
-      if (process.env.NODE_ENV !== 'production') {
-        console.debug(`[DEBUG] ${message}`, ...args);
-      }
-    }
-  }
-
-  /**
-   * Crear child logger con contexto adicional
-   *
-   * @example
-   * const requestLogger = logger.child({ requestId: '123', userId: 'abc' });
-   * requestLogger.info('Processing request'); // Incluirá requestId y userId
-   */
-  child(bindings: Record<string, unknown>): Logger {
-    if (this.pinoInstance) {
-      const childPino = this.pinoInstance.child(bindings);
-      return new ChildLoggerService(childPino, this.isBrowser);
-    }
-
-    // Browser fallback - return self con prefix
-    return this;
-  }
-}
-
-/**
- * Child logger para contexto específico
- */
-class ChildLoggerService implements Logger {
   constructor(
-    private pinoInstance: PinoLogger,
-    private isBrowser: boolean
-  ) {}
+    private readonly instance: ConsolaInstance,
+    private readonly context: Record<string, unknown> = {},
+    logLevel: LogLevelValue = DEFAULT_LOG_LEVEL,
+  ) {
+    const normalizedLevel = LOG_LEVEL_ORDER.includes(logLevel)
+      ? logLevel
+      : DEFAULT_LOG_LEVEL;
+
+    this.minLevel = normalizedLevel;
+    this.thresholdIndex = LOG_LEVEL_ORDER.indexOf(normalizedLevel);
+  }
 
   error(message: string, ...args: unknown[]): void {
-    const [data, ...rest] = args;
-    this.pinoInstance.error(data && typeof data === 'object' ? data : { args: rest }, message);
+    this.log(LOG_LEVELS.ERROR, message, args);
   }
 
   warn(message: string, ...args: unknown[]): void {
-    const [data, ...rest] = args;
-    this.pinoInstance.warn(data && typeof data === 'object' ? data : { args: rest }, message);
+    this.log(LOG_LEVELS.WARN, message, args);
   }
 
   info(message: string, ...args: unknown[]): void {
-    const [data, ...rest] = args;
-    this.pinoInstance.info(data && typeof data === 'object' ? data : { args: rest }, message);
+    this.log(LOG_LEVELS.INFO, message, args);
   }
 
   debug(message: string, ...args: unknown[]): void {
-    const [data, ...rest] = args;
-    this.pinoInstance.debug(data && typeof data === 'object' ? data : { args: rest }, message);
+    this.log(LOG_LEVELS.DEBUG, message, args);
   }
 
   child(bindings: Record<string, unknown>): Logger {
-    return new ChildLoggerService(this.pinoInstance.child(bindings), this.isBrowser);
+    const nextContext = { ...this.context, ...bindings };
+    return new LoggerService(this.instance, nextContext, this.minLevel);
+  }
+
+  private log(level: LogLevelValue, message: string, args: unknown[]): void {
+    if (!this.shouldLog(level)) {
+      return;
+    }
+
+    const parts = this.prepareParts(message, args);
+
+    switch (level) {
+      case LOG_LEVELS.ERROR:
+        this.instance.error(...parts);
+        break;
+      case LOG_LEVELS.WARN:
+        this.instance.warn(...parts);
+        break;
+      case LOG_LEVELS.DEBUG:
+        this.instance.debug(...parts);
+        break;
+      default:
+        this.instance.info(...parts);
+        break;
+    }
+  }
+
+  private shouldLog(level: LogLevelValue): boolean {
+    return LOG_LEVEL_ORDER.indexOf(level) <= this.thresholdIndex;
+  }
+
+  private prepareParts(message: string, args: unknown[]): unknown[] {
+    const parts: unknown[] = [message];
+
+    const [firstArg, ...restArgs] = args;
+    let payload: Record<string, unknown> | null = null;
+    const extraArgs: unknown[] = [];
+
+    if (isPlainObject(firstArg)) {
+      payload = { ...firstArg };
+      extraArgs.push(...restArgs);
+    } else {
+      if (typeof firstArg !== 'undefined') {
+        extraArgs.push(firstArg);
+      }
+      extraArgs.push(...restArgs);
+    }
+
+    if (Object.keys(this.context).length > 0) {
+      payload = { ...(payload ?? {}), context: { ...this.context } };
+    }
+
+    if (payload) {
+      parts.push(payload);
+    }
+
+    if (extraArgs.length > 0) {
+      parts.push(...extraArgs);
+    }
+
+    return parts;
   }
 }
 
 /**
- * Logger singleton - Usar en toda la aplicación
+ * Logger singleton para toda la plataforma AutaMedica.
  *
- * @example
+ * Ejemplo de uso:
+ * ```ts
  * import { logger } from '@autamedica/shared';
  *
  * logger.info('User logged in', { userId: '123' });
- * logger.error('Failed to process', { error, requestId });
- *
- * // Con contexto
- * const requestLogger = logger.child({ requestId: req.id });
- * requestLogger.info('Starting request');
+ * const requestLogger = logger.child({ requestId: 'abc' });
+ * requestLogger.debug('Processing request');
+ * ```
  */
-export const logger = new LoggerService();
+export const logger = new LoggerService(consola);

@@ -1,7 +1,5 @@
-import pino from 'pino';
+import { logger as sharedLogger } from '@autamedica/shared';
 
-const logger = pino({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-});
+const logger = sharedLogger.child({ scope: 'auth' });
 
 export default logger;
