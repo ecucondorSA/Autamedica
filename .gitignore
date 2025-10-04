@@ -47,3 +47,6 @@ logs/sessions/
 
 # App-specific lockfiles
 apps/*/pnpm-lock.yaml
+
+# ESLint cache
+.eslintcache

@@ -1,13 +1,11 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
 echo "🔎 Verificando glosarios antes del commit..."
 
-# DB Glossary (modo CI: parsing SQL, sin DB)
-pnpm docs:db:ci || exit 1
-pnpm docs:db:check-diff || exit 1
+# DB Glossary check (rápido)
+pnpm docs:db:ci
+pnpm docs:db:check-diff
 
-# Glosario de contratos (types)
-pnpm docs:validate || exit 1
-
-echo "✅ Glosarios OK"
+# Export validation (puede ser lento con muchos exports)
+pnpm docs:validate
