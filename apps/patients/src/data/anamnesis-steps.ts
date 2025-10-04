@@ -50,7 +50,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Cada profesión tiene sus propios riesgos de salud',
     category: 'filiacion',
     completed: false,
-    mediaUrl: '/videos/anamnesis/Tu_Trabajo_Tu_Salud_1.4x.mp4',
+    mediaUrl: '/videos/anamnesis/Tu_Trabajo_Tu_Salud_1.4x_h264.mp4',
     fields: [
       {
         id: 'ocupacion_actual',
@@ -94,7 +94,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Cuéntanos qué te trae por aquí',
     category: 'motivo_consulta',
     completed: false,
-    mediaUrl: '/videos/anamnesis/Comunicar_tus_Síntomas_1.4x.mp4',
+    mediaUrl: '/videos/anamnesis/Comunicar_tus_Síntomas_1.4x_h264.mp4',
     fields: [
       {
         id: 'sintoma_principal',
@@ -241,7 +241,7 @@ export const anamnesisSteps: AnamnesisStep[] = [
     subtitle: 'Las enfermedades de tu familia son pistas de tu futuro',
     category: 'antecedentes_familiares',
     completed: false,
-    mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x.mp4',
+    mediaUrl: '/videos/anamnesis/El_mapa_genético_de_tu_salud_1.4x_h264.mp4',
     fields: [
       {
         id: 'padre_vivo',
