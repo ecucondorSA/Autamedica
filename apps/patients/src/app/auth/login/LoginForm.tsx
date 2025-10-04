@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { createBrowserClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 
 const portals = ['doctors', 'patients', 'companies', 'admin'] as const;
 

@@ -21,7 +21,7 @@ import {
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase'
+import { createBrowserClient } from '@autamedica/auth'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
@@ -57,7 +57,7 @@ export function CollapsibleSidebar() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const supabase = createClient()
+        const supabase = createBrowserClient()
         if (!supabase) return
 
         const {

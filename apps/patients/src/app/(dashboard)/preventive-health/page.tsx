@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { Heart, Calculator, Clock, ListChecks, Loader2 } from 'lucide-react';
 import { PersonalizedScreeningCalculator } from '@/components/preventive/PersonalizedScreeningCalculator';
 import { ScreeningTimeline } from '@/components/preventive/ScreeningTimeline';
-import { createBrowserClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 type TabId = 'calculator' | 'timeline' | 'education';

@@ -5,8 +5,7 @@ export const dynamic = 'force-dynamic';
 
 import { EnhancedVideoCall } from '@/components/telemedicine/EnhancedVideoCall';
 import { DynamicRightPanel } from '@/components/layout/DynamicRightPanel';
-import { useRequireAuth } from '@autamedica/auth';
-import { createBrowserClient } from '@/lib/supabase';
+import { useRequireAuth, createBrowserClient } from '@autamedica/auth';
 import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {

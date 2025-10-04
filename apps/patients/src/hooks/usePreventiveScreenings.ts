@@ -6,7 +6,7 @@ import type {
   ScreeningStatusType,
   PatientScreeningInsert
 } from '@autamedica/types';
-import { createClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UsePreventiveScreeningsOptions {
@@ -56,7 +56,7 @@ export function usePreventiveScreenings(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -149,7 +149,7 @@ export function usePreventiveScreenings(
     try {
       setIsLoadingRecommendations(true);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Llamar función SQL que calcula recomendaciones
       const { data, error: rpcError } = await supabase.rpc('get_recommended_screenings', {
@@ -198,7 +198,7 @@ export function usePreventiveScreenings(
     }
 
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Check if patient_screening already exists
       const { data: existing } = await supabase
@@ -258,7 +258,7 @@ export function usePreventiveScreenings(
     resultSummary?: string
   ) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Get screening details to calculate next due date
       const { data: screening } = await supabase
@@ -333,7 +333,7 @@ export function usePreventiveScreenings(
   // Cancel screening
   const cancelScreening = useCallback(async (patientScreeningId: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('patient_screenings')

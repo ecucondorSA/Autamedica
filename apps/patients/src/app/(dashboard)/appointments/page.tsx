@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { AppointmentsTable } from '@/components/appointments/AppointmentsTable';
 import { Calendar, Plus, Loader2 } from 'lucide-react';
 import { useRequireAuth } from '@autamedica/auth';
-import { createBrowserClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import type { Appointment } from '@autamedica/types';
 import { logger } from '@autamedica/shared';
 

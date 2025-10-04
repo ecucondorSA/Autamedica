@@ -6,7 +6,7 @@ import type {
   Coordinates
 } from '@autamedica/types';
 import { calculateDistance, sortByDistance, formatDistance, estimateTravelTime } from '@autamedica/types';
-import { createClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseHealthCentersOptions {
@@ -78,7 +78,7 @@ export function useHealthCentersGeolocation(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -154,7 +154,7 @@ export function useHealthCentersGeolocation(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       let query = supabase
         .from('health_centers')
@@ -244,7 +244,7 @@ export function useHealthCenterById(centerId: string | null) {
         setIsLoading(true);
         setError(null);
 
-        const supabase = createClient();
+        const supabase = createBrowserClient();
 
         const { data, error: fetchError } = await supabase
           .from('health_centers')

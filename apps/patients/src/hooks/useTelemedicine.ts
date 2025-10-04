@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { createBrowserClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import type {
   TelemedicineSession,
   SessionParticipant,

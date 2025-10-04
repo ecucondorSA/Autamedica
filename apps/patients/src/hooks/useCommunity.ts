@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { createBrowserClient, type PatientsSupabaseClient } from '@/lib/supabase';
+import { createBrowserClient, type PatientsSupabaseClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 export interface CommunityGroup {

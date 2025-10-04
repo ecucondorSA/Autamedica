@@ -1,16 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@supabase/supabase-js'
-import { patientsEnv } from '@/lib/env'
+import { createBrowserClient } from '@autamedica/auth'
 import type {
   MedicalHistoryTimeline,
   MedicalHistorySummary,
   PatientId
 } from '@autamedica/types'
 
-const supabase = createClient(
-  patientsEnv.supabase.url,
-  patientsEnv.supabase.anonKey,
-)
+const supabase = createBrowserClient()
 
 export function useMedicalHistory(patientId?: PatientId) {
   const [summary, setSummary] = useState<MedicalHistorySummary | null>(null)

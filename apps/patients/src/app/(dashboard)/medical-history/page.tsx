@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { FileText, Download, Eye, Loader2 } from 'lucide-react';
-import { createBrowserClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 const recordTypeConfig = {

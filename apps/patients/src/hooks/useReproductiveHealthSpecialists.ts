@@ -4,7 +4,7 @@ import type {
   ReproductiveHealthSpecialtyType,
   SpecialistAvailabilityStatus
 } from '@autamedica/types';
-import { createClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseSpecialistsOptions {
@@ -32,7 +32,7 @@ export function useReproductiveHealthSpecialists(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -131,7 +131,7 @@ export function useSpecialistById(specialistId: string | null) {
         setIsLoading(true);
         setError(null);
 
-        const supabase = createClient();
+        const supabase = createBrowserClient();
 
         const { data, error: fetchError } = await supabase
           .from('reproductive_health_specialists')
@@ -202,7 +202,7 @@ export function useUpdateSpecialistAvailability() {
       setIsUpdating(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('reproductive_health_specialists')

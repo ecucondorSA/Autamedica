@@ -6,7 +6,7 @@ import { logger } from '@autamedica/shared';
 import {
   createBrowserClient,
   type PatientsSupabaseClient,
-} from '@/lib/supabase';
+} from '@autamedica/auth';
 import { parseProfile, type Profile } from '@/lib/zod/profiles';
 import { parsePatient, type Patient } from '@/lib/zod/patients';
 

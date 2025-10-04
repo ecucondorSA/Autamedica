@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { createBrowserClient, type PatientsSupabaseClient } from '@/lib/supabase';
+import { createBrowserClient, type PatientsSupabaseClient } from '@autamedica/auth';
 
 function useSupabase(): PatientsSupabaseClient {
   return useMemo(() => createBrowserClient(), []);

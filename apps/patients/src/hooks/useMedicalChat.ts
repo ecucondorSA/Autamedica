@@ -6,7 +6,7 @@ import type {
   MedicalChatWithLastMessage,
   ChatStatusType
 } from '@autamedica/types';
-import { createClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
 
@@ -36,7 +36,7 @@ export function useMedicalChats(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -108,7 +108,7 @@ export function useMedicalChats(
 
   const createChat = useCallback(async (data: MedicalChatInsert) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const insertData = {
         patient_id: data.patient_id,
@@ -150,7 +150,7 @@ export function useMedicalChats(
     status: ChatStatusType
   ) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('medical_chats')
@@ -218,7 +218,7 @@ export function useChatMessages(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const { data, error: fetchError } = await supabase
         .from('medical_messages')
@@ -249,7 +249,7 @@ export function useChatMessages(
     }
 
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const messageData: MedicalMessageInsert = {
         chat_id: chatId,
@@ -292,7 +292,7 @@ export function useChatMessages(
 
   const markAsRead = useCallback(async (messageId: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       await supabase
         .from('medical_messages')
@@ -310,7 +310,7 @@ export function useChatMessages(
   useEffect(() => {
     if (!chatId) return;
 
-    const supabase = createClient();
+    const supabase = createBrowserClient();
 
     const channel = supabase
       .channel(`medical_chat:${chatId}`)

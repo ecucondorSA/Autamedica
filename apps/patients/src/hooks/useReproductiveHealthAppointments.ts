@@ -5,7 +5,7 @@ import type {
   ReproductiveHealthAppointmentWithDetails,
   AppointmentStatusType
 } from '@autamedica/types';
-import { createClient } from '@/lib/supabase';
+import { createBrowserClient } from '@autamedica/auth';
 import { logger } from '@autamedica/shared';
 
 interface UseAppointmentsOptions {
@@ -36,7 +36,7 @@ export function useReproductiveHealthAppointments(
       setIsLoading(true);
       setError(null);
 
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       // Build query
       let query = supabase
@@ -113,7 +113,7 @@ export function useReproductiveHealthAppointments(
 
   const createAppointment = useCallback(async (data: ReproductiveHealthAppointmentInsert) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const insertData = {
         patient_id: data.patient_id,
@@ -160,7 +160,7 @@ export function useReproductiveHealthAppointments(
     data: ReproductiveHealthAppointmentUpdate
   ) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserClient();
 
       const { error: updateError } = await supabase
         .from('reproductive_health_appointments')
