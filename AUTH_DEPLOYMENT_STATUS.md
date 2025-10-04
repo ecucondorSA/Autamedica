@@ -132,7 +132,7 @@ apps/
 ## 📊 Estado Actual
 
 ### Deployment Preview
-**URL:** https://c711fe13.autamedica-auth.pages.dev
+**URL:** https://autamedica-web-app.pages.dev (reemplaza deployment antiguo)
 **Estado:** 404 en todas las rutas API
 
 ### Builds Locales

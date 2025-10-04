@@ -8,7 +8,7 @@
 
 ## 📊 Resumen: 2 Opciones Oficiales
 
-Según [documentación oficial de Cloudflare](https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/):
+Según [documentación oficial de Cloudflare](https://developers.cloudflare.com/pages/framework-guides/nextjs/):
 
 | Opción | Adapter | Build Output | Configuración |
 |--------|---------|--------------|---------------|
