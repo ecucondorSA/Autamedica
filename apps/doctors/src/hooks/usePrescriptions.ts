@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { selectActive, insertRecord, updateRecord } from '@autamedica/shared'
+import { selectActive, insertRecord, updateRecord, logger } from '@autamedica/shared'
 import type {
   Prescription,
   UsePrescriptionsResult,
@@ -23,7 +23,6 @@ interface UsePrescriptionsOptions {
 // Tipo UI (camelCase) para Prescription
 interface UiPrescription {
   id: string;
-import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   medicationName: string;

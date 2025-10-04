@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { selectActive } from '@autamedica/shared'
+import { selectActive, logger } from '@autamedica/shared'
 import type {
   MedicalRecord,
   UseMedicalHistoryResult,
@@ -25,7 +25,6 @@ interface UseMedicalHistoryOptions {
 // Tipo UI (camelCase) para MedicalRecord
 interface UiMedicalRecord {
   id: string;
-import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   consultationDate: string;

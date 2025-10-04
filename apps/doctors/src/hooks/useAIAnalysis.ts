@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { selectActive } from '@autamedica/shared'
+import { selectActive, logger } from '@autamedica/shared'
 import { createBrowserClient } from '@autamedica/auth'
 import type {
   AIAnalysis,
@@ -22,7 +22,6 @@ import type {
 // Tipo UI (camelCase) para AIAnalysis
 interface UiAIAnalysis {
   id: string;
-import { logger } from '@autamedica/shared';
   patientId: string;
   doctorId: string;
   medicalRecordId: string | null;

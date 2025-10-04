@@ -41,7 +41,7 @@ export default function SymptomAnalyzerPage() {
         [1, features.length]
       );
 
-      // logger.info('📊 Tensor creado:', {
+      logger.info('📊 Tensor creado:', {
         shape: input.dims,
         size: input.size,
         type: input.type

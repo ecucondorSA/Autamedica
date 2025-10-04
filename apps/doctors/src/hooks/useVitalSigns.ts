@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { selectActive, insertRecord } from '@autamedica/shared'
+import { selectActive, insertRecord, logger } from '@autamedica/shared'
 import type {
   VitalSigns,
   UseVitalSignsResult,
@@ -18,7 +18,6 @@ import type {
 // Tipo UI (camelCase) para VitalSigns
 interface UiVitalSigns {
   id: string;
-import { logger } from '@autamedica/shared';
   patientId: string;
   recordedAt: string;
   bloodPressureSystolic: number | null;

@@ -8,7 +8,7 @@ const entries = glob.sync('src/**/*.{ts,tsx}', {
 export default defineConfig({
   entry: entries,
   format: ['esm'],
-  dts: false,
+  dts: true,
   splitting: false,
   sourcemap: true,
   clean: true,

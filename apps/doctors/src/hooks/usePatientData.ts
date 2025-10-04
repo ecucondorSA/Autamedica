@@ -3,12 +3,12 @@
  */
 
 import { useEffect, useState } from 'react'
+import { logger } from '@autamedica/shared'
 import type { PatientProfile, UUID } from '@autamedica/types'
 
 // TODO: Define this interface
 interface UsePatientDataResult {
   patient: PatientProfile | null;
-import { logger } from '@autamedica/shared';
   loading: boolean;
   error: string | null;
   refresh?: () => void;

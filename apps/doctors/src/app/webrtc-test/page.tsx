@@ -146,7 +146,7 @@ export default function WebRTCTestPage() {
     }
 
     socket.onclose = (event) => {
-      // logger.info('[webrtc-test] WebSocket closed', {
+      logger.info('[webrtc-test] WebSocket closed', {
         code: event.code,
         reason: event.reason,
         wasClean: event.wasClean,

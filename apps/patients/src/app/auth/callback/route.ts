@@ -111,7 +111,7 @@ export async function GET(request: Request) {
         );
       }
 
-      // logger.info('Session exchange successful:', {
+      logger.info('Session exchange successful:', {
         userId: sessionData?.user?.id,
         email: sessionData?.user?.email,
         sessionPresent: !!sessionData?.session
