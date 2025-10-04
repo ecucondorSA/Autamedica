@@ -15,6 +15,8 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
   // Detectar si es video local (.mp4, .webm, etc.)
   const isLocalVideo = url.match(/\.(mp4|webm|ogg)$/i);
 
+  console.log('MediaEducativa - Loading video:', url, 'isLocal:', isLocalVideo);
+
   return (
     <div className="mb-3">
       {type === 'video' && isLocalVideo ? (
@@ -28,11 +30,22 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               autoPlay
               muted
               playsInline
-              preload="metadata"
+              preload="auto"
               className="w-full h-auto max-h-[280px] object-contain"
+              onLoadedMetadata={(e) => {
+                console.log('Video metadata loaded:', url);
+                const video = e.target as HTMLVideoElement;
+                console.log('Video dimensions:', video.videoWidth, 'x', video.videoHeight);
+                console.log('Video duration:', video.duration);
+              }}
+              onCanPlay={() => {
+                console.log('Video can play:', url);
+              }}
               onError={(e) => {
                 console.error('Error loading video:', url);
-                console.error('Video error:', e);
+                const video = e.target as HTMLVideoElement;
+                console.error('Video error code:', video.error?.code);
+                console.error('Video error message:', video.error?.message);
               }}
             >
               <source src={url} type="video/mp4" />
