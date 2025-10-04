@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- db08faf fix(auth): corregir URLs de redirección para login centralizado
+- 77799bb fix(build): asegurar generación de archivos .d.ts en CI
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:43:13*
+*Generado automáticamente el 2025-10-04 20:49:17*
