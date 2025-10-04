@@ -3,13 +3,13 @@
  * Uses @autamedica/auth package for centralized authentication
  */
 
-import { createAppMiddleware } from '@autamedica/auth/middleware'
+import { createAppMiddleware, APP_NAMES } from '@autamedica/auth'
 
 /**
  * Patients portal middleware
  * Requires authentication and validates 'patient' role
  */
-export const middleware = createAppMiddleware('patients')
+export const middleware = createAppMiddleware(APP_NAMES.PATIENTS)
 
 export const config = {
   matcher: [
