@@ -30,6 +30,7 @@ import {
   getLastPath,
   clearLastPath
 } from '../utils/redirect'
+import logger from '../utils/logger'
 
 /**
  * Authentication context
@@ -60,7 +61,7 @@ function normalizeRole(role: unknown): UserRole | null {
     }
   }
 
-  console.error('User does not have a role assigned')
+  logger.error('User does not have a role assigned')
   return null
 }
 
@@ -126,7 +127,7 @@ export function AuthProvider({
     try {
       return getSupabaseClient()
     } catch (error) {
-      console.error('Failed to initialize Supabase client:', error)
+      logger.error('Failed to initialize Supabase client:', error)
       setState(prev => ({
         ...prev,
         error: error as Error,

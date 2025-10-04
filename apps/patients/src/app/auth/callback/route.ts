@@ -53,8 +53,8 @@ export async function GET(request: Request) {
 
       // Create server client with implicit flow to avoid PKCE issues
       const supabase = createServerClient(
-        ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
-        ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+        ensureEnv('SUPABASE_URL'),
+        ensureEnv('SUPABASE_ANON_KEY'),
         {
           cookies: {
             get(name: string) {
@@ -194,7 +194,7 @@ export async function GET(request: Request) {
         try {
           const serviceRoleKey = ensureEnv('SUPABASE_SERVICE_ROLE_KEY');
           const adminClient = createClient(
-            ensureEnv('NEXT_PUBLIC_SUPABASE_URL'),
+            ensureEnv('SUPABASE_URL'),
             serviceRoleKey
           );
 
