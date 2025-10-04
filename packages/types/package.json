@@ -14,7 +14,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
+    "build": "rimraf dist .tsbuildinfo && tsc --build tsconfig.json",
     "dev": "tsc -w -p tsconfig.json",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
