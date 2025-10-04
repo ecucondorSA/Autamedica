@@ -18,12 +18,12 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
   console.log('MediaEducativa - Loading video:', url, 'isLocal:', isLocalVideo);
 
   return (
-    <div className="mb-3">
+    <div className="mb-2 flex justify-center">
       {type === 'video' && isLocalVideo ? (
-        // Video local con autoplay - Compacto
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden">
-          {/* Video más pequeño - max height de 280px */}
-          <div className="relative rounded-lg overflow-hidden bg-black" style={{ maxHeight: '280px' }}>
+        // Video local con autoplay - Compacto y centrado
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
+          {/* Video más pequeño - max height de 240px y max width limitado */}
+          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '240px', maxWidth: '520px' }}>
             <video
               src={url}
               controls
@@ -31,7 +31,7 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
               muted
               playsInline
               preload="auto"
-              className="w-full h-auto max-h-[280px] object-contain"
+              className="w-full h-auto max-h-[240px] object-contain"
               onLoadedMetadata={(e) => {
                 console.log('Video metadata loaded:', url);
                 const video = e.target as HTMLVideoElement;
@@ -61,9 +61,9 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
           </div>
         </div>
       ) : type === 'video' ? (
-        // Video de iframe (YouTube, Vimeo, etc.) - Compacto
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden">
-          <div className="relative rounded-lg overflow-hidden bg-black" style={{ maxHeight: '280px', aspectRatio: '16/9' }}>
+        // Video de iframe (YouTube, Vimeo, etc.) - Compacto y centrado
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
+          <div className="relative rounded-lg overflow-hidden bg-black mx-auto" style={{ maxHeight: '240px', maxWidth: '520px', aspectRatio: '16/9' }}>
             <iframe
               src={url}
               className="w-full h-full"
@@ -80,9 +80,9 @@ export function MediaEducativa({ type, url, title, description }: MediaEducativa
           </div>
         </div>
       ) : (
-        // Imagen - Compacto
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden">
-          <img src={url} alt={title} className="w-full h-auto max-h-[280px] object-contain rounded-lg" />
+        // Imagen - Compacto y centrado
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-300 rounded-lg p-2 overflow-hidden max-w-2xl w-full">
+          <img src={url} alt={title} className="w-full h-auto max-h-[240px] object-contain rounded-lg mx-auto" style={{ maxWidth: '520px' }} />
           <div className="mt-1.5 px-1">
             <div className="flex items-center gap-1.5">
               <ImageIcon className="h-3.5 w-3.5 text-indigo-600 flex-shrink-0" />

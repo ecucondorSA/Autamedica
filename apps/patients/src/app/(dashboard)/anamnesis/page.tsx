@@ -272,9 +272,9 @@ export default function AnamnesisPage() {
         <PausaCognitiva stepNumber={currentStepIndex + 1} onContinue={handleContinueAfterPause} />
       )}
 
-      {/* Progress Bar - Compacto */}
+      {/* Progress Bar - Ultra Compacto */}
       <div className="sticky top-0 z-10 bg-white border-b border-stone-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 py-2">
+        <div className="max-w-5xl mx-auto px-3 py-1">
           <div className="flex items-center justify-between mb-1">
             <div>
               <p className="text-xs font-semibold text-stone-900">
@@ -304,9 +304,9 @@ export default function AnamnesisPage() {
       </div>
 
       {/* Main Content - Ultra Compacto */}
-      <div className="max-w-5xl mx-auto px-3 py-2">
+      <div className="max-w-5xl mx-auto px-3 py-1.5">
         {/* Step Header - Ultra Reducido */}
-        <div className="mb-2">
+        <div className="mb-1.5">
           <h1 className="text-xl font-bold text-stone-900 mb-0.5">
             {currentStep.title}
           </h1>
@@ -337,13 +337,13 @@ export default function AnamnesisPage() {
         )}
 
         {/* Formulario - Ultra Compacto */}
-        <div className="card-ivory-elevated p-3 mb-2">
-          <h2 className="text-base font-bold mb-2 flex items-center gap-2 text-stone-900">
-            <span className="text-lg">📝</span>
+        <div className="card-ivory-elevated p-2.5 mb-1.5">
+          <h2 className="text-sm font-bold mb-1.5 flex items-center gap-1.5 text-stone-900">
+            <span className="text-base">📝</span>
             Ahora cuéntanos sobre ti
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {currentStep.fields.map((field) => {
               // Check si el campo depende de otro
               if (field.dependsOn) {
@@ -365,23 +365,23 @@ export default function AnamnesisPage() {
           </div>
         </div>
 
-        {/* Navigation - Compacto */}
-        <div className="flex items-center justify-between gap-4">
+        {/* Navigation - Ultra Compacto */}
+        <div className="flex items-center justify-between gap-3">
           <button
             onClick={handlePrevious}
             disabled={currentStepIndex === 0}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
               currentStepIndex === 0
                 ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
                 : 'btn-secondary-ivory'
             }`}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-3.5 w-3.5" />
             Anterior
           </button>
 
           <div className="text-center">
-            <p className="text-xs text-stone-600">
+            <p className="text-[10px] text-stone-600">
               {currentStepIndex === anamnesisSteps.length - 1
                 ? '¡Último paso!'
                 : `Faltan ${anamnesisSteps.length - currentStepIndex - 1} pasos`}
@@ -392,20 +392,20 @@ export default function AnamnesisPage() {
             <button
               onClick={handleFinish}
               disabled={!canGoNext()}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                 !canGoNext()
                   ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
                   : 'btn-primary-ivory'
               }`}
             >
-              <CheckCircle className="h-4 w-4" />
+              <CheckCircle className="h-3.5 w-3.5" />
               Finalizar
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={!canGoNext()}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                 !canGoNext()
                   ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
                   : 'btn-primary-ivory'
