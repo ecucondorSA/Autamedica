@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -37,19 +38,19 @@ export default function UnauthorizedPage(): React.ReactElement {
         </p>
 
         <div className="space-y-4">
-          <a
+          <Link
             href="/"
             className="block w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
           >
             Volver al Inicio
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/auth/logout"
             className="block w-full bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors"
           >
             Cerrar Sesión
-          </a>
+          </Link>
         </div>
 
         <p className="mt-8 text-sm text-gray-500">
