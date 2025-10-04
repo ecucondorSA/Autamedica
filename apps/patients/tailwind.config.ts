@@ -1,16 +1,14 @@
-import base from '@autamedica/tailwind-config';
+import preset from '@autamedica/tailwind-config';
 import type { Config } from 'tailwindcss';
 
-export default {
-  ...base,
+const config: Config = {
+  presets: [preset],
   content: [
     './src/**/*.{ts,tsx}',
     '../../packages/ui/src/**/*.{ts,tsx}'
   ],
   theme: {
-    ...base.theme,
     extend: {
-      ...(base.theme?.extend || {}),
       colors: {
         ivory: {
           DEFAULT: '#FDFCF9',
@@ -27,4 +25,6 @@ export default {
       },
     },
   },
-} satisfies Config;
+};
+
+export default config;

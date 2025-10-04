@@ -1,8 +1,8 @@
-import base from '@autamedica/tailwind-config';
+import preset from '@autamedica/tailwind-config';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  ...base,
+  presets: [preset],
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
