@@ -7,6 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 615680d fix(ci): remover especificación duplicada de versión PNPM
 
 ### 🔒 Seguridad
 
@@ -17,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:59:22*
+*Generado automáticamente el 2025-10-04 21:01:27*
