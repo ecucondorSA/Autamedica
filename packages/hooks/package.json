@@ -24,7 +24,8 @@
     "react": "^19.0.0"
   },
   "dependencies": {
-    "@autamedica/types": "workspace:*"
+    "@autamedica/types": "workspace:*",
+    "@autamedica/shared": "workspace:*"
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",

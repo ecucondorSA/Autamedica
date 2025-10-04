@@ -22,7 +22,7 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import { toCamel, toSnake } from './casing';
-import { logger } from '@autamedica/shared';
+import { logger } from './services/logger.service';
 
 type PublicSchema = Database extends { public: infer Schema }
   ? Schema extends Record<string, unknown>

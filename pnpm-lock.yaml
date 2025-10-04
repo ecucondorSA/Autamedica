@@ -769,6 +769,9 @@ importers:
 
   packages/hooks:
     dependencies:
+      '@autamedica/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@autamedica/types':
         specifier: workspace:*
         version: link:../types

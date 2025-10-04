@@ -5,7 +5,7 @@
 
 import { jwtVerify } from 'jose';
 import type { NextRequest } from 'next/server';
-import { logger } from '@autamedica/shared';
+import { logger } from '../services/logger.service';
 
 export type SessionRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'platform_admin';
 
