@@ -10,7 +10,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import {
-  getUnreadNotifications,
   getUserNotifications,
   getUnreadNotificationCount,
   markNotificationAsRead,

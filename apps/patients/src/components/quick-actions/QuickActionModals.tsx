@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Activity, Pill, FileText, TrendingUp, MessageSquare } from 'lucide-react';
+import { X } from 'lucide-react';
 import {
   useVitalSigns,
   useMedicationLog,

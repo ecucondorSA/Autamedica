@@ -9,7 +9,6 @@ import { useTelemedicine } from '@/hooks';
 import { useMockRemoteStream } from '@/hooks/useMockRemoteStream';
 import { VideoLayout, ViewModeSelector } from '@/components/telemedicine/VideoLayout';
 import { VideoControls } from '@/components/telemedicine/VideoControls';
-import { VideoOverlays } from '@/components/telemedicine/VideoOverlays';
 import type { EnhancedVideoCallProps, VideoViewMode, PIPPosition } from '@/types/telemedicine';
 
 /**

@@ -12,9 +12,7 @@ import {
   startRecording,
   stopRecording,
   getSessionRecording,
-  logRecordingAccess,
   type SessionRecording,
-  type RecordingStatus,
 } from '@/lib/sessionRecording';
 
 export interface UseSessionRecordingOptions {

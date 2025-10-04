@@ -30,7 +30,7 @@ const EnhancedLandingExperience: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<Array<{ text: string; isBot: boolean }>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Router needed for future navigation features
+   
   const _router = useRouter();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const EnhancedLandingExperience: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Chat toggle reserved for Doctor3D integration
+   
   const _toggleChat = () => {
     setChatOpen(!chatOpen);
     if (!chatOpen && chatMessages.length === 0) {

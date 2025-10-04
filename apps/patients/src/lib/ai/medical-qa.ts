@@ -3,7 +3,7 @@
  * Genera respuestas contextuales basadas en intención y datos del paciente
  */
 
-import type { MedicalIntent, IntentClassification } from './intent-classifier';
+import type { IntentClassification } from './intent-classifier';
 
 export interface PatientScreening {
   name: string;

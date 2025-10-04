@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { Calculator, User, Calendar, AlertCircle, CheckCircle2, Clock, Info } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import { getRecommendedScreenings, groupScreeningsByCategory, CATEGORY_COLORS, CATEGORY_LABELS, type Screening } from '@/data/screenings';
+import { getRecommendedScreenings, groupScreeningsByCategory, CATEGORY_COLORS, CATEGORY_LABELS } from '@/data/screenings';
 
 interface PersonalizedScreeningCalculatorProps {
   defaultAge?: number;
