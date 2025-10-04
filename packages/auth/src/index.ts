@@ -29,6 +29,13 @@ export {
   signOutGlobally
 } from './client/supabase'
 
+// Export server utilities
+export {
+  createServerClient,
+  createMiddlewareClient,
+  createRouteHandlerClient
+} from './server'
+
 // Export hooks and context
 export {
   AuthProvider,

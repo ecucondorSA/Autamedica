@@ -4,9 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getSession, hasRole } from '@autamedica/shared/auth/session';
-import { getPortalForRole, isCorrectPortal } from '@autamedica/shared/env/portals';
-import { buildSafeLoginUrl } from '@autamedica/shared/security/redirects';
+import { getSession, hasRole, getPortalForRole, isCorrectPortal, buildSafeLoginUrl } from '@autamedica/shared';
 
 // Public routes that don't require authentication
 const PUBLIC_ROUTES = [

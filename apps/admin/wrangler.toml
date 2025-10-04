@@ -1,4 +1,10 @@
 name = "autamedica-admin"
-compatibility_date = "2024-01-01"
+compatibility_date = "2025-09-30"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".open-next"
+
+[env.production]
+name = "autamedica-admin"
+
+[env.preview]
+name = "autamedica-admin-preview"

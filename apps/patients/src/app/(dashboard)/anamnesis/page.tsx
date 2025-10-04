@@ -1,5 +1,8 @@
 'use client';
 
+// Disable SSG for this page since it uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { StoryCard } from '@/components/anamnesis/StoryCard';
 import { AnamnesisField } from '@/components/anamnesis/AnamnesisField';

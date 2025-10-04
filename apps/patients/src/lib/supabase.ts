@@ -5,6 +5,6 @@ export {
   createBrowserClient,
   getSupabaseClient,
   getSupabaseBrowserClient,
-  supabase,
+  getSupabaseServerClient,
   type PatientsSupabaseClient,
 } from './supabaseClient';

@@ -1,5 +1,8 @@
 'use client';
 
+// Disable SSG for this page since it uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 import { useEffect, useMemo, useState } from 'react';
 import {
   AlertCircle,

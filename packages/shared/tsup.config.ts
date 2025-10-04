@@ -6,7 +6,7 @@ export default defineConfig({
     roles: 'src/roles.ts'
   },
   format: ['esm'],
-  dts: true, // Generate DTS without resolving (use installed types)
+  dts: false, // Disabled due to TS6307 errors with tsup DTS generation
   sourcemap: true,
   clean: true,
   external: [

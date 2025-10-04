@@ -59,6 +59,20 @@ export async function GET(request: Request) {
 
     console.log('Session created successfully for user:', data.user?.email);
 
+    // Persist role to user_metadata if provided
+    if (role && data.user) {
+      console.log('Persisting role to user_metadata:', role);
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: { role }
+      });
+
+      if (updateError) {
+        console.error('Error updating user metadata with role:', updateError);
+      } else {
+        console.log('Role successfully saved to user_metadata');
+      }
+    }
+
     // Determine redirect destination
     let destination: string;
 

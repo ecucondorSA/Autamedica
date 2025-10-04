@@ -45,18 +45,17 @@ if (!source.includes(snippetSignature)) {
   console.log('ℹ️  Patch ya aplicado en _worker.js.');
 }
 
-if (!fs.existsSync(routesPath)) {
-  fs.writeFileSync(
-    routesPath,
-    JSON.stringify(
-      {
-        version: 1,
-        include: ['/*'],
-        exclude: ['/assets/*', '/_next/static/*']
-      },
-      null,
-      2
-    ) + '\n'
-  );
-  console.log('✅ _routes.json creado.');
-}
+// Siempre regenerar _routes.json para asegurar configuración correcta
+fs.writeFileSync(
+  routesPath,
+  JSON.stringify(
+    {
+      version: 1,
+      include: ['/*'],
+      exclude: ['/assets/*']
+    },
+    null,
+    2
+  ) + '\n'
+);
+console.log('✅ _routes.json creado (worker maneja /_next/static/* para redirect 307).');

@@ -21,7 +21,6 @@ export const anamnesisSteps: AnamnesisStep[] = [
       example: '👦 Carlos, 10 años, dolor de pecho después de jugar fútbol → Médico piensa: contractura muscular.\n\n👨 Roberto, 60 años, dolor de pecho irradiado al brazo → Médico piensa: ¿infarto? ¡Urgente!',
       didYouKnow: '💡 ¿Sabías que hay enfermedades que solo aparecen en ciertas edades? Por ejemplo, la apendicitis es rara antes de los 2 años, y la diabetes tipo 2 era rara en niños hasta hace 20 años (ahora no tanto por obesidad infantil).',
     },
-    mediaUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // TODO: Reemplazar con video real sobre razonamiento médico por edad
     fields: [
       {
         id: 'edad',

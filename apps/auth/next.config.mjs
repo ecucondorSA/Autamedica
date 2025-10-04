@@ -2,9 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
-  // output: 'export', // Disabled to support dynamic route handlers (OAuth callback)
+  output: 'standalone', // Required for OpenNext.js Cloudflare
   trailingSlash: true,
-  // distDir: 'out', // Use default .next for OpenNext
   experimental: {
     externalDir: true
   },

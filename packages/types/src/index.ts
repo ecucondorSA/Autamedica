@@ -390,9 +390,6 @@ export {
 // TODO: Legacy types - migrar gradualmente
 // ==========================================
 
-// Primitivos legacy (mantenidos temporalmente para compatibility)
-export type { ISODateString as LegacyISODateString } from "./primitives/date";
-
 // Auth legacy (deprecated - usar @autamedica/auth directamente)
 export type {
   User,

@@ -39,7 +39,7 @@ export function AppointmentsPanel(): JSX.Element {
     }
   }
 
-  const getTypeIcon = (type: string) => {
+  const getTypeIcon = (type: string | null) => {
     switch (type) {
       case 'telemedicine': return <Video className="h-4 w-4" />
       case 'consultation': return <User className="h-4 w-4" />
@@ -91,7 +91,7 @@ export function AppointmentsPanel(): JSX.Element {
             <div>
               <p className="text-sm text-slate-400">Hoy</p>
               <p className="text-xl font-semibold text-slate-100">
-                {appointments.filter(apt => new Date(apt.date).toDateString() === new Date().toDateString()).length}
+                {appointments.filter(apt => new Date(apt.start_time).toDateString() === new Date().toDateString()).length}
               </p>
             </div>
           </div>
@@ -173,20 +173,20 @@ export function AppointmentsPanel(): JSX.Element {
 
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-medium text-slate-100">{appointment.patientName}</h3>
-                          <span className={`rounded-full px-2 py-1 text-xs font-medium ${getStatusColor(appointment.status)}`}>
-                            {appointment.status}
+                          <h3 className="font-medium text-slate-100">{appointment.patient_id ? `Paciente ${appointment.patient_id.slice(0, 8)}` : 'Sin asignar'}</h3>
+                          <span className={`rounded-full px-2 py-1 text-xs font-medium ${getStatusColor(appointment.status ?? 'scheduled')}`}>
+                            {appointment.status ?? 'scheduled'}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-4 text-sm text-slate-400 mb-2">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
-                            {new Date(appointment.date).toLocaleDateString('es-ES')}
+                            {new Date(appointment.start_time).toLocaleDateString('es-ES')}
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
-                            {appointment.time} ({appointment.duration} min)
+                            {new Date(appointment.start_time).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })} ({appointment.duration_minutes ?? 30} min)
                           </div>
                         </div>
 

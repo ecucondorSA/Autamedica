@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { useSearchParams } from 'next/navigation';
-import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared/roles';
+import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';
 import { AuthLogo } from '@/components/AuthLogo';

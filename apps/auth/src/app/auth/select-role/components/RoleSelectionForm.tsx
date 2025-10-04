@@ -6,7 +6,7 @@ import {
   getRoleDescription,
   requiresVerification,
   AVAILABLE_ROLES
-} from '@autamedica/shared/roles';
+} from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 
 interface RoleSelectionFormProps {

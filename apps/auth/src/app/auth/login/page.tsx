@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared/roles';
+import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 import { AuthLogo } from '@/components/AuthLogo';
 

@@ -1,5 +1,8 @@
 'use client';
 
+// Disable SSG for this page since it uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 import { useRouter } from 'next/navigation';
 import { ReproductiveHealthHub } from '@/components/medical/ReproductiveHealthHub';
 

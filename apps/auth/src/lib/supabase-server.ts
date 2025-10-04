@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import type { Database } from '@autamedica/types/database';
+import type { Database } from '@autamedica/types';
 
 // Environment validation with detailed error messages
 const getSupabaseConfig = () => {

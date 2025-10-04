@@ -7,6 +7,9 @@ import { useRequireAuth } from '@autamedica/auth';
 import { createBrowserClient } from '@/lib/supabase';
 import type { Appointment } from '@autamedica/types';
 
+// Disable SSG for this page since it uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 export default function AppointmentsPage() {
   const { session, loading: authLoading } = useRequireAuth();
   const [appointments, setAppointments] = useState<Appointment[]>([]);

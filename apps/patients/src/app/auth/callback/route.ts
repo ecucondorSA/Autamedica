@@ -8,7 +8,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { createClient } from '@supabase/supabase-js';
-import { getPortalForRole } from '@autamedica/shared/roles';
+import { getPortalForRole } from '@autamedica/shared';
 import { ensureEnv } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 

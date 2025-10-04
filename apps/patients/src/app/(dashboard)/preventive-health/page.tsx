@@ -1,5 +1,8 @@
 'use client';
 
+// Disable SSG for this page since it uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { Heart, Calculator, Clock, ListChecks, Loader2 } from 'lucide-react';
 import { PersonalizedScreeningCalculator } from '@/components/preventive/PersonalizedScreeningCalculator';

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared/roles';
+import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
 import { createBrowserClient } from '@autamedica/auth';
 import type { UserRole } from '@autamedica/types';
 import { SearchParamsWrapper } from '../../../components/SearchParamsWrapper';

@@ -47,7 +47,9 @@ export {
 export {
   isAllowedRedirect,
   safeRedirectOrFallback,
-  buildSafeLoginUrl
+  buildSafeLoginUrl,
+  isSameOrigin,
+  sanitizeReturnUrl
 } from "./security/redirects";
 
 // Auth session helpers

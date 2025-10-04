@@ -2347,6 +2347,26 @@ pnpm docs:validate
 - **Descripción:** Hook de React para gestión de patients en la aplicación médica.
 - **Contrato:** Pendiente de documentación detallada
 
+## 📋 Exports Auto-generados
+
+### createMiddlewareClient
+- **Tipo:** const
+- **Package:** @autamedica/auth
+- **Descripción:** Constante del sistema para createmiddlewareclient.
+- **Contrato:** Pendiente de documentación detallada
+
+### createRouteHandlerClient
+- **Tipo:** const
+- **Package:** @autamedica/auth
+- **Descripción:** Constante del sistema para createroutehandlerclient.
+- **Contrato:** Pendiente de documentación detallada
+
+### createServerClient
+- **Tipo:** function
+- **Package:** @autamedica/auth
+- **Descripción:** Función utilitaria para createserverclient en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
 ## 🔗 Referencias Relacionadas
 
 - **[CLAUDE.md](../CLAUDE.md)** - Guía para Claude Code

@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import './globals.css';
-import { canManageCompany, MemberRole } from '@autamedica/shared/roles';
+import { canManageCompany, type MemberRole } from '@autamedica/shared';
 
 interface RootLayoutProps {
   children: React.ReactNode;

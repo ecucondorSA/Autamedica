@@ -4,6 +4,9 @@ import './globals.css'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
 import { AuthProvider } from '@autamedica/auth'
 
+// Force dynamic rendering globally - this app uses auth and client-side data fetching
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
   description: 'Portal personal de pacientes AutaMedica con acceso a historial clínico, citas y documentación.',

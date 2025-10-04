@@ -99,3 +99,47 @@ export function buildSafeLoginUrl(
 
   return loginUrl.toString();
 }
+
+/**
+ * Check if two URLs are from the same origin
+ * Used for security checks in redirects
+ */
+export function isSameOrigin(url1: string, url2: string): boolean {
+  try {
+    const urlA = new URL(url1);
+    const urlB = new URL(url2);
+    return urlA.origin === urlB.origin;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Sanitize return URL by validating and normalizing
+ * Returns null if URL is invalid or not allowed
+ */
+export function sanitizeReturnUrl(urlStr?: string | null): string | null {
+  if (!urlStr) {
+    return null;
+  }
+
+  // Trim whitespace
+  const trimmed = urlStr.trim();
+
+  // Must be absolute URL or relative path starting with /
+  if (!trimmed.startsWith('http') && !trimmed.startsWith('/')) {
+    return null;
+  }
+
+  // If absolute URL, check if allowed
+  if (trimmed.startsWith('http')) {
+    return isAllowedRedirect(trimmed) ? trimmed : null;
+  }
+
+  // Relative URL - ensure it's safe (no protocol-relative URLs)
+  if (trimmed.startsWith('//')) {
+    return null;
+  }
+
+  return trimmed;
+}

@@ -3,7 +3,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getPortalForRole } from '@autamedica/shared/roles';
+import { getPortalForRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 
 /**

@@ -99,13 +99,32 @@ export function useAnamnesis(): UseAnamnesisReturn {
       const totalSections = 13; // From SECTION_ORDER
       const completionPercentage = Math.floor((completedSections.length / totalSections) * 100);
 
+      const allSections: AnamnesisSection[] = [
+        'personal_data',
+        'emergency_contact',
+        'medical_history',
+        'family_history',
+        'allergies',
+        'current_medications',
+        'chronic_conditions',
+        'surgical_history',
+        'hospitalizations',
+        'gynecological_history',
+        'lifestyle',
+        'mental_health',
+        'consent',
+      ];
+
+      const completedSectionNames = new Set(completedSections.map((s: any) => s.section));
+      const pendingSections = allSections.filter(section => !completedSectionNames.has(section));
+
       setProgress({
         anamnesis_id: anamnesisData.id,
         completion_percentage: completionPercentage,
         completed_sections: completedSections.map((s: any) => s.section),
-        pending_sections: [], // TODO: calculate
+        pending_sections: pendingSections,
         total_sections: totalSections,
-        estimated_time_remaining_minutes: (totalSections - completedSections.length) * 5,
+        estimated_time_remaining_minutes: pendingSections.length * 5,
       });
     } catch (err) {
       console.error('Error fetching anamnesis:', err);
