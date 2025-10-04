@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 77799bb fix(build): asegurar generación de archivos .d.ts en CI
+- bb69771 fix(ci): remover .tsbuildinfo del caché de Turborepo
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-04 20:49:17*
+*Generado automáticamente el 2025-10-04 20:52:17*
