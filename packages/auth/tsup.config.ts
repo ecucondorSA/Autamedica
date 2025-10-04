@@ -8,7 +8,13 @@ const entries = glob.sync('src/**/*.{ts,tsx}', {
 export default defineConfig({
   entry: entries,
   format: ['esm'],
-  dts: true,
+  dts: {
+    resolve: true,
+    compilerOptions: {
+      composite: false,  // Disable composite for DTS generation
+      incremental: false
+    }
+  },
   splitting: false,
   sourcemap: true,
   clean: true,
