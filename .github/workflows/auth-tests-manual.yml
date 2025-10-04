@@ -63,7 +63,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🏗️ Build packages
-        run: pnpm build:packages
+        run: |
+          pnpm build:packages
+          # Verify critical packages generated .d.ts files
+          ls -la packages/types/dist/index.d.ts
+          ls -la packages/shared/dist/index.d.ts || echo "Warning: shared types not found"
 
       - name: 🎭 Install Playwright browsers
         run: pnpm exec playwright install chromium --with-deps
