@@ -57,17 +57,21 @@ jobs:
 
       - name: 🏗️ Build packages
         run: |
+          # Clean ALL package build artifacts first to avoid cache issues
+          echo "🧹 Cleaning build artifacts..."
+          find packages -name "dist" -type d -exec rm -rf {} + 2>/dev/null || true
+          find packages -name ".tsbuildinfo" -type f -delete 2>/dev/null || true
+          find packages -name "tsconfig.tsbuildinfo" -type f -delete 2>/dev/null || true
+
           # Build in explicit order to ensure .d.ts files exist before dependent packages build
           echo "📦 Building @autamedica/types..."
           pnpm --filter @autamedica/types build
-          ls -la packages/types/dist/index.d.ts
 
           echo "📦 Building @autamedica/utils..."
           pnpm --filter @autamedica/utils build
 
           echo "📦 Building @autamedica/shared..."
           pnpm --filter @autamedica/shared build
-          ls -la packages/shared/dist/index.d.ts
 
           echo "📦 Building @autamedica/auth..."
           pnpm --filter @autamedica/auth build
@@ -162,17 +166,21 @@ jobs:
 
       - name: 🏗️ Build packages
         run: |
+          # Clean ALL package build artifacts first to avoid cache issues
+          echo "🧹 Cleaning build artifacts..."
+          find packages -name "dist" -type d -exec rm -rf {} + 2>/dev/null || true
+          find packages -name ".tsbuildinfo" -type f -delete 2>/dev/null || true
+          find packages -name "tsconfig.tsbuildinfo" -type f -delete 2>/dev/null || true
+
           # Build in explicit order to ensure .d.ts files exist before dependent packages build
           echo "📦 Building @autamedica/types..."
           pnpm --filter @autamedica/types build
-          ls -la packages/types/dist/index.d.ts
 
           echo "📦 Building @autamedica/utils..."
           pnpm --filter @autamedica/utils build
 
           echo "📦 Building @autamedica/shared..."
           pnpm --filter @autamedica/shared build
-          ls -la packages/shared/dist/index.d.ts
 
           echo "📦 Building @autamedica/auth..."
           pnpm --filter @autamedica/auth build

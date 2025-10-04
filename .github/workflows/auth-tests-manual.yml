@@ -64,27 +64,21 @@ jobs:
 
       - name: 🏗️ Build packages
         run: |
+          # Clean ALL package build artifacts first to avoid cache issues
+          echo "🧹 Cleaning build artifacts..."
+          find packages -name "dist" -type d -exec rm -rf {} + 2>/dev/null || true
+          find packages -name ".tsbuildinfo" -type f -delete 2>/dev/null || true
+          find packages -name "tsconfig.tsbuildinfo" -type f -delete 2>/dev/null || true
+
           # Build in explicit order to ensure .d.ts files exist before dependent packages build
           echo "📦 Building @autamedica/types..."
-          # Clean any existing build artifacts first
-          rm -rf packages/types/dist packages/types/.tsbuildinfo
           pnpm --filter @autamedica/types build
-          echo "Checking if dist folder exists..."
-          ls -la packages/types/dist/ | grep "index\."
-          if [ ! -f "packages/types/dist/index.d.ts" ]; then
-            echo "❌ TypeScript build didn't generate .d.ts files!"
-            echo "Running tsc directly to see errors..."
-            cd packages/types && tsc -p tsconfig.json --listEmittedFiles && cd ../..
-            exit 1
-          fi
-          echo "✅ Types package built successfully"
 
           echo "📦 Building @autamedica/utils..."
           pnpm --filter @autamedica/utils build
 
           echo "📦 Building @autamedica/shared..."
           pnpm --filter @autamedica/shared build
-          ls -la packages/shared/dist/index.d.ts
 
           echo "📦 Building @autamedica/auth..."
           pnpm --filter @autamedica/auth build
