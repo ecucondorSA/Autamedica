@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- e5ebb72 fix: add missing driver.js dependency for patients app
+- 193edb4 fix: update pnpm-lock.yaml for driver.js dependency
 
 ### 🔒 Seguridad
 
@@ -18,6 +18,6 @@
 ---
 
 ### 🔄 Otros Cambios
-- b125487 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- b613461 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 06:48:11*
+*Generado automáticamente el 2025-10-05 06:48:55*
