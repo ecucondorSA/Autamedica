@@ -57,3 +57,4 @@ apps/*/pnpm-lock.yaml
 # ESLint cache
 .eslintcache
 .env.local.production-ready
+\n# TypeScript build info\n*.tsbuildinfo\n.tsbuildinfo
