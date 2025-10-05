@@ -1,13 +1,16 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as path from 'path';
+
+const isMockMode = process.env.MOCK_AUTAMEDICA === '1';
 
 export default defineConfig({
-  testDir: './tests/e2e',
-  testMatch: '**/doctor-videocall-automated.spec.ts',
+  testDir: path.join(__dirname, '.'),
+  testMatch: '**/doctor-login-videocall-flow.spec.ts',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
-  reporter: [['list'], ['html'], ['json', { outputFile: 'test-reports-complete/results.json' }]],
+  reporter: [['line'], ['json', { outputFile: 'test-reports-complete/results.json' }]],
   use: {
     baseURL: 'http://localhost:3001',
     trace: 'on-first-retry',
@@ -20,9 +23,17 @@ export default defineConfig({
     use: {
       ...devices['Desktop Chrome'],
       launchOptions: {
-        args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream']
+        args: [
+          '--use-fake-device-for-media-stream',
+          '--use-fake-ui-for-media-stream',
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage'
+        ]
       }
     }
   }],
-  timeout: 60000
+  timeout: 60000,
+  // Disable web servers in mock mode
+  webServer: isMockMode ? undefined : undefined
 });

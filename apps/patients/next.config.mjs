@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 export default createNextAppConfig({
   appDir: __dirname,
-  output: 'export',
+  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true

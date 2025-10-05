@@ -163,7 +163,7 @@ class MockAutamedicaEnvironment {
         const email = emailInput instanceof HTMLInputElement ? emailInput.value : '';
         const password = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
         if (email === '${this.config.doctorEmail}' && password === '${this.config.doctorPassword}') {
-          localStorage.setItem('supabase.auth.token', 'mock.header.payload');
+          localStorage.setItem('supabase.auth.token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkb2N0b3ItbW9jayIsInJvbGUiOiJkb2N0b3IiLCJlbWFpbCI6ImRvY3Rvci5kZW1vQGF1dGFtZWRpY2EuY29tIn0.mock_signature');
           sessionStorage.setItem('supabase.profile.role', 'doctor');
           window.location.href = 'http://localhost:3001/doctors/dashboard';
         } else {
@@ -217,6 +217,12 @@ class MockAutamedicaEnvironment {
     </div>
 
     <script>
+      // Inicializar localStorage en el dashboard (fix timing issue del login)
+      if (!localStorage.getItem('supabase.auth.token')) {
+        localStorage.setItem('supabase.auth.token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkb2N0b3ItbW9jayIsInJvbGUiOiJkb2N0b3IiLCJlbWFpbCI6ImRvY3Rvci5kZW1vQGF1dGFtZWRpY2EuY29tIn0.mock_signature');
+        sessionStorage.setItem('supabase.profile.role', 'doctor');
+      }
+
       document.getElementById('start-call-btn')?.addEventListener('click', () => {
         localStorage.setItem('currentPatientName', '${this.config.patientName}');
         setTimeout(() => {

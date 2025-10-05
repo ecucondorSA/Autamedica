@@ -2425,6 +2425,20 @@ pnpm docs:validate
   - Solo para uso en componentes cliente (require 'use client')
   - Reutiliza la misma instancia a través de componentes
 
+## 📋 Exports Auto-generados
+
+### isDevelopment
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isdevelopment.
+- **Contrato:** Pendiente de documentación detallada
+
+### isProduction
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isproduction.
+- **Contrato:** Pendiente de documentación detallada
+
 ## 🔗 Referencias Relacionadas
 
 - **[CLAUDE.md](../CLAUDE.md)** - Guía para Claude Code
