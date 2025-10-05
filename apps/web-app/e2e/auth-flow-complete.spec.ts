@@ -231,7 +231,7 @@ test.describe('Performance & Reliability', () => {
       await page.goto('/auth/login', { waitUntil: 'commit' });
     } catch (error) {
       // Network error is expected due to short timeout
-      expect(error.message).toContain('timeout');
+      expect((error as Error).message).toContain('timeout');
     }
   });
 });

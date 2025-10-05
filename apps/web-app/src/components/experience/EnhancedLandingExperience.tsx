@@ -12,16 +12,16 @@ import AccountMenu from '../ui/AccountMenu';
 const HorizontalExperience = dynamic(() => import('../experience/HorizontalExperience'), {
   loading: () => <div className="min-h-screen bg-black flex items-center justify-center text-white">Cargando experiencia...</div>,
   ssr: false
-});
+}) as React.ComponentType;
 
 const TestimonialsSection = dynamic(() => import('../landing/TestimonialsSection'), {
   loading: () => <div className="min-h-[50vh] bg-gray-900"></div>,
   ssr: true
-});
+}) as React.ComponentType;
 
 const ProfessionalFooter = dynamic(() => import('../landing/ProfessionalFooter'), {
   ssr: true
-});
+}) as React.ComponentType;
 
 const EnhancedLandingExperience: React.FC = () => {
   // Mantenemos un pequeño estado de fase solo para el overlay inicial

@@ -209,7 +209,7 @@ export default function HorizontalExperience({ onLeaveTo: _onLeaveTo = "/model-v
             <section
               key={p.title}
               id={`hx-panel-${i}`}
-              ref={(el) => {
+              ref={(el: HTMLDivElement | null) => {
                 if (el) slideRefs.current[i] = el;
               }}
               className="horizontal-slide"

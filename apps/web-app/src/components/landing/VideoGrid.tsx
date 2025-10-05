@@ -102,7 +102,9 @@ export default function VideoGrid() {
           {videoSources.map((video, index) => (
             <div key={index} className="video-item">
               <video
-                ref={(el) => videosRef.current[index] = el}
+                ref={(el) => {
+                  if (el) videosRef.current[index] = el;
+                }}
                 autoPlay
                 muted
                 loop
