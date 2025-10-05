@@ -7,8 +7,8 @@
  * automática a los portales correspondientes.
  */
 
-// Importar UserRole desde types para evitar dependencia circular
-import type { UserRole } from '@autamedica/types';
+// Importar UserRole desde auth/portals para evitar dependencia circular
+import type { UserRole } from './auth/portals';
 import { ensureServerEnv } from './env';
 
 // Definir ROLES localmente para evitar dependencia circular con auth
@@ -32,6 +32,7 @@ function getBaseUrlByRole(): Record<UserRole, string> {
     return {
       'patient': 'https://patients.autamedica.com',
       'doctor': 'https://doctors.autamedica.com',
+      'company': 'https://companies.autamedica.com',
       'company_admin': 'https://companies.autamedica.com',
       'organization_admin': 'https://admin.autamedica.com',
       'platform_admin': 'https://www.autamedica.com',
@@ -42,6 +43,7 @@ function getBaseUrlByRole(): Record<UserRole, string> {
   return {
     'patient': 'http://localhost:3002',
     'doctor': 'http://localhost:3001',
+    'company': 'http://localhost:3003',
     'company_admin': 'http://localhost:3003',
     'organization_admin': 'http://localhost:3004',
     'platform_admin': 'http://localhost:3000',
@@ -56,6 +58,7 @@ export const BASE_URL_BY_ROLE: Record<UserRole, string> = getBaseUrlByRole();
 export const HOME_BY_ROLE: Record<UserRole, string> = {
   'patient': '/',
   'doctor': '/',
+  'company': '/',
   'company_admin': '/',
   'organization_admin': '/',
   'platform_admin': '/',
@@ -117,6 +120,7 @@ export function getPortalForRole(role: UserRole): string {
   const portalMap: Record<UserRole, string> = {
     'patient': 'patients',
     'doctor': 'doctors',
+    'company': 'companies',
     'company_admin': 'companies',
     'organization_admin': 'admin',
     'platform_admin': 'admin',

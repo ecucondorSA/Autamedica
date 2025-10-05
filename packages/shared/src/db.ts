@@ -20,7 +20,9 @@
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from '@autamedica/types';
+// TODO: Re-enable when @autamedica/types package is created
+// import type { Database } from '@autamedica/types';
+type Database = any; // Temporary type until @autamedica/types is created
 import { toCamel, toSnake } from './casing';
 import { logger } from './services/logger.service';
 

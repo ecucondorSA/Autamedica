@@ -11,21 +11,28 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 /**
  * Hook to get a memoized Supabase client instance
- * 
- * @returns Singleton Supabase client for the current session
- * 
+ *
+ * @returns Singleton Supabase client for the current session, or null in SSR
+ *
  * @example
  * ```typescript
  * function MyComponent() {
  *   const supabase = useSupabase()
- *   
+ *
  *   const fetchData = async () => {
+ *     if (!supabase) return; // Guard for SSR
  *     const { data } = await supabase.from('table').select('*')
  *   }
  * }
  * ```
  */
-export function useSupabase(): SupabaseClient {
-  const client = useMemo(() => createBrowserClient(), [])
+export function useSupabase(): SupabaseClient | null {
+  const client = useMemo(() => {
+    // SSR guard: return null during server-side rendering
+    if (typeof window === 'undefined') {
+      return null
+    }
+    return createBrowserClient()
+  }, [])
   return client
 }

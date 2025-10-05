@@ -4,7 +4,7 @@
  * Centralizes role-to-portal mapping and role-based navigation logic
  */
 
-import type { UserRole } from '@autamedica/types';
+import type { UserRole } from './auth/portals';
 
 // ==========================================
 // Portal Configuration
@@ -16,6 +16,7 @@ import type { UserRole } from '@autamedica/types';
 export const roleToPortal: Record<UserRole, string> = {
   doctor: 'https://doctors.autamedica.com',
   patient: 'https://patients.autamedica.com',
+  company: 'https://companies.autamedica.com',
   company_admin: 'https://companies.autamedica.com',
   organization_admin: 'https://admin.autamedica.com',
   platform_admin: 'https://admin.autamedica.com'
@@ -27,6 +28,7 @@ export const roleToPortal: Record<UserRole, string> = {
 export const roleToPortalDev: Record<UserRole, string> = {
   doctor: 'http://localhost:3001',
   patient: 'http://localhost:3002',
+  company: 'http://localhost:3003',
   company_admin: 'http://localhost:3003',
   organization_admin: 'http://localhost:3004',
   platform_admin: 'http://localhost:3004'
@@ -105,6 +107,7 @@ export function getRoleDisplayName(role: UserRole): string {
   const roleNames: Record<UserRole, string> = {
     doctor: 'Médico',
     patient: 'Paciente',
+    company: 'Empresa',
     company_admin: 'Administrador de Empresa',
     organization_admin: 'Administrador de Organización',
     platform_admin: 'Administrador de Plataforma'
@@ -122,6 +125,7 @@ export function getRoleDescription(role: UserRole): string {
   const descriptions: Record<UserRole, string> = {
     doctor: 'Consulta pacientes, gestiona historias clínicas y realiza teleconsultas',
     patient: 'Accede a tu historial médico, agenda citas y consulta con médicos',
+    company: 'Portal empresarial para gestión de salud ocupacional',
     company_admin: 'Administra empleados de tu empresa y gestiona planes de salud corporativos',
     organization_admin: 'Gestiona múltiples organizaciones y supervisa operaciones',
     platform_admin: 'Control total de la plataforma y todas sus funcionalidades'
