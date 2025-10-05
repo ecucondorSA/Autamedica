@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- a90a1da fix: update patients deployment to use OpenNext instead of deprecated @cloudflare/next-on-pages
+- cb96fe8 fix: install wrangler CLI before deploying to Cloudflare Pages
 
 ### 🔒 Seguridad
 
@@ -18,6 +18,6 @@
 ---
 
 ### 🔄 Otros Cambios
-- f4d8422 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- 8092ff8 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 06:57:07*
+*Generado automáticamente el 2025-10-05 07:00:47*
