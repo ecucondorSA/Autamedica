@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   Home,
   Calendar,
@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { TourHub } from '@/components/tours/TourHub';
 import { AutaFloatingButton } from '@/components/chat/AutaFloatingButton';
-import { useAuth, signOut } from '@autamedica/auth';
+import { usePatientSession } from '@/hooks/usePatientSession';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -33,18 +33,19 @@ const navigation = [
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
-  const router = useRouter();
-  const { session } = useAuth();
-  const user = session?.user;
 
-  const handleLogout = async () => {
-    await signOut();
-    router.push('/');
-  };
+  // Obtener sesión de paciente
+  const { user, profile, loading, signOut } = usePatientSession();
 
-  // Obtener nombre y email del usuario
-  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
+  // Datos del usuario con fallbacks
+  const userName = profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
   const userEmail = user?.email || 'No disponible';
+
+  const handleSignOut = async () => {
+    await signOut();
+    // Redirigir al login después de cerrar sesión
+    window.location.href = '/auth/login';
+  };
 
   return (
     <div className="flex h-screen bg-ivory-base">
@@ -56,7 +57,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1" aria-label="Navegación principal">
           {navigation.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -65,13 +66,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <Link
                 key={item.name}
                 href={item.href}
+                aria-label={`Ir a ${item.name}`}
+                aria-current={isActive ? 'page' : undefined}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-stone-800 text-white'
                     : 'text-stone-700 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <Icon className="h-5 w-5" />
+                <Icon className="h-5 w-5" aria-hidden="true" />
                 {item.name}
               </Link>
             );
@@ -80,9 +83,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* User section */}
         <div className="p-4 border-t border-stone-200">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="h-10 w-10 rounded-full bg-stone-200 flex items-center justify-center">
-              <User className="h-5 w-5 text-stone-600" />
+          <div className="flex items-center gap-3 mb-3" role="group" aria-label="Información del usuario">
+            <div className="h-10 w-10 rounded-full bg-stone-200 flex items-center justify-center" aria-hidden="true">
+              <User className="h-5 w-5 text-stone-600" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-stone-900 truncate">
@@ -94,17 +97,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </div>
           <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors"
+            onClick={handleSignOut}
+            disabled={loading}
+            aria-label="Cerrar sesión y salir del portal"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-4 w-4" aria-hidden="true" />
             Cerrar sesión
           </button>
         </div>
       </aside>
 
       {/* Main content - flex-1 para que tome el resto (88% del viewport) */}
-      <main className="flex-1 overflow-hidden">
+      <main id="main-content" className="flex-1 overflow-hidden" role="main">
         {children}
       </main>
 

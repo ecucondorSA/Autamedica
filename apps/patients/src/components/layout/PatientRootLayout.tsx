@@ -18,6 +18,7 @@ import {
   Shield,
 } from 'lucide-react'
 import { PatientPortalProvider } from '@/components/layout/PatientPortalShell'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 const formatClock = (date: Date): string =>
   new Intl.DateTimeFormat('es-AR', {
@@ -148,8 +149,10 @@ export function PatientRootLayout({ children }: PatientRootLayoutProps): JSX.Ele
   // Simplificado: solo envolver con providers, sin UI propia
   // AuthProvider ya está en el root layout (layout.tsx)
   return (
-    <PatientPortalProvider>
-      {children}
-    </PatientPortalProvider>
+    <ErrorBoundary>
+      <PatientPortalProvider>
+        {children}
+      </PatientPortalProvider>
+    </ErrorBoundary>
   )
 }

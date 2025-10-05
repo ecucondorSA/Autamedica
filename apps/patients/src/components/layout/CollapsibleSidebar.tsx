@@ -19,10 +19,8 @@ import {
   ClipboardList,
   ShieldCheck
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { useSupabase } from '@autamedica/auth'
-import { logger } from '@autamedica/shared'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
@@ -45,46 +43,15 @@ const bottomItems = [
 ]
 
 export function CollapsibleSidebar() {
-  const supabase = useSupabase()
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
-  const [userName, setUserName] = useState<string>('')
-  const [userInitials, setUserInitials] = useState<string>('U')
-  const [userAvatar, setUserAvatar] = useState<string | null>(null)
+  const userName = 'Usuario'
+  const userInitials = 'U'
+  const userAvatar = null
   const [isCollapsed, setIsCollapsed] = useState(() => {
     if (typeof window === 'undefined') return false
     const saved = localStorage.getItem('sidebar-collapsed')
     return saved === 'true'
   })
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-
-        if (!user) return
-
-        const name = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Usuario'
-        setUserName(name)
-
-        const avatar = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
-        setUserAvatar(avatar)
-
-        const nameParts = name.split(' ')
-        const initials = nameParts.length > 1
-          ? `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase()
-          : nameParts[0].substring(0, 2).toUpperCase()
-
-        setUserInitials(initials)
-      } catch (error) {
-        logger.error('Error fetching user data', error)
-      }
-    }
-
-    fetchUserData()
-  }, [supabase])
 
   const toggleSidebar = () => {
     const newState = !isCollapsed

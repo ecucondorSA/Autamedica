@@ -1,11 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import '@livekit/components-styles'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
-import { AuthProvider } from '@autamedica/auth'
-
-// Force dynamic rendering globally - this app uses auth and client-side data fetching
-export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
@@ -17,15 +14,17 @@ type RootLayoutProps = {
 }
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
-  // Nota: La protección de rutas se maneja en middleware.ts
-  // Este layout solo proporciona el contexto de autenticación
-
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="antialiased">
-        <AuthProvider>
-          <PatientRootLayout>{children}</PatientRootLayout>
-        </AuthProvider>
+        {/* Skip link para accesibilidad - permite saltar al contenido principal */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-stone-800 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          Saltar al contenido principal
+        </a>
+        <PatientRootLayout>{children}</PatientRootLayout>
       </body>
     </html>
   )

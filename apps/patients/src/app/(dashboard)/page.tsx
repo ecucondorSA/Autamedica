@@ -1,60 +1,32 @@
 'use client';
 
-// Disable SSG for this page since it uses auth and client-side data fetching
-export const dynamic = 'force-dynamic';
-
-import { EnhancedVideoCall } from '@/components/telemedicine/EnhancedVideoCall';
+import dynamic from 'next/dynamic';
 import { DynamicRightPanel } from '@/components/layout/DynamicRightPanel';
-import { useRequireAuth, createBrowserClient } from '@autamedica/auth';
-import { useEffect, useState } from 'react';
+import { usePatientSession } from '@/hooks/usePatientSession';
+
+// Lazy load video call component (no SSR needed for WebRTC)
+const RealVideoCall = dynamic(
+  () => import('@/components/telemedicine/RealVideoCall').then(mod => ({ default: mod.RealVideoCall })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full items-center justify-center bg-stone-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      </div>
+    ),
+  }
+);
 
 export default function DashboardPage() {
-  const { session, loading } = useRequireAuth();
-  const [nextAppointment, setNextAppointment] = useState<string | null>(null);
+  // Obtener datos de la sesión del paciente
+  const { user, profile, patient } = usePatientSession();
 
-  const user = session?.user;
+  // TODO: Implementar lógica para obtener próxima cita desde Supabase
+  const nextAppointment = null;
+  const userName = profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
 
-  useEffect(() => {
-    const fetchNextAppointment = async () => {
-      if (!user) return;
-
-      const supabase = createBrowserClient();
-
-      const { data } = await supabase
-        .from('appointments')
-        .select('scheduled_at')
-        .eq('patient_id', user.id)
-        .gte('scheduled_at', new Date().toISOString())
-        .order('scheduled_at', { ascending: true })
-        .limit(1)
-        .single();
-
-      if (data?.scheduled_at) {
-        const date = new Date(data.scheduled_at);
-        const formattedDate = date.toLocaleDateString('es-ES', {
-          weekday: 'long',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-        setNextAppointment(formattedDate);
-      }
-    };
-
-    fetchNextAppointment();
-  }, [user]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-900 mx-auto"></div>
-          <p className="mt-4 text-stone-600">Cargando...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
+  // Room ID único para esta sesión
+  const roomId = `patient-room-${user?.id || 'demo'}`;
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-ivory-base">
@@ -93,13 +65,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Área central de video - protagonista */}
-        <div className="flex-1 overflow-auto p-6">
-          <div className="h-full flex items-center justify-center">
-            <EnhancedVideoCall
-              roomId="patient-room-default"
-              className="w-full h-full"
-            />
-          </div>
+        <div className="flex-1 overflow-hidden">
+          <RealVideoCall
+            roomId={roomId}
+            className="w-full h-full"
+          />
         </div>
       </div>
 

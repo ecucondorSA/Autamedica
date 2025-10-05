@@ -17,10 +17,8 @@ import {
   Brain,
   ClipboardList
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { useSupabase } from '@autamedica/auth'
-import { logger } from '@autamedica/shared'
 
 const navigationItems = [
   { icon: Home, label: 'Inicio', href: '/', active: true },
@@ -43,44 +41,10 @@ const bottomItems = [
 ]
 
 export function CompactSidebar() {
-  const supabase = useSupabase()
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
-  const [userName, setUserName] = useState<string>('')
-  const [userInitials, setUserInitials] = useState<string>('U')
-  const [userAvatar, setUserAvatar] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-
-        if (!user) return
-
-        // Obtener nombre del usuario
-        const name = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Usuario'
-        setUserName(name)
-
-        // Obtener foto del usuario (Google OAuth o avatar personalizado)
-        const avatar = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
-        setUserAvatar(avatar)
-
-        // Generar iniciales (primera letra del nombre y apellido si existe)
-        const nameParts = name.split(' ')
-        const initials = nameParts.length > 1
-          ? `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase()
-          : nameParts[0].substring(0, 2).toUpperCase()
-
-        setUserInitials(initials)
-      } catch (error) {
-        logger.error('Error fetching user data', error)
-      }
-    }
-
-    fetchUserData()
-  }, [supabase])
+  const userName = 'Usuario'
+  const userInitials = 'U'
+  const userAvatar = null
 
   return (
     <aside className="flex w-[12%] min-w-[80px] max-w-[120px] flex-col border-r border-stone-200 bg-white py-6 shadow-sm">

@@ -1,160 +1,158 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { AppointmentsTable } from '@/components/appointments/AppointmentsTable';
-import { Calendar, Plus, Loader2 } from 'lucide-react';
-import { useRequireAuth } from '@autamedica/auth';
-import { createBrowserClient } from '@autamedica/auth';
-import type { Appointment } from '@autamedica/types';
-import { logger } from '@autamedica/shared';
-
-// Disable SSG for this page since it uses auth and client-side data fetching
-export const dynamic = 'force-dynamic';
+import { CreateAppointmentModal } from '@/components/appointments/CreateAppointmentModal';
+import { useAppointments } from '@/hooks/useAppointments';
+import { Calendar, Plus, CheckCircle, Clock } from 'lucide-react';
+import type { CreateAppointmentInput } from '@/types/appointment';
 
 export default function AppointmentsPage() {
-  const { session, loading: authLoading } = useRequireAuth();
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    appointments,
+    loading,
+    error,
+    createAppointment,
+    refreshAppointments,
+  } = useAppointments();
 
-  const user = session?.user;
+  // Calcular estadísticas
+  const stats = useMemo(() => {
+    const upcoming = appointments.filter(
+      (apt) => apt.status === 'scheduled' || apt.status === 'confirmed'
+    ).length;
 
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      if (!user) return;
+    const completed = appointments.filter(
+      (apt) => apt.status === 'completed'
+    ).length;
 
-      try {
-        setLoading(true);
-        const supabase = createBrowserClient();
+    const cancelled = appointments.filter(
+      (apt) => apt.status === 'cancelled'
+    ).length;
 
-        // Fetch appointments for current patient
-        const { data: appointmentsData, error: appointmentsError } = await supabase
-          .from('appointments')
-          .select('*')
-          .eq('patient_id', user.id)
-          .is('deleted_at', null)
-          .order('start_time', { ascending: true });
+    return { upcoming, completed, cancelled };
+  }, [appointments]);
 
-        if (appointmentsError) throw appointmentsError;
-
-        setAppointments((appointmentsData || []) as unknown as Appointment[]);
-      } catch (err) {
-        logger.error('Error fetching appointments:', err);
-        setError(err instanceof Error ? err.message : 'Error al cargar citas');
-      } finally {
-        setLoading(false);
-      }
+  const handleCreateAppointment = async (data: CreateAppointmentInput) => {
+    // Convertir a ISO string si es necesario
+    const appointmentData = {
+      ...data,
+      scheduled_at: data.scheduled_at
+        ? new Date(data.scheduled_at).toISOString()
+        : new Date().toISOString(),
     };
 
-    fetchAppointments();
-  }, [user]);
+    const newAppointment = await createAppointment(appointmentData);
 
-  const upcomingAppointments = appointments.filter(
-    apt =>
-      (apt.status === 'scheduled' || apt.status === 'confirmed') &&
-      new Date(apt.start_time) > new Date()
-  );
-
-  const pastAppointments = appointments.filter(
-    apt =>
-      apt.status === 'completed' ||
-      new Date(apt.start_time) < new Date()
-  );
-
-  const confirmedCount = appointments.filter(apt => apt.status === 'confirmed').length;
-
-  if (authLoading || loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-stone-900 mx-auto" />
-          <p className="mt-4 text-stone-600">Cargando citas...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="p-8 max-w-7xl mx-auto">
-        <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-          <h2 className="text-lg font-bold text-red-900 mb-2">Error al cargar citas</h2>
-          <p className="text-red-700">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-4 btn-primary-ivory px-4 py-2 text-sm"
-          >
-            Reintentar
-          </button>
-        </div>
-      </div>
-    );
-  }
+    if (newAppointment) {
+      // Cerrar modal y refrescar
+      setIsModalOpen(false);
+      await refreshAppointments();
+    }
+  };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="p-6 space-y-6">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="heading-1 flex items-center gap-3">
-            <Calendar className="h-8 w-8 text-stone-700" />
-            Mis Citas Médicas
-          </h1>
-          <button className="btn-primary-ivory px-6 py-3 text-sm inline-flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            Agendar nueva cita
-          </button>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-stone-900">Mis Citas</h1>
+          <p className="text-stone-600 mt-2">
+            Gestiona tus citas médicas programadas
+          </p>
         </div>
-        <p className="text-stone-600">
-          Gestiona tus citas médicas y videoconsultas
-        </p>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          aria-label="Crear una nueva cita médica"
+          className="flex items-center gap-2 px-4 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-900 transition-colors"
+        >
+          <Plus className="h-5 w-5" aria-hidden="true" />
+          Nueva Cita
+        </button>
       </div>
 
-      {/* Stats cards */}
-      <div className="grid md:grid-cols-3 gap-4 mb-8">
-        <div className="card-ivory p-6">
-          <p className="text-label text-stone-600 mb-1">Próximas citas</p>
-          <p className="text-3xl font-bold text-stone-900">
-            {upcomingAppointments.length}
-          </p>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4" role="region" aria-label="Estadísticas de citas">
+        <div className="bg-white rounded-lg border border-stone-200 p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-blue-50 rounded-lg" aria-hidden="true">
+              <Calendar className="h-6 w-6 text-blue-600" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm text-stone-600">Próximas Citas</p>
+              <p className="text-2xl font-bold text-stone-900">{stats.upcoming}</p>
+            </div>
+          </div>
         </div>
-        <div className="card-ivory p-6">
-          <p className="text-label text-stone-600 mb-1">Confirmadas</p>
-          <p className="text-3xl font-bold text-green-600">
-            {confirmedCount}
-          </p>
+
+        <div className="bg-white rounded-lg border border-stone-200 p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-green-50 rounded-lg" aria-hidden="true">
+              <CheckCircle className="h-6 w-6 text-green-600" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm text-stone-600">Completadas</p>
+              <p className="text-2xl font-bold text-stone-900">{stats.completed}</p>
+            </div>
+          </div>
         </div>
-        <div className="card-ivory p-6">
-          <p className="text-label text-stone-600 mb-1">Completadas</p>
-          <p className="text-3xl font-bold text-stone-600">
-            {pastAppointments.length}
-          </p>
+
+        <div className="bg-white rounded-lg border border-stone-200 p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-stone-50 rounded-lg" aria-hidden="true">
+              <Clock className="h-6 w-6 text-stone-600" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm text-stone-600">Canceladas</p>
+              <p className="text-2xl font-bold text-stone-900">{stats.cancelled}</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Upcoming appointments */}
-      <div className="mb-12">
-        <h2 className="heading-2 mb-4">Próximas Citas</h2>
-        {upcomingAppointments.length > 0 ? (
-          <AppointmentsTable appointments={upcomingAppointments} />
-        ) : (
-          <div className="card-ivory p-12 text-center">
-            <Calendar className="h-12 w-12 text-stone-400 mx-auto mb-4" />
-            <p className="text-stone-600">No tienes citas programadas</p>
-            <button className="mt-4 btn-primary-ivory px-6 py-2 text-sm">
-              Agendar cita
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      )}
+
+      {/* Appointments Table */}
+      <div className="bg-white rounded-lg border border-stone-200">
+        {loading && appointments.length === 0 ? (
+          <div className="p-12 text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-900 mx-auto"></div>
+            <p className="mt-4 text-stone-600">Cargando citas...</p>
+          </div>
+        ) : appointments.length === 0 ? (
+          <div className="p-12 text-center">
+            <Calendar className="h-16 w-16 text-stone-300 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-stone-900 mb-2">
+              No tienes citas programadas
+            </h3>
+            <p className="text-stone-600 mb-6">
+              Comienza agendando tu primera cita médica
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-900 transition-colors"
+            >
+              <Plus className="h-5 w-5" />
+              Crear Primera Cita
             </button>
           </div>
+        ) : (
+          <AppointmentsTable appointments={appointments} />
         )}
       </div>
 
-      {/* Past appointments */}
-      {pastAppointments.length > 0 && (
-        <div>
-          <h2 className="heading-2 mb-4">Historial de Citas</h2>
-          <AppointmentsTable appointments={pastAppointments} />
-        </div>
-      )}
+      {/* Create Appointment Modal */}
+      <CreateAppointmentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleCreateAppointment}
+      />
     </div>
   );
 }
