@@ -6,7 +6,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import type {
-import { logger } from '@autamedica/shared';
   Appointment,
   AppointmentWithDoctor,
   CreateAppointmentInput,
