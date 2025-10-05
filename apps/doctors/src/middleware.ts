@@ -18,8 +18,14 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/static') ||
+    pathname.startsWith('/consultation') || // Allow direct access to consultation pages
     pathname.includes('.')
   ) {
+    return NextResponse.next()
+  }
+
+  // 🔓 DEVELOPMENT MODE: Skip auth in development for testing
+  if (process.env.NODE_ENV === 'development') {
     return NextResponse.next()
   }
 
@@ -59,7 +65,8 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public files (images, etc)
+     * - consultation pages (video calls - no auth required)
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|public).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|public|consultation).*)',
   ],
 }

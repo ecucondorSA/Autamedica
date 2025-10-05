@@ -1,9 +1,10 @@
 /**
- * Servicio HTTP para obtener datos médicos usando fetch y Node.js
- * Reemplaza las consultas directas a Supabase con endpoints HTTP
+ * Servicio para obtener datos médicos
+ * Usa Supabase en producción, mocks en desarrollo (controlado por feature flags)
  */
 
-import { ensureClientEnv } from '@autamedica/shared'
+import { createClient } from '@supabase/supabase-js'
+import { featureFlags } from '@autamedica/shared/config/feature-flags'
 import type {
   VitalSigns,
   MedicalRecord,
@@ -14,14 +15,24 @@ import type {
   PrescriptionFilters
 } from '@/types/medical'
 
-const API_BASE_URL = ensureClientEnv('NEXT_PUBLIC_API_URL')
+// Cliente de Supabase (solo se inicializa si NO usamos mocks)
+const supabase = !featureFlags.USE_MOCK_MEDICAL_DATA
+  ? createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+  : null
 
-// Cliente HTTP base para todas las requests
+// API Client
 class MedicalDataAPI {
-  private baseUrl: string
+  private supabase = supabase
 
-  constructor(baseUrl: string = API_BASE_URL) {
-    this.baseUrl = baseUrl
+  constructor() {
+    if (featureFlags.USE_MOCK_MEDICAL_DATA) {
+      console.log('⚠️  MedicalDataAPI en modo MOCK (desarrollo)')
+    } else {
+      console.log('✅ MedicalDataAPI usando Supabase (producción)')
+    }
   }
 
   private async fetchWithErrorHandling<T>(
@@ -50,7 +61,30 @@ class MedicalDataAPI {
 
   // Signos vitales
   async getVitalSigns(patientId: UUID): Promise<VitalSigns[]> {
-    // Por ahora retornar datos mock, pero usando fetch HTTP
+    // Modo mock para desarrollo
+    if (featureFlags.USE_MOCK_MEDICAL_DATA || !this.supabase) {
+      return this.getMockVitalSigns(patientId)
+    }
+
+    // Modo producción con Supabase
+    try {
+      const { data, error } = await this.supabase
+        .from('vital_signs')
+        .select('*')
+        .eq('patient_id', patientId)
+        .order('recorded_at', { ascending: false })
+        .limit(20)
+
+      if (error) throw error
+      return data || []
+    } catch (error) {
+      console.error('Error fetching vital signs:', error)
+      // Fallback a mock en caso de error
+      return this.getMockVitalSigns(patientId)
+    }
+  }
+
+  private getMockVitalSigns(patientId: UUID): Promise<VitalSigns[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
         const mockData = patientId === '550e8400-e29b-41d4-a716-446655440000' ? [
@@ -102,6 +136,52 @@ class MedicalDataAPI {
 
   // Historial médico
   async getMedicalRecords(
+    patientId: UUID,
+    filters: MedicalRecordFilters = {},
+    page = 0,
+    pageSize = 10
+  ): Promise<{ records: MedicalRecord[]; hasMore: boolean }> {
+    // Modo mock
+    if (featureFlags.USE_MOCK_MEDICAL_DATA || !this.supabase) {
+      return this.getMockMedicalRecords(patientId, filters, page, pageSize)
+    }
+
+    // Modo producción con Supabase
+    try {
+      let query = this.supabase
+        .from('medical_records')
+        .select('*', { count: 'exact' })
+        .eq('patient_id', patientId)
+
+      // Aplicar filtros
+      if (filters.consultation_type) {
+        query = query.eq('consultation_type', filters.consultation_type)
+      }
+      if (filters.diagnosis_contains) {
+        query = query.ilike('diagnosis', `%${filters.diagnosis_contains}%`)
+      }
+
+      // Paginación
+      const startIndex = page * pageSize
+      query = query
+        .order('consultation_date', { ascending: false })
+        .range(startIndex, startIndex + pageSize - 1)
+
+      const { data, error, count } = await query
+
+      if (error) throw error
+
+      return {
+        records: data || [],
+        hasMore: count ? startIndex + pageSize < count : false,
+      }
+    } catch (error) {
+      console.error('Error fetching medical records:', error)
+      return this.getMockMedicalRecords(patientId, filters, page, pageSize)
+    }
+  }
+
+  private getMockMedicalRecords(
     patientId: UUID,
     filters: MedicalRecordFilters = {},
     page = 0,

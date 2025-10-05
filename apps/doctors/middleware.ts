@@ -14,6 +14,7 @@ const PUBLIC_ROUTES = [
   '/public',
   '/api/health',
   '/manifest.webmanifest',
+  '/consultation', // Allow direct access to video consultation
 ];
 
 // Allowed roles for doctors portal
@@ -71,7 +72,8 @@ export const config = {
      * - favicon.ico, manifest.webmanifest (metadata files)
      * - public folder
      * - api/health (health check endpoint)
+     * - consultation pages (video calls)
      */
-    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health|consultation).*)',
   ],
 };
