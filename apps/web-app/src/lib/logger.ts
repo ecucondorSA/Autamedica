@@ -1,4 +1,4 @@
-import { ensureClientEnv, ensureEnv } from '@autamedica/shared'
+import { ensureClientEnv, ensureEnv, logger } from '@autamedica/shared'
 
 const runtimeEnv = (() => {
   try {
@@ -14,21 +14,20 @@ const runtimeEnv = (() => {
 
 const isProductionBuild = runtimeEnv === 'production'
 
-export function logDebug(...args: unknown[]): void {
+export function logDebug(message: string, ...args: unknown[]): void {
   if (!isProductionBuild) {
-    logger.info(...args);
-import { logger } from '@autamedica/shared';
+    logger.info(message, ...args);
   }
 }
 
-export function logInfo(...args: unknown[]): void {
+export function logInfo(message: string, ...args: unknown[]): void {
   if (!isProductionBuild) {
-    logger.info(...args);
+    logger.info(message, ...args);
   }
 }
 
-export function logWarn(...args: unknown[]): void {
+export function logWarn(message: string, ...args: unknown[]): void {
   if (!isProductionBuild) {
-    logger.warn(...args);
+    logger.warn(message, ...args);
   }
 }

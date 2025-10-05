@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { recordMetric } from '@/lib/monitoring'
+import { logWarn } from '@/lib/logger'
 
 interface PerformanceData {
   loadTime: number
@@ -64,7 +65,7 @@ export default function PerformanceWidget() {
         })
 
       } catch (error) {
-        logger.warn('Performance measurement not available:', error)
+        logWarn('Performance measurement not available:', error)
       }
     }
 

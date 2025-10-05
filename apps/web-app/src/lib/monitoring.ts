@@ -1,4 +1,5 @@
- 
+import { logInfo } from '@/lib/logger'
+
 /**
  * AltaMedica Monitoring & Observability Library
  * HIPAA-compliant monitoring with privacy protection
@@ -424,7 +425,7 @@ class ObservabilityManager {
 
     // For now, we'll just log in development
     if ((process.env.NEXT_PUBLIC_NODE_ENV ?? 'development') === 'development' && process.env.DEBUG_MONITORING) {
-      logger.info(`[MONITORING:${type.toUpperCase()}]`, data);
+      logInfo(`[MONITORING:${type.toUpperCase()}]`, data);
     }
   }
 
@@ -439,7 +440,7 @@ class ObservabilityManager {
 
     // For now, we'll just log in development
     if ((process.env.NEXT_PUBLIC_NODE_ENV ?? 'development') === 'development' && process.env.DEBUG_LOGGING) {
-      logger.info('[LOGGING]', event);
+      logInfo('[LOGGING]', event);
     }
   }
 }
