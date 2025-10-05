@@ -52,6 +52,10 @@ export function usePatientSession(): UsePatientSessionResult {
 
   const fetchOrCreateProfile = useCallback(
     async (user: User): Promise<Profile> => {
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+
       const email = ensureEmail(user);
 
       const { data, error } = await supabase
@@ -121,6 +125,10 @@ export function usePatientSession(): UsePatientSessionResult {
 
   const fetchOrCreatePatient = useCallback(
     async (userId: string): Promise<Patient | null> => {
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+
       const { data, error } = await supabase
         .from('patients')
         .select('*')
@@ -159,6 +167,7 @@ export function usePatientSession(): UsePatientSessionResult {
   );
 
   const refresh = useCallback(async () => {
+    // SSR guard: Don't try to fetch session during server-side rendering
     if (!supabase) {
       if (typeof window === 'undefined') {
         safeSetState(prev => ({ ...prev, loading: false }));
@@ -178,7 +187,7 @@ export function usePatientSession(): UsePatientSessionResult {
       const session = sessionData.session;
 
       if (!session?.user) {
-        safeSetState(() => ({ ...INITIAL_STATE, loading: false, error: 'Necesitás iniciar sesión para continuar.' }));
+        safeSetState(() => ({ ...INITIAL_STATE, loading: false, error: null }));
         return;
       }
 
@@ -218,6 +227,7 @@ export function usePatientSession(): UsePatientSessionResult {
   useEffect(() => {
     isMountedRef.current = true;
 
+    // SSR guard
     if (typeof window === 'undefined') {
       safeSetState(prev => ({ ...prev, loading: false }));
       return () => {
