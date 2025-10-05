@@ -1,0 +1,62 @@
+FROM python:3.11-slim
+
+# Instalar dependencias del sistema necesarias para Chromium
+RUN apt-get update && apt-get install -y \
+    wget \
+    ca-certificates \
+    curl \
+    gnupg \
+    libnss3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libxss1 \
+    fonts-liberation \
+    libgtk-3-0 \
+    libgconf-2-4 \
+    libxss1 \
+    libgconf-2-4 \
+    libxtst6 \
+    libxrandr2 \
+    libasound2 \
+    libpangocairo-1.0-0 \
+    libatk1.0-0 \
+    libcairo-gobject2 \
+    libgtk-3-0 \
+    libgdk-pixbuf2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY requirements.txt .
+
+# Instalar dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Instalar navegadores de Playwright (solo Chromium)
+RUN python -m playwright install chromium
+
+# Instalar dependencias del sistema para Playwright
+RUN python -m playwright install-deps chromium
+
+# Copiar código de la aplicación
+COPY . .
+
+# Crear directorio para artefactos de test
+RUN mkdir -p /app/test-results /app/test-artifacts
+
+# Configurar variables de entorno
+ENV PYTHONPATH=/app
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+ENV DISPLAY=:99
+
+# Comando por defecto
+CMD ["pytest", "-v", "--maxfail=1", "--tb=short", "--html=test-results/report.html", "--self-contained-html"]

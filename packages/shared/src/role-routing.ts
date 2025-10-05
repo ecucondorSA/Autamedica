@@ -25,13 +25,30 @@ const ROLES = {
  * CONFIGURACIÓN: URLs de deployment de Cloudflare Pages para producción
  * SEGURIDAD: Cada rol solo tiene acceso a su aplicación específica
  */
-export const BASE_URL_BY_ROLE: Record<UserRole, string> = {
-  'patient': 'https://patients.autamedica.com',
-  'doctor': 'https://doctors.autamedica.com',
-  'company_admin': 'https://companies.autamedica.com',
-  'organization_admin': 'https://admin.autamedica.com',
-  'platform_admin': 'https://www.autamedica.com',
-};
+function getBaseUrlByRole(): Record<UserRole, string> {
+  const isProduction = typeof process !== 'undefined' && process.env.NODE_ENV === 'production';
+
+  if (isProduction) {
+    return {
+      'patient': 'https://patients.autamedica.com',
+      'doctor': 'https://doctors.autamedica.com',
+      'company_admin': 'https://companies.autamedica.com',
+      'organization_admin': 'https://admin.autamedica.com',
+      'platform_admin': 'https://www.autamedica.com',
+    };
+  }
+
+  // Development: localhost con puertos específicos
+  return {
+    'patient': 'http://localhost:3002',
+    'doctor': 'http://localhost:3001',
+    'company_admin': 'http://localhost:3003',
+    'organization_admin': 'http://localhost:3004',
+    'platform_admin': 'http://localhost:3000',
+  };
+}
+
+export const BASE_URL_BY_ROLE: Record<UserRole, string> = getBaseUrlByRole();
 
 /**
  * Rutas home por defecto dentro de cada aplicación

@@ -1,0 +1,336 @@
+{
+  "config": {
+    "configFile": "/root/altamedica-reboot-fresh/tests/e2e/playwright.doctor-videocall.config.ts",
+    "rootDir": "/root/altamedica-reboot-fresh/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "/root/altamedica-reboot-fresh/tests/e2e/global-setup.ts",
+    "globalTeardown": "/root/altamedica-reboot-fresh/tests/e2e/global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results-doctor-videocall.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/root/altamedica-reboot-fresh/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "doctor-videocall-chrome",
+        "name": "doctor-videocall-chrome",
+        "testDir": "/root/altamedica-reboot-fresh/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/doctor-login-videocall-flow.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "doctor-login-videocall-flow.spec.ts",
+      "file": "doctor-login-videocall-flow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "🧠 Doctor Login + Videollamada - Flujo Completo",
+          "file": "doctor-login-videocall-flow.spec.ts",
+          "line": 588,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "doctor-videocall-chrome",
+                  "projectName": "doctor-videocall-chrome",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "failed",
+                      "duration": 0,
+                      "error": {
+                        "message": "Error: worker process exited unexpectedly (code=0, signal=null)"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: worker process exited unexpectedly (code=0, signal=null)"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T06:23:38.080Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "failed",
+                      "duration": 0,
+                      "error": {
+                        "message": "Error: worker process exited unexpectedly (code=0, signal=null)"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: worker process exited unexpectedly (code=0, signal=null)"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2025-10-05T06:23:38.093Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f7849b8a9cf51c49c253-5082c62e17113663ad23",
+              "file": "doctor-login-videocall-flow.spec.ts",
+              "line": 593,
+              "column": 7
+            },
+            {
+              "title": "Validación de autenticación con credenciales específicas",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "doctor-videocall-chrome",
+                  "projectName": "doctor-videocall-chrome",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T06:23:38.082Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2025-10-05T06:23:38.096Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7849b8a9cf51c49c253-cf927cddcab176066207",
+              "file": "doctor-login-videocall-flow.spec.ts",
+              "line": 620,
+              "column": 7
+            },
+            {
+              "title": "Verificación de token JWT y rol en localStorage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "doctor-videocall-chrome",
+                  "projectName": "doctor-videocall-chrome",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T06:23:38.083Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2025-10-05T06:23:38.097Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7849b8a9cf51c49c253-4342b901f7faad03b0c6",
+              "file": "doctor-login-videocall-flow.spec.ts",
+              "line": 646,
+              "column": 7
+            },
+            {
+              "title": "Verificación de conexión WebRTC y elementos de video",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "doctor-videocall-chrome",
+                  "projectName": "doctor-videocall-chrome",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T06:23:38.083Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2025-10-05T06:23:38.097Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7849b8a9cf51c49c253-d31cbdf923d388f17756",
+              "file": "doctor-login-videocall-flow.spec.ts",
+              "line": 666,
+              "column": 7
+            },
+            {
+              "title": "Simulación de llamada entre doctor y paciente",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "doctor-videocall-chrome",
+                  "projectName": "doctor-videocall-chrome",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T06:23:38.087Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2025-10-05T06:23:38.097Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7849b8a9cf51c49c253-2f8049350ba5cc105c90",
+              "file": "doctor-login-videocall-flow.spec.ts",
+              "line": 697,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-10-05T06:23:37.368Z",
+    "duration": 741.8650000000002,
+    "expected": 0,
+    "skipped": 4,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

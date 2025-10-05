@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 import type { Database } from '@autamedica/types';
+import { isDevelopment } from '@autamedica/shared';
 
 // Environment validation with detailed error messages
 const getSupabaseConfig = () => {
@@ -45,7 +46,7 @@ const createAuthConfig = (options: {
     autoRefreshToken: options.autoRefreshToken ?? false,
     detectSessionInUrl: options.detectSessionInUrl ?? true,
     flowType: 'pkce' as const,
-    debug: process.env.NODE_ENV === 'development',
+    debug: isDevelopment(),
   },
   realtime: {
     params: {

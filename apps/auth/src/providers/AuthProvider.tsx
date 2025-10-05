@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { useAuth, type UseAuthReturn } from '../hooks/use-auth';
-import { logger } from '@autamedica/shared';
+import { logger, isDevelopment } from '@autamedica/shared';
 
 // Create the auth context
 const AuthContext = createContext<UseAuthReturn | null>(null);
@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 
   // Debug logging in development
   React.useEffect(() => {
-    if (enableDebug && process.env.NODE_ENV === 'development') {
+    if (enableDebug && isDevelopment()) {
       logger.info('AuthProvider state:', {
         user: authValue.user?.id,
         loading: authValue.loading,

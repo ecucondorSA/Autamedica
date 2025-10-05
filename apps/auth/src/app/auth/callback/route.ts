@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { logger } from '@autamedica/shared';
+import { logger, isProduction } from '@autamedica/shared';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -29,17 +29,17 @@ export async function GET(request: Request) {
             // Set domain to .autamedica.com for cross-subdomain cookie sharing
             const cookieOptions = {
               ...options,
-              domain: process.env.NODE_ENV === 'production' ? '.autamedica.com' : undefined,
+              domain: isProduction() ? '.autamedica.com' : undefined,
               path: '/',
               sameSite: 'lax' as const,
-              secure: process.env.NODE_ENV === 'production',
+              secure: isProduction(),
             };
             cookieStore.set({ name, value, ...cookieOptions });
           },
           remove(name: string, options: any) {
             const cookieOptions = {
               ...options,
-              domain: process.env.NODE_ENV === 'production' ? '.autamedica.com' : undefined,
+              domain: isProduction() ? '.autamedica.com' : undefined,
               path: '/',
             };
             cookieStore.set({ name, value: '', ...cookieOptions, maxAge: 0 });
@@ -78,16 +78,22 @@ export async function GET(request: Request) {
     let destination: string;
 
     if (returnTo) {
-      // Use returnTo if provided
-      destination = returnTo;
+      // Extract base URL from returnTo
+      const returnToUrl = new URL(returnTo);
+      const baseUrl = `${returnToUrl.protocol}//${returnToUrl.host}`;
+
+      // Redirect to the app's callback route with tokens
+      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
     } else if (role === 'patient') {
-      destination = process.env.NODE_ENV === 'production'
+      const baseUrl = isProduction()
         ? 'https://patients.autamedica.com'
-        : 'http://localhost:3003';
+        : 'http://localhost:3002';
+      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
     } else if (role === 'doctor') {
-      destination = process.env.NODE_ENV === 'production'
+      const baseUrl = isProduction()
         ? 'https://doctors.autamedica.com'
         : 'http://localhost:3001';
+      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
     } else {
       destination = '/auth/select-role';
     }

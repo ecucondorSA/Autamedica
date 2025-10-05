@@ -234,6 +234,25 @@ export function AuthProvider({
           }
           setState(newState)
           onAuthStateChange?.(newState)
+
+          // Auto-redirect after successful sign in
+          if (event === 'SIGNED_IN' && profile && typeof window !== 'undefined') {
+            logger.info('Sign in successful, redirecting to role-specific app...')
+
+            // Get redirect URL based on role
+            const redirectUrl = getRedirectUrl(
+              profile.role,
+              undefined,
+              profile.last_path
+            )
+
+            logger.info('Redirecting to:', redirectUrl)
+
+            // Use setTimeout to ensure state is updated before redirect
+            setTimeout(() => {
+              window.location.href = redirectUrl
+            }, 100)
+          }
         } else {
           const newState = {
             user: null,

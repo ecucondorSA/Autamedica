@@ -7,6 +7,11 @@
   "scripts": {
     "test:e2e": "node tests/run-playwright.cjs",
     "test:e2e:ui": "playwright test --ui",
+    "test:doctor-videocall": "playwright test tests/e2e/doctor-login-videocall-flow.spec.ts --config=tests/e2e/playwright.doctor-videocall.config.ts",
+    "test:doctor-videocall:headless": "playwright test tests/e2e/doctor-login-videocall-flow.spec.ts --config=tests/e2e/playwright.doctor-videocall.config.ts --headed=false",
+    "test:doctor-videocall:report": "playwright test tests/e2e/doctor-login-videocall-flow.spec.ts --config=tests/e2e/playwright.doctor-videocall.config.ts --reporter=html,json",
+    "test:doctor-videocall:ci": "./scripts/doctor-videocall-test-automation.sh --ci --headless --report",
+    "test:doctor-videocall:git-flow": "node scripts/git-flow-doctor-videocall-test.js --ci --headless --report --notify",
     "test:rls": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/rls_smoke.sql",
     "test:auth": "vitest run --config vitest.browser.config.ts",
     "test:auth:watch": "vitest --config vitest.browser.config.ts",

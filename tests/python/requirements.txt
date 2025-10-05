@@ -1,0 +1,10 @@
+playwright>=1.38.0
+pytest>=7.0
+pytest-asyncio
+pytest-html
+pytest-xdist
+pillow
+imagehash
+requests
+pytest-mock
+pytest-cov

@@ -1,0 +1,14 @@
+[0;32m[SUCCESS][0m ✅ Entorno preparado correctamente
+[0;34m[INFO][0m 🌐 Verificando servicios de AutaMedica...
+[1;33m[WARNING][0m ⚠️ //localhost:3005:Auth Service no disponible en http
+[1;33m[WARNING][0m ⚠️ //localhost:3001:Doctors App no disponible en http
+[1;33m[WARNING][0m ⚠️ //localhost:3003:Patients App no disponible en http
+[1;33m[WARNING][0m ⚠️ //localhost:8888:Signaling Server no disponible en http
+[1;33m[WARNING][0m ⚠️ Algunos servicios no están disponibles: //localhost:3005:Auth Service //localhost:3001:Doctors App //localhost:3003:Patients App //localhost:8888:Signaling Server
+[0;34m[INFO][0m Los tests pueden fallar si dependen de estos servicios
+[0;34m[INFO][0m 🧪 Ejecutando tests de TypeScript/Playwright...
+[0;35m[DEBUG][0m Comando TypeScript: MOCK_AUTAMEDICA=1 npx playwright test tests/e2e/doctor-login-videocall-flow.spec.ts --config=tests/e2e/playwright.doctor-videocall.config.ts
+[0;31m[ERROR][0m ❌ Tests de TypeScript fallaron
+[0;34m[INFO][0m 🧹 Limpiando archivos temporales...
+[0;32m[SUCCESS][0m ✅ Limpieza completada
+[0;31m[ERROR][0m 💥 Algunos tests fallaron

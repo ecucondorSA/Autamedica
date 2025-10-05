@@ -51,7 +51,7 @@ export function getDefaultRedirectUrl(role: UserRole): string {
   const defaultPaths: Record<AppName, string> = {
     'web-app': '/',
     'auth': '/auth/login',
-    'patients': '/dashboard',
+    'patients': '/',  // Patients app uses (dashboard) route group, so root is the dashboard
     'doctors': '/dashboard',
     'companies': '/dashboard',
     'admin': '/dashboard'

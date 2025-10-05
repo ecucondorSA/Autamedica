@@ -1,5 +1,27 @@
 import { logger } from './services/logger.service';
 
+/**
+ * Reference to process object (undefined in browser)
+ */
+const processRef = typeof process !== 'undefined' ? process : null;
+
+/**
+ * Check if the current environment is production
+ * @returns true if NODE_ENV is 'production'
+ */
+export function isProduction(): boolean {
+  return processRef?.env?.NODE_ENV === 'production';
+}
+
+/**
+ * Check if the current environment is development
+ * @returns true if NODE_ENV is 'development' or undefined
+ */
+export function isDevelopment(): boolean {
+  const env = processRef?.env?.NODE_ENV;
+  return env === 'development' || env === undefined;
+}
+
 // Tipos de configuración de entorno
 export interface EnvironmentConfig {
   // Variables públicas (cliente)

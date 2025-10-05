@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
   output: 'standalone', // Required for OpenNext.js Cloudflare
-  trailingSlash: true,
+  trailingSlash: false,
   experimental: {
     externalDir: true
   },
@@ -28,8 +28,16 @@ const nextConfig = {
     } : false,
   },
   headers: async () => ([
+    // API routes handle their own CORS
     {
-      source: '/(.*)',
+      source: '/api/(.*)',
+      headers: [
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+      ],
+    },
+    // All other routes get security headers
+    {
+      source: '/((?!api).*)',
       headers: [
         { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
         { key: 'X-Content-Type-Options', value: 'nosniff' },

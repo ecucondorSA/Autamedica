@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { getRoleDisplayName, isValidUserRole, getPortalForRole } from '@autamedica/shared';
+import { getRoleDisplayName, isValidUserRole, getTargetUrlByRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
 import { AuthLogo } from '@/components/AuthLogo';
 import { logger } from '@autamedica/shared';
@@ -41,7 +41,7 @@ function LoginForm() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
 
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -50,8 +50,19 @@ function LoginForm() {
         throw signInError;
       }
 
-      // Redirect to returnTo URL or default portal
-      const redirectUrl = returnTo || getPortalForRole(role!);
+      // Get the base redirect URL
+      let redirectUrl = returnTo || getTargetUrlByRole(role!);
+
+      // In development (localhost with different ports), pass session via URL
+      // because cookies don't work cross-port
+      const isDevelopment = window.location.hostname === 'localhost';
+      if (isDevelopment && data.session) {
+        const url = new URL(redirectUrl);
+        url.searchParams.set('access_token', data.session.access_token);
+        url.searchParams.set('refresh_token', data.session.refresh_token);
+        redirectUrl = url.toString();
+      }
+
       window.location.href = redirectUrl;
     } catch (error: any) {
       logger.error('Login error:', error);

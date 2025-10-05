@@ -10,7 +10,9 @@ export {
   validateEnvironmentSecurity,
   validateProductionEnvironment,
   validateStagingEnvironment,
-  validateEnvironmentByType
+  validateEnvironmentByType,
+  isProduction,
+  isDevelopment
 } from "./env";
 
 // Tipos de entorno

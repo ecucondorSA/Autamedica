@@ -6,6 +6,7 @@ import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 import { ClientWrapper } from '@/components/ClientWrapper'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { fetchSessionData } from '@/lib/session-sync'
+import { SessionSync } from '@/components/SessionSync'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
@@ -38,6 +39,7 @@ export default async function RootLayout({ children }: RootLayoutProps): Promise
         />
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased">
+        <SessionSync />
         <AuthProvider initialSession={sessionData}>
           <ClientWrapper>
             <DoctorsPortalShell>{children as any}</DoctorsPortalShell>

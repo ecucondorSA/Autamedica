@@ -1,0 +1,122 @@
+<testsuites id="" name="" tests="20" failures="4" skipped="16" errors="0" time="1.833565">
+<testsuite name="doctor-login-videocall-flow.spec.ts" timestamp="2025-10-05T06:22:33.189Z" hostname="doctor-videocall-chrome" tests="5" failures="1" skipped="4" time="0" errors="0">
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<failure message="doctor-login-videocall-flow.spec.ts:593:7 Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" type="FAILURE">
+<![CDATA[  [doctor-videocall-chrome] › doctor-login-videocall-flow.spec.ts:593:7 › 🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre 
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+]]>
+</failure>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Validación de autenticación con credenciales específicas" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de token JWT y rol en localStorage" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de conexión WebRTC y elementos de video" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Simulación de llamada entre doctor y paciente" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="doctor-login-videocall-flow.spec.ts" timestamp="2025-10-05T06:22:33.189Z" hostname="doctor-videocall-firefox" tests="5" failures="1" skipped="4" time="0" errors="0">
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<failure message="doctor-login-videocall-flow.spec.ts:593:7 Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" type="FAILURE">
+<![CDATA[  [doctor-videocall-firefox] › doctor-login-videocall-flow.spec.ts:593:7 › 🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre 
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+]]>
+</failure>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Validación de autenticación con credenciales específicas" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de token JWT y rol en localStorage" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de conexión WebRTC y elementos de video" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Simulación de llamada entre doctor y paciente" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="doctor-login-videocall-flow.spec.ts" timestamp="2025-10-05T06:22:33.189Z" hostname="doctor-videocall-safari" tests="5" failures="1" skipped="4" time="0" errors="0">
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<failure message="doctor-login-videocall-flow.spec.ts:593:7 Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" type="FAILURE">
+<![CDATA[  [doctor-videocall-safari] › doctor-login-videocall-flow.spec.ts:593:7 › 🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre 
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+]]>
+</failure>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Validación de autenticación con credenciales específicas" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de token JWT y rol en localStorage" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de conexión WebRTC y elementos de video" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Simulación de llamada entre doctor y paciente" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="doctor-login-videocall-flow.spec.ts" timestamp="2025-10-05T06:22:33.189Z" hostname="doctor-videocall-mobile" tests="5" failures="1" skipped="4" time="0" errors="0">
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<failure message="doctor-login-videocall-flow.spec.ts:593:7 Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre" type="FAILURE">
+<![CDATA[  [doctor-videocall-mobile] › doctor-login-videocall-flow.spec.ts:593:7 › 🧠 Doctor Login + Videollamada - Flujo Completo › Flujo médico completo: Login → Perfil → Videollamada → WebRTC → Cierre 
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: worker process exited unexpectedly (code=0, signal=null)
+]]>
+</failure>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Validación de autenticación con credenciales específicas" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de token JWT y rol en localStorage" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Verificación de conexión WebRTC y elementos de video" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="🧠 Doctor Login + Videollamada - Flujo Completo › Simulación de llamada entre doctor y paciente" classname="doctor-login-videocall-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

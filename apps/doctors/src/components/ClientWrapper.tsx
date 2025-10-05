@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import { AuthProvider } from '@autamedica/auth'
 import { useRouter } from 'next/navigation'
+import { SessionSync } from './SessionSync'
 
 interface ClientWrapperProps {
   children: ReactNode
@@ -21,8 +22,11 @@ export function ClientWrapper({ children }: ClientWrapperProps) {
   }
 
   return (
-    <AuthProvider onAuthStateChange={handleAuthStateChange}>
-      {children}
-    </AuthProvider>
+    <>
+      <SessionSync />
+      <AuthProvider onAuthStateChange={handleAuthStateChange}>
+        {children}
+      </AuthProvider>
+    </>
   )
 }

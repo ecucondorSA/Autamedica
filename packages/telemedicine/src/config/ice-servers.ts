@@ -3,6 +3,7 @@ import {
   getOptionalClientEnv,
   getServerEnvOrDefault,
   logger,
+  isProduction,
 } from '@autamedica/shared'
 
 /** Lee ICE desde env (cliente o server) */
@@ -39,7 +40,9 @@ export function getProductionICEServers(): RTCIceServer[] {
     })
   } else {
     // Fallback a servidores TURN públicos temporales (solo desarrollo)
-    logger.warn('⚠️ No TURN servers configured. Using public fallback (not recommended for production)')
+    if (isProduction()) {
+      logger.warn('⚠️ No TURN servers configured. Using public fallback (not recommended for production)')
+    }
     iceServers.push({
       urls: ['turns:global.relay.metered.ca:443?transport=tcp'],
       username: 'demo',

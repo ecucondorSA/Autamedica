@@ -22,6 +22,7 @@ import { createClient } from '@/lib/supabase';
 import './globals.css';
 import { canManageCompany, type MemberRole } from '@autamedica/shared';
 import { logger } from '@autamedica/shared';
+import { SessionSync } from '@/components/SessionSync';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -126,6 +127,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="es">
       <body className="bg-gray-900 text-white font-sans antialiased">
+        <SessionSync />
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-orange-900">
           {/* Header - Crisis Management Style */}
           <div className="bg-gray-800 border-b border-red-600 px-4 py-3 flex items-center justify-between">

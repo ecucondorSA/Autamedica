@@ -23,6 +23,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Check for session tokens in URL (development mode with different ports)
+  const hasUrlTokens = request.nextUrl.searchParams.has('access_token') &&
+                       request.nextUrl.searchParams.has('refresh_token')
+
   // Check for Supabase session cookie
   // Supabase uses the format: sb-{project-ref}-auth-token
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -31,11 +35,13 @@ export async function middleware(request: NextRequest) {
 
   const sessionCookie = request.cookies.get(cookieName)
 
-  if (!sessionCookie) {
+  // Allow request if either session cookie exists OR URL has session tokens
+  // URL tokens need to be processed by the page to establish the session
+  if (!sessionCookie && !hasUrlTokens) {
     // No session - redirect to Auth Hub
-    const authHubUrl = process.env.NEXT_PUBLIC_AUTH_HUB_URL || 'https://autamedica-web-app.pages.dev'
+    const authHubUrl = process.env.NEXT_PUBLIC_AUTH_HUB_URL || 'http://localhost:3005'
     const returnUrl = encodeURIComponent(request.url)
-    const loginUrl = `${authHubUrl}/auth/login?portal=medico&returnTo=${returnUrl}`
+    const loginUrl = `${authHubUrl}/auth/login?role=doctor&returnTo=${returnUrl}`
 
     return NextResponse.redirect(loginUrl)
   }
