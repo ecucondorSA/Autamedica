@@ -20,7 +20,6 @@
     "@autamedica/tailwind-config": "workspace:^",
     "@autamedica/types": "workspace:^",
     "@autamedica/ui": "workspace:^",
-    "@autamedica/utils": "workspace:^",
     "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.8",
     "@opennextjs/cloudflare": "^1.8.3",

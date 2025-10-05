@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@autamedica/types": "workspace:*",
-    "consola": "^3.4.2"
+    "consola": "^3.4.2",
+    "jose": "^6.1.0"
   }
 }

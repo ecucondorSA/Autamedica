@@ -9,7 +9,10 @@
     "build:cloudflare": "pnpm run build && node ../../scripts/next/ensure-required-server-files.mjs --app auth && opennextjs-cloudflare build --skip-next-build && node ../../scripts/next/patch-open-next.mjs",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@autamedica/shared": "workspace:^",
@@ -29,12 +32,14 @@
     "@types/node": "^24.6.0",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
+    "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.35.0",
     "eslint-config-next": "15.5.4",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
     "wrangler": "^4.38.0"
   }
 }

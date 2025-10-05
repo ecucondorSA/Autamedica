@@ -45,6 +45,9 @@ export {
   getRoleForPortal
 } from "./env/portals";
 
+// User role type
+export type { UserRole } from "./auth/portals";
+
 // Security helpers
 export {
   isAllowedRedirect,
@@ -112,3 +115,23 @@ export {
   countActive,
   type SelectOptions
 } from './db';
+
+// UI utilities (migrated from @autamedica/utils)
+export { cn } from './ui-utils';
+
+// Type guards and async utilities (migrated from @autamedica/utils)
+export {
+  isString,
+  isNumber,
+  isBoolean,
+  delay
+} from './type-guards';
+
+// App configuration helpers (migrated from @autamedica/config)
+export {
+  getAppEnv,
+  getLoginUrlBuilder,
+  type AppName,
+  type AppEnvironmentConfig,
+  type LoginUrlBuilder
+} from './env/app-config';

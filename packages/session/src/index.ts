@@ -1,6 +1,5 @@
 import { UserRole } from '@autamedica/types';
-import { getAppEnv, getLoginUrlBuilder } from '@autamedica/config';
-import { logger } from '@autamedica/shared';
+import { getAppEnv, getLoginUrlBuilder, logger } from '@autamedica/shared';
 
 export interface SessionData {
   user: {
@@ -27,25 +26,14 @@ export async function fetchSessionData(
 ): Promise<SessionData | null> {
   const appEnv = getAppEnv(appName);
 
-  if (appEnv.authDevBypassEnabled && appName === 'patients') {
-    return {
-      user: {
-        id: 'dev-user-id',
-        email: 'dev@patient.local',
-      },
-      profile: {
-        id: 'dev-profile-id',
-        role: 'patient' as UserRole,
-        first_name: 'Dev',
-        last_name: 'Patient',
-        company_name: null,
-        last_path: null,
-      },
-      session: {
-        expires_at: Date.now() + 86400000, // 24h from now
-        issued_at: Date.now(),
-      },
-    };
+  // Auth bypass is not supported in production builds
+  // All apps must use proper authentication via Supabase
+  if (appEnv.authDevBypassEnabled) {
+    logger.error(
+      `[${appName}] AUTH_DEV_BYPASS is enabled but not supported. ` +
+      'Configure proper Supabase authentication in environment variables.'
+    );
+    return null;
   }
 
   try {

@@ -97,7 +97,29 @@ export {
   validateProductionEnvironment,
   validateStagingEnvironment,
   validateEnvironmentByType,
+  isProduction,
+  isDevelopment,
 } from "./env";
+
+// Configuración de aplicaciones (migrado de @autamedica/config)
+export {
+  getAppEnv,
+  getLoginUrlBuilder,
+  type AppName,
+  type AppEnvironmentConfig,
+  type LoginUrlBuilder,
+} from "./env/app-config";
+
+// UI utilities (migrado de @autamedica/utils)
+export { cn } from "./ui-utils";
+
+// Type guards y async utilities (migrado de @autamedica/utils)
+export {
+  isString,
+  isNumber,
+  isBoolean,
+  delay,
+} from "./type-guards";
 export type { EnvironmentConfig, EnvironmentValidation } from "./env";
 
 // Validaciones

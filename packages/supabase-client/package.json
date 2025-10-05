@@ -2,14 +2,34 @@
   "name": "@autamedica/supabase-client",
   "version": "0.0.1",
   "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist .tsup"
+  },
   "dependencies": {
     "@autamedica/auth": "workspace:*",
     "@autamedica/types": "workspace:*",
     "@supabase/supabase-js": "^2.57.4"
   },
   "devDependencies": {
+    "@autamedica/typescript-config": "workspace:*",
+    "rimraf": "^5.0.10",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   }
 }
