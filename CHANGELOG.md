@@ -3,11 +3,11 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- 9171013 feat: implement patients app with E2E testing and session sync
 
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- e5ebb72 fix: add missing driver.js dependency for patients app
 
 ### 🔒 Seguridad
 
@@ -18,6 +18,6 @@
 ---
 
 ### 🔄 Otros Cambios
-- 300aa12 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- b125487 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 06:39:17*
+*Generado automáticamente el 2025-10-05 06:48:11*
