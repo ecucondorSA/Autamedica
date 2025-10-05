@@ -56,3 +56,4 @@ apps/*/pnpm-lock.yaml
 
 # ESLint cache
 .eslintcache
+.env.local.production-ready
