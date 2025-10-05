@@ -10,6 +10,18 @@ export default createNextAppConfig({
   output: 'standalone',
   trailingSlash: true,
   images: {
-    unoptimized: true
-  }
+    unoptimized: false,
+    domains: ['gtyvdircfhmdjiaelqkg.supabase.co'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gtyvdircfhmdjiaelqkg.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
+  experimental: {
+    serverComponentsExternalPackages: ['@supabase/supabase-js'],
+  },
 });
