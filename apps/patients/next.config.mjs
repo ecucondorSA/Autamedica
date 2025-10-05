@@ -7,4 +7,9 @@ const __dirname = path.dirname(__filename);
 
 export default createNextAppConfig({
   appDir: __dirname,
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
+  }
 });
