@@ -1,8 +1,8 @@
 /**
  * WebRTC Signaling Server
- * 
+ *
  * Servidor Socket.io para coordinar llamadas WebRTC entre pacientes y médicos
- * 
+ *
  * Features:
  * - Room management con Supabase
  * - SDP offer/answer exchange
@@ -12,18 +12,18 @@
  * - Rate limiting
  */
 
+// Load environment variables FIRST
+import 'dotenv/config';
+
 import express from 'express';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { RoomManager } from './rooms.js';
 import { authenticateSocket } from './auth.js';
 import { logger } from './logger.js';
 import type { ClientToServerEvents, ServerToClientEvents } from './types.js';
-
-// Load environment variables
-dotenv.config();
+import { livekitRoutes } from './routes.js';
 
 const PORT = parseInt(process.env.PORT || '8888', 10);
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3003';
@@ -31,6 +31,10 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3003';
 // Express app
 const app = express();
 app.use(cors({ origin: CORS_ORIGIN }));
+app.use(express.json()); // Parse JSON bodies
+
+// LiveKit REST API routes
+app.use(livekitRoutes);
 
 // Health check endpoint
 app.get('/health', (_req, res) => {
