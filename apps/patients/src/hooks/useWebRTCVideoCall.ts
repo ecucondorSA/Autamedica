@@ -11,7 +11,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useSupabase } from '@autamedica/auth/react';
+import { useSupabase } from '@autamedica/auth';
 import { SupabaseSignalingService } from '@/services/SupabaseSignalingService';
 import { logger } from '@autamedica/shared';
 

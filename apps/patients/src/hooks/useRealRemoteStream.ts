@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-import { logger } from '@autamedica/shared';
   RemoteParticipant,
   RemoteTrack,
   RemoteTrackPublication,
