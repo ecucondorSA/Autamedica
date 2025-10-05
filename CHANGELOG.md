@@ -3,7 +3,6 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- 6105a66 feat: migrate patients app from Cloudflare Pages to Vercel
 
 ### 🔧 Mejoras y Optimizaciones
 
@@ -12,12 +11,13 @@
 ### 🔒 Seguridad
 
 ### 📚 Documentación
+- e748c62 docs: add Vercel deployment guide and update workflow
 
 ### ⚙️ DevOps e Infraestructura
 
 ---
 
 ### 🔄 Otros Cambios
-- ed5e8b6 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- b517601 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 07:24:52*
+*Generado automáticamente el 2025-10-05 07:28:23*
