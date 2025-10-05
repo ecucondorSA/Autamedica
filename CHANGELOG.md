@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 193edb4 fix: update pnpm-lock.yaml for driver.js dependency
+- a90a1da fix: update patients deployment to use OpenNext instead of deprecated @cloudflare/next-on-pages
 
 ### 🔒 Seguridad
 
@@ -18,6 +18,6 @@
 ---
 
 ### 🔄 Otros Cambios
-- b613461 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- f4d8422 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 06:48:55*
+*Generado automáticamente el 2025-10-05 06:57:07*
