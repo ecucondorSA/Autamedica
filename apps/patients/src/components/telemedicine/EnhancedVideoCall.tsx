@@ -7,10 +7,11 @@ import { usePatientSession } from '@/hooks/usePatientSession';
 import { useVideoCall } from '@/hooks/useVideoCall';
 import { useTelemedicine } from '@/hooks';
 import { useMockRemoteStream } from '@/hooks/useMockRemoteStream';
+import { useRealRemoteStream } from '@/hooks/useRealRemoteStream';
 import { VideoLayout, ViewModeSelector } from '@/components/telemedicine/VideoLayout';
 import { VideoControls } from '@/components/telemedicine/VideoControls';
 import type { EnhancedVideoCallProps, VideoViewMode, PIPPosition } from '@/types/telemedicine';
-import { logger } from '@autamedica/shared';
+import { logger, featureFlags } from '@autamedica/shared';
 
 /**
  * Componente principal de videollamada refactorizado
@@ -43,9 +44,18 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
   const [viewMode, setViewMode] = useState<VideoViewMode>('speaker');
   const [pipPosition, setPipPosition] = useState<PIPPosition>('bottom-right');
 
-  // Mock remote stream (temporal hasta implementar WebRTC)
-  // Se activa automáticamente cuando la llamada está "live"
-  const remoteStream = useMockRemoteStream(videoCall.callStatus === 'live');
+  // Remote stream - usa mock en desarrollo, LiveKit en producción
+  // Controlado por feature flag NEXT_PUBLIC_USE_MOCK_VIDEO
+  const mockStream = featureFlags.USE_MOCK_VIDEO
+    ? useMockRemoteStream(videoCall.callStatus === 'live')
+    : null;
+
+  // TODO: Pasar remoteParticipant de LiveKit cuando esté disponible
+  const realStream = !featureFlags.USE_MOCK_VIDEO
+    ? useRealRemoteStream(undefined) // Pasar remoteParticipant aquí
+    : null;
+
+  const remoteStream = featureFlags.USE_MOCK_VIDEO ? mockStream : realStream;
 
   // Calidad de la llamada
   const callQuality = useMemo(() => {

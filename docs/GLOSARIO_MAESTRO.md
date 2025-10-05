@@ -2439,6 +2439,68 @@ pnpm docs:validate
 - **Descripción:** Utilidad del sistema AutaMedica para isproduction.
 - **Contrato:** Pendiente de documentación detallada
 
+## 📋 Exports Auto-generados
+
+### cn
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para cn.
+- **Contrato:** Pendiente de documentación detallada
+
+### delay
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para delay.
+- **Contrato:** Pendiente de documentación detallada
+
+### getAppEnv
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getappenv en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### getLoginUrlBuilder
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Función utilitaria para getloginurlbuilder en el ecosistema AutaMedica.
+- **Contrato:** Pendiente de documentación detallada
+
+### isBoolean
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isboolean.
+- **Contrato:** Pendiente de documentación detallada
+
+### isNumber
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isnumber.
+- **Contrato:** Pendiente de documentación detallada
+
+### isString
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para isstring.
+- **Contrato:** Pendiente de documentación detallada
+
+### type AppEnvironmentConfig
+- **Tipo:** interface
+- **Package:** @autamedica/shared
+- **Descripción:** Configuración para type appenvironment del sistema médico.
+- **Contrato:** Pendiente de documentación detallada
+
+### type AppName
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type appname.
+- **Contrato:** Pendiente de documentación detallada
+
+### type LoginUrlBuilder
+- **Tipo:** unknown
+- **Package:** @autamedica/shared
+- **Descripción:** Utilidad del sistema AutaMedica para type loginurlbuilder.
+- **Contrato:** Pendiente de documentación detallada
+
 ## 🔗 Referencias Relacionadas
 
 - **[CLAUDE.md](../CLAUDE.md)** - Guía para Claude Code
