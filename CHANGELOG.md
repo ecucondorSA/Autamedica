@@ -7,6 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 980fc7d fix: use standalone output with OpenNext for Cloudflare Pages
 
 ### 🔒 Seguridad
 
@@ -17,6 +18,6 @@
 ---
 
 ### 🔄 Otros Cambios
-- ae4268f Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
+- 9796195 Merge branch 'main' of https://github.com/ecucondorSA/Autamedica
 
-*Generado automáticamente el 2025-10-05 07:06:18*
+*Generado automáticamente el 2025-10-05 07:09:52*
