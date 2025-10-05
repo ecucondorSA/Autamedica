@@ -158,6 +158,7 @@
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
+    "@google/generative-ai": "^0.24.1",
     "@openai/codex": "^0.39.0",
     "@supabase/supabase-js": "^2.57.4",
     "glob": "^11.0.3",
