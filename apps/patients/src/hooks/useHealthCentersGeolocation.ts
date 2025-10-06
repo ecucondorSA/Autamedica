@@ -6,7 +6,7 @@ import type {
   Coordinates
 } from '@autamedica/types';
 import { calculateDistance, sortByDistance, formatDistance, estimateTravelTime } from '@autamedica/types';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import { logger } from '@autamedica/shared';
 
 interface UseHealthCentersOptions {

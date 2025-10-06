@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@autamedica/types": "workspace:*",
-    "@autamedica/shared": "workspace:*"
+    "@autamedica/shared": "workspace:*",
+    "@autamedica/telemedicine": "workspace:*"
   },
   "devDependencies": {
     "@autamedica/typescript-config": "workspace:*",

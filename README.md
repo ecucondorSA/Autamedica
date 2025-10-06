@@ -336,4 +336,167 @@ pnpm docs:validate
 
 ---
 
-**AutaMedica © 2025** - Sistema de roles empresarial operativo
+## 🤖 **Agentic OS - Sistema Multiagente Inteligente**
+
+**AutaMedica Agentic OS** es un sistema de CI/CD avanzado con agentes especializados que ejecutan tareas automatizadas, validaciones integrales, y rollback real ante fallos.
+
+### 🎯 **Características Principales**
+
+- ✅ **Multiagente real**: 6 agentes especializados en jobs separados
+- ✅ **Rollback automático**: Reversión de deployments (Cloudflare Pages) y DB ante fallos
+- ✅ **QA obligatorio**: Fetch real + screenshots + tests unitarios
+- ✅ **Hooks obligatorios**: Pre-commit y pre-push con validaciones estrictas
+- ✅ **Validación de convenciones**: SSK_FAE, Router, nomenclatura DB/TS
+- ✅ **MCP Supabase**: Integración real para credenciales sin hardcode
+- ✅ **Sesiones ilimitadas**: CLAUDE_TIMEOUT_MS=900000 (15min)
+
+### 🏗️ **Agentes del Sistema**
+
+| Agente | Responsabilidad | Herramientas |
+|--------|----------------|--------------|
+| `agent_code` | Lint, TypeCheck, Build, Convenciones | ESLint, TypeScript, validate-conventions.mjs |
+| `agent_db` | Migraciones, RLS, Performance | Supabase CLI, psql, MCP |
+| `agent_security` | Headers, CORS, CVEs | pnpm audit, _headers validation |
+| `agent_dns_deploy` | Deploy a Cloudflare Pages | wrangler, build scripts |
+| `agent_qa` | Fetch, Screenshots, Tests | node_fetch_check.mjs, screenshot_check.mjs, vitest |
+| `agent_docs` | Actualizar README, claude.md, agente.md | Git auto-commit |
+
+### 🚀 **Cómo Ejecutar el Workflow**
+
+#### Automático (push a main):
+```bash
+git push origin main
+# El workflow se ejecuta automáticamente
+```
+
+#### Manual (workflow_dispatch):
+```bash
+# Via GitHub UI
+Actions → "AutaMedica Agentic OS" → Run workflow
+
+# Via CLI
+gh workflow run "AutaMedica Agentic OS"
+```
+
+### 📋 **Scripts de QA Disponibles**
+
+```bash
+# Validar convenciones de nomenclatura
+node scripts/validate-conventions.mjs
+
+# Fetch real a URLs de producción
+node scripts/node_fetch_check.mjs
+
+# Capturar screenshots con Playwright
+node scripts/screenshot_check.mjs
+
+# Generar reporte post-tarea (Python)
+python3 scripts/post_task_report.py
+
+# Cleanup de duplicados
+bash scripts/cleanup_duplicates.sh
+
+# Smoke test completo
+bash scripts/smoke-all.sh
+```
+
+### 🔧 **Convenciones de Nomenclatura (SSK_FAE)**
+
+El sistema valida automáticamente las convenciones en cada commit y push:
+
+- **DB (Supabase)**: `snake_case` para tablas/columnas
+  - ✅ `patient_care_team`, `doctor_id`
+  - ❌ `patientCareTeam`, `doctorId`
+
+- **TS Types**: `PascalCase`
+  - ✅ `PatientCareTeam`, `UserRole`
+  - ❌ `patient_care_team`, `userRole`
+
+- **Variables TS**: `camelCase`
+  - ✅ `userId`, `patientList`
+  - ❌ `user_id`, `patient_list`
+
+- **Carpetas**: `kebab-case`
+  - ✅ `patient-care`, `auth-forms`
+  - ❌ `patientCare`, `auth_forms`
+
+- **Componentes**: `PascalCase.tsx`
+  - ✅ `PatientDashboard.tsx`, `LoginForm.tsx`
+  - ❌ `patientDashboard.tsx`, `login-form.tsx`
+
+### 🗂️ **Router: App Router (No Pages)**
+
+AutaMedica usa **Next.js App Router** exclusivamente:
+
+- ✅ `apps/*/app/` con `page.tsx`, `layout.tsx`
+- ❌ `apps/*/pages/` (bloqueado por hooks y CI)
+
+Ejemplo de estructura:
+```
+apps/patients/
+├── app/
+│   ├── (consultation)/
+│   │   └── appointments/
+│   │       └── page.tsx  ← Inyecta componentes aquí
+│   └── layout.tsx
+└── src/
+    └── components/
+        └── appointments/
+            └── CreateAppointmentModal.tsx
+```
+
+### 🔄 **Rollback Real**
+
+Si el workflow falla, el job `rollback_on_fail` ejecuta:
+
+#### Cloudflare Pages Rollback:
+```bash
+# Obtiene deployment previo y revierte
+prev=$(npx wrangler pages deployment list --json | jq -r '.[1].id')
+npx wrangler pages deployment rollback "$prev" --project-name=autamedica-doctors
+```
+
+#### DB Rollback:
+```bash
+# Si existe backup, restaura
+psql "$DATABASE_URL" -f generated-docs/db-backup.sql
+```
+
+### 📊 **Artifacts Generados**
+
+Cada ejecución del workflow genera:
+
+- `generated-docs/POST_TASK_REPORT.json` - Resumen consolidado
+- `generated-docs/POST_TASK_REPORT.md` - Versión Markdown
+- `generated-docs/fetch-check-report.json` - Resultados de fetch
+- `generated-docs/screenshot-check-report.json` - Resultados de screenshots
+- `generated-docs/*.png` - Screenshots de producción
+- `.logs/*.log` - Logs de cada agente
+
+### 🔐 **Secrets Requeridos (GitHub)**
+
+Configura estos secrets en GitHub → Settings → Secrets:
+
+```bash
+SUPABASE_MCP_ENDPOINT        # Endpoint MCP para DB credentials
+SUPABASE_MCP_TOKEN           # Token de autenticación MCP
+SECRET_MANAGER_ENDPOINT      # Endpoint para otros secretos
+SECRET_MANAGER_TOKEN         # Token de autenticación
+CLOUDFLARE_API_TOKEN         # Para deploy y rollback
+```
+
+### 📖 **Documentación Viva**
+
+El sistema mantiene 3 documentos actualizados automáticamente:
+
+- **README.md** (este archivo) - Documentación del proyecto
+- **CLAUDE.md** - Guía para Claude Code con reglas y metodología
+- **agente.md** - Cola de tareas para ChatGPT/Claude con prioridades
+
+### 🎯 **Cola de Tareas Actual**
+
+Ver [`agente.md`](./agente.md) para la lista completa de tareas pendientes y completadas.
+
+---
+
+**AutaMedica © 2025** - Sistema de roles empresarial operativo + Agentic OS

@@ -12,23 +12,20 @@
       "require": "./dist/index.js"
     },
     "./client": {
-      "types": "./dist/client/index.d.ts",
-      "import": "./dist/client/index.mjs",
-      "require": "./dist/client/index.js"
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.mjs"
     },
     "./server": {
-      "types": "./dist/server/index.d.ts",
-      "import": "./dist/server/index.mjs",
-      "require": "./dist/server/index.js"
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.mjs"
     },
-    "./middleware": {
-      "types": "./dist/middleware/index.d.ts",
-      "import": "./dist/middleware/index.mjs",
-      "require": "./dist/middleware/index.js"
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.mjs"
     }
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && tsc --emitDeclarationOnly --declaration",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",

@@ -64,10 +64,16 @@ export { isSignal } from './types'
 // Hooks
 export { useTelemedicineClient, useMediaControls, useRtcStats } from './hooks'
 export type {
+  TelemedicineClientState,
+  TelemedicineClientActions,
   TelemedicineClientHook,
+  MediaControlsState,
+  MediaControlsActions,
   MediaControlsHook,
-  RtcStatsHook,
-  RtcStatsData
+  RtcStatsData,
+  RtcStatsState,
+  RtcStatsActions,
+  RtcStatsHook
 } from './hooks'
 
 // Signaling

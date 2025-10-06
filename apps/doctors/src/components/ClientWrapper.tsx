@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { AuthProvider } from '@autamedica/auth'
+import { AuthProvider } from '@autamedica/auth/react'
 import { useRouter } from 'next/navigation'
 import { SessionSync } from './SessionSync'
 

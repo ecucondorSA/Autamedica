@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { logger } from '@autamedica/shared';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import {
   buildProfileUpdatePayload,
   type ProfileUpdateInput,

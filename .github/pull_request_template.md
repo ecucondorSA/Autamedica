@@ -46,20 +46,29 @@ Este PR incluye validación automática de contratos. Si falla:
 ## ✅ Quality Checklist
 
 ### Básico
-- [ ] **Tests passing**: `pnpm test`
-- [ ] **Lint passing**: `pnpm lint`
-- [ ] **TypeScript passing**: `pnpm type-check`
-- [ ] **Build successful**: `pnpm build`
+- [ ] **Tests passing**: `pnpm test` (cobertura > 70%)
+- [ ] **Lint passing**: `pnpm lint` (0 warnings)
+- [ ] **TypeScript passing**: `pnpm typecheck` (0 errors)
+- [ ] **Build successful**: `pnpm build:packages && pnpm build:apps`
 
-### Validaciones Autamedica
+### Validaciones AutaMedica
 - [ ] **Contracts validation**: `pnpm docs:validate`
 - [ ] **Medical glossary check**: `pnpm glossary:check`
 - [ ] **Security validation**: `pnpm security:check`
+- [ ] **Conventions**: `node scripts/validate-conventions.mjs` (SSK_FAE/Router)
 
 ### Pre-deployment
 - [ ] **Pre-deploy check**: `pnpm pre-deploy`
 - [ ] **Environment variables validadas**
 - [ ] **No hay hardcoded values o datos demo**
+
+### Performance & SLO (Impact Pack)
+- [ ] **Fetch checks**: `node scripts/node_fetch_check.mjs` (200 OK)
+- [ ] **Screenshots**: `node scripts/screenshot_check.mjs` (captures OK)
+- [ ] **Health gates**: `node scripts/health-gate.mjs` (SLOs met)
+- [ ] **Load testing**: `k6 run scripts/k6-smoke.js` (error rate < 0.5%)
+- [ ] **SLO budget**: `node scripts/slo-budget-check.mjs` (within budget)
+- [ ] **Lighthouse**: Performance > 85, Accessibility > 90
 
 ## 🚀 Testing
 
@@ -98,13 +107,34 @@ pnpm dev
 
 <!-- Capturas de pantalla para cambios de UI -->
 
-## 🚨 Breaking Changes
+## 🚨 Riesgo y Rollback
 
-- [ ] **Este PR NO incluye breaking changes**
-- [ ] **Este PR incluye breaking changes** (documentados abajo)
+### Nivel de riesgo
+- [ ] 🟢 Bajo (cambios menores, sin impacto en usuarios)
+- [ ] 🟡 Medio (cambios moderados, puede requerir ajustes)
+- [ ] 🔴 Alto (cambios críticos, afecta funcionalidad core)
 
-### Cambios que rompen compatibilidad:
-<!-- Si hay breaking changes, documéntalos aquí -->
+### Plan de Rollback
+<!-- ¿Cómo revertir estos cambios si algo sale mal en producción? -->
+
+**Comandos de rollback:**
+```bash
+# Cloudflare Pages rollback
+npx wrangler pages deployment rollback <PREV_DEPLOY_ID> --project-name=autamedica-doctors
+
+# DB rollback (si aplica)
+psql "$DATABASE_URL" -f generated-docs/db-backup.sql
+```
+
+### Compatibilidad hacia atrás
+- [ ] ✅ Cambios 100% compatibles
+- [ ] ⚠️ Breaking changes (requiere migración - documentar abajo)
+- [ ] 📝 Deprecations (documentadas en CHANGELOG)
+
+### Breaking Changes (si aplica)
+<!-- Si hay breaking changes, documéntalos aquí con ejemplo de migración -->
+
+**Cambios que rompen compatibilidad:**
 
 ## 📝 Notas para Review
 

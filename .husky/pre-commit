@@ -1,19 +1,40 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "🔎 Verificando glosarios antes del commit..."
+echo "🔎 Pre-commit: Validaciones de código..."
 
-# Check if database-related files are being committed
+# 1. Validar convenciones de nomenclatura (SSK_FAE/Router)
+echo "📋 Validando convenciones (SSK_FAE, Router)..."
+node scripts/validate-conventions.mjs || {
+  echo "❌ Convenciones violadas. Ver errores arriba."
+  exit 1
+}
+
+# 2. Verificar estructura de Router (no pages/)
+echo "🗂️  Verificando App Router (no pages/)..."
+if ls -d apps/**/pages 2>/dev/null | grep -v node_modules | grep .; then
+  echo "❌ Se detectó directorio pages/ - AutaMedica usa App Router (app/)"
+  exit 1
+fi
+
+# 3. Check if database-related files are being committed
 DB_FILES=$(git diff --cached --name-only | grep -E "(supabase|database|schema|migration|sql)" || true)
 
 if [ -n "$DB_FILES" ]; then
   echo "📊 Archivos de base de datos detectados, ejecutando validación..."
   # DB Glossary check (rápido)
-  pnpm docs:db:ci
-  pnpm docs:db:check-diff
+  pnpm docs:db:ci || exit 1
+  pnpm docs:db:check-diff || exit 1
 else
   echo "✅ No hay cambios en base de datos, omitiendo validación DB"
 fi
 
-# Export validation (puede ser lento con muchos exports)
-pnpm docs:validate
+# 4. Export validation (puede ser lento con muchos exports)
+echo "📝 Validando exports vs glosario..."
+pnpm docs:validate || exit 1
+
+# 5. Lint staged files
+echo "🧹 Ejecutando lint en archivos staged..."
+pnpm lint-staged || exit 1
+
+echo "✅ Pre-commit validations passed!"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 
 export function useVitalSigns() {
   const supabase = useSupabase();

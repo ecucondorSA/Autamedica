@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getRoleDisplayName, isValidUserRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
@@ -20,8 +20,11 @@ export function LoginForm() {
   const [localError, setLocalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Get auth service singleton
-  const authService = getAuthService();
+  // Get auth service singleton (solo en el cliente)
+  const authService = useMemo(() => {
+    if (typeof window === 'undefined') return null as any;
+    return getAuthService();
+  }, []);
 
   useEffect(() => {
     // Parse URL parameters

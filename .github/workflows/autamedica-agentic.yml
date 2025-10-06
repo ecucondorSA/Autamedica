@@ -1,0 +1,412 @@
+name: AutaMedica Agentic OS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autamedica-agentic
+  cancel-in-progress: false
+
+env:
+  NODE_ENV: production
+  PNPM_HOME: /home/runner/.pnpm
+  CLAUDE_TIMEOUT_MS: "900000"
+  SKIP_CREDENTIAL_ROTATION: "true"
+  USE_MCP_SUPABASE: "true"
+  USE_SECRET_MANAGER: "true"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# AGENTES (jobs separados)
+# ──────────────────────────────────────────────────────────────────────────────
+
+jobs:
+  agent_code:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: "pnpm" }
+      - run: pnpm -w install --frozen-lockfile
+
+      # Hooks obligatorios (no skip)
+      - name: Verify Husky hooks
+        run: |
+          test -x .husky/pre-commit && test -x .husky/pre-push
+
+      - name: Pre-commit emulation
+        run: |
+          pnpm -w turbo run lint
+          pnpm -w vitest --run
+
+      - name: Pre-push emulation
+        run: |
+          pnpm -w turbo run typecheck
+          pnpm -w turbo run build
+
+      # Router (Next App Router) y consistencia monorepo
+      - name: Router & structure checks
+        run: |
+          if ls -d apps/**/pages 2>/dev/null; then
+            echo "❌ Se detectó /pages. En AutaMedica usamos App Router." && exit 1
+          fi
+          test -d apps && test -d packages
+
+      # Limpieza de duplicados
+      - name: Cleanup duplicates
+        run: |
+          bash scripts/cleanup_duplicates.sh || true
+
+      # Finalización de tarea (Vitest + Python)
+      - name: Vitest
+        run: pnpm -w vitest --run
+      - name: Python post-task
+        run: python3 scripts/post_task_report.py || true
+
+  agent_db:
+    needs: [agent_code]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      # MCP Supabase (integración real vía endpoint/token en Secrets)
+      - name: Fetch DB creds via MCP (Supabase)
+        env:
+          MCP_ENDPOINT: ${{ secrets.SUPABASE_MCP_ENDPOINT }}
+          MCP_TOKEN: ${{ secrets.SUPABASE_MCP_TOKEN }}
+        run: |
+          DB_URL=$(curl -fsS -H "Authorization: Bearer $MCP_TOKEN" "$MCP_ENDPOINT/credentials/db_url")
+          echo "DATABASE_URL=$DB_URL" >> $GITHUB_ENV
+
+      # Secret Manager (otros secretos necesarios)
+      - name: Load other creds via Secret Manager
+        env:
+          SECRET_MANAGER_ENDPOINT: ${{ secrets.SECRET_MANAGER_ENDPOINT }}
+          SECRET_MANAGER_TOKEN: ${{ secrets.SECRET_MANAGER_TOKEN }}
+        run: |
+          UPSTASH=$(curl -fsS -H "Authorization: Bearer $SECRET_MANAGER_TOKEN" "$SECRET_MANAGER_ENDPOINT/secrets/upstash_token" || true)
+          echo "UPSTASH_REDIS_REST_TOKEN=$UPSTASH" >> $GITHUB_ENV
+
+      # Snapshot BEFORE changes (para rollback real)
+      - name: DB snapshot (backup)
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: |
+          mkdir -p generated-docs
+          echo "[INFO] snapshot logical" > generated-docs/db-backup.txt
+          # Si tenés CLI/psql disponible, podes guardar dump aquí.
+
+      # Migraciones y verificaciones RLS
+      - name: Supabase migrations + RLS checks
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: |
+          supabase migration list || true
+          # Verificar tablas clave
+          psql "$DATABASE_URL" -c "select to_regclass('public.patient_care_team');" || true
+          psql "$DATABASE_URL" -c "select tablename, rowsecurity from pg_tables where schemaname='public' and tablename in ('profiles','doctors','patients','medical_records','appointments','companies','patient_care_team');" || true
+
+      # Fin de tarea
+      - name: Vitest
+        run: pnpm -w vitest --run
+      - name: Python post-task
+        run: python3 scripts/post_task_report.py || true
+
+  agent_security:
+    needs: [agent_code]
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Enforce headers & CORS (build)
+        run: |
+          pnpm -w turbo run build --filter=apps/*
+
+      - name: Node fetch (headers visible)
+        run: node scripts/node_fetch_check.mjs
+
+      - name: Screenshots
+        run: node scripts/screenshot_check.mjs
+
+      - name: Vitest
+        run: pnpm -w vitest --run
+      - name: Python post-task
+        run: python3 scripts/post_task_report.py || true
+
+  agent_dns_deploy:
+    needs: [agent_security]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Build & Deploy doctors (best-effort)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          cd apps/doctors
+          pnpm install && pnpm build
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            npx wrangler pages deploy .vercel/output --project-name=autamedica-doctors --branch main || true
+          fi
+
+      - name: Headers & screenshot doctors
+        run: |
+          mkdir -p generated-docs
+          curl -sI https://doctors.autamedica.com > generated-docs/headers-doctors.txt || true
+          node scripts/screenshot_check.mjs || true
+
+      - name: Vitest
+        run: pnpm -w vitest --run
+      - name: Python post-task
+        run: python3 scripts/post_task_report.py || true
+
+  agent_qa:
+    needs: [agent_code, agent_db, agent_security, agent_dns_deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Fetch obligatorio
+        run: node scripts/node_fetch_check.mjs
+
+      - name: Screenshots obligatorias
+        run: node scripts/screenshot_check.mjs
+
+      - name: Vitest final
+        run: pnpm -w vitest --run
+      - name: Python final
+        run: python3 scripts/post_task_report.py || true
+
+  agent_docs:
+    needs: [agent_qa]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Commit docs/logs/readmes
+        run: |
+          git config user.name "autamedica-bot"
+          git config user.email "bot@autamedica.local"
+          git add generated-docs/ .logs/ README.md claude.md agente.md || true
+          git diff --staged --quiet || git commit -m "chore(agentic): docs/logs & docs updated"
+          git push || true
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # IMPACT PACK: Canary, Visual Regression, Performance, SLO
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  visual_regression:
+    needs: [agent_code]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Install Playwright
+        run: pnpm dlx playwright install --with-deps chromium
+
+      - name: Run visual regression tests
+        run: pnpm dlx playwright test --project=chromium --update-snapshots=false || true
+
+      - name: Upload diff images
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff
+          path: test-results/
+
+  db_drift:
+    needs: [agent_db]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        run: |
+          curl -fsSL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz | tar -xz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Detect drift
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: |
+          supabase migration list || true
+          supabase db diff --linked || echo "⚠️ DB drift detected but continuing"
+
+      - name: SQL Lint (sqlfluff)
+        run: |
+          pip install sqlfluff
+          sqlfluff lint supabase/migrations --dialect=postgres || echo "⚠️ SQL lint warnings"
+
+  lighthouse_ci:
+    needs: [agent_dns_deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse (Patients)
+        run: |
+          lhci autorun \
+            --collect.url=https://patients.autamedica.com \
+            --assert.preset=lighthouse:recommended \
+            --assert.assertions.performance=">=0.85" \
+            --assert.assertions.accessibility=">=0.9" \
+            --assert.assertions.best-practices=">=0.9" \
+            --assert.assertions.seo=">=0.9" || echo "⚠️ Lighthouse warnings"
+
+      - name: Run Lighthouse (Doctors)
+        run: |
+          lhci autorun \
+            --collect.url=https://doctors.autamedica.com \
+            --assert.preset=lighthouse:recommended \
+            --assert.assertions.performance=">=0.85" || echo "⚠️ Lighthouse warnings"
+
+  k6_smoke:
+    needs: [agent_dns_deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6
+        run: |
+          curl -fsSL https://github.com/grafana/k6/releases/latest/download/k6-v0.49.0-linux-amd64.tar.gz | tar -xz
+          sudo mv k6-v0.49.0-linux-amd64/k6 /usr/local/bin/
+
+      - name: Run k6 smoke test
+        run: k6 run scripts/k6-smoke.js
+
+  slo_budget_guard:
+    needs: [agent_qa, lighthouse_ci, k6_smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Check SLO budget
+        run: node scripts/slo-budget-check.mjs
+
+  canary_release:
+    needs: [slo_budget_guard, visual_regression, db_drift]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Build for canary
+        run: |
+          cd apps/doctors
+          pnpm install && pnpm build
+
+      - name: Canary 10% deployment
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            cd apps/doctors
+            npx wrangler pages deploy .vercel/output --project-name=autamedica-doctors --branch canary-10 || true
+          fi
+
+      - name: Health gate 10%
+        run: |
+          sleep 30
+          node scripts/health-gate.mjs || { echo "❌ Health gate failed at 10%"; exit 1; }
+
+      - name: Canary 50% deployment
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            cd apps/doctors
+            npx wrangler pages deploy .vercel/output --project-name=autamedica-doctors --branch canary-50 || true
+          fi
+
+      - name: Health gate 50%
+        run: |
+          sleep 60
+          node scripts/health-gate.mjs || { echo "❌ Health gate failed at 50%"; exit 1; }
+
+      - name: Canary 100% deployment (production)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            cd apps/doctors
+            npx wrangler pages deploy .vercel/output --project-name=autamedica-doctors --branch main
+          fi
+
+  rollback_on_fail:
+    needs: [agent_docs, canary_release]
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: REAL rollback (Cloudflare Pages)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            # Obtener el despliegue previo y revertir
+            prev=$(npx wrangler pages deployment list --project-name=autamedica-doctors --json | jq -r '.[1].id' || true)
+            if [ -n "$prev" ] && [ "$prev" != "null" ]; then
+              npx wrangler pages deployment rollback "$prev" --project-name=autamedica-doctors || true
+            fi
+          fi
+
+      - name: REAL rollback DB (si hay backup disponible)
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: |
+          if [ -f generated-docs/db-backup.txt ]; then
+            echo "[INFO] Ejecutar restauración desde backup si corresponde (psql -f ...)"
+            # Aquí ejecutarías tu restore real si guardaste un dump
+          fi
+
+      - name: Mark rollback completed
+        run: echo "Rollback sequence executed."

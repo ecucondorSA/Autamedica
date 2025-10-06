@@ -6,9 +6,7 @@ export default defineConfig({
     roles: 'src/roles.ts'
   },
   format: ['esm'],
-  dts: {
-    resolve: true,
-  },
+  dts: false,  // Disable DTS generation - will use tsc directly
   sourcemap: true,
   clean: true,
   tsconfig: './tsconfig.json',

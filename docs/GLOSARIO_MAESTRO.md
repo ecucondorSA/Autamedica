@@ -2501,6 +2501,26 @@ pnpm docs:validate
 - **Descripción:** Utilidad del sistema AutaMedica para type loginurlbuilder.
 - **Contrato:** Pendiente de documentación detallada
 
+## 📋 Exports Auto-generados
+
+### useMediaControls
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook de React para gestión de mediacontrols en la aplicación médica.
+- **Contrato:** Pendiente de documentación detallada
+
+### useRtcStats
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook de React para gestión de rtcstats en la aplicación médica.
+- **Contrato:** Pendiente de documentación detallada
+
+### useTelemedicineClient
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook de React para gestión de telemedicineclient en la aplicación médica.
+- **Contrato:** Pendiente de documentación detallada
+
 ## 🔗 Referencias Relacionadas
 
 - **[CLAUDE.md](../CLAUDE.md)** - Guía para Claude Code

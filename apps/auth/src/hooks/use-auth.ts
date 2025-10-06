@@ -50,7 +50,15 @@ export const useAuth = (): UseAuthReturn => {
   });
 
   const router = useRouter();
-  const supabase = useMemo(() => getBrowserSupabaseClient(), []);
+
+  // Solo crear el cliente en el browser, no durante SSR
+  const supabase = useMemo(() => {
+    if (typeof window === 'undefined') {
+      // Durante SSR, retornar null - el efecto lo inicializará en el cliente
+      return null as any;
+    }
+    return getBrowserSupabaseClient();
+  }, []);
 
   // Helper to create auth errors
   const createAuthError = useCallback((message: string, error?: unknown): AuthError => ({
@@ -66,6 +74,11 @@ export const useAuth = (): UseAuthReturn => {
 
   // Initialize auth state
   useEffect(() => {
+    // Solo ejecutar en el browser
+    if (typeof window === 'undefined' || !supabase) {
+      return;
+    }
+
     let mounted = true;
 
     const initializeAuth = async () => {

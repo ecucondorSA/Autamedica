@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import type {
   TelemedicineSession,
   SessionParticipant,

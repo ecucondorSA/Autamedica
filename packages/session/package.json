@@ -16,8 +16,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup && tsc --build tsconfig.json",
+    "dev": "tsc --build --watch tsconfig.json",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist .tsup"
   },

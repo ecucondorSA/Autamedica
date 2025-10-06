@@ -6,7 +6,7 @@ import type {
   MedicalChatWithLastMessage,
   ChatStatusType
 } from '@autamedica/types';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
 

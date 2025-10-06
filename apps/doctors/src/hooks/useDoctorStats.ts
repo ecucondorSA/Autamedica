@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createBrowserClient } from '@autamedica/auth'
+import { createBrowserClient } from '@autamedica/auth/client'
 import { logger } from '@autamedica/shared'
 
 interface AppointmentStats {

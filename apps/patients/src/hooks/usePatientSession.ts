@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import { parseProfile, type Profile } from '@/lib/zod/profiles';
 import { parsePatient, type Patient } from '@/lib/zod/patients';
 

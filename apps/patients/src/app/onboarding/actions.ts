@@ -1,7 +1,7 @@
 'use server';
 
 import { updateRecord } from '@autamedica/shared';
-import { requireSession } from '@autamedica/auth';
+import { requireSession } from '@autamedica/auth/server';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { logger } from '@autamedica/shared';

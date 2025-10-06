@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "🚀 Pre-push: Validaciones completas..."
+
 # Contar archivos cambiados
 CHANGED_FILES=$(git diff --name-only origin/main...HEAD 2>/dev/null | wc -l)
 
-echo "🧪 pre-push: lint/typecheck (archivos cambiados: $CHANGED_FILES)"
+echo "📊 Archivos cambiados: $CHANGED_FILES"
 
 # Si hay más de 100 archivos, skip local validation (correrá en CI)
 if [ "$CHANGED_FILES" -gt 100 ]; then
@@ -16,25 +18,42 @@ fi
 # Aumentar memoria de Node para ESLint
 export NODE_OPTIONS="--max-old-space-size=8192"
 
-# Lint solo archivos TypeScript/JavaScript cambiados
+# 1. Validar convenciones
+echo "📋 Validando convenciones..."
+node scripts/validate-conventions.mjs || exit 1
+
+# 2. Verificar Router
+echo "🗂️  Verificando App Router..."
+if ls -d apps/**/pages 2>/dev/null | grep -v node_modules | grep .; then
+  echo "❌ Se detectó directorio pages/ - usar App Router"
+  exit 1
+fi
+
+# 3. Lint solo archivos TypeScript/JavaScript cambiados
 LINT_FILES=$(git diff --name-only --diff-filter=ACM origin/main...HEAD | grep -E '\.(ts|tsx|js|jsx)$' | tr '\n' ' ')
 
 if [ -n "$LINT_FILES" ]; then
   echo "🔍 Linting archivos modificados..."
-  # Usar --cache para mejor performance
-  NODE_OPTIONS="--max-old-space-size=8192" npx eslint $LINT_FILES --cache --max-warnings 100 || {
-    echo "⚠️  ESLint warnings encontrados (permitidos hasta 100)"
-    exit 0
+  NODE_OPTIONS="--max-old-space-size=8192" npx eslint $LINT_FILES --cache --max-warnings 0 || {
+    echo "❌ ESLint falló (0 warnings permitidos)"
+    exit 1
   }
 else
   echo "✅ No hay archivos TS/JS para validar"
 fi
 
-# TypeCheck rápido (solo packages modificados)
+# 4. TypeCheck rápido
 echo "🔍 TypeCheck..."
-pnpm type-check || {
+pnpm turbo run typecheck || {
   echo "❌ TypeCheck falló"
   exit 1
 }
 
-echo "✅ Pre-push validation completa"
+# 5. Build packages
+echo "🏗️  Building packages..."
+pnpm build:packages || {
+  echo "❌ Build falló"
+  exit 1
+}
+
+echo "✅ Pre-push validation completa - ready to push!"

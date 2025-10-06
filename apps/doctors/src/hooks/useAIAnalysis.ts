@@ -10,7 +10,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { selectActive, logger } from '@autamedica/shared'
-import { createBrowserClient } from '@autamedica/auth'
+import { createBrowserClient } from '@autamedica/auth/client'
 import type {
   AIAnalysis,
   UseAIAnalysisResult,

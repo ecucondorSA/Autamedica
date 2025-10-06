@@ -1,47 +1,133 @@
-# CODEOWNERS - Gobierno de Autamedica
+# CODEOWNERS - Gobierno de AutaMedica
 # Cada línea es un patrón seguido de uno o más propietarios.
 # El último patrón que coincida tendrá precedencia.
+#
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # Global fallback - Core team debe revisar todo
 * @autamedica/core-devs
 
-# Arquitectura y Packages Core
-/packages/types/**           @autamedica/contracts @autamedica/core-devs
-/packages/auth/**            @autamedica/security @autamedica/backend
-/packages/shared/**          @autamedica/backend @autamedica/core-devs
-/packages/hooks/**           @autamedica/frontend @autamedica/core-devs
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# APLICACIONES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Aplicaciones por especialidad
 /apps/web-app/**            @autamedica/frontend @autamedica/ux
 /apps/doctors/**            @autamedica/medical @autamedica/frontend
 /apps/patients/**           @autamedica/medical @autamedica/ux
 /apps/companies/**          @autamedica/business @autamedica/frontend
 /apps/admin/**              @autamedica/backend @autamedica/security
 
-# Infraestructura y DevOps
-/.github/**                 @autamedica/devops @autamedica/security
-/workers/**                 @autamedica/backend @autamedica/devops
-wrangler.toml               @autamedica/devops
-turbo.json                  @autamedica/devops
-package.json                @autamedica/core-devs @autamedica/devops
-pnpm-lock.yaml              @autamedica/core-devs
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PACKAGES (Shared Code)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Seguridad y Compliance
-**/*.env*                   @autamedica/security
-SECURITY.md                 @autamedica/security
-/docs/security/**           @autamedica/security @autamedica/compliance
+/packages/types/**           @autamedica/contracts @autamedica/core-devs
+/packages/auth/**            @autamedica/security @autamedica/backend
+/packages/shared/**          @autamedica/backend @autamedica/core-devs
+/packages/hooks/**           @autamedica/frontend @autamedica/core-devs
+/packages/ui/**              @autamedica/frontend @autamedica/ux
+/packages/database/**        @autamedica/backend @autamedica/security
 
-# Documentación médica y contratos
-/docs/GLOSARIO_MAESTRO.md   @autamedica/medical @autamedica/contracts
-/docs/medical/**            @autamedica/medical @autamedica/compliance
-/scripts/validate-contracts.js @autamedica/contracts @autamedica/devops
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DATABASE & INFRAESTRUCTURA
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Base de datos y migraciones (cuando se agreguen)
+# Supabase (critical)
+/supabase/**                @autamedica/backend @autamedica/security
+/supabase/migrations/**     @autamedica/backend @autamedica/security @autamedica/medical
+
+# RLS policies (security critical)
+/supabase/migrations/*rls*  @autamedica/security @autamedica/backend
+
+# Seed data
+/supabase/seed*.sql         @autamedica/backend
+
+# Database legacy
 /database/**                @autamedica/backend @autamedica/security
 /migrations/**              @autamedica/backend @autamedica/security
 
-# Testing y QA
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CI/CD & AGENTIC OS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# GitHub Actions workflows
+/.github/workflows/**       @autamedica/devops @autamedica/security
+
+# Agentic OS workflow (critical)
+/.github/workflows/autamedica-agentic.yml @autamedica/devops @autamedica/core-devs
+
+# Deployment & rollback scripts (critical)
+/scripts/*deploy*           @autamedica/devops
+/scripts/*rollback*         @autamedica/devops
+/scripts/health-gate.mjs    @autamedica/devops @autamedica/qa
+/scripts/slo-budget-check.mjs @autamedica/devops
+/scripts/k6-smoke.js        @autamedica/devops @autamedica/qa
+
+# Infrastructure
+/workers/**                 @autamedica/backend @autamedica/devops
+wrangler.toml               @autamedica/devops
+turbo.json                  @autamedica/devops @autamedica/core-devs
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SEGURIDAD & COMPLIANCE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Security headers (critical)
+/**/_headers                @autamedica/security @autamedica/devops
+
+# Environment variables (critical)
+**/*.env*                   @autamedica/security
+.env*                       @autamedica/security
+
+# Security docs
+SECURITY.md                 @autamedica/security
+/docs/security/**           @autamedica/security @autamedica/compliance
+
+# Auth & roles (critical)
+/**/*auth*.ts               @autamedica/security @autamedica/backend
+/**/*auth*.tsx              @autamedica/security @autamedica/frontend
+/**/*role*.ts               @autamedica/security @autamedica/backend
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DOCUMENTACIÓN
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Main docs
+/README.md                  @autamedica/core-devs
+/CLAUDE.md                  @autamedica/core-devs
+/agente.md                  @autamedica/core-devs
+
+# Medical docs & contracts
+/docs/GLOSARIO_MAESTRO.md   @autamedica/medical @autamedica/contracts
+/docs/medical/**            @autamedica/medical @autamedica/compliance
+/scripts/validate-contracts.js @autamedica/contracts @autamedica/devops
+/scripts/validate-conventions.mjs @autamedica/core-devs @autamedica/devops
+
+# API docs
+/docs/api/**                @autamedica/backend @autamedica/contracts
+
+# Database docs
+/docs/database/**           @autamedica/backend
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TESTING & QA
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 /tests/**                   @autamedica/qa @autamedica/backend
 **/test/**                  @autamedica/qa
 **/*.test.*                 @autamedica/qa
+**/*.spec.*                 @autamedica/qa
 playwright.config.*         @autamedica/qa @autamedica/devops
+vitest.config.*             @autamedica/qa @autamedica/backend
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CONFIGURACIÓN
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+package.json                @autamedica/core-devs @autamedica/devops
+pnpm-workspace.yaml         @autamedica/core-devs
+pnpm-lock.yaml              @autamedica/core-devs
+tsconfig*.json              @autamedica/core-devs
+.eslintrc*                  @autamedica/core-devs
+.prettierrc*                @autamedica/core-devs
+.gitignore                  @autamedica/core-devs

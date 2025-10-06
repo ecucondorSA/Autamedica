@@ -1,7 +1,3 @@
-import {
-  createBrowserClient as createAuthBrowserClient,
-  createServerClient as createAuthServerClient,
-} from '@autamedica/auth';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 
@@ -20,7 +16,9 @@ export function getSupabaseBrowserClient(): AppSupabaseClient {
   }
 
   if (!browserClient) {
-    browserClient = createAuthBrowserClient() as AppSupabaseClient;
+    // Dynamic import to avoid bundling server code
+    const { createBrowserClient } = require('@autamedica/auth');
+    browserClient = createBrowserClient() as AppSupabaseClient;
   }
 
   return browserClient;
@@ -43,7 +41,9 @@ export async function getSupabaseServerClient(): Promise<AppSupabaseClient> {
     throw new Error('getSupabaseServerClient() can only be used in server context');
   }
 
-  return (await createAuthServerClient()) as AppSupabaseClient;
+  // Dynamic import to avoid bundling server code in client
+  const { createServerClient } = await import('@autamedica/auth');
+  return (await createServerClient()) as AppSupabaseClient;
 }
 
 /**

@@ -22,8 +22,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist .tsbuildinfo && tsc --build tsconfig.json",
-    "dev": "tsup --watch",
+    "build": "rimraf dist .tsbuildinfo && tsup && tsc --build tsconfig.json",
+    "dev": "tsc --build --watch tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "check-types": "tsc --noEmit",
     "test:unit": "vitest run",

@@ -1,0 +1,115 @@
+# AutaMedica - Security Headers Example (with CSP Report-Only)
+#
+# Este archivo es un ejemplo de headers de seguridad para Cloudflare Pages
+# incluyendo Content-Security-Policy en modo report-only para gradual hardening.
+#
+# Para usar:
+# 1. Copiar a: apps/[nombre]/public/_headers
+# 2. Ajustar CSP según las necesidades de la app
+# 3. Monitorear reportes en el endpoint configurado
+# 4. Una vez validado, cambiar a enforce (Content-Security-Policy)
+#
+# Docs: https://developers.cloudflare.com/pages/platform/headers/
+
+/*
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # HSTS - HTTP Strict Transport Security
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Fuerza HTTPS por 1 año, incluyendo subdominios y preload
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # CSP - Content Security Policy (REPORT-ONLY MODE)
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Modo report-only: NO bloquea nada, solo reporta violaciones
+  # Una vez validado en producción, cambiar a "Content-Security-Policy"
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdn.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://vocal-condor-26768.upstash.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-to default; report-uri /csp-report
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Report-To - Configuración de endpoints de reportes
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Endpoint donde se enviarán los reportes de CSP
+  # NOTA: Implementar endpoint /csp-report o usar servicio externo
+  Report-To: {"group":"default","max_age":10886400,"endpoints":[{"url":"/api/csp-report"}]}
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # X-Frame-Options - Previene clickjacking
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  X-Frame-Options: DENY
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # X-Content-Type-Options - Previene MIME sniffing
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  X-Content-Type-Options: nosniff
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Referrer-Policy - Control de información del referrer
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Permissions-Policy - Control de features del navegador
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Deniega acceso a APIs sensibles por defecto
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=()
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # X-XSS-Protection - Legacy XSS protection
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Deprecated pero incluido para navegadores legacy
+  X-XSS-Protection: 1; mode=block
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Cross-Origin Policies
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CACHE CONTROL por tipo de archivo
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Assets estáticos (largo cache)
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imágenes (cache medio)
+/*.jpg
+  Cache-Control: public, max-age=604800
+
+/*.png
+  Cache-Control: public, max-age=604800
+
+/*.svg
+  Cache-Control: public, max-age=604800
+
+/*.webp
+  Cache-Control: public, max-age=604800
+
+# HTML (no cache)
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# NOTAS PARA HARDENING PROGRESIVO
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# 1. Monitorear reportes CSP en /api/csp-report
+# 2. Identificar fuentes legítimas que violan la policy
+# 3. Ajustar CSP para permitir solo fuentes necesarias
+# 4. Una vez estable (sin violaciones legítimas por 1 semana):
+#    - Cambiar "Content-Security-Policy-Report-Only" a "Content-Security-Policy"
+#    - Mantener report-uri para monitoreo continuo
+# 5. Gradualmente remover 'unsafe-inline' y 'unsafe-eval' si es posible
+#
+# Recursos:
+# - CSP Evaluator: https://csp-evaluator.withgoogle.com/
+# - Report URI: https://report-uri.com/
+# - Cloudflare Docs: https://developers.cloudflare.com/pages/platform/headers/

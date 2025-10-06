@@ -5,7 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@autamedica/auth';
+import { createRouteHandlerClient } from '@autamedica/auth/server';
 import { cookies } from 'next/headers';
 import type { CreateAppointmentInput, Appointment } from '@/types/appointment';
 

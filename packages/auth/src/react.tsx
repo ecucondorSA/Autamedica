@@ -42,3 +42,6 @@ export function useAuth(): AuthContextType {
   }
   return context;
 }
+
+// Re-export useSupabase for convenience
+export { useSupabase } from './hooks/useSupabase';

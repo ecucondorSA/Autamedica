@@ -6,7 +6,7 @@ import type {
   ScreeningStatusType,
   PatientScreeningInsert
 } from '@autamedica/types';
-import { useSupabase } from '@autamedica/auth';
+import { useSupabase } from '@autamedica/auth/react';
 import { logger } from '@autamedica/shared';
 
 interface UsePreventiveScreeningsOptions {
