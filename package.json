@@ -2,7 +2,7 @@
   "name": "autamedica-reboot",
   "private": true,
   "engines": {
-    "node": ">=20.x"
+    "node": "20.x"
   },
   "scripts": {
     "test:e2e": "node tests/run-playwright.cjs",
@@ -48,13 +48,6 @@
     "docs:validate": "node scripts/validate-exports.mjs",
     "docs:generate": "node scripts/auto-generate-docs.mjs",
     "docs:auto-fix": "node scripts/auto-generate-docs.mjs && node scripts/validate-exports.mjs",
-    "agents:register": "node scripts/register-claude-agents.mjs",
-    "agents:list": "ls -lah ~/.claude/agents/",
-    "agents:watch": "node scripts/watch-agents-config.mjs",
-    "dev:capture": "node scripts/agent-dev-browser-capture.mjs",
-    "dev:capture:patients": "TARGET_URL=http://localhost:3002 node scripts/agent-dev-browser-capture.mjs",
-    "dev:capture:doctors": "TARGET_URL=http://localhost:3001 node scripts/agent-dev-browser-capture.mjs",
-    "dev:capture:prod": "TARGET_URL=https://patients.autamedica.com node scripts/agent-dev-browser-capture.mjs",
     "types:analyze": "node scripts/analyze-type-duplication.mjs",
     "db:validate": "node scripts/validate-database-schema.mjs",
     "db:generate": "node scripts/generate-db-types.mjs",
@@ -189,8 +182,7 @@
     "overrides": {
       "esbuild": "^0.25.4",
       "undici": "^5.28.5",
-      "path-to-regexp": "^0.1.12",
-      "send": "^0.19.0",
+      "path-to-regexp": "^6.3.0",
       "cookie": "^0.7.0"
     }
   }
