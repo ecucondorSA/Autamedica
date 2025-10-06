@@ -6,8 +6,14 @@ const config: Config = {
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    '../../packages/ui/src/**/*.{ts,tsx}'
-  ]
+    '../../packages/ui/src/**/*.{ts,tsx}',
+    '../../packages/auth/src/**/*.{ts,tsx}',
+    '../../packages/hooks/src/**/*.{ts,tsx}'
+  ],
+  // Optimize for production
+  future: {
+    hoverOnlyWhenSupported: true,
+  }
 };
 
 export default config;

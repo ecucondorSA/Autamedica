@@ -107,6 +107,7 @@ export default function PerformanceWidget() {
         <button
           onClick={() => setIsMinimized(false)}
           className={`${grade.bg} ${grade.color} p-3 rounded-full shadow-lg backdrop-blur-lg border border-gray-700 hover:scale-110 transition-all duration-200`}
+          aria-label="Expandir widget de rendimiento"
         >
           <div className="flex items-center space-x-2">
             <span className="text-lg">⚡</span>
@@ -132,6 +133,7 @@ export default function PerformanceWidget() {
             <button
               onClick={() => setIsMinimized(true)}
               className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Minimizar widget de rendimiento"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -216,6 +218,7 @@ export default function PerformanceWidget() {
             <button
               onClick={() => window.location.reload()}
               className="flex-1 text-xs py-1 px-2 bg-blue-600/20 text-blue-400 rounded hover:bg-blue-600/30 transition-colors"
+              aria-label="Recargar página"
             >
               🔄 Recargar
             </button>
@@ -229,6 +232,7 @@ export default function PerformanceWidget() {
                 window.location.reload()
               }}
               className="flex-1 text-xs py-1 px-2 bg-purple-600/20 text-purple-400 rounded hover:bg-purple-600/30 transition-colors"
+              aria-label="Limpiar caché y recargar"
             >
               🧹 Limpiar
             </button>
