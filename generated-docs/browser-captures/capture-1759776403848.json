@@ -1,0 +1,530 @@
+{
+  "metadata": {
+    "url": "http://localhost:3000",
+    "timestamp": "2025-10-06T18:46:39.419Z",
+    "userAgent": null
+  },
+  "console": {
+    "logs": [
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: FCP, value: 444, rating: good, delta: 444, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        },
+        "timestamp": 1759776401881
+      },
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: TTFB, value: 109.79999999701977, rating: good, delta: 109.79999999701977, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        },
+        "timestamp": 1759776401882
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 3,
+          "columnNumber": 0
+        },
+        "timestamp": 1759776402916
+      },
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 4,
+          "columnNumber": 0
+        },
+        "timestamp": 1759776402916
+      }
+    ],
+    "summary": {
+      "total": 4,
+      "errors": 0,
+      "warnings": 2,
+      "logs": 2
+    }
+  },
+  "network": {
+    "requests": [
+      {
+        "url": "http://localhost:3000/_next/static/css/app/layout.css?v=1759776399744",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"b4f4-199bad88724\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:16 GMT",
+          "content-type": "text/css; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "text/css; charset=UTF-8",
+        "duration": 27,
+        "timestamp": 1759776399888,
+        "fromCache": false,
+        "timing": null,
+        "size": 46324
+      },
+      {
+        "url": "http://localhost:3000/",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "content-encoding": "gzip",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "keep-alive": "timeout=5",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "transfer-encoding": "chunked",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "text/html; charset=utf-8",
+        "duration": 114,
+        "timestamp": 1759776399828,
+        "fromCache": false,
+        "timing": null,
+        "size": 31530
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759776399744",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"22610-199bad88b2f\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:17 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 106,
+        "timestamp": 1759776399970,
+        "fromCache": false,
+        "timing": null,
+        "size": 140816
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"43f50-199bad88722\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:16 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 130,
+        "timestamp": 1759776399995,
+        "fromCache": false,
+        "timing": null,
+        "size": 278352
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/page.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"5e5d8-199bad88723\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:16 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 183,
+        "timestamp": 1759776400048,
+        "fromCache": false,
+        "timing": null,
+        "size": 386520
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/layout.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"1f69cd-199bad88b2f\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:17 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 285,
+        "timestamp": 1759776400150,
+        "fromCache": false,
+        "timing": null,
+        "size": 2058701
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759776399744",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"76ba50-199bad88722\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:46:16 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 539,
+        "timestamp": 1759776400403,
+        "fromCache": false,
+        "timing": null,
+        "size": 7780944
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cache-control": "private, max-age=86400",
+          "timing-allow-origin": "*",
+          "cross-origin-opener-policy": "same-origin-allow-popups",
+          "cross-origin-resource-policy": "cross-origin",
+          "x-content-type-options": "nosniff",
+          "expires": "Mon, 06 Oct 2025 18:46:42 GMT",
+          "accept-ranges": "none",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "date": "Mon, 06 Oct 2025 18:46:42 GMT",
+          "x-xss-protection": "0",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site,Accept-Encoding",
+          "server": "ESF",
+          "x-frame-options": "SAMEORIGIN"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 207,
+        "timestamp": 1759776402054,
+        "fromCache": false,
+        "timing": null,
+        "size": 1374
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "gzip",
+          "age": "154247",
+          "report-to": "{\"group\":\"apps-themes\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/apps-themes\"}]}",
+          "x-content-type-options": "nosniff",
+          "expires": "Sun, 04 Oct 2026 23:55:55 GMT",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "date": "Sat, 04 Oct 2025 23:55:55 GMT",
+          "last-modified": "Tue, 09 Sep 2025 18:41:52 GMT",
+          "content-type": "font/ttf",
+          "vary": "Accept-Encoding",
+          "cache-control": "public, max-age=31536000",
+          "timing-allow-origin": "*",
+          "cross-origin-opener-policy": "same-origin; report-to=\"apps-themes\"",
+          "cross-origin-resource-policy": "cross-origin",
+          "content-security-policy-report-only": "require-trusted-types-for 'script'; report-uri https://csp.withgoogle.com/csp/apps-themes",
+          "accept-ranges": "bytes",
+          "access-control-allow-origin": "*",
+          "content-length": "160744",
+          "x-xss-protection": "0",
+          "server": "sffe"
+        },
+        "contentType": "font/ttf",
+        "duration": 366,
+        "timestamp": 1759776402464,
+        "fromCache": false,
+        "timing": null,
+        "size": 325748
+      },
+      {
+        "url": "http://localhost:3000/__nextjs_font/geist-latin.woff2",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "transfer-encoding": "chunked",
+          "cache-control": "public, max-age=31536000, immutable",
+          "connection": "keep-alive",
+          "access-control-allow-methods": "OPTIONS, GET",
+          "access-control-allow-origin": "http://localhost:3000",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 18:46:43 GMT",
+          "content-type": "font/woff2"
+        },
+        "contentType": "font/woff2",
+        "duration": 7,
+        "timestamp": 1759776403153,
+        "fromCache": false,
+        "timing": null,
+        "size": 28356
+      }
+    ],
+    "summary": {
+      "total": 10,
+      "failed": 0,
+      "slow": 1,
+      "avgDuration": 196,
+      "totalBytes": 11078665
+    }
+  },
+  "performance": {
+    "metrics": {
+      "navigation": {
+        "domInteractive": 252.19999999925494,
+        "domContentLoadedEventEnd": 252.39999999850988,
+        "loadEventEnd": 2049.89999999851,
+        "responseStart": 109.79999999701977,
+        "domComplete": 2049.89999999851
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "startTime": 444
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 444
+        }
+      ],
+      "lcp": null,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "http://localhost:3000/_next/static/css/app/layout.css?v=1759776399744",
+          "type": "link",
+          "duration": 28.699999999254942,
+          "transferSize": 9119,
+          "decodedBodySize": 46324
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759776399744",
+          "type": "link",
+          "duration": 46.20000000298023,
+          "transferSize": 28433,
+          "decodedBodySize": 140816
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759776399744",
+          "type": "script",
+          "duration": 519.3999999985099,
+          "transferSize": 1766995,
+          "decodedBodySize": 7780944
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+          "type": "script",
+          "duration": 73.19999999925494,
+          "transferSize": 64772,
+          "decodedBodySize": 278352
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app/layout.js",
+          "type": "script",
+          "duration": 211.60000000149012,
+          "transferSize": 487051,
+          "decodedBodySize": 2058701
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app/page.js",
+          "type": "script",
+          "duration": 89.80000000074506,
+          "transferSize": 93808,
+          "decodedBodySize": 386520
+        },
+        {
+          "name": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+          "type": "css",
+          "duration": 208.19999999925494,
+          "transferSize": 1674,
+          "decodedBodySize": 1374
+        }
+      ],
+      "memory": {
+        "usedJSHeapSize": 64000000,
+        "totalJSHeapSize": 76600000,
+        "jsHeapSizeLimit": 2330000000
+      }
+    },
+    "resources": [],
+    "webVitals": {
+      "LCP": null,
+      "CLS": 0,
+      "FCP": 444,
+      "TTFB": 109.79999999701977
+    }
+  },
+  "security": {
+    "state": null,
+    "headers": {
+      "cache-control": "no-store, must-revalidate",
+      "connection": "keep-alive",
+      "content-encoding": "gzip",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Mon, 06 Oct 2025 18:46:39 GMT",
+      "keep-alive": "timeout=5",
+      "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    },
+    "issues": [
+      "Missing header: x-xss-protection"
+    ]
+  },
+  "coverage": {
+    "js": {
+      "total": 0,
+      "unused": 0,
+      "percentage": 0
+    },
+    "css": {
+      "total": 48681,
+      "unused": 40049,
+      "percentage": "82.3"
+    }
+  },
+  "accessibility": {
+    "tree": {
+      "role": "WebArea",
+      "name": "AutaMedica - Telemedicina sin fricciones",
+      "children": [
+        {
+          "role": "progressbar",
+          "name": "Progreso de lectura de la página",
+          "valuetext": "",
+          "valuemin": 0,
+          "valuemax": 100,
+          "value": 0
+        },
+        {
+          "role": "text",
+          "name": "desarrollado por E.M Medicina -UBA"
+        },
+        {
+          "role": "text",
+          "name": "AutaMedica"
+        },
+        {
+          "role": "button",
+          "name": "Menú de cuenta",
+          "haspopup": "menu"
+        },
+        {
+          "role": "heading",
+          "name": "AUTAMEDICA",
+          "level": 1
+        },
+        {
+          "role": "button",
+          "name": "Open Next.js Dev Tools",
+          "haspopup": "menu"
+        }
+      ]
+    },
+    "violations": []
+  }
+}
