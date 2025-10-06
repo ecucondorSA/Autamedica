@@ -1,0 +1,152 @@
+ WARN  Unsupported engine: wanted: {"node":"20.x"} (current: {"node":"v22.20.0","pnpm":"9.15.2"})
+turbo 2.5.6
+
+• Packages in scope: @autamedica/admin, @autamedica/auth, @autamedica/auth-app, @autamedica/companies, @autamedica/doctors, @autamedica/hooks, @autamedica/patients, @autamedica/session, @autamedica/shared, @autamedica/signaling-server, @autamedica/supabase-client, @autamedica/tailwind-config, @autamedica/telemedicine, @autamedica/types, @autamedica/typescript-config, @autamedica/ui, @autamedica/web-app, @repo/eslint-config
+• Running build in 18 packages
+• Remote caching disabled
+@autamedica/signaling-server:build: cache miss, executing 91a0d3a13d62baec
+@autamedica/web-app:build: cache miss, executing 2642b603ce511141
+@autamedica/types:build: cache miss, executing e8a715d15757fe03
+@autamedica/web-app:build: 
+@autamedica/web-app:build: > @autamedica/web-app@0.1.0 build /root/Autamedica/apps/web-app
+@autamedica/web-app:build: > next build
+@autamedica/web-app:build: 
+@autamedica/signaling-server:build: 
+@autamedica/signaling-server:build: > @autamedica/signaling-server@1.0.0 build /root/Autamedica/apps/signaling-server
+@autamedica/signaling-server:build: > tsc
+@autamedica/signaling-server:build: 
+@autamedica/types:build: 
+@autamedica/types:build: > @autamedica/types@0.1.0 build /root/Autamedica/packages/types
+@autamedica/types:build: > rimraf dist .tsbuildinfo && tsc --build tsconfig.json
+@autamedica/types:build: 
+@autamedica/web-app:build:    ▲ Next.js 15.5.4
+@autamedica/web-app:build:    - Environments: .env.local
+@autamedica/web-app:build:    - Experiments (use with caution):
+@autamedica/web-app:build:      ✓ externalDir
+@autamedica/web-app:build: 
+@autamedica/web-app:build:    Creating an optimized production build ...
+@autamedica/shared:build: cache miss, executing 3431f6c40fc460ae
+@autamedica/shared:build: 
+@autamedica/shared:build: > @autamedica/shared@0.1.0 build /root/Autamedica/packages/shared
+@autamedica/shared:build: > rimraf dist .tsbuildinfo && tsc --build tsconfig.json
+@autamedica/shared:build: 
+@autamedica/auth:build: cache miss, executing 15ad508a0233eb35
+@autamedica/telemedicine:build: cache miss, executing 6d8923da97ae78ff
+@autamedica/session:build: cache miss, executing f7b06e240649d4c0
+@autamedica/auth-app:build: cache miss, executing c0e6ae2fd6160eb4
+@autamedica/telemedicine:build: 
+@autamedica/telemedicine:build: > @autamedica/telemedicine@0.2.0 build /root/Autamedica/packages/telemedicine
+@autamedica/telemedicine:build: > rimraf dist *.tsbuildinfo && tsc --build tsconfig.build.json
+@autamedica/telemedicine:build: 
+@autamedica/session:build: 
+@autamedica/session:build: > @autamedica/session@0.0.1 build /root/Autamedica/packages/session
+@autamedica/session:build: > tsup
+@autamedica/session:build: 
+@autamedica/auth-app:build: 
+@autamedica/auth-app:build: > @autamedica/auth-app@0.1.0 build /root/Autamedica/apps/auth
+@autamedica/auth-app:build: > next build
+@autamedica/auth-app:build: 
+@autamedica/auth:build: 
+@autamedica/auth:build: > @autamedica/auth@1.0.0 build /root/Autamedica/packages/auth
+@autamedica/auth:build: > tsup
+@autamedica/auth:build: 
+@autamedica/session:build: CLI Building entry: src/index.ts
+@autamedica/session:build: CLI Using tsconfig: tsconfig.json
+@autamedica/session:build: CLI tsup v8.5.0
+@autamedica/session:build: CLI Using tsup config: /root/Autamedica/packages/session/tsup.config.ts
+@autamedica/session:build: CLI Target: es2022
+@autamedica/session:build: CLI Cleaning output folder
+@autamedica/session:build: ESM Build start
+@autamedica/session:build: CJS Build start
+@autamedica/session:build: CJS dist/index.js     2.09 KB
+@autamedica/session:build: CJS dist/index.js.map 4.57 KB
+@autamedica/session:build: CJS ⚡️ Build success in 492ms
+@autamedica/session:build: ESM dist/index.mjs     2.00 KB
+@autamedica/session:build: ESM dist/index.mjs.map 4.52 KB
+@autamedica/session:build: ESM ⚡️ Build success in 493ms
+@autamedica/auth:build: CLI Building entry: src/client.ts, src/constants.ts, src/email.ts, src/index.ts, src/react.tsx, src/roles.ts, src/server.ts, src/session.ts, src/types.ts, src/client/supabase.ts, src/hooks/index.ts, src/hooks/useAuth.tsx, src/hooks/useSupabase.ts, src/middleware/auth.ts, src/middleware/cloudflare-auth.ts, src/types/user-metadata.ts, src/utils/cloudflare-sso.ts, src/utils/config.ts, src/utils/logger.ts, src/utils/redirect.ts
+@autamedica/auth:build: CLI Using tsconfig: tsconfig.json
+@autamedica/auth:build: CLI tsup v8.5.0
+@autamedica/auth:build: CLI Using tsup config: /root/Autamedica/packages/auth/tsup.config.ts
+@autamedica/auth:build: CLI Target: es2022
+@autamedica/auth:build: CLI Cleaning output folder
+@autamedica/auth:build: ESM Build start
+@autamedica/auth:build: ESM dist/client.mjs                         832.00 B
+@autamedica/auth:build: ESM dist/constants.mjs                      212.00 B
+@autamedica/auth:build: ESM dist/email.mjs                          3.24 KB
+@autamedica/auth:build: ESM dist/index.mjs                          1.73 KB
+@autamedica/auth:build: ESM dist/roles.mjs                          4.91 KB
+@autamedica/auth:build: ESM dist/server.mjs                         1.99 KB
+@autamedica/auth:build: ESM dist/session.mjs                        2.90 KB
+@autamedica/auth:build: ESM dist/types.mjs                          986.00 B
+@autamedica/auth:build: ESM dist/client/supabase.mjs                3.99 KB
+@autamedica/auth:build: ESM dist/hooks/index.mjs                    251.00 B
+@autamedica/auth:build: ESM dist/hooks/useAuth.mjs                  10.60 KB
+@autamedica/auth:build: ESM dist/hooks/useSupabase.mjs              358.00 B
+@autamedica/auth:build: ESM dist/middleware/auth.mjs                5.21 KB
+@autamedica/auth:build: ESM dist/middleware/cloudflare-auth.mjs     3.27 KB
+@autamedica/auth:build: ESM dist/types/user-metadata.mjs            42.00 B
+@autamedica/auth:build: ESM dist/utils/cloudflare-sso.mjs           3.42 KB
+@autamedica/auth:build: ESM dist/utils/config.mjs                   3.39 KB
+@autamedica/auth:build: ESM dist/utils/logger.mjs                   219.00 B
+@autamedica/auth:build: ESM dist/utils/redirect.mjs                 2.89 KB
+@autamedica/auth:build: ESM dist/react.mjs                          847.00 B
+@autamedica/auth:build: ESM dist/client.mjs.map                     1.91 KB
+@autamedica/auth:build: ESM dist/constants.mjs.map                  723.00 B
+@autamedica/auth:build: ESM dist/email.mjs.map                      6.86 KB
+@autamedica/auth:build: ESM dist/index.mjs.map                      2.25 KB
+@autamedica/auth:build: ESM dist/roles.mjs.map                      11.82 KB
+@autamedica/auth:build: ESM dist/server.mjs.map                     3.95 KB
+@autamedica/auth:build: ESM dist/session.mjs.map                    6.72 KB
+@autamedica/auth:build: ESM dist/client/supabase.mjs.map            7.46 KB
+@autamedica/auth:build: ESM dist/hooks/index.mjs.map                279.00 B
+@autamedica/auth:build: ESM dist/hooks/useAuth.mjs.map              20.43 KB
+@autamedica/auth:build: ESM dist/hooks/useSupabase.mjs.map          1.28 KB
+@autamedica/auth:build: ESM dist/middleware/auth.mjs.map            10.38 KB
+@autamedica/auth:build: ESM dist/middleware/cloudflare-auth.mjs.map 6.44 KB
+@autamedica/auth:build: ESM dist/types/user-metadata.mjs.map        71.00 B
+@autamedica/auth:build: ESM dist/utils/cloudflare-sso.mjs.map       8.14 KB
+@autamedica/auth:build: ESM dist/utils/config.mjs.map               6.12 KB
+@autamedica/auth:build: ESM dist/utils/logger.mjs.map               330.00 B
+@autamedica/auth:build: ESM dist/utils/redirect.mjs.map             6.15 KB
+@autamedica/auth:build: ESM dist/react.mjs.map                      1.62 KB
+@autamedica/auth:build: ESM dist/types.mjs.map                      4.13 KB
+@autamedica/auth:build: ESM ⚡️ Build success in 246ms
+@autamedica/supabase-client:build: cache miss, executing b5857b2c39c1908c
+@autamedica/session:build: DTS Build start
+@autamedica/auth-app:build:    ▲ Next.js 15.5.4
+@autamedica/auth-app:build:    - Environments: .env.local
+@autamedica/auth-app:build:    - Experiments (use with caution):
+@autamedica/auth-app:build:      ✓ externalDir
+@autamedica/auth-app:build: 
+@autamedica/web-app:build: Failed to compile.
+@autamedica/web-app:build: 
+@autamedica/web-app:build: ../../packages/shared/dist/index.js
+@autamedica/web-app:build: Error: 
+@autamedica/web-app:build: 
+@autamedica/web-app:build: Caused by:
+@autamedica/web-app:build:     0: Failed to read source code from /root/Autamedica/packages/shared/dist/index.js
+@autamedica/web-app:build:     1: No such file or directory (os error 2)
+@autamedica/web-app:build: 
+@autamedica/web-app:build: Import trace for requested module:
+@autamedica/web-app:build: ../../packages/shared/dist/index.js
+@autamedica/web-app:build: ./src/app/web-vitals.tsx
+@autamedica/web-app:build: 
+@autamedica/web-app:build: 
+@autamedica/web-app:build: > Build failed because of webpack errors
+@autamedica/web-app:build:  ELIFECYCLE  Command failed with exit code 1.
+@autamedica/supabase-client:build: 
+@autamedica/supabase-client:build: > @autamedica/supabase-client@0.0.1 build /root/Autamedica/packages/supabase-client
+@autamedica/supabase-client:build: > tsup
+@autamedica/supabase-client:build: 
+@autamedica/auth-app:build:    Creating an optimized production build ...
+@autamedica/web-app:build: ERROR: command finished with error: command (/root/Autamedica/apps/web-app) /root/.local/share/pnpm/.tools/pnpm/9.15.2/bin/pnpm run build exited (1)
+@autamedica/auth-app:build: uncaughtException [Error: write EPIPE] { errno: -32, code: 'EPIPE', syscall: 'write' }
+@autamedica/web-app#build: command (/root/Autamedica/apps/web-app) /root/.local/share/pnpm/.tools/pnpm/9.15.2/bin/pnpm run build exited (1)
+
+ Tasks:    4 successful, 9 total
+Cached:    0 cached, 9 total
+  Time:    29.756s 
+Failed:    @autamedica/web-app#build
+
+ ERROR  run failed: command  exited (1)

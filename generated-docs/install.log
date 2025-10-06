@@ -1,0 +1,15 @@
+ WARN  Unsupported engine: wanted: {"node":"20.x"} (current: {"node":"v22.20.0","pnpm":"9.15.2"})
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +3
++++
+Progress: resolved 3, reused 3, downloaded 0, added 0, done
+
+. prepare$ husky && husky install
+. prepare: Usage:
+. prepare:   husky install [dir] (default: .husky)
+. prepare:   husky uninstall
+. prepare:   husky set|add <file> [cmd]
+. prepare: husky - Git hooks installed
+. prepare: Done
+Done in 6.3s
