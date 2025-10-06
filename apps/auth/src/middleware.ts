@@ -109,10 +109,26 @@ export async function middleware(req: NextRequest) {
 
   // CORS for AutaMedica ecosystem (only for non-API routes)
   if (!isApiRoute) {
-    response.headers.set('Access-Control-Allow-Origin', 'https://autamedica.com');
-    response.headers.set('Access-Control-Allow-Credentials', 'true');
-    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    // Allowed origins for cross-origin requests
+    const allowedOrigins = [
+      'https://autamedica.com',
+      'https://www.autamedica.com',
+      'https://patients.autamedica.com',
+      'https://doctors.autamedica.com',
+      'https://companies.autamedica.com',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'http://localhost:3003',
+    ];
+
+    const origin = req.headers.get('origin');
+    if (origin && allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Access-Control-Allow-Credentials', 'true');
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    }
   }
 
   return response;
