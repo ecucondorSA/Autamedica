@@ -344,7 +344,7 @@ export default function ProfessionalCompaniesFeatures() {
 
         .plans-grid {
           position: relative;
-          z-index: 1;
+          z-index: 5;
         }
 
         .plan-card {
@@ -357,6 +357,8 @@ export default function ProfessionalCompaniesFeatures() {
           padding: 1rem;
           min-height: 100%;
           isolation: isolate;
+          position: relative;
+          z-index: 2;
         }
 
         .plan-head {
