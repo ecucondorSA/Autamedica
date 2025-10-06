@@ -3,20 +3,20 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- ed86f06 feat: integrate agentic workflow system
+- f003b60 feat: optimize CSS, simplify CI/CD, fix doctors auth redirect
 
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 48e5f38 fix(build): experimental debugging fixes for TypeScript and Express compatibility
 
 ### 🔒 Seguridad
 
 ### 📚 Documentación
+- cc2055a docs: add comprehensive browser comparison guide for developers 2025
 
 ### ⚙️ DevOps e Infraestructura
 
 ---
 
 
-*Generado automáticamente el 2025-10-06 12:48:52*
+*Generado automáticamente el 2025-10-06 17:33:24*
