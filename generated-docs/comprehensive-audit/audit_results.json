@@ -1,0 +1,168 @@
+{
+  "timestamp": "2025-10-06T20:16:21.131Z",
+  "url": "http://localhost:3000",
+  "viewports": {
+    "mobile": {
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "tablet": {
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "desktop": {
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "mobile_landscape": {
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  },
+  "interactions": [
+    {
+      "name": "AccountMenu Mobile",
+      "success": false,
+      "error": "locator.isVisible: Error: strict mode violation: locator('.account-menu > div > div') resolved to 3 elements:\n    1) <div class=\"jsx-5e92ac9edccab3e8 px-4 py-4 sm:px-6 sm:py-5 bg-[var(--au-hover)]/30 border-b-2 border-[var(--au-border)]\">…</div> aka getByText('Bienvenido aAutaMedica')\n    2) <div class=\"jsx-5e92ac9edccab3e8 p-2 sm:p-3\">…</div> aka locator('div').filter({ hasText: 'Iniciar SesiónAccede a tu' }).nth(2)\n    3) <div class=\"jsx-5e92ac9edccab3e8 px-4 py-3 sm:px-5 sm:py-4 bg-[var(--au-hover)]/20 border-t-2 border-[var(--au-border)]\">…</div> aka locator('div').filter({ hasText: 'Conexión segura y cifrada' }).nth(2)\n\nCall log:\n\u001b[2m    - checking visibility of locator('.account-menu > div > div')\u001b[22m\n"
+    },
+    {
+      "name": "Carousel Navigation",
+      "success": true,
+      "dotCount": 4,
+      "accessible": true,
+      "ariaLabel": "Ir al testimonio 1",
+      "screenshot": "generated-docs/comprehensive-audit/interaction_carousel_dot0.png"
+    }
+  ],
+  "monitoring": {
+    "consoleLogs": [
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: INP, value: 24, rating: good, delta: 24, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        }
+      },
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: CLS, value: 0.15280788177339902, rating: needs-improvement, delta: 0.15280788177339902, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        }
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.4_@babel+core@7.28.4_@playwright+test@1.55.0_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      },
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: FCP, value: 168, rating: good, delta: 168, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        }
+      },
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: TTFB, value: 65.80000000074506, rating: good, delta: 65.80000000074506, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        }
+      }
+    ],
+    "networkRequests": [
+      {
+        "url": "http://localhost:3000/",
+        "status": 200,
+        "method": "GET",
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/css/app/layout.css?v=1759781803672",
+        "status": 200,
+        "method": "GET",
+        "contentType": "text/css; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759781803672",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/page.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/layout.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759781803672",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+        "status": 200,
+        "method": "GET",
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200,
+        "method": "GET",
+        "contentType": "font/woff2"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_ProfessionalFooter_tsx.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_TestimonialsSection_tsx.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_experience_HorizontalExperience_tsx.js",
+        "status": 200,
+        "method": "GET",
+        "contentType": "application/javascript; charset=UTF-8"
+      }
+    ],
+    "errors": [],
+    "warnings": [],
+    "failedRequests": []
+  },
+  "summary": {
+    "totalViewportsTested": 4,
+    "totalScreenshots": 0,
+    "totalZIndexConflicts": 0,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "passedInteractions": 1,
+    "totalInteractions": 2
+  }
+}
