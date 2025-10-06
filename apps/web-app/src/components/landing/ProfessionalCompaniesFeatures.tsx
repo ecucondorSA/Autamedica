@@ -421,9 +421,9 @@ export default function ProfessionalCompaniesFeatures() {
         }
 
         .plan-popover {
-          position: absolute;
-          inset: auto 0 0 0;
-          z-index: 3;
+          position: relative;
+          margin-top: 1rem;
+          z-index: 1;
           background: #141415;
           border: 1px solid rgba(255,255,255,0.06);
           border-radius: 16px;
