@@ -65,7 +65,7 @@ export default function ProfessionalFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-professional">
+    <footer className="footer-professional" role="contentinfo">
       <div className="container">
         {/* Main Footer Content */}
         <div className="footer-grid">

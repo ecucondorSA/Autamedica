@@ -11,6 +11,9 @@ export default createNextAppConfig({
   aliasAuthHooks: false,
   extraTranspile: [],
   extendConfig: {
+    experimental: {
+      optimizeCss: true, // Sprint 1 - CSS optimization
+    },
     async headers() {
       return [
         {
