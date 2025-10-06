@@ -252,12 +252,15 @@ export default function ProfessionalCompaniesFeatures() {
           display: flex;
           flex-direction: column;
           gap: 0.28rem;
-          min-width: 110px;
+          min-width: 120px;
+          flex-shrink: 0;
         }
 
         .metric-value {
           font-size: clamp(1.5rem, 2.4vw, 2.1rem);
           font-weight: 600;
+          white-space: nowrap;
+          overflow: visible;
         }
 
         .metric-label {
