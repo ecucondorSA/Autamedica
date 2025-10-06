@@ -86,6 +86,97 @@
 
 ---
 
+## 🤖 Workflow Agéntico - Comandos Principales
+
+### 🚀 Ejecución Local del Workflow Completo
+```bash
+# Ejecutar workflow completo (equivalente a GitHub Actions)
+bash scripts/run-agentic-local.sh
+
+# Dry-run (ver qué se ejecutaría sin hacerlo)
+bash scripts/run-agentic-local.sh --dry-run
+
+# Ejecutar agente específico
+bash scripts/run-agent.sh agent_code
+bash scripts/run-agent.sh agent_db
+bash scripts/run-agent.sh agent_security
+```
+
+### 📋 Agentes Disponibles
+
+**1. agent_code** (180 min)
+- Pre-commit emulation (lint + vitest)
+- Pre-push emulation (typecheck + build)
+- Router validation (App Router only)
+- Cleanup duplicates
+
+**2. agent_db** (180 min)
+- Fetch DB credentials via MCP
+- DB snapshot before changes
+- Run migrations
+- Validate RLS policies
+
+**3. agent_security** (120 min)
+- Enforce security headers
+- Node fetch checks
+- Screenshot validation
+
+**4. agent_dns_deploy** (90 min)
+- Build & deploy to Cloudflare Pages
+- Validate headers in production
+- Post-deployment screenshots
+
+**5. agent_qa** (60 min)
+- Final mandatory tests
+- Full system validation
+
+**6. agent_docs** (20 min)
+- Auto-commit generated docs
+- Update README and logs
+
+### 🎨 Impact Pack (Validación Avanzada)
+```bash
+# Visual regression testing
+pnpm dlx playwright test --project=chromium
+
+# DB drift detection
+supabase db diff --linked
+
+# Lighthouse CI
+lhci autorun --collect.url=https://patients.autamedica.com
+
+# k6 smoke tests
+k6 run scripts/k6-smoke.js
+
+# SLO budget check
+node scripts/slo-budget-check.mjs
+
+# Health gate check
+node scripts/health-gate.mjs
+```
+
+### 🔧 Health Checks y Validaciones
+```bash
+# Pre-workflow validation
+pnpm run health && node scripts/node_fetch_check.mjs
+
+# Post-task report
+python3 scripts/post_task_report.py
+
+# Validate conventions
+node scripts/validate-conventions.mjs
+
+# Cleanup duplicates
+bash scripts/cleanup_duplicates.sh
+```
+
+### 📊 Configuración del Workflow
+- **Global**: `/root/.claude/agentic-config.json`
+- **Local**: `/root/Autamedica/.claude/agentic-workflow.json`
+- **GitHub**: `.github/workflows/autamedica-agentic.yml`
+
+---
+
 ## 🔧 Notas Técnicas
 
 ### Convenciones de Nomenclatura (SSK_FAE/snake_híbrido)

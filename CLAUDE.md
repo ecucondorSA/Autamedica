@@ -75,6 +75,49 @@ Esta guía ayuda a futuras instancias de Claude Code a trabajar efectivamente en
 - ✅ `desplegar-produccion.yml` - Deploy a producción
 - ✅ `desplegar-workers.yml` - Deploy Workers/DO/KV
 
+### 🤖 **WORKFLOW AGÉNTICO PRINCIPAL** ⭐
+
+**`autamedica-agentic.yml`** - Sistema Agentic OS Multi-Agente (REFERENCIA PRINCIPAL)
+
+Este es el **workflow maestro** que Claude Code debe seguir para operaciones complejas:
+
+**🎯 Agentes Especializados:**
+1. **`agent_code`** (180min) - Lint, typecheck, build, tests, Router validation
+2. **`agent_db`** (180min) - MCP credentials, DB snapshot, migrations, RLS
+3. **`agent_security`** (120min) - Headers, CORS, fetch checks, screenshots
+4. **`agent_dns_deploy`** (90min) - Build, deploy Cloudflare, validation
+5. **`agent_qa`** (60min) - Tests finales, validación completa
+6. **`agent_docs`** (20min) - Auto-commit docs, README, logs
+
+**🎨 Impact Pack (Validación Avanzada):**
+- **`visual_regression`** - Playwright para detección de cambios visuales
+- **`db_drift`** - Detección de drift + SQL lint (sqlfluff)
+- **`lighthouse_ci`** - Performance ≥85%, Accessibility ≥90%
+- **`k6_smoke`** - Load testing con k6
+- **`slo_budget_guard`** - Guardián de presupuesto SLO
+- **`canary_release`** - Deploy 10% → 50% → 100% con health gates
+- **`rollback_on_fail`** - Rollback REAL automático (Cloudflare + DB)
+
+**📋 Configuración Global:**
+- Ver: `/root/.claude/agentic-config.json`
+- Agente.md: `/root/Autamedica/agente.md`
+- Local execution: `bash scripts/run-agentic-local.sh`
+
+**🚀 Comandos de Ejecución:**
+```bash
+# Ejecutar workflow completo localmente
+bash scripts/run-agentic-local.sh
+
+# Ejecutar agente específico
+bash scripts/run-agent.sh agent_code
+
+# Validar sistema antes de workflow
+pnpm run health && node scripts/node_fetch_check.mjs
+
+# Generar documentación post-tarea
+python3 scripts/post_task_report.py
+```
+
 **🔐 Secrets Configurados:**
 - ✅ `CLOUDFLARE_API_TOKEN` (permanente)
 - ✅ `CLOUDFLARE_ACCOUNT_ID`
