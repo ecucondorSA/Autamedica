@@ -1,0 +1,14 @@
+{
+  "protocol": "https:",
+  "isSecure": true,
+  "origin": "https://auth.autamedica.com",
+  "securityState": "unknown",
+  "mixedContent": {
+    "hasDisplayed": false,
+    "hasActive": false
+  },
+  "headers": {
+    "xContentTypeOptions": "nosniff",
+    "referrerPolicy": "strict-origin-when-cross-origin"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "navigation": {
+    "dns": 1.1000000005587935,
+    "tcp": 46.39999999944121,
+    "request": 44.19999999925494,
+    "response": 1.7000000001862645,
+    "dom": 0,
+    "load": 0.30000000074505806,
+    "total": 604.3000000007451,
+    "domInteractive": 215.80000000074506,
+    "domComplete": 603.8000000007451,
+    "transferSize": 5675,
+    "encodedBodySize": 5375,
+    "decodedBodySize": 22898
+  },
+  "paint": [
+    {
+      "name": "first-paint",
+      "startTime": 240
+    },
+    {
+      "name": "first-contentful-paint",
+      "startTime": 240
+    }
+  ],
+  "resources": [
+    {
+      "name": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+      "type": "link",
+      "duration": 61.60000000055879,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+      "type": "link",
+      "duration": 54.69999999925494,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+      "type": "link",
+      "duration": 58.60000000055879,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+      "type": "link",
+      "duration": 55.5,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+      "type": "link",
+      "duration": 111.09999999962747,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+      "type": "script",
+      "duration": 111.5,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+      "type": "script",
+      "duration": 111.70000000018626,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+      "type": "script",
+      "duration": 484.5,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+      "type": "script",
+      "duration": 112.29999999981374,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+      "type": "script",
+      "duration": 113,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+      "type": "script",
+      "duration": 434,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+      "type": "script",
+      "duration": 496.5,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+      "type": "script",
+      "duration": 111.29999999981374,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+      "type": "script",
+      "duration": 470.40000000037253,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+      "type": "script",
+      "duration": 450.29999999981374,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+      "type": "script",
+      "duration": 109.20000000018626,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+      "type": "script",
+      "duration": 443.09999999962747,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+      "type": "script",
+      "duration": 111.5,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+      "type": "script",
+      "duration": 112.29999999981374,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+      "type": "script",
+      "duration": 456.09999999962747,
+      "size": 300
+    },
+    {
+      "name": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+      "type": "script",
+      "duration": 112.5,
+      "size": 300
+    },
+    {
+      "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "type": "script",
+      "duration": 138,
+      "size": 0
+    },
+    {
+      "name": "https://patients.autamedica.com/cdn-cgi/rum?",
+      "type": "xmlhttprequest",
+      "duration": 35.200000000186265,
+      "size": 300
+    }
+  ],
+  "memory": {
+    "usedJSHeapSize": 10000000,
+    "totalJSHeapSize": 10000000,
+    "jsHeapSizeLimit": 2330000000
+  }
+}

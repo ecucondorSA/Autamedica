@@ -1,0 +1,660 @@
+{
+  "title": "AutaMedica Auth Hub - Acceso Seguro",
+  "url": "https://auth.autamedica.com/auth/select-role/",
+  "doctype": "html",
+  "characterSet": "UTF-8",
+  "head": {
+    "meta": [
+      {
+        "name": "",
+        "content": ""
+      },
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1, maximum-scale=5"
+      },
+      {
+        "name": "next-size-adjust",
+        "content": ""
+      },
+      {
+        "name": "mobile-web-app-capable",
+        "content": "yes"
+      },
+      {
+        "name": "apple-mobile-web-app-capable",
+        "content": "yes"
+      },
+      {
+        "name": "apple-mobile-web-app-status-bar-style",
+        "content": "black-translucent"
+      },
+      {
+        "name": "apple-mobile-web-app-title",
+        "content": "AutaMedica Auth"
+      },
+      {
+        "name": "description",
+        "content": "Centro de autenticación segura HIPAA-compliant para el ecosistema AutaMedica. Acceso unificado para médicos, pacientes y empresas."
+      },
+      {
+        "name": "author",
+        "content": "E.M Medicina - UBA"
+      },
+      {
+        "name": "keywords",
+        "content": "AutaMedica,autenticación médica,login seguro,HIPAA compliant,auth hub,acceso médicos,acceso pacientes,telemedicina segura"
+      },
+      {
+        "name": "creator",
+        "content": "E.M Medicina - UBA"
+      },
+      {
+        "name": "publisher",
+        "content": "AutaMedica"
+      },
+      {
+        "name": "robots",
+        "content": "index, follow"
+      },
+      {
+        "name": "",
+        "content": "AutaMedica Auth Hub - Acceso Seguro"
+      },
+      {
+        "name": "",
+        "content": "Centro de autenticación segura para el ecosistema AutaMedica"
+      },
+      {
+        "name": "",
+        "content": "https://auth.autamedica.com/"
+      },
+      {
+        "name": "",
+        "content": "AutaMedica Auth Hub"
+      },
+      {
+        "name": "",
+        "content": "es_AR"
+      },
+      {
+        "name": "",
+        "content": "website"
+      },
+      {
+        "name": "twitter:card",
+        "content": "summary"
+      },
+      {
+        "name": "twitter:title",
+        "content": "AutaMedica Auth Hub - Acceso Seguro"
+      },
+      {
+        "name": "twitter:description",
+        "content": "Centro de autenticación segura para el ecosistema AutaMedica"
+      }
+    ],
+    "links": [
+      {
+        "rel": "preload",
+        "href": "https://auth.autamedica.com/_next/static/media/4cf2300e9c8272f7-s.p.woff2",
+        "type": "font/woff2",
+        "as": "font"
+      },
+      {
+        "rel": "preload",
+        "href": "https://auth.autamedica.com/_next/static/media/93f479601ee12b01-s.p.woff2",
+        "type": "font/woff2",
+        "as": "font"
+      },
+      {
+        "rel": "preload",
+        "href": "",
+        "type": "",
+        "as": "image"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://auth.autamedica.com/_next/static/css/92ae602ab0a4a425.css",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "preload",
+        "href": "https://auth.autamedica.com/_next/static/chunks/webpack-0f8eb569a8d112c2.js",
+        "type": "",
+        "as": "script"
+      },
+      {
+        "rel": "manifest",
+        "href": "https://auth.autamedica.com/manifest.json",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "icon",
+        "href": "https://auth.autamedica.com/icon-32.png",
+        "type": "image/png",
+        "as": ""
+      },
+      {
+        "rel": "icon",
+        "href": "https://auth.autamedica.com/icon-16.png",
+        "type": "image/png",
+        "as": ""
+      },
+      {
+        "rel": "author",
+        "href": "https://autamedica.com/",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "canonical",
+        "href": "https://auth.autamedica.com/",
+        "type": "",
+        "as": ""
+      }
+    ],
+    "scripts": [
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/9d277e37-dbf8f5bab550f58b.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/828-4ac9ddef1b44ca27.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/main-app-eba61a30664e5760.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/887-bfb7634ee57431b7.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/app/auth/select-role/page-49f9b65d00652f9b.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/polyfills-42372ed130431b0a.js",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": true,
+        "integrity": ""
+      },
+      {
+        "src": "https://auth.autamedica.com/_next/static/chunks/webpack-0f8eb569a8d112c2.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+        "type": "",
+        "async": false,
+        "defer": true,
+        "nomodule": false,
+        "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      }
+    ],
+    "styles": 0
+  },
+  "body": {
+    "classes": [
+      "__variable_188709",
+      "__variable_9a8899",
+      "antialiased"
+    ],
+    "id": "",
+    "childElementCount": 11
+  },
+  "elements": {
+    "total": 119,
+    "byTag": {
+      "div": 31,
+      "span": 2,
+      "p": 8,
+      "a": 0,
+      "img": 1,
+      "button": 6,
+      "input": 0,
+      "form": 0,
+      "table": 0,
+      "svg": 6
+    }
+  },
+  "tree": {
+    "tag": "html",
+    "id": null,
+    "classes": [],
+    "attributes": {
+      "lang": "es",
+      "dir": "ltr"
+    },
+    "textContent": null,
+    "childCount": 2,
+    "children": [
+      {
+        "tag": "head",
+        "id": null,
+        "classes": [],
+        "attributes": {},
+        "textContent": null,
+        "childCount": 39,
+        "children": [
+          {
+            "tag": "meta",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "charset": "utf-8"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "meta",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "name": "viewport",
+              "content": "width=device-width, initial-scale=1, maximum-scale=5"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "preload",
+              "href": "/_next/static/media/4cf2300e9c8272f7-s.p.woff2",
+              "as": "font",
+              "crossorigin": "",
+              "type": "font/woff2"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "preload",
+              "href": "/_next/static/media/93f479601ee12b01-s.p.woff2",
+              "as": "font",
+              "crossorigin": "",
+              "type": "font/woff2"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "preload",
+              "as": "image",
+              "imagesrcset": "/_next/image/?url=%2Fautamedica-logo.png&w=96&q=75 1x, /_next/image/?url=%2Fautamedica-logo.png&w=256&q=75 2x"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "/_next/static/css/92ae602ab0a4a425.css",
+              "data-precedence": "next"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "preload",
+              "as": "script",
+              "fetchpriority": "low",
+              "href": "/_next/static/chunks/webpack-0f8eb569a8d112c2.js"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/9d277e37-dbf8f5bab550f58b.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/828-4ac9ddef1b44ca27.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/main-app-eba61a30664e5760.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "tag": "body",
+        "id": null,
+        "classes": [
+          "__variable_188709",
+          "__variable_9a8899",
+          "antialiased"
+        ],
+        "attributes": {
+          "class": "__variable_188709 __variable_9a8899 antialiased"
+        },
+        "textContent": null,
+        "childCount": 11,
+        "children": [
+          {
+            "tag": "div",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "hidden": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "classes": [
+              "min-h-screen",
+              "flex",
+              "items-center",
+              "justify-center",
+              "p-6",
+              "bg-[var(--au-bg)]"
+            ],
+            "attributes": {
+              "class": "min-h-screen flex items-center justify-center p-6 bg-[var(--au-bg)]"
+            },
+            "textContent": null,
+            "childCount": 1,
+            "children": [
+              {
+                "tag": "div",
+                "id": null,
+                "classes": [
+                  "w-full",
+                  "max-w-2xl"
+                ],
+                "attributes": {
+                  "class": "w-full max-w-2xl"
+                },
+                "textContent": null,
+                "childCount": 1,
+                "children": [
+                  {
+                    "tag": "div",
+                    "id": null,
+                    "classes": [
+                      "bg-[var(--au-surface)]",
+                      "border-2",
+                      "border-[var(--au-border)]",
+                      "rounded-2xl",
+                      "shadow-2xl",
+                      "p-8"
+                    ],
+                    "attributes": {
+                      "class": "bg-[var(--au-surface)] border-2 border-[var(--au-border)] rounded-2xl shadow-2xl p-8"
+                    },
+                    "textContent": null,
+                    "childCount": 3,
+                    "children": [
+                      {
+                        "tag": "div",
+                        "id": null,
+                        "classes": [
+                          "text-center",
+                          "mb-8"
+                        ],
+                        "attributes": {
+                          "class": "text-center mb-8"
+                        },
+                        "textContent": null,
+                        "childCount": 3,
+                        "children": []
+                      },
+                      {
+                        "tag": "div",
+                        "id": null,
+                        "classes": [
+                          "space-y-6"
+                        ],
+                        "attributes": {
+                          "class": "space-y-6"
+                        },
+                        "textContent": null,
+                        "childCount": 4,
+                        "children": []
+                      },
+                      {
+                        "tag": "div",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "justify-center",
+                          "gap-2",
+                          "mt-8",
+                          "pt-6",
+                          "border-t",
+                          "border-[var(--au-border)]"
+                        ],
+                        "attributes": {
+                          "class": "flex items-center justify-center gap-2 mt-8 pt-6 border-t border-[var(--au-border)]"
+                        },
+                        "textContent": null,
+                        "childCount": 2,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "script",
+            "id": "_R_",
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/webpack-0f8eb569a8d112c2.js",
+              "id": "_R_",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "(self.__next_f=self.__next_f||[]).push([0])",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[7403,[],\\\"\\\"]\\n3:I[5335,[],\\\"\\\"]\\n4:I[7887,[\\\"887",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"0:{\\\"P\\\":null,\\\"b\\\":\\\"5mDXsWxA3rK6MmUJvC2i9\\\",\\\"p\\\":\\\"\\\",\\\"c\\\":[\\\"\\\",\\\"auth\\\"",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"b:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"na",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"9:{\\\"metadata\\\":[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"AutaMedica Auth Hub -",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"e:\\\"$9:metadata\\\"\\n\"])",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "defer": "",
+              "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+              "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==",
+              "data-cf-beacon": "{\"version\":\"2024.11.0\",\"token\":\"ed2b7ddf1d7c464999f9f3d4038666b8\",\"r\":1,\"server_timing\":{\"name\":{\"cfCacheStatus\":true,\"cfEdge\":true,\"cfExtPri\":true,\"cfL4\":true,\"cfOrigin\":true,\"cfSpeedBrain\":true},\"location_startswith\":null}}",
+              "crossorigin": "anonymous"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

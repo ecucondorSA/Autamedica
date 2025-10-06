@@ -1,0 +1,13 @@
+{
+  "protocol": "https:",
+  "isSecure": true,
+  "origin": "https://www.autamedica.com",
+  "securityState": "unknown",
+  "mixedContent": {
+    "hasDisplayed": false,
+    "hasActive": false
+  },
+  "headers": {
+    "strictTransportSecurity": "max-age=63072000"
+  }
+}

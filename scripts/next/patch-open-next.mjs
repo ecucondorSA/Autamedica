@@ -36,6 +36,7 @@ if (!fs.existsSync(workerPath)) {
 let source = fs.readFileSync(workerPath, 'utf8');
 
 const snippetSignature = 'return Response.redirect(new URL(target, request.url), 307);';
+const securityHeadersSignature = 'function addSecurityHeaders(response)';
 
 if (!source.includes(snippetSignature)) {
   const rewriteSnippet = `            const url = new URL(request.url);\n            if (url.pathname.startsWith(\"/_next/static/\")) {\n                const target = \"/assets\" + url.pathname + url.search;\n                return Response.redirect(new URL(target, request.url), 307);\n            }\n`;
@@ -54,6 +55,36 @@ if (!source.includes(snippetSignature)) {
   console.log('ℹ️  Patch ya aplicado en _worker.js.');
 }
 
+// Add security headers function
+if (!source.includes(securityHeadersSignature)) {
+  const securityHeadersFunc = `
+function addSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  headers.set('X-Frame-Options', 'DENY');
+  headers.set('X-Content-Type-Options', 'nosniff');
+  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()');
+  headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+`;
+
+  // Insert before export default
+  source = source.replace(/export default {/, `${securityHeadersFunc}\nexport default {`);
+
+  // Wrap the final return in the fetch handler
+  source = source.replace(
+    /(\s+)(\/\/ @ts-expect-error: resolved by wrangler build\n\s+const { handler } = await import\("\.\/server-functions\/default\/handler\.mjs"\);\n\s+return handler\(reqOrResp, env, ctx, request\.signal\);)/,
+    '$1// @ts-expect-error: resolved by wrangler build\n$1const { handler } = await import("./server-functions/default/handler.mjs");\n$1const handlerResponse = await handler(reqOrResp, env, ctx, request.signal);\n$1return addSecurityHeaders(handlerResponse);'
+  );
+
+  fs.writeFileSync(workerPath, source);
+  console.log('✅ Security headers agregados al Worker.');
+} else {
+  console.log('ℹ️  Security headers ya están presentes.');
+}
+
 if (!fs.existsSync(routesPath)) {
   fs.writeFileSync(
     routesPath,
@@ -61,7 +92,7 @@ if (!fs.existsSync(routesPath)) {
       {
         version: 1,
         include: ['/*'],
-        exclude: ['/assets/*', '/_next/static/*'],
+        exclude: ['/assets/*'],
       },
       null,
       2,

@@ -3,8 +3,14 @@ import type { Config } from 'tailwindcss';
 const config: Config = {
   content: [
     './src/**/*.{ts,tsx}',
-    '../../packages/ui/src/**/*.{ts,tsx}'
+    '../../packages/ui/src/**/*.{ts,tsx}',
+    '../../packages/auth/src/**/*.{ts,tsx}',
+    '../../packages/hooks/src/**/*.{ts,tsx}'
   ],
+  // Optimize for production
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       colors: {

@@ -1,0 +1,233 @@
+[
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.068Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.073Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.074Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.078Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.124Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.128Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.129Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.131Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.136Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.137Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.138Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.139Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.140Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.140Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.449Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.458Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.468Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.474Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.491Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.507Z"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:24:23.511Z"
+  }
+]

@@ -33,6 +33,7 @@ export function createNextAppConfig({
   const config = {
     trailingSlash: true,
     output,
+    poweredByHeader: false,
     experimental: {
       externalDir: true,
       ...(extendConfig.experimental ?? {}),

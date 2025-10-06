@@ -2,3 +2,8 @@ name = "autamedica-doctors"
 compatibility_date = "2025-03-25"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".open-next"
+
+# Environment variables configuration:
+# NEXT_PUBLIC_WEB_APP_URL must be set in Cloudflare Pages Dashboard
+# Production: https://autamedica.com
+# Preview: https://autamedica-web-app.pages.dev

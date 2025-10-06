@@ -1,0 +1,11 @@
+HTTP/2 522 
+date: Mon, 06 Oct 2025 11:47:52 GMT
+content-type: text/plain; charset=UTF-8
+content-length: 15
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+expires: Thu, 01 Jan 1970 00:00:01 GMT
+referrer-policy: same-origin
+x-frame-options: SAMEORIGIN
+server: cloudflare
+cf-ray: 98a4ed2eac428e4f-EZE
+

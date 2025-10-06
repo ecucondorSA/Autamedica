@@ -1,0 +1,69 @@
+{
+  "role": "WebArea",
+  "name": "AutaMedica Auth Hub - Acceso Seguro",
+  "children": [
+    {
+      "role": "image",
+      "name": "AUTAMEDICA Logo"
+    },
+    {
+      "role": "heading",
+      "name": "¡Bienvenido a AutaMedica!",
+      "level": 1
+    },
+    {
+      "role": "text",
+      "name": "Selecciona tu rol profesional para continuar"
+    },
+    {
+      "role": "heading",
+      "name": "Selecciona tu rol profesional",
+      "level": 2
+    },
+    {
+      "role": "text",
+      "name": "Elige la opción que mejor describa tu actividad profesional"
+    },
+    {
+      "role": "button",
+      "name": "Médico Consulta pacientes, gestiona historias clínicas y realiza teleconsultas"
+    },
+    {
+      "role": "button",
+      "name": "Paciente Accede a tu historial médico, agenda citas y consulta con médicos"
+    },
+    {
+      "role": "button",
+      "name": "Administrador de Empresa Administra empleados de tu empresa y gestiona planes de salud corporativos"
+    },
+    {
+      "role": "button",
+      "name": "Administrador de Organización Gestiona múltiples organizaciones y supervisa operaciones"
+    },
+    {
+      "role": "button",
+      "name": "Administrador de Plataforma Control total de la plataforma y todas sus funcionalidades"
+    },
+    {
+      "role": "button",
+      "name": "Continuar",
+      "disabled": true
+    },
+    {
+      "role": "text",
+      "name": "© "
+    },
+    {
+      "role": "text",
+      "name": "2025"
+    },
+    {
+      "role": "text",
+      "name": " AutaMedica. Todos los derechos reservados."
+    },
+    {
+      "role": "text",
+      "name": "Plataforma médica segura"
+    }
+  ]
+}

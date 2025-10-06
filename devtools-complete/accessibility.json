@@ -1,0 +1,32 @@
+{
+  "role": "WebArea",
+  "name": "AutaMedica - Telemedicina sin fricciones",
+  "children": [
+    {
+      "role": "progressbar",
+      "name": "Progreso de lectura de la página",
+      "valuetext": "",
+      "valuemin": 0,
+      "valuemax": 100,
+      "value": 0
+    },
+    {
+      "role": "text",
+      "name": "desarrollado por E.M Medicina -UBA"
+    },
+    {
+      "role": "text",
+      "name": "AutaMedica"
+    },
+    {
+      "role": "button",
+      "name": "Menú de cuenta",
+      "haspopup": "menu"
+    },
+    {
+      "role": "heading",
+      "name": "AUTAMEDICA",
+      "level": 1
+    }
+  ]
+}

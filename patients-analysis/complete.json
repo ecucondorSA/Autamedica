@@ -1,0 +1,2712 @@
+{
+  "metadata": {
+    "url": "https://patients.autamedica.com/",
+    "timestamp": "2025-10-06T14:24:22.677Z",
+    "userAgent": null
+  },
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.068Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.073Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.074Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.078Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.124Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.128Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.129Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.131Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.136Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.137Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.138Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.139Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.140Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.140Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.449Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.458Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.468Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.474Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.491Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.507Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": {
+        "url": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:24:23.511Z"
+    }
+  ],
+  "network": [
+    {
+      "id": "https://patients.autamedica.com/",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/",
+      "resourceType": "document",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:22.905Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "98a5d26f8fbe98d3-EZE",
+        "content-encoding": "br",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 06 Oct 2025 14:24:22 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mMapMDaQ%2BCNmu%2BEe6tqC2gMlz2el%2FOdzpxdv3WiRBggQVoIdPbOrP3m5UrtWNjGGb42o6oKROUCCTciGFDkujyHs6ayM3JBCpb0bbh7MFzqUgMcWSMPcgs5m7saN6Olu3jGR\"}]}",
+        "server": "cloudflare",
+        "server-timing": "cfCacheStatus;desc=\"DYNAMIC\"\ncfEdge;dur=3,cfOrigin;dur=16",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "x-opennext": "1",
+        "x-powered-by": "Next.js"
+      },
+      "size": 22898,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+      "resourceType": "stylesheet",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.018Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=PN3YVam%2FPm0N9N2b5insN74esshN3ebFuoMZl8viHSxGqHQrQ9Irf0N4B9kSrKaKzTWIM30CU%2BjpWvAkUaW9vlkQ24ukdMU02QJKn4UMWS8RWi8SxEZzKm4ygDjAPSfFBfFk\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d26fe84d98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+      "resourceType": "stylesheet",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.018Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Fbbj3nzwcCBkHIkeLXBM0lKr5o2t8FuYsecx6mZbtEK0GzJxn%2FlxJ7dn6GAkwk5si8T1nQE3%2Bvn7k%2BBnXcurlq%2FAaJzmhaXjF4W1qnWZnWF2sbH842h9E2%2FrL4h5yMBUDFGg\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d26fe84e98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+      "resourceType": "stylesheet",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.018Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=OKwhMVjRJh8dD5iLUvzkBvVYjRTU0hJslLI9t51kMQhtpuxkVeTXG86nGTgXu59IqC8oQG1ZWeccWNAlFpn2Ux%2BxstX1bDlmU3VAJ6Ppi%2BB0Lh02cA0GHT09kWa8t%2Fn%2BPchw\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d26fe84f98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+      "resourceType": "stylesheet",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.029Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KqsdYCoYFMewBvIBhS80zM41DL4F5lT3cYVG2ll9adl8TQvVD4NGbOCRCQH7cRQ8iv575HWDPyNTyCUxwu6MaLx%2F7rJCcmU6EAMM%2FlTVMIdobBqyexiA030f%2FLg9Oc8UVNPQ\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d26fe85198d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.029Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=l%2BqNlQWg8NFHjKd2AxnGY9dGF4balfno8cvXKhvWKOcSbMHob9xIjAVUhh%2FwrCG0GzQ2V9ja7Mko4zI94HDcu5yhR%2FUBvGHPqYeGPtymv%2BF0pYdoUTV8vvCw5X%2FMXmi%2Fd3WJ\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d270089598d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.029Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kDcZbu0RZwEGa5tF3QKOorKyktcuTimLP1865Q1%2FWMNMx0XQhLJ8t3ZkzsgZ5%2Bm%2F7lB4o6%2B%2Bb8RxWT86UePJaFx%2FiWRiy87BmEUe1nJAJRhuoGgzZypBrrvQb8KPbcXv8eki\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d270089898d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.029Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CZX3A0br%2BNhGiScChMJnFpOANQkZ3BBwQA3egXT45DtcolVGJZmBqnfsQ9rRDU%2FoLssHTwUH0Lza%2FoLy3V6cYdBrXJD0mQDu3VYnC949u0%2BEM3LAkbQ5Nm7JAVAcY%2FGqbvUA\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d270089b98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.030Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "content-encoding": "br",
+        "cf-cache-status": "BYPASS",
+        "x-opennext": "1",
+        "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=qsGoCBvwDnKS%2Bbnea7uYmlcrErYS1Fw3Cfg0w7ow93vub1yk4VHPryZxum7EzUJIDEbIcO%2BunocnUFgogkCbi%2FssQeLEhZqWcJbD1QsgRVBkBgu874Ca0f%2FLtyWTMD4utblkCY72V1NvEnWF%2Baioe82g8xgM0Q%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+        "cf-ray": "98a5d27018d098d3-EZE",
+        "x-nextjs-stale-time": "300",
+        "x-nextjs-cache": "MISS",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+        "server": "cloudflare",
+        "x-powered-by": "Next.js"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.030Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LAAl2W6t4dROOjuTgOBorKDEQ3rlnRvL8gI3pr3SQvV1NUFl9k0mV2p%2FU%2FacwDcLAzadgLohDpe%2FW2rNNOF9dQec%2Be69UdulQBzg%2FlKK5mID94ZSlWnR7pwQo%2FbHroV3l1vt\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018d698d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BHd9MH%2BdPD8B6wdh9fUOqicpkHcRmLjztXGNFTCsHdTQL5SJeO%2FUazgp3f037S%2FeTkfrah5Q0GoAOUJJRZlFxjj6QY0BM9I7d8uqvfnBlCl0qhlAm3939SkhKvE%2BkAU%2B7rh4\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018d798d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=4UMSqkVvDxOBTMbCMmxIooNSHjLfULcxifOr2efTJUDEVHG1qK8mLBatCr4dnRdKJf9qFGRtDlCAStthHAZSrau2qIHJ8o5esUHvQN3NYkvRktW71%2BGn4U%2FahS5fNAj0DeLl\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018d998d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RQpTmkYTkkrX3xBNVdkc1U06AwqhhSFhsg3Prur%2Fx0q%2BjUd4w9qnH7IYHGzwWgnCAvYUaiKHzOxEQkHMvyw4b8aNqs3ko89uE2Ea2buCsgGfLr53Hyz4at4SUfCr%2Fsyde%2Fo%2F\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018da98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KeRiG21bmdRO%2FmMu%2BBT%2FFzbjDOxs%2FqUtJQLfoKh6G%2B0P7UzLBEvAJxnaE6%2BBXcwtjxLlaDWIhFKcrYbU%2FjO%2B%2FqZ6Feusls6pdRQhLRDaALuewDnIGE3e8qDecj6dBJkwcoKp\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018db98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=I57BxB8p7mL%2FiywL4c3vOV8gYgxjy%2B0hMT%2FPUi%2FQ9ZGsVuWfqOxMsEWGnMCbE7PnjdaxwBYAl%2BBSWAzkJT0J%2FiM99Bh4RdXMxZLcIpCvFM8zmtu9W6u%2B1LFfkpCTJfo95i0L\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018dd98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.031Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sGxzXbbnHRayugmYemaFsLIx3zJGQ%2Boq3BpdbsvJboyOvaveDEU%2FLiMYZfYW23oaUARn30%2BLb6ZhE%2B2MK%2BA8pBI7jLQhMq%2Fq2SEOYE3SHsXSvKOGXpmKxik8Mz9zgkIfpkWC\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018e098d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sRV3Sq%2Bx27fi8eJD7EmpPnBDfE%2FhfCSLUrZmcAtmxZHppPrTuq2FNFvXHIrUv45w7h3I2YQF%2BdHCRGQJlKgLNxp8pJf2jXcNPa2EnNSxX8rE1C%2B9meBshw74%2Fozwk6ezBWB5\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018e198d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VpGQNRxS2S8O7BG7xMnjGe%2BVhkc5NWzFusxMelgTix8k1hBc0oTvmvs32UJoXr0%2FNFWIAZTMzfQC2vZwLY%2BUJOt660AvB9oJLqQxvhQbr0yTWEM8q3oqxDf7v4oyqdbUH0AO\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018e498d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Mnzeesva4TZQhyVlKeYumL4kX5eVFHerBIx2WrrqdjAu9Z%2BnG%2BaITbjo41DiVZC50BafQFPRIs59y26RPQqSfhwV8L1xc%2F%2FCUukJc3TcsKNVRWtv4ygoxwEZPBa3cHTCfHZM\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018e898d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5fGNH%2FE3v6KpQ50K8tILa3UH6ny6P930iSJF5wr3WvLKPfqsIemM3jyXdC4IwUOCHavHQy5Q9oWullBDksG5Xev1hWMI6RJaXYC7hEpzM0WGYBkodqDOP8xf%2F%2BeZCN17FB%2FE\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018ec98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "x-opennext": "1",
+        "cf-cache-status": "BYPASS",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VsUQhZKM4dVwLKr%2BqNA2w7iyaJlZZoNn9XkJFOCZ7zpxnzH9CMSuBNKSOVmg8y1HpvNi6MQwFttbm4455Kko8GsG3AN6jdRSmfuU%2Bso4TpPLVl9ADhN9cSmR46ql2islkAVR\"}]}",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-nextjs-stale-time": "300",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "98a5d27018ef98d3-EZE",
+        "x-nextjs-cache": "MISS",
+        "x-powered-by": "Next.js",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+      "method": "GET",
+      "url": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.032Z",
+      "status": 404,
+      "statusText": "",
+      "responseHeaders": {
+        "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "content-encoding": "br",
+        "cf-cache-status": "BYPASS",
+        "x-opennext": "1",
+        "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=%2FKx24vods83uxtvEanFx5DufVvl6GeW2Has%2FG3LJ1iWvoVKdDNLQ0Z7qQwEzw8wpEdE%2F0l%2FMDOnfm5R5p1i99YUZhNH%2BEX8UcITjezCnpf5QksG7XKkk0Yhq%2FU0HkAsdGX4MPCUOPlFfqLBLIO%2B25nxesMyA7Q%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+        "cf-ray": "98a5d27018f498d3-EZE",
+        "x-nextjs-stale-time": "300",
+        "x-nextjs-cache": "MISS",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "x-nextjs-prerender": "1",
+        "content-type": "text/html; charset=utf-8",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+        "server": "cloudflare",
+        "x-powered-by": "Next.js"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "method": "GET",
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "resourceType": "script",
+      "headers": {
+        "origin": "https://patients.autamedica.com",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:24:23.033Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "cache-control": "public, max-age=86400",
+        "content-encoding": "gzip",
+        "etag": "W/\"2024.6.1\"",
+        "cross-origin-resource-policy": "cross-origin",
+        "cf-ray": "98a5d2708ce74b84-EZE",
+        "access-control-allow-origin": "*",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "content-type": "text/javascript;charset=UTF-8",
+        "last-modified": "Thu, 06 Jun 2024 15:52:56 GMT",
+        "vary": "Accept-Encoding",
+        "server": "cloudflare"
+      },
+      "size": 19948,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://patients.autamedica.com/cdn-cgi/rum?",
+      "method": "POST",
+      "url": "https://patients.autamedica.com/cdn-cgi/rum?",
+      "resourceType": "xhr",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://patients.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": "{\"memory\":{\"totalJSHeapSize\":10000000,\"usedJSHeapSize\":10000000,\"jsHeapSizeLimit\":2330000000},\"resources\":[],\"referrer\":\"\",\"eventType\":1,\"firstPaint\":240,\"firstContentfulPaint\":240,\"startTime\":1759760662902.6,\"versions\":{\"fl\":\"2024.11.0\",\"js\":\"2024.6.1\",\"timings\":2},\"pageloadId\":\"91cffe7f-8536-488d-9d11-d41cc8934ac8\",\"location\":\"https://patients.autamedica.com/\",\"nt\":\"navigate\",\"timingsV2\":{\"unloadEventStart\":0,\"unloadEventEnd\":0,\"domInteractive\":215.90000000037253,\"domContentLoadedEventStart\":252.5,\"domContentLoadedEventEnd\":252.5,\"domComplete\":603.9000000003725,\"loadEventStart\":604.0999999996275,\"loadEventEnd\":604.4000000003725,\"type\":\"navigate\",\"redirectCount\":0,\"criticalCHRestart\":0,\"activationStart\":0,\"initiatorType\":\"navigation\",\"nextHopProtocol\":\"h2\",\"deliveryType\":\"\",\"workerStart\":0,\"redirectStart\":0,\"redirectEnd\":0,\"fetchStart\":0.09999999962747097,\"domainLookupStart\":1.599999999627471,\"domainLookupEnd\":2.7000000001862645,\"connectStart\":2.7000000001862645,\"connectEnd\":49.09999999962747,\"secureConnectionStart\":21.59999999962747,\"requestStart\":49.40000000037253,\"responseStart\":93.59999999962747,\"responseEnd\":95.29999999981374,\"transferSize\":5675,\"encodedBodySize\":5375,\"decodedBodySize\":22898,\"responseStatus\":200,\"finalResponseHeadersStart\":93.59999999962747,\"firstInterimResponseStart\":0,\"workerRouterEvaluationStart\":0,\"workerCacheLookupStart\":0,\"workerMatchedSourceType\":\"\",\"workerFinalSourceType\":\"\",\"renderBlockingStatus\":\"non-blocking\",\"name\":\"https://patients.autamedica.com/\",\"entryType\":\"navigation\",\"startTime\":0,\"duration\":604.4000000003725},\"dt\":\"\",\"siteToken\":\"ed2b7ddf1d7c464999f9f3d4038666b8\",\"st\":2}",
+      "timestamp": "2025-10-06T14:24:23.516Z",
+      "status": 204,
+      "statusText": "",
+      "responseHeaders": {
+        "access-control-max-age": "86400",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=x7jhRZ4IL53DqcJbBqEwwVXW5psSWNnN7h7gW9DMC2nlPtW1DAPKTZnpxuYrPWsJZAgqMgQ%2FytvDxcs3Aa7N8%2FNR42gACy6kxt%2BZd5gWGjYMIB8MyF7xbilXmNCRicjc%2BN6h\"}]}",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-methods": "POST,OPTIONS",
+        "cf-ray": "98a5d2730d3798d3-EZE",
+        "access-control-allow-origin": "https://patients.autamedica.com",
+        "date": "Mon, 06 Oct 2025 14:24:23 GMT",
+        "content-type": "text/plain",
+        "vary": "Origin, accept-encoding",
+        "server": "cloudflare"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    }
+  ],
+  "performance": {
+    "navigation": {
+      "dns": 1.1000000005587935,
+      "tcp": 46.39999999944121,
+      "request": 44.19999999925494,
+      "response": 1.7000000001862645,
+      "dom": 0,
+      "load": 0.30000000074505806,
+      "total": 604.3000000007451,
+      "domInteractive": 215.80000000074506,
+      "domComplete": 603.8000000007451,
+      "transferSize": 5675,
+      "encodedBodySize": 5375,
+      "decodedBodySize": 22898
+    },
+    "paint": [
+      {
+        "name": "first-paint",
+        "startTime": 240
+      },
+      {
+        "name": "first-contentful-paint",
+        "startTime": 240
+      }
+    ],
+    "resources": [
+      {
+        "name": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+        "type": "link",
+        "duration": 61.60000000055879,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+        "type": "link",
+        "duration": 54.69999999925494,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+        "type": "link",
+        "duration": 58.60000000055879,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+        "type": "link",
+        "duration": 55.5,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+        "type": "link",
+        "duration": 111.09999999962747,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+        "type": "script",
+        "duration": 111.5,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+        "type": "script",
+        "duration": 111.70000000018626,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+        "type": "script",
+        "duration": 484.5,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+        "type": "script",
+        "duration": 112.29999999981374,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+        "type": "script",
+        "duration": 113,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+        "type": "script",
+        "duration": 434,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+        "type": "script",
+        "duration": 496.5,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+        "type": "script",
+        "duration": 111.29999999981374,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+        "type": "script",
+        "duration": 470.40000000037253,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+        "type": "script",
+        "duration": 450.29999999981374,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+        "type": "script",
+        "duration": 109.20000000018626,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+        "type": "script",
+        "duration": 443.09999999962747,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+        "type": "script",
+        "duration": 111.5,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+        "type": "script",
+        "duration": 112.29999999981374,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+        "type": "script",
+        "duration": 456.09999999962747,
+        "size": 300
+      },
+      {
+        "name": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+        "type": "script",
+        "duration": 112.5,
+        "size": 300
+      },
+      {
+        "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+        "type": "script",
+        "duration": 138,
+        "size": 0
+      },
+      {
+        "name": "https://patients.autamedica.com/cdn-cgi/rum?",
+        "type": "xmlhttprequest",
+        "duration": 35.200000000186265,
+        "size": 300
+      }
+    ],
+    "memory": {
+      "usedJSHeapSize": 10000000,
+      "totalJSHeapSize": 10000000,
+      "jsHeapSizeLimit": 2330000000
+    }
+  },
+  "coverage": {},
+  "storage": {
+    "localStorage": {},
+    "sessionStorage": {},
+    "cookies": [],
+    "cookiesDetailed": []
+  },
+  "security": {
+    "protocol": "https:",
+    "isSecure": true,
+    "origin": "https://patients.autamedica.com",
+    "securityState": "unknown",
+    "mixedContent": {
+      "hasDisplayed": false,
+      "hasActive": false
+    },
+    "headers": {}
+  },
+  "accessibility": {
+    "role": "WebArea",
+    "name": "AutaMedica Patient Portal",
+    "children": [
+      {
+        "role": "link",
+        "name": "Saltar al contenido principal"
+      },
+      {
+        "role": "heading",
+        "name": "AutaMedica",
+        "level": 1
+      },
+      {
+        "role": "link",
+        "name": "Ir a Inicio"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Mis Citas"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Mi Anamnesis"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Historial Médico"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Salud Preventiva"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Prevención Embarazo"
+      },
+      {
+        "role": "link",
+        "name": "Ir a Perfil"
+      },
+      {
+        "role": "text",
+        "name": "Usuario"
+      },
+      {
+        "role": "text",
+        "name": "No disponible"
+      },
+      {
+        "role": "button",
+        "name": "Cerrar sesión y salir del portal",
+        "disabled": true
+      },
+      {
+        "role": "heading",
+        "name": "¡Hola, Usuario! 👋",
+        "level": 1
+      },
+      {
+        "role": "text",
+        "name": "Tu centro de telemedicina está listo"
+      },
+      {
+        "role": "text",
+        "name": "Disponible"
+      },
+      {
+        "role": "button",
+        "name": "Comunidad"
+      },
+      {
+        "role": "button",
+        "name": "Progreso"
+      },
+      {
+        "role": "button",
+        "name": "Acciones"
+      },
+      {
+        "role": "heading",
+        "name": "💬 Tu Comunidad",
+        "level": 3
+      },
+      {
+        "role": "text",
+        "name": "No hay publicaciones aún"
+      },
+      {
+        "role": "text",
+        "name": "¡Sé el primero en publicar!"
+      },
+      {
+        "role": "button",
+        "name": "+ Crear publicación"
+      },
+      {
+        "role": "button",
+        "name": "Centro de ayuda",
+        "description": "Guías interactivas"
+      },
+      {
+        "role": "button",
+        "name": "Abrir asistente Auta"
+      },
+      {
+        "role": "button",
+        "name": "🎓Tutorial",
+        "description": "Ver tutorial de nuevo"
+      },
+      {
+        "role": "button",
+        "name": "Abrir asistente Auta"
+      }
+    ]
+  },
+  "dom": {
+    "title": "AutaMedica Patient Portal",
+    "url": "https://patients.autamedica.com/",
+    "doctype": "html",
+    "characterSet": "UTF-8",
+    "head": {
+      "meta": [
+        {
+          "name": "",
+          "content": ""
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Portal personal de pacientes AutaMedica con acceso a historial clínico, citas y documentación."
+        }
+      ],
+      "links": [
+        {
+          "rel": "stylesheet",
+          "href": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "stylesheet",
+          "href": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "stylesheet",
+          "href": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "stylesheet",
+          "href": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "preload",
+          "href": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+          "type": "",
+          "as": "script"
+        }
+      ],
+      "scripts": [
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": true,
+          "integrity": ""
+        },
+        {
+          "src": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+          "type": "",
+          "async": false,
+          "defer": true,
+          "nomodule": false,
+          "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        }
+      ],
+      "styles": 0
+    },
+    "body": {
+      "classes": [
+        "antialiased"
+      ],
+      "id": "",
+      "childElementCount": 10
+    },
+    "elements": {
+      "total": 153,
+      "byTag": {
+        "div": 22,
+        "span": 7,
+        "p": 5,
+        "a": 8,
+        "img": 0,
+        "button": 9,
+        "input": 0,
+        "form": 0,
+        "table": 0,
+        "svg": 16
+      }
+    },
+    "tree": {
+      "tag": "html",
+      "id": null,
+      "classes": [],
+      "attributes": {
+        "lang": "es"
+      },
+      "textContent": null,
+      "childCount": 2,
+      "children": [
+        {
+          "tag": "head",
+          "id": null,
+          "classes": [],
+          "attributes": {},
+          "textContent": null,
+          "childCount": 26,
+          "children": [
+            {
+              "tag": "meta",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "charset": "utf-8"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "meta",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "name": "viewport",
+                "content": "width=device-width, initial-scale=1"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "stylesheet",
+                "href": "/_next/static/css/d38261e715b3739d.css",
+                "data-precedence": "next"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "stylesheet",
+                "href": "/_next/static/css/36983c859afbb829.css",
+                "data-precedence": "next"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "stylesheet",
+                "href": "/_next/static/css/551695a9ec94b021.css",
+                "data-precedence": "next"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "stylesheet",
+                "href": "/_next/static/css/a80eae22495959a3.css",
+                "data-precedence": "next"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "preload",
+                "as": "script",
+                "fetchpriority": "low",
+                "href": "/_next/static/chunks/webpack-454430aea186db67.js"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/main-app-8aeb260613e574ba.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "id": null,
+          "classes": [
+            "antialiased"
+          ],
+          "attributes": {
+            "class": "antialiased"
+          },
+          "textContent": null,
+          "childCount": 10,
+          "children": [
+            {
+              "tag": "div",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "hidden": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "classes": [
+                "sr-only",
+                "focus:not-sr-only",
+                "focus:absolute",
+                "focus:top-4",
+                "focus:left-4",
+                "focus:z-50",
+                "focus:px-4",
+                "focus:py-2",
+                "focus:bg-stone-800",
+                "focus:text-white",
+                "focus:rounded-lg",
+                "focus:outline-none",
+                "focus:ring-2",
+                "focus:ring-white"
+              ],
+              "attributes": {
+                "href": "#main-content",
+                "class": "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-stone-800 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              },
+              "textContent": "Saltar al contenido principal",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "div",
+              "id": null,
+              "classes": [
+                "flex",
+                "h-screen",
+                "bg-ivory-base"
+              ],
+              "attributes": {
+                "class": "flex h-screen bg-ivory-base"
+              },
+              "textContent": null,
+              "childCount": 4,
+              "children": [
+                {
+                  "tag": "aside",
+                  "id": null,
+                  "classes": [
+                    "w-[12vw]",
+                    "min-w-[180px]",
+                    "max-w-[220px]",
+                    "bg-white",
+                    "border-r",
+                    "border-stone-200",
+                    "shadow-sm",
+                    "flex",
+                    "flex-col"
+                  ],
+                  "attributes": {
+                    "class": "w-[12vw] min-w-[180px] max-w-[220px] bg-white border-r border-stone-200 shadow-sm flex flex-col"
+                  },
+                  "textContent": null,
+                  "childCount": 3,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "id": null,
+                      "classes": [
+                        "h-16",
+                        "flex",
+                        "items-center",
+                        "px-6",
+                        "border-b",
+                        "border-stone-200"
+                      ],
+                      "attributes": {
+                        "class": "h-16 flex items-center px-6 border-b border-stone-200"
+                      },
+                      "textContent": null,
+                      "childCount": 1,
+                      "children": [
+                        {
+                          "tag": "h1",
+                          "id": null,
+                          "classes": [
+                            "text-xl",
+                            "font-bold",
+                            "text-stone-900"
+                          ],
+                          "attributes": {
+                            "class": "text-xl font-bold text-stone-900"
+                          },
+                          "textContent": "AutaMedica",
+                          "childCount": 0,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "nav",
+                      "id": null,
+                      "classes": [
+                        "flex-1",
+                        "px-3",
+                        "py-4",
+                        "space-y-1"
+                      ],
+                      "attributes": {
+                        "class": "flex-1 px-3 py-4 space-y-1",
+                        "aria-label": "Navegación principal"
+                      },
+                      "textContent": null,
+                      "childCount": 7,
+                      "children": [
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "bg-stone-800",
+                            "text-white"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Inicio",
+                            "aria-current": "page",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-stone-800 text-white",
+                            "href": "/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Mis Citas",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/appointments/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Mi Anamnesis",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/anamnesis/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Historial Médico",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/medical-history/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Salud Preventiva",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/preventive-health/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Prevención Embarazo",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/pregnancy-prevention/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        },
+                        {
+                          "tag": "a",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "px-3",
+                            "py-2",
+                            "rounded-lg",
+                            "text-sm",
+                            "font-medium",
+                            "transition-colors",
+                            "text-stone-700",
+                            "hover:bg-stone-100",
+                            "hover:text-stone-900"
+                          ],
+                          "attributes": {
+                            "aria-label": "Ir a Perfil",
+                            "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                            "href": "/profile/"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "id": null,
+                      "classes": [
+                        "p-4",
+                        "border-t",
+                        "border-stone-200"
+                      ],
+                      "attributes": {
+                        "class": "p-4 border-t border-stone-200"
+                      },
+                      "textContent": null,
+                      "childCount": 2,
+                      "children": [
+                        {
+                          "tag": "div",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "items-center",
+                            "gap-3",
+                            "mb-3"
+                          ],
+                          "attributes": {
+                            "class": "flex items-center gap-3 mb-3",
+                            "role": "group",
+                            "aria-label": "Información del usuario"
+                          },
+                          "textContent": null,
+                          "childCount": 2,
+                          "children": []
+                        },
+                        {
+                          "tag": "button",
+                          "id": null,
+                          "classes": [
+                            "w-full",
+                            "flex",
+                            "items-center",
+                            "justify-center",
+                            "gap-2",
+                            "px-3",
+                            "py-2",
+                            "text-sm",
+                            "font-medium",
+                            "text-stone-700",
+                            "bg-stone-100",
+                            "hover:bg-stone-200",
+                            "rounded-lg",
+                            "transition-colors",
+                            "disabled:opacity-50",
+                            "disabled:cursor-not-allowed"
+                          ],
+                          "attributes": {
+                            "disabled": "",
+                            "aria-label": "Cerrar sesión y salir del portal",
+                            "class": "w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "main",
+                  "id": "main-content",
+                  "classes": [
+                    "flex-1",
+                    "overflow-hidden"
+                  ],
+                  "attributes": {
+                    "id": "main-content",
+                    "class": "flex-1 overflow-hidden",
+                    "role": "main"
+                  },
+                  "textContent": null,
+                  "childCount": 1,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "id": null,
+                      "classes": [
+                        "flex",
+                        "h-screen",
+                        "w-full",
+                        "overflow-hidden",
+                        "bg-ivory-base"
+                      ],
+                      "attributes": {
+                        "class": "flex h-screen w-full overflow-hidden bg-ivory-base"
+                      },
+                      "textContent": null,
+                      "childCount": 2,
+                      "children": [
+                        {
+                          "tag": "div",
+                          "id": null,
+                          "classes": [
+                            "flex-1",
+                            "flex",
+                            "flex-col",
+                            "overflow-hidden"
+                          ],
+                          "attributes": {
+                            "class": "flex-1 flex flex-col overflow-hidden"
+                          },
+                          "textContent": null,
+                          "childCount": 2,
+                          "children": []
+                        },
+                        {
+                          "tag": "aside",
+                          "id": null,
+                          "classes": [
+                            "flex",
+                            "w-[30%]",
+                            "min-w-[320px]",
+                            "max-w-[400px]",
+                            "flex-col",
+                            "border-l",
+                            "border-stone-300",
+                            "bg-white",
+                            "shadow-sm"
+                          ],
+                          "attributes": {
+                            "class": "flex w-[30%] min-w-[320px] max-w-[400px] flex-col border-l border-stone-300 bg-white shadow-sm"
+                          },
+                          "textContent": null,
+                          "childCount": 2,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "button",
+                  "id": null,
+                  "classes": [
+                    "fixed",
+                    "left-4",
+                    "bottom-4",
+                    "z-40",
+                    "flex",
+                    "h-12",
+                    "w-12",
+                    "items-center",
+                    "justify-center",
+                    "rounded-full",
+                    "border-2",
+                    "border-stone-300",
+                    "bg-white",
+                    "text-stone-700",
+                    "shadow-xl",
+                    "transition-all",
+                    "hover:scale-110",
+                    "hover:border-stone-600",
+                    "hover:text-stone-900"
+                  ],
+                  "attributes": {
+                    "class": "fixed left-4 bottom-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-700 shadow-xl transition-all hover:scale-110 hover:border-stone-600 hover:text-stone-900",
+                    "aria-label": "Centro de ayuda",
+                    "title": "Guías interactivas"
+                  },
+                  "textContent": null,
+                  "childCount": 1,
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "id": null,
+                      "classes": [
+                        "lucide",
+                        "lucide-book-open",
+                        "h-5",
+                        "w-5"
+                      ],
+                      "attributes": {
+                        "xmlns": "http://www.w3.org/2000/svg",
+                        "width": "24",
+                        "height": "24",
+                        "viewBox": "0 0 24 24",
+                        "fill": "none",
+                        "stroke": "currentColor",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round",
+                        "class": "lucide lucide-book-open h-5 w-5"
+                      },
+                      "textContent": null,
+                      "childCount": 2,
+                      "children": [
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M12 7v14"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "button",
+                  "id": null,
+                  "classes": [
+                    "fixed",
+                    "bottom-6",
+                    "right-6",
+                    "z-50",
+                    "flex",
+                    "h-16",
+                    "w-16",
+                    "items-center",
+                    "justify-center",
+                    "rounded-full",
+                    "bg-gradient-to-br",
+                    "from-stone-700",
+                    "to-stone-900",
+                    "text-white",
+                    "shadow-2xl",
+                    "transition-all",
+                    "hover:scale-110",
+                    "hover:shadow-3xl",
+                    "ring-4",
+                    "ring-white/20"
+                  ],
+                  "attributes": {
+                    "class": "fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-stone-700 to-stone-900 text-white shadow-2xl transition-all hover:scale-110 hover:shadow-3xl ring-4 ring-white/20",
+                    "aria-label": "Abrir asistente Auta"
+                  },
+                  "textContent": null,
+                  "childCount": 1,
+                  "children": [
+                    {
+                      "tag": "svg",
+                      "id": null,
+                      "classes": [
+                        "lucide",
+                        "lucide-sparkles",
+                        "h-7",
+                        "w-7",
+                        "animate-pulse"
+                      ],
+                      "attributes": {
+                        "xmlns": "http://www.w3.org/2000/svg",
+                        "width": "24",
+                        "height": "24",
+                        "viewBox": "0 0 24 24",
+                        "fill": "none",
+                        "stroke": "currentColor",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round",
+                        "class": "lucide lucide-sparkles h-7 w-7 animate-pulse"
+                      },
+                      "textContent": null,
+                      "childCount": 5,
+                      "children": [
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M20 3v4"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M22 5h-4"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M4 17v2"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "path",
+                          "id": null,
+                          "classes": [],
+                          "attributes": {
+                            "d": "M5 18H3"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "classes": [
+                "fixed",
+                "bottom-4",
+                "left-4",
+                "z-50",
+                "flex",
+                "items-center",
+                "gap-2",
+                "px-4",
+                "py-2",
+                "bg-stone-800",
+                "hover:bg-stone-700",
+                "text-white",
+                "rounded-full",
+                "shadow-lg",
+                "hover:shadow-xl",
+                "transition-all",
+                "hover:scale-105"
+              ],
+              "attributes": {
+                "class": "fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105",
+                "title": "Ver tutorial de nuevo"
+              },
+              "textContent": null,
+              "childCount": 2,
+              "children": [
+                {
+                  "tag": "span",
+                  "id": null,
+                  "classes": [
+                    "text-xl"
+                  ],
+                  "attributes": {
+                    "class": "text-xl"
+                  },
+                  "textContent": "🎓",
+                  "childCount": 0,
+                  "children": []
+                },
+                {
+                  "tag": "span",
+                  "id": null,
+                  "classes": [
+                    "text-sm",
+                    "font-medium"
+                  ],
+                  "attributes": {
+                    "class": "text-sm font-medium"
+                  },
+                  "textContent": "Tutorial",
+                  "childCount": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "classes": [
+                "fixed",
+                "bottom-6",
+                "right-6",
+                "z-50",
+                "flex",
+                "h-16",
+                "w-16",
+                "items-center",
+                "justify-center",
+                "rounded-full",
+                "bg-gradient-to-br",
+                "from-stone-700",
+                "to-stone-900",
+                "text-white",
+                "shadow-2xl",
+                "transition-all",
+                "hover:scale-110",
+                "hover:shadow-3xl",
+                "ring-4",
+                "ring-white/20"
+              ],
+              "attributes": {
+                "class": "fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-stone-700 to-stone-900 text-white shadow-2xl transition-all hover:scale-110 hover:shadow-3xl ring-4 ring-white/20",
+                "aria-label": "Abrir asistente Auta"
+              },
+              "textContent": null,
+              "childCount": 1,
+              "children": [
+                {
+                  "tag": "svg",
+                  "id": null,
+                  "classes": [
+                    "lucide",
+                    "lucide-sparkles",
+                    "h-7",
+                    "w-7",
+                    "animate-pulse"
+                  ],
+                  "attributes": {
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "width": "24",
+                    "height": "24",
+                    "viewBox": "0 0 24 24",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "stroke-width": "2",
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "class": "lucide lucide-sparkles h-7 w-7 animate-pulse"
+                  },
+                  "textContent": null,
+                  "childCount": 5,
+                  "children": [
+                    {
+                      "tag": "path",
+                      "id": null,
+                      "classes": [],
+                      "attributes": {
+                        "d": "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                      },
+                      "textContent": null,
+                      "childCount": 0,
+                      "children": []
+                    },
+                    {
+                      "tag": "path",
+                      "id": null,
+                      "classes": [],
+                      "attributes": {
+                        "d": "M20 3v4"
+                      },
+                      "textContent": null,
+                      "childCount": 0,
+                      "children": []
+                    },
+                    {
+                      "tag": "path",
+                      "id": null,
+                      "classes": [],
+                      "attributes": {
+                        "d": "M22 5h-4"
+                      },
+                      "textContent": null,
+                      "childCount": 0,
+                      "children": []
+                    },
+                    {
+                      "tag": "path",
+                      "id": null,
+                      "classes": [],
+                      "attributes": {
+                        "d": "M4 17v2"
+                      },
+                      "textContent": null,
+                      "childCount": 0,
+                      "children": []
+                    },
+                    {
+                      "tag": "path",
+                      "id": null,
+                      "classes": [],
+                      "attributes": {
+                        "d": "M5 18H3"
+                      },
+                      "textContent": null,
+                      "childCount": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "script",
+              "id": "_R_",
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/webpack-454430aea186db67.js",
+                "id": "_R_",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "(self.__next_f=self.__next_f||[]).push([0])",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[54282,[\\\"9290\\\",\\\"static/chunks/9290-f771088194e6",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\" que buscas.\\\"}],[\\\"$\\\",\\\"a\\\",null,{\\\"href\\\":\\\"/\\\",\\\"className\\\":\\\"inline-blo",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "defer": "",
+                "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+                "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==",
+                "data-cf-beacon": "{\"version\":\"2024.11.0\",\"token\":\"ed2b7ddf1d7c464999f9f3d4038666b8\",\"r\":1,\"server_timing\":{\"name\":{\"cfCacheStatus\":true,\"cfEdge\":true,\"cfExtPri\":true,\"cfL4\":true,\"cfOrigin\":true,\"cfSpeedBrain\":true},\"location_startswith\":null}}",
+                "crossorigin": "anonymous"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

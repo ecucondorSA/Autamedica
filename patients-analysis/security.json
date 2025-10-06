@@ -1,0 +1,11 @@
+{
+  "protocol": "https:",
+  "isSecure": true,
+  "origin": "https://patients.autamedica.com",
+  "securityState": "unknown",
+  "mixedContent": {
+    "hasDisplayed": false,
+    "hasActive": false
+  },
+  "headers": {}
+}

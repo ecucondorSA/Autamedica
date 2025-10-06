@@ -1,0 +1,113 @@
+ALTER TABLE "public"."anamnesis" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."anamnesis_attachments" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."anamnesis_sections" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."appointments" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."audit_logs" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."call_events" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."call_notifications" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."calls" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."community_groups" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."community_notifications" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."community_posts" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."companies" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."company_members" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."content_reports" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."doctors" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."group_memberships" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."health_goals" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."lab_results" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."medical_record_authorizations" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."medical_records" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."medication_logs" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."patient_care_team" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."patient_screenings" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."patients" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."post_comments" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."post_reactions" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."prescriptions" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."roles" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."screening_reminders" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."session_chat_messages" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."session_events" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."session_participants" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."session_recordings" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."symptom_reports" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."telemedicine_sessions" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."user_roles" ENABLE ROW LEVEL SECURITY;
+
+--
+ALTER TABLE "public"."vital_signs" ENABLE ROW LEVEL SECURITY;
+

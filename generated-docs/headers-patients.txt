@@ -1,0 +1,14 @@
+HTTP/2 200 
+date: Mon, 06 Oct 2025 11:47:52 GMT
+content-type: text/html; charset=utf-8
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding
+x-opennext: 1
+x-powered-by: Next.js
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=lbW010WsarVmZdDmq4sivKGJBXawiXGUthdv98zkospg52bZBN9Bd5g59DD7BUYSupQIOuYPL8nKWDsG%2F7xMTW9G%2FHrbwgeKulnSa9JBCWGSTGQ8AX0ImJT2YpOp2reoWtU9"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: 98a4ed2caf95d22c-EZE
+alt-svc: h3=":443"; ma=86400
+

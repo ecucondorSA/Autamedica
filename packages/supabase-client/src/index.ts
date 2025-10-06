@@ -17,7 +17,7 @@ export function getSupabaseBrowserClient(): AppSupabaseClient {
 
   if (!browserClient) {
     // Dynamic import to avoid bundling server code
-    const { createBrowserClient } = require('@autamedica/auth');
+    const { createBrowserClient } = require('@autamedica/auth/client');
     browserClient = createBrowserClient() as AppSupabaseClient;
   }
 
@@ -42,7 +42,7 @@ export async function getSupabaseServerClient(): Promise<AppSupabaseClient> {
   }
 
   // Dynamic import to avoid bundling server code in client
-  const { createServerClient } = await import('@autamedica/auth');
+  const { createServerClient } = await import('@autamedica/auth/server');
   return (await createServerClient()) as AppSupabaseClient;
 }
 

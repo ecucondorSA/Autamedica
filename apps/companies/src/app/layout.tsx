@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -18,55 +18,21 @@ import {
   TrendingUp,
   Database,
 } from 'lucide-react';
-import { createClient } from '@/lib/supabase';
 import './globals.css';
-import { canManageCompany, type MemberRole } from '@autamedica/shared';
-import { logger } from '@autamedica/shared';
+import { canManageCompany } from '@autamedica/shared';
 import { SessionSync } from '@/components/SessionSync';
+import { UserProvider, useUser } from '@/components/providers/UserProvider';
 
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+function LayoutContent({ children }: RootLayoutProps) {
   const [activeProfile, setActiveProfile] = useState('emergency');
   const [notifications, _setNotifications] = useState(3);
-  const [companyName, setCompanyName] = useState('Empresa');
-  const [adminName, setAdminName] = useState('Administrador');
-  const [userMemberRole, setUserMemberRole] = useState<MemberRole | null>(null);
 
-  useEffect(() => {
-    const fetchUserDataAndRole = async () => {
-      const supabase = createClient();
-      if (!supabase) return;
-
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const name = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Administrador';
-        setAdminName(name);
-        
-        const company = user.user_metadata?.company_name || user.user_metadata?.company || 'Empresa';
-        setCompanyName(company);
-
-        // Check for admin role in any of the user's companies
-        const { data: memberData, error } = await supabase
-          .from('company_members')
-          .select('role')
-          .eq('user_id', user.id)
-          .eq('role', 'admin')
-          .limit(1);
-
-        if (error) {
-          logger.error('Error fetching member role:', error);
-          setUserMemberRole('member'); // Default to non-admin on error
-        } else {
-          // If we found at least one admin membership, set role to admin.
-          setUserMemberRole(memberData && memberData.length > 0 ? 'admin' : 'member');
-        }
-      }
-    };
-    fetchUserDataAndRole();
-  }, []);
+  // Get user data from context
+  const { companyName, adminName, userMemberRole } = useUser();
 
   const profiles = [
     {
@@ -298,5 +264,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </div>
       </body>
     </html>
+  );
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <UserProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </UserProvider>
   );
 }

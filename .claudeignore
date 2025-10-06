@@ -1,0 +1,13 @@
+# Ignorar archivos innecesarios para Claude Code
+node_modules/
+.next/
+.turbo/
+dist/
+build/
+.git/
+coverage/
+.cache/
+*.log
+
+# Pero INCLUIR la configuración de agentes
+!.claude/

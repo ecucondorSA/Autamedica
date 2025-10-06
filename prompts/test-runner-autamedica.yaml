@@ -1,0 +1,97 @@
+meta:
+  name: "Test Runner – AutaMedica (read-only)"
+  version: "2025-10-06"
+  mode: "non-interactive"
+  mutation: "disabled"
+  outputs_dir: "generated-docs"
+
+targets:
+  web:
+    patients: "https://patients.autamedica.com"
+    doctors: "https://doctors.autamedica.com"
+    auth: "https://auth.autamedica.com"
+  db:
+    schema: "public"
+
+gates:
+  fail_on:
+    - "http_status>=500"
+    - "missing_hsts"
+    - "rls_disabled"
+    - "pnpm_audit_critical>0"
+
+steps:
+  - id: env_check
+    run:
+      - "node -v"
+      - "pnpm -v"
+      - "pnpm -w install --frozen-lockfile"
+
+  - id: build_quality
+    run:
+      - "pnpm -w turbo run lint typecheck --filter=..."
+      - "pnpm -w turbo run test --filter=..."
+      - "pnpm -w turbo run build --filter=apps/*"
+    artifacts:
+      - "build-logs.txt"
+
+  - id: smoke_web
+    http:
+      - url: "${targets.web.patients}/"
+      - url: "${targets.web.doctors}/"
+      - url: "${targets.web.auth}/auth/login/?role=patient"
+    save_headers:
+      - "headers-patients.txt"
+      - "headers-doctors.txt"
+      - "headers-auth.txt"
+    checks:
+      - "status in [200, 301, 302]"
+
+  - id: security_headers
+    analyze_headers:
+      require:
+        - "strict-transport-security"
+        - "x-frame-options"
+        - "content-security-policy"
+        - "referrer-policy"
+        - "permissions-policy"
+
+  - id: dns_tls
+    run:
+      - "curl -Iv ${targets.web.patients}/ -m 15 | head -n 30"
+      - "curl -s -D- -o /dev/null ${targets.web.auth}/auth/login/?role=patient"
+
+  - id: db_basics
+    run:
+      - "supabase migration list"
+      - "psql -c \"SELECT tablename, rowsecurity FROM pg_tables WHERE schemaname='${targets.db.schema}';\" > ${outputs_dir}/rls-table-status.txt"
+      - "psql -c \"SELECT COUNT(*) FROM pg_policies WHERE schemaname='${targets.db.schema}';\" > ${outputs_dir}/policies-count.txt"
+    checks:
+      - "file_contains: rls-table-status.txt: true"
+
+  - id: deps_vulns
+    run:
+      - "pnpm audit --prod --json > ${outputs_dir}/pnpm-audit.json || true"
+    evaluate:
+      - "assert_json: pnpm-audit.json: advisories_critical==0"
+
+  - id: perf_quick
+    run:
+      - "node -e \"const https=require('https');const u='${targets.web.patients}/';const s=Date.now();https.get(u,(r)=>{r.resume();r.on('end',()=>console.log('TTFB(ms):',Date.now()-s));});\" | tee ${outputs_dir}/perf-patients.txt"
+
+report:
+  main: "TEST_RUN_REPORT.md"
+  include:
+    - "headers-patients.txt"
+    - "headers-doctors.txt"
+    - "headers-auth.txt"
+    - "rls-table-status.txt"
+    - "policies-count.txt"
+    - "pnpm-audit.json"
+    - "perf-patients.txt"
+
+exit_policy:
+  success_if:
+    - "all_steps_passed"
+  fail_if:
+    - "any_gate_failed"

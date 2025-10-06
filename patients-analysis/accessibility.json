@@ -1,0 +1,116 @@
+{
+  "role": "WebArea",
+  "name": "AutaMedica Patient Portal",
+  "children": [
+    {
+      "role": "link",
+      "name": "Saltar al contenido principal"
+    },
+    {
+      "role": "heading",
+      "name": "AutaMedica",
+      "level": 1
+    },
+    {
+      "role": "link",
+      "name": "Ir a Inicio"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Mis Citas"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Mi Anamnesis"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Historial Médico"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Salud Preventiva"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Prevención Embarazo"
+    },
+    {
+      "role": "link",
+      "name": "Ir a Perfil"
+    },
+    {
+      "role": "text",
+      "name": "Usuario"
+    },
+    {
+      "role": "text",
+      "name": "No disponible"
+    },
+    {
+      "role": "button",
+      "name": "Cerrar sesión y salir del portal",
+      "disabled": true
+    },
+    {
+      "role": "heading",
+      "name": "¡Hola, Usuario! 👋",
+      "level": 1
+    },
+    {
+      "role": "text",
+      "name": "Tu centro de telemedicina está listo"
+    },
+    {
+      "role": "text",
+      "name": "Disponible"
+    },
+    {
+      "role": "button",
+      "name": "Comunidad"
+    },
+    {
+      "role": "button",
+      "name": "Progreso"
+    },
+    {
+      "role": "button",
+      "name": "Acciones"
+    },
+    {
+      "role": "heading",
+      "name": "💬 Tu Comunidad",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "No hay publicaciones aún"
+    },
+    {
+      "role": "text",
+      "name": "¡Sé el primero en publicar!"
+    },
+    {
+      "role": "button",
+      "name": "+ Crear publicación"
+    },
+    {
+      "role": "button",
+      "name": "Centro de ayuda",
+      "description": "Guías interactivas"
+    },
+    {
+      "role": "button",
+      "name": "Abrir asistente Auta"
+    },
+    {
+      "role": "button",
+      "name": "🎓Tutorial",
+      "description": "Ver tutorial de nuevo"
+    },
+    {
+      "role": "button",
+      "name": "Abrir asistente Auta"
+    }
+  ]
+}

@@ -1,0 +1,1289 @@
+{
+  "title": "AutaMedica Patient Portal",
+  "url": "https://patients.autamedica.com/",
+  "doctype": "html",
+  "characterSet": "UTF-8",
+  "head": {
+    "meta": [
+      {
+        "name": "",
+        "content": ""
+      },
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1"
+      },
+      {
+        "name": "description",
+        "content": "Portal personal de pacientes AutaMedica con acceso a historial clínico, citas y documentación."
+      }
+    ],
+    "links": [
+      {
+        "rel": "stylesheet",
+        "href": "https://patients.autamedica.com/_next/static/css/d38261e715b3739d.css",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://patients.autamedica.com/_next/static/css/36983c859afbb829.css",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://patients.autamedica.com/_next/static/css/551695a9ec94b021.css",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://patients.autamedica.com/_next/static/css/a80eae22495959a3.css",
+        "type": "",
+        "as": ""
+      },
+      {
+        "rel": "preload",
+        "href": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+        "type": "",
+        "as": "script"
+      }
+    ],
+    "scripts": [
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/main-app-8aeb260613e574ba.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/9290-f771088194e6884e.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/3972-2a161dea02e9437d.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/6588-c3453608717fa313.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/6300-3682762e4483bb89.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/8850-29dc34f122248c1e.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/5270-2719e554da958acd.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/layout-2429234176ce6da7.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/730-ce7e5395c6708a8c.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/2460-23d5770284559f0a.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/6580-c1b156e4bcaee5d4.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/app/(dashboard)/page-8bbc1ef3e55621b5.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/polyfills-42372ed130431b0a.js",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": true,
+        "integrity": ""
+      },
+      {
+        "src": "https://patients.autamedica.com/_next/static/chunks/webpack-454430aea186db67.js",
+        "type": "",
+        "async": true,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "async": false,
+        "defer": false,
+        "nomodule": false,
+        "integrity": ""
+      },
+      {
+        "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+        "type": "",
+        "async": false,
+        "defer": true,
+        "nomodule": false,
+        "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      }
+    ],
+    "styles": 0
+  },
+  "body": {
+    "classes": [
+      "antialiased"
+    ],
+    "id": "",
+    "childElementCount": 10
+  },
+  "elements": {
+    "total": 153,
+    "byTag": {
+      "div": 22,
+      "span": 7,
+      "p": 5,
+      "a": 8,
+      "img": 0,
+      "button": 9,
+      "input": 0,
+      "form": 0,
+      "table": 0,
+      "svg": 16
+    }
+  },
+  "tree": {
+    "tag": "html",
+    "id": null,
+    "classes": [],
+    "attributes": {
+      "lang": "es"
+    },
+    "textContent": null,
+    "childCount": 2,
+    "children": [
+      {
+        "tag": "head",
+        "id": null,
+        "classes": [],
+        "attributes": {},
+        "textContent": null,
+        "childCount": 26,
+        "children": [
+          {
+            "tag": "meta",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "charset": "utf-8"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "meta",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "name": "viewport",
+              "content": "width=device-width, initial-scale=1"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "/_next/static/css/d38261e715b3739d.css",
+              "data-precedence": "next"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "/_next/static/css/36983c859afbb829.css",
+              "data-precedence": "next"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "/_next/static/css/551695a9ec94b021.css",
+              "data-precedence": "next"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "/_next/static/css/a80eae22495959a3.css",
+              "data-precedence": "next"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "link",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "rel": "preload",
+              "as": "script",
+              "fetchpriority": "low",
+              "href": "/_next/static/chunks/webpack-454430aea186db67.js"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/main-app-8aeb260613e574ba.js",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "tag": "body",
+        "id": null,
+        "classes": [
+          "antialiased"
+        ],
+        "attributes": {
+          "class": "antialiased"
+        },
+        "textContent": null,
+        "childCount": 10,
+        "children": [
+          {
+            "tag": "div",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "hidden": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "a",
+            "id": null,
+            "classes": [
+              "sr-only",
+              "focus:not-sr-only",
+              "focus:absolute",
+              "focus:top-4",
+              "focus:left-4",
+              "focus:z-50",
+              "focus:px-4",
+              "focus:py-2",
+              "focus:bg-stone-800",
+              "focus:text-white",
+              "focus:rounded-lg",
+              "focus:outline-none",
+              "focus:ring-2",
+              "focus:ring-white"
+            ],
+            "attributes": {
+              "href": "#main-content",
+              "class": "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-stone-800 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+            },
+            "textContent": "Saltar al contenido principal",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "classes": [
+              "flex",
+              "h-screen",
+              "bg-ivory-base"
+            ],
+            "attributes": {
+              "class": "flex h-screen bg-ivory-base"
+            },
+            "textContent": null,
+            "childCount": 4,
+            "children": [
+              {
+                "tag": "aside",
+                "id": null,
+                "classes": [
+                  "w-[12vw]",
+                  "min-w-[180px]",
+                  "max-w-[220px]",
+                  "bg-white",
+                  "border-r",
+                  "border-stone-200",
+                  "shadow-sm",
+                  "flex",
+                  "flex-col"
+                ],
+                "attributes": {
+                  "class": "w-[12vw] min-w-[180px] max-w-[220px] bg-white border-r border-stone-200 shadow-sm flex flex-col"
+                },
+                "textContent": null,
+                "childCount": 3,
+                "children": [
+                  {
+                    "tag": "div",
+                    "id": null,
+                    "classes": [
+                      "h-16",
+                      "flex",
+                      "items-center",
+                      "px-6",
+                      "border-b",
+                      "border-stone-200"
+                    ],
+                    "attributes": {
+                      "class": "h-16 flex items-center px-6 border-b border-stone-200"
+                    },
+                    "textContent": null,
+                    "childCount": 1,
+                    "children": [
+                      {
+                        "tag": "h1",
+                        "id": null,
+                        "classes": [
+                          "text-xl",
+                          "font-bold",
+                          "text-stone-900"
+                        ],
+                        "attributes": {
+                          "class": "text-xl font-bold text-stone-900"
+                        },
+                        "textContent": "AutaMedica",
+                        "childCount": 0,
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "nav",
+                    "id": null,
+                    "classes": [
+                      "flex-1",
+                      "px-3",
+                      "py-4",
+                      "space-y-1"
+                    ],
+                    "attributes": {
+                      "class": "flex-1 px-3 py-4 space-y-1",
+                      "aria-label": "Navegación principal"
+                    },
+                    "textContent": null,
+                    "childCount": 7,
+                    "children": [
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "bg-stone-800",
+                          "text-white"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Inicio",
+                          "aria-current": "page",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-stone-800 text-white",
+                          "href": "/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Mis Citas",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/appointments/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Mi Anamnesis",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/anamnesis/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Historial Médico",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/medical-history/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Salud Preventiva",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/preventive-health/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Prevención Embarazo",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/pregnancy-prevention/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      },
+                      {
+                        "tag": "a",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "px-3",
+                          "py-2",
+                          "rounded-lg",
+                          "text-sm",
+                          "font-medium",
+                          "transition-colors",
+                          "text-stone-700",
+                          "hover:bg-stone-100",
+                          "hover:text-stone-900"
+                        ],
+                        "attributes": {
+                          "aria-label": "Ir a Perfil",
+                          "class": "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-stone-700 hover:bg-stone-100 hover:text-stone-900",
+                          "href": "/profile/"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "id": null,
+                    "classes": [
+                      "p-4",
+                      "border-t",
+                      "border-stone-200"
+                    ],
+                    "attributes": {
+                      "class": "p-4 border-t border-stone-200"
+                    },
+                    "textContent": null,
+                    "childCount": 2,
+                    "children": [
+                      {
+                        "tag": "div",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "items-center",
+                          "gap-3",
+                          "mb-3"
+                        ],
+                        "attributes": {
+                          "class": "flex items-center gap-3 mb-3",
+                          "role": "group",
+                          "aria-label": "Información del usuario"
+                        },
+                        "textContent": null,
+                        "childCount": 2,
+                        "children": []
+                      },
+                      {
+                        "tag": "button",
+                        "id": null,
+                        "classes": [
+                          "w-full",
+                          "flex",
+                          "items-center",
+                          "justify-center",
+                          "gap-2",
+                          "px-3",
+                          "py-2",
+                          "text-sm",
+                          "font-medium",
+                          "text-stone-700",
+                          "bg-stone-100",
+                          "hover:bg-stone-200",
+                          "rounded-lg",
+                          "transition-colors",
+                          "disabled:opacity-50",
+                          "disabled:cursor-not-allowed"
+                        ],
+                        "attributes": {
+                          "disabled": "",
+                          "aria-label": "Cerrar sesión y salir del portal",
+                          "class": "w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        },
+                        "textContent": null,
+                        "childCount": 1,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "main",
+                "id": "main-content",
+                "classes": [
+                  "flex-1",
+                  "overflow-hidden"
+                ],
+                "attributes": {
+                  "id": "main-content",
+                  "class": "flex-1 overflow-hidden",
+                  "role": "main"
+                },
+                "textContent": null,
+                "childCount": 1,
+                "children": [
+                  {
+                    "tag": "div",
+                    "id": null,
+                    "classes": [
+                      "flex",
+                      "h-screen",
+                      "w-full",
+                      "overflow-hidden",
+                      "bg-ivory-base"
+                    ],
+                    "attributes": {
+                      "class": "flex h-screen w-full overflow-hidden bg-ivory-base"
+                    },
+                    "textContent": null,
+                    "childCount": 2,
+                    "children": [
+                      {
+                        "tag": "div",
+                        "id": null,
+                        "classes": [
+                          "flex-1",
+                          "flex",
+                          "flex-col",
+                          "overflow-hidden"
+                        ],
+                        "attributes": {
+                          "class": "flex-1 flex flex-col overflow-hidden"
+                        },
+                        "textContent": null,
+                        "childCount": 2,
+                        "children": []
+                      },
+                      {
+                        "tag": "aside",
+                        "id": null,
+                        "classes": [
+                          "flex",
+                          "w-[30%]",
+                          "min-w-[320px]",
+                          "max-w-[400px]",
+                          "flex-col",
+                          "border-l",
+                          "border-stone-300",
+                          "bg-white",
+                          "shadow-sm"
+                        ],
+                        "attributes": {
+                          "class": "flex w-[30%] min-w-[320px] max-w-[400px] flex-col border-l border-stone-300 bg-white shadow-sm"
+                        },
+                        "textContent": null,
+                        "childCount": 2,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "button",
+                "id": null,
+                "classes": [
+                  "fixed",
+                  "left-4",
+                  "bottom-4",
+                  "z-40",
+                  "flex",
+                  "h-12",
+                  "w-12",
+                  "items-center",
+                  "justify-center",
+                  "rounded-full",
+                  "border-2",
+                  "border-stone-300",
+                  "bg-white",
+                  "text-stone-700",
+                  "shadow-xl",
+                  "transition-all",
+                  "hover:scale-110",
+                  "hover:border-stone-600",
+                  "hover:text-stone-900"
+                ],
+                "attributes": {
+                  "class": "fixed left-4 bottom-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-700 shadow-xl transition-all hover:scale-110 hover:border-stone-600 hover:text-stone-900",
+                  "aria-label": "Centro de ayuda",
+                  "title": "Guías interactivas"
+                },
+                "textContent": null,
+                "childCount": 1,
+                "children": [
+                  {
+                    "tag": "svg",
+                    "id": null,
+                    "classes": [
+                      "lucide",
+                      "lucide-book-open",
+                      "h-5",
+                      "w-5"
+                    ],
+                    "attributes": {
+                      "xmlns": "http://www.w3.org/2000/svg",
+                      "width": "24",
+                      "height": "24",
+                      "viewBox": "0 0 24 24",
+                      "fill": "none",
+                      "stroke": "currentColor",
+                      "stroke-width": "2",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "class": "lucide lucide-book-open h-5 w-5"
+                    },
+                    "textContent": null,
+                    "childCount": 2,
+                    "children": [
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M12 7v14"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      },
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "button",
+                "id": null,
+                "classes": [
+                  "fixed",
+                  "bottom-6",
+                  "right-6",
+                  "z-50",
+                  "flex",
+                  "h-16",
+                  "w-16",
+                  "items-center",
+                  "justify-center",
+                  "rounded-full",
+                  "bg-gradient-to-br",
+                  "from-stone-700",
+                  "to-stone-900",
+                  "text-white",
+                  "shadow-2xl",
+                  "transition-all",
+                  "hover:scale-110",
+                  "hover:shadow-3xl",
+                  "ring-4",
+                  "ring-white/20"
+                ],
+                "attributes": {
+                  "class": "fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-stone-700 to-stone-900 text-white shadow-2xl transition-all hover:scale-110 hover:shadow-3xl ring-4 ring-white/20",
+                  "aria-label": "Abrir asistente Auta"
+                },
+                "textContent": null,
+                "childCount": 1,
+                "children": [
+                  {
+                    "tag": "svg",
+                    "id": null,
+                    "classes": [
+                      "lucide",
+                      "lucide-sparkles",
+                      "h-7",
+                      "w-7",
+                      "animate-pulse"
+                    ],
+                    "attributes": {
+                      "xmlns": "http://www.w3.org/2000/svg",
+                      "width": "24",
+                      "height": "24",
+                      "viewBox": "0 0 24 24",
+                      "fill": "none",
+                      "stroke": "currentColor",
+                      "stroke-width": "2",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "class": "lucide lucide-sparkles h-7 w-7 animate-pulse"
+                    },
+                    "textContent": null,
+                    "childCount": 5,
+                    "children": [
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      },
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M20 3v4"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      },
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M22 5h-4"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      },
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M4 17v2"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      },
+                      {
+                        "tag": "path",
+                        "id": null,
+                        "classes": [],
+                        "attributes": {
+                          "d": "M5 18H3"
+                        },
+                        "textContent": null,
+                        "childCount": 0,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "classes": [
+              "fixed",
+              "bottom-4",
+              "left-4",
+              "z-50",
+              "flex",
+              "items-center",
+              "gap-2",
+              "px-4",
+              "py-2",
+              "bg-stone-800",
+              "hover:bg-stone-700",
+              "text-white",
+              "rounded-full",
+              "shadow-lg",
+              "hover:shadow-xl",
+              "transition-all",
+              "hover:scale-105"
+            ],
+            "attributes": {
+              "class": "fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105",
+              "title": "Ver tutorial de nuevo"
+            },
+            "textContent": null,
+            "childCount": 2,
+            "children": [
+              {
+                "tag": "span",
+                "id": null,
+                "classes": [
+                  "text-xl"
+                ],
+                "attributes": {
+                  "class": "text-xl"
+                },
+                "textContent": "🎓",
+                "childCount": 0,
+                "children": []
+              },
+              {
+                "tag": "span",
+                "id": null,
+                "classes": [
+                  "text-sm",
+                  "font-medium"
+                ],
+                "attributes": {
+                  "class": "text-sm font-medium"
+                },
+                "textContent": "Tutorial",
+                "childCount": 0,
+                "children": []
+              }
+            ]
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "classes": [
+              "fixed",
+              "bottom-6",
+              "right-6",
+              "z-50",
+              "flex",
+              "h-16",
+              "w-16",
+              "items-center",
+              "justify-center",
+              "rounded-full",
+              "bg-gradient-to-br",
+              "from-stone-700",
+              "to-stone-900",
+              "text-white",
+              "shadow-2xl",
+              "transition-all",
+              "hover:scale-110",
+              "hover:shadow-3xl",
+              "ring-4",
+              "ring-white/20"
+            ],
+            "attributes": {
+              "class": "fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-stone-700 to-stone-900 text-white shadow-2xl transition-all hover:scale-110 hover:shadow-3xl ring-4 ring-white/20",
+              "aria-label": "Abrir asistente Auta"
+            },
+            "textContent": null,
+            "childCount": 1,
+            "children": [
+              {
+                "tag": "svg",
+                "id": null,
+                "classes": [
+                  "lucide",
+                  "lucide-sparkles",
+                  "h-7",
+                  "w-7",
+                  "animate-pulse"
+                ],
+                "attributes": {
+                  "xmlns": "http://www.w3.org/2000/svg",
+                  "width": "24",
+                  "height": "24",
+                  "viewBox": "0 0 24 24",
+                  "fill": "none",
+                  "stroke": "currentColor",
+                  "stroke-width": "2",
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "class": "lucide lucide-sparkles h-7 w-7 animate-pulse"
+                },
+                "textContent": null,
+                "childCount": 5,
+                "children": [
+                  {
+                    "tag": "path",
+                    "id": null,
+                    "classes": [],
+                    "attributes": {
+                      "d": "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                    },
+                    "textContent": null,
+                    "childCount": 0,
+                    "children": []
+                  },
+                  {
+                    "tag": "path",
+                    "id": null,
+                    "classes": [],
+                    "attributes": {
+                      "d": "M20 3v4"
+                    },
+                    "textContent": null,
+                    "childCount": 0,
+                    "children": []
+                  },
+                  {
+                    "tag": "path",
+                    "id": null,
+                    "classes": [],
+                    "attributes": {
+                      "d": "M22 5h-4"
+                    },
+                    "textContent": null,
+                    "childCount": 0,
+                    "children": []
+                  },
+                  {
+                    "tag": "path",
+                    "id": null,
+                    "classes": [],
+                    "attributes": {
+                      "d": "M4 17v2"
+                    },
+                    "textContent": null,
+                    "childCount": 0,
+                    "children": []
+                  },
+                  {
+                    "tag": "path",
+                    "id": null,
+                    "classes": [],
+                    "attributes": {
+                      "d": "M5 18H3"
+                    },
+                    "textContent": null,
+                    "childCount": 0,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "script",
+            "id": "_R_",
+            "classes": [],
+            "attributes": {
+              "src": "/_next/static/chunks/webpack-454430aea186db67.js",
+              "id": "_R_",
+              "async": ""
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "(self.__next_f=self.__next_f||[]).push([0])",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[54282,[\\\"9290\\\",\\\"static/chunks/9290-f771088194e6",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {},
+            "textContent": "self.__next_f.push([1,\" que buscas.\\\"}],[\\\"$\\\",\\\"a\\\",null,{\\\"href\\\":\\\"/\\\",\\\"className\\\":\\\"inline-blo",
+            "childCount": 0,
+            "children": []
+          },
+          {
+            "tag": "script",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "defer": "",
+              "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+              "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==",
+              "data-cf-beacon": "{\"version\":\"2024.11.0\",\"token\":\"ed2b7ddf1d7c464999f9f3d4038666b8\",\"r\":1,\"server_timing\":{\"name\":{\"cfCacheStatus\":true,\"cfEdge\":true,\"cfExtPri\":true,\"cfL4\":true,\"cfOrigin\":true,\"cfSpeedBrain\":true},\"location_startswith\":null}}",
+              "crossorigin": "anonymous"
+            },
+            "textContent": null,
+            "childCount": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,43 @@
+# ═══════════════════════════════════════════════════════════
+# CACHE STRATEGY - Previene BUILD_ID mismatch
+# ═══════════════════════════════════════════════════════════
+
+# HTML Documents - NO CACHEAR (evita BUILD_ID mismatch)
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Root page
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Static assets con hash - CACHEAR 1 AÑO
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# JavaScript chunks
+/_next/static/chunks/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS
+/_next/static/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Media files
+/_next/static/media/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ═══════════════════════════════════════════════════════════
+# SECURITY HEADERS
+# ═══════════════════════════════════════════════════════════
+
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://vocal-condor-26768.upstash.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'

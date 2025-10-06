@@ -1,0 +1,13 @@
+[
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://auth.autamedica.com/_next/image/?url=%2Fautamedica-logo.png&w=96&q=75",
+      "lineNumber": 0,
+      "columnNumber": 0
+    },
+    "args": [],
+    "timestamp": "2025-10-06T14:13:01.516Z"
+  }
+]

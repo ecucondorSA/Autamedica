@@ -1,0 +1,105 @@
+{
+  "navigation": {
+    "dns": 1.3000000002793968,
+    "tcp": 54.89999999990687,
+    "request": 53.200000000186265,
+    "response": 3.6000000000931323,
+    "dom": 0.10000000009313226,
+    "load": 0,
+    "total": 317.5,
+    "domInteractive": 252,
+    "domComplete": 317.5,
+    "transferSize": 5233,
+    "encodedBodySize": 4933,
+    "decodedBodySize": 21283
+  },
+  "paint": [
+    {
+      "name": "first-paint",
+      "startTime": 284
+    },
+    {
+      "name": "first-contentful-paint",
+      "startTime": 284
+    }
+  ],
+  "resources": [
+    {
+      "name": "https://auth.autamedica.com/_next/static/media/4cf2300e9c8272f7-s.p.woff2",
+      "type": "link",
+      "duration": 33.39999999990687,
+      "size": 28688
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/media/93f479601ee12b01-s.p.woff2",
+      "type": "link",
+      "duration": 47.200000000186265,
+      "size": 31588
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/image/?url=%2Fautamedica-logo.png&w=96&q=75",
+      "type": "link",
+      "duration": 124.60000000009313,
+      "size": 10572
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/css/92ae602ab0a4a425.css",
+      "type": "link",
+      "duration": 49.6999999997206,
+      "size": 6638
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/webpack-0f8eb569a8d112c2.js",
+      "type": "link",
+      "duration": 82.39999999990687,
+      "size": 2103
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/9d277e37-dbf8f5bab550f58b.js",
+      "type": "script",
+      "duration": 93.79999999981374,
+      "size": 54743
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/828-4ac9ddef1b44ca27.js",
+      "type": "script",
+      "duration": 95.90000000037253,
+      "size": 44771
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/main-app-eba61a30664e5760.js",
+      "type": "script",
+      "duration": 82.70000000018626,
+      "size": 514
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/887-bfb7634ee57431b7.js",
+      "type": "script",
+      "duration": 90.59999999962747,
+      "size": 5717
+    },
+    {
+      "name": "https://auth.autamedica.com/_next/static/chunks/app/auth/select-role/page-49f9b65d00652f9b.js",
+      "type": "script",
+      "duration": 83.40000000037253,
+      "size": 3274
+    },
+    {
+      "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "type": "script",
+      "duration": 132.70000000018626,
+      "size": 0
+    },
+    {
+      "name": "https://auth.autamedica.com/cdn-cgi/rum?",
+      "type": "xmlhttprequest",
+      "duration": 22.100000000093132,
+      "size": 300
+    }
+  ],
+  "memory": {
+    "usedJSHeapSize": 10000000,
+    "totalJSHeapSize": 10000000,
+    "jsHeapSizeLimit": 2330000000
+  }
+}

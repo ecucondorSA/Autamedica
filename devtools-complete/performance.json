@@ -1,0 +1,117 @@
+{
+  "navigation": {
+    "dns": 0,
+    "tcp": 0,
+    "request": 58.6999999997206,
+    "response": 1.5,
+    "dom": 0,
+    "load": 0,
+    "total": 255.60000000009313,
+    "domInteractive": 148.1999999997206,
+    "domComplete": 255.60000000009313,
+    "transferSize": 5641,
+    "encodedBodySize": 5341,
+    "decodedBodySize": 19773
+  },
+  "paint": [
+    {
+      "name": "first-paint",
+      "startTime": 372
+    },
+    {
+      "name": "first-contentful-paint",
+      "startTime": 372
+    }
+  ],
+  "resources": [
+    {
+      "name": "https://www.autamedica.com/_next/static/css/4e4bfc708c0b1601.css",
+      "type": "link",
+      "duration": 31.90000000037253,
+      "size": 6727
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+      "type": "link",
+      "duration": 33.6999999997206,
+      "size": 2151
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+      "type": "script",
+      "duration": 45.60000000009313,
+      "size": 54698
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/829-7230cd9682e1bd54.js",
+      "type": "script",
+      "duration": 65,
+      "size": 44776
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+      "type": "script",
+      "duration": 39.799999999813735,
+      "size": 518
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/787-cb87c3305371f5f0.js",
+      "type": "script",
+      "duration": 79.29999999981374,
+      "size": 6003
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/app/layout-33cd8b06f7557d35.js",
+      "type": "script",
+      "duration": 79.79999999981374,
+      "size": 3675
+    },
+    {
+      "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "type": "script",
+      "duration": 0,
+      "size": 0
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+      "type": "script",
+      "duration": 61.299999999813735,
+      "size": 8329
+    },
+    {
+      "name": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+      "type": "script",
+      "duration": 63,
+      "size": 4151
+    },
+    {
+      "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "type": "script",
+      "duration": 0,
+      "size": 0
+    },
+    {
+      "name": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+      "type": "css",
+      "duration": 0,
+      "size": 0
+    },
+    {
+      "name": "https://www.autamedica.com/api/analytics/vitals",
+      "type": "beacon",
+      "duration": 31.600000000093132,
+      "size": 300
+    },
+    {
+      "name": "https://www.autamedica.com/api/analytics/vitals",
+      "type": "beacon",
+      "duration": 32.1999999997206,
+      "size": 300
+    }
+  ],
+  "memory": {
+    "usedJSHeapSize": 10000000,
+    "totalJSHeapSize": 10000000,
+    "jsHeapSizeLimit": 2330000000
+  }
+}

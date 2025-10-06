@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Auto-sync Claude Code agents after merge
+# This ensures agents are always up-to-date with agentic-config.json
+
+echo "🤖 Syncing Claude Code agents..."
+
+# Check if agentic-config.json changed
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -q "\.claude/agentic-config.json"; then
+  echo "📝 agentic-config.json changed, re-registering agents..."
+  node scripts/register-claude-agents.mjs
+  echo "✅ Agents synchronized!"
+else
+  echo "ℹ️  No agent config changes detected"
+fi

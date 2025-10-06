@@ -1,0 +1,1984 @@
+{
+  "metadata": {
+    "url": "https://9865ab07.autamedica-patients.pages.dev",
+    "timestamp": "2025-10-06T15:45:50.421Z",
+    "userAgent": null
+  },
+  "console": {
+    "logs": [],
+    "errors": [],
+    "warnings": [
+      {
+        "type": "warning",
+        "text": "Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.",
+        "location": {
+          "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/9290-f771088194e6884e.js",
+          "lineNumber": 20,
+          "columnNumber": 38814
+        },
+        "timestamp": 1759765551496
+      },
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 3,
+          "columnNumber": 0
+        },
+        "timestamp": 1759765555072
+      },
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 4,
+          "columnNumber": 0
+        },
+        "timestamp": 1759765555072
+      }
+    ],
+    "summary": {
+      "total": 3,
+      "errors": 0,
+      "warnings": 3,
+      "logs": 0
+    }
+  },
+  "network": {
+    "requests": [
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "cf-ray": "98a649c56cb6dc1b-EZE",
+          "content-encoding": "br",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 06 Oct 2025 15:45:50 GMT",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CuM%2FTY16GMTTU4xJawgLijf2JSQOch5m2RTHmJRrk%2ByH6o9S1sZke3%2FoOye6cUizzPESE0SHTLxm8VFqp7AGHDmVwMXGPeQefaMFbduSQqGd5iMR%2F6%2BMVrMGZsPeya5VYkVv%2B6C3xp7oOmbFQ8HidqIG\"}]}",
+          "server": "cloudflare",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "text/html; charset=utf-8",
+        "duration": 116,
+        "timestamp": 1759765550992,
+        "fromCache": false,
+        "timing": null,
+        "size": 22394
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/d38261e715b3739d.css",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/d38261e715b3739d.css",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=yXTQdyUjs%2FluF7fXP5AFTWH9UcqIuiMjkt50Zhjyjd3O3XU%2FkhaGD8eCSFjsXx9gmM5KRdO9%2FVEc3uuSAiHxon0Y0YWDPpjwHtrt4RpnfinHSlJWIr3avXSdnqq%2F5qtEqny8OOjVHNPtCoLVXi%2BCWIt9\"}]}",
+          "cf-ray": "98a649c60d9cdc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 15,
+        "timestamp": 1759765551076,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/551695a9ec94b021.css",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/551695a9ec94b021.css",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sh%2B1RDitTA5xcXLgZqVpOd4kyYhtuK5Oj1ONkkLhrX7vnIuF1acksPWnFEvioa%2BKWEehIBANoi2two%2FYFnSEwOUza%2BrcBMt8s%2Bi5kAQrfse4ozfUkg5%2BErV%2FWtDFB28qCfxroIKqk7Df%2BQufFRiYDD4a\"}]}",
+          "cf-ray": "98a649c60d9edc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 14,
+        "timestamp": 1759765551076,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/36983c859afbb829.css",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/36983c859afbb829.css",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hkhA3n1sjLxErnG0i1gGCxuU%2BVj4%2FuvZzXMfPJ9yPA3EhPU7HuTz3URGrMnx%2B1uzSixYz7C7GrDvzEy2BJSdTRDjcuY%2FsM8qEdDUsalRnC83%2BZ3ZbjzWaetZALPzS%2F2u41I%2FehO59ivaG8JCFSLRrel3\"}]}",
+          "cf-ray": "98a649c60d9ddc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 15,
+        "timestamp": 1759765551077,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/a80eae22495959a3.css",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/a80eae22495959a3.css",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H%2FsEOWrhPUQuBDCvGx6apAaa1b5iyD6lSU0VJfFgFl1Cy%2BubVHkW%2BD9jkTtByiBCrqqM4SVRDJ7XXlvXqEtwuuaZ5bBkvmHFXVyJw0qaUUPIxLef%2BlsbCvL6Z%2FOE4bFyCeX%2BGMwL9nRqU30XpzCAWyik\"}]}",
+          "cf-ray": "98a649c60d9fdc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 15,
+        "timestamp": 1759765551077,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/webpack-587689f157f2a6a9.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/webpack-587689f157f2a6a9.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aXwomZvsMv%2Fae6O6Ed7vsaRCMUDp2S%2BaeVotuIvSG1es%2FnuefKQQF1QyYduYQXg9eWTq7GgGZjYzuluWzVsAWYXYmAPuJP5qJUIwNsnG2fEK4qVdEqagGSvXxkcTciwvlQaXuoxRoBuCEE7zfUTuaC8w\"}]}",
+          "cf-ray": "98a649c62defdc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 23,
+        "timestamp": 1759765551085,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NUrOyNydLX2S2jBdYRg1XKa6oGohE%2BWBI9U4ptqIg5Bc91b76GLIIY1iW3wkmU%2BA7yG2OtRI3%2F121aBusZT%2F5nzQ8ahLlZdmdgRKqDbS%2FKu%2F8qyg5RcPd%2FlfcPAzk%2FwIGh2xbK3l2XPdWOIJTl%2BvQvH%2B\"}]}",
+          "cf-ray": "98a649c64e0ddc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 31,
+        "timestamp": 1759765551093,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Z%2F7ah4GJQVL9rx5ARa92zaXbCIah5aPrGWHEY5K13VcikpklIhW6YM7bQC7iq1u5RswUA8AN9KC8WJUzRBZ87yngCCzS%2FQQDQO9g0B34isjlj6%2BouuOON5arfZbthO8AUBkPhYEnlxMVKbsQmdQjUEuJ\"}]}",
+          "cf-ray": "98a649c64e09dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 39,
+        "timestamp": 1759765551101,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/main-app-8aeb260613e574ba.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/main-app-8aeb260613e574ba.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=h823syrimKMb%2BAJyPFNwlKaf5PhEC1qXLDCyJabcP60mQAYDf6R2RXbkU0oRHsvHpO4N9JBcwhqLRT404iQ5m0UadWdeclCtnwcvFF0BVwjLnSbr4fM9Ds8FeVyzssDFpEXinfXzcf%2FZWyDRgczMhlXA\"}]}",
+          "cf-ray": "98a649c64e0edc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 40,
+        "timestamp": 1759765551102,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/9290-f771088194e6884e.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/9290-f771088194e6884e.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aEVFadBMRax3WB77XXLyydcyx59BO4tqGN4egJ4QNTRiJVQJ6j%2FmnPbxjVsBG2fzf%2BrQIabrXXNPrCI5SRxE%2F6JfVQGXvW6xDKAOAhkBSXleAgSYdAslKgZWaUb0iai9oAekweIrnvdBMl9fuPLMOhk3\"}]}",
+          "cf-ray": "98a649c64e10dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 40,
+        "timestamp": 1759765551102,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nQiQjyrcMqLGQkGbIKeYRE1mI5lHEmbEy6bCLkv%2B3EQ%2Fz3wh8jkj2Ks8ZYLZ0C%2FV%2FrIkM%2BQNye%2FAEBcrOWVBb5l8vD5mHjjIN3UNvJ9hk0%2Bc5uF%2BcSfG2ggKTE9CRn8OeoawqrPbTP1eA6mwop%2Bt9AfP\"}]}",
+          "cf-ray": "98a649c64e13dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 40,
+        "timestamp": 1759765551103,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uj9zIpvO2jPEBFZAhE8kqWghvyZGRmWEivbmIQ7rRX%2FCWBpWlIRgPLHiJxtGmJqAfRd%2FGvqhrg3NAOOML6jSrTX%2BFzPCRr6X3mz%2BG4%2BLjdCpaJTrbjASBX%2BZFilVH82X1dVzAOXFzOptAidXB9dgdPgu\"}]}",
+          "cf-ray": "98a649c65e39dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 46,
+        "timestamp": 1759765551109,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6588-c3453608717fa313.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6588-c3453608717fa313.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FqdqLXNX1P0y8SR4iH7iiZmIW0jAa6JXskqRnUaPDwRbdyjyqe2Q4GyE6IiAKdL5MVNKHEvVSYHwJ9%2Bm0WYlQFre9gusKaJ9iGO1woLTyRISWBrIMOLX729vSs6U6b3WxZtNIbpkyiKT6c0s54zSXxnr\"}]}",
+          "cf-ray": "98a649c65e3adc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 48,
+        "timestamp": 1759765551111,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6300-3682762e4483bb89.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6300-3682762e4483bb89.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zC6pQE2kVTH1Fa%2FQoUTZ5cvOpMqi%2FmlWC3ASVqOta2ipQByAUKBBuecyNcdbMWJ%2FdvN4uBkwONhmINj7J2RuPBrxsnFRj%2BIgXCdJtAmxt9ZxxDIi6iA4gnqRZM30SQ%2BpGeWx6oOYxaK1rcVwtRJJQ%2F%2FL\"}]}",
+          "cf-ray": "98a649c65e3bdc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 51,
+        "timestamp": 1759765551114,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/8850-29dc34f122248c1e.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/8850-29dc34f122248c1e.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=s1nvq1QueMj9ZqnwV6hTD1aSq2WBwFxw2VsCjIsAxS3RcLDf0gRNoRMkzD7Y9KFPyPplJIcahbruJl4G2mQpY886zaJTTHc5UXwDbtH5w3ctLyH5dsx58Hy9a9V%2FhKFYRkoOfLmGO8%2FO0F6d5HS8V%2Fa9\"}]}",
+          "cf-ray": "98a649c65e3cdc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 52,
+        "timestamp": 1759765551115,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/3972-2a161dea02e9437d.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/3972-2a161dea02e9437d.js",
+          "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=nG3tQnC92VcO%2Bu7VMAx5PKHCk1cgX5I5K8c9C2uBB7xOUM7kOCx0V2EKFpqxBhotNcFYpgRPbgjKEL8ijKBtiJ5Gtb1qrKA0YREDqRJtRVRY%2FIGsKwk76d6z1yaGGsSPom6xLf0IZJKFJhV5j5d3ROUvXtUV5Ftt5ka82fG0XgVrUfecqQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+          "cf-ray": "98a649c64e12dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "server-timing": "cfL4;desc=\"?proto=TCP&rtt=22337&min_rtt=16390&rtt_var=6885&sent=37&recv=25&lost=0&retrans=0&sent_bytes=15218&recv_bytes=4890&delivery_rate=620197&cwnd=253&unsent_bytes=0&cid=834443000c7b22cc&ts=191&x=0\"",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "Accept-Encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 57,
+        "timestamp": 1759765551120,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/730-ce7e5395c6708a8c.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/730-ce7e5395c6708a8c.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BdSaDXHMo7lTlukmK0PywnD27CD7HKsL0sFOF0inTX4kXM%2FJWojuWQec12GlCX0%2FH%2BkESUqGtrIYWAxTdjywJHUblnKzqa1VHAvkTnZmm2zLCmknodrkSm58w4Wuzuj34s6737HEt0IsSZFFc3tLZnso\"}]}",
+          "cf-ray": "98a649c65e45dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 56,
+        "timestamp": 1759765551121,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/(dashboard)/layout-65e4b54549b1565e.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/(dashboard)/layout-65e4b54549b1565e.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YSE9LxpJ%2FCqB3iWCFwDnuWLSiPqryNHMGM91cJBvkxYy6XtHa9NT0qp30%2FcbgN%2FYFGjGYohFCWhAYZCcqVzIG1wkaLih9L5dy1EVl2RsyuerFIgIDkOC9XFbna1iaDYrV2hqv9uwwlxSMHdSWFzPuNdq\"}]}",
+          "cf-ray": "98a649c65e43dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 58,
+        "timestamp": 1759765551121,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6580-a6080bd110a0039f.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6580-a6080bd110a0039f.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=W3lMTtOr5E6eAArt1Imr2XwHTedo23ddnOsEaZ%2FmUCM4fsfHOq07F5DJocoQe3dRE4RsUj%2Fqh37Xp23fU9M2xrS5%2BDOoIDShJyWevK0eH9IheW7SledO1TVqWrdb3SEZQfWSMfQFbxzmq19TZFqt%2F1ik\"}]}",
+          "cf-ray": "98a649c65e47dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 57,
+        "timestamp": 1759765551122,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/(dashboard)/page-9a4eb8d8f45dc57e.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/(dashboard)/page-9a4eb8d8f45dc57e.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZprlZqj4akilVY98lvGoGtlWYdNXT80ZXJaAQ6Q5gK0ziIdeefBa%2FkIvQisNcwP8JFyxFLwNu7uX2G9LzwJ%2FWRaQmPqzyc3CFPHBZBMGYFeOx%2FmPM5tCfSkBqT%2BrHhU%2Fe5YjUJWceRJm47oFbxuHl47T\"}]}",
+          "cf-ray": "98a649c65e49dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 58,
+        "timestamp": 1759765551123,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/2460-848ee439faab7c27.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/2460-848ee439faab7c27.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9GiRsJYnHpZxmcK%2FOw%2BPGMUBnR4dw2fV5hHsRAUgfcuLEKKMeLaPUUEzehdBJa8of1MFtWUWkICffja%2B8icviJjbEsunaU4HFJWVJ2kdBMFfHwSkBCWfNDcOuNEW9173BI4qLvhmyM88j%2BHhnqUQvaLl\"}]}",
+          "cf-ray": "98a649c65e46dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 63,
+        "timestamp": 1759765551128,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/5270-2719e554da958acd.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/5270-2719e554da958acd.js",
+          "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=St%2B3fgsVQPJtN36e0TO0y8b5Glxa4SfabkWvKu654GRMYCmh2RRBQn7ID6nhBOkLX%2BGQ5DpU6sDnlE0O2L92O%2B9VMWl3wytkwull7mnfES%2FtwLFdzmibcDjqwbztYbselFxD4qHUUj7zoMcaiqV027ipk9p8WjoOj7JIj8V23dvKyftTRg%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+          "cf-ray": "98a649c65e3edc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "server-timing": "cfL4;desc=\"?proto=TCP&rtt=21476&min_rtt=14558&rtt_var=6885&sent=43&recv=26&lost=0&retrans=0&sent_bytes=17695&recv_bytes=4890&delivery_rate=620197&cwnd=253&unsent_bytes=0&cid=834443000c7b22cc&ts=195&x=0\"",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "Accept-Encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 65,
+        "timestamp": 1759765551128,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/551695a9ec94b021.css",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"b06c2479892282f19504cf0721aa99cf\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ol0%2BTifi8Lf6eSD5wngNCu1PBHFq%2B1Z%2FKnr%2B56rhBih085fmAtCW4svTtgMy8Cw%2FVQgUB7vsDzR5rc6riRo6a83oi2F7pJet%2FT43VPdvMBMAYVd05gQhlFQz%2BV5D8TLnywsmfUGo61MTd8MAXLEus2W%2B\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c65e4edc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 55,
+        "timestamp": 1759765551132,
+        "fromCache": false,
+        "timing": null,
+        "size": 19967
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/webpack-587689f157f2a6a9.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"6b48d13999f96c58ccd0e578f75b3633\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1p4YQ7D6pgAyA9uV1LJ5c%2FGsBvmrxy16mDC67TXAZJEGdsOb57RVoBAKNdbqbEmlLLZOP3SbNnsMuMXRhJLXcwMHKExBlukhrq1Xlqp2UmkmSFfJrU%2FGmplCnLjWtz4JNVDInq7aMuQungoAZGMdKAWw\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c65e5adc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 50,
+        "timestamp": 1759765551136,
+        "fromCache": false,
+        "timing": null,
+        "size": 3778
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/a80eae22495959a3.css",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"6ff98be7df3ca926c42af6735ffe9610\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=w0eAxgOKUyw3u%2FRc%2FhqJIT6FibV8OzCCOY3No9m4kj%2BEI4SULxKmPD09DpQCxfHosLuYjYowvJngN80uenxfRrPKaaHwNlKOo5eAPehy5pNU%2Fn3OuTk0nyzRiAHtA1uDCUzTDeMNZOVTqISqmTZ1KjkL\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c65e55dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 58,
+        "timestamp": 1759765551136,
+        "fromCache": false,
+        "timing": null,
+        "size": 3874
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/d38261e715b3739d.css",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"239f95b4e6e644157af4d85e36ef4a4d\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UCsAiybZKhZ5Ql1x0nR6O0eIXhdOKJFSGx2MkPsvIEqzb1Bp8vyidOUpmNT9sYup9SXP43t%2B7YwjxPvuwH6NSBq25iJp0HH%2BH1MU%2B0AdpfgvHExm86DG1JON1Ae4imCAi42Xi3%2Fm1CfzcJr0v0i5kNLo\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c65e4adc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 63,
+        "timestamp": 1759765551139,
+        "fromCache": false,
+        "timing": null,
+        "size": 3935
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/css/36983c859afbb829.css",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"9eb9773266c26249b3f5c620d277f7bf\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3Dh5AarFMzju4fmkvI72Cv7kgBGjOt%2F6FpSO1%2FACDCe978HH3UcAVul%2FgD0RQnwHA8h5BhHghRjg5NoXEwhlu0fLyun4rHjg02AMtynmnk%2BxxXuDxgaKZRhwIUnBXmJBmXtzyrakrSZM5nMICG7UiE1o\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c65e52dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 58,
+        "timestamp": 1759765551135,
+        "fromCache": false,
+        "timing": null,
+        "size": 76996
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/main-app-8aeb260613e574ba.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"8222f79c7a4fd3d75c5ffdf81c72dc9e\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1m%2BA3pDHdgnnNx%2F0q3fuoAzXVb0dDgKodjso0pjA26EcmRiHbKhsYEIOihRwo%2B23lbkScU09FgOUPNa9rc1ClIHanIm5CDzfNlgHPVXJRftvloUzmfMMsW%2BkWOGjjyd%2FRZv7RCH7tZLsQpJ9%2B5In1NEy\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c67e8cdc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 39,
+        "timestamp": 1759765551141,
+        "fromCache": false,
+        "timing": null,
+        "size": 572
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"7434de75938aa99b46d9c451fbbb88a9\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FwpJ2jKDQTYphcSM27GXluZijHHo6UFcJd2S7KlfIBes%2BiqnwK5XEtujsw5g7ekfrJFo9mytVmMXL8WMkgnFrxNfz9hWsa7VOu1buSexNAFcR7NOkwThYbm6PL2JyhBnCFdus9WRT7a5VkEIpbfKWX%2Fh\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c67e8adc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 156,
+        "timestamp": 1759765551257,
+        "fromCache": false,
+        "timing": null,
+        "size": 173023
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "content-encoding": "br",
+          "etag": "W/\"2495939e9eecb8114525939c999132dd\"",
+          "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=sBPpwcNXgE0NLWX9FFMsRs6I1GrqkP0DMIJUgiWLPZcbfdvgMvV16ghfGyUX6N0bEwA62lMfW%2BTqbYLExX1SqRouSs3md6HAqNyetXffuGiBj7rqNaSbFOf3cq%2Bu2dTQ%2BnMGT2%2FaG3BFhLClCHR7%2BI8oINNODUQJ5mp%2BwhgEGYV7K6D7mQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "server-timing": "cfL4;desc=\"?proto=TCP&rtt=21309&min_rtt=14558&rtt_var=5498&sent=106&recv=34&lost=0&retrans=0&sent_bytes=71474&recv_bytes=5549&delivery_rate=908300&cwnd=253&unsent_bytes=31163&cid=834443000c7b22cc&ts=216&x=0\"",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "Accept-Encoding",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c67e8fdc1b-EZE",
+          "access-control-allow-origin": "*",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 164,
+        "timestamp": 1759765551267,
+        "fromCache": false,
+        "timing": null,
+        "size": 9823
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"33186bdbd36d76b95641ca23ac9ed515\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IcrT%2BZfLtocCI%2BM6F460VrrY7uVltmT2LllMW3tPEpbGwAJ51%2Fa6HJTcIUXBIrCN6ZbmnGVzF7bIKAA149WlXgMt8jq6V10fRSJ12vmuyvPtF98uB1%2Fjvs0bubh7zFIGzuRWPGzGR7L5xqv1r0%2FY2Q9u\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c67e87dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 173,
+        "timestamp": 1759765551268,
+        "fromCache": false,
+        "timing": null,
+        "size": 172367
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/9290-f771088194e6884e.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"3aed92b3b82a0e068cd0adc8a1dca13c\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hEuam%2FGoPuRnwc7EKMYohmaPoqzrHyKsU9jdd3%2BqzShITCbEQKOqN1eIQ1vdfJ7zLwDbsCuhdpvo366u%2BI%2BqKY6ZJbGeJoMSSRxs0hgUS6yrNMtPmZKiDtZm597AUO3A2PygAYnUY9mzntP%2BcxhISDM1\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c67e8edc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 170,
+        "timestamp": 1759765551273,
+        "fromCache": false,
+        "timing": null,
+        "size": 150467
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6588-c3453608717fa313.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"88e2d7760cebd96b13a233a5ecec5396\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BAyGnRjanf7D4792aE646%2F%2BlRzGqHNxmCWenHdq6M%2FuS0gGqp%2FR4%2FfB4wI%2FV3bfInbbNRLmaamU%2FmF0AG1KFSnCCDE2FxqB2am7QKGdrqfdUutPHrwuBoE3rtSjcs15ez0NG8M3BcpcCHl3WRYqUNWdR\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed3dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 162,
+        "timestamp": 1759765551274,
+        "fromCache": false,
+        "timing": null,
+        "size": 10760
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6300-3682762e4483bb89.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"975d1fb20cacbf28e53df2ac3c01c58d\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EGLqYzVyzBRVhQcYm7YOS0b5%2Fv9aHYX%2BKYFlwG6nbePZD4g%2FuRKo25X6s8ICrkJJZQ1Gx8F%2BCDr2%2BZ7EE5QZPx50iANJ5AHMIYCk%2B5eWFvahtWZMYziUr4YrB%2FDM5U0BDP8kVEiBqnl3%2FY3LQUZTDc9w\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed6dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 159,
+        "timestamp": 1759765551274,
+        "fromCache": false,
+        "timing": null,
+        "size": 11431
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/730-ce7e5395c6708a8c.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"55b0ad40546387d42bdc5f3fa5cd038a\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pfcTYZh0gXDe0tnXkl6jrve6wbN73zlkfTFKPfiBLY9I5INZNjDgGjhA0DScGF0nJfoKrKg1D5K054ITZq9g%2BMt55VirL70YWO4g6SCcdAhtrr%2FtSNu8Ko39jh9evaXuJvd4HicV5UAiEdk1n5SmvVsQ\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed9dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 153,
+        "timestamp": 1759765551274,
+        "fromCache": false,
+        "timing": null,
+        "size": 7307
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/8850-29dc34f122248c1e.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"2076fc1e6d99d1b365d813833e5e209a\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=K0FX1bLNXxWQT0cCPcSMTEZh0SJrK%2ByFUFyiAhso%2BOfUTkx21xlGMIW%2Bv%2BpsdbVMNlpydKczl6BB1ticc%2BwMLVWcbUf8FuaFD%2BrWZbtJ9bWskCZW%2FPvBLxhrFgg7KBuGy5UtyyWsH2lTEnU4VXbie%2FVl\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed7dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 160,
+        "timestamp": 1759765551275,
+        "fromCache": false,
+        "timing": null,
+        "size": 56602
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/3972-2a161dea02e9437d.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"336e7f651a0b0fc02d8435b2c48848ff\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6C1lpEkKZC5WyOyBgRynCMspntxCUpEroe81yDCNAU%2B%2BoDP1YIq6AYJleuC4P7XwaJ9olLLBTUGPuRlrkcXijMUwCmqWiCFBRg%2BNWigVKiOqrCksF9a31LPao%2Bca2C3oREcEbMB22ZT7n1Qf9A8APJIW\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed8dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 155,
+        "timestamp": 1759765551275,
+        "fromCache": false,
+        "timing": null,
+        "size": 10458
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/6580-a6080bd110a0039f.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"1caa0e7530c7609833d97c0a92eefaab\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HV093QpI3%2B0roevF5lh1069zvOnfPGB83MrO9T1Wc6sLugrC503LotrAh3vySr17Fn0WIMZZO55BXCL%2FIXATJxb7UGoujggaM84%2FRbmpLmseqDvuLWp4WDdtm8Btav7HwzVCPX9xxlBxwpj2jFeGWei9\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69edcdc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 154,
+        "timestamp": 1759765551276,
+        "fromCache": false,
+        "timing": null,
+        "size": 32467
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/2460-848ee439faab7c27.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"0cc99a93bdf48bd32f3d6c82c2671051\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xMnRfa0XTv0kBr3MhJOlZ7ZFdlwGJ%2Bf5HB%2BhoHO1TH72EUA35PxlBK%2FVewoX5rHw38CfgJzm6dS%2B00aA%2FBX0JY40PCR3PpG4UOM%2BJjNOibP1gN8K%2FehRs9M5z3s1zSSA%2FPBWbEl6afhNLVRjkRMtGwXd\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ededc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 148,
+        "timestamp": 1759765551277,
+        "fromCache": false,
+        "timing": null,
+        "size": 8973
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/(dashboard)/page-9a4eb8d8f45dc57e.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"c0210276e079b2bc20022c2103835aa4\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wPu7vQogCTx76veqBjjdf%2Fp8W7wFUKJZ6tQdpglo9o9wKSDVct6MVG%2Bgo%2FESAlMNXxqI92zFhleUo9DhPE1gG2%2BdPiVm%2BJEwFQnnYWbsuZfo8LnzPtLaW1HX0qGJCVLxSTs5G6sGwVNUejXA1XnPqIRO\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69edddc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 154,
+        "timestamp": 1759765551277,
+        "fromCache": false,
+        "timing": null,
+        "size": 7434
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/5270-2719e554da958acd.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"79336c28eb1d0795fe5c7961d58557c9\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=b9wF9fQ6SdvdfXyWoavvDMbEm0MOW5XL7H0RHBtu%2BBWRD2J02c4QnMuB2hZ9f2F4PdULunUeLqStJfQNkMIt1TSWUYTbLhbytKl9LfAQn%2Bu1RAM915a8eSfsX8aMY0%2FMKZI0nA5BXqATGv91CeUdTwNU\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69edfdc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 149,
+        "timestamp": 1759765551278,
+        "fromCache": false,
+        "timing": null,
+        "size": 22675
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/app/(dashboard)/layout-65e4b54549b1565e.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"7f04e27cc3e880a5a77fe7c74794dc47\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SAsS0YdpYOJIqCdk3vpn8dJty3suI7iy7VxD2SwHEUYSaPAUdq1%2BZuIX%2BQRyvNiwFlQVPOCcvR1EhdHcvpqSyBprCl%2F4skNs8huxT5vT4GaLnX1naa0H%2BMInPYuw0eXenL39RuQzPzCynEHSnamZJPUY\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69edbdc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 156,
+        "timestamp": 1759765551278,
+        "fromCache": false,
+        "timing": null,
+        "size": 81953
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "br",
+          "etag": "W/\"09248fcefe7677ff44e9dffcc020736b\"",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YqZqA67f3zTOSQdpWuQglGF4R1K3n84PrfC3PO6ds13HwhnxH6Tjv9jF3wRgLTMcM5pmBni1tOa8lr%2Bi6F6AZ6IlOM%2BYNlS%2B0Y0kkAByvmzT53pMGV62kLkX%2Fp%2BMXVpgYc0gh%2F%2BCVCu0F9wJl0kzcQtC\"}]}",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c69ed0dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 169,
+        "timestamp": 1759765551279,
+        "fromCache": false,
+        "timing": null,
+        "size": 394674
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/2905.944c34f442ec3c0f.js",
+        "method": "GET",
+        "status": 307,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/2905.944c34f442ec3c0f.js",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=krsKiF9mabf%2Fvrpy1PnL%2FqiEwiWHf1CHcdithYhlJT1CL80YDvDvGf3J80CfrfJPQo7Rdy56KXvpZN5r4%2FnrGsJIwjRiaQ7ylza8RUSLZmBBfM6DpfUXQuC279ZnNCLHliVXkTS12TLyJ%2BpUZl%2Fj4kA6\"}]}",
+          "cf-ray": "98a649c90a73dc1b-EZE",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "content-length": "0",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "unknown",
+        "duration": 23,
+        "timestamp": 1759765551544,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/assets/_next/static/chunks/2905.944c34f442ec3c0f.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "x-robots-tag": "noindex",
+          "content-encoding": "br",
+          "etag": "W/\"e2ad7251d7e38a7dee0ab28768db485d\"",
+          "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=RfnElJxuh4YBPfpWpzwAJgvBpNQy14rUSxI6m3Uw2DEszDF3fKLbVySY%2BcPX9lNR8dSsoLRg1EaRD9SceShTyi53OzV7R%2FSawTpA2yINvz0yObC3dYp1qKunyfdxJS9yd54xuUxL8y7n6BNN%2BEiWuMUvcYwlkXsY9gvSXOiNtWPLg7Gjbw%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "server-timing": "cfL4;desc=\"?proto=TCP&rtt=18628&min_rtt=11018&rtt_var=1981&sent=346&recv=54&lost=0&retrans=0&sent_bytes=375951&recv_bytes=7663&delivery_rate=10321360&cwnd=332&unsent_bytes=0&cid=834443000c7b22cc&ts=659&x=0\"",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "application/javascript",
+          "vary": "Accept-Encoding",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c93ab7dc1b-EZE",
+          "access-control-allow-origin": "*",
+          "server": "cloudflare"
+        },
+        "contentType": "application/javascript",
+        "duration": 37,
+        "timestamp": 1759765551582,
+        "fromCache": false,
+        "timing": null,
+        "size": 14064
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/medical-history/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jOMXh3g8XTScKhLIYwoD3Wz8ubuAwPhQ7mnnQD3zJG58%2F%2BkQ0kHbjqmUszbgzuHHDxRW%2F8p84%2F%2FlOUl4MC74ktD7dpOohwTVayJBG163zslBqwvrhYstwWciKOEgRUj08PoPByq8H2yFS7Vgonkf9J%2Bi\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c92aa4dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 34,
+        "timestamp": 1759765551570,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/anamnesis/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WynW9jml8WSgtNJ9356CnTzBnkgTGWJw%2FD3%2FezkAOteT0i6gxDP4O%2FydZxLHm26LNjkId2XEY5aLciVPDt0mLUi8ECvADwhfbB0aEO%2FONJXNni97Egy6e%2BTyGrDF2ONBvqw%2BV752TfU05D7pr0Vx%2F6ju\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c92aa2dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 40,
+        "timestamp": 1759765551576,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/preventive-health/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TLPkLQcXriKoezk7ARV3XMHBqQGBQBqdtuAOAdJeoRSV6IP5d8srsoDALJOVNiY4UgFx7Jj5jeeT2SazPttpLeH8H1am%2B%2FVLBtSYtDKA%2F4FWy5L0MwX300QQuhx0s892NrqMq7nlVA0scPqH1Z7Qa%2Fby\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c92aa6dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 45,
+        "timestamp": 1759765551581,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/appointments/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0Ag0ZRRIeKugzf4oVFEWI6HSzsTlahONmYkpu4OVr562EQK0TPD7KY41b1qp4bTMoGg9p8Rx%2FL9Pp4K0G9SqOrIBShLMfLuI0HRSMMW%2BUjrOe9ZVQMtG8jRcQKCXEBhffjYtykZLPVV5Swzn9nYAqGC%2B\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c92aa0dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 33,
+        "timestamp": 1759765551569,
+        "fromCache": false,
+        "timing": null
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/pregnancy-prevention/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=x0XllZHUcS1d8%2B57evBJCJJ7mV%2FYUz3n59Exl1n3a04vgxtlkbA3tYnL4APOcRWLGjtl1soP6m15bQv1hgtV4KHa6UrSBt2JHDzB%2Bkw2wl3h2v3x7Yl1orM5oFdlmRPa%2BjDoKxmy6FuV6hft%2FY0ObfLK\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c92aa8dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 56,
+        "timestamp": 1759765551592,
+        "fromCache": false,
+        "timing": null,
+        "size": 185
+      },
+      {
+        "url": "https://9865ab07.autamedica-patients.pages.dev/profile/?_rsc=17hs7",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "content-encoding": "br",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NuqiuzLwcFreoCr6R9fvqTiHr%2FHYjSTCNbeY2DCLpGYRD%2BjYbF712M9zgIWOadSMFp68GYtOzWy%2FJRCeYh8ySM7Ad8ZC6IZ7I1dSj8eTlhlQU7im15CwtF%2BrkLbfDO5nY3q%2F9ASahzB1CY3egUvdbZII\"}]}",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:51 GMT",
+          "content-type": "text/x-component",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "cf-ray": "98a649c95ae0dc1b-EZE",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+          "server": "cloudflare"
+        },
+        "contentType": "text/x-component",
+        "duration": 34,
+        "timestamp": 1759765551606,
+        "fromCache": false,
+        "timing": null,
+        "size": 159
+      },
+      {
+        "url": "https://gtyvdircfhmdjiaelqkg.supabase.co/rest/v1/community_posts?select=*%2Cgroup%3Acommunity_groups%28*%29&moderation_status=eq.approved&deleted_at=is.null&limit=5&order=created_at.desc",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "sb-project-ref": "gtyvdircfhmdjiaelqkg",
+          "access-control-expose-headers": "Content-Encoding, Content-Location, Content-Range, Content-Type, Date, Location, Server, Transfer-Encoding, Range-Unit",
+          "cf-cache-status": "DYNAMIC",
+          "sb-request-id": "0199ba33-5b49-7f25-afc9-77280f8627ed",
+          "x-envoy-attempt-count": "1",
+          "x-content-type-options": "nosniff",
+          "content-location": "/community_posts?deleted_at=is.null&limit=5&moderation_status=eq.approved&order=created_at.desc&select=%2A%2Cgroup%3Acommunity_groups%28%2A%29",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:52 GMT",
+          "content-type": "application/json; charset=utf-8",
+          "vary": "Accept-Encoding",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-profile": "public",
+          "x-envoy-upstream-service-time": "407",
+          "content-range": "*/*",
+          "cf-ray": "98a649cb9bd54b84-EZE",
+          "access-control-allow-origin": "https://9865ab07.autamedica-patients.pages.dev",
+          "content-length": "2",
+          "server": "cloudflare",
+          "sb-gateway-version": "1"
+        },
+        "contentType": "application/json; charset=utf-8",
+        "duration": 1003,
+        "timestamp": 1759765552555,
+        "fromCache": false,
+        "timing": null,
+        "size": 2
+      },
+      {
+        "url": "https://gtyvdircfhmdjiaelqkg.supabase.co/rest/v1/community_groups?select=*&deleted_at=is.null&order=member_count.desc",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "sb-project-ref": "gtyvdircfhmdjiaelqkg",
+          "access-control-expose-headers": "Content-Encoding, Content-Location, Content-Range, Content-Type, Date, Location, Server, Transfer-Encoding, Range-Unit",
+          "content-encoding": "gzip",
+          "cf-cache-status": "DYNAMIC",
+          "sb-request-id": "0199ba33-5b50-767f-a87a-20bf33837210",
+          "x-envoy-attempt-count": "1",
+          "x-content-type-options": "nosniff",
+          "content-location": "/community_groups?deleted_at=is.null&order=member_count.desc&select=%2A",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "date": "Mon, 06 Oct 2025 15:45:52 GMT",
+          "content-type": "application/json; charset=utf-8",
+          "vary": "Accept-Encoding",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-profile": "public",
+          "x-envoy-upstream-service-time": "404",
+          "content-range": "0-7/*",
+          "cf-ray": "98a649cbabe94b84-EZE",
+          "access-control-allow-origin": "https://9865ab07.autamedica-patients.pages.dev",
+          "server": "cloudflare",
+          "sb-gateway-version": "1"
+        },
+        "contentType": "application/json; charset=utf-8",
+        "duration": 1006,
+        "timestamp": 1759765552557,
+        "fromCache": false,
+        "timing": null,
+        "size": 5435
+      }
+    ],
+    "summary": {
+      "total": 53,
+      "failed": 0,
+      "slow": 2,
+      "avgDuration": 113,
+      "totalBytes": 1301775
+    }
+  },
+  "performance": {
+    "metrics": {
+      "navigation": {
+        "domInteractive": 562.8999999985099,
+        "domContentLoadedEventEnd": 563.1999999992549,
+        "loadEventEnd": 563.1999999992549,
+        "responseStart": 101.79999999888241,
+        "domComplete": 563.1999999992549
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "startTime": 412
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 412
+        }
+      ],
+      "lcp": null,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/d38261e715b3739d.css",
+          "type": "link",
+          "duration": 123.79999999888241,
+          "transferSize": 1323,
+          "decodedBodySize": 3935
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/36983c859afbb829.css",
+          "type": "link",
+          "duration": 121.30000000074506,
+          "transferSize": 12172,
+          "decodedBodySize": 76996
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/551695a9ec94b021.css",
+          "type": "link",
+          "duration": 108,
+          "transferSize": 4869,
+          "decodedBodySize": 19967
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/css/a80eae22495959a3.css",
+          "type": "link",
+          "duration": 113,
+          "transferSize": 1186,
+          "decodedBodySize": 3874
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/webpack-587689f157f2a6a9.js",
+          "type": "link",
+          "duration": 109,
+          "transferSize": 2204,
+          "decodedBodySize": 3778
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/99ea1936-34a9ba74498d8397.js",
+          "type": "script",
+          "duration": 142.09999999962747,
+          "transferSize": 54709,
+          "decodedBodySize": 173023
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/3829-c06b3d0c10a6359a.js",
+          "type": "script",
+          "duration": 150.90000000037253,
+          "transferSize": 45059,
+          "decodedBodySize": 172367
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/main-app-8aeb260613e574ba.js",
+          "type": "script",
+          "duration": 115.5,
+          "transferSize": 520,
+          "decodedBodySize": 572
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/9290-f771088194e6884e.js",
+          "type": "script",
+          "duration": 150,
+          "transferSize": 42430,
+          "decodedBodySize": 150467
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/3972-2a161dea02e9437d.js",
+          "type": "script",
+          "duration": 167.7000000011176,
+          "transferSize": 4719,
+          "decodedBodySize": 10458
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/layout-2bbf4b5db13a0829.js",
+          "type": "script",
+          "duration": 140.2999999988824,
+          "transferSize": 4286,
+          "decodedBodySize": 9823
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/577bdab8-1e502a694ccb120d.js",
+          "type": "script",
+          "duration": 179.69999999925494,
+          "transferSize": 105047,
+          "decodedBodySize": 394674
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6588-c3453608717fa313.js",
+          "type": "script",
+          "duration": 149,
+          "transferSize": 4519,
+          "decodedBodySize": 10760
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6300-3682762e4483bb89.js",
+          "type": "script",
+          "duration": 151.5,
+          "transferSize": 4921,
+          "decodedBodySize": 11431
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/8850-29dc34f122248c1e.js",
+          "type": "script",
+          "duration": 159,
+          "transferSize": 13498,
+          "decodedBodySize": 56602
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/5270-2719e554da958acd.js",
+          "type": "script",
+          "duration": 176,
+          "transferSize": 7538,
+          "decodedBodySize": 22675
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/(dashboard)/layout-65e4b54549b1565e.js",
+          "type": "script",
+          "duration": 176.30000000074506,
+          "transferSize": 25227,
+          "decodedBodySize": 81953
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/730-ce7e5395c6708a8c.js",
+          "type": "script",
+          "duration": 155.7999999988824,
+          "transferSize": 3121,
+          "decodedBodySize": 7307
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/2460-848ee439faab7c27.js",
+          "type": "script",
+          "duration": 166.09999999962747,
+          "transferSize": 3946,
+          "decodedBodySize": 8973
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/6580-a6080bd110a0039f.js",
+          "type": "script",
+          "duration": 162.40000000037253,
+          "transferSize": 7166,
+          "decodedBodySize": 32467
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/app/(dashboard)/page-9a4eb8d8f45dc57e.js",
+          "type": "script",
+          "duration": 171.09999999962747,
+          "transferSize": 3002,
+          "decodedBodySize": 7434
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/_next/static/chunks/2905.944c34f442ec3c0f.js",
+          "type": "script",
+          "duration": 63.20000000111759,
+          "transferSize": 4885,
+          "decodedBodySize": 14064
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/appointments/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 52.19999999925494,
+          "transferSize": 429,
+          "decodedBodySize": 169
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/anamnesis/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 50.19999999925494,
+          "transferSize": 428,
+          "decodedBodySize": 163
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/medical-history/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 48.59999999962747,
+          "transferSize": 431,
+          "decodedBodySize": 175
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/preventive-health/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 48.90000000037253,
+          "transferSize": 431,
+          "decodedBodySize": 179
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/pregnancy-prevention/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 51.19999999925494,
+          "transferSize": 438,
+          "decodedBodySize": 185
+        },
+        {
+          "name": "https://gtyvdircfhmdjiaelqkg.supabase.co/rest/v1/community_groups?select=*&deleted_at=is.null&order=member_count.desc",
+          "type": "fetch",
+          "duration": 1001.8000000007451,
+          "transferSize": 0,
+          "decodedBodySize": 0
+        },
+        {
+          "name": "https://gtyvdircfhmdjiaelqkg.supabase.co/rest/v1/community_posts?select=*%2Cgroup%3Acommunity_groups%28*%29&moderation_status=eq.approved&deleted_at=is.null&limit=5&order=created_at.desc",
+          "type": "fetch",
+          "duration": 998.6999999992549,
+          "transferSize": 0,
+          "decodedBodySize": 0
+        },
+        {
+          "name": "https://9865ab07.autamedica-patients.pages.dev/profile/?_rsc=17hs7",
+          "type": "fetch",
+          "duration": 28.40000000037253,
+          "transferSize": 423,
+          "decodedBodySize": 159
+        }
+      ],
+      "memory": {
+        "usedJSHeapSize": 10000000,
+        "totalJSHeapSize": 10000000,
+        "jsHeapSizeLimit": 2330000000
+      }
+    },
+    "resources": [],
+    "webVitals": {
+      "LCP": null,
+      "CLS": 0,
+      "FCP": 412,
+      "TTFB": 101.79999999888241
+    }
+  },
+  "security": {
+    "state": null,
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=86400",
+      "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "cf-ray": "98a649c56cb6dc1b-EZE",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.supabase.co; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Mon, 06 Oct 2025 15:45:50 GMT",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CuM%2FTY16GMTTU4xJawgLijf2JSQOch5m2RTHmJRrk%2ByH6o9S1sZke3%2FoOye6cUizzPESE0SHTLxm8VFqp7AGHDmVwMXGPeQefaMFbduSQqGd5iMR%2F6%2BMVrMGZsPeya5VYkVv%2B6C3xp7oOmbFQ8HidqIG\"}]}",
+      "server": "cloudflare",
+      "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, accept-encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    },
+    "issues": [
+      "Missing header: x-xss-protection"
+    ]
+  },
+  "coverage": {
+    "js": {
+      "total": 0,
+      "unused": 0,
+      "percentage": 0
+    },
+    "css": {
+      "total": 104772,
+      "unused": 87266,
+      "percentage": "83.3"
+    }
+  },
+  "accessibility": {
+    "tree": {
+      "role": "WebArea",
+      "name": "AutaMedica Patient Portal",
+      "children": [
+        {
+          "role": "link",
+          "name": "Saltar al contenido principal"
+        },
+        {
+          "role": "heading",
+          "name": "AutaMedica",
+          "level": 1
+        },
+        {
+          "role": "link",
+          "name": "Ir a Inicio"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Mis Citas"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Mi Anamnesis"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Historial Médico"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Salud Preventiva"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Prevención Embarazo"
+        },
+        {
+          "role": "link",
+          "name": "Ir a Perfil"
+        },
+        {
+          "role": "text",
+          "name": "Usuario"
+        },
+        {
+          "role": "text",
+          "name": "No disponible"
+        },
+        {
+          "role": "button",
+          "name": "Cerrar sesión y salir del portal"
+        },
+        {
+          "role": "heading",
+          "name": "¡Hola, Usuario! 👋",
+          "level": 1
+        },
+        {
+          "role": "text",
+          "name": "Tu centro de telemedicina está listo"
+        },
+        {
+          "role": "text",
+          "name": "Disponible"
+        },
+        {
+          "role": "text",
+          "name": "No conectado"
+        },
+        {
+          "role": "text",
+          "name": "Desconectado"
+        },
+        {
+          "role": "button",
+          "name": "Apagar cámara",
+          "disabled": true
+        },
+        {
+          "role": "button",
+          "name": "Silenciar micrófono",
+          "disabled": true
+        },
+        {
+          "role": "button",
+          "name": "Iniciar Llamada"
+        },
+        {
+          "role": "button",
+          "name": "Comunidad"
+        },
+        {
+          "role": "button",
+          "name": "Progreso"
+        },
+        {
+          "role": "button",
+          "name": "Acciones"
+        },
+        {
+          "role": "heading",
+          "name": "💬 Tu Comunidad",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "No hay publicaciones aún"
+        },
+        {
+          "role": "text",
+          "name": "¡Sé el primero en publicar!"
+        },
+        {
+          "role": "button",
+          "name": "+ Crear publicación"
+        },
+        {
+          "role": "button",
+          "name": "Centro de ayuda",
+          "description": "Guías interactivas"
+        },
+        {
+          "role": "button",
+          "name": "Abrir asistente Auta"
+        },
+        {
+          "role": "button",
+          "name": "Abrir asistente Auta"
+        },
+        {
+          "role": "button",
+          "name": "Close",
+          "focused": true
+        },
+        {
+          "role": "text",
+          "name": "🏥 Bienvenido/a a AutaMedica"
+        },
+        {
+          "role": "text",
+          "name": "Tu plataforma integral de salud"
+        },
+        {
+          "role": "text",
+          "name": "AutaMedica es tu "
+        },
+        {
+          "role": "text",
+          "name": "centro de salud digital"
+        },
+        {
+          "role": "text",
+          "name": " donde puedes:"
+        },
+        {
+          "role": "text",
+          "name": "🎥 "
+        },
+        {
+          "role": "text",
+          "name": "Hacer videoconsultas"
+        },
+        {
+          "role": "text",
+          "name": " con médicos certificados"
+        },
+        {
+          "role": "text",
+          "name": "📋 "
+        },
+        {
+          "role": "text",
+          "name": "Gestionar tu historial médico"
+        },
+        {
+          "role": "text",
+          "name": " completo"
+        },
+        {
+          "role": "text",
+          "name": "🛡️ "
+        },
+        {
+          "role": "text",
+          "name": "Prevenir enfermedades"
+        },
+        {
+          "role": "text",
+          "name": " con chequeos programados"
+        },
+        {
+          "role": "text",
+          "name": "💊 "
+        },
+        {
+          "role": "text",
+          "name": "Recibir recetas digitales"
+        },
+        {
+          "role": "text",
+          "name": " y recordatorios"
+        },
+        {
+          "role": "text",
+          "name": "💬 "
+        },
+        {
+          "role": "text",
+          "name": "Conectar con la comunidad"
+        },
+        {
+          "role": "text",
+          "name": " de pacientes"
+        },
+        {
+          "role": "text",
+          "name": "Vamos a hacer un recorrido rápido (2 minutos) 🚀"
+        },
+        {
+          "role": "button",
+          "name": "🤖 Pregúntale a Auta Asistente IA de este paso ▼"
+        },
+        {
+          "role": "text",
+          "name": "1 de 12"
+        },
+        {
+          "role": "button",
+          "name": "← Anterior",
+          "disabled": true
+        },
+        {
+          "role": "button",
+          "name": "Siguiente →"
+        }
+      ]
+    },
+    "violations": []
+  }
+}

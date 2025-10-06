@@ -28,20 +28,14 @@ jobs:
       - name: Build packages
         run: pnpm build:packages:core
 
-      - name: Build Next.js app
+      - name: Build for Cloudflare (Next.js + OpenNext + Patches)
         working-directory: apps/doctors
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_WEB_APP_URL: ${{ secrets.NEXT_PUBLIC_WEB_APP_URL }}
           NODE_ENV: production
-        run: pnpm build
-
-      - name: Install Wrangler
-        run: pnpm add -g wrangler
-
-      - name: Build for Cloudflare
-        working-directory: apps/doctors
-        run: npx @opennextjs/cloudflare@latest build
+        run: pnpm build:cloudflare
 
       - name: Deploy to Cloudflare Pages
         working-directory: apps/doctors
@@ -49,7 +43,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          wrangler pages deploy .open-next/assets \
+          wrangler pages deploy .open-next \
             --project-name=autamedica-doctors \
             --branch=main \
             --commit-dirty=true

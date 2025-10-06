@@ -1,0 +1,1598 @@
+{
+  "metadata": {
+    "url": "https://autamedica.com",
+    "timestamp": "2025-10-06T14:02:53.028Z",
+    "userAgent": null
+  },
+  "console": [
+    {
+      "type": "error",
+      "text": "Refused to load the script 'https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015' because it violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline' 'unsafe-eval'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+      "location": {
+        "url": "https://www.autamedica.com/",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:02:53.687Z"
+    },
+    {
+      "type": "error",
+      "text": "Refused to load the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap' because it violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback.\n",
+      "location": {
+        "url": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:02:53.750Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 405 ()",
+      "location": {
+        "url": "https://www.autamedica.com/api/analytics/vitals",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:02:53.802Z"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 405 ()",
+      "location": {
+        "url": "https://www.autamedica.com/api/analytics/vitals",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "args": [],
+      "timestamp": "2025-10-06T14:02:53.805Z"
+    }
+  ],
+  "network": [
+    {
+      "id": "https://autamedica.com/",
+      "method": "GET",
+      "url": "https://autamedica.com/",
+      "resourceType": "document",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.349Z",
+      "status": 307,
+      "statusText": "",
+      "responseHeaders": {
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "98a5b2f3efd24b84-EZE",
+        "content-type": "text/html",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "location": "https://www.autamedica.com/",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=soQV3GF4IkqEzM%2FpQCJjE0U1IUZoy7nPWtib30E1mKwB%2BRvfUk7SJcB2BztNi5QlzDEGOSIZ82mQn5EQg3OJhwznhBpyJ%2FoC6Mj9Gqc1MV7Ye8lZiqU3nxAF\"}]}",
+        "server": "cloudflare",
+        "server-timing": "cfCacheStatus;desc=\"DYNAMIC\"\ncfEdge;dur=3,cfOrigin;dur=43",
+        "strict-transport-security": "max-age=63072000",
+        "x-vercel-id": "gru1::zxzjf-1759759373446-0fadc2ccd12c"
+      },
+      "size": 0
+    },
+    {
+      "id": "https://www.autamedica.com/",
+      "method": "GET",
+      "url": "https://www.autamedica.com/",
+      "resourceType": "document",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.488Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "access-control-allow-origin": "*",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "98a5b2f4689a4b84-EZE",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cIGdYluTK346Gup86amuuruhKszXLBoCN51aUFPo2bkAbOlX80EWqmBNvblaoWpikMg1%2BizouCa4lrufCNOSxjFC6H6YiKzcW1KRinbcipJQoynSSikhEZRUCVPwfQ%3D%3D\"}]}",
+        "server": "cloudflare",
+        "server-timing": "cfCacheStatus;desc=\"DYNAMIC\"\ncfEdge;dur=7,cfOrigin;dur=24",
+        "vary": "accept-encoding",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY"
+      },
+      "size": 19773,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/css/4e4bfc708c0b1601.css",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/css/4e4bfc708c0b1601.css",
+      "resourceType": "stylesheet",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.556Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"3f46007a1e04a0ef1d74474b71ea61e3\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=A2HII2RhQC4YWGgKF6zMjkZbia3MzMHZyrdJCfh4hiSLbgZrY9h5L5mvAoqPP5eSKNEUWDxmco3RR8gIJr3C6FtWPVXrQCmsQSQjvxFXSKEg3tvtZMMx9Ox1ySDWog%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4c9374b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 30529,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"041a80738b70b7437ab8019a6638b712\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=eQGX%2FpD4nMNlGmK%2BmPrmPbwCcLilqpsaf%2BTQWxIWq7pfsK7Vw2xLmZs8p9u0%2BxQyiRiZpy2lelpNWtXlun8%2Bmq44cSqctYsydFImoGv%2FrobN3ljDUg3UwMrKb1a%2FHw%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4c9394b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 3571,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"13f5f997f1d6e82138fec78b46024326\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=tP823tMD8UPxN2FE1NbEvCCtvOUOUhcHY4YTwVfe8FvTMA3QEDtlb6oyWZVn3tcLmUojM0dkK%2BxLBKMvpbi7d4Gebc%2FqkpuCMS61izqcUwuMiA%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4d9444b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 173017,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/829-7230cd9682e1bd54.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/829-7230cd9682e1bd54.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"56b788b4b0178aff00ba3f94e1c540c5\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CHEskJ6XpZgEndQYKEAamtTOZE4nyxaDCCnQP7ObsmxMR9GA96k7xPXaD4sHIQ16AkXA5%2FwGxVi1dJv2WnHu6uy52zD9ZjsiVocxBbEswbvcdQ%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4d9454b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 172101,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"06f620965a46cbc37c6edcb7d7cb5138\"",
+        "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=nIhY1vXyZkPCRSOxOA%2BFF%2BCDoA4GA1foK7Fn%2FABMWRdgr63SgCc%2FNpJqpiLZ%2FDS43WWJ8%2B%2FPUkU4MT%2B8XhuFPRsl9IsV9CSBOEva5ou4wQf%2Fejc%2Bv1SuuNgOURYXvLGfEJoPwNQ%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+        "x-content-type-options": "nosniff",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "Accept-Encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4d9464b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 556,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/787-cb87c3305371f5f0.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/787-cb87c3305371f5f0.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"33f645fb1c58805a959672d296b6dc9b\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aIHf6NEdiJdy6LjoqihceJ4BnVm7dZF1qIW1Midn3gUidIO1KyTSPDUAaRmG1gReySP63ckr2TNvOIp2JaO%2BC61JgUFUsiMmKgC800SWnAkR4w%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4e95a4b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 16329,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/app/layout-33cd8b06f7557d35.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/app/layout-33cd8b06f7557d35.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"8aea963f050d18d5350122543ab0e083\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=a38KjA4lLBNNrM0p%2Bjnt3vlhWiXZpYwigf9HtJ1tbtwsnY1yOHT6xgT7bcDvw1WXF%2B2IXruNCYJTtLP6IfLl0nWWBvn3GZ%2BsTisWZjPX%2FdPXujKHtOQlhgKA16IcCA%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4e95b4b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 8987,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"a773295687a5eff1af9afdb26bf4e134\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mr6brL3C9pkYDpT9s4ioO%2B8ZAVHNr0t8%2Bu24uTzsB0FIbjnR7z0mmsIF3KUVPZX5cO%2BeTmTz8OWADY2Qks8MLqtVMm64lQ48SYEV0UKYmTFbfw%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4e95d4b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 11305,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+      "method": "GET",
+      "url": "https://www.autamedica.com/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+      "resourceType": "script",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.562Z",
+      "status": 200,
+      "statusText": "",
+      "responseHeaders": {
+        "content-encoding": "br",
+        "cf-cache-status": "REVALIDATED",
+        "etag": "W/\"74ad2beccaeec14f1fe6e0f83eeb33ec\"",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=A4xu%2FMS3fIbvqQJBVAmrkVtzHpBQjPy6IyTrtqCcT54LRbXnWU9wYkip%2FLbwNBoZ5B7Y2vJQSehl%2FlX6oj%2B9id2G3r4tANKOUxhQpPhpw4W3AQGZgt7CadKu0w4JTw%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "content-type": "application/javascript",
+        "vary": "accept-encoding",
+        "x-frame-options": "DENY",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "cache-control": "public, max-age=14400, must-revalidate",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f4e95e4b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "server": "cloudflare"
+      },
+      "size": 28293,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "method": "GET",
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+      "resourceType": "script",
+      "headers": {
+        "origin": "https://www.autamedica.com",
+        "referer": "https://www.autamedica.com/"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.687Z",
+      "status": "pending"
+    },
+    {
+      "id": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+      "resourceType": "stylesheet",
+      "headers": {
+        "referer": "https://www.autamedica.com/"
+      },
+      "postData": null,
+      "timestamp": "2025-10-06T14:02:53.751Z",
+      "status": "pending"
+    },
+    {
+      "id": "https://www.autamedica.com/api/analytics/vitals",
+      "method": "POST",
+      "url": "https://www.autamedica.com/api/analytics/vitals",
+      "resourceType": "ping",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "content-type": "text/plain;charset=UTF-8",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": "{\"name\":\"FCP\",\"value\":372,\"id\":\"v4-1759759373763-1993688075771\",\"rating\":\"good\",\"navigationType\":\"navigate\"}",
+      "timestamp": "2025-10-06T14:02:53.769Z",
+      "status": 405,
+      "statusText": "",
+      "responseHeaders": {
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.autamedica.com; frame-ancestors 'none'; base-uri 'self';",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-cache-status": "DYNAMIC",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xd%2BjXNLM9d1a30XEp%2BK6dmh8AMihxA%2FAQO3DsVsOMDkGI5MXaEp9Ew5V%2B7Rhe3PedlkN1EOU%2F%2Bl%2Bnd%2F91laMwpZZvmEVFGPycgnFaCyhLerrkmjd99QwtD6htMZDTw%3D%3D\"}]}",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cf-ray": "98a5b2f62b3d4b84-EZE",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "access-control-allow-origin": "*",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "content-length": "0",
+        "date": "Mon, 06 Oct 2025 14:02:53 GMT",
+        "vary": "accept-encoding",
+        "server": "cloudflare",
+        "x-frame-options": "DENY"
+      },
+      "size": 0,
+      "sizeCompressed": 0
+    },
+    {
+      "id": "https://www.autamedica.com/api/analytics/vitals",
+      "method": "POST",
+      "url": "https://www.autamedica.com/api/analytics/vitals",
+      "resourceType": "ping",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.autamedica.com/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.186 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "content-type": "text/plain;charset=UTF-8",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": "{\"name\":\"TTFB\",\"value\":197.5,\"id\":\"v4-1759759373763-6291823996682\",\"rating\":\"good\",\"navigationType\":\"navigate\"}",
+      "timestamp": "2025-10-06T14:02:53.771Z",
+      "status": "pending"
+    }
+  ],
+  "performance": {
+    "navigation": {
+      "dns": 0,
+      "tcp": 0,
+      "request": 58.6999999997206,
+      "response": 1.5,
+      "dom": 0,
+      "load": 0,
+      "total": 255.60000000009313,
+      "domInteractive": 148.1999999997206,
+      "domComplete": 255.60000000009313,
+      "transferSize": 5641,
+      "encodedBodySize": 5341,
+      "decodedBodySize": 19773
+    },
+    "paint": [
+      {
+        "name": "first-paint",
+        "startTime": 372
+      },
+      {
+        "name": "first-contentful-paint",
+        "startTime": 372
+      }
+    ],
+    "resources": [
+      {
+        "name": "https://www.autamedica.com/_next/static/css/4e4bfc708c0b1601.css",
+        "type": "link",
+        "duration": 31.90000000037253,
+        "size": 6727
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+        "type": "link",
+        "duration": 33.6999999997206,
+        "size": 2151
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+        "type": "script",
+        "duration": 45.60000000009313,
+        "size": 54698
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/829-7230cd9682e1bd54.js",
+        "type": "script",
+        "duration": 65,
+        "size": 44776
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+        "type": "script",
+        "duration": 39.799999999813735,
+        "size": 518
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/787-cb87c3305371f5f0.js",
+        "type": "script",
+        "duration": 79.29999999981374,
+        "size": 6003
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/app/layout-33cd8b06f7557d35.js",
+        "type": "script",
+        "duration": 79.79999999981374,
+        "size": 3675
+      },
+      {
+        "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+        "type": "script",
+        "duration": 0,
+        "size": 0
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+        "type": "script",
+        "duration": 61.299999999813735,
+        "size": 8329
+      },
+      {
+        "name": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+        "type": "script",
+        "duration": 63,
+        "size": 4151
+      },
+      {
+        "name": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+        "type": "script",
+        "duration": 0,
+        "size": 0
+      },
+      {
+        "name": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+        "type": "css",
+        "duration": 0,
+        "size": 0
+      },
+      {
+        "name": "https://www.autamedica.com/api/analytics/vitals",
+        "type": "beacon",
+        "duration": 31.600000000093132,
+        "size": 300
+      },
+      {
+        "name": "https://www.autamedica.com/api/analytics/vitals",
+        "type": "beacon",
+        "duration": 32.1999999997206,
+        "size": 300
+      }
+    ],
+    "memory": {
+      "usedJSHeapSize": 10000000,
+      "totalJSHeapSize": 10000000,
+      "jsHeapSizeLimit": 2330000000
+    }
+  },
+  "coverage": {},
+  "storage": {
+    "localStorage": {},
+    "sessionStorage": {},
+    "cookies": [],
+    "cookiesDetailed": []
+  },
+  "security": {
+    "protocol": "https:",
+    "isSecure": true,
+    "origin": "https://www.autamedica.com",
+    "securityState": "unknown",
+    "mixedContent": {
+      "hasDisplayed": false,
+      "hasActive": false
+    },
+    "headers": {
+      "strictTransportSecurity": "max-age=63072000"
+    }
+  },
+  "accessibility": {
+    "role": "WebArea",
+    "name": "AutaMedica - Telemedicina sin fricciones",
+    "children": [
+      {
+        "role": "progressbar",
+        "name": "Progreso de lectura de la página",
+        "valuetext": "",
+        "valuemin": 0,
+        "valuemax": 100,
+        "value": 0
+      },
+      {
+        "role": "text",
+        "name": "desarrollado por E.M Medicina -UBA"
+      },
+      {
+        "role": "text",
+        "name": "AutaMedica"
+      },
+      {
+        "role": "button",
+        "name": "Menú de cuenta",
+        "haspopup": "menu"
+      },
+      {
+        "role": "heading",
+        "name": "AUTAMEDICA",
+        "level": 1
+      }
+    ]
+  },
+  "dom": {
+    "title": "AutaMedica - Telemedicina sin fricciones",
+    "url": "https://www.autamedica.com/",
+    "doctype": "html",
+    "characterSet": "UTF-8",
+    "head": {
+      "meta": [
+        {
+          "name": "",
+          "content": ""
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1, maximum-scale=5"
+        },
+        {
+          "name": "mobile-web-app-capable",
+          "content": "yes"
+        },
+        {
+          "name": "apple-mobile-web-app-capable",
+          "content": "yes"
+        },
+        {
+          "name": "apple-mobile-web-app-status-bar-style",
+          "content": "black-translucent"
+        },
+        {
+          "name": "apple-mobile-web-app-title",
+          "content": "AutaMedica"
+        },
+        {
+          "name": "description",
+          "content": "Plataforma de telemedicina innovadora. Conecta con profesionales de la salud, agenda consultas inmediatas y recibe atención médica de calidad. Tecnología segura HIPAA-compliant."
+        },
+        {
+          "name": "author",
+          "content": "E.M Medicina - UBA"
+        },
+        {
+          "name": "keywords",
+          "content": "telemedicina,consulta virtual,médico online,salud digital,consultas online,HIPAA,AutaMedica,receta digital,historia clínica digital,inteligencia artificial médica,telemedicina Argentina,consulta médica virtual"
+        },
+        {
+          "name": "creator",
+          "content": "E.M Medicina - UBA"
+        },
+        {
+          "name": "publisher",
+          "content": "AutaMedica"
+        },
+        {
+          "name": "robots",
+          "content": "index, follow"
+        },
+        {
+          "name": "googlebot",
+          "content": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+        },
+        {
+          "name": "category",
+          "content": "health"
+        },
+        {
+          "name": "format-detection",
+          "content": "telephone=no, address=no, email=no"
+        },
+        {
+          "name": "",
+          "content": "AutaMedica - Telemedicina sin fricciones"
+        },
+        {
+          "name": "",
+          "content": "Agenda inmediata, receta digital al finalizar y resultados en tu móvil. Plataforma de telemedicina HIPAA-compliant."
+        },
+        {
+          "name": "",
+          "content": "https://autamedica.com/"
+        },
+        {
+          "name": "",
+          "content": "AutaMedica"
+        },
+        {
+          "name": "",
+          "content": "es_AR"
+        },
+        {
+          "name": "",
+          "content": "https://autamedica.com/og-image.jpg"
+        },
+        {
+          "name": "",
+          "content": "1200"
+        },
+        {
+          "name": "",
+          "content": "630"
+        },
+        {
+          "name": "",
+          "content": "AutaMedica - Telemedicina sin fricciones"
+        },
+        {
+          "name": "",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary_large_image"
+        },
+        {
+          "name": "twitter:site",
+          "content": "@autamedica"
+        },
+        {
+          "name": "twitter:creator",
+          "content": "@autamedica"
+        },
+        {
+          "name": "twitter:title",
+          "content": "AutaMedica - Telemedicina sin fricciones"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Agenda inmediata, receta digital al finalizar y resultados en tu móvil"
+        },
+        {
+          "name": "twitter:image",
+          "content": "https://autamedica.com/twitter-image.jpg"
+        }
+      ],
+      "links": [
+        {
+          "rel": "stylesheet",
+          "href": "https://www.autamedica.com/_next/static/css/4e4bfc708c0b1601.css",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "preload",
+          "href": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+          "type": "",
+          "as": "script"
+        },
+        {
+          "rel": "manifest",
+          "href": "https://www.autamedica.com/manifest.json",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "https://www.autamedica.com/icon-180.png",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "icon",
+          "href": "https://www.autamedica.com/icon-32.png",
+          "type": "image/png",
+          "as": ""
+        },
+        {
+          "rel": "icon",
+          "href": "https://www.autamedica.com/icon-16.png",
+          "type": "image/png",
+          "as": ""
+        },
+        {
+          "rel": "author",
+          "href": "https://autamedica.com/",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "canonical",
+          "href": "https://autamedica.com/",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "alternate",
+          "href": "https://autamedica.com/",
+          "type": "",
+          "as": ""
+        },
+        {
+          "rel": "alternate",
+          "href": "https://autamedica.com/",
+          "type": "",
+          "as": ""
+        }
+      ],
+      "scripts": [
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/829-7230cd9682e1bd54.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "application/ld+json",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": true,
+          "integrity": ""
+        },
+        {
+          "src": "https://www.autamedica.com/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+          "type": "",
+          "async": true,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "",
+          "type": "",
+          "async": false,
+          "defer": false,
+          "nomodule": false,
+          "integrity": ""
+        },
+        {
+          "src": "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015",
+          "type": "",
+          "async": false,
+          "defer": true,
+          "nomodule": false,
+          "integrity": "sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        }
+      ],
+      "styles": 3
+    },
+    "body": {
+      "classes": [
+        "antialiased"
+      ],
+      "id": "",
+      "childElementCount": 14
+    },
+    "elements": {
+      "total": 87,
+      "byTag": {
+        "div": 13,
+        "span": 1,
+        "p": 0,
+        "a": 0,
+        "img": 0,
+        "button": 1,
+        "input": 0,
+        "form": 0,
+        "table": 0,
+        "svg": 2
+      }
+    },
+    "tree": {
+      "tag": "html",
+      "id": null,
+      "classes": [],
+      "attributes": {
+        "lang": "es",
+        "dir": "ltr"
+      },
+      "textContent": null,
+      "childCount": 2,
+      "children": [
+        {
+          "tag": "head",
+          "id": null,
+          "classes": [],
+          "attributes": {},
+          "textContent": null,
+          "childCount": 51,
+          "children": [
+            {
+              "tag": "meta",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "charset": "utf-8"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "meta",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "name": "viewport",
+                "content": "width=device-width, initial-scale=1, maximum-scale=5"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "stylesheet",
+                "href": "/_next/static/css/4e4bfc708c0b1601.css",
+                "data-precedence": "next"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "preload",
+                "as": "script",
+                "fetchpriority": "low",
+                "href": "/_next/static/chunks/webpack-7a05b10425ae63bd.js"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/99ea1936-7f2aed943e1f4344.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/829-7230cd9682e1bd54.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/main-app-96ab7b6eb1a6e9e1.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/35-cc5b2a5d800fbb84.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/app/page-7c35ee1ef8dfb586.js",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "link",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "rel": "manifest",
+                "href": "/manifest.json"
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "id": null,
+          "classes": [
+            "antialiased"
+          ],
+          "attributes": {
+            "class": "antialiased"
+          },
+          "textContent": null,
+          "childCount": 14,
+          "children": [
+            {
+              "tag": "div",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "hidden": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "div",
+              "id": null,
+              "classes": [
+                "fixed",
+                "top-0",
+                "left-0",
+                "right-0",
+                "h-1",
+                "z-[9999]",
+                "pointer-events-none"
+              ],
+              "attributes": {
+                "class": "fixed top-0 left-0 right-0 h-1 z-[9999] pointer-events-none",
+                "role": "progressbar",
+                "aria-valuenow": "0",
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                "aria-label": "Progreso de lectura de la página"
+              },
+              "textContent": null,
+              "childCount": 1,
+              "children": [
+                {
+                  "tag": "div",
+                  "id": null,
+                  "classes": [
+                    "h-full",
+                    "bg-gradient-to-r",
+                    "from-gray-400",
+                    "via-white",
+                    "to-gray-400",
+                    "transition-all",
+                    "duration-150",
+                    "ease-out",
+                    "shadow-lg"
+                  ],
+                  "attributes": {
+                    "class": "h-full bg-gradient-to-r from-gray-400 via-white to-gray-400 transition-all duration-150 ease-out shadow-lg",
+                    "style": "width:0%;box-shadow:none"
+                  },
+                  "textContent": null,
+                  "childCount": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "tag": "main",
+              "id": null,
+              "classes": [],
+              "attributes": {
+                "aria-label": "Página principal AutaMedica"
+              },
+              "textContent": null,
+              "childCount": 5,
+              "children": [
+                {
+                  "tag": "div",
+                  "id": null,
+                  "classes": [
+                    "fixed",
+                    "top-2",
+                    "left-1/2",
+                    "-translate-x-1/2",
+                    "text-xs",
+                    "text-white/40",
+                    "z-[1000]",
+                    "pointer-events-none",
+                    "tracking-wider",
+                    "font-medium",
+                    "md:text-sm"
+                  ],
+                  "attributes": {
+                    "class": "fixed top-2 left-1/2 -translate-x-1/2 text-xs text-white/40 z-[1000] pointer-events-none tracking-wider font-medium md:text-sm"
+                  },
+                  "textContent": "desarrollado por E.M Medicina -UBA",
+                  "childCount": 0,
+                  "children": []
+                },
+                {
+                  "tag": "div",
+                  "id": null,
+                  "classes": [
+                    "fixed",
+                    "top-3",
+                    "left-3",
+                    "text-xl",
+                    "text-white",
+                    "font-bold",
+                    "z-[1000]",
+                    "md:top-5",
+                    "md:left-5",
+                    "md:text-2xl"
+                  ],
+                  "attributes": {
+                    "class": "fixed top-3 left-3 text-xl text-white font-bold z-[1000] md:top-5 md:left-5 md:text-2xl"
+                  },
+                  "textContent": "AutaMedica",
+                  "childCount": 0,
+                  "children": []
+                },
+                {
+                  "tag": "div",
+                  "id": null,
+                  "classes": [
+                    "jsx-5e92ac9edccab3e8",
+                    "account-menu",
+                    "fixed",
+                    "top-5",
+                    "right-3",
+                    "z-[1000]",
+                    "md:top-7",
+                    "md:right-7"
+                  ],
+                  "attributes": {
+                    "class": "jsx-5e92ac9edccab3e8 account-menu fixed top-5 right-3 z-[1000] md:top-7 md:right-7"
+                  },
+                  "textContent": null,
+                  "childCount": 1,
+                  "children": [
+                    {
+                      "tag": "button",
+                      "id": null,
+                      "classes": [
+                        "jsx-5e92ac9edccab3e8",
+                        "account-button",
+                        "group",
+                        "relative",
+                        "px-4",
+                        "py-2.5",
+                        "bg-[var(--au-surface)]/90",
+                        "hover:bg-[var(--au-hover)]/90",
+                        "border-2",
+                        "border-[var(--au-border)]",
+                        "hover:border-[var(--au-accent)]",
+                        "text-[var(--au-text-primary)]",
+                        "rounded-full",
+                        "text-sm",
+                        "transition-all",
+                        "duration-300",
+                        "backdrop-blur-xl",
+                        "shadow-lg",
+                        "hover:shadow-xl",
+                        "hover:scale-105",
+                        "md:px-5",
+                        "md:py-3"
+                      ],
+                      "attributes": {
+                        "aria-label": "Menú de cuenta",
+                        "aria-expanded": "false",
+                        "aria-haspopup": "true",
+                        "class": "jsx-5e92ac9edccab3e8 account-button group relative px-4 py-2.5 bg-[var(--au-surface)]/90 hover:bg-[var(--au-hover)]/90 border-2 border-[var(--au-border)] hover:border-[var(--au-accent)] text-[var(--au-text-primary)] rounded-full text-sm transition-all duration-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:scale-105 md:px-5 md:py-3"
+                      },
+                      "textContent": null,
+                      "childCount": 2,
+                      "children": [
+                        {
+                          "tag": "div",
+                          "id": null,
+                          "classes": [
+                            "jsx-5e92ac9edccab3e8",
+                            "flex",
+                            "items-center",
+                            "gap-2"
+                          ],
+                          "attributes": {
+                            "class": "jsx-5e92ac9edccab3e8 flex items-center gap-2"
+                          },
+                          "textContent": null,
+                          "childCount": 3,
+                          "children": []
+                        },
+                        {
+                          "tag": "div",
+                          "id": null,
+                          "classes": [
+                            "jsx-5e92ac9edccab3e8",
+                            "absolute",
+                            "inset-0",
+                            "rounded-full",
+                            "bg-[var(--au-accent)]/0",
+                            "group-hover:bg-[var(--au-accent)]/5",
+                            "transition-all",
+                            "duration-300",
+                            "pointer-events-none"
+                          ],
+                          "attributes": {
+                            "class": "jsx-5e92ac9edccab3e8 absolute inset-0 rounded-full bg-[var(--au-accent)]/0 group-hover:bg-[var(--au-accent)]/5 transition-all duration-300 pointer-events-none"
+                          },
+                          "textContent": null,
+                          "childCount": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "id": null,
+                  "classes": [
+                    "fixed",
+                    "inset-0",
+                    "z-[9999]",
+                    "bg-black/80",
+                    "backdrop-blur-sm",
+                    "flex",
+                    "items-center",
+                    "justify-center"
+                  ],
+                  "attributes": {
+                    "class": "fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center"
+                  },
+                  "textContent": null,
+                  "childCount": 1,
+                  "children": [
+                    {
+                      "tag": "div",
+                      "id": null,
+                      "classes": [
+                        "jsx-e7248811577575d2",
+                        "flex",
+                        "flex-col",
+                        "items-center",
+                        "justify-center",
+                        "min-h-screen",
+                        "bg-black",
+                        "text-white"
+                      ],
+                      "attributes": {
+                        "class": "jsx-e7248811577575d2 flex flex-col items-center justify-center min-h-screen bg-black text-white"
+                      },
+                      "textContent": null,
+                      "childCount": 2,
+                      "children": [
+                        {
+                          "tag": "h1",
+                          "id": null,
+                          "classes": [
+                            "jsx-e7248811577575d2",
+                            "autamedica-logo"
+                          ],
+                          "attributes": {
+                            "class": "jsx-e7248811577575d2 autamedica-logo"
+                          },
+                          "textContent": "AUTAMEDICA",
+                          "childCount": 0,
+                          "children": []
+                        },
+                        {
+                          "tag": "div",
+                          "id": null,
+                          "classes": [
+                            "jsx-e7248811577575d2",
+                            "progress-container"
+                          ],
+                          "attributes": {
+                            "class": "jsx-e7248811577575d2 progress-container"
+                          },
+                          "textContent": null,
+                          "childCount": 1,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "style",
+                  "id": null,
+                  "classes": [],
+                  "attributes": {},
+                  "textContent": "@keyframes float {\n          0%,\n          100% {\n            transform: translateY(0);\n          }\n",
+                  "childCount": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "tag": "script",
+              "id": "_R_",
+              "classes": [],
+              "attributes": {
+                "src": "/_next/static/chunks/webpack-7a05b10425ae63bd.js",
+                "id": "_R_",
+                "async": ""
+              },
+              "textContent": null,
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "(self.__next_f=self.__next_f||[]).push([0])",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n3:I[3848,[\\\"787\\\",\\\"static/chunks/787-cb87c3305371f5f",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"Organization\\\",",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"0:{\\\"P\\\":null,\\\"b\\\":\\\"iPR-Kna0pt-EKsGtRHbWe\\\",\\\"p\\\":\\\"\\\",\\\"c\\\":[\\\"\\\",\\\"\\\"],\\\"",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"14:\\\"$Sreact.suspense\\\"\\n12:[\\\"$\\\",\\\"$14\\\",null,{\\\"fallback\\\":null,\\\"children",
+              "childCount": 0,
+              "children": []
+            },
+            {
+              "tag": "script",
+              "id": null,
+              "classes": [],
+              "attributes": {},
+              "textContent": "self.__next_f.push([1,\"10:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"n",
+              "childCount": 0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
