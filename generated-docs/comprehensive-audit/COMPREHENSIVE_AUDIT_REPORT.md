@@ -1,7 +1,7 @@
 # 🔍 Comprehensive Multi-Viewport Audit Report
 
 **Target**: http://localhost:3000
-**Date**: 10/6/2025, 5:16:21 PM
+**Date**: 10/6/2025, 5:56:35 PM
 
 ---
 
@@ -18,11 +18,12 @@
 
 ### mobile - ❌ Failed
 
-Error: page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role="banner"]:has-text("AutaMedica")' is not a valid selector.
-    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)
-    at eval (eval at evaluate (:291:30), <anonymous>:25:13)
-    at UtilityScript.evaluate (<anonymous>:293:16)
-    at UtilityScript.<anonymous> (<anonymous>:1:44)
+Error: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
 
 ### tablet - ❌ Failed
 
@@ -81,4 +82,4 @@ Call log:
 
 ---
 
-*Generated on 10/6/2025, 5:16:48 PM*
+*Generated on 10/6/2025, 5:57:50 PM*

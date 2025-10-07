@@ -1,0 +1,485 @@
+{
+  "metadata": {
+    "url": "https://doctors.autamedica.com/",
+    "timestamp": "2025-10-06T20:21:41.075Z",
+    "userAgent": null
+  },
+  "console": {
+    "logs": [],
+    "errors": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 522 ()",
+        "location": {
+          "url": "https://doctors.autamedica.com/",
+          "lineNumber": 0,
+          "columnNumber": 0
+        },
+        "timestamp": 1759782101462
+      }
+    ],
+    "warnings": [
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 3,
+          "columnNumber": 0
+        },
+        "timestamp": 1759782104125
+      },
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 4,
+          "columnNumber": 0
+        },
+        "timestamp": 1759782104125
+      }
+    ],
+    "summary": {
+      "total": 3,
+      "errors": 1,
+      "warnings": 2,
+      "logs": 0
+    }
+  },
+  "network": {
+    "requests": [
+      {
+        "url": "https://doctors.autamedica.com/",
+        "method": "GET",
+        "status": 522,
+        "statusText": "",
+        "headers": {
+          "cache-control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+          "cf-ray": "98a7ddd5bb6d8e4f-EZE",
+          "content-length": "7306",
+          "content-type": "text/html; charset=UTF-8",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+          "referrer-policy": "same-origin",
+          "server": "cloudflare",
+          "x-frame-options": "SAMEORIGIN"
+        },
+        "contentType": "text/html; charset=UTF-8",
+        "duration": 111,
+        "timestamp": 1759782101446,
+        "fromCache": false,
+        "timing": null,
+        "size": 7306
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/styles/main.css",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "content-encoding": "zstd",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ietQHx5y616ckCHxNGchT%2B9gaQfxw6jMNDaQfu8sf6X9cg55HmQF7vNc%2BVYCVW5GVGRnUvNoiUAcoNZIHrW0rmwqQkiFVAAFBCK3cIxc9Ts52jPVkUxAlxyzFGFxnlJT5xY%3D\"}]}",
+          "cf-ray": "98a7ddd63c4b8e4f-EZE",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "text/css",
+          "vary": "accept-encoding",
+          "server": "cloudflare"
+        },
+        "contentType": "text/css",
+        "duration": 20,
+        "timestamp": 1759782101505,
+        "fromCache": false,
+        "timing": null,
+        "size": 8013
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-browser.png",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cf-ray": "98a7ddd68cc18e4f-EZE",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "image/png",
+          "vary": "accept-encoding",
+          "server": "cloudflare",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=umZFXxOPNCeQ9Dv4dFIZkbu8qsgto6SDUDmb0Q8225DaYc%2BBHJiSPObzO4A899jfR4AlS0KzP72P%2BfoFz53TfkEDh%2ByGx%2BI4cLKNOEzXvNHzaASYQuBki68hbdbB%2Bj%2B9q0U%3D\"}]}"
+        },
+        "contentType": "image/png",
+        "duration": 13,
+        "timestamp": 1759782101601,
+        "fromCache": false,
+        "timing": null,
+        "size": 484
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-ok.png",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cf-ray": "98a7ddd68cc58e4f-EZE",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "image/png",
+          "vary": "accept-encoding",
+          "server": "cloudflare",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VutIIxuhfoLo5E%2FPjwrjU6U0KyNK9o0cePT7gkJqwP9cj2FURQ7hYmw8h0oF47afSLH86zw5KG11vVxstp%2F5mcw6aU%2F9qOi9PWDEF16deDCswqrBLl5UIUo3plt596DZojQ%3D\"}]}"
+        },
+        "contentType": "image/png",
+        "duration": 10,
+        "timestamp": 1759782101602,
+        "fromCache": false,
+        "timing": null,
+        "size": 946
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-cloud.png",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cf-ray": "98a7ddd68cc68e4f-EZE",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "image/png",
+          "vary": "accept-encoding",
+          "server": "cloudflare",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vIuAmoBaVQv%2FTMkDZdcRszqr4mCpBqsoeweC6qqYXHhwznwBAf5HMqcERhqflGm17nWYNc%2FkVKMrZRBIVth7uVID%2BQmVItKh%2FcS65wpkbK8rBm37Hj2tbXykXX34fZ6dWp8%3D\"}]}"
+        },
+        "contentType": "image/png",
+        "duration": 10,
+        "timestamp": 1759782101603,
+        "fromCache": false,
+        "timing": null,
+        "size": 1484
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-server.png",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cf-ray": "98a7ddd68cc78e4f-EZE",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "image/png",
+          "vary": "accept-encoding",
+          "server": "cloudflare",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wHRI5PXOJnRHQuja3XzBhx5gI3kRBLA0fOA%2BPrqGeI8qEgHJt3TpXkJedth%2BUj356pCEpLy9npH%2F0mopgMnYfOlxKS2gfivZkVx0kjwew0zuoi%2Bbigb%2Fx0CcLqWdvCQ8ups%3D\"}]}"
+        },
+        "contentType": "image/png",
+        "duration": 11,
+        "timestamp": 1759782101604,
+        "fromCache": false,
+        "timing": null,
+        "size": 1384
+      },
+      {
+        "url": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-error.png",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cf-ray": "98a7ddd68cc98e4f-EZE",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+          "content-type": "image/png",
+          "vary": "accept-encoding",
+          "server": "cloudflare",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=T9v6lbxykvedekhxNQ8dhkstctXoXTTrEPSstNt%2F%2BTOBv3W%2FvWcJUZAZ%2FQ%2B3bQGI6N7WWVVGgeL%2FV9K3TUWInvzRbqHS0%2BC2JAA5QSgYg6T0kc1VHcMVVgAJGRSDgaQK3ME%3D\"}]}"
+        },
+        "contentType": "image/png",
+        "duration": 16,
+        "timestamp": 1759782101609,
+        "fromCache": false,
+        "timing": null,
+        "size": 854
+      }
+    ],
+    "summary": {
+      "total": 7,
+      "failed": 1,
+      "slow": 0,
+      "avgDuration": 27,
+      "totalBytes": 20471
+    }
+  },
+  "performance": {
+    "metrics": {
+      "navigation": {
+        "domInteractive": 258.4000000022352,
+        "domContentLoadedEventEnd": 260.19999999925494,
+        "loadEventEnd": 260.6000000014901,
+        "responseStart": 96.60000000149012,
+        "domComplete": 260.6000000014901
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "startTime": 300
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 300
+        }
+      ],
+      "lcp": null,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/styles/main.css",
+          "type": "link",
+          "duration": 46.600000001490116,
+          "transferSize": 2638,
+          "decodedBodySize": 8013
+        },
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-browser.png",
+          "type": "css",
+          "duration": 34.19999999925494,
+          "transferSize": 784,
+          "decodedBodySize": 484
+        },
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-ok.png",
+          "type": "css",
+          "duration": 36.69999999925494,
+          "transferSize": 1246,
+          "decodedBodySize": 946
+        },
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-cloud.png",
+          "type": "css",
+          "duration": 38.20000000298023,
+          "transferSize": 1784,
+          "decodedBodySize": 1484
+        },
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-server.png",
+          "type": "css",
+          "duration": 39.20000000298023,
+          "transferSize": 1684,
+          "decodedBodySize": 1384
+        },
+        {
+          "name": "https://doctors.autamedica.com/cdn-cgi/images/cf-icon-error.png",
+          "type": "css",
+          "duration": 40.69999999925494,
+          "transferSize": 1154,
+          "decodedBodySize": 854
+        }
+      ],
+      "memory": {
+        "usedJSHeapSize": 10000000,
+        "totalJSHeapSize": 10000000,
+        "jsHeapSizeLimit": 2330000000
+      }
+    },
+    "resources": [],
+    "webVitals": {
+      "LCP": null,
+      "CLS": 0,
+      "FCP": 300,
+      "TTFB": 96.60000000149012
+    }
+  },
+  "security": {
+    "state": null,
+    "headers": {
+      "cache-control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+      "cf-ray": "98a7ddd5bb6d8e4f-EZE",
+      "content-length": "7306",
+      "content-type": "text/html; charset=UTF-8",
+      "date": "Mon, 06 Oct 2025 20:21:41 GMT",
+      "expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+      "referrer-policy": "same-origin",
+      "server": "cloudflare",
+      "x-frame-options": "SAMEORIGIN"
+    },
+    "issues": [
+      "Missing header: strict-transport-security",
+      "Missing header: content-security-policy",
+      "Missing header: x-content-type-options",
+      "Missing header: x-xss-protection"
+    ]
+  },
+  "coverage": {
+    "js": {
+      "total": 0,
+      "unused": 0,
+      "percentage": 0
+    },
+    "css": {
+      "total": 8013,
+      "unused": 3166,
+      "percentage": "39.5"
+    }
+  },
+  "accessibility": {
+    "tree": {
+      "role": "WebArea",
+      "name": "autamedica.com | 522: Connection timed out",
+      "children": [
+        {
+          "role": "heading",
+          "name": "Connection timed out Error code 522",
+          "level": 1
+        },
+        {
+          "role": "text",
+          "name": "Visit "
+        },
+        {
+          "role": "link",
+          "name": "cloudflare.com"
+        },
+        {
+          "role": "text",
+          "name": " for more information."
+        },
+        {
+          "role": "text",
+          "name": "2025-10-06 20:21:41 UTC"
+        },
+        {
+          "role": "text",
+          "name": "You"
+        },
+        {
+          "role": "heading",
+          "name": "Browser",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Working"
+        },
+        {
+          "role": "link",
+          "name": ""
+        },
+        {
+          "role": "text",
+          "name": "Buenos Aires"
+        },
+        {
+          "role": "link",
+          "name": "Cloudflare"
+        },
+        {
+          "role": "text",
+          "name": "Working"
+        },
+        {
+          "role": "text",
+          "name": "doctors.autamedica.com"
+        },
+        {
+          "role": "heading",
+          "name": "Host",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Error"
+        },
+        {
+          "role": "heading",
+          "name": "What happened?",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "The initial connection between Cloudflare's network and the origin web server timed out. As a result, the web page can not be displayed."
+        },
+        {
+          "role": "heading",
+          "name": "What can I do?",
+          "level": 2
+        },
+        {
+          "role": "heading",
+          "name": "If you're a visitor of this website:",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Please try again in a few minutes."
+        },
+        {
+          "role": "heading",
+          "name": "If you're the owner of this website:",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Contact your hosting provider letting them know your web server is not completing requests. An Error 522 means that the request was able to connect to your web server, but that the request didn't finish. The most likely cause is that something on your server is hogging resources."
+        },
+        {
+          "role": "text",
+          "name": " "
+        },
+        {
+          "role": "link",
+          "name": "Additional troubleshooting information here."
+        },
+        {
+          "role": "text",
+          "name": "Cloudflare Ray ID: "
+        },
+        {
+          "role": "text",
+          "name": "98a7ddd5bb6d8e4f"
+        },
+        {
+          "role": "text",
+          "name": " "
+        },
+        {
+          "role": "text",
+          "name": "•"
+        },
+        {
+          "role": "text",
+          "name": " "
+        },
+        {
+          "role": "text",
+          "name": "Your IP: "
+        },
+        {
+          "role": "button",
+          "name": "Click to reveal"
+        },
+        {
+          "role": "text",
+          "name": "•"
+        },
+        {
+          "role": "text",
+          "name": "Performance & security by"
+        },
+        {
+          "role": "text",
+          "name": " "
+        },
+        {
+          "role": "link",
+          "name": "Cloudflare"
+        }
+      ]
+    },
+    "violations": [
+      {
+        "type": "missing-accessible-name",
+        "role": "link",
+        "path": "WebArea > link",
+        "severity": "critical"
+      }
+    ]
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-10-06T20:16:21.131Z",
+  "timestamp": "2025-10-06T20:56:35.478Z",
   "url": "http://localhost:3000",
   "viewports": {
     "mobile": {
-      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+      "error": "page.screenshot: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
     },
     "tablet": {
       "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div[role=\"banner\"]:has-text(\"AutaMedica\")' is not a valid selector.\n    at checkElement (eval at evaluate (:291:30), <anonymous>:3:27)\n    at eval (eval at evaluate (:291:30), <anonymous>:25:13)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
@@ -34,7 +34,7 @@
     "consoleLogs": [
       {
         "type": "log",
-        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: INP, value: 24, rating: good, delta: 24, entries: Array(1)}",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: INP, value: 128, rating: good, delta: 128, entries: Array(1)}",
         "location": {
           "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
           "lineNumber": 57,
@@ -43,7 +43,7 @@
       },
       {
         "type": "log",
-        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: CLS, value: 0.15280788177339902, rating: needs-improvement, delta: 0.15280788177339902, entries: Array(1)}",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: CLS, value: 0.15120576765188834, rating: needs-improvement, delta: 0.15120576765188834, entries: Array(1)}",
         "location": {
           "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
           "lineNumber": 57,
@@ -61,7 +61,7 @@
       },
       {
         "type": "log",
-        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: FCP, value: 168, rating: good, delta: 168, entries: Array(1)}",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: FCP, value: 344, rating: good, delta: 344, entries: Array(1)}",
         "location": {
           "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
           "lineNumber": 57,
@@ -70,7 +70,7 @@
       },
       {
         "type": "log",
-        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: TTFB, value: 65.80000000074506, rating: good, delta: 65.80000000074506, entries: Array(1)}",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: TTFB, value: 173.5, rating: good, delta: 173.5, entries: Array(1)}",
         "location": {
           "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
           "lineNumber": 57,
@@ -86,13 +86,13 @@
         "contentType": "text/html; charset=utf-8"
       },
       {
-        "url": "http://localhost:3000/_next/static/css/app/layout.css?v=1759781803672",
+        "url": "http://localhost:3000/_next/static/css/app/layout.css?v=1759784265650",
         "status": 200,
         "method": "GET",
         "contentType": "text/css; charset=UTF-8"
       },
       {
-        "url": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759781803672",
+        "url": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759784265650",
         "status": 200,
         "method": "GET",
         "contentType": "application/javascript; charset=UTF-8"
@@ -116,7 +116,7 @@
         "contentType": "application/javascript; charset=UTF-8"
       },
       {
-        "url": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759781803672",
+        "url": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759784265650",
         "status": 200,
         "method": "GET",
         "contentType": "application/javascript; charset=UTF-8"
@@ -134,13 +134,13 @@
         "contentType": "font/woff2"
       },
       {
-        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_ProfessionalFooter_tsx.js",
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_TestimonialsSection_tsx.js",
         "status": 200,
         "method": "GET",
         "contentType": "application/javascript; charset=UTF-8"
       },
       {
-        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_TestimonialsSection_tsx.js",
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_ProfessionalFooter_tsx.js",
         "status": 200,
         "method": "GET",
         "contentType": "application/javascript; charset=UTF-8"
