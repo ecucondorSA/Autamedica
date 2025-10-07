@@ -111,7 +111,8 @@ export async function requirePortalAccess(
 
   if (!canAccessPortal(session.user.role, portal)) {
     // Redirigir al portal apropiado según el rol del usuario
-    redirect(DEFAULT_PORTAL_REDIRECT[session.user.role] || "/");
+    const userRole = session.user.role as UserRole;
+    redirect(DEFAULT_PORTAL_REDIRECT[userRole] || "/");
   }
 
   return session;
