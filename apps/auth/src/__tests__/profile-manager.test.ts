@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ProfileManager } from '../lib/profile-manager';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@autamedica/types';
 
 // Mock Supabase client
 const createMockSupabaseClient = () => ({
@@ -29,7 +30,8 @@ describe('ProfileManager', () => {
 
   beforeEach(() => {
     mockClient = createMockSupabaseClient();
-    profileManager = new ProfileManager(mockClient as unknown as SupabaseClient);
+    // Type casting: mock client doesn't fully implement Supabase client interface
+    profileManager = new ProfileManager(mockClient as any);
   });
 
   describe('getCurrentProfile', () => {

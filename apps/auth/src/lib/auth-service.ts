@@ -44,7 +44,7 @@ export class AuthService {
   private client: SupabaseClient<Database>;
 
   constructor(client?: SupabaseClient<Database>) {
-    this.client = client ?? getBrowserSupabaseClient();
+    this.client = (client ?? getBrowserSupabaseClient()) as SupabaseClient<Database>;
   }
 
   /**
