@@ -76,6 +76,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ErrorBoundary>
           <AuthProvider enableDebug={process.env.NODE_ENV === 'development'}>
+            {/* @ts-expect-error - React 19 ReactNode type incompatibility */}
             {children}
           </AuthProvider>
         </ErrorBoundary>

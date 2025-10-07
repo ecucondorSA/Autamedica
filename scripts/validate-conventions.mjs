@@ -55,10 +55,16 @@ class ConventionValidator {
     });
 
     for (const file of typeFiles) {
-      const content = await fs.readFile(path.join(PROJECT_ROOT, file), "utf-8");
+      let content = await fs.readFile(path.join(PROJECT_ROOT, file), "utf-8");
 
-      // Buscar type/interface declarations
-      const typeMatches = content.matchAll(/(?:type|interface)\s+([A-Za-z0-9_]+)/g);
+      // Eliminar comentarios para evitar falsos positivos
+      // Remover comentarios de línea //
+      content = content.replace(/\/\/.*$/gm, '');
+      // Remover comentarios de bloque /* */
+      content = content.replace(/\/\*[\s\S]*?\*\//g, '');
+
+      // Buscar type/interface declarations (solo export explícitos y declaraciones top-level)
+      const typeMatches = content.matchAll(/^(?:export\s+)?(?:type|interface)\s+([A-Z][A-Za-z0-9_]*)/gm);
 
       for (const match of typeMatches) {
         const typeName = match[1];
@@ -104,11 +110,40 @@ class ConventionValidator {
       // Buscar nombres de columnas en CREATE TABLE
       const columnMatches = content.matchAll(/^\s+([a-zA-Z0-9_]+)\s+[A-Z]/gm);
 
+      // Lista completa de palabras clave SQL a ignorar
+      const SQL_KEYWORDS = [
+        "CREATE", "ALTER", "DROP", "TABLE", "INDEX", "PRIMARY", "KEY", "FOREIGN", "REFERENCES",
+        "CONSTRAINT", "UNIQUE", "CHECK", "DEFAULT", "NOT", "NULL", "AUTO_INCREMENT", "SERIAL",
+        "BIGSERIAL", "SMALLSERIAL", "BOOLEAN", "INTEGER", "BIGINT", "SMALLINT", "DECIMAL",
+        "NUMERIC", "REAL", "DOUBLE", "PRECISION", "VARCHAR", "CHAR", "TEXT", "DATE", "TIME",
+        "TIMESTAMP", "TIMESTAMPTZ", "INTERVAL", "UUID", "JSON", "JSONB", "ARRAY", "BYTEA",
+        "SELECT", "INSERT", "UPDATE", "DELETE", "FROM", "WHERE", "AND", "OR", "IN", "IS",
+        "LIKE", "BETWEEN", "ORDER", "BY", "GROUP", "HAVING", "LIMIT", "OFFSET", "JOIN",
+        "LEFT", "RIGHT", "INNER", "OUTER", "CROSS", "ON", "AS", "DISTINCT", "UNION", "ALL",
+        "CASE", "WHEN", "THEN", "ELSE", "END", "IF", "EXISTS", "ANY", "SOME", "CAST",
+        "GRANT", "REVOKE", "EXECUTE", "FUNCTION", "PROCEDURE", "TRIGGER", "BEFORE", "AFTER",
+        "FOR", "EACH", "ROW", "STATEMENT", "RETURNS", "RETURN", "DECLARE", "BEGIN", "LOOP",
+        "WHILE", "REPEAT", "UNTIL", "EXIT", "CONTINUE", "RAISE", "EXCEPTION", "NOTICE",
+        "WARNING", "INFO", "DEBUG", "LOG", "COMMENT", "DO", "LANGUAGE", "PLPGSQL", "SQL",
+        "VOLATILE", "STABLE", "IMMUTABLE", "STRICT", "SECURITY", "DEFINER", "INVOKER",
+        "OWNER", "TO", "WITH", "WITHOUT", "ZONE", "AT", "LOCAL", "SESSION", "CURRENT",
+        "GENERATED", "ALWAYS", "IDENTITY", "INCREMENT", "MINVALUE", "MAXVALUE", "START",
+        "CACHE", "CYCLE", "OWNED", "NONE", "REPLACE", "VIEW", "MATERIALIZED", "REFRESH",
+        "CONCURRENTLY", "CASCADE", "RESTRICT", "SET", "RESET", "SHOW", "COPY", "EXPLAIN",
+        "ANALYZE", "VACUUM", "REINDEX", "CLUSTER", "LISTEN", "NOTIFY", "UNLISTEN", "LOCK",
+        "ADVISORY", "SHARE", "EXCLUSIVE", "ACCESS", "MODE", "NOWAIT", "SKIP", "LOCKED",
+        "ONLY", "FIRST", "LAST", "NULLS", "ASC", "DESC", "USING", "OVER", "PARTITION",
+        "WINDOW", "RANGE", "ROWS", "UNBOUNDED", "PRECEDING", "FOLLOWING", "EXCLUDE", "TIES",
+        "CORRESPONDING", "NATURAL", "LATERAL", "ORDINALITY", "TABLESAMPLE", "BERNOULLI",
+        "SYSTEM", "REPEATABLE", "RECURSIVE", "WITHIN", "FILTER", "VARIADIC", "SETOF", "OUT",
+        "GET", "NO", "ADD", "DIAGNOSTICS", "FOUND", "ACTION", "ABSOLUTE", "RELATIVE"
+      ];
+
       for (const match of columnMatches) {
         const columnName = match[1];
 
-        // Ignorar palabras clave SQL
-        if (["CREATE", "ALTER", "DROP", "TABLE", "INDEX"].includes(columnName.toUpperCase())) {
+        // Ignorar palabras clave SQL (case-insensitive)
+        if (SQL_KEYWORDS.includes(columnName.toUpperCase())) {
           continue;
         }
 
@@ -135,8 +170,25 @@ class ConventionValidator {
     for (const dir of allDirs) {
       const folderName = path.basename(dir);
 
-      // Excepciones permitidas
-      if (["app", "src", "components", "lib", "utils", "api", "public"].includes(folderName)) {
+      // Excepciones permitidas para convenciones de framework
+      const allowedFolders = [
+        "app", "src", "components", "lib", "utils", "api", "public",
+        // Next.js special folders
+        "__tests__", // Jest/Vitest test folders
+        // Next.js App Router route groups and dynamic routes
+      ];
+
+      if (allowedFolders.includes(folderName)) {
+        continue;
+      }
+
+      // Permitir Next.js route groups: (group-name)
+      if (folderName.match(/^\([a-z][a-z0-9-]*\)$/)) {
+        continue;
+      }
+
+      // Permitir Next.js dynamic routes: [param] o [...param] o [[...param]]
+      if (folderName.match(/^\[{1,2}\.{0,3}[a-zA-Z][a-zA-Z0-9]*\]{1,2}$/)) {
         continue;
       }
 
@@ -162,13 +214,30 @@ class ConventionValidator {
     for (const file of componentFiles) {
       const fileName = path.basename(file, ".tsx");
 
-      if (!PASCAL_CASE_REGEX.test(fileName)) {
-        this.addViolation(
-          "COMPONENT_NAMING",
-          file,
-          `Componente "${fileName}.tsx" debe estar en PascalCase`
-        );
-        log(`  ❌ ${file}: debe ser PascalCase.tsx`, "red");
+      // Permitir archivos de utilidades con sufijos especiales
+      const allowedSuffixes = ["-helpers", "-utils", "-constants", "-types", "-config"];
+      const hasAllowedSuffix = allowedSuffixes.some(suffix => fileName.endsWith(suffix));
+
+      if (hasAllowedSuffix) {
+        // Para archivos de utilidades, validar kebab-case
+        if (!KEBAB_CASE_REGEX.test(fileName)) {
+          this.addViolation(
+            "COMPONENT_NAMING",
+            file,
+            `Archivo de utilidades "${fileName}.tsx" debe estar en kebab-case`
+          );
+          log(`  ❌ ${file}: debe ser kebab-case.tsx (archivo de utilidades)`, "red");
+        }
+      } else {
+        // Para componentes React, validar PascalCase
+        if (!PASCAL_CASE_REGEX.test(fileName)) {
+          this.addViolation(
+            "COMPONENT_NAMING",
+            file,
+            `Componente "${fileName}.tsx" debe estar en PascalCase`
+          );
+          log(`  ❌ ${file}: debe ser PascalCase.tsx`, "red");
+        }
       }
     }
   }

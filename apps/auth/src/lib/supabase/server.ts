@@ -11,9 +11,13 @@ import { getSupabaseConfig, createServerAuthConfig } from './config';
  * - Safe for server environments
  * - Uses centralized config
  */
+
+// Use ReturnType to infer correct type from createServerClient
+type ServerClient = ReturnType<typeof createServerClient<Database>>;
+
 export const createServerSupabaseClient = async (
   cookieStore?: ReadonlyRequestCookies
-): Promise<SupabaseClient<Database>> => {
+): Promise<ServerClient> => {
   const { url, anonKey } = getSupabaseConfig();
   const store = cookieStore ?? await cookies();
 
@@ -42,19 +46,19 @@ export const createServerSupabaseClient = async (
 };
 
 // Type exports
-export type SupabaseServerClientType = SupabaseClient<Database>;
+export type SupabaseServerClientType = ServerClient;
 export type ServerAuthUser = NonNullable<
-  Awaited<ReturnType<SupabaseServerClientType['auth']['getUser']>>['data']['user']
+  Awaited<ReturnType<ServerClient['auth']['getUser']>>['data']['user']
 >;
 export type ServerAuthSession = NonNullable<
-  Awaited<ReturnType<SupabaseServerClientType['auth']['getSession']>>['data']['session']
+  Awaited<ReturnType<ServerClient['auth']['getSession']>>['data']['session']
 >;
 
 /**
  * Health check utility for server
  */
 export const checkSupabaseServerConnection = async (
-  client: SupabaseClient<Database>
+  client: ServerClient
 ): Promise<{ healthy: boolean; latency?: number; error?: string }> => {
   try {
     const start = Date.now();

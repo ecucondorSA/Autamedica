@@ -31,7 +31,7 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
   }, [videos.length, reducedMotion]);
 
   return (
-    <section className="hero-vertical">
+    <section className="hero-vertical" role="banner">
       <div className="video-background" aria-hidden="true">
         {videos.map((src, i) => (
           <video
@@ -41,7 +41,7 @@ export default function HeroVertical({ videos, title, subtitle }: Props) {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload={i === 0 ? "auto" : "metadata"}
             aria-hidden="true"
             tabIndex={-1}
           >

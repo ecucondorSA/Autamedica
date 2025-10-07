@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import type { UserProfile, AuditLogEntry, ProfileManager } from '@/lib/profile-manager';
 import { logger } from '@autamedica/shared';
 
-// This page is client-only, disable prerendering
+// This page is client-only, force dynamic rendering
+// Note: 'prerender' is deprecated in Next.js 15.5+, use 'dynamic' instead
 export const dynamic = 'force-dynamic';
-export const prerender = false;
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);

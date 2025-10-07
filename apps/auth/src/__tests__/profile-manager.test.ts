@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ProfileManager } from '../lib/profile-manager';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@autamedica/types';
 
 // Mock Supabase client
 const createMockSupabaseClient = () => ({
@@ -29,7 +30,8 @@ describe('ProfileManager', () => {
 
   beforeEach(() => {
     mockClient = createMockSupabaseClient();
-    profileManager = new ProfileManager(mockClient as unknown as SupabaseClient);
+    // Type casting: mock client doesn't fully implement Supabase client interface
+    profileManager = new ProfileManager(mockClient as any);
   });
 
   describe('getCurrentProfile', () => {
@@ -53,11 +55,13 @@ describe('ProfileManager', () => {
       const result = await profileManager.getCurrentProfile();
 
       expect(result.success).toBe(true);
-      expect(result.data).toMatchObject({
-        id: 'user-123',
-        email: 'test@example.com',
-        role: 'patient',
-      });
+      if (result.success) {
+        expect(result.data).toMatchObject({
+          id: 'user-123',
+          email: 'test@example.com',
+          role: 'patient',
+        });
+      }
       expect(mockClient.rpc).toHaveBeenCalledWith('get_current_profile');
     });
 
@@ -70,7 +74,9 @@ describe('ProfileManager', () => {
       const result = await profileManager.getCurrentProfile();
 
       expect(result.success).toBe(true);
-      expect(result.data).toBeNull();
+      if (result.success) {
+        expect(result.data).toBeNull();
+      }
     });
 
     it('should handle RPC errors', async () => {
@@ -82,7 +88,7 @@ describe('ProfileManager', () => {
       const result = await profileManager.getCurrentProfile();
 
       expect(result.success).toBe(false);
-      expect(result.error?.code).toBe('RPC_ERROR');
+      expect(result.success === false && result.error.code).toBe('RPC_ERROR');
     });
   });
 
@@ -111,8 +117,8 @@ describe('ProfileManager', () => {
       );
 
       expect(result.success).toBe(false);
-      expect(result.error?.code).toBe('VALIDATION_ERROR');
-      expect(result.error?.message).toContain('Invalid organization ID');
+      expect(result.success === false && result.error.code).toBe('VALIDATION_ERROR');
+      expect(result.success === false && result.error.message).toContain('Invalid organization ID');
     });
   });
 
@@ -133,7 +139,9 @@ describe('ProfileManager', () => {
       const result = await profileManager.isAdmin();
 
       expect(result.success).toBe(true);
-      expect(result.data).toBe(true);
+      if (result.success) {
+        expect(result.data).toBe(true);
+      }
     });
 
     it('should return false for non-admin roles', async () => {
@@ -152,7 +160,9 @@ describe('ProfileManager', () => {
       const result = await profileManager.isAdmin();
 
       expect(result.success).toBe(true);
-      expect(result.data).toBe(false);
+      if (result.success) {
+        expect(result.data).toBe(false);
+      }
     });
   });
 
@@ -173,7 +183,9 @@ describe('ProfileManager', () => {
       const result = await profileManager.hasRole('doctor');
 
       expect(result.success).toBe(true);
-      expect(result.data).toBe(true);
+      if (result.success) {
+        expect(result.data).toBe(true);
+      }
     });
 
     it('should return false if user has different role', async () => {
@@ -192,7 +204,9 @@ describe('ProfileManager', () => {
       const result = await profileManager.hasRole('doctor');
 
       expect(result.success).toBe(true);
-      expect(result.data).toBe(false);
+      if (result.success) {
+        expect(result.data).toBe(false);
+      }
     });
   });
 
@@ -208,8 +222,10 @@ describe('ProfileManager', () => {
       const result = await profileManager.healthCheck();
 
       expect(result.success).toBe(true);
-      expect(result.data?.status).toBe('healthy');
-      expect(result.data?.latency).toBeGreaterThanOrEqual(0);
+      if (result.success) {
+        expect(result.data?.status).toBe('healthy');
+        expect(result.data?.latency).toBeGreaterThanOrEqual(0);
+      }
     });
 
     it('should return error on health check failure', async () => {
@@ -223,7 +239,7 @@ describe('ProfileManager', () => {
       const result = await profileManager.healthCheck();
 
       expect(result.success).toBe(false);
-      expect(result.error?.code).toBe('HEALTH_CHECK_ERROR');
+      expect(result.success === false && result.error.code).toBe('HEALTH_CHECK_ERROR');
     });
   });
 });

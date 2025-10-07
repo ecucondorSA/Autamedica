@@ -1,0 +1,2332 @@
+{
+  "metadata": {
+    "url": "http://localhost:3000",
+    "timestamp": "2025-10-06T20:14:04.135Z",
+    "userAgent": null
+  },
+  "console": {
+    "logs": [
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: FCP, value: 440, rating: good, delta: 440, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        },
+        "timestamp": 1759781647507
+      },
+      {
+        "type": "log",
+        "text": "%cinfo%c 📊 Web Vital: \n      background: #00BCD4;\n      border-radius: 0.5em;\n      color: white;\n      font-weight: bold;\n      padding: 2px 0.5em;\n      {name: TTFB, value: 90.39999999850988, rating: good, delta: 90.39999999850988, entries: Array(1)}",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/browser.mjs",
+          "lineNumber": 57,
+          "columnNumber": 6
+        },
+        "timestamp": 1759781647508
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 3,
+          "columnNumber": 0
+        },
+        "timestamp": 1759781648902
+      },
+      {
+        "type": "warning",
+        "text": "Deprecated API for given entry type.",
+        "location": {
+          "url": "",
+          "lineNumber": 4,
+          "columnNumber": 0
+        },
+        "timestamp": 1759781648902
+      }
+    ],
+    "summary": {
+      "total": 4,
+      "errors": 0,
+      "warnings": 2,
+      "logs": 2
+    }
+  },
+  "network": {
+    "requests": [
+      {
+        "url": "http://localhost:3000/_next/static/css/app/layout.css?v=1759781644508",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"a340-199bae9de5c\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 19:05:13 GMT",
+          "content-type": "text/css; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "text/css; charset=UTF-8",
+        "duration": 22,
+        "timestamp": 1759781644632,
+        "fromCache": false,
+        "timing": null,
+        "size": 41792
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759781644508",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"22610-199bae9e4d3\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 19:05:14 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 185,
+        "timestamp": 1759781644795,
+        "fromCache": false,
+        "timing": null,
+        "size": 140816
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"43f50-199bae4038a\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:58:49 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 186,
+        "timestamp": 1759781644796,
+        "fromCache": false,
+        "timing": null,
+        "size": 278352
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/page.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"5f1f6-199bae9e4d2\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 19:05:14 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 186,
+        "timestamp": 1759781644796,
+        "fromCache": false,
+        "timing": null,
+        "size": 389622
+      },
+      {
+        "url": "http://localhost:3000/",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "content-encoding": "gzip",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "keep-alive": "timeout=5",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "transfer-encoding": "chunked",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "text/html; charset=utf-8",
+        "duration": 102,
+        "timestamp": 1759781644594,
+        "fromCache": false,
+        "timing": null,
+        "size": 31589
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/app/layout.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"1f69cd-199bae9e4d0\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 19:05:14 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 463,
+        "timestamp": 1759781645073,
+        "fromCache": false,
+        "timing": null,
+        "size": 2058701
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759781644508",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"76ba50-199bae40389\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:58:49 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 896,
+        "timestamp": 1759781645506,
+        "fromCache": false,
+        "timing": null,
+        "size": 7780944
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_TestimonialsSection_tsx.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"13d8b-199bae58369\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Mon, 06 Oct 2025 19:00:27 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 27,
+        "timestamp": 1759781647644,
+        "fromCache": false,
+        "timing": null,
+        "size": 81291
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_ProfessionalFooter_tsx.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"16209-199bae4343b\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:59:01 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 50,
+        "timestamp": 1759781647667,
+        "fromCache": false,
+        "timing": null,
+        "size": 90633
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+        "method": "GET",
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "cache-control": "private, max-age=86400",
+          "timing-allow-origin": "*",
+          "cross-origin-opener-policy": "same-origin-allow-popups",
+          "cross-origin-resource-policy": "cross-origin",
+          "x-content-type-options": "nosniff",
+          "expires": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "accept-ranges": "none",
+          "access-control-allow-origin": "*",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "x-xss-protection": "0",
+          "content-type": "text/css; charset=utf-8",
+          "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site,Accept-Encoding",
+          "server": "ESF",
+          "x-frame-options": "SAMEORIGIN"
+        },
+        "contentType": "text/css; charset=utf-8",
+        "duration": 216,
+        "timestamp": 1759781647691,
+        "fromCache": false,
+        "timing": null,
+        "size": 1374
+      },
+      {
+        "url": "http://localhost:3000/videos/video2.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"8cc6c-199b3d7f964\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-576619/576620",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "576620"
+        },
+        "contentType": "video/mp4",
+        "duration": 28,
+        "timestamp": 1759781647682,
+        "fromCache": false,
+        "timing": null,
+        "size": 576620
+      },
+      {
+        "url": "http://localhost:3000/videos/video1.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"76979-199b3d7f959\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-485752/485753",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "485753"
+        },
+        "contentType": "video/mp4",
+        "duration": 8,
+        "timestamp": 1759781647662,
+        "fromCache": false,
+        "timing": null,
+        "size": 485753
+      },
+      {
+        "url": "http://localhost:3000/videos/video3.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"e9ed1-199b3d7f96d\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-958160/958161",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "958161"
+        },
+        "contentType": "video/mp4",
+        "duration": 32,
+        "timestamp": 1759781647689,
+        "fromCache": false,
+        "timing": null,
+        "size": 958161
+      },
+      {
+        "url": "http://localhost:3000/videos/video1.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"76979-199b3d7f959\"",
+          "content-range": "bytes 0-485752/485753",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "485753",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 312,
+        "timestamp": 1759781647966,
+        "fromCache": false,
+        "timing": null,
+        "size": 485753
+      },
+      {
+        "url": "http://localhost:3000/videos/video2.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"8cc6c-199b3d7f964\"",
+          "content-range": "bytes 0-576619/576620",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "576620",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 313,
+        "timestamp": 1759781647969,
+        "fromCache": false,
+        "timing": null,
+        "size": 576620
+      },
+      {
+        "url": "http://localhost:3000/videos/video3.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"e9ed1-199b3d7f96d\"",
+          "content-range": "bytes 0-958160/958161",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "958161",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 317,
+        "timestamp": 1759781647973,
+        "fromCache": false,
+        "timing": null,
+        "size": 958161
+      },
+      {
+        "url": "http://localhost:3000/videos/video1.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"76979-199b3d7f959\"",
+          "content-range": "bytes 0-485752/485753",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "485753",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 620,
+        "timestamp": 1759781648274,
+        "fromCache": false,
+        "timing": null,
+        "size": 485753
+      },
+      {
+        "url": "http://localhost:3000/videos/video2.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"8cc6c-199b3d7f964\"",
+          "content-range": "bytes 0-576619/576620",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "576620",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 623,
+        "timestamp": 1759781648277,
+        "fromCache": false,
+        "timing": null,
+        "size": 576620
+      },
+      {
+        "url": "http://localhost:3000/videos/video3.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"e9ed1-199b3d7f96d\"",
+          "content-range": "bytes 0-958160/958161",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "958161",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 644,
+        "timestamp": 1759781648300,
+        "fromCache": false,
+        "timing": null,
+        "size": 958161
+      },
+      {
+        "url": "http://localhost:3000/videos/video1.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"76979-199b3d7f959\"",
+          "content-range": "bytes 0-485752/485753",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "485753",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 671,
+        "timestamp": 1759781648325,
+        "fromCache": false,
+        "timing": null,
+        "size": 485753
+      },
+      {
+        "url": "http://localhost:3000/videos/video2.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"8cc6c-199b3d7f964\"",
+          "content-range": "bytes 0-576619/576620",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "576620",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 684,
+        "timestamp": 1759781648339,
+        "fromCache": false,
+        "timing": null,
+        "size": 576620
+      },
+      {
+        "url": "http://localhost:3000/videos/video3.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"e9ed1-199b3d7f96d\"",
+          "content-range": "bytes 0-958160/958161",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "958161",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 688,
+        "timestamp": 1759781648345,
+        "fromCache": false,
+        "timing": null,
+        "size": 958161
+      },
+      {
+        "url": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_experience_HorizontalExperience_tsx.js",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "content-encoding": "gzip",
+          "etag": "W/\"303b55-199bae4038b\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:07 GMT",
+          "last-modified": "Mon, 06 Oct 2025 18:58:49 GMT",
+          "content-type": "application/javascript; charset=UTF-8",
+          "vary": "Accept-Encoding",
+          "x-frame-options": "DENY",
+          "transfer-encoding": "chunked",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "no-store, must-revalidate",
+          "connection": "keep-alive",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes"
+        },
+        "contentType": "application/javascript; charset=UTF-8",
+        "duration": 750,
+        "timestamp": 1759781648367,
+        "fromCache": false,
+        "timing": null,
+        "size": 3160917
+      },
+      {
+        "url": "http://localhost:3000/videos/patient_consulta_virtual.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"121ecf-199b3be81e6\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 09:40:30 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-1187534/1187535",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "1187535"
+        },
+        "contentType": "video/mp4",
+        "duration": 4,
+        "timestamp": 1759781649256,
+        "fromCache": false,
+        "timing": null,
+        "size": 1187535
+      },
+      {
+        "url": "http://localhost:3000/videos/video1.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "etag": "W/\"76979-199b3d7f959\"",
+          "content-range": "bytes 229376-485752/485753",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "x-content-type-options": "nosniff",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "256377",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 10:08:19 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY"
+        },
+        "contentType": "video/mp4",
+        "duration": 219,
+        "timestamp": 1759781649475,
+        "fromCache": false,
+        "timing": null,
+        "size": 256377
+      },
+      {
+        "url": "http://localhost:3000/videos/patient_historia_clinica.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"3abbe-199b3be81e7\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 09:40:30 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-240573/240574",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "240574"
+        },
+        "contentType": "video/mp4",
+        "duration": 223,
+        "timestamp": 1759781649481,
+        "fromCache": false,
+        "timing": null,
+        "size": 240574
+      },
+      {
+        "url": "http://localhost:3000/videos/patient_agendamiento.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"83770-199b3be81e4\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 09:40:30 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-538479/538480",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "538480"
+        },
+        "contentType": "video/mp4",
+        "duration": 227,
+        "timestamp": 1759781649484,
+        "fromCache": false,
+        "timing": null,
+        "size": 538480
+      },
+      {
+        "url": "http://localhost:3000/videos/alta-agent-ia.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"20642a-199b3be81e2\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 09:40:30 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-2122793/2122794",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "2122794"
+        },
+        "contentType": "video/mp4",
+        "duration": 222,
+        "timestamp": 1759781649479,
+        "fromCache": false,
+        "timing": null,
+        "size": 2122794
+      },
+      {
+        "url": "http://localhost:3000/videos/patient_seguimiento.mp4",
+        "method": "GET",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "etag": "W/\"330b6-199b3be81e8\"",
+          "x-content-type-options": "nosniff",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "last-modified": "Sun, 05 Oct 2025 09:40:30 GMT",
+          "content-type": "video/mp4",
+          "x-frame-options": "DENY",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+          "cache-control": "public, max-age=0",
+          "connection": "keep-alive",
+          "content-range": "bytes 0-209077/209078",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+          "accept-ranges": "bytes",
+          "content-length": "209078"
+        },
+        "contentType": "video/mp4",
+        "duration": 84,
+        "timestamp": 1759781649659,
+        "fromCache": false,
+        "timing": null,
+        "size": 209078
+      },
+      {
+        "url": "http://localhost:3000/__nextjs_font/geist-latin.woff2",
+        "method": "GET",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "transfer-encoding": "chunked",
+          "cache-control": "public, max-age=31536000, immutable",
+          "connection": "keep-alive",
+          "access-control-allow-methods": "OPTIONS, GET",
+          "access-control-allow-origin": "http://localhost:3000",
+          "keep-alive": "timeout=5",
+          "date": "Mon, 06 Oct 2025 20:14:09 GMT",
+          "content-type": "font/woff2"
+        },
+        "contentType": "font/woff2",
+        "duration": 43,
+        "timestamp": 1759781649887,
+        "fromCache": false,
+        "timing": null,
+        "size": 28356
+      }
+    ],
+    "summary": {
+      "total": 30,
+      "failed": 0,
+      "slow": 8,
+      "avgDuration": 302,
+      "totalBytes": 26721361
+    }
+  },
+  "performance": {
+    "metrics": {
+      "navigation": {
+        "domInteractive": 290.30000000074506,
+        "domContentLoadedEventEnd": 290.3999999985099,
+        "loadEventEnd": 2864.89999999851,
+        "responseStart": 90.39999999850988,
+        "domComplete": 2864.89999999851
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "startTime": 440
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 440
+        }
+      ],
+      "lcp": null,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "http://localhost:3000/_next/static/css/app/layout.css?v=1759781644508",
+          "type": "link",
+          "duration": 22.5,
+          "transferSize": 8757,
+          "decodedBodySize": 41792
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/webpack.js?v=1759781644508",
+          "type": "link",
+          "duration": 95.80000000074506,
+          "transferSize": 28435,
+          "decodedBodySize": 140816
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/main-app.js?v=1759781644508",
+          "type": "script",
+          "duration": 872,
+          "transferSize": 1766995,
+          "decodedBodySize": 7780944
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+          "type": "script",
+          "duration": 110.10000000149012,
+          "transferSize": 64772,
+          "decodedBodySize": 278352
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app/layout.js",
+          "type": "script",
+          "duration": 380,
+          "transferSize": 487051,
+          "decodedBodySize": 2058701
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/app/page.js",
+          "type": "script",
+          "duration": 122.09999999776483,
+          "transferSize": 94792,
+          "decodedBodySize": 389622
+        },
+        {
+          "name": "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
+          "type": "css",
+          "duration": 214.89999999850988,
+          "transferSize": 1674,
+          "decodedBodySize": 1374
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_experience_HorizontalExperience_tsx.js",
+          "type": "script",
+          "duration": 659.0999999977648,
+          "transferSize": 796059,
+          "decodedBodySize": 3160917
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_TestimonialsSection_tsx.js",
+          "type": "script",
+          "duration": 73.30000000074506,
+          "transferSize": 15507,
+          "decodedBodySize": 81291
+        },
+        {
+          "name": "http://localhost:3000/_next/static/chunks/_app-pages-browser_src_components_landing_ProfessionalFooter_tsx.js",
+          "type": "script",
+          "duration": 109,
+          "transferSize": 19325,
+          "decodedBodySize": 90633
+        },
+        {
+          "name": "http://localhost:3000/videos/video1.mp4",
+          "type": "video",
+          "duration": 169.90000000223517,
+          "transferSize": 486053,
+          "decodedBodySize": 485753
+        },
+        {
+          "name": "http://localhost:3000/videos/video2.mp4",
+          "type": "video",
+          "duration": 171.30000000074506,
+          "transferSize": 576920,
+          "decodedBodySize": 576620
+        },
+        {
+          "name": "http://localhost:3000/videos/video3.mp4",
+          "type": "video",
+          "duration": 176.39999999850988,
+          "transferSize": 958461,
+          "decodedBodySize": 958161
+        },
+        {
+          "name": "http://localhost:3000/videos/video1.mp4",
+          "type": "video",
+          "duration": 280,
+          "transferSize": 486053,
+          "decodedBodySize": 485753
+        },
+        {
+          "name": "http://localhost:3000/videos/video2.mp4",
+          "type": "video",
+          "duration": 281.69999999925494,
+          "transferSize": 576920,
+          "decodedBodySize": 576620
+        },
+        {
+          "name": "http://localhost:3000/videos/video3.mp4",
+          "type": "video",
+          "duration": 283.5999999977648,
+          "transferSize": 958461,
+          "decodedBodySize": 958161
+        },
+        {
+          "name": "http://localhost:3000/videos/video1.mp4",
+          "type": "video",
+          "duration": 308.4000000022352,
+          "transferSize": 486053,
+          "decodedBodySize": 485753
+        },
+        {
+          "name": "http://localhost:3000/videos/video2.mp4",
+          "type": "video",
+          "duration": 351,
+          "transferSize": 576920,
+          "decodedBodySize": 576620
+        },
+        {
+          "name": "http://localhost:3000/videos/video3.mp4",
+          "type": "video",
+          "duration": 351.70000000298023,
+          "transferSize": 958461,
+          "decodedBodySize": 958161
+        },
+        {
+          "name": "http://localhost:3000/videos/video1.mp4",
+          "type": "video",
+          "duration": 269.30000000074506,
+          "transferSize": 486053,
+          "decodedBodySize": 485753
+        },
+        {
+          "name": "http://localhost:3000/videos/video2.mp4",
+          "type": "video",
+          "duration": 296.0999999977648,
+          "transferSize": 576920,
+          "decodedBodySize": 576620
+        },
+        {
+          "name": "http://localhost:3000/videos/video3.mp4",
+          "type": "video",
+          "duration": 296.1000000014901,
+          "transferSize": 958461,
+          "decodedBodySize": 958161
+        }
+      ],
+      "memory": {
+        "usedJSHeapSize": 97400000,
+        "totalJSHeapSize": 97400000,
+        "jsHeapSizeLimit": 2330000000
+      }
+    },
+    "resources": [],
+    "webVitals": {
+      "LCP": null,
+      "CLS": 0,
+      "FCP": 440,
+      "TTFB": 90.39999999850988
+    }
+  },
+  "security": {
+    "state": null,
+    "headers": {
+      "cache-control": "no-store, must-revalidate",
+      "connection": "keep-alive",
+      "content-encoding": "gzip",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://gtyvdircfhmdjiaelqkg.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Mon, 06 Oct 2025 20:14:04 GMT",
+      "keep-alive": "timeout=5",
+      "permissions-policy": "geolocation=(), microphone=(), camera=(), payment=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    },
+    "issues": [
+      "Missing header: x-xss-protection"
+    ]
+  },
+  "coverage": {
+    "js": {
+      "total": 0,
+      "unused": 0,
+      "percentage": 0
+    },
+    "css": {
+      "total": 42775,
+      "unused": 33365,
+      "percentage": "78.0"
+    }
+  },
+  "accessibility": {
+    "tree": {
+      "role": "WebArea",
+      "name": "AutaMedica - Telemedicina sin fricciones",
+      "children": [
+        {
+          "role": "progressbar",
+          "name": "Progreso de lectura de la página",
+          "valuetext": "",
+          "valuemin": 0,
+          "valuemax": 100,
+          "value": 0
+        },
+        {
+          "role": "text",
+          "name": "desarrollado por E.M Medicina -UBA"
+        },
+        {
+          "role": "text",
+          "name": "AutaMedica"
+        },
+        {
+          "role": "button",
+          "name": "Menú de cuenta",
+          "haspopup": "menu"
+        },
+        {
+          "role": "heading",
+          "name": "AutaMedica existe para quitar la fricción de tu consulta",
+          "level": 1
+        },
+        {
+          "role": "text",
+          "name": "Agenda inmediata, receta digital al finalizar y resultados en tu móvil"
+        },
+        {
+          "role": "text",
+          "name": "↓"
+        },
+        {
+          "role": "text",
+          "name": "Explorar más"
+        },
+        {
+          "role": "heading",
+          "name": "EXPLORA NUESTROS PORTALES",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Soluciones especializadas para cada necesidad"
+        },
+        {
+          "role": "text",
+          "name": "HISTORIAS REALES"
+        },
+        {
+          "role": "heading",
+          "name": "Consulta sin esperas",
+          "level": 3
+        },
+        {
+          "role": "button",
+          "name": "Controlar reproducción"
+        },
+        {
+          "role": "button",
+          "name": "07:52 Consulta sin esperas",
+          "pressed": true
+        },
+        {
+          "role": "button",
+          "name": "06:15 Tu historia en un solo lugar",
+          "pressed": false
+        },
+        {
+          "role": "button",
+          "name": "05:44 Agenda inteligente",
+          "pressed": false
+        },
+        {
+          "role": "button",
+          "name": "04:58 Seguimiento continuo",
+          "pressed": false
+        },
+        {
+          "role": "heading",
+          "name": "Portal Pacientes",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Un ecosistema completo para gestionar turnos, recetas y seguimiento clínico sin salir de casa."
+        },
+        {
+          "role": "text",
+          "name": "120K"
+        },
+        {
+          "role": "text",
+          "name": "CONSULTAS RESUELTAS"
+        },
+        {
+          "role": "text",
+          "name": "+95%"
+        },
+        {
+          "role": "text",
+          "name": "SATISFACCIÓN REGISTRADA"
+        },
+        {
+          "role": "text",
+          "name": "24/7"
+        },
+        {
+          "role": "text",
+          "name": "DISPONIBILIDAD ASISTENCIAL"
+        },
+        {
+          "role": "text",
+          "name": "Turnos confirmados en tiempo real"
+        },
+        {
+          "role": "text",
+          "name": "Historial clínico accesible"
+        },
+        {
+          "role": "text",
+          "name": "Recetas digitales firmadas"
+        },
+        {
+          "role": "text",
+          "name": "Seguimiento post consulta"
+        },
+        {
+          "role": "text",
+          "name": "Alertas inteligentes de tratamientos"
+        },
+        {
+          "role": "text",
+          "name": "Integración con laboratorios"
+        },
+        {
+          "role": "text",
+          "name": "Soporte multicanal 24/7"
+        },
+        {
+          "role": "text",
+          "name": "Resultados clínicos adjuntos"
+        },
+        {
+          "role": "heading",
+          "name": "Testimonios y casos de éxito",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "“"
+        },
+        {
+          "role": "text",
+          "name": "Pasé de esperar semanas a resolverme en minutos. La receta llegó al instante y el control fue impecable."
+        },
+        {
+          "role": "text",
+          "name": "”"
+        },
+        {
+          "role": "text",
+          "name": "Carolina S."
+        },
+        {
+          "role": "text",
+          "name": "PACIENTE CRÓNICA DE CLÍNICA MÉDICA"
+        },
+        {
+          "role": "text",
+          "name": "“"
+        },
+        {
+          "role": "text",
+          "name": "Los recordatorios automáticos me ayudaron a cumplir el tratamiento completo. El equipo estuvo disponible todo el tiempo."
+        },
+        {
+          "role": "text",
+          "name": "”"
+        },
+        {
+          "role": "text",
+          "name": "Hernán M."
+        },
+        {
+          "role": "text",
+          "name": "PROGRAMA DE REHABILITACIÓN CARDIOLÓGICA"
+        },
+        {
+          "role": "link",
+          "name": "Acceder al Portal Pacientes"
+        },
+        {
+          "role": "link",
+          "name": "Crear mi cuenta gratuita"
+        },
+        {
+          "role": "text",
+          "name": "DEMOSTRACIÓN CLÍNICA"
+        },
+        {
+          "role": "heading",
+          "name": "Consultorio digital integral",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Agenda compartida, sala de espera virtual y panel clínico en vivo."
+        },
+        {
+          "role": "button",
+          "name": "Pausa"
+        },
+        {
+          "role": "button",
+          "name": "08:10 Consultorio digital integral Agenda compartida, sala de espera virtual y panel clínico en vivo.",
+          "pressed": true
+        },
+        {
+          "role": "button",
+          "name": "05:36 Asistente diagnóstico IA que sugiere diagnósticos diferenciales y protocolos terapéuticos.",
+          "pressed": false
+        },
+        {
+          "role": "button",
+          "name": "07:04 Seguimiento longitudinal Evolución clínica y resultados compartidos con el equipo ampliado.",
+          "pressed": false
+        },
+        {
+          "role": "heading",
+          "name": "Portal Médico",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Un workspace clínico diseñado para profesionales que necesitan precisión, velocidad y trazabilidad."
+        },
+        {
+          "role": "text",
+          "name": "TIEMPO MEDIO POR CONSULTA"
+        },
+        {
+          "role": "text",
+          "name": "11 min"
+        },
+        {
+          "role": "text",
+          "name": "PROTOCOLOS ACTIVOS"
+        },
+        {
+          "role": "text",
+          "name": "145"
+        },
+        {
+          "role": "text",
+          "name": "PRESCRIPCIONES DIGITALES"
+        },
+        {
+          "role": "text",
+          "name": "320K"
+        },
+        {
+          "role": "text",
+          "name": "Consultorio virtual con múltiples salas simultáneas"
+        },
+        {
+          "role": "text",
+          "name": "Tablero clínico con soporte de IA integrada"
+        },
+        {
+          "role": "text",
+          "name": "Prescripción electrónica con firma digital"
+        },
+        {
+          "role": "text",
+          "name": "Análisis evolutivo por paciente y cohorte"
+        },
+        {
+          "role": "text",
+          "name": "Protocolos compartidos entre equipos médicos"
+        },
+        {
+          "role": "text",
+          "name": "Checklist pre consulta automatizado"
+        },
+        {
+          "role": "text",
+          "name": "Reportes exportables en segundos"
+        },
+        {
+          "role": "text",
+          "name": "Alertas sobre interacciones farmacológicas"
+        },
+        {
+          "role": "heading",
+          "name": "Características técnicas",
+          "level": 3
+        },
+        {
+          "role": "heading",
+          "name": "Seguridad de datos",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Cifrado AES-256, firma doble factor y auditoría completa."
+        },
+        {
+          "role": "heading",
+          "name": "Workflows configurables",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Protocolos por especialidad con plantillas reutilizables."
+        },
+        {
+          "role": "heading",
+          "name": "Analítica inmediata",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Paneles dinámicos con métricas comparativas y alertas."
+        },
+        {
+          "role": "heading",
+          "name": "Integraciones principales",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "HL7 & FHIR"
+        },
+        {
+          "role": "text",
+          "name": "Intercambio interoperable con hospitales y laboratorios."
+        },
+        {
+          "role": "text",
+          "name": "PACS / DICOM"
+        },
+        {
+          "role": "text",
+          "name": "Imágenes diagnósticas en alta resolución directamente en la ficha."
+        },
+        {
+          "role": "text",
+          "name": "Sistemas contables"
+        },
+        {
+          "role": "text",
+          "name": "Facturación automática y conciliación de cobranzas."
+        },
+        {
+          "role": "link",
+          "name": "Acceder como Médico"
+        },
+        {
+          "role": "link",
+          "name": "Solicitar demostración técnica"
+        },
+        {
+          "role": "text",
+          "name": "ESTRATEGIA CORPORATIVA"
+        },
+        {
+          "role": "heading",
+          "name": "Salud ocupacional sin fricciones",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Panel ejecutivo unificado con métricas de productividad, campañas preventivas y soporte 24/7 para cada colaborador."
+        },
+        {
+          "role": "text",
+          "name": "18%"
+        },
+        {
+          "role": "text",
+          "name": "REDUCCIÓN DE AUSENTISMO"
+        },
+        {
+          "role": "text",
+          "name": "3.5x"
+        },
+        {
+          "role": "text",
+          "name": "RETORNO SOBRE INVERSIÓN"
+        },
+        {
+          "role": "text",
+          "name": "92%"
+        },
+        {
+          "role": "text",
+          "name": "ADOPCIÓN DE LA PLATAFORMA"
+        },
+        {
+          "role": "heading",
+          "name": "Portal Empresas",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Diseñado para RR.HH. y áreas médicas corporativas que necesitan datos confiables, planes escalables y soporte inmediato."
+        },
+        {
+          "role": "text",
+          "name": "Campañas de prevención específicas por población"
+        },
+        {
+          "role": "text",
+          "name": "Alertas inteligentes sobre factores de riesgo"
+        },
+        {
+          "role": "text",
+          "name": "Beneficios integrados con programas de bienestar"
+        },
+        {
+          "role": "text",
+          "name": "Reportes comparativos por sede y región"
+        },
+        {
+          "role": "heading",
+          "name": "Essential",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "HASTA 200 COLABORADORES"
+        },
+        {
+          "role": "text",
+          "name": "Cobertura médica integral con seguimiento preventivo."
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Telemedicina corporativa 24/7"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Programas de bienestar trimestrales"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Dashboard ejecutivo en tiempo real"
+        },
+        {
+          "role": "link",
+          "name": "Solicitar propuesta"
+        },
+        {
+          "role": "heading",
+          "name": "Growth",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "200 A 1000 COLABORADORES"
+        },
+        {
+          "role": "text",
+          "name": "Incluye analítica avanzada y campañas de prevención segmentadas."
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Métricas de productividad y ausentismo"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Integración con RR.HH. y payroll"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Clínica virtual exclusiva para la empresa"
+        },
+        {
+          "role": "link",
+          "name": "Solicitar propuesta"
+        },
+        {
+          "role": "heading",
+          "name": "Enterprise",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "+1000 COLABORADORES"
+        },
+        {
+          "role": "text",
+          "name": "Implementación dedicada con soporte on-site y SLA personalizados."
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Gerente médico asignado"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Programas de riesgo específicos"
+        },
+        {
+          "role": "text",
+          "name": "—"
+        },
+        {
+          "role": "text",
+          "name": "Reportes financieros y regulatorios"
+        },
+        {
+          "role": "link",
+          "name": "Solicitar propuesta"
+        },
+        {
+          "role": "heading",
+          "name": "Soporte dedicado y administrativo",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Cada empresa cuenta con un gerente médico, analistas de datos y un equipo de soporte operativo que monitorea indicadores críticos de salud ocupacional."
+        },
+        {
+          "role": "heading",
+          "name": "Soporte dedicado",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Equipo médico y de operaciones asignado a cada cuenta corporativa."
+        },
+        {
+          "role": "heading",
+          "name": "Onboarding express",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Integraciones técnicas en menos de 10 días sin interrumpir operaciones."
+        },
+        {
+          "role": "heading",
+          "name": "Cumplimiento normativo",
+          "level": 4
+        },
+        {
+          "role": "text",
+          "name": "Auditorías periódicas y reportes regulatorios listos para presentar."
+        },
+        {
+          "role": "link",
+          "name": "Acceso Portal Empresas"
+        },
+        {
+          "role": "link",
+          "name": "Agenda una reunión ejecutiva"
+        },
+        {
+          "role": "heading",
+          "name": "Ecosistema Médico Completo",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Múltiples herramientas trabajando en sincronía para tu salud"
+        },
+        {
+          "role": "text",
+          "name": "Consultorio Digital"
+        },
+        {
+          "role": "text",
+          "name": "Asistente IA"
+        },
+        {
+          "role": "text",
+          "name": "Seguimiento"
+        },
+        {
+          "role": "text",
+          "name": "Diagnóstico Inteligente"
+        },
+        {
+          "role": "text",
+          "name": "Consulta Virtual"
+        },
+        {
+          "role": "text",
+          "name": "Historia Clínica"
+        },
+        {
+          "role": "text",
+          "name": "Agendamiento"
+        },
+        {
+          "role": "text",
+          "name": "Monitoreo"
+        },
+        {
+          "role": "tab",
+          "name": "Ir al slide 1: Pacientes",
+          "description": "Ir a Pacientes",
+          "selected": true
+        },
+        {
+          "role": "tab",
+          "name": "Ir al slide 2: Médicos",
+          "description": "Ir a Médicos"
+        },
+        {
+          "role": "tab",
+          "name": "Ir al slide 3: Empresas",
+          "description": "Ir a Empresas"
+        },
+        {
+          "role": "tab",
+          "name": "Ir al slide 4: Ecosistema",
+          "description": "Ir a Ecosistema"
+        },
+        {
+          "role": "text",
+          "name": "→"
+        },
+        {
+          "role": "text",
+          "name": "Médicos"
+        },
+        {
+          "role": "heading",
+          "name": "NUESTRA COMUNIDAD",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Testimonios reales de usuarios satisfechos"
+        },
+        {
+          "role": "heading",
+          "name": "NÚMEROS QUE HABLAN POR SÍ SOLOS",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "La confianza de miles de usuarios nos respalda"
+        },
+        {
+          "role": "text",
+          "name": "📊"
+        },
+        {
+          "role": "text",
+          "name": "500K+"
+        },
+        {
+          "role": "text",
+          "name": "Consultas Realizadas"
+        },
+        {
+          "role": "text",
+          "name": "⭐"
+        },
+        {
+          "role": "text",
+          "name": "98%"
+        },
+        {
+          "role": "text",
+          "name": "Satisfacción"
+        },
+        {
+          "role": "text",
+          "name": "⏰"
+        },
+        {
+          "role": "text",
+          "name": "24/7"
+        },
+        {
+          "role": "text",
+          "name": "Disponibilidad"
+        },
+        {
+          "role": "text",
+          "name": "👥"
+        },
+        {
+          "role": "text",
+          "name": "150+"
+        },
+        {
+          "role": "text",
+          "name": "Especialistas"
+        },
+        {
+          "role": "text",
+          "name": "⚡"
+        },
+        {
+          "role": "text",
+          "name": "30seg"
+        },
+        {
+          "role": "text",
+          "name": "Tiempo de Respuesta"
+        },
+        {
+          "role": "text",
+          "name": "💻"
+        },
+        {
+          "role": "text",
+          "name": "100%"
+        },
+        {
+          "role": "text",
+          "name": "Digital"
+        },
+        {
+          "role": "heading",
+          "name": "LO QUE DICEN NUESTROS USUARIOS",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Experiencias reales de personas como tú"
+        },
+        {
+          "role": "text",
+          "name": "👩‍⚕️"
+        },
+        {
+          "role": "heading",
+          "name": "Dr. María González",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Cardióloga"
+        },
+        {
+          "role": "text",
+          "name": "📍 "
+        },
+        {
+          "role": "text",
+          "name": "Buenos Aires"
+        },
+        {
+          "role": "text",
+          "name": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "AutaMedica revolucionó mi práctica médica. Ahora puedo atender a más pacientes con mayor eficiencia y calidad."
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "👨"
+        },
+        {
+          "role": "heading",
+          "name": "Juan Pérez",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Paciente"
+        },
+        {
+          "role": "text",
+          "name": "📍 "
+        },
+        {
+          "role": "text",
+          "name": "Córdoba"
+        },
+        {
+          "role": "text",
+          "name": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "Conseguir turnos nunca fue tan fácil. La atención virtual es excelente y las recetas digitales me ahorran mucho tiempo."
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "👩‍⚕️"
+        },
+        {
+          "role": "heading",
+          "name": "Dra. Ana Martínez",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Pediatra"
+        },
+        {
+          "role": "text",
+          "name": "📍 "
+        },
+        {
+          "role": "text",
+          "name": "Rosario"
+        },
+        {
+          "role": "text",
+          "name": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "La plataforma es intuitiva y mis pacientes están encantados con la facilidad de uso. Recomiendo AutaMedica 100%."
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "👨‍💼"
+        },
+        {
+          "role": "heading",
+          "name": "Carlos López",
+          "level": 3
+        },
+        {
+          "role": "text",
+          "name": "Empresario"
+        },
+        {
+          "role": "text",
+          "name": "📍 "
+        },
+        {
+          "role": "text",
+          "name": "Mendoza"
+        },
+        {
+          "role": "text",
+          "name": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "text",
+          "name": "Implementamos AutaMedica en nuestra empresa y la satisfacción de los empleados aumentó notablemente."
+        },
+        {
+          "role": "text",
+          "name": "\""
+        },
+        {
+          "role": "button",
+          "name": "Ir al testimonio 1"
+        },
+        {
+          "role": "button",
+          "name": "Ir al testimonio 2"
+        },
+        {
+          "role": "button",
+          "name": "Ir al testimonio 3"
+        },
+        {
+          "role": "button",
+          "name": "Ir al testimonio 4"
+        },
+        {
+          "role": "heading",
+          "name": "¿Listo para Transformar tu Experiencia Médica?",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Únete a miles de usuarios que ya disfrutan de una atención médica moderna"
+        },
+        {
+          "role": "text",
+          "name": "✓"
+        },
+        {
+          "role": "text",
+          "name": "Sin costos ocultos"
+        },
+        {
+          "role": "text",
+          "name": "✓"
+        },
+        {
+          "role": "text",
+          "name": "Cancelación gratuita"
+        },
+        {
+          "role": "text",
+          "name": "✓"
+        },
+        {
+          "role": "text",
+          "name": "Soporte 24/7"
+        },
+        {
+          "role": "button",
+          "name": "Comenzar Ahora →"
+        },
+        {
+          "role": "button",
+          "name": "Ver Demo ▶"
+        },
+        {
+          "role": "text",
+          "name": "🔒 Tu información está segura. No compartimos datos con terceros."
+        },
+        {
+          "role": "heading",
+          "name": "AutaMedica",
+          "level": 2
+        },
+        {
+          "role": "text",
+          "name": "Plataforma líder en telemedicina con tecnología de vanguardia para revolucionar el cuidado de la salud."
+        },
+        {
+          "role": "link",
+          "name": "LinkedIn"
+        },
+        {
+          "role": "link",
+          "name": "Twitter"
+        },
+        {
+          "role": "link",
+          "name": "GitHub"
+        },
+        {
+          "role": "text",
+          "name": "Certificado HIPAA"
+        },
+        {
+          "role": "text",
+          "name": "ISO 27001 Compliant"
+        },
+        {
+          "role": "heading",
+          "name": "PLATAFORMAS",
+          "level": 3
+        },
+        {
+          "role": "link",
+          "name": "Portal Pacientes"
+        },
+        {
+          "role": "link",
+          "name": "Portal Médicos"
+        },
+        {
+          "role": "link",
+          "name": "Portal Empresas"
+        },
+        {
+          "role": "link",
+          "name": "Panel Administración"
+        },
+        {
+          "role": "heading",
+          "name": "SERVICIOS",
+          "level": 3
+        },
+        {
+          "role": "link",
+          "name": "Telemedicina HD"
+        },
+        {
+          "role": "link",
+          "name": "IA Médica Neural"
+        },
+        {
+          "role": "link",
+          "name": "Historial Digital"
+        },
+        {
+          "role": "link",
+          "name": "Emergencias 24/7"
+        },
+        {
+          "role": "heading",
+          "name": "ESPECIALIDADES",
+          "level": 3
+        },
+        {
+          "role": "link",
+          "name": "Medicina General"
+        },
+        {
+          "role": "link",
+          "name": "Cardiología"
+        },
+        {
+          "role": "link",
+          "name": "Neurología"
+        },
+        {
+          "role": "link",
+          "name": "Pediatría"
+        },
+        {
+          "role": "heading",
+          "name": "LEGAL",
+          "level": 3
+        },
+        {
+          "role": "link",
+          "name": "Políticas de Privacidad"
+        },
+        {
+          "role": "link",
+          "name": "Términos de Servicio"
+        },
+        {
+          "role": "link",
+          "name": "Cumplimiento HIPAA"
+        },
+        {
+          "role": "link",
+          "name": "Certificaciones"
+        },
+        {
+          "role": "text",
+          "name": "24/7"
+        },
+        {
+          "role": "text",
+          "name": "Disponibilidad médica"
+        },
+        {
+          "role": "text",
+          "name": "87%"
+        },
+        {
+          "role": "text",
+          "name": "Precisión diagnóstica"
+        },
+        {
+          "role": "text",
+          "name": "HD"
+        },
+        {
+          "role": "text",
+          "name": "Calidad de video"
+        },
+        {
+          "role": "text",
+          "name": "5 min"
+        },
+        {
+          "role": "text",
+          "name": "Tiempo de diagnóstico"
+        },
+        {
+          "role": "text",
+          "name": "© "
+        },
+        {
+          "role": "text",
+          "name": "2025"
+        },
+        {
+          "role": "text",
+          "name": " AutaMedica. Todos los derechos reservados."
+        },
+        {
+          "role": "text",
+          "name": "Desarrollado por"
+        },
+        {
+          "role": "text",
+          "name": "E.M Medicina - UBA"
+        },
+        {
+          "role": "text",
+          "name": "Versión 2.1.0"
+        },
+        {
+          "role": "text",
+          "name": "Sistema operativo"
+        },
+        {
+          "role": "button",
+          "name": "Open Next.js Dev Tools",
+          "haspopup": "menu"
+        }
+      ]
+    },
+    "violations": []
+  }
+}

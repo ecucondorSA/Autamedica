@@ -34,12 +34,18 @@ const EnhancedLandingExperience: React.FC = () => {
   const _router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPhase('hero');
-      // No auto-transition to horizontal - let user stay on hero with videos
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    // Wait for fonts to be ready instead of arbitrary timeout
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(() => {
+        setPhase('hero');
+      }).catch(() => {
+        // Fallback timeout if fonts.ready fails
+        setTimeout(() => setPhase('hero'), 2000);
+      });
+    } else {
+      // Fallback for browsers without fonts API
+      setTimeout(() => setPhase('hero'), 2000);
+    }
   }, []);
 
    
@@ -79,23 +85,23 @@ const EnhancedLandingExperience: React.FC = () => {
   return (
     <>
       {/* Top Credit */}
-      <div className="fixed top-2 left-1/2 -translate-x-1/2 text-xs text-white/40 z-[1000] pointer-events-none tracking-wider font-medium md:text-sm">
+      <div className="fixed top-2 left-1/2 -translate-x-1/2 text-xs text-white/40 z-[1000] pointer-events-none tracking-wider font-medium md:text-sm" role="contentinfo">
         desarrollado por E.M Medicina -UBA
       </div>
 
       {/* Logo */}
-      <div className="fixed top-3 left-3 text-xl text-white font-bold z-[1000] md:top-5 md:left-5 md:text-2xl">
+      <div className="fixed top-3 left-3 text-xl text-white font-bold z-[1000] md:top-5 md:left-5 md:text-2xl" role="banner">
         AutaMedica
       </div>
 
       {/* Account Menu - New Component */}
-      <AccountMenu />
+      <AccountMenu role="navigation" aria-label="Menú de cuenta" />
 
       {/* Main Content */}
       {phase === 'loading' && <LoadingOverlay onComplete={() => setPhase('hero')} />}
       {/* Secciones apiladas: Hero (arriba) + Experiencia horizontal (abajo). */}
       {phase !== 'loading' && (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }} role="main">
           {/* Hero Section - Optimized height */}
           <div
             className="hero-section-wrapper"

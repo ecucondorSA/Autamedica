@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   }, [testimonials.length]);
 
   return (
-    <section className="testimonials-section">
+    <section className="testimonials-section" role="region" aria-label="Testimonios y estadísticas">
       <div className="container">
 
         {/* Statistics Section */}
@@ -110,6 +110,7 @@ export default function TestimonialsSection() {
                   key={index}
                   className={`dot ${index === activeTestimonial ? 'active' : ''}`}
                   onClick={() => setActiveTestimonial(index)}
+                  aria-label={`Ir al testimonio ${index + 1}`}
                 />
               ))}
             </div>

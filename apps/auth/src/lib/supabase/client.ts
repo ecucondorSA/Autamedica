@@ -11,9 +11,12 @@ import { getSupabaseConfig, createBrowserAuthConfig } from './config';
  * - Uses centralized config (no direct process.env access)
  * - Auto session management
  */
-let browserClientInstance: SupabaseClient<Database> | null = null;
 
-export const getBrowserSupabaseClient = (): SupabaseClient<Database> => {
+// Use ReturnType to infer correct type from createBrowserClient
+type BrowserClient = ReturnType<typeof createBrowserClient<Database>>;
+let browserClientInstance: BrowserClient | null = null;
+
+export const getBrowserSupabaseClient = (): BrowserClient => {
   if (typeof window === 'undefined') {
     throw new Error(
       'getBrowserSupabaseClient can only be called in browser environment. ' +
@@ -41,10 +44,10 @@ export const getBrowserSupabaseClient = (): SupabaseClient<Database> => {
 };
 
 // Type exports
-export type SupabaseClientType = SupabaseClient<Database>;
+export type SupabaseClientType = BrowserClient;
 export type AuthUser = NonNullable<
-  Awaited<ReturnType<SupabaseClientType['auth']['getUser']>>['data']['user']
+  Awaited<ReturnType<BrowserClient['auth']['getUser']>>['data']['user']
 >;
 export type AuthSession = NonNullable<
-  Awaited<ReturnType<SupabaseClientType['auth']['getSession']>>['data']['session']
+  Awaited<ReturnType<BrowserClient['auth']['getSession']>>['data']['session']
 >;
