@@ -1,60 +1,37 @@
-name: Deploy Auth to Cloudflare Pages
-
+name: Deploy Auth
 on:
   push:
-    branches: [ "main", "staging", "deploy/**", "deploy/*" ]
+    branches: ["main", "staging", "deploy/**", "deploy/*"]
     paths:
       - "apps/auth/**"
+      - "packages/**"
       - ".github/workflows/deploy-auth.yml"
-      - "pnpm-lock.yaml"
-      - "package.json"
-      - "pnpm-workspace.yaml"
-      - "wrangler.toml"
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install deps (monorepo)
-        run: pnpm install --frozen-lockfile
-
-      # Build packages first (auth depends on types and shared)
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9.15.2 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
       - name: Build packages
         run: pnpm build:packages:core
-
-      # Build auth for Cloudflare Pages
-      - name: Build auth for Cloudflare
+      - name: Build Next for Cloudflare
         working-directory: apps/auth
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
-          AUTH_HUB_SECRET: ${{ secrets.AUTH_HUB_SECRET }}
-        run: |
-          # Build Next.js app with @cloudflare/next-on-pages
-          npx @cloudflare/next-on-pages@latest
-
-      # Deploy to Cloudflare Pages with Wrangler
-      - name: Publish to Cloudflare Pages
-        run: |
-          npx wrangler pages deploy apps/auth/.vercel/output/static \
-            --project-name "$PAGES_PROJECT_NAME" \
-            --branch "${GITHUB_REF_NAME}"
+        run: npx @cloudflare/next-on-pages@latest --experimental-minify
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/auth
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PAGES_PROJECT_NAME: ${{ secrets.PAGES_PROJECT_NAME }}
+        run: |
+          npx wrangler pages deploy .vercel/output/static \
+            --project-name=autamedica-auth \
+            --branch="${GITHUB_REF_NAME}" \
+            --commit-dirty=true
