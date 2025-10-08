@@ -220,23 +220,4 @@ export const AutaConversationWithMessages = AutaConversation.extend({
 
 export type TAutaConversationWithMessages = z.infer<typeof AutaConversationWithMessages>;
 
-// ====================================================================================
-// EXPORTS CONSOLIDADOS
-// ====================================================================================
-
-export {
-  // Schemas principales
-  AutaMessage,
-  AutaConversation,
-  AutaAISettings,
-  AutaAIUsage,
-  // API types
-  AutaChatRequest,
-  AutaChatResponse,
-  PatientContext,
-  AutaConversationWithMessages,
-  // Enums
-  AutaMessageRole,
-  AutaConversationStatus,
-  AutaIntent,
-};
+// Note: All exports are already declared above with 'export const'

@@ -1,0 +1,40 @@
+{
+  "session_id": "d506a776-c54a-467f-bd28-3e80adc1a410",
+  "app_name": "web-app",
+  "severity": "low",
+  "issues_found": 0,
+  "patterns_detected": [
+    "react"
+  ],
+  "console_analysis": {
+    "total_logs": 2,
+    "by_type": {
+      "log": 2
+    },
+    "warnings_count": 0,
+    "errors_count": 0,
+    "error_messages": []
+  },
+  "network_analysis": {
+    "total_requests": 23,
+    "success_count": 23,
+    "failed_count": 0,
+    "success_rate": 1.0,
+    "by_domain": {
+      "localhost:3000": 21,
+      "fonts.googleapis.com": 1,
+      "fonts.gstatic.com": 1
+    },
+    "failed_urls": []
+  },
+  "error_analysis": {
+    "total_errors": 0,
+    "unique_errors": 0,
+    "error_groups": {},
+    "most_common": []
+  },
+  "performance_issues": [],
+  "security_concerns": [],
+  "recommendations": [],
+  "auto_fix_suggestions": []
+}

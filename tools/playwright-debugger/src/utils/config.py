@@ -26,6 +26,7 @@ class Config:
         "patients": os.getenv("PATIENTS_URL", "http://localhost:3002"),
         "companies": os.getenv("COMPANIES_URL", "http://localhost:3003"),
         "admin": os.getenv("ADMIN_URL", "http://localhost:3004"),
+        "auth": os.getenv("AUTH_URL", "http://localhost:3005"),
     }
 
     # Screenshot settings

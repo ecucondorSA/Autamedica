@@ -1,0 +1,47 @@
+{
+  "session_id": "f874e0a1-3c28-4764-90a3-7b9e4bc963b2",
+  "app_name": "auth",
+  "severity": "medium",
+  "issues_found": 2,
+  "patterns_detected": [],
+  "console_analysis": {
+    "total_logs": 1,
+    "by_type": {
+      "error": 1
+    },
+    "warnings_count": 0,
+    "errors_count": 1,
+    "error_messages": [
+      "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    ]
+  },
+  "network_analysis": {
+    "total_requests": 2,
+    "success_count": 0,
+    "failed_count": 1,
+    "success_rate": 0.0,
+    "by_domain": {
+      "localhost:3005": 2
+    },
+    "failed_urls": [
+      "http://localhost:3005/auth/select-role?returnTo=%2F"
+    ]
+  },
+  "error_analysis": {
+    "total_errors": 0,
+    "unique_errors": 0,
+    "error_groups": {},
+    "most_common": []
+  },
+  "performance_issues": [
+    "Alto rate de errores: 1/2",
+    "Load time alto: 42314ms",
+    "TTFB alto: 42243ms"
+  ],
+  "security_concerns": [],
+  "recommendations": [
+    "Resolver console errors antes de deployment",
+    "Optimizar performance: reducir requests, mejorar caching"
+  ],
+  "auto_fix_suggestions": []
+}

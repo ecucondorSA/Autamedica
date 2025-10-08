@@ -284,7 +284,7 @@ export type AnamnesisSectionDataSnake = z.infer<typeof AnamnesisSectionDataSchem
  */
 export function parseAnamnesisForUI(dbAnamnesis: AnamnesisSnake): Anamnesis {
   const parsed = AnamnesisSnakeSchema.parse(dbAnamnesis);
-  return parsed as Anamnesis;
+  return parsed as unknown as Anamnesis;
 }
 
 /**
@@ -295,7 +295,7 @@ export function safeParseAnamnesisForUI(
 ): { success: true; data: Anamnesis } | { success: false; error: z.ZodError } {
   const result = AnamnesisSnakeSchema.safeParse(dbAnamnesis);
   if (result.success) {
-    return { success: true, data: result.data as Anamnesis };
+    return { success: true, data: result.data as unknown as Anamnesis };
   }
   return { success: false, error: result.error };
 }

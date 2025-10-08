@@ -1,0 +1,101 @@
+{
+  "session_id": "f874e0a1-3c28-4764-90a3-7b9e4bc963b2",
+  "app_name": "auth",
+  "url": "http://localhost:3005",
+  "started_at": "2025-10-08T09:41:27.893812",
+  "ended_at": "2025-10-08T09:42:22.562848",
+  "console_logs": [
+    {
+      "timestamp": "2025-10-08T09:42:11.956144",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+      "location": "{'url': 'http://localhost:3005/auth/select-role?returnTo=%2F', 'lineNumber': 0, 'columnNumber': 0}",
+      "stack_trace": null
+    }
+  ],
+  "network_requests": [
+    {
+      "timestamp": "2025-10-08T09:41:29.675299",
+      "method": "GET",
+      "url": "http://localhost:3005/",
+      "status": 307,
+      "status_text": "Temporary Redirect",
+      "timing": null,
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) Playwright Debugger Autamedica",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "response_headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://autamedica.com",
+        "connection": "keep-alive",
+        "content-security-policy": "frame-ancestors 'self' https://*.autamedica.com; connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com",
+        "date": "Wed, 08 Oct 2025 12:41:29 GMT",
+        "keep-alive": "timeout=5",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "transfer-encoding": "chunked",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "location": "/auth/select-role?returnTo=%2F"
+      },
+      "failure": null,
+      "resource_type": "document"
+    },
+    {
+      "timestamp": "2025-10-08T09:41:29.719000",
+      "method": "GET",
+      "url": "http://localhost:3005/auth/select-role?returnTo=%2F",
+      "status": 500,
+      "status_text": "Internal Server Error",
+      "timing": null,
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) Playwright Debugger Autamedica",
+        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"HeadlessChrome\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "response_headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://autamedica.com",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "connection": "keep-alive",
+        "date": "Wed, 08 Oct 2025 12:42:11 GMT",
+        "keep-alive": "timeout=5",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "transfer-encoding": "chunked",
+        "x-xss-protection": "1; mode=block",
+        "content-security-policy": "frame-ancestors 'none'; connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com; object-src 'none'; base-uri 'self'",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "x-auth-hub": "true",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY"
+      },
+      "failure": null,
+      "resource_type": "document"
+    }
+  ],
+  "javascript_errors": [],
+  "performance_metrics": {
+    "timestamp": "2025-10-08T09:42:22.428566",
+    "lcp": null,
+    "fid": null,
+    "cls": null,
+    "ttfb": 42243,
+    "dom_content_loaded": 42314,
+    "load": 42314
+  },
+  "screenshots": [
+    "/home/edu/Autamedica/tools/playwright-debugger/screenshots/initial",
+    "/home/edu/Autamedica/tools/playwright-debugger/screenshots/final"
+  ],
+  "metadata": {}
+}

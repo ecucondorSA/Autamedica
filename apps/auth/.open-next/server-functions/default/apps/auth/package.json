@@ -1,0 +1,46 @@
+{
+  "name": "@autamedica/auth-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3005",
+    "build": "next build",
+    "prebuild:cloudflare": "rm -rf .next .open-next || true",
+    "build:cloudflare": "pnpm run build && node ../../scripts/next/ensure-required-server-files.mjs --app auth && opennextjs-cloudflare build --skip-next-build && node ../../scripts/next/patch-open-next.mjs",
+    "start": "next start",
+    "lint": "next lint --max-warnings 0",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "@autamedica/shared": "workspace:^",
+    "@autamedica/types": "workspace:^",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.57.4",
+    "next": "15.5.4",
+    "next-cookies": "^2.0.3",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@autamedica/tailwind-config": "workspace:^",
+    "@cloudflare/next-on-pages": "^1.13.16",
+    "@opennextjs/cloudflare": "^1.9.1",
+    "@types/cookie": "^0.6.0",
+    "@types/node": "^24.6.0",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "@vitejs/plugin-react": "^5.0.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "15.5.4",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "wrangler": "^4.38.0"
+  }
+}

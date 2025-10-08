@@ -188,7 +188,7 @@ export function getLatestDegree(doctor: DoctorSnake): string | null {
   if (!doctor.education || doctor.education.length === 0) return null;
 
   const sorted = [...doctor.education].sort((a, b) => b.year - a.year);
-  return sorted[0].degree;
+  return sorted[0]?.degree ?? null;
 }
 
 /**
