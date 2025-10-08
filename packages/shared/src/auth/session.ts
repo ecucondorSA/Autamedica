@@ -5,6 +5,7 @@
 
 import { jwtVerify } from 'jose';
 import type { NextRequest } from 'next/server';
+import { logger } from '../services/logger.service';
 
 export type SessionRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin' | 'platform_admin';
 
@@ -24,7 +25,7 @@ export async function getSession(req: NextRequest): Promise<Session | null> {
   // Check multiple cookie names for compatibility
   const token =
     req.cookies.get('sb-access-token')?.value ||
-    req.cookies.get('sb-gtyvdircfhmdjiaelqkg-auth-token')?.value ||
+    req.cookies.get('sb-ewpsepaieakqbywxnidu-auth-token')?.value ||
     req.cookies.get('sb-auth-token')?.value;
 
   if (!token) {
@@ -62,7 +63,7 @@ export async function getSession(req: NextRequest): Promise<Session | null> {
     };
   } catch (error) {
     // Invalid or expired token
-    console.error('Session verification failed:', error);
+    logger.error('Session verification failed:', error);
     return null;
   }
 }

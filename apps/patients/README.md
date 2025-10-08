@@ -179,7 +179,7 @@ const exportOptions = {
 ### **Variables de Entorno**
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=***REDACTED***
 NODE_ENV=production
 HUSKY=0
 ```

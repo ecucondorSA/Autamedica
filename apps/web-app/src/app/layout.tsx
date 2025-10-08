@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { LoadingProvider } from "@/lib/loading-context";
 import GlobalLoader from "@/components/ui/GlobalLoader";
@@ -7,6 +7,12 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { WebVitals } from "./web-vitals";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://autamedica.com'),
   title: {
@@ -14,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | AutaMedica"
   },
   description:
-    "Plataforma de telemedicina que conecta pacientes con profesionales de la salud. Agenda inmediata, receta digital al finalizar y resultados en tu móvil. Tecnología segura y conforme con HIPAA.",
+    "Plataforma de telemedicina innovadora. Conecta con profesionales de la salud, agenda consultas inmediatas y recibe atención médica de calidad. Tecnología segura HIPAA-compliant.",
   keywords: [
     "telemedicina",
     "consulta virtual",
@@ -36,11 +42,6 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
   },
   robots: {
     index: true,

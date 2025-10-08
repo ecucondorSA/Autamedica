@@ -4,9 +4,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getSession, hasRole } from '@autamedica/shared/auth/session';
-import { getPortalForRole, isCorrectPortal } from '@autamedica/shared/env/portals';
-import { buildSafeLoginUrl } from '@autamedica/shared/security/redirects';
+import { getSession, hasRole, getPortalForRole, isCorrectPortal, buildSafeLoginUrl } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
 
 // Public routes that don't require authentication
 const PUBLIC_ROUTES = [
@@ -15,6 +14,7 @@ const PUBLIC_ROUTES = [
   '/public',
   '/api/health',
   '/manifest.webmanifest',
+  '/consultation', // Allow direct access to video consultation
 ];
 
 // Allowed roles for doctors portal
@@ -55,7 +55,7 @@ export async function middleware(request: NextRequest) {
     // All checks passed
     return NextResponse.next();
   } catch (error) {
-    console.error('Middleware error:', error);
+    logger.error('Middleware error:', error);
 
     // On error, redirect to login
     const loginUrl = buildSafeLoginUrl('doctors', request.url, 'auth_error');
@@ -72,7 +72,8 @@ export const config = {
      * - favicon.ico, manifest.webmanifest (metadata files)
      * - public folder
      * - api/health (health check endpoint)
+     * - consultation pages (video calls)
      */
-    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|public|api/health|consultation).*)',
   ],
 };

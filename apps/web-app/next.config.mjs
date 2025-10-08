@@ -1,48 +1,51 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Removed 'output: export' to enable SSR for auth components
-  images: { unoptimized: true },
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createNextAppConfig } from '../../config/next-app.config.mjs';
 
-  // Security headers
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ],
-      },
-    ];
-  },
-};
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export default nextConfig;
+export default createNextAppConfig({
+  appDir: __dirname,
+  output: 'export',
+  aliasAuthHooks: false,
+  extraTranspile: [],
+  extendConfig: {
+    experimental: {
+      optimizeCss: true, // Sprint 1 - CSS optimization
+    },
+    async headers() {
+      return [
+        {
+          source: '/:path*',
+          headers: [
+            {
+              key: 'Strict-Transport-Security',
+              value: 'max-age=31536000; includeSubDomains; preload'
+            },
+            {
+              key: 'Content-Security-Policy',
+              value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://ewpsepaieakqbywxnidu.supabase.co https://*.supabase.co wss://*.supabase.co https://cloudflareinsights.com; img-src 'self' data: https:; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+            },
+            {
+              key: 'X-Frame-Options',
+              value: 'DENY'
+            },
+            {
+              key: 'X-Content-Type-Options',
+              value: 'nosniff'
+            },
+            {
+              key: 'Referrer-Policy',
+              value: 'strict-origin-when-cross-origin'
+            },
+            {
+              key: 'Permissions-Policy',
+              value: 'geolocation=(), microphone=(), camera=(), payment=()'
+            }
+          ]
+        }
+      ];
+    }
+  }
+});

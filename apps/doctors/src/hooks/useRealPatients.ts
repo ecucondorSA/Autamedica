@@ -2,13 +2,50 @@
 
 import { useState, useEffect } from 'react';
 import { PatientWithProfile } from '@autamedica/types';
-import { supabase } from '@/lib/supabase';
+import { selectActive } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
+
+/**
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
+ */
 
 interface UsePatientsResult {
   patients: PatientWithProfile[];
   loading: boolean;
   error: string | null;
   refetch: () => void;
+}
+
+// Tipo UI (camelCase) para Patient
+interface UiPatient {
+  id: string;
+  userId: string;
+  dni: string | null;
+  birthDate: string | null;
+  gender: string | null;
+  bloodType: string | null;
+  heightCm: number | null;
+  weightKg: number | null;
+  emergencyContact: Record<string, unknown> | null;
+  medicalHistory: Record<string, unknown> | null;
+  allergies: Record<string, unknown> | null;
+  medications: Record<string, unknown> | null;
+  insuranceInfo: Record<string, unknown> | null;
+  companyId: string | null;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  profile?: {
+    userId: string;
+    email: string | null;
+    role: string | null;
+  };
 }
 
 export function useRealPatients(): UsePatientsResult {
@@ -21,22 +58,20 @@ export function useRealPatients(): UsePatientsResult {
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('patients')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('active', true)
-        .order('created_at', { ascending: false });
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      const data = await selectActive<UiPatient>('patients', `
+        *,
+        profile:profiles!inner(*)
+      `, {
+        orderBy: { column: 'created_at', ascending: false }
+      });
 
-      if (fetchError) {
-        throw fetchError;
-      }
+      // Filtrar solo activos
+      const activePatients = data.filter(p => p.active);
 
-      setPatients(data || []);
+      setPatients(activePatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching patients:', err);
+      logger.error('Error fetching patients:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -77,28 +112,22 @@ export function useCurrentPatient(userId?: string): UseCurrentPatientResult {
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('patients')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('user_id', userId)
-        .eq('active', true)
-        .single();
+      const data = await selectActive<UiPatient>('patients', `
+        *,
+        profile:profiles!inner(*)
+      `);
 
-      if (fetchError) {
-        if (fetchError.code === 'PGRST116') {
-          // No patient profile found
-          setPatient(null);
-          return;
-        }
-        throw fetchError;
+      // Filtrar por user_id y active
+      const currentPatient = data.find(p => p.userId === userId && p.active);
+
+      if (!currentPatient) {
+        setPatient(null);
+        return;
       }
 
-      setPatient(data);
+      setPatient(currentPatient as unknown as PatientWithProfile);
     } catch (err) {
-      console.error('Error fetching current patient:', err);
+      logger.error('Error fetching current patient:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -140,37 +169,50 @@ export function useDoctorPatients(doctorUserId?: string): UseDoctorPatientsResul
       setError(null);
 
       // First get the doctor ID
-      const { data: doctorData, error: doctorError } = await supabase
-        .from('doctors')
-        .select('id')
-        .eq('user_id', doctorUserId)
-        .single();
+      const doctors = await selectActive<{ id: string; userId: string }>('doctors', 'id, user_id');
+      const doctor = doctors.find(d => d.userId === doctorUserId);
 
-      if (doctorError || !doctorData) {
+      if (!doctor) {
         throw new Error('Doctor not found');
       }
 
       // Then get patients assigned to this doctor through patient_care_team
-      const { data, error: fetchError } = await supabase
-        .from('patient_care_team')
-        .select(`
-          patients!inner(
-            *,
-            profile:profiles!inner(*)
-          )
-        `)
-        .eq('doctor_id', doctorData.id)
-        .eq('active', true);
+      const careTeam = await selectActive<{
+        doctorId: string;
+        patientId: string;
+        active: boolean;
+      }>('patient_care_team', `
+        doctor_id,
+        patient_id,
+        active
+      `);
 
-      if (fetchError) {
-        throw fetchError;
+      // Filter by doctor and active
+      const activeAssignments = careTeam.filter(
+        ct => ct.doctorId === doctor.id && ct.active
+      );
+
+      // Get patient IDs
+      const patientIds = activeAssignments.map(ct => ct.patientId);
+
+      if (patientIds.length === 0) {
+        setPatients([]);
+        return;
       }
 
-      // Extract patients from the nested structure
-      const patientsData = data?.map((item: any) => item.patients).filter(Boolean) || [];
-      setPatients(patientsData);
+      // Fetch all patients and filter by IDs
+      const allPatients = await selectActive<UiPatient>('patients', `
+        *,
+        profile:profiles!inner(*)
+      `);
+
+      const doctorPatients = allPatients.filter(p =>
+        patientIds.includes(p.id) && p.active
+      );
+
+      setPatients(doctorPatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctor patients:', err);
+      logger.error('Error fetching doctor patients:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -211,23 +253,21 @@ export function usePatientsByCompany(companyId?: string): UsePatientsByCompanyRe
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('patients')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('company_id', companyId)
-        .eq('active', true)
-        .order('created_at', { ascending: false });
+      const data = await selectActive<UiPatient>('patients', `
+        *,
+        profile:profiles!inner(*)
+      `, {
+        orderBy: { column: 'created_at', ascending: false }
+      });
 
-      if (fetchError) {
-        throw fetchError;
-      }
+      // Filtrar por company_id y active
+      const companyPatients = data.filter(p =>
+        p.companyId === companyId && p.active
+      );
 
-      setPatients(data || []);
+      setPatients(companyPatients as unknown as PatientWithProfile[]);
     } catch (err) {
-      console.error('Error fetching patients by company:', err);
+      logger.error('Error fetching patients by company:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);

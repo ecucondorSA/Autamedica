@@ -21,7 +21,6 @@ import {
   X,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { createBrowserClient } from '@autamedica/auth'
 import { PatientInfoTab } from '@/components/patient/PatientInfoTab'
 import { MedicalHistoryTab } from '@/components/medical/MedicalHistoryTab'
 import { PrescriptionsTab } from '@/components/medical/PrescriptionsTab'
@@ -37,6 +36,9 @@ import { VitalSignsPanel } from '@/components/vitals/VitalSignsPanel'
 import { DiagnosisPanel } from '@/components/diagnosis/DiagnosisPanel'
 import { MedicalRankingPanel } from '@/components/ranking/MedicalRankingPanel'
 import { useActiveSession } from '@/hooks'
+import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser'
+import { useCurrentDoctor } from '@/hooks/useRealDoctors'
+import { useDoctorStats } from '@/hooks/useDoctorStats'
 
 type TabId = 'video-call' | 'patient-info' | 'medical-history' | 'prescriptions' | 'vital-signs' | 'ai-history'
 
@@ -71,8 +73,6 @@ export function useDoctorsPortal(): PortalContextValue {
   }
   return value
 }
-
-const FALLBACK_USER = 'Dr. Invitado'
 
 function getInitials(name: string): string {
   return (
@@ -120,13 +120,17 @@ function SectionPlaceholder({ title, icon, description }: { title: string; icon:
 
 export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('video-call')
-  const [userName, setUserName] = useState(FALLBACK_USER)
   const [currentTime, setCurrentTime] = useState<string>('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [isHydrated, setIsHydrated] = useState(false)
   const [isFocusMode, setIsFocusMode] = useState(false)
+
+  // Production-ready hooks for real data
+  const { user, loading: authLoading } = useAuthenticatedUser()
+  const { doctor, loading: doctorLoading } = useCurrentDoctor(user?.id)
+  const { stats, loading: statsLoading } = useDoctorStats(doctor?.id)
 
   useEffect(() => {
     setIsHydrated(true)
@@ -148,14 +152,18 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
     })
   }, [activeSection])
 
-
   // Hook para obtener la sesión activa con el paciente
   const { session } = useActiveSession()
 
-  // Contadores para sidebar - funcionalidad production sin dependencias problemáticas
-  const patients = { length: 0 } // Se conectará con Supabase cuando esté configurado
-  const appointments = { length: 0 } // Se conectará con Supabase cuando esté configurado
-  const history = { length: 0 } // Se conectará con Supabase cuando esté configurado
+  // Real userName from authenticated user or doctor profile
+  const userName = doctor?.profile?.full_name ||
+                   user?.profile?.full_name ||
+                   `Dr. ${user?.email?.split('@')[0] || 'Médico'}`
+
+  // Contadores reales (se actualizarán con stats cuando estén disponibles)
+  const patients = { length: 0 } // TODO: Conectar con patients stats
+  const appointments = { length: stats?.todayCount || 0 }
+  const history = { length: 0 } // TODO: Conectar con medical records count
 
   // Efecto para plegar el sidebar automáticamente cuando inicia una videollamada
   useEffect(() => {
@@ -229,40 +237,6 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
     updateClock()
     const interval = setInterval(updateClock, 60_000)
     return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const supabase = createBrowserClient()
-
-        const { data, error } = await supabase.auth.getUser()
-        if (error) {
-          console.warn('[DoctorsPortalShell] No se pudo obtener el usuario actual', error.message)
-          return
-        }
-
-        const user = data.user
-        if (!user) {
-          console.info('[DoctorsPortalShell] No hay usuario autenticado, usando fallback')
-          return
-        }
-
-        const metadata = user.user_metadata as Record<string, unknown> | null
-        const resolvedName =
-          (metadata?.name as string | undefined) ||
-          (metadata?.full_name as string | undefined) ||
-          user.email?.split('@')[0]?.replaceAll('.', ' ') ||
-          FALLBACK_USER
-
-        setUserName(`Dr. ${resolvedName}`)
-        console.info('[DoctorsPortalShell] Usuario cargado:', resolvedName)
-      } catch (error) {
-        console.error('[DoctorsPortalShell] Error al obtener usuario:', error)
-      }
-    }
-
-    fetchUser()
   }, [])
 
   const sidebarItems = useMemo<SidebarItem[]>(
@@ -601,10 +575,22 @@ export function DoctorsPortalShell({ children }: { children: ReactNode }): JSX.E
                 <span className="hidden text-slate-600 sm:inline">|</span>
                 <span className="flex items-center gap-1 text-emerald-400">
                   <span>●</span>
-                  Consultas activas 8/12
+                  {statsLoading ? (
+                    'Cargando...'
+                  ) : stats?.activeCount ? (
+                    `Consultas activas: ${stats.activeCount}/${stats.todayCount}`
+                  ) : (
+                    'Sin consultas activas'
+                  )}
                 </span>
-                <span className="hidden text-slate-600 sm:inline">|</span>
-                <span>Próxima: 16:00 - Carlos Ruiz</span>
+                {stats?.nextAppointment && (
+                  <>
+                    <span className="hidden text-slate-600 sm:inline">|</span>
+                    <span>
+                      Próxima: {stats.nextAppointment.time} - {stats.nextAppointment.patientName}
+                    </span>
+                  </>
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">

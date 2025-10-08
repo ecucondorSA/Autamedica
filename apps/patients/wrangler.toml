@@ -1,8 +1,14 @@
 name = "autamedica-patients"
-main = ".open-next/worker.js"
-compatibility_date = "2025-03-25"
+compatibility_date = "2025-09-30"
 compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".open-next"
 
-[assets]
-directory = ".open-next/assets"
-binding = "ASSETS"
+# Variables de entorno
+[vars]
+SUPABASE_URL = "https://ewpsepaieakqbywxnidu.supabase.co"
+
+[env.production]
+name = "autamedica-patients"
+
+[env.preview]
+name = "autamedica-patients-preview"

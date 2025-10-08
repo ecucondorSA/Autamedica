@@ -1,0 +1,7 @@
+TTFB/Headers sample:
+== patients ==
+== doctors ==
+referrer-policy: same-origin
+x-frame-options: SAMEORIGIN
+== auth ==
+referrer-policy: strict-origin-when-cross-origin

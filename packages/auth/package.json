@@ -3,51 +3,58 @@
   "version": "1.0.0",
   "description": "Centralized authentication package for AutaMedica platform",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
     "./client": {
-      "types": "./dist/client/index.d.ts",
-      "import": "./dist/client/index.mjs",
-      "require": "./dist/client/index.js"
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
     },
     "./server": {
-      "types": "./dist/server/index.d.ts",
-      "import": "./dist/server/index.mjs",
-      "require": "./dist/server/index.js"
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
     },
-    "./middleware": {
-      "types": "./dist/middleware/index.d.ts",
-      "import": "./dist/middleware/index.mjs",
-      "require": "./dist/middleware/index.js"
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsc --build",
+    "dev": "tsc --build --watch",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@autamedica/shared": "workspace:*",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.51.0",
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.10.6",
     "@types/react": "^19.0.7",
+    "@vitest/coverage-v8": "^3.2.4",
     "react": "^19.0.0",
-    "tsup": "^8.3.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
+    "@supabase/supabase-js": "^2.57.4",
     "next": "^15.5.0",
     "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@supabase/supabase-js": {
+      "optional": false
+    }
   }
 }

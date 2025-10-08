@@ -1,0 +1,43 @@
+# Playwright Debugger Enterprise - Autamedica
+# Python 3.11+
+
+# Core Playwright
+playwright==1.48.0
+playwright-stealth==1.0.6
+
+# MCP Protocol
+mcp==1.1.2
+anthropic==0.39.0
+
+# Data Analysis
+pandas==2.2.3
+numpy==2.2.1
+rich==13.9.4
+
+# Screenshots & Image Processing
+pillow==11.0.0
+opencv-python==4.10.0.84
+
+# Network & API
+aiohttp==3.11.11
+requests==2.32.3
+
+# Database & Storage
+sqlalchemy==2.0.36
+pydantic==2.10.5
+
+# Utilities
+python-dotenv==1.0.1
+click==8.1.8
+colorama==0.4.6
+watchdog==6.0.0
+psutil==6.1.1
+
+# Reporting
+jinja2==3.1.5
+markdown==3.7
+pygments==2.18.0
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.25.2

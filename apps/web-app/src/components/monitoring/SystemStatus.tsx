@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { recordMetric } from '@/lib/monitoring'
+import { logInfo } from '@/lib/logger'
 
 interface PublicSystemStatus {
   status: 'disponible' | 'mantenimiento' | 'degradado'
@@ -37,7 +38,7 @@ export default function SystemStatus() {
           tags: { page: 'landing', component: 'platform_status' }
         })
       } catch (error) {
-        console.error('Error checking platform status:', error)
+        logInfo('Error checking platform status:', error)
         // Set fallback status
         setStatus({
           status: 'disponible',

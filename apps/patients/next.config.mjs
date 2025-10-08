@@ -1,37 +1,24 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createNextAppConfig } from '../../config/next-app.config.mjs';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
+export default createNextAppConfig({
+  output: 'standalone',
   trailingSlash: true,
+  serverExternalPackages: ['@supabase/supabase-js'],
   images: {
-    unoptimized: true
+    unoptimized: false,
+    domains: ['ewpsepaieakqbywxnidu.supabase.co'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ewpsepaieakqbywxnidu.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
   },
-  transpilePackages: [
-    '@autamedica/types',
-    '@autamedica/shared',
-    '@autamedica/auth',
-    '@autamedica/hooks',
-    '@autamedica/telemedicine'
-  ],
-  experimental: {
-    externalDir: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  webpack: (config) => {
-    config.resolve.alias = config.resolve.alias || {}
-    config.resolve.alias['@autamedica/auth-hooks'] = path.resolve(__dirname, '../../packages/auth/src/hooks')
-    return config
-  }
-};
-
-export default nextConfig;
+});

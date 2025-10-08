@@ -390,9 +390,6 @@ export {
 // TODO: Legacy types - migrar gradualmente
 // ==========================================
 
-// Primitivos legacy (mantenidos temporalmente para compatibility)
-export type { ISODateString as LegacyISODateString } from "./primitives/date";
-
 // Auth legacy (deprecated - usar @autamedica/auth directamente)
 export type {
   User,
@@ -419,7 +416,11 @@ export type {
 export {
   isPatient,
   isPatientCareTeamRole,
-  isPrimaryDoctor
+  isPrimaryDoctor,
+  mapDbPatientToPatient,
+  mapDbPatientCareTeamToPatientCareTeam,
+  mapPatientToDbInsert,
+  mapPatientUpdateToDb
 } from "./entities/patient";
 
 // Doctor types
@@ -441,20 +442,8 @@ export type {
   CompanySize,
   CompanyAddress,
   CompanyContact,
-  CompanyMember,
-  CompanyMemberRole,
-  CompanyMemberInsert,
-  CompanyMemberUpdate,
   CompanyUpdate,
   CompanyWithMembers
-} from "./entities/company";
-
-export {
-  COMPANY_MEMBER_ROLES,
-  isCompanyMemberRole,
-  canManageBilling,
-  canInviteMembers,
-  canManageCompany
 } from "./entities/company";
 
 // Appointment types
@@ -474,8 +463,58 @@ export {
   isAppointmentType,
   isAppointmentStatus,
   isTerminalStatus,
-  requiresEquipment
+  requiresMeetingUrl,
+  requiresPhysicalLocation
 } from "./entities/appointment";
+
+// Audit Log types
+export type {
+  AuditLog,
+  AuditAction,
+  AuditResourceType,
+  AuditLogInsert,
+  MedicalActionMetadata,
+  AuthActionMetadata,
+  DataExportMetadata,
+  AuditLogFilters,
+  AuditLogPage
+} from "./entities/audit-log";
+
+export {
+  AUDIT_ACTIONS,
+  AUDIT_RESOURCE_TYPES,
+  isAuditLog,
+  isAuditAction,
+  isAuditResourceType,
+  isCriticalAction,
+  containsPHI,
+  formatAuditDescription
+} from "./entities/audit-log";
+
+// Company Member types
+export type {
+  CompanyMember,
+  CompanyMemberRole,
+  CompanyMemberInsert,
+  CompanyMemberUpdate,
+  CompanyDepartment,
+  CompanyMemberWithDetails,
+  CompanyMemberFilters,
+  CompanyMemberStats
+} from "./entities/company-member";
+
+export {
+  COMPANY_MEMBER_ROLES,
+  COMPANY_DEPARTMENTS,
+  isCompanyMemberRole,
+  isCompanyDepartment,
+  hasAdminPermissions,
+  canManageMembers,
+  isActiveMember,
+  getEmploymentDuration,
+  getRoleDisplayName,
+  getDepartmentDisplayName
+} from "./entities/company-member";
 
 // ==========================================
 // Supabase Database Types
@@ -499,6 +538,7 @@ export type TablesUpdate<T extends keyof Database['public']['Tables']> =
 export type {
   MedicalRecord,
   MedicalRecordVisibility,
+  MedicalRecordType,
   MedicalRecordInsert,
   MedicalRecordUpdate,
   MedicalRecordWithDetails
@@ -508,7 +548,8 @@ export {
   MEDICAL_RECORD_VISIBILITIES,
   isMedicalRecordVisibility,
   canAccessRecord,
-  isHighSensitivityRecord
+  isHighSensitivityRecord,
+  isPermanentRecord
 } from "./entities/medical-record";
 
 // Supabase API Response types
@@ -533,3 +574,339 @@ export type { ISODateTime } from "./primitives/date";
 
 // Note: Only export what's actually available in database.types.ts
 // The file is auto-generated and may not have all these exports yet
+
+// ==========================================
+// Reproductive Health Types (IVE/ILE - Ley 27.610)
+// ==========================================
+
+export type {
+  ReproductiveHealthSpecialistId,
+  SpecialistAvailabilityStatus,
+  ReproductiveHealthSpecialtyType,
+  ReproductiveHealthSpecialist,
+  ReproductiveHealthSpecialistWithProfile,
+  ReproductiveHealthSpecialistInsert,
+  ReproductiveHealthAppointmentId,
+  AppointmentConsultationType,
+  AppointmentModalityType,
+  AppointmentStatusType,
+  ReproductiveHealthAppointment,
+  ReproductiveHealthAppointmentInsert,
+  ReproductiveHealthAppointmentUpdate,
+  ReproductiveHealthAppointmentWithDetails,
+  HealthCenterId,
+  HealthCenterType,
+  HealthCenter,
+  OperatingHours,
+  TimeRange,
+  HealthCenterInsert,
+  HealthCenterWithDistance,
+  MedicalChatId,
+  MedicalMessageId,
+  MessageAuthorType,
+  MessageContentType,
+  ChatStatusType,
+  MedicalChat,
+  MedicalMessage,
+  MedicalChatInsert,
+  MedicalMessageInsert,
+  MedicalChatWithLastMessage,
+  GeolocationQuery,
+  HealthCenterSearchFilters,
+  ReproductiveHealthStats,
+  SpecialistAvailability,
+  AvailableSlot
+} from './reproductive-health/reproductive-health.types';
+
+export {
+  isReproductiveHealthSpecialty,
+  isAppointmentConsultationType,
+  isHealthCenterType,
+  isSpecialistAvailable,
+  canAcceptEmergency,
+  isChatActive,
+  requiresUrgentAttention,
+  calculateDistance,
+  sortByDistance,
+  formatDistance,
+  estimateTravelTime,
+  getSpecialtyDisplayName,
+  getConsultationTypeDisplayName
+} from './reproductive-health/reproductive-health.types';
+
+// ==========================================
+// Patient Portal Types (Anamnesis, Telemedicine, Community)
+// ==========================================
+
+// Anamnesis types
+export type {
+  AnamnesisId,
+  AnamnesisSection,
+  AnamnesisStatus,
+  AnamnesisSectionStatus,
+  Anamnesis,
+  AnamnesisInsert,
+  AnamnesisUpdate,
+  PersonalDataSection,
+  EmergencyContactSection,
+  MedicalHistoryItem,
+  FamilyHistoryItem,
+  AllergyItem,
+  CurrentMedicationItem,
+  ChronicConditionItem,
+  SurgicalHistoryItem,
+  HospitalizationItem,
+  GynecologicalHistorySection,
+  LifestyleSection,
+  MentalHealthSection,
+  ConsentSection,
+  AnamnesisSectionData,
+  AnamnesisAPIResponse,
+  AnamnesisProgressResponse,
+} from './patient/anamnesis.types';
+
+export {
+  SECTION_ORDER,
+  SECTION_DISPLAY_NAMES,
+  isAnamnesisComplete,
+  calculateSectionWeight,
+  getNextPendingSection,
+  canEditAnamnesis,
+  requiresDoctorReview,
+} from './patient/anamnesis.types';
+
+// Telemedicine types
+export type {
+  TelemedicineSessionId,
+  WebRTCPeerId,
+  SignalingRoomId,
+  SessionStatus,
+  ConnectionQuality,
+  ParticipantRole,
+  TelemedicineSession,
+  TelemedicineSessionMetadata,
+  DeviceInfo,
+  NetworkStats,
+  VideoQualitySettings,
+  AudioQualitySettings,
+  SignalingMessage,
+  SignalingMessageType,
+  SignalingPayload,
+  JoinPayload,
+  LeavePayload,
+  OfferPayload,
+  AnswerPayload,
+  ICECandidatePayload,
+  RenegotiatePayload,
+  MediaCapabilities,
+  SessionParticipant,
+  MediaState,
+  RTCPeerConnectionState,
+  SessionEvent,
+  SessionEventType,
+  TelemedicineQuickAction,
+  QuickActionType,
+  QuickActionData,
+  WaitingRoomEntry,
+  PreCallChecklist,
+  TelemedicineSessionAPIResponse,
+  StartSessionRequest,
+  StartSessionResponse,
+  TURNServerConfig,
+  ICEServerConfig,
+} from './patient/telemedicine.types';
+
+export {
+  isSessionActive,
+  canJoinSession,
+  getConnectionQualityScore,
+  calculateSessionDuration,
+  requiresRecordingConsent,
+  getQualityRecommendation,
+} from './patient/telemedicine.types';
+
+// Community types
+export type {
+  CommunityGroupId,
+  GroupMembershipId,
+  PostId,
+  CommentId,
+  ReactionId,
+  ReportId,
+  CommunityNotificationId,
+  CommunityGroup,
+  GroupCategory,
+  GroupRule,
+  CommunityGroupInsert,
+  GroupMembership,
+  MemberRole,
+  MembershipStatus,
+  GroupMembershipInsert,
+  CommunityPost,
+  ModerationStatus,
+  CommunityPostInsert,
+  CommunityPostUpdate,
+  PostComment,
+  PostCommentInsert,
+  PostCommentUpdate,
+  PostReaction,
+  ReactionType,
+  PostReactionInsert,
+  ContentReport,
+  ReportReason,
+  ReportStatus,
+  ModerationAction,
+  ContentReportInsert,
+  CommunityNotification,
+  CommunityNotificationType,
+  UserReputation,
+  ReputationBadge,
+  CommunityFeedFilters,
+  TrendingTopic,
+  CommunityPostAPIResponse,
+  CommunityFeedAPIResponse,
+  CommunityGroupAPIResponse,
+} from './patient/community.types';
+
+export {
+  GROUP_CATEGORIES_DISPLAY,
+  REACTION_DISPLAY,
+  canModerateContent,
+  isContentApproved,
+  requiresModerationReview,
+  calculateReputationScore,
+  canPostInGroup,
+  anonymizeDisplayName,
+  isHighRiskContent,
+} from './patient/community.types';
+
+// ==========================================
+// Preventive Care Types (Medical Screenings)
+// ==========================================
+
+export type {
+  PreventiveScreeningId,
+  MedicalCaseId,
+  ScreeningReminderNotificationId,
+  GenderType,
+  ScreeningCategoryType,
+  ScreeningFrequencyType,
+  RiskLevelType,
+  ScreeningStatusType,
+  PreventiveScreening,
+  PatientScreening,
+  RiskFactor,
+  PatientRiskFactor,
+  ScreeningReminderNotification,
+  MedicalCase,
+  MedicalCaseSection,
+  PreventiveScreeningInsert,
+  PatientScreeningInsert,
+  PatientRiskFactorInsert,
+  ScreeningReminderNotificationInsert,
+  PatientScreeningWithDetails,
+  PreventiveScreeningWithStats,
+  AgeRange,
+  ScreeningRecommendation,
+  ScreeningCatalogKey
+} from './preventive-care/preventive-care.types';
+
+export {
+  isScreeningApplicable,
+  calculateNextDueDate,
+  calculateAge as preventiveCareCalculateAge,
+  calculateUrgency,
+  SCREENING_CATALOG
+} from './preventive-care/preventive-care.types';
+
+// ==========================================
+// Zod Validators (Runtime validation with boundary transformation)
+// ==========================================
+
+// Appointment validators
+export {
+  AppointmentSnakeSchema,
+  AppointmentInsertSnakeSchema,
+  AppointmentUpdateSnakeSchema,
+  parseAppointmentForUI,
+  safeParseAppointmentForUI,
+  parseAppointmentsForUI,
+  isValidAppointmentForDisplay,
+  requiresMeetingUrl as appointmentRequiresMeetingUrl,
+  requiresPhysicalLocation as appointmentRequiresPhysicalLocation,
+  isTerminalStatus as appointmentIsTerminalStatus,
+  isDurationConsistent as appointmentIsDurationConsistent,
+  type AppointmentSnake,
+  type AppointmentInsertSnake,
+  type AppointmentUpdateSnake
+} from './validators/appointment.schema';
+
+// Patient validators
+export {
+  PatientProfileSnakeSchema,
+  PatientInsertSnakeSchema,
+  PatientUpdateSnakeSchema,
+  parsePatientForUI,
+  safeParsePatientForUI,
+  parsePatientsForUI,
+  calculateAge as patientCalculateAge,
+  calculateBMI as patientCalculateBMI,
+  isPatientProfileComplete as patientIsProfileComplete,
+  isMinor as patientIsMinor,
+  requiresGuardianConsent as patientRequiresGuardianConsent,
+  hasValidEmergencyContact as patientHasValidEmergencyContact,
+  getBMICategory as patientGetBMICategory,
+  hasInsurance as patientHasInsurance,
+  type PatientSnake,
+  type PatientInsertSnake,
+  type PatientUpdateSnake
+} from './validators/patient.schema';
+
+// Company Member validators
+export {
+  CompanyMemberSnakeSchema,
+  CompanyMemberInsertSnakeSchema,
+  CompanyMemberUpdateSnakeSchema,
+  parseCompanyMemberForUI,
+  safeParseCompanyMemberForUI,
+  parseCompanyMembersForUI,
+  getYearsOfService,
+  isOnProbation,
+  canApprovExpenses,
+  hasAccessToSensitiveData,
+  type CompanyMemberSnake,
+  type CompanyMemberInsertSnake,
+  type CompanyMemberUpdateSnake
+} from './validators/company-member.schema';
+
+// ==========================================
+// Auta IA - Chat médico persistente
+// ==========================================
+
+export type {
+  TAutaMessageRole,
+  TAutaConversationStatus,
+  TAutaIntent,
+  TAutaMessage,
+  TAutaConversation,
+  TAutaAISettings,
+  TAutaAIUsage,
+  TAutaChatRequest,
+  TAutaChatResponse,
+  TPatientContext,
+  TAutaConversationWithMessages,
+} from './auta-ai';
+
+export {
+  AutaMessageRole,
+  AutaConversationStatus,
+  AutaIntent,
+  AutaMessage,
+  AutaConversation,
+  AutaAISettings,
+  AutaAIUsage,
+  AutaChatRequest,
+  AutaChatResponse,
+  PatientContext,
+  AutaConversationWithMessages,
+} from './auta-ai';

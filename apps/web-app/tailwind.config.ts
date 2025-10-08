@@ -1,11 +1,19 @@
-import base from '@autamedica/tailwind-config';
+import preset from '@autamedica/tailwind-config';
 import type { Config } from 'tailwindcss';
 
-export default {
-  ...base,
+const config: Config = {
+  presets: [preset],
   content: [
     './src/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    '../../packages/ui/**/*.{ts,tsx}'
-  ]
-} satisfies Config;
+    '../../packages/ui/src/**/*.{ts,tsx}',
+    '../../packages/auth/src/**/*.{ts,tsx}',
+    '../../packages/hooks/src/**/*.{ts,tsx}'
+  ],
+  // Optimize for production
+  future: {
+    hoverOnlyWhenSupported: true,
+  }
+};
+
+export default config;

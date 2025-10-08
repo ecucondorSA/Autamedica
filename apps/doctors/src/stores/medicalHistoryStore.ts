@@ -80,7 +80,7 @@ export const useMedicalHistoryStore = create<MedicalHistoryState>()(
       // Si es una prescripción o diagnóstico, generar análisis IA
       if (entry.type === 'diagnosis' || entry.type === 'prescription') {
         const aiAnalysis = await get().generateAISummary(entry.patientId)
-        console.log('[AI Analysis]', aiAnalysis)
+        // logger.info('[AI Analysis]', aiAnalysis)
       }
     },
 
@@ -111,13 +111,13 @@ export const useMedicalHistoryStore = create<MedicalHistoryState>()(
         // Simular sincronización con servidor central
         await new Promise(resolve => setTimeout(resolve, 300))
 
-        console.log('[Medical History] Synced with central database')
+        // logger.info('[Medical History] Synced with central database')
         set({
           lastSync: new Date().toISOString(),
           isLoading: false
         })
       } catch (error) {
-        console.error('[Medical History] Sync failed:', error)
+        logger.error('[Medical History] Sync failed:', error)
         set({ isLoading: false })
       }
     },
@@ -184,6 +184,6 @@ export const useMedicalHistoryStore = create<MedicalHistoryState>()(
 useMedicalHistoryStore.subscribe(
   (state) => state.entries,
   (entries) => {
-    console.log('[Medical History] Auto-sync triggered, entries:', entries.length)
+    // logger.info('[Medical History] Auto-sync triggered, entries:', entries.length)
   }
 )

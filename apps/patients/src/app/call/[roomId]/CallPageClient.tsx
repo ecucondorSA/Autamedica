@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
-import { AuthProvider, useAuth } from '@autamedica/auth'
+import { AuthProvider, useAuth } from '@autamedica/auth/react'
 import { getClientEnvOrDefault } from '@autamedica/shared'
 
 interface CallPageClientProps {
@@ -32,7 +32,7 @@ function PatientCallContent({ roomId }: { roomId: string }) {
       if (REQUIRE_AUTH) {
         router.push('/auth/login?redirect=/call/' + roomId)
       } else {
-        console.warn('[UnifiedVideoCall][patient] sin sesión; usando identidad de desarrollo')
+        logger.warn('[UnifiedVideoCall][patient] sin sesión; usando identidad de desarrollo')
         setIsReady(true)
       }
       return
@@ -62,15 +62,15 @@ function PatientCallContent({ roomId }: { roomId: string }) {
   }
 
   const handleCallStart = () => {
-    console.log('[UnifiedVideoCall][patient] start')
+    // logger.info('[UnifiedVideoCall][patient] start')
   }
 
   const handleStatusChange = (status: string) => {
-    console.log('[UnifiedVideoCall][patient] status:', status)
+    // logger.info('[UnifiedVideoCall][patient] status:', status)
   }
 
   const handleError = (error: unknown) => {
-    console.error('[UnifiedVideoCall][patient] error:', error)
+    logger.error('[UnifiedVideoCall][patient] error:', error)
   }
 
   const { userId, userName } = useMemo(() => {

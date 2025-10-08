@@ -13,7 +13,8 @@ export type {
   DomainConfig,
   RedirectConfig,
   SessionConfig,
-  AuthErrorType
+  AuthErrorType,
+  UserMetadata
 } from './types'
 
 export {
@@ -22,12 +23,23 @@ export {
   AuthError
 } from './types'
 
+// Export constants
+export { APP_NAMES } from './constants'
+export type { AppNameConstant } from './constants'
+
 // Export client utilities
 export {
   createBrowserClient,
   getSupabaseClient,
   signOutGlobally
 } from './client/supabase'
+
+// Export server utilities
+export {
+  createServerClient,
+  createMiddlewareClient,
+  createRouteHandlerClient
+} from './server'
 
 // Export hooks and context
 export {
@@ -36,6 +48,8 @@ export {
   useRequireAuth,
   useRequireRole
 } from './hooks/useAuth'
+
+export { useSupabase } from './hooks/useSupabase'
 
 // Export middleware
 export {
@@ -64,3 +78,14 @@ export {
   getLastPath,
   clearLastPath
 } from './utils/redirect'
+
+// Export session utilities
+export {
+  getSession,
+  requireSession,
+  requirePortalAccess,
+  signOut,
+  getCurrentUser,
+  hasRole,
+  hasPortalAccess
+} from './session'

@@ -48,7 +48,7 @@ export class WebRTCDebugger {
       success: 'color: #10B981; font-weight: bold;'
     }
 
-    console.log(`%c${fullMessage}`, styles[level], data || '')
+    // logger.info(`%c${fullMessage}`, styles[level], data || '')
   }
 
   info(message: string, data?: any) {
@@ -115,7 +115,7 @@ export class WebRTCDebugger {
     const hasAudio = sdp.includes('m=audio')
 
     // Extract video codec
-    const videoCodec = sdp.match(/a=rtpmap:\d+ ([^\/]+)\//)
+    const videoCodec = sdp.match(/a=rtpmap:\d+ ([^/]+)\//)
 
     // Count ICE candidates
     const candidateCount = (sdp.match(/a=candidate/g) || []).length
@@ -132,7 +132,7 @@ export class WebRTCDebugger {
     // Log first few lines for quick check
     const lines = sdp.split('\n').slice(0, 10)
     console.groupCollapsed(`${this.prefix} SDP ${type} preview`)
-    lines.forEach(line => console.log(line))
+    lines.forEach(line => logger.info(line))
     console.groupEnd()
   }
 
@@ -180,15 +180,15 @@ export class WebRTCDebugger {
     }
 
     // 1. Connection States
-    console.log('%c📊 Connection States:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📊 Connection States:', 'font-weight: bold; color: #6B7280;')
     this.logPeerConnection(pc)
 
     // 2. Local Streams/Tracks (Senders)
-    console.log('%c📤 Outgoing Tracks (Senders):', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📤 Outgoing Tracks (Senders):', 'font-weight: bold; color: #6B7280;')
     const senders = pc.getSenders()
     senders.forEach((sender, i) => {
       if (sender.track) {
-        console.log(`  Sender ${i + 1}:`, {
+        this.info(`  Sender ${i + 1}:`, {
           kind: sender.track.kind,
           enabled: sender.track.enabled,
           muted: sender.track.muted,
@@ -196,16 +196,16 @@ export class WebRTCDebugger {
           label: sender.track.label
         })
       } else {
-        console.log(`  Sender ${i + 1}: No track`)
+        this.info(`  Sender ${i + 1}: No track`)
       }
     })
 
     // 3. Remote Streams/Tracks (Receivers)
-    console.log('%c📥 Incoming Tracks (Receivers):', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📥 Incoming Tracks (Receivers):', 'font-weight: bold; color: #6B7280;')
     const receivers = pc.getReceivers()
     receivers.forEach((receiver, i) => {
       if (receiver.track) {
-        console.log(`  Receiver ${i + 1}:`, {
+        this.info(`  Receiver ${i + 1}:`, {
           kind: receiver.track.kind,
           enabled: receiver.track.enabled,
           muted: receiver.track.muted,
@@ -213,12 +213,12 @@ export class WebRTCDebugger {
           id: receiver.track.id
         })
       } else {
-        console.log(`  Receiver ${i + 1}: No track`)
+        this.info(`  Receiver ${i + 1}: No track`)
       }
     })
 
     // 4. Get Stats
-    console.log('%c📈 Connection Stats:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📈 Connection Stats:', 'font-weight: bold; color: #6B7280;')
     try {
       const stats = await pc.getStats()
       const statsReport: any = {}
@@ -259,13 +259,13 @@ export class WebRTCDebugger {
         }
       })
 
-      console.table(statsReport)
+      // console.table(statsReport)
     } catch (error) {
       this.error('Failed to get stats:', error)
     }
 
     // 5. Check Local and Remote Descriptions
-    console.log('%c📝 Session Descriptions:', 'font-weight: bold; color: #6B7280;')
+    // logger.info('%c📝 Session Descriptions:', 'font-weight: bold; color: #6B7280;')
     if (pc.localDescription) {
       this.logSDP(pc.localDescription, 'offer')
     }
@@ -291,36 +291,36 @@ export class WebRTCDebugger {
 
 // Helper function to create and attach debugger
 export function attachWebRTCDebugger(pc: RTCPeerConnection, role: 'doctor' | 'patient'): WebRTCDebugger {
-  const debugger = new WebRTCDebugger(role)
+  const webrtcDebugger = new WebRTCDebugger(role)
 
   // Attach event listeners for automatic logging
   const originalOnTrack = pc.ontrack
   pc.ontrack = (event) => {
-    debugger.logTrackEvent(event)
+    webrtcDebugger.logTrackEvent(event)
     if (originalOnTrack) originalOnTrack(event)
   }
 
   const originalOnIceCandidate = pc.onicecandidate
   pc.onicecandidate = (event) => {
     if (event.candidate) {
-      debugger.logICECandidate(event.candidate, 'sending')
+      webrtcDebugger.logICECandidate(event.candidate, 'sending')
     }
     if (originalOnIceCandidate) originalOnIceCandidate(event)
   }
 
   const originalOnConnectionStateChange = pc.onconnectionstatechange
   pc.onconnectionstatechange = () => {
-    debugger.info(`Connection state changed to: ${pc.connectionState}`)
+    webrtcDebugger.info(`Connection state changed to: ${pc.connectionState}`)
     if (originalOnConnectionStateChange) originalOnConnectionStateChange()
   }
 
   const originalOnIceConnectionStateChange = pc.oniceconnectionstatechange
   pc.oniceconnectionstatechange = () => {
-    debugger.info(`ICE connection state changed to: ${pc.iceConnectionState}`)
+    webrtcDebugger.info(`ICE connection state changed to: ${pc.iceConnectionState}`)
     if (originalOnIceConnectionStateChange) originalOnIceConnectionStateChange()
   }
 
-  return debugger
+  return webrtcDebugger
 }
 
 // Console helper for quick diagnosis

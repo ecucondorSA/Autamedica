@@ -205,10 +205,10 @@ class PatientMedicalStore {
       // Simular sincronización con backend
       await new Promise(resolve => setTimeout(resolve, 300))
 
-      console.log('[Patient Medical Store] Synced with backend')
+      // logger.info('[Patient Medical Store] Synced with backend')
       this.state.lastSync = new Date().toISOString()
     } catch (error) {
-      console.error('[Patient Medical Store] Sync failed:', error)
+      logger.error('[Patient Medical Store] Sync failed:', error)
     } finally {
       this.state.isLoading = false
       this.notify()

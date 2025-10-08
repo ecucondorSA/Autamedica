@@ -1,0 +1,348 @@
+version: '3.8'
+
+# 🐳 AltaMedica - Docker Compose Stack
+# Stack completo con Supabase local + Playwright para desarrollo
+
+services:
+  # ==========================================
+  # 📊 SUPABASE LOCAL STACK
+  # ==========================================
+
+  # PostgreSQL - Base de datos principal
+  postgres:
+    container_name: autamedica-postgres
+    image: supabase/postgres:15.1.1.78
+    healthcheck:
+      test: pg_isready -U postgres -h localhost
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    command:
+      - postgres
+      - -c
+      - config_file=/etc/postgresql/postgresql.conf
+      - -c
+      - log_min_messages=fatal
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      PGPORT: 5432
+      POSTGRES_PORT: 5432
+      PGUSER: supabase_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}
+      POSTGRES_DB: postgres
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+      JWT_EXP: 3600
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d/migrations:Z
+    networks:
+      - autamedica-network
+
+  # Kong - API Gateway
+  kong:
+    container_name: autamedica-kong
+    image: kong:2.8.1
+    restart: unless-stopped
+    entrypoint: bash -c 'eval "echo \"$$(cat ~/temp.yml)\"" > ~/kong.yml && /docker-entrypoint.sh kong docker-start'
+    ports:
+      - "8000:8000/tcp"
+      - "8443:8443/tcp"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /home/kong/kong.yml
+      KONG_DNS_ORDER: LAST,A,CNAME
+      KONG_PLUGINS: request-transformer,cors,key-auth,acl,basic-auth
+      KONG_NGINX_PROXY_PROXY_BUFFER_SIZE: 160k
+      KONG_NGINX_PROXY_PROXY_BUFFERS: 64 160k
+      SUPABASE_ANON_KEY: ${ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0}
+      SUPABASE_SERVICE_KEY: ${SERVICE_ROLE_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU}
+      DASHBOARD_USERNAME: ${DASHBOARD_USERNAME:-supabase}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD:-this_password_is_insecure_and_should_be_updated}
+    volumes:
+      - ./supabase/config.toml:/home/kong/temp.yml:ro
+    networks:
+      - autamedica-network
+
+  # GoTrue - Authentication Service
+  auth:
+    container_name: autamedica-auth
+    image: supabase/gotrue:v2.99.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9999/health"]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    restart: unless-stopped
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      API_EXTERNAL_URL: ${API_EXTERNAL_URL:-http://localhost:8000}
+
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}@postgres:5432/postgres
+
+      GOTRUE_SITE_URL: ${SITE_URL:-http://localhost:3000}
+      GOTRUE_URI_ALLOW_LIST: ${ADDITIONAL_REDIRECT_URLS}
+      GOTRUE_DISABLE_SIGNUP: ${DISABLE_SIGNUP:-false}
+
+      GOTRUE_JWT_ADMIN_ROLES: service_role
+      GOTRUE_JWT_AUD: authenticated
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_JWT_EXP: ${JWT_EXPIRY:-3600}
+      GOTRUE_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: ${ENABLE_EMAIL_SIGNUP:-true}
+      GOTRUE_MAILER_AUTOCONFIRM: ${ENABLE_EMAIL_AUTOCONFIRM:-true}
+
+      GOTRUE_SMTP_HOST: ${SMTP_HOST:-inbucket}
+      GOTRUE_SMTP_PORT: ${SMTP_PORT:-2500}
+      GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_ADMIN_EMAIL:-admin@example.com}
+      GOTRUE_SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-AltaMedica Auth}
+      GOTRUE_MAILER_URLPATHS_INVITE: ${MAILER_URLPATHS_INVITE:-/auth/v1/verify}
+      GOTRUE_MAILER_URLPATHS_CONFIRMATION: ${MAILER_URLPATHS_CONFIRMATION:-/auth/v1/verify}
+      GOTRUE_MAILER_URLPATHS_RECOVERY: ${MAILER_URLPATHS_RECOVERY:-/auth/v1/verify}
+      GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE: ${MAILER_URLPATHS_EMAIL_CHANGE:-/auth/v1/verify}
+
+      GOTRUE_EXTERNAL_PHONE_ENABLED: ${ENABLE_PHONE_SIGNUP:-false}
+      GOTRUE_SMS_AUTOCONFIRM: ${ENABLE_PHONE_AUTOCONFIRM:-false}
+    networks:
+      - autamedica-network
+
+  # PostgREST - API REST automática
+  rest:
+    container_name: autamedica-rest
+    image: postgrest/postgrest:v11.2.2
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    environment:
+      PGRST_DB_URI: postgres://authenticator:${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}@postgres:5432/postgres
+      PGRST_DB_SCHEMAS: ${PGRST_DB_SCHEMAS:-public,storage,graphql_public}
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+      PGRST_DB_USE_LEGACY_GUCS: "false"
+      PGRST_APP_SETTINGS_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+      PGRST_APP_SETTINGS_JWT_EXP: ${JWT_EXPIRY:-3600}
+    command: "postgrest"
+    networks:
+      - autamedica-network
+
+  # Realtime - WebSockets para cambios en tiempo real
+  realtime:
+    container_name: autamedica-realtime
+    image: supabase/realtime:v2.25.50
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bash", "-c", "printf \\GET\\ /api/health\\ HTTP/1.1\\r\\nhost:\\ localhost:4000\\r\\nConnection:\\ close\\r\\n\\r\\n > /dev/tcp/localhost/4000"]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    restart: unless-stopped
+    environment:
+      PORT: 4000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: supabase_admin
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}
+      DB_NAME: postgres
+      DB_AFTER_CONNECT_QUERY: 'SET search_path TO _realtime'
+      DB_ENC_KEY: supabaserealtime
+      API_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+      FLY_ALLOC_ID: fly123
+      FLY_APP_NAME: realtime
+      SECRET_KEY_BASE: UpNVntn3cDxHJpq99YMc1T1AQgQpc8kfYTuRgBiYa15BLrx8etQoXz3gZv1/u2oq
+      ERL_AFLAGS: -proto_dist inet_tcp
+      ENABLE_TAILSCALE: "false"
+      DNS_NODES: "''"
+    command: >
+      sh -c "/app/bin/migrate && /app/bin/realtime eval 'Realtime.Release.seeds(Realtime.Repo)' && /app/bin/server"
+    networks:
+      - autamedica-network
+
+  # Storage - Gestión de archivos
+  storage:
+    container_name: autamedica-storage
+    image: supabase/storage-api:v1.0.6
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rest:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/status"]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    restart: unless-stopped
+    environment:
+      ANON_KEY: ${ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0}
+      SERVICE_KEY: ${SERVICE_ROLE_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU}
+      POSTGREST_URL: http://rest:3000
+      PGRST_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-token-with-at-least-32-characters-long}
+      DATABASE_URL: postgres://supabase_storage_admin:${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}@postgres:5432/postgres
+      FILE_SIZE_LIMIT: 52428800
+      STORAGE_BACKEND: file
+      FILE_STORAGE_BACKEND_PATH: /var/lib/storage
+      TENANT_ID: stub
+      REGION: stub
+      GLOBAL_S3_BUCKET: stub
+      ENABLE_IMAGE_TRANSFORMATION: "true"
+      IMGPROXY_URL: http://imgproxy:5001
+    volumes:
+      - storage-data:/var/lib/storage
+    networks:
+      - autamedica-network
+
+  # ImgProxy - Transformación de imágenes
+  imgproxy:
+    container_name: autamedica-imgproxy
+    image: darthsim/imgproxy:v3.8.0
+    healthcheck:
+      test: ["CMD", "imgproxy", "health"]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    environment:
+      IMGPROXY_BIND: ":5001"
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /
+      IMGPROXY_USE_ETAG: "true"
+      IMGPROXY_ENABLE_WEBP_DETECTION: ${IMGPROXY_ENABLE_WEBP_DETECTION:-true}
+    volumes:
+      - storage-data:/var/lib/storage
+    networks:
+      - autamedica-network
+
+  # Meta - Gestión de metadatos
+  meta:
+    container_name: autamedica-meta
+    image: supabase/postgres-meta:v0.80.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    environment:
+      PG_META_PORT: 8080
+      PG_META_DB_HOST: postgres
+      PG_META_DB_PORT: 5432
+      PG_META_DB_NAME: postgres
+      PG_META_DB_USER: supabase_admin
+      PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}
+    networks:
+      - autamedica-network
+
+  # Studio - Dashboard de Supabase
+  studio:
+    container_name: autamedica-studio
+    image: supabase/studio:20240729-b0c9a3e
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/profile', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    ports:
+      - "3010:3000/tcp"
+    depends_on:
+      kong:
+        condition: service_started
+    environment:
+      STUDIO_PG_META_URL: http://meta:8080
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-your-super-secret-and-long-postgres-password}
+
+      DEFAULT_ORGANIZATION_NAME: ${STUDIO_DEFAULT_ORGANIZATION:-AltaMedica}
+      DEFAULT_PROJECT_NAME: ${STUDIO_DEFAULT_PROJECT:-AltaMedica Development}
+
+      SUPABASE_URL: http://kong:8000
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL:-http://localhost:8000}
+      SUPABASE_ANON_KEY: ${ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0}
+      SUPABASE_SERVICE_KEY: ${SERVICE_ROLE_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU}
+    networks:
+      - autamedica-network
+
+  # Inbucket - Email testing local
+  inbucket:
+    container_name: autamedica-inbucket
+    image: inbucket/inbucket:3.0.3
+    restart: unless-stopped
+    ports:
+      - "2500:2500/tcp"
+      - "9000:9000/tcp"
+    environment:
+      INBUCKET_WEB_ADDR: 0.0.0.0:9000
+      INBUCKET_SMTP_ADDR: 0.0.0.0:2500
+    networks:
+      - autamedica-network
+
+  # ==========================================
+  # 🎭 PLAYWRIGHT SERVICE
+  # ==========================================
+
+  playwright:
+    container_name: autamedica-playwright
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    depends_on:
+      - postgres
+      - kong
+      - auth
+      - rest
+    environment:
+      # Supabase URLs (apuntan a servicios Docker)
+      NEXT_PUBLIC_SUPABASE_URL: http://kong:8000
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0}
+
+      # Base URL para tests (apunta a la app web)
+      BASE_URL: ${BASE_URL:-http://host.docker.internal:3000}
+
+      # Configuración Playwright
+      CI: "true"
+      PWDEBUG: ${PWDEBUG:-0}
+
+      # Node environment
+      NODE_ENV: test
+    volumes:
+      # Montar código fuente para hot reload
+      - ./tests:/app/tests:ro
+      - ./playwright.config.ts:/app/playwright.config.ts:ro
+
+      # Resultados de tests
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+
+      # Screenshots y videos
+      - ./test-output:/app/test-output
+    networks:
+      - autamedica-network
+    # Por defecto no ejecuta tests, usa comandos manuales
+    command: ["tail", "-f", "/dev/null"]
+    # Para ejecutar tests: docker-compose exec playwright pnpm test:e2e
+
+# ==========================================
+# 📦 VOLUMES
+# ==========================================
+volumes:
+  postgres-data:
+    name: autamedica-postgres-data
+  storage-data:
+    name: autamedica-storage-data
+
+# ==========================================
+# 🌐 NETWORKS
+# ==========================================
+networks:
+  autamedica-network:
+    name: autamedica-network
+    driver: bridge

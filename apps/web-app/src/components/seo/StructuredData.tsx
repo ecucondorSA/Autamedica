@@ -36,7 +36,6 @@ export default function StructuredData() {
         name: 'AutaMedica',
         image: 'https://autamedica.com/og-image.jpg',
         url: 'https://autamedica.com',
-        telephone: '+54-11-XXXX-XXXX',
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',

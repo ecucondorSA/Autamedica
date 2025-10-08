@@ -53,8 +53,7 @@ export default function DoctorsHomePage(): JSX.Element {
   // Hooks para obtener datos de autenticación y paciente
   const { user, loading: authLoading } = useAuthenticatedUser()
   const { session } = useActiveSession()
-  // @ts-ignore - TODO: Fix patient data types
-  const { patient } = usePatientData((session?.patientId as any) || null)
+  const { patient } = usePatientData(session?.patientId ?? null)
 
   // Store centralizado de historial médico
   const { addEntry, suggestPrescriptions, analyzeVitals } = useMedicalHistoryStore()
@@ -219,7 +218,7 @@ export default function DoctorsHomePage(): JSX.Element {
       setCallDuration(0)
       setCallStatus('live')
     } catch (error) {
-      console.error('[VideoCall] Error al activar la cámara', error)
+      logger.error('[VideoCall] Error al activar la cámara', error)
       const message =
         error instanceof DOMException
           ? error.message
@@ -264,7 +263,7 @@ export default function DoctorsHomePage(): JSX.Element {
       setScreenStream(stream)
       setIsScreenSharing(true)
     } catch (error) {
-      console.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
+      logger.warn('[VideoCall] El usuario canceló la compartición de pantalla', error)
       setIsScreenSharing(false)
     }
   }
@@ -397,7 +396,7 @@ export default function DoctorsHomePage(): JSX.Element {
                         <p className="text-yellow-300/80 text-xs">Inicia sesión para poder realizar llamadas</p>
                       </div>
                       <a
-                        href="http://localhost:3000/auth/login?portal=medico"
+                        href={`${typeof window !== 'undefined' && process.env.NEXT_PUBLIC_WEB_APP_URL ? process.env.NEXT_PUBLIC_WEB_APP_URL : 'http://localhost:3000'}/auth/login?portal=medico`}
                         className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-500"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -437,10 +436,8 @@ export default function DoctorsHomePage(): JSX.Element {
                   <div className="flex items-center gap-2">
                     <Activity className="h-4 w-4 text-emerald-400" />
                     <div>
-                      {/* @ts-ignore */}
-                      <p className="text-xs font-semibold text-slate-100">{patient.full_name}</p>
-                      {/* @ts-ignore */}
-                      <p className="text-[10px] text-slate-400">{patient.age} años • {formattedDuration}</p>
+                      <p className="text-xs font-semibold text-slate-100">{patient?.full_name ?? 'Paciente'}</p>
+                      <p className="text-[10px] text-slate-400">{patient?.age ?? '—'} años • {formattedDuration}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -531,8 +528,7 @@ export default function DoctorsHomePage(): JSX.Element {
               userType="doctor"
               metadata={{
                 patientId: session?.patientId ?? 'guest-patient',
-                // @ts-ignore
-                patientName: (patient as any)?.full_name ?? 'Paciente invitado',
+                patientName: patient?.full_name ?? 'Paciente invitado',
               }}
               className="mt-3 rounded-2xl border border-slate-800/60 bg-[#101d32] p-4 shadow-2xl shadow-slate-900/20 sm:p-6"
             />
@@ -706,8 +702,7 @@ export default function DoctorsHomePage(): JSX.Element {
                   <Brain className="h-5 w-5" />
                 </div>
                 <div>
-                  {/* @ts-ignore */}
-                  <h2 className="text-lg font-semibold">Análisis IA · {(patient as any)?.full_name || 'Paciente'}</h2>
+                  <h2 className="text-lg font-semibold">Análisis IA · {patient?.full_name ?? 'Paciente'}</h2>
                   <p className="text-xs text-slate-400">Carga un resumen de síntomas para generar diagnósticos asistidos.</p>
                 </div>
               </div>

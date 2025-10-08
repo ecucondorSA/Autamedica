@@ -3524,3 +3524,181 @@ if (!hasRole(sess, ['organization_admin','company_admin'])) return 403;
 
 ## 🔗 Base de Datos
 Ver glosario actualizado: [`docs/database/schema.md`](../docs/database/schema.md)
+
+## 👥 Community Feature
+
+### CommunityGroup
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Grupo comunitario para pacientes
+- **Contrato:**
+```typescript
+export interface CommunityGroup {
+  id: UUID;
+  name: string;
+  slug: string;
+  description?: string;
+  category?: string;
+  memberCount: number;
+  postCount: number;
+  iconUrl?: string;
+  bannerUrl?: string;
+  isFeatured: boolean;
+  visibility: CommunityVisibility;
+  createdAt: ISODateString;
+  updatedAt: ISODateString;
+  deletedAt?: ISODateString | null;
+}
+```
+
+### CommunityVisibility
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Tipo de visibilidad de grupos comunitarios
+- **Contrato:**
+```typescript
+export type CommunityVisibility = 'public' | 'private';
+```
+
+### CommunityPost
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Post creado por paciente en grupo comunitario
+- **Contrato:**
+```typescript
+export interface CommunityPost {
+  id: UUID;
+  groupId: UUID;
+  authorId: UUID;
+  authorDisplayName?: string;
+  isAnonymous: boolean;
+  title?: string;
+  content: string;
+  tags: string[];
+  moderationStatus: ModerationStatus;
+  reactionCount: number;
+  commentCount: number;
+  viewCount: number;
+  isPinned: boolean;
+  createdAt: ISODateString;
+  updatedAt: ISODateString;
+  deletedAt?: ISODateString | null;
+}
+```
+
+### ModerationStatus
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Estado de moderación de posts comunitarios
+- **Contrato:**
+```typescript
+export type ModerationStatus = 'pending' | 'approved' | 'rejected';
+```
+
+### PostReaction
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Reacción a un post comunitario
+- **Contrato:**
+```typescript
+export interface PostReaction {
+  id: UUID;
+  postId: UUID;
+  userId: UUID;
+  reactionType: ReactionType;
+  createdAt: ISODateString;
+}
+```
+
+### ReactionType
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Tipos de reacciones disponibles
+- **Contrato:**
+```typescript
+export type ReactionType = 'like' | 'heart' | 'helpful' | 'support';
+```
+
+### GroupMembership
+- **Tipo:** interface
+- **Package:** @autamedica/types
+- **Descripción:** Membresía de paciente en grupo comunitario
+- **Contrato:**
+```typescript
+export interface GroupMembership {
+  id: UUID;
+  groupId: UUID;
+  patientId: UUID;
+  role: GroupRole;
+  status: MembershipStatus;
+  joinedAt: ISODateString;
+  leftAt?: ISODateString | null;
+}
+```
+
+### GroupRole
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Roles en grupos comunitarios
+- **Contrato:**
+```typescript
+export type GroupRole = 'admin' | 'moderator' | 'member';
+```
+
+### MembershipStatus
+- **Tipo:** type
+- **Package:** @autamedica/types
+- **Descripción:** Estado de membresía en grupo
+- **Contrato:**
+```typescript
+export type MembershipStatus = 'active' | 'inactive' | 'banned';
+```
+
+### getCommunityGroups
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook para obtener grupos comunitarios
+- **Contrato:** React Query hook
+
+### useCommunityPosts
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook para obtener posts de un grupo
+- **Contrato:** React Query hook
+
+### usePostReactions
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook para gestionar reacciones a posts
+- **Contrato:** React Query hook con mutations
+
+### useGroupMembership
+- **Tipo:** function
+- **Package:** @autamedica/hooks
+- **Descripción:** Hook para gestionar membresía en grupos
+- **Contrato:** React Query hook con mutations
+
+### createCommunityPost
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Crea un nuevo post comunitario
+- **Contrato:** Async function con validación
+
+### moderatePost
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Modera un post (aprobar/rechazar)
+- **Contrato:** Admin function con permisos
+
+### joinCommunityGroup
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Une un paciente a un grupo
+- **Contrato:** Async function con validación
+
+### leaveCommunityGroup
+- **Tipo:** function
+- **Package:** @autamedica/shared
+- **Descripción:** Retira un paciente de un grupo
+- **Contrato:** Async function con soft delete
+

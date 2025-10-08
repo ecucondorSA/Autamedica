@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import '@livekit/components-styles'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
-import { AuthProvider } from '@/contexts/AuthContext'
-import { fetchSessionData } from '@/lib/session-sync'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
@@ -15,24 +13,18 @@ type RootLayoutProps = {
   children: ReactNode
 }
 
-export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
-  // SSR session sync
-  const sessionData = await fetchSessionData()
-
-  if (!sessionData) {
-    // No session - redirect to Auth Hub
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    redirect(`${authHubUrl}/login?returnTo=${encodeURIComponent('http://localhost:3002')}`)
-  }
+export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="bg-slate-950 text-slate-100 antialiased">
-        <AuthProvider initialSession={sessionData}>
-          <PatientRootLayout>{children}</PatientRootLayout>
-        </AuthProvider>
+      <body className="antialiased">
+        {/* Skip link para accesibilidad - permite saltar al contenido principal */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-stone-800 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          Saltar al contenido principal
+        </a>
+        <PatientRootLayout>{children}</PatientRootLayout>
       </body>
     </html>
   )

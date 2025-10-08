@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@autamedica/types'
+import { logger } from '@autamedica/shared'
 import type { Call, CallStatus, CallEvent } from './types'
 
 // Service for call management
@@ -20,7 +21,7 @@ export class CallService {
       }
 
       // Use Edge Function instead of direct RPC call
-      const response = await fetch(`https://gtyvdircfhmdjiaelqkg.supabase.co/functions/v1/create-call`, {
+      const response = await fetch(`https://ewpsepaieakqbywxnidu.supabase.co/functions/v1/create-call`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
@@ -46,7 +47,7 @@ export class CallService {
 
       return result.call as Call
     } catch (err) {
-      console.error('Error in createCall:', err)
+      logger.error('Error in createCall:', err)
       throw err
     }
   }
@@ -61,7 +62,7 @@ export class CallService {
       }
 
       // Use Edge Function instead of direct RPC call
-      const response = await fetch(`https://gtyvdircfhmdjiaelqkg.supabase.co/functions/v1/update-call-status`, {
+      const response = await fetch(`https://ewpsepaieakqbywxnidu.supabase.co/functions/v1/update-call-status`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
@@ -88,7 +89,7 @@ export class CallService {
 
       return result.updated as boolean
     } catch (err) {
-      console.error('Error in updateCallStatus:', err)
+      logger.error('Error in updateCallStatus:', err)
       throw err
     }
   }

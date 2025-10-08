@@ -10,7 +10,7 @@ interface EnhancedLoaderProps {
   transparent?: boolean;
 
   // Loading type
-  type?: 'spinner' | 'progress' | 'skeleton' | 'dots' | 'pulse' | 'branded';
+  type?: 'spinner' | 'progress' | 'skeleton' | 'dots' | 'pulse' | 'branded' | 'overlay';
 
   // Content
   message?: string;

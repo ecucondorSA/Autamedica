@@ -4,7 +4,7 @@
  * Centralizes role-to-portal mapping and role-based navigation logic
  */
 
-import type { UserRole } from '@autamedica/types';
+import type { UserRole } from './auth/portals';
 
 // ==========================================
 // Portal Configuration
@@ -47,7 +47,7 @@ export function getPortalForRole(
   isDev: boolean = typeof window !== 'undefined' && window.location.hostname === 'localhost'
 ): string {
   const portals = isDev ? roleToPortalDev : roleToPortal;
-  return portals[role];
+  return portals[role]!; // Safe: all UserRole keys are defined in roleToPortal/Dev
 }
 
 /**
@@ -57,7 +57,7 @@ export function getPortalForRole(
  * @returns URL to redirect to after role selection
  */
 export function getDefaultRedirectUrl(role: UserRole, isDev?: boolean): string {
-  return getPortalForRole(role, isDev);
+  return getPortalForRole(role, isDev ?? (typeof window !== 'undefined' && window.location.hostname === 'localhost'));
 }
 
 /**
@@ -76,6 +76,15 @@ export function hasAdminAccess(role: UserRole): boolean {
  */
 export function canManageOrganizations(role: UserRole): boolean {
   return ['organization_admin', 'platform_admin'].includes(role);
+}
+
+/**
+ * Check if a role can manage a company
+ * @param role - User role to check
+ * @returns True if role can manage company features
+ */
+export function canManageCompany(role: UserRole): boolean {
+  return ['company_admin', 'organization_admin', 'platform_admin'].includes(role);
 }
 
 /**
@@ -101,7 +110,7 @@ export function getRoleDisplayName(role: UserRole): string {
     platform_admin: 'Administrador de Plataforma'
   };
 
-  return roleNames[role];
+  return roleNames[role]!; // Safe: all UserRole keys are defined
 }
 
 /**
@@ -118,7 +127,7 @@ export function getRoleDescription(role: UserRole): string {
     platform_admin: 'Control total de la plataforma y todas sus funcionalidades'
   };
 
-  return descriptions[role];
+  return descriptions[role]!; // Safe: all UserRole keys are defined
 }
 
 // ==========================================

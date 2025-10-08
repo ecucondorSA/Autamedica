@@ -252,12 +252,15 @@ export default function ProfessionalCompaniesFeatures() {
           display: flex;
           flex-direction: column;
           gap: 0.28rem;
-          min-width: 110px;
+          min-width: 120px;
+          flex-shrink: 0;
         }
 
         .metric-value {
           font-size: clamp(1.5rem, 2.4vw, 2.1rem);
           font-weight: 600;
+          white-space: nowrap;
+          overflow: visible;
         }
 
         .metric-label {
@@ -341,7 +344,7 @@ export default function ProfessionalCompaniesFeatures() {
 
         .plans-grid {
           position: relative;
-          z-index: 1;
+          z-index: 5;
         }
 
         .plan-card {
@@ -354,6 +357,8 @@ export default function ProfessionalCompaniesFeatures() {
           padding: 1rem;
           min-height: 100%;
           isolation: isolate;
+          position: relative;
+          z-index: 2;
         }
 
         .plan-head {
@@ -416,9 +421,9 @@ export default function ProfessionalCompaniesFeatures() {
         }
 
         .plan-popover {
-          position: absolute;
-          inset: auto 0 0 0;
-          z-index: 3;
+          position: relative;
+          margin-top: 1rem;
+          z-index: 1;
           background: #141415;
           border: 1px solid rgba(255,255,255,0.06);
           border-radius: 16px;

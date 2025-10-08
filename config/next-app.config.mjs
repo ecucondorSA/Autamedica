@@ -1,0 +1,77 @@
+/** @type {import('next').NextConfig} */
+export function createNextAppConfig(customConfig = {}) {
+  const baseConfig = {
+    reactStrictMode: true,
+    transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
+    output: customConfig.output || 'standalone',
+    trailingSlash: customConfig.trailingSlash ?? false,
+    serverExternalPackages: customConfig.serverExternalPackages || [],
+    experimental: {
+      externalDir: true,
+    },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+    poweredByHeader: false,
+    compress: true,
+    images: {
+      unoptimized: true,
+      domains: customConfig.images?.domains || ['ewpsepaieakqbywxnidu.supabase.co'],
+      remotePatterns: customConfig.images?.remotePatterns || [],
+      formats: ['image/avif', 'image/webp'],
+      deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+      minimumCacheTTL: 60,
+    },
+    compiler: {
+      removeConsole: process.env.NODE_ENV === 'production' ? {
+        exclude: ['error', 'warn'],
+      } : false,
+    },
+    headers: async () => ([
+      {
+        source: '/api/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ],
+      },
+      {
+        source: '/((?!api).*)',
+        headers: [
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://*.autamedica.com; connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com"
+          },
+          { key: 'Access-Control-Allow-Origin', value: 'https://autamedica.com' },
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+        ],
+      },
+    ]),
+  };
+
+  // Merge custom config with base config
+  return {
+    ...baseConfig,
+    ...customConfig,
+    experimental: {
+      ...baseConfig.experimental,
+      ...(customConfig.experimental || {}),
+    },
+    images: {
+      ...baseConfig.images,
+      ...(customConfig.images || {}),
+    },
+  };
+}

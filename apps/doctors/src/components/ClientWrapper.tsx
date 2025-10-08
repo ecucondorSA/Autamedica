@@ -1,8 +1,9 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { AuthProvider } from '@autamedica/auth'
+import { AuthProvider } from '@autamedica/auth/react'
 import { useRouter } from 'next/navigation'
+import { SessionSync } from './SessionSync'
 
 interface ClientWrapperProps {
   children: ReactNode
@@ -16,13 +17,16 @@ export function ClientWrapper({ children }: ClientWrapperProps) {
       router.push('/auth/login?portal=medico')
     }
     if (event === 'SIGNED_IN' && session?.user) {
-      console.log('🔐 Doctor authenticated:', session.user.email)
+      // logger.info('🔐 Doctor authenticated:', session.user.email)
     }
   }
 
   return (
-    <AuthProvider onAuthStateChange={handleAuthStateChange}>
-      {children}
-    </AuthProvider>
+    <>
+      <SessionSync />
+      <AuthProvider onAuthStateChange={handleAuthStateChange}>
+        {children}
+      </AuthProvider>
+    </>
   )
 }

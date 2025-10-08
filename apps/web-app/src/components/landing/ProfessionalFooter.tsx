@@ -65,7 +65,7 @@ export default function ProfessionalFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-professional">
+    <footer className="footer-professional" role="contentinfo">
       <div className="container">
         {/* Main Footer Content */}
         <div className="footer-grid">
@@ -429,7 +429,106 @@ export default function ProfessionalFooter() {
           50% { opacity: 0.5; }
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
+          .container {
+            padding: 3rem 1rem 1.5rem;
+          }
+
+          .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+          }
+
+          .brand-section {
+            grid-column: 1 / -1;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+          }
+
+          .stat-number {
+            font-size: 1.5rem;
+          }
+
+          .stat-label {
+            font-size: 0.75rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .container {
+            padding: 2.5rem 0.75rem 1.25rem;
+          }
+
+          .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+          }
+
+          .brand-section {
+            grid-column: auto;
+          }
+
+          .brand-title {
+            font-size: 1.5rem;
+          }
+
+          .brand-description {
+            font-size: 0.8rem;
+          }
+
+          .social-icon {
+            width: 2rem;
+            height: 2rem;
+          }
+
+          .social-svg {
+            width: 1rem;
+            height: 1rem;
+          }
+
+          .section-title {
+            font-size: 0.8rem;
+          }
+
+          .footer-link {
+            font-size: 0.8rem;
+          }
+
+          .stats-section {
+            padding: 1.5rem 0;
+            margin-bottom: 1.5rem;
+          }
+
+          .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+
+          .stat-number {
+            font-size: 1.25rem;
+          }
+
+          .stat-label {
+            font-size: 0.7rem;
+          }
+
+          .copyright-info {
+            font-size: 0.75rem;
+          }
+
+          .version-info {
+            font-size: 0.65rem;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+        }
+
+        @media (min-width: 769px) {
           .bottom-section {
             flex-direction: row;
             justify-content: space-between;

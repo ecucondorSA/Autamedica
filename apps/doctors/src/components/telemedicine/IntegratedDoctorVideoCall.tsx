@@ -9,6 +9,7 @@ import {
   PhoneOff,
   Monitor
 } from 'lucide-react';
+import { logger } from '@autamedica/shared';
 
 // React 19 compatibility for Lucide icons
 const VideoIcon = Video as any;
@@ -55,7 +56,7 @@ export default function IntegratedDoctorVideoCall({
           videoRef.current.srcObject = mediaStream;
         }
       } catch (error) {
-        console.error('Error accessing camera:', error);
+        logger.error('Error accessing camera:', error);
       }
     };
 

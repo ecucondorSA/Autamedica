@@ -32,49 +32,43 @@ export const USER_ROLES: readonly UserRole[] = [
 
 /**
  * Perfil base de usuario - source of truth para roles
- * Corresponde exactamente a la tabla public.profiles
+ * Corresponde exactamente a la tabla public.profiles en Supabase
+ *
+ * IMPORTANTE: Esta interfaz refleja SOLO los campos que existen en la BD real.
+ * Campos como first_name, last_name, phone están en las tablas específicas
+ * (doctors, patients) no en profiles.
  */
 export interface Profile {
   user_id: UUID;
-  email: string;
+  email: string | null;
   role: UserRole | null; // null until role is selected
-  external_id: string;
-  first_name: string | null;
-  last_name: string | null;
-  phone: string | null;
-  avatar_url: string | null;
-  active: boolean;
+  external_id: string | null;
   created_at: ISODateString;
   updated_at: ISODateString;
-  numeric_id: number; // Auto-generated sequential ID
+  deleted_at: ISODateString | null; // Soft delete - agregado en parches de seguridad
 }
 
 /**
  * Datos para insertar nuevo perfil
+ * Solo incluye campos que existen en la tabla profiles real
  */
 export interface ProfileInsert {
   user_id: UUID;
-  email: string;
+  email?: string | null;
   role?: UserRole | null; // optional, null by default until role selection
-  external_id?: string; // Auto-generated si no se provee
-  first_name?: string | null;
-  last_name?: string | null;
-  phone?: string | null;
-  avatar_url?: string | null;
-  active?: boolean;
+  external_id?: string | null; // Auto-generated si no se provee
 }
 
 /**
  * Datos para actualizar perfil existente
+ * Solo incluye campos que existen en la tabla profiles real
  */
 export interface ProfileUpdate {
-  email?: string;
-  first_name?: string | null;
-  last_name?: string | null;
-  phone?: string | null;
-  avatar_url?: string | null;
-  active?: boolean;
+  email?: string | null;
+  role?: UserRole | null;
+  external_id?: string | null;
   updated_at?: ISODateString;
+  deleted_at?: ISODateString | null; // Para soft delete
 }
 
 // ==========================================
@@ -134,24 +128,26 @@ export interface WeeklySchedule {
 
 /**
  * Perfil completo de doctor - corresponde a tabla doctors
+ * Refleja el esquema real de Supabase incluyendo soft delete
  */
 export interface DoctorProfile {
   id: UUID;
   user_id: UUID;
   license_number: string;
-  specialty: string;
+  specialty: string | null;
   subspecialty: string | null;
-  years_experience: number;
+  years_experience: number | null;
   education: DoctorEducation[] | null;
   certifications: MedicalCertification[] | null;
   schedule: WeeklySchedule | null;
   consultation_fee: number | null;
   accepted_insurance: string[] | null; // JSON array of insurance names
   bio: string | null;
-  languages: string[]; // Default: ["Spanish"]
+  languages: string[] | null; // Default: ["Spanish"]
   active: boolean;
   created_at: ISODateString;
   updated_at: ISODateString;
+  deleted_at: ISODateString | null; // Soft delete - agregado en parches de seguridad
 }
 
 /**
@@ -241,43 +237,49 @@ export interface InsuranceInfo {
 
 /**
  * Perfil completo de paciente - corresponde a tabla patients
+ * Refleja el esquema real de Supabase con campos corregidos según BD
+ *
+ * NOTA: La BD tiene columnas individuales (medical_history TEXT, allergies TEXT, medications TEXT)
+ * no arrays complejos. Estos son campos de texto simple o JSON según el esquema real.
  */
 export interface PatientProfile {
   id: UUID;
   user_id: UUID;
   dni: string | null;
-  birth_date: string | null; // Date type in DB
+  date_of_birth: ISODateString | null; // Corregido: era birth_date, ahora date_of_birth
   gender: Gender | null;
   blood_type: string | null;
   height_cm: number | null;
   weight_kg: number | null;
-  emergency_contact: EmergencyContact | null;
-  medical_history: MedicalCondition[];
-  allergies: Allergy[];
-  medications: Medication[];
-  insurance_info: InsuranceInfo | null;
+  medical_history: string | null; // Campo TEXT en BD, no array
+  allergies: string | null; // Campo TEXT en BD, no array
+  medications: string | null; // Campo TEXT en BD, no array
+  emergency_contact_name: string | null;
+  emergency_contact_phone: string | null;
   company_id: UUID | null;
   active: boolean;
   created_at: ISODateString;
   updated_at: ISODateString;
+  deleted_at: ISODateString | null; // Soft delete - agregado en parches de seguridad
 }
 
 /**
  * Datos para crear perfil de paciente
+ * Actualizado para reflejar esquema real de BD
  */
 export interface PatientInsert {
   user_id: UUID;
   dni?: string | null;
-  birth_date?: string | null;
+  date_of_birth?: ISODateString | null; // Corregido: date_of_birth no birth_date
   gender?: Gender | null;
   blood_type?: string | null;
   height_cm?: number | null;
   weight_kg?: number | null;
-  emergency_contact?: EmergencyContact | null;
-  medical_history?: MedicalCondition[];
-  allergies?: Allergy[];
-  medications?: Medication[];
-  insurance_info?: InsuranceInfo | null;
+  medical_history?: string | null; // TEXT field, no array
+  allergies?: string | null; // TEXT field, no array
+  medications?: string | null; // TEXT field, no array
+  emergency_contact_name?: string | null;
+  emergency_contact_phone?: string | null;
   company_id?: UUID | null;
   active?: boolean;
 }
@@ -306,15 +308,19 @@ export interface CompanyAddress {
 
 /**
  * Perfil de empresa - corresponde a tabla companies
+ * Refleja el esquema real de Supabase con validación CUIT de AFIP
  */
 export interface CompanyProfile {
   id: UUID;
   name: string;
   legal_name: string | null;
-  cuit: string | null;
+  cuit: string | null; // Validado con algoritmo AFIP (constraint agregado en parches)
   industry: string | null;
   size: CompanySize | null;
-  address: CompanyAddress | null;
+  address: string | null; // En BD es TEXT, no objeto CompanyAddress
+  city: string | null;
+  state: string | null;
+  country: string | null;
   phone: string | null;
   email: string | null;
   website: string | null;
@@ -322,18 +328,23 @@ export interface CompanyProfile {
   active: boolean;
   created_at: ISODateString;
   updated_at: ISODateString;
+  deleted_at: ISODateString | null; // Soft delete - agregado en parches de seguridad
 }
 
 /**
  * Datos para crear perfil de empresa
+ * Actualizado para reflejar esquema real de BD
  */
 export interface CompanyInsert {
   name: string;
   legal_name?: string | null;
-  cuit?: string | null;
+  cuit?: string | null; // Validado con constraint AFIP
   industry?: string | null;
   size?: CompanySize | null;
-  address?: CompanyAddress | null;
+  address?: string | null; // TEXT field, no objeto
+  city?: string | null;
+  state?: string | null;
+  country?: string | null;
   phone?: string | null;
   email?: string | null;
   website?: string | null;
@@ -361,21 +372,19 @@ export function isValidRole(role: string): role is UserRole {
 }
 
 /**
- * Generar nombre completo desde perfil
+ * Generar nombre para display desde perfil base
+ * NOTA: El perfil base solo tiene email. El nombre completo está en
+ * las tablas específicas (doctors, patients). Esta función es un fallback.
  */
 export function generateDisplayName(profile: Profile): string {
-  if (profile.first_name && profile.last_name) {
-    return `${profile.first_name} ${profile.last_name}`;
-  }
-  if (profile.first_name) {
-    return profile.first_name;
-  }
   return profile.email?.split('@')[0] ?? 'Usuario';
 }
 
 /**
- * Verificar si perfil está completo según rol
+ * Verificar si perfil base está completo
+ * NOTA: El perfil base es mínimo (user_id, email, role).
+ * La completitud real se verifica en las tablas específicas (doctors, patients).
  */
 export function isProfileComplete(profile: Profile): boolean {
-  return !!(profile.first_name && profile.last_name && profile.phone);
+  return !!(profile.user_id && profile.email && profile.role);
 }

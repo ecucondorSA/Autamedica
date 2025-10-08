@@ -10,7 +10,9 @@ export {
   validateEnvironmentSecurity,
   validateProductionEnvironment,
   validateStagingEnvironment,
-  validateEnvironmentByType
+  validateEnvironmentByType,
+  isProduction,
+  isDevelopment
 } from "./env";
 
 // Tipos de entorno
@@ -43,11 +45,16 @@ export {
   getRoleForPortal
 } from "./env/portals";
 
+// User role type
+export type { UserRole } from "./auth/portals";
+
 // Security helpers
 export {
   isAllowedRedirect,
   safeRedirectOrFallback,
-  buildSafeLoginUrl
+  buildSafeLoginUrl,
+  isSameOrigin,
+  sanitizeReturnUrl
 } from "./security/redirects";
 
 // Auth session helpers
@@ -76,6 +83,7 @@ export {
   getDefaultRedirectUrl,
   hasAdminAccess,
   canManageOrganizations,
+  canManageCompany,
   canAccessMedicalFeatures,
   getRoleDisplayName,
   getRoleDescription,
@@ -84,3 +92,46 @@ export {
   AVAILABLE_ROLES,
   VERIFIED_ROLES,
 } from './roles';
+
+// Boundary transformation utilities (snake_case ↔ camelCase)
+export {
+  toCamel,
+  toSnake,
+  type CamelCased,
+  type SnakeCased
+} from './casing';
+
+// Supabase database wrapper with auto soft-delete filtering
+export {
+  supabase,
+  selectActive,
+  selectActiveRaw,
+  selectById,
+  insertRecord,
+  updateRecord,
+  softDelete,
+  hardDelete,
+  restoreRecord,
+  countActive,
+  type SelectOptions
+} from './db';
+
+// UI utilities (migrated from @autamedica/utils)
+export { cn } from './ui-utils';
+
+// Type guards and async utilities (migrated from @autamedica/utils)
+export {
+  isString,
+  isNumber,
+  isBoolean,
+  delay
+} from './type-guards';
+
+// App configuration helpers (migrated from @autamedica/config)
+export {
+  getAppEnv,
+  getLoginUrlBuilder,
+  type AppName,
+  type AppEnvironmentConfig,
+  type LoginUrlBuilder
+} from './env/app-config';

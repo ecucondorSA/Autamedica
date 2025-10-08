@@ -1,0 +1,2906 @@
+{
+  "timestamp": "2025-10-05T04:53:12.860528",
+  "stats": {
+    "total_files": 349,
+    "console_logs": 88,
+    "fetch_calls": 62,
+    "localStorage_usage": 31,
+    "security_issues": 19,
+    "client_components": 193,
+    "server_components": 3,
+    "css_files": 7,
+    "inline_styles": 127,
+    "tailwind_classes": 6009,
+    "important_usage": 89
+  },
+  "issues": [
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 52,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 54,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 59,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 100,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 102,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-Z0HMp7/middleware-loader.entry.ts",
+      "line": 116,
+      "content": "fetch(request: Request<unknown, IncomingRequestCfProperties>) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 52,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 54,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 59,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 100,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 102,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-zTFRmy/middleware-loader.entry.ts",
+      "line": 116,
+      "content": "fetch(request: Request<unknown, IncomingRequestCfProperties>) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 52,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 54,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 59,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 100,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 102,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/bundle-rWbChX/middleware-loader.entry.ts",
+      "line": 116,
+      "content": "fetch(request: Request<unknown, IncomingRequestCfProperties>) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 24,
+      "content": "console.log(`[${type.toUpperCase()}] ${text}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 30,
+      "content": "console.error('JavaScript Error:', error.message);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 37,
+      "content": "console.error('Request Failed:', request.url(), failure?.errorText);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 44,
+      "content": "console.warn(`HTTP Error ${response.status()}: ${response.url()}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 49,
+      "content": "console.log('\\n=== Testing Landing Page ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 58,
+      "content": "console.log('Supabase URL from window:', supabaseUrl);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 61,
+      "content": "console.log('\\n=== Testing Login Page ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 68,
+      "content": "console.log('Attempting Google OAuth click...');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 75,
+      "content": "console.log(`[OAUTH REQUEST] ${request.method()} ${request.url()}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 85,
+      "content": "console.log('OAuth click result:', e.message);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 90,
+      "content": "console.log('\\n=== Testing OAuth Callback Simulation ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 96,
+      "content": "console.log('Final URL after OAuth simulation:', finalUrl);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 100,
+      "content": "console.log('OAuth interception worked:', wasRedirected);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 116,
+      "content": "console.log('\\n=== Failed Resources ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 119,
+      "content": "console.log(`- ${r.type}: ${r.name}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 124,
+      "content": "console.log('\\n=== ERROR SUMMARY ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 125,
+      "content": "console.log('Console Errors:', errors.console.length);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 126,
+      "content": "errors.console.forEach(e => console.log('  ', e));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 128,
+      "content": "console.log('\\nJavaScript Errors:', errors.javascript.length);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 129,
+      "content": "errors.javascript.forEach(e => console.log('  ', e));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 131,
+      "content": "console.log('\\nNetwork Errors:', errors.network.length);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 132,
+      "content": "errors.network.forEach(e => console.log('  ', e));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 134,
+      "content": "console.log('\\nFailed Resources:', errors.resourceLoadFails.length);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 135,
+      "content": "errors.resourceLoadFails.forEach(e => console.log('  ', e));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 138,
+      "content": "console.log('\\n=== OAuth Status ===');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 139,
+      "content": "console.log('OAuth redirect interception:', wasRedirected ? '\u2713 Working' : '\u2717 Not working - tokens landing on root');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/error-detection.spec.ts",
+      "line": 140,
+      "content": "console.log('Supabase configured:', supabaseUrl ? '\u2713 Yes' : '\u2717 No');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 27,
+      "content": "console.log('Login link visible:', hasLoginLink);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 28,
+      "content": "console.log('Register link visible:', hasRegisterLink);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 47,
+      "content": "console.log('Google OAuth button visible:', hasGoogleButton);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 48,
+      "content": "console.log('GitHub OAuth button visible:', hasGithubButton);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 83,
+      "content": "console.log('Current URL after OAuth redirect:', currentUrl);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 87,
+      "content": "console.log('Was redirected to callback:', wasRedirected);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 100,
+      "content": "console.log('Callback page shows loading:', hasLoadingText);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 107,
+      "content": "console.log('Final URL after callback processing:', finalUrl);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 132,
+      "content": "console.log('Console errors found:');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 133,
+      "content": "consoleErrors.forEach(error => console.log('  -', error));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 135,
+      "content": "console.log('No console errors found');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 151,
+      "content": "console.log('Testing on domain:', hasSupabaseError);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 169,
+      "content": "console.log('Google OAuth button found, attempting click...');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 171,
+      "content": "console.log('OAuth button click result:', error.message);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 179,
+      "content": "console.log('Supabase requests made:');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 180,
+      "content": "supabaseRequests.forEach(req => console.log('  -', req));",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/web-app/e2e/oauth-flow.spec.ts",
+      "line": 182,
+      "content": "console.log('No Supabase requests detected');",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/web-app/src/lib/monitoring.ts",
+      "line": 273,
+      "content": "const response = await fetch((process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://dummy.supabase.co') + '/rest/v1/', {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/auth/src/app/api/session-sync/route.ts",
+      "line": 91,
+      "content": "console.error('Session sync error:', error)",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/utils/webrtc-debug.ts",
+      "line": 328,
+      "content": "console.log(`",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/utils/webrtc-debug.ts",
+      "line": 51,
+      "content": "console.log(`%c${fullMessage}`, styles[level], data || '')",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/utils/webrtc-debug.ts",
+      "line": 135,
+      "content": "lines.forEach(line => console.log(line))",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/utils/webrtc-debug.ts",
+      "line": 328,
+      "content": "console.log(`",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/services/medical-data-api.ts",
+      "line": 32,
+      "content": "const response = await fetch(`${this.baseUrl}${endpoint}`, {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/app/auth/callback/route.ts",
+      "line": 46,
+      "content": "console.error('Error setting session:', error)",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/app/auth/callback/route.ts",
+      "line": 55,
+      "content": "console.error('Callback error:', error)",
+      "component_type": "unknown"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/web-app/src/components/ErrorBoundary.tsx",
+      "line": 52,
+      "content": "{process.env.NODE_ENV === 'development' && this.state.error && (",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/web-app/src/app/web-vitals.tsx",
+      "line": 9,
+      "content": "if (process.env.NODE_ENV === 'development') {",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/web-app/src/app/web-vitals.tsx",
+      "line": 14,
+      "content": "if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/web-app/src/app/web-vitals.tsx",
+      "line": 29,
+      "content": "fetch(url, { body, method: 'POST', keepalive: true });",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/web-app/src/components/ui/AccountMenu.tsx",
+      "line": 6,
+      "content": "const AUTH_APP_URL = process.env.NEXT_PUBLIC_AUTH_APP_URL ||",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/web-app/src/components/ui/AccountMenu.tsx",
+      "line": 7,
+      "content": "(process.env.NODE_ENV === 'production'",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/auth/src/components/ErrorBoundary.tsx",
+      "line": 98,
+      "content": "{process.env.NODE_ENV === 'development' && this.state.error && (",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/forgot-password/page.tsx",
+      "line": 22,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/forgot-password/page.tsx",
+      "line": 23,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/reset-password/page.tsx",
+      "line": 48,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/reset-password/page.tsx",
+      "line": 49,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/register/page.tsx",
+      "line": 49,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/auth/src/app/auth/register/page.tsx",
+      "line": 50,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/components/SessionSync.tsx",
+      "line": 28,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/components/SessionSync.tsx",
+      "line": 29,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/forgot-password/page.tsx",
+      "line": 22,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/forgot-password/page.tsx",
+      "line": 23,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/reset-password/page.tsx",
+      "line": 48,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/reset-password/page.tsx",
+      "line": 49,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/register/page.tsx",
+      "line": 49,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/patients/src/app/auth/register/page.tsx",
+      "line": 50,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/app/(dashboard)/anamnesis/page.tsx",
+      "line": 53,
+      "content": "const saved = localStorage.getItem('anamnesis_draft');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/app/(dashboard)/anamnesis/page.tsx",
+      "line": 69,
+      "content": "localStorage.setItem(",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/app/(dashboard)/anamnesis/page.tsx",
+      "line": 158,
+      "content": "localStorage.setItem('anamnesis_final', JSON.stringify(finalData));",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/app/(dashboard)/anamnesis/page.tsx",
+      "line": 159,
+      "content": "localStorage.removeItem('anamnesis_draft');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/MediaPicker.tsx",
+      "line": 23,
+      "content": "const savedCamera = localStorage.getItem('am_video_device')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/MediaPicker.tsx",
+      "line": 24,
+      "content": "const savedMic = localStorage.getItem('am_audio_device')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/MediaPicker.tsx",
+      "line": 109,
+      "content": "if (selectedCamera) localStorage.setItem('am_video_device', selectedCamera)",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/MediaPicker.tsx",
+      "line": 110,
+      "content": "if (selectedMic) localStorage.setItem('am_audio_device', selectedMic)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 112,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 152,
+      "content": "const response = await fetch(`${signalingBase}/api/join`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 179,
+      "content": "const response = await fetch(",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 266,
+      "content": "fetch(`${signalingBase}/api/leave`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 270,
+      "content": "}).catch(console.error)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 432,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 480,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 525,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/dev/SimplePatientVideoCall.tsx",
+      "line": 547,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/layout/DynamicRightPanel.tsx",
+      "line": 111,
+      "content": "refetch(); // Recargar publicaciones",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/layout/CollapsibleSidebar.tsx",
+      "line": 55,
+      "content": "const saved = localStorage.getItem('sidebar-collapsed')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/layout/CollapsibleSidebar.tsx",
+      "line": 92,
+      "content": "localStorage.setItem('sidebar-collapsed', String(newState))",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/layout/CollapsibleRightPanel.tsx",
+      "line": 17,
+      "content": "const saved = localStorage.getItem('right-panel-open')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/layout/CollapsibleRightPanel.tsx",
+      "line": 24,
+      "content": "localStorage.setItem('right-panel-open', String(newState))",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 18,
+      "content": "console.log('MediaEducativa - Loading video:', url, 'isLocal:', isLocalVideo);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 34,
+      "content": "console.log('Video metadata loaded:', url);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 37,
+      "content": "console.log('Video dimensions:', video.videoWidth, 'x', video.videoHeight);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 38,
+      "content": "console.log('Video duration:', video.duration);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 39,
+      "content": "console.log('Video volume set to:', video.volume);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 42,
+      "content": "console.log('Video can play:', url);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 45,
+      "content": "console.error('Error loading video:', url);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 47,
+      "content": "console.error('Video error code:', video.error?.code);",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/patients/src/components/anamnesis/MediaEducativa.tsx",
+      "line": 48,
+      "content": "console.error('Video error message:', video.error?.message);",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/calls/IncomingCallModal.tsx",
+      "line": 137,
+      "content": "const response = await fetch(`${patientsEnv.supabase.url}/functions/v1/update-call-status`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/patients/src/components/calls/IncomingCallModal.tsx",
+      "line": 187,
+      "content": "const response = await fetch(`${patientsEnv.supabase.url}/functions/v1/update-call-status`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/AnamnesisFlowTour.tsx",
+      "line": 20,
+      "content": "const seen = localStorage.getItem('autamedica_anamnesis_tour_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/AnamnesisFlowTour.tsx",
+      "line": 37,
+      "content": "localStorage.setItem('autamedica_anamnesis_tour_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/TourHub.tsx",
+      "line": 72,
+      "content": "localStorage.removeItem(storageKey);",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/TourHub.tsx",
+      "line": 77,
+      "content": "tours.forEach(tour => localStorage.removeItem(tour.storageKey));",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/TourHub.tsx",
+      "line": 114,
+      "content": "const completed = localStorage.getItem(tour.storageKey);",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/TelemedicineTour.tsx",
+      "line": 14,
+      "content": "const seen = localStorage.getItem('autamedica_telemedicine_tour_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/TelemedicineTour.tsx",
+      "line": 31,
+      "content": "localStorage.setItem('autamedica_telemedicine_tour_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/CommunityTour.tsx",
+      "line": 14,
+      "content": "const seen = localStorage.getItem('autamedica_community_tour_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/CommunityTour.tsx",
+      "line": 31,
+      "content": "localStorage.setItem('autamedica_community_tour_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/AppointmentsTour.tsx",
+      "line": 14,
+      "content": "const seen = localStorage.getItem('autamedica_appointments_tour_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/AppointmentsTour.tsx",
+      "line": 31,
+      "content": "localStorage.setItem('autamedica_appointments_tour_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/QuickActionsTour.tsx",
+      "line": 14,
+      "content": "const seen = localStorage.getItem('autamedica_actions_tour_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/tours/QuickActionsTour.tsx",
+      "line": 31,
+      "content": "localStorage.setItem('autamedica_actions_tour_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "env_usage",
+      "severity": "info",
+      "file": "apps/patients/src/components/chat/AutaChatbot.tsx",
+      "line": 143,
+      "content": "if (process.env.NODE_ENV === 'development') {",
+      "message": "process.env.NODE_ENV usado (v\u00e1lido en Next.js)",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/onboarding/PatientOnboarding.tsx",
+      "line": 19,
+      "content": "const seen = localStorage.getItem('autamedica_onboarding_completed');",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/patients/src/components/onboarding/PatientOnboarding.tsx",
+      "line": 283,
+      "content": "localStorage.setItem('autamedica_onboarding_completed', 'true');",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/doctors/src/components/SessionSync.tsx",
+      "line": 28,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/doctors/src/components/SessionSync.tsx",
+      "line": 29,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/app/layout.tsx",
+      "line": 29,
+      "content": "console.error('Session sync error:', error)",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 148,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 207,
+      "content": "const response = await fetch(`${signalingBase}/api/join`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 234,
+      "content": "const response = await fetch(",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 326,
+      "content": "fetch(`${signalingBase}/api/leave`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 330,
+      "content": "}).catch(console.error)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 416,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 557,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/SimpleDoctorVideoCall.tsx",
+      "line": 607,
+      "content": "await fetch(`${signalingBase}/api/message`, {",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/MediaPicker.tsx",
+      "line": 23,
+      "content": "const savedCamera = localStorage.getItem('am_video_device')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/MediaPicker.tsx",
+      "line": 24,
+      "content": "const savedMic = localStorage.getItem('am_audio_device')",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/MediaPicker.tsx",
+      "line": 109,
+      "content": "if (selectedCamera) localStorage.setItem('am_video_device', selectedCamera)",
+      "component_type": "client"
+    },
+    {
+      "type": "localStorage",
+      "severity": "info",
+      "file": "apps/doctors/src/components/dev/MediaPicker.tsx",
+      "line": 110,
+      "content": "if (selectedMic) localStorage.setItem('am_audio_device', selectedMic)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/layout/DoctorsPortalShell.tsx",
+      "line": 144,
+      "content": "fetch('http://localhost:4312/active-section', {",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/doctors/src/components/calls/WaitingRoom.tsx",
+      "line": 73,
+      "content": "callService.updateCallStatus(callId, 'canceled', 'timeout').catch(console.error)",
+      "component_type": "client"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/doctors/src/components/onboarding/DoctorOnboardingWizard.tsx",
+      "line": 121,
+      "content": "const response = await fetch('/api/profiles/doctors', {",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/companies/src/components/SessionSync.tsx",
+      "line": 28,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_URL!,",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "security",
+      "severity": "error",
+      "file": "apps/companies/src/components/SessionSync.tsx",
+      "line": 29,
+      "content": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!",
+      "message": "process.env en componente cliente",
+      "component_type": "client"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 60,
+      "content": "console.error(\"HTTP API Error:\", error);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 105,
+      "content": "console.log(`Delivering pending call to patient ${userId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 114,
+      "content": "console.log(`User ${userId} joined room ${roomId} as ${userType}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 151,
+      "content": "console.log(`User ${userId} left room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 181,
+      "content": "console.log(`Storing pending call from ${from}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 185,
+      "content": "console.log(`Clearing pending call`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 191,
+      "content": "console.log(`Message ${type} from ${from} to ${to || \"all\"} in room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 282,
+      "content": "console.log(`Cleaning up inactive user: ${userId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 305,
+      "content": "async fetch(request, env, _ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 378,
+      "content": "console.error(\"Failed to drain the unused request body.\", e);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 466,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 468,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 472,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 501,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 503,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-o1Tshy/worker.js",
+      "line": 516,
+      "content": "fetch(request) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 60,
+      "content": "console.error(\"HTTP API Error:\", error);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 105,
+      "content": "console.log(`Delivering pending call to patient ${userId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 114,
+      "content": "console.log(`User ${userId} joined room ${roomId} as ${userType}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 151,
+      "content": "console.log(`User ${userId} left room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 181,
+      "content": "console.log(`Storing pending call from ${from}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 185,
+      "content": "console.log(`Clearing pending call`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 191,
+      "content": "console.log(`Message ${type} from ${from} to ${to || \"all\"} in room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 282,
+      "content": "console.log(`Cleaning up inactive user: ${userId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 305,
+      "content": "async fetch(request, env, _ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 378,
+      "content": "console.error(\"Failed to drain the unused request body.\", e);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 466,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 468,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 472,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 501,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 503,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-OLNFeW/worker.js",
+      "line": 516,
+      "content": "fetch(request) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 60,
+      "content": "console.error(\"HTTP API Error:\", error);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 101,
+      "content": "console.log(`User ${userId} joined room ${roomId} as ${userType}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 138,
+      "content": "console.log(`User ${userId} left room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 170,
+      "content": "console.log(`Message ${type} from ${from} to ${to || \"all\"} in room ${roomId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 261,
+      "content": "console.log(`Cleaning up inactive user: ${userId}`);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 284,
+      "content": "async fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "console_log",
+      "severity": "warning",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 357,
+      "content": "console.error(\"Failed to drain the unused request body.\", e);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 445,
+      "content": "throw new Error(\"Handler does not export a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 447,
+      "content": "return worker.fetch(request, env, ctx);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 451,
+      "content": "fetch(request, env, ctx) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 480,
+      "content": "throw new Error(\"Entrypoint class does not define a fetch() function.\");",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 482,
+      "content": "return super.fetch(request);",
+      "component_type": "unknown"
+    },
+    {
+      "type": "fetch_call",
+      "severity": "info",
+      "file": "apps/signaling-server/.wrangler/tmp/dev-7VAm7K/worker.js",
+      "line": 495,
+      "content": "fetch(request) {",
+      "component_type": "unknown"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 7,
+      "content": "--au-bg: #0f0f10;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 8,
+      "content": "--au-surface: #1a1a1a;",
+      "message": "Colores hardcodeados: #1a1a1a"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 9,
+      "content": "--au-border: #333333;",
+      "message": "Colores hardcodeados: #333333"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 10,
+      "content": "--au-accent: #d9d9d9;",
+      "message": "Colores hardcodeados: #d9d9d9"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 11,
+      "content": "--au-text-primary: #ffffff;",
+      "message": "Colores hardcodeados: #ffffff"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 12,
+      "content": "--au-text-secondary: #a0a0a0;",
+      "message": "Colores hardcodeados: #a0a0a0"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 13,
+      "content": "--au-text-tertiary: #707070;",
+      "message": "Colores hardcodeados: #707070"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 14,
+      "content": "--au-hover: #404040;",
+      "message": "Colores hardcodeados: #404040"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 15,
+      "content": "--au-hover-border: #4a4a4a;",
+      "message": "Colores hardcodeados: #4a4a4a"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 36,
+      "content": "background-color: #0f0f10 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 36,
+      "content": "background-color: #0f0f10 !important;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 37,
+      "content": "background-image: none !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 38,
+      "content": "background: #0f0f10 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/web-app/src/app/globals.css",
+      "line": 38,
+      "content": "background: #0f0f10 !important;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 7,
+      "content": "--au-bg: #0f0f10;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 8,
+      "content": "--au-surface: #1a1a1a;",
+      "message": "Colores hardcodeados: #1a1a1a"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 9,
+      "content": "--au-border: #333333;",
+      "message": "Colores hardcodeados: #333333"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 10,
+      "content": "--au-accent: #d9d9d9;",
+      "message": "Colores hardcodeados: #d9d9d9"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 11,
+      "content": "--au-text-primary: #ffffff;",
+      "message": "Colores hardcodeados: #ffffff"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 12,
+      "content": "--au-text-secondary: #a0a0a0;",
+      "message": "Colores hardcodeados: #a0a0a0"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 13,
+      "content": "--au-text-tertiary: #707070;",
+      "message": "Colores hardcodeados: #707070"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 14,
+      "content": "--au-hover: #404040;",
+      "message": "Colores hardcodeados: #404040"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 15,
+      "content": "--au-hover-border: #4a4a4a;",
+      "message": "Colores hardcodeados: #4a4a4a"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 36,
+      "content": "background-color: #0f0f10 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 36,
+      "content": "background-color: #0f0f10 !important;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 37,
+      "content": "background-image: none !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 38,
+      "content": "background: #0f0f10 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/auth/src/app/globals.css",
+      "line": 38,
+      "content": "background: #0f0f10 !important;",
+      "message": "Colores hardcodeados: #0f0f10"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 15,
+      "content": "--color-ivory: #FDFCF9;",
+      "message": "Colores hardcodeados: #FDFCF9"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 16,
+      "content": "--color-ivory-dark: #FAF8F4;",
+      "message": "Colores hardcodeados: #FAF8F4"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 17,
+      "content": "--color-stone-primary: #292524;  /* stone-800 */",
+      "message": "Colores hardcodeados: #292524"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 18,
+      "content": "--color-stone-secondary: #57534e; /* stone-600 */",
+      "message": "Colores hardcodeados: #57534e"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 19,
+      "content": "--color-stone-border: #e7e5e4;   /* stone-200 */",
+      "message": "Colores hardcodeados: #e7e5e4"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 22,
+      "content": "--color-action-primary: #292524;    /* stone-800 */",
+      "message": "Colores hardcodeados: #292524"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 23,
+      "content": "--color-action-hover: #1c1917;      /* stone-900 */",
+      "message": "Colores hardcodeados: #1c1917"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 24,
+      "content": "--color-action-secondary: #57534e;  /* stone-600 */",
+      "message": "Colores hardcodeados: #57534e"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 25,
+      "content": "--color-success: #059669;           /* emerald-600 */",
+      "message": "Colores hardcodeados: #059669"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 26,
+      "content": "--color-warning: #d97706;           /* amber-600 */",
+      "message": "Colores hardcodeados: #d97706"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 27,
+      "content": "--color-danger: #e11d48;            /* rose-600 */",
+      "message": "Colores hardcodeados: #e11d48"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 136,
+      "content": "max-height: 85vh !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 137,
+      "content": "overflow-y: auto !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 138,
+      "content": "display: flex !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 139,
+      "content": "flex-direction: column !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 143,
+      "content": "max-height: 70vh !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 144,
+      "content": "overflow-y: auto !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 145,
+      "content": "overflow-x: hidden !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 151,
+      "content": "scrollbar-color: #a8a29e #f5f5f4;",
+      "message": "Colores hardcodeados: #a8a29e, #f5f5f4"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 159,
+      "content": "background: #f5f5f4;",
+      "message": "Colores hardcodeados: #f5f5f4"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 164,
+      "content": "background: #a8a29e;",
+      "message": "Colores hardcodeados: #a8a29e"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 169,
+      "content": "background: #78716c;",
+      "message": "Colores hardcodeados: #78716c"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 178,
+      "content": "background: #f5f5f4;",
+      "message": "Colores hardcodeados: #f5f5f4"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 183,
+      "content": "background: #a8a29e;",
+      "message": "Colores hardcodeados: #a8a29e"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/app/globals.css",
+      "line": 188,
+      "content": "background: #78716c;",
+      "message": "Colores hardcodeados: #78716c"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 5,
+      "content": "background: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 6,
+      "content": "border: 2px solid #e7e5e4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 6,
+      "content": "border: 2px solid #e7e5e4 !important;",
+      "message": "Colores hardcodeados: #e7e5e4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 7,
+      "content": "border-radius: 16px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 8,
+      "content": "box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 8,
+      "content": "box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;",
+      "message": "Colores hardcodeados: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.04)"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 9,
+      "content": "max-width: 380px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 14,
+      "content": "font-size: 1.125rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 15,
+      "content": "font-weight: 700 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 16,
+      "content": "color: #1c1917 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 16,
+      "content": "color: #1c1917 !important;",
+      "message": "Colores hardcodeados: #1c1917"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 17,
+      "content": "margin-bottom: 0.75rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 18,
+      "content": "padding: 1.25rem 1.25rem 0 1.25rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 23,
+      "content": "font-size: 0.9375rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 24,
+      "content": "line-height: 1.6 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 25,
+      "content": "color: #57534e !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 25,
+      "content": "color: #57534e !important;",
+      "message": "Colores hardcodeados: #57534e"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 26,
+      "content": "padding: 0 1.25rem 1rem 1.25rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 31,
+      "content": "padding: 0.75rem 1.25rem 1.25rem 1.25rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 32,
+      "content": "display: flex !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 33,
+      "content": "align-items: center !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 34,
+      "content": "justify-content: space-between !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 35,
+      "content": "border-top: 1px solid #e7e5e4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 35,
+      "content": "border-top: 1px solid #e7e5e4 !important;",
+      "message": "Colores hardcodeados: #e7e5e4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 36,
+      "content": "margin-top: 0.5rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 41,
+      "content": "background: #f5f5f4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 41,
+      "content": "background: #f5f5f4 !important;",
+      "message": "Colores hardcodeados: #f5f5f4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 42,
+      "content": "color: #44403c !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 42,
+      "content": "color: #44403c !important;",
+      "message": "Colores hardcodeados: #44403c"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 43,
+      "content": "border: none !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 44,
+      "content": "padding: 0.5rem 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 45,
+      "content": "border-radius: 8px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 46,
+      "content": "font-weight: 600 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 47,
+      "content": "font-size: 0.875rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 48,
+      "content": "cursor: pointer !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 49,
+      "content": "transition: all 0.2s !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 53,
+      "content": "background: #e7e5e4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 53,
+      "content": "background: #e7e5e4 !important;",
+      "message": "Colores hardcodeados: #e7e5e4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 54,
+      "content": "transform: translateX(-2px) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 59,
+      "content": "background: linear-gradient(to right, #2563eb, #7c3aed) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 59,
+      "content": "background: linear-gradient(to right, #2563eb, #7c3aed) !important;",
+      "message": "Colores hardcodeados: #2563eb, #7c3aed"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 60,
+      "content": "color: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 61,
+      "content": "border: none !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 62,
+      "content": "padding: 0.5rem 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 63,
+      "content": "border-radius: 8px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 64,
+      "content": "font-weight: 600 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 65,
+      "content": "font-size: 0.875rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 66,
+      "content": "cursor: pointer !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 67,
+      "content": "transition: all 0.2s !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 68,
+      "content": "box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 68,
+      "content": "box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2) !important;",
+      "message": "Colores hardcodeados: rgba(79, 70, 229, 0.2)"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 72,
+      "content": "box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 72,
+      "content": "box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3) !important;",
+      "message": "Colores hardcodeados: rgba(79, 70, 229, 0.3)"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 73,
+      "content": "transform: translateY(-1px) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 78,
+      "content": "background: linear-gradient(to right, #059669, #10b981) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 78,
+      "content": "background: linear-gradient(to right, #059669, #10b981) !important;",
+      "message": "Colores hardcodeados: #059669, #10b981"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 82,
+      "content": "box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 82,
+      "content": "box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3) !important;",
+      "message": "Colores hardcodeados: rgba(5, 150, 105, 0.3)"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 87,
+      "content": "position: absolute !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 88,
+      "content": "top: 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 89,
+      "content": "right: 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 90,
+      "content": "background: transparent !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 91,
+      "content": "border: none !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 92,
+      "content": "color: #78716c !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 92,
+      "content": "color: #78716c !important;",
+      "message": "Colores hardcodeados: #78716c"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 93,
+      "content": "font-size: 1.25rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 94,
+      "content": "cursor: pointer !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 95,
+      "content": "padding: 0.25rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 96,
+      "content": "line-height: 1 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 97,
+      "content": "transition: all 0.2s !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 98,
+      "content": "border-radius: 4px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 102,
+      "content": "background: #f5f5f4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 102,
+      "content": "background: #f5f5f4 !important;",
+      "message": "Colores hardcodeados: #f5f5f4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 103,
+      "content": "color: #1c1917 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 103,
+      "content": "color: #1c1917 !important;",
+      "message": "Colores hardcodeados: #1c1917"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 108,
+      "content": "font-size: 0.75rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 109,
+      "content": "font-weight: 600 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 110,
+      "content": "color: #78716c !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 110,
+      "content": "color: #78716c !important;",
+      "message": "Colores hardcodeados: #78716c"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 111,
+      "content": "letter-spacing: 0.05em !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 116,
+      "content": "border-color: #e7e5e4 !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 116,
+      "content": "border-color: #e7e5e4 !important;",
+      "message": "Colores hardcodeados: #e7e5e4"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 120,
+      "content": "border-left-color: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 124,
+      "content": "border-right-color: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 128,
+      "content": "border-top-color: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 132,
+      "content": "border-bottom-color: white !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 137,
+      "content": "background-color: rgba(0, 0, 0, 0.5) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 137,
+      "content": "background-color: rgba(0, 0, 0, 0.5) !important;",
+      "message": "Colores hardcodeados: rgba(0, 0, 0, 0.5)"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 138,
+      "content": "backdrop-filter: blur(2px) !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 143,
+      "content": "border-radius: 12px !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 159,
+      "content": "animation: fadeInUp 0.3s ease-out !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 165,
+      "content": "max-width: 90vw !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 166,
+      "content": "margin: 0 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 170,
+      "content": "font-size: 1rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_important",
+      "severity": "warning",
+      "file": "apps/patients/src/styles/onboarding.css",
+      "line": 174,
+      "content": "font-size: 0.875rem !important;",
+      "message": "Uso de !important detectado"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/doctors/src/app/globals.css",
+      "line": 193,
+      "content": "border-left: 4px solid #dc2626;",
+      "message": "Colores hardcodeados: #dc2626"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/doctors/src/app/globals.css",
+      "line": 197,
+      "content": "border-left: 4px solid #10b981;",
+      "message": "Colores hardcodeados: #10b981"
+    },
+    {
+      "type": "css_hardcoded_color",
+      "severity": "info",
+      "file": "apps/doctors/src/app/globals.css",
+      "line": 201,
+      "content": "border-left: 4px solid #f59e0b;",
+      "message": "Colores hardcodeados: #f59e0b"
+    }
+  ],
+  "summary": {
+    "total_issues": 357,
+    "critical": 0,
+    "errors": 19,
+    "warnings": 177,
+    "info": 161
+  }
+}

@@ -6,8 +6,16 @@ export default defineConfig({
     roles: 'src/roles.ts'
   },
   format: ['esm'],
-  dts: true,
+  dts: false,  // Disable DTS generation - will use tsc directly
   sourcemap: true,
   clean: true,
-  external: ['@autamedica/types'],
+  tsconfig: './tsconfig.json',
+  external: [
+    '@autamedica/types',
+    'next',
+    'react',
+    'react-dom',
+    '@supabase/supabase-js',
+    'zod'
+  ],
 })

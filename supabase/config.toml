@@ -31,7 +31,7 @@ enable_confirmations = true
 
 [db]
 port = 54322
-major_version = 15
+major_version = 17
 
 [studio]
 enabled = true

@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import type { UserProfile, AuditLogEntry, ProfileManager } from '@/lib/profile-manager';
+import { logger } from '@autamedica/shared';
 
-// This page is client-only, disable prerendering
+// This page is client-only, force dynamic rendering
+// Note: 'prerender' is deprecated in Next.js 15.5+, use 'dynamic' instead
 export const dynamic = 'force-dynamic';
-export const prerender = false;
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -45,7 +46,7 @@ export default function ProfilePage() {
         setAuditLog(auditResult.data);
       }
     } catch (error) {
-      console.error('Error loading profile data:', error);
+      logger.error('Error loading profile data:', error);
     } finally {
       setLoading(false);
     }
@@ -62,7 +63,7 @@ export default function ProfilePage() {
         await loadProfileData(profileManager);
       }
     } catch (error) {
-      console.error('Error updating portal:', error);
+      logger.error('Error updating portal:', error);
     } finally {
       setUpdating(false);
     }

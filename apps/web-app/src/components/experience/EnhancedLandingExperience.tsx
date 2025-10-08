@@ -12,16 +12,16 @@ import AccountMenu from '../ui/AccountMenu';
 const HorizontalExperience = dynamic(() => import('../experience/HorizontalExperience'), {
   loading: () => <div className="min-h-screen bg-black flex items-center justify-center text-white">Cargando experiencia...</div>,
   ssr: false
-});
+}) as React.ComponentType;
 
 const TestimonialsSection = dynamic(() => import('../landing/TestimonialsSection'), {
   loading: () => <div className="min-h-[50vh] bg-gray-900"></div>,
   ssr: true
-});
+}) as React.ComponentType;
 
 const ProfessionalFooter = dynamic(() => import('../landing/ProfessionalFooter'), {
   ssr: true
-});
+}) as React.ComponentType;
 
 const EnhancedLandingExperience: React.FC = () => {
   // Mantenemos un pequeño estado de fase solo para el overlay inicial
@@ -30,19 +30,25 @@ const EnhancedLandingExperience: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<Array<{ text: string; isBot: boolean }>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Router needed for future navigation features
+   
   const _router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPhase('hero');
-      // No auto-transition to horizontal - let user stay on hero with videos
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    // Wait for fonts to be ready instead of arbitrary timeout
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(() => {
+        setPhase('hero');
+      }).catch(() => {
+        // Fallback timeout if fonts.ready fails
+        setTimeout(() => setPhase('hero'), 2000);
+      });
+    } else {
+      // Fallback for browsers without fonts API
+      setTimeout(() => setPhase('hero'), 2000);
+    }
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Chat toggle reserved for Doctor3D integration
+   
   const _toggleChat = () => {
     setChatOpen(!chatOpen);
     if (!chatOpen && chatMessages.length === 0) {
@@ -79,23 +85,23 @@ const EnhancedLandingExperience: React.FC = () => {
   return (
     <>
       {/* Top Credit */}
-      <div className="fixed top-2 left-1/2 -translate-x-1/2 text-xs text-white/40 z-[1000] pointer-events-none tracking-wider font-medium md:text-sm">
+      <div className="fixed top-2 left-1/2 -translate-x-1/2 text-xs text-white/40 z-[1000] pointer-events-none tracking-wider font-medium md:text-sm" role="contentinfo">
         desarrollado por E.M Medicina -UBA
       </div>
 
       {/* Logo */}
-      <div className="fixed top-3 left-3 text-xl text-white font-bold z-[1000] md:top-5 md:left-5 md:text-2xl">
+      <div className="fixed top-3 left-3 text-xl text-white font-bold z-[1000] md:top-5 md:left-5 md:text-2xl" role="banner">
         AutaMedica
       </div>
 
       {/* Account Menu - New Component */}
-      <AccountMenu />
+      <AccountMenu role="navigation" aria-label="Menú de cuenta" />
 
       {/* Main Content */}
       {phase === 'loading' && <LoadingOverlay onComplete={() => setPhase('hero')} />}
       {/* Secciones apiladas: Hero (arriba) + Experiencia horizontal (abajo). */}
       {phase !== 'loading' && (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }} role="main">
           {/* Hero Section - Optimized height */}
           <div
             className="hero-section-wrapper"
@@ -158,18 +164,8 @@ const EnhancedLandingExperience: React.FC = () => {
             variant="default"
           />
 
-          {/* Testimonials and Stats Section - "Descubre AutaMedica en Acción" + "Números que Hablan por Sí Solos" */}
-          <section className="py-20 bg-gradient-to-b from-gray-900 to-black" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="container mx-auto px-4 text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Descubre AutaMedica en Acción
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Explora nuestras herramientas avanzadas de telemedicina, desde consultas virtuales hasta diagnósticos con IA
-              </p>
-            </div>
-            <TestimonialsSection />
-          </section>
+          {/* Testimonials and Stats Section */}
+          <TestimonialsSection />
 
           {/* Footer después del recorrido completo */}
           <ProfessionalFooter />

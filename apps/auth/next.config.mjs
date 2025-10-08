@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
+  output: 'standalone', // Required for OpenNext.js Cloudflare
+  trailingSlash: false,
   experimental: {
     externalDir: true
   },
@@ -14,7 +16,8 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   images: {
-    domains: ['gtyvdircfhmdjiaelqkg.supabase.co'],
+    unoptimized: true, // Disable optimization for Cloudflare Pages compatibility
+    domains: ['ewpsepaieakqbywxnidu.supabase.co'],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -26,8 +29,16 @@ const nextConfig = {
     } : false,
   },
   headers: async () => ([
+    // API routes handle their own CORS
     {
-      source: '/(.*)',
+      source: '/api/(.*)',
+      headers: [
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+      ],
+    },
+    // All other routes get security headers
+    {
+      source: '/((?!api).*)',
       headers: [
         { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
         { key: 'X-Content-Type-Options', value: 'nosniff' },

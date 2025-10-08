@@ -38,7 +38,7 @@ export function useActiveSession(): UseActiveSessionResult {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar sesión activa: ${errorMessage}`)
-      console.error('[useActiveSession] Error:', err)
+      logger.error('[useActiveSession] Error:', err)
 
       // Fallback a sesión de invitado
       await createGuestSession()
@@ -74,7 +74,7 @@ export function useActiveSession(): UseActiveSessionResult {
       })
 
       // En producción, esto insertaría en la base de datos real
-      console.log('Sesión iniciada:', { patientId, sessionType })
+      // logger.info('Sesión iniciada:', { patientId, sessionType })
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
@@ -90,7 +90,7 @@ export function useActiveSession(): UseActiveSessionResult {
       setSession(null)
 
       // En producción, esto actualizaría la base de datos real
-      console.log('Sesión finalizada')
+      // logger.info('Sesión finalizada')
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'

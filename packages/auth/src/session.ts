@@ -11,6 +11,7 @@ import type { User, UserSession } from "@autamedica/types";
 import { toISODateString } from "@autamedica/types";
 import type { UserRole, Portal } from "./roles";
 import { canAccessPortal, isUserRole, ROLES } from "./roles";
+import { logger } from '@autamedica/shared';
 
 const DEFAULT_PORTAL_REDIRECT: Record<UserRole, string> = {
   patient: "/patients",
@@ -69,7 +70,7 @@ export async function getSession(): Promise<UserSession | null> {
 
     return userSession;
   } catch (error) {
-    console.error("Error getting session:", error);
+    logger.error("Error getting session:", error);
     return null;
   }
 }
@@ -110,7 +111,8 @@ export async function requirePortalAccess(
 
   if (!canAccessPortal(session.user.role, portal)) {
     // Redirigir al portal apropiado según el rol del usuario
-    redirect(DEFAULT_PORTAL_REDIRECT[session.user.role] || "/");
+    const userRole = session.user.role as UserRole;
+    redirect(DEFAULT_PORTAL_REDIRECT[userRole] || "/");
   }
 
   return session;
@@ -125,13 +127,13 @@ export async function signOut() {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.error("Error signing out:", error);
+      logger.error("Error signing out:", error);
       throw new Error("Error cerrando sesión");
     }
 
     redirect("/");
   } catch (error) {
-    console.error("Error in signOut:", error);
+    logger.error("Error in signOut:", error);
     throw error;
   }
 }

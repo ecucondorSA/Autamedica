@@ -3,27 +3,30 @@
 @tailwind utilities;
 
 :root {
+  /* Sistema de colores unificado AutaMedica */
   --au-bg: #0f0f10;
-  --au-surface: #111111;
-  --au-surface-soft: #181818;
-  --au-surface-alt: #1f1f1f;
-  --au-border: #2a2a2a;
-  --au-text-primary: #f5f5f5;
-  --au-text-secondary: #c7c7c7;
-  --au-text-tertiary: #8f8f8f;
+  --au-surface: #1a1a1a;
+  --au-border: #333333;
   --au-accent: #d9d9d9;
-  --au-accent-strong: #ffffff;
-  --primary: #d4d4d4;
-  --primary-dark: #a6a6a6;
+  --au-text-primary: #ffffff;
+  --au-text-secondary: #a0a0a0;
+  --au-text-tertiary: #707070;
+  --au-hover: #404040;
+  --au-hover-border: #4a4a4a;
+
+  /* Sistema de espaciado */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
 }
 
 body {
-  background-color: #0f0f10 !important;
-  background-image: none !important;
-  background: #0f0f10 !important;
-  color: #f5f5f5;
-  font-size: 16px;
-  line-height: 1.5;
+  background-color: var(--au-bg);
+  color: var(--au-text-primary);
+  font-size: 17px;
+  line-height: 1.7;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -60,6 +63,8 @@ body.hx-scroll-lock {
     font-size: 16px;
   }
 }
+
+/* Quitar overrides innecesarios de html */
 
 a {
   color: inherit;

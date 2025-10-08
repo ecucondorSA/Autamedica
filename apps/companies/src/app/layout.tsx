@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -18,53 +18,21 @@ import {
   TrendingUp,
   Database,
 } from 'lucide-react';
-import { createClient } from '@/lib/supabase';
 import './globals.css';
-import { canManageCompany, MemberRole } from '@autamedica/shared/roles';
+import { canManageCompany } from '@autamedica/shared';
+import { SessionSync } from '@/components/SessionSync';
+import { UserProvider, useUser } from '@/components/providers/UserProvider';
 
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+function LayoutContent({ children }: RootLayoutProps) {
   const [activeProfile, setActiveProfile] = useState('emergency');
   const [notifications, _setNotifications] = useState(3);
-  const [companyName, setCompanyName] = useState('Empresa');
-  const [adminName, setAdminName] = useState('Administrador');
-  const [userMemberRole, setUserMemberRole] = useState<MemberRole | null>(null);
 
-  useEffect(() => {
-    const fetchUserDataAndRole = async () => {
-      const supabase = createClient();
-      if (!supabase) return;
-
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const name = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Administrador';
-        setAdminName(name);
-        
-        const company = user.user_metadata?.company_name || user.user_metadata?.company || 'Empresa';
-        setCompanyName(company);
-
-        // Check for admin role in any of the user's companies
-        const { data: memberData, error } = await supabase
-          .from('company_members')
-          .select('role')
-          .eq('user_id', user.id)
-          .eq('role', 'admin')
-          .limit(1);
-
-        if (error) {
-          console.error('Error fetching member role:', error);
-          setUserMemberRole('member'); // Default to non-admin on error
-        } else {
-          // If we found at least one admin membership, set role to admin.
-          setUserMemberRole(memberData && memberData.length > 0 ? 'admin' : 'member');
-        }
-      }
-    };
-    fetchUserDataAndRole();
-  }, []);
+  // Get user data from context
+  const { companyName, adminName, userMemberRole } = useUser();
 
   const profiles = [
     {
@@ -90,6 +58,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   ];
 
+  if (profiles.length === 0) {
+    throw new Error('No hay perfiles configurados para el panel de compañías');
+  }
+
+  const defaultProfile = profiles[0];
+
   const sidebarItems = useMemo(() => {
     const allItems = [
       { id: 'overview', icon: Eye, label: 'Vista General', count: 24 },
@@ -114,11 +88,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     });
   }, [userMemberRole, notifications]);
 
-  const currentProfile = profiles.find(p => p.id === activeProfile) || profiles[0]!;
+  const currentProfile = profiles.find((profile) => profile.id === activeProfile) ?? defaultProfile;
 
   return (
     <html lang="es">
       <body className="bg-gray-900 text-white font-sans antialiased">
+        <SessionSync />
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-orange-900">
           {/* Header - Crisis Management Style */}
           <div className="bg-gray-800 border-b border-red-600 px-4 py-3 flex items-center justify-between">
@@ -289,5 +264,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </div>
       </body>
     </html>
+  );
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <UserProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </UserProvider>
   );
 }

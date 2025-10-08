@@ -156,7 +156,7 @@ export default function SimpleDoctorVideoCall({
             })
           })
         } catch (error) {
-          console.error('Error sending ICE candidate:', error)
+          logger.error('Error sending ICE candidate:', error)
         }
       }
     }
@@ -215,11 +215,11 @@ export default function SimpleDoctorVideoCall({
         })
 
         if (response.ok && isActive) {
-          console.log('Conectado a la sala:', roomId)
+          // logger.info('Conectado a la sala:', roomId)
           startPolling()
         }
       } catch (error) {
-        console.error('Error al unirse a la sala:', error)
+        logger.error('Error al unirse a la sala:', error)
       }
     }
 
@@ -310,7 +310,7 @@ export default function SimpleDoctorVideoCall({
             }
           }
         } catch (error) {
-          console.error('Error en polling:', error)
+          logger.error('Error en polling:', error)
         }
       }, 1000) // Poll every second
     }
@@ -340,13 +340,13 @@ export default function SimpleDoctorVideoCall({
   // Handle patient joined - create WebRTC offer
   const handlePatientJoined = async () => {
     if (offerInFlightRef.current) {
-      console.log('Offer already in flight, skipping duplicate handling')
+      // logger.info('Offer already in flight, skipping duplicate handling')
       return
     }
 
     let localStream = stream
     if (!localStream) {
-      console.warn('No stream available for offer yet, requesting media before continuing')
+      logger.warn('No stream available for offer yet, requesting media before continuing')
       pendingOfferRef.current = true
       try {
         localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -363,7 +363,7 @@ export default function SimpleDoctorVideoCall({
         }
       } catch (error: any) {
         offerInFlightRef.current = false
-        console.error('Unable to acquire local media for offer:', error)
+        logger.error('Unable to acquire local media for offer:', error)
         if (error.name === 'NotAllowedError') {
           setMediaError('Permite el acceso a cámara y micrófono para iniciar la videollamada')
         } else if (error.name === 'NotReadableError' || error.name === 'AbortError') {
@@ -376,7 +376,7 @@ export default function SimpleDoctorVideoCall({
     }
 
     if (!localStream) {
-      console.error('Local stream still unavailable after acquisition attempt')
+      logger.error('Local stream still unavailable after acquisition attempt')
       offerInFlightRef.current = false
       pendingOfferRef.current = true
       return
@@ -428,7 +428,7 @@ export default function SimpleDoctorVideoCall({
       debuggerRef.current?.info('📮 Offer sent, waiting for answer...')
     } catch (error) {
       offerInFlightRef.current = false
-      console.error('Error preparing or sending offer:', error)
+      logger.error('Error preparing or sending offer:', error)
     }
   }
 
@@ -460,7 +460,7 @@ export default function SimpleDoctorVideoCall({
     }
 
     if (callStatusRef.current === 'calling' && pendingOfferRef.current && !offerInFlightRef.current) {
-      console.log('Media ready after pending offer request, creating offer now')
+      // logger.info('Media ready after pending offer request, creating offer now')
       handlePatientJoined()
     }
   }
@@ -482,7 +482,7 @@ export default function SimpleDoctorVideoCall({
           handleMediaReady(mediaStream)
           return
         } catch (error: any) {
-          console.log(`Failed with constraint:`, constraint, error.name)
+          // logger.info(`Failed with constraint:`, constraint, error.name)
 
           if (error.name === 'NotAllowedError') {
             setMediaError('Permisos de cámara/micrófono denegados')
@@ -497,7 +497,7 @@ export default function SimpleDoctorVideoCall({
 
       // If all attempts failed, show media picker
       if (!stream) {
-        console.log('Auto-init failed, showing media picker')
+        // logger.info('Auto-init failed, showing media picker')
         setShowMediaPicker(true)
       }
     }
@@ -541,7 +541,7 @@ export default function SimpleDoctorVideoCall({
     // Prevent spam calling - only allow one call attempt every 10 seconds
     const now = Date.now()
     if (now - lastCallAttemptRef.current < 10000) {
-      console.log('Por favor espera antes de llamar nuevamente')
+      // logger.info('Por favor espera antes de llamar nuevamente')
       return
     }
     lastCallAttemptRef.current = now
@@ -568,7 +568,7 @@ export default function SimpleDoctorVideoCall({
         })
       })
     } catch (error) {
-      console.error('Error al iniciar llamada:', error)
+      logger.error('Error al iniciar llamada:', error)
     }
   }
 
@@ -615,7 +615,7 @@ export default function SimpleDoctorVideoCall({
         })
       })
     } catch (error) {
-      console.error('Error al finalizar llamada:', error)
+      logger.error('Error al finalizar llamada:', error)
     }
 
     handleCallEnd()

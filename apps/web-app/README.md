@@ -1,16 +1,15 @@
 # 🌐 AutaMedica Web-App
 
-> **Landing Page Central + Sistema de Autenticación** para la plataforma AutaMedica Healthcare.
-> Punto de entrada único con redirección automática según roles de usuario.
+> **Landing Page & Marketing** para la plataforma AutaMedica Healthcare.
+> Página de entrada con información de marketing y enlaces a apps especializadas.
 
 ## 🎯 **Funcionalidades Principales**
 
 - 🏠 **Landing Page Profesional** con experiencia médica moderna
-- 🔐 **Autenticación Centralizada** con Supabase
-- 🔄 **Redirección Automática** según rol del usuario
-- 📱 **OAuth Completo**: Google, GitHub, Magic Links
-- 📋 **Términos HIPAA** y política de privacidad médica
+- 📱 **Marketing Content** optimizado para conversión
 - 🎨 **Responsive Design** con branding AutaMedica
+- 🔗 **Enlaces** a aplicaciones especializadas (auth, doctors, patients, companies)
+- ⚡ **Performance Optimizado** para SEO y Web Vitals
 
 ## 🚀 **Desarrollo Local**
 
@@ -35,67 +34,41 @@ pnpm build --filter @autamedica/web-app
 ### **Rutas Principales**
 ```
 /                          # Landing page + Hero section
-/auth/login               # Página de login con OAuth
-/auth/register            # Registro de usuarios médicos
-/auth/callback            # Callback OAuth (Google, GitHub)
-/auth/select-role         # Selección de rol post-registro
-/auth/forgot-password     # Recuperación de contraseña
 /terms                    # Términos de servicio HIPAA
 /privacy                  # Política de privacidad médica
 ```
 
-### **Redirección Automática por Rol**
+### **Enlaces a Apps Especializadas**
 ```typescript
-// Flujo de autenticación
-USER_ROLES = {
-  'patient' → https://autamedica-patients.pages.dev
-  'doctor' → https://autamedica-doctors.pages.dev
-  'company' → https://autamedica-companies.pages.dev
+// Redirección a apps especializadas
+APPS = {
+  'auth' → https://autamedica-auth.pages.dev (login/register)
+  'patients' → https://autamedica-patients.pages.dev
+  'doctors' → https://autamedica-doctors.pages.dev
+  'companies' → https://autamedica-companies.pages.dev
   'admin' → https://autamedica-admin.pages.dev
 }
-```
-
-## 🔐 **Autenticación Supabase**
-
-### **Configuración**
-```typescript
-// lib/supabase.ts
-createBrowserClient(
-  NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
-```
-
-### **OAuth Providers**
-- ✅ **Google OAuth** configurado
-- ✅ **GitHub OAuth** configurado
-- ✅ **Magic Links** via email
-- ✅ **Password recovery** implementado
-
-### **Variables de Entorno**
-```bash
-NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=NUEVA-ANON-KEY-ROTADA..
 ```
 
 ## 🎨 **UI/UX Médico**
 
 ### **Componentes Principales**
+- `EnhancedLandingExperience` - Experiencia landing completa
 - `HeroSection` - Sección principal con llamada a la acción
-- `AuthForms` - Formularios de login/registro
+- `AccountMenu` - Menú con enlaces a auth app
 - `MedicalFooter` - Footer con links médicos
 - `ResponsiveNav` - Navegación adaptativa
 
 ### **Design System**
 - **Colores AutaMedica**: Azul médico + contraste HIPAA
 - **Tipografía**: Inter font optimizada para lectura médica
-- **Iconografía**: Lucide icons médicos
+- **Animaciones**: Framer Motion + GSAP
 - **Responsive**: Mobile-first design
 
 ## 🚀 **Deployment**
 
 ### **Cloudflare Pages**
-- **URL Producción**: https://autamedica-web-app.pages.dev
+- **URL Producción**: https://autamedica-web-app.pages.dev + www.autamedica.com
 - **Build Command**: `pnpm turbo run build --filter=@autamedica/web-app`
 - **Output Directory**: `.next/`
 - **Root Directory**: `apps/web-app`
@@ -103,8 +76,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=NUEVA-ANON-KEY-ROTADA..
 ### **Configuración Cloudflare**
 ```bash
 # Variables de entorno en Cloudflare Pages
-NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh...
+NEXT_PUBLIC_AUTH_APP_URL=https://autamedica-auth.pages.dev
 NODE_ENV=production
 HUSKY=0
 ```
@@ -112,18 +84,17 @@ HUSKY=0
 ## 📦 **Dependencies**
 
 ### **Core**
-- `next`: 15.5.0 (App Router + Server Components)
-- `react`: 18.2.0
+- `next`: ^15.5.4 (App Router + Server Components)
+- `react`: ^18.3.1
 - `typescript`: 5.9.2
 
-### **Autenticación**
-- `@supabase/supabase-js`: ^2.39.0
-- `@autamedica/auth`: workspace:^ (SSO package)
+### **Animaciones & UX**
+- `framer-motion`: ^12.23.12
+- `gsap`: ^3.13.0
 
-### **UI/Styling**
+### **Styling**
 - `tailwindcss`: ^3.4.0
 - `@autamedica/tailwind-config`: workspace:^
-- `lucide-react`: ^0.263.1
 
 ## 🔧 **Scripts Disponibles**
 
@@ -132,23 +103,31 @@ pnpm dev          # Desarrollo con hot reload
 pnpm build        # Build optimizado para producción
 pnpm start        # Servidor de producción
 pnpm lint         # ESLint + TypeScript check
-pnpm type-check   # Solo verificación TypeScript
+pnpm typecheck    # Solo verificación TypeScript
 ```
 
 ## 🏥 **Integración con Ecosystem AutaMedica**
 
-Esta app es el **punto de entrada** del ecosystem multi-app:
+Esta app es el **punto de entrada de marketing** del ecosystem multi-app:
 
 ```mermaid
 graph TD
-  A[web-app:3000] --> B{Autenticado?}
-  B -->|No| C[Login/Register]
-  B -->|Sí| D{Verificar Rol}
+  A[web-app:3000] --> B[Landing Page]
+  B --> C{Usuario quiere...}
+  C -->|Iniciar Sesión| D[auth.autamedica.com]
+  C -->|Registrarse| D
   D -->|patient| E[patients.autamedica.com]
   D -->|doctor| F[doctors.autamedica.com]
   D -->|company| G[companies.autamedica.com]
   D -->|admin| H[admin.autamedica.com]
 ```
+
+## 📝 **Notas de Arquitectura**
+
+- **Sin autenticación**: La autenticación se maneja en la app `auth` separada
+- **Solo marketing**: Esta app se enfoca en landing page y contenido de marketing
+- **Performance first**: Optimizada para SEO y Web Vitals
+- **Zero dependencies auth**: No usa Supabase ni librerías de autenticación
 
 ## 📄 **Licencia**
 

@@ -1,4 +1,27 @@
- 
+import { logger } from './services/logger.service';
+
+/**
+ * Reference to process object (undefined in browser)
+ */
+const processRef = typeof process !== 'undefined' ? process : null;
+
+/**
+ * Check if the current environment is production
+ * @returns true if NODE_ENV is 'production'
+ */
+export function isProduction(): boolean {
+  return processRef?.env?.NODE_ENV === 'production';
+}
+
+/**
+ * Check if the current environment is development
+ * @returns true if NODE_ENV is 'development' or undefined
+ */
+export function isDevelopment(): boolean {
+  const env = processRef?.env?.NODE_ENV;
+  return env === 'development' || env === undefined;
+}
+
 // Tipos de configuración de entorno
 export interface EnvironmentConfig {
   // Variables públicas (cliente)
@@ -49,11 +72,16 @@ const ALLOWED_CLIENT_VARS = new Set([
   // URLs y configuración pública
   "NEXT_PUBLIC_API_URL",
   "NEXT_PUBLIC_APP_URL",
+  "NEXT_PUBLIC_AUTH_HUB_URL",
+  "NEXT_PUBLIC_AUTH_HUB_DEV_URL",
   "NEXT_PUBLIC_SITE_URL",
   "NEXT_PUBLIC_DOCTORS_URL",
+  "NEXT_PUBLIC_DOCTORS_DEV_URL",
   "NEXT_PUBLIC_PATIENTS_URL",
+  "NEXT_PUBLIC_PATIENTS_DEV_URL",
   "NEXT_PUBLIC_COMPANIES_URL",
   "NEXT_PUBLIC_SIGNALING_URL",
+  "NEXT_PUBLIC_AUTH_DEV_BYPASS",
 
   // Supabase (cliente)
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -140,8 +168,51 @@ const SERVER_ONLY_VARS = new Set([
 ]);
 
 // Utilidad genérica para variables de entorno obligatorias (compatibilidad hacia atrás)
+// NOTA: Esta función usa acceso dinámico y NO funcionará para NEXT_PUBLIC_ en el navegador
+// debido a que Next.js no inlinea variables con acceso dinámico.
+// Para client-side, usa las funciones específicas de cliente abajo.
 export function ensureEnv(name: string): string {
-  const value = process.env[name];
+  // Para variables NEXT_PUBLIC_, usamos acceso directo para permitir inlining de Next.js
+  if (name.startsWith('NEXT_PUBLIC_')) {
+    // Acceso directo a variables conocidas
+    switch (name) {
+      case 'NEXT_PUBLIC_SUPABASE_URL':
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return process.env.NEXT_PUBLIC_SUPABASE_URL;
+      case 'NEXT_PUBLIC_SUPABASE_ANON_KEY':
+        if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      case 'NEXT_PUBLIC_API_URL':
+        if (!process.env.NEXT_PUBLIC_API_URL) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return process.env.NEXT_PUBLIC_API_URL;
+      case 'NEXT_PUBLIC_APP_URL':
+        if (!process.env.NEXT_PUBLIC_APP_URL) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return process.env.NEXT_PUBLIC_APP_URL;
+      case 'NEXT_PUBLIC_SITE_URL':
+        if (!process.env.NEXT_PUBLIC_SITE_URL) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return process.env.NEXT_PUBLIC_SITE_URL;
+      default:
+        // Fallback para otras variables NEXT_PUBLIC_
+        const value = processRef?.env?.[name];
+        if (!value) {
+          throw new Error(`Missing required environment variable: ${name}`);
+        }
+        return value;
+    }
+  }
+
+  // Para variables server-side, usa acceso dinámico (funciona en servidor)
+  const value = processRef?.env?.[name];
   if (!value) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
@@ -163,25 +234,58 @@ function assertClientEnvAllowed(name: string) {
 }
 
 // Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
+// Usa acceso directo para permitir inlining de Next.js
 export function ensureClientEnv(name: string): string {
   assertClientEnvAllowed(name);
 
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required client environment variable: ${name}`);
+  // Usar acceso directo para las variables más comunes (permite inlining de Next.js)
+  switch (name) {
+    case 'NEXT_PUBLIC_SUPABASE_URL':
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+        throw new Error(`Missing required client environment variable: ${name}`);
+      }
+      return process.env.NEXT_PUBLIC_SUPABASE_URL;
+    case 'NEXT_PUBLIC_SUPABASE_ANON_KEY':
+      if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        throw new Error(`Missing required client environment variable: ${name}`);
+      }
+      return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    default:
+      // Para otras variables, acceso directo genérico
+      // NOTA: Esto no se inlineará automáticamente
+      const value = processRef?.env?.[name];
+      if (!value) {
+        throw new Error(`Missing required client environment variable: ${name}`);
+      }
+      return value;
   }
-  return value;
 }
 
 export function getClientEnvOrDefault(name: string, defaultValue: string): string {
   assertClientEnvAllowed(name);
-  const value = process.env[name];
-  return value ?? defaultValue;
+  // Acceso directo para variables comunes
+  switch (name) {
+    case 'NEXT_PUBLIC_SUPABASE_URL':
+      return process.env.NEXT_PUBLIC_SUPABASE_URL ?? defaultValue;
+    case 'NEXT_PUBLIC_SUPABASE_ANON_KEY':
+      return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? defaultValue;
+    default:
+      const value = processRef?.env?.[name];
+      return value ?? defaultValue;
+  }
 }
 
 export function getOptionalClientEnv(name: string): string | undefined {
   assertClientEnvAllowed(name);
-  return process.env[name] ?? undefined;
+  // Acceso directo para variables comunes
+  switch (name) {
+    case 'NEXT_PUBLIC_SUPABASE_URL':
+      return process.env.NEXT_PUBLIC_SUPABASE_URL ?? undefined;
+    case 'NEXT_PUBLIC_SUPABASE_ANON_KEY':
+      return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? undefined;
+    default:
+      return processRef?.env?.[name] ?? undefined;
+  }
 }
 
 // Utilidad específica para variables de entorno del servidor (sin NEXT_PUBLIC_)
@@ -364,11 +468,11 @@ export function validateEnvironmentSecurity(): void {
     process.env.NEXT_PUBLIC_OPENAI_API_KEY &&
     !process.env.ALLOW_CLIENT_OPENAI_KEY
   ) {
-    console.warn(
+    logger.warn(
       "⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.",
     );
-    console.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
-    console.warn(
+    logger.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
+    logger.warn(
       "⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.",
     );
   }
@@ -383,7 +487,7 @@ export function validateEnvironmentSecurity(): void {
     const clientVal = process.env[clientVar];
 
     if (serverVal && clientVal && serverVal !== clientVal) {
-      console.warn(
+      logger.warn(
         `Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`,
       );
     }

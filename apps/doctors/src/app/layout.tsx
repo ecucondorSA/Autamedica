@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import type { JSX } from 'react'
 import './globals.css'
+import '@livekit/components-styles'
 import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
 import { ClientWrapper } from '@/components/ClientWrapper'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { fetchSessionData } from '@/lib/session-sync'
-import { redirect } from 'next/navigation'
+import { SessionSync } from '@/components/SessionSync'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
@@ -19,16 +20,14 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
-  // SSR session sync
-  const sessionData = await fetchSessionData()
-
-  if (!sessionData) {
-    // No session - redirect to Auth Hub
-    const authHubUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3005'
-      : 'https://auth.autamedica.com'
-
-    redirect(`${authHubUrl}/login?returnTo=${encodeURIComponent('http://localhost:3001')}`)
+  // SSR session sync - Trust the middleware for auth protection
+  // Middleware already handles redirects, so we just fetch session data if available
+  let sessionData = null
+  try {
+    sessionData = await fetchSessionData()
+  } catch (error) {
+    // If session fetch fails, middleware will handle redirect on next navigation
+    console.error('Session sync error:', error)
   }
   return (
     <html lang="es" suppressHydrationWarning>
@@ -41,6 +40,7 @@ export default async function RootLayout({ children }: RootLayoutProps): Promise
         />
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased">
+        <SessionSync />
         <AuthProvider initialSession={sessionData}>
           <ClientWrapper>
             <DoctorsPortalShell>{children as any}</DoctorsPortalShell>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import type { JSX } from 'react'
+import { logger } from '@autamedica/shared'
 import { WebRTCClient, type ConnectionState, type MediaConstraints } from './webrtc-client'
 import {
   Video, VideoOff, Mic, MicOff, PhoneOff, Phone, Users,
@@ -73,7 +74,7 @@ export function UnifiedVideoCall({
 
   // Initialize WebRTC client
   useEffect(() => {
-    console.log(`[UnifiedVideoCall] Initializing for ${userType}: ${userId} in room ${roomId}`)
+    logger.info(`[UnifiedVideoCall] Initializing for ${userType}: ${userId} in room ${roomId}`)
 
     const webrtcClient = new WebRTCClient({
       userId,
@@ -83,7 +84,7 @@ export function UnifiedVideoCall({
 
     // Set up event listeners
     webrtcClient.on('connection-state', (state) => {
-      console.log(`[UnifiedVideoCall] Connection state changed:`, state)
+      logger.info(`[UnifiedVideoCall] Connection state changed:`, state)
       setConnectionState(state)
       if (state === 'failed') {
         setCallError('Error de conexión. Verifica tu internet.')
@@ -94,14 +95,14 @@ export function UnifiedVideoCall({
     })
 
     webrtcClient.on('local-stream', (stream) => {
-      console.log(`[UnifiedVideoCall] Got local stream`)
+      logger.info(`[UnifiedVideoCall] Got local stream`)
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream
       }
     })
 
     webrtcClient.on('remote-stream', (stream, remoteUserId) => {
-      console.log(`[UnifiedVideoCall] Got remote stream from:`, remoteUserId)
+      logger.info(`[UnifiedVideoCall] Got remote stream from:`, remoteUserId)
 
       setRemoteUsers(prev => {
         const updated = new Map(prev)
@@ -124,7 +125,7 @@ export function UnifiedVideoCall({
     })
 
     webrtcClient.on('user-joined', (remoteUserId, remoteUserType) => {
-      console.log(`[UnifiedVideoCall] User joined:`, remoteUserId, remoteUserType)
+      logger.info(`[UnifiedVideoCall] User joined:`, remoteUserId, remoteUserType)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         const existingUser = updated.get(remoteUserId)
@@ -139,7 +140,7 @@ export function UnifiedVideoCall({
     })
 
     webrtcClient.on('user-left', (remoteUserId) => {
-      console.log(`[UnifiedVideoCall] User left:`, remoteUserId)
+      logger.info(`[UnifiedVideoCall] User left:`, remoteUserId)
       setRemoteUsers(prev => {
         const updated = new Map(prev)
         updated.delete(remoteUserId)
@@ -149,14 +150,14 @@ export function UnifiedVideoCall({
     })
 
     webrtcClient.on('error', (error) => {
-      console.error(`[UnifiedVideoCall] WebRTC error:`, error)
+      logger.error(`[UnifiedVideoCall] WebRTC error:`, error)
       setCallError(`Error de videollamada: ${error.message}`)
     })
 
     setClient(webrtcClient)
 
     return () => {
-      console.log(`[UnifiedVideoCall] Cleaning up`)
+      logger.info(`[UnifiedVideoCall] Cleaning up`)
       webrtcClient.disconnect()
     }
   }, [userId, userType, roomId])
@@ -166,7 +167,7 @@ export function UnifiedVideoCall({
     if (!client || connectionState === 'connected') return
 
     try {
-      console.log(`[UnifiedVideoCall] Starting call...`)
+      logger.info(`[UnifiedVideoCall] Starting call...`)
       setCallError(null)
 
       await client.connect(roomId)
@@ -186,7 +187,7 @@ export function UnifiedVideoCall({
       setIsAudioEnabled(true)
 
     } catch (error) {
-      console.error(`[UnifiedVideoCall] Failed to start call:`, error)
+      logger.error(`[UnifiedVideoCall] Failed to start call:`, error)
       const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
       setCallError(`No se pudo iniciar la videollamada: ${errorMessage}`)
     }
@@ -197,7 +198,7 @@ export function UnifiedVideoCall({
     if (!client) return
 
     try {
-      console.log(`[UnifiedVideoCall] Ending call...`)
+      logger.info(`[UnifiedVideoCall] Ending call...`)
       await client.disconnect()
 
       // Stop screen sharing if active
@@ -209,7 +210,7 @@ export function UnifiedVideoCall({
 
       onCallEnd?.()
     } catch (error) {
-      console.error(`[UnifiedVideoCall] Failed to end call:`, error)
+      logger.error(`[UnifiedVideoCall] Failed to end call:`, error)
     }
   }, [client, screenStream, onCallEnd])
 
@@ -219,7 +220,7 @@ export function UnifiedVideoCall({
 
     const newState = client.toggleVideo()
     setIsVideoEnabled(newState)
-    console.log(`[UnifiedVideoCall] Video ${newState ? 'enabled' : 'disabled'}`)
+    logger.info(`[UnifiedVideoCall] Video ${newState ? 'enabled' : 'disabled'}`)
   }, [client])
 
   // Toggle audio
@@ -228,7 +229,7 @@ export function UnifiedVideoCall({
 
     const newState = client.toggleAudio()
     setIsAudioEnabled(newState)
-    console.log(`[UnifiedVideoCall] Audio ${newState ? 'enabled' : 'disabled'}`)
+    logger.info(`[UnifiedVideoCall] Audio ${newState ? 'enabled' : 'disabled'}`)
   }, [client])
 
   // Toggle screen sharing
@@ -263,7 +264,7 @@ export function UnifiedVideoCall({
       }
 
     } catch (error) {
-      console.warn(`[UnifiedVideoCall] Screen sharing cancelled:`, error)
+      logger.warn(`[UnifiedVideoCall] Screen sharing cancelled:`, error)
       setIsScreenSharing(false)
     }
   }, [isScreenSharing, screenStream])

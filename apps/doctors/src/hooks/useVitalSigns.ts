@@ -1,14 +1,39 @@
 /**
- * Hook para manejar signos vitales con integración Supabase
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() e insertRecord() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { selectActive, insertRecord, logger } from '@autamedica/shared'
 import type {
   VitalSigns,
   UseVitalSignsResult,
   UUID
 } from '@/types/medical'
+
+// Tipo UI (camelCase) para VitalSigns
+interface UiVitalSigns {
+  id: string;
+  patientId: string;
+  recordedAt: string;
+  bloodPressureSystolic: number | null;
+  bloodPressureDiastolic: number | null;
+  heartRate: number | null;
+  temperature: number | null;
+  respiratoryRate: number | null;
+  oxygenSaturation: number | null;
+  weight: number | null;
+  height: number | null;
+  bmi: number | null;
+  notes: string | null;
+  active: boolean;
+  createdAt: string;
+  deletedAt: string | null;
+}
 
 export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
   const [vitalSigns, setVitalSigns] = useState<VitalSigns[]>([])
@@ -27,29 +52,21 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
     setError(null)
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      const allVitals = await selectActive<UiVitalSigns>('vital_signs', '*', {
+        orderBy: { column: 'recorded_at', ascending: false }
+      });
 
-      const { data, error: fetchError } = await supabase
-        .from('vital_signs')
-        .select('*')
-        .eq('patient_id', patientId)
-        .order('recorded_at', { ascending: false })
+      // Filtrar por patient_id
+      const filtered = allVitals.filter(v => v.patientId === patientId);
 
-      if (fetchError) {
-        throw new Error(fetchError.message)
-      }
-
-      const vitals = data || []
-      setVitalSigns(vitals)
-      setLatest(vitals.length > 0 ? vitals[0] : null as any)
+      setVitalSigns(filtered as unknown as VitalSigns[])
+      setLatest(filtered.length > 0 ? (filtered[0] as unknown as VitalSigns) : null)
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al cargar signos vitales: ${errorMessage}`)
-      console.error('[useVitalSigns] Error:', err)
+      logger.error('[useVitalSigns] Error:', err)
     } finally {
       setLoading(false)
     }
@@ -63,11 +80,6 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
     }
 
     try {
-      const supabase = createClient()
-      if (!supabase) {
-        throw new Error('No se pudo inicializar el cliente de Supabase')
-      }
-
       // Calcular BMI si se proporcionan peso y altura
       let bmi = vitals.bmi
       if (vitals.weight && vitals.height && !bmi) {
@@ -75,33 +87,21 @@ export function useVitalSigns(patientId: UUID | null): UseVitalSignsResult {
         bmi = Number((vitals.weight / (heightInMeters * heightInMeters)).toFixed(1))
       }
 
-      const newVitals = {
+      // Sistema híbrido: insertRecord() auto-transforma a snake_case
+      const newVitals = await insertRecord<UiVitalSigns>('vital_signs', {
         ...vitals,
         patient_id: patientId,
-        bmi,
-        created_at: new Date().toISOString()
-      }
-
-      const { data, error: insertError } = await (supabase as any)
-        .from('vital_signs')
-        .insert(newVitals)
-        .select()
-        .single()
-
-      if (insertError) {
-        throw new Error(insertError.message)
-      }
+        bmi
+      } as any);
 
       // Agregar a la lista local
-      if (data) {
-        setVitalSigns(prev => [data, ...prev])
-        setLatest(data)
-      }
+      setVitalSigns(prev => [newVitals as unknown as VitalSigns, ...prev])
+      setLatest(newVitals as unknown as VitalSigns)
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(`Error al agregar signos vitales: ${errorMessage}`)
-      console.error('[useVitalSigns] addVitalSigns error:', err)
+      logger.error('[useVitalSigns] addVitalSigns error:', err)
       throw err
     }
   }, [patientId])

@@ -30,8 +30,10 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
       const sessionData = await fetchSessionData()
 
       if (!sessionData) {
-        // No session - redirect to login
-        window.location.href = getLoginUrl()
+        // 🔓 DEV MODE: Don't redirect in development
+        if (process.env.NODE_ENV !== 'development') {
+          window.location.href = getLoginUrl()
+        }
         return
       }
 
@@ -41,10 +43,12 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
       console.error('Auth refresh error:', err)
       setError(err instanceof Error ? err.message : 'Authentication failed')
 
-      // On error, redirect to login
-      setTimeout(() => {
-        window.location.href = getLoginUrl()
-      }, 1000)
+      // 🔓 DEV MODE: Don't redirect in development
+      if (process.env.NODE_ENV !== 'development') {
+        setTimeout(() => {
+          window.location.href = getLoginUrl()
+        }, 1000)
+      }
 
     } finally {
       setLoading(false)
@@ -96,8 +100,8 @@ export function useRequireAuth() {
   }
 
   if (!session || error) {
-    // Redirect to login
-    if (typeof window !== 'undefined') {
+    // 🔓 DEV MODE: Don't redirect in development
+    if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
       window.location.href = getLoginUrl()
     }
     return { session: null, loading: false, error: error || 'No session' }

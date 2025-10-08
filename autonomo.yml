@@ -1,0 +1,268 @@
+meta:
+  name: "AutaMedica Preprod — Autónomo (sin rotación de credenciales)"
+  version: "2025-10-06"
+  run_mode: "auto"              # sin preguntas
+  non_interactive: true
+  owner: "AutaMedica"
+  target_env: "production"
+  repos:
+    primary: "github.com/ecucondorSA/Autamedica"
+    branch: "main"
+  logging:
+    file: ".logs/ai-tools.log"
+    level: "info"
+    trace_artifacts: "generated-docs/audit-trace-{{date}}.md"
+
+policy:
+  # ⚠️ Por pedido del usuario: NO tocar credenciales.
+  ignore_credentials_rotation: true
+  redact_secrets_in_output: true
+  backups_required_before_db_changes: true
+  dry_run_first: true
+  staging_first: true
+  auto_promote_if_health_ok: true
+  high_risk_requires_confirmation: false   # no se pedirá confirmación
+  forbidden_changes:
+    - "Rotar/leer/validar credenciales o secretos"
+    - "Borrar historial git"
+    - "Deshabilitar RLS"
+    - "DROP de columnas/tablas productivas"
+
+artifacts:
+  summary: "generated-docs/AUTONOMO_SUMMARY.md"
+  code_build: "generated-docs/audit-code-build.md"
+  dns_ssl: "generated-docs/audit-dns-ssl.md"
+  headers_security: "generated-docs/audit-security-headers.md"
+  ci_health: "generated-docs/AUDIT_CI_HEALTH.md"
+  db_report: "generated-docs/audit-db.md"
+  db_rls: "generated-docs/audit-db-rls.md"
+  db_perf: "generated-docs/audit-db-performance.md"
+  quickfix: "generated-docs/AUTONOMO_QUICKFIX.md"
+  headers_dump:
+    - "generated-docs/headers-patients.txt"
+    - "generated-docs/headers-doctors.txt"
+    - "generated-docs/headers-auth.txt"
+
+pipeline:
+  order:
+    - code_audit_autofix
+    - doctors_522_fix
+    - web_security_headers
+    - cors_lockdown
+    - cve_overrides
+    - db_patient_care_team_and_triggers
+    - ci_cd_hardening
+    - canary_and_observability
+
+agents:
+
+  - id: code_audit_autofix
+    title: "Build/Types — autofix"
+    actions:
+      - run: "pnpm -v && node -v"
+      - run: "pnpm -w install --frozen-lockfile"
+      - run: "pnpm -w turbo run lint --filter=..."
+      - run: "pnpm -w turbo run lint --filter=... -- --fix || true"
+      - patch:
+          files:
+            - path: "packages/shared/package.json"
+              json_merge:
+                types: "./dist/index.d.ts"
+                exports:
+                  ".": { types: "./dist/index.d.ts", import: "./dist/index.js" }
+            - path: "packages/auth/tsconfig.json"
+              json_merge:
+                compilerOptions:
+                  declaration: true
+                  emitDeclarationOnly: false
+                  declarationMap: true
+                  outDir: "dist"
+      - run: "pnpm -w build"
+    output: "generated-docs/audit-code-build.md"
+    fail_on:
+      - "TypeScript error"
+      - "Build failed"
+
+  - id: doctors_522_fix
+    title: "Cloudflare Pages — fix 522 doctors"
+    actions:
+      - run: "cd apps/doctors && pnpm install && pnpm build"
+      - run: "wrangler pages deploy .vercel/output --project-name=autamedica-doctors --branch main"
+      - run: "curl -sI https://doctors.autamedica.com > generated-docs/headers-doctors.txt"
+      - check: "Verificar HTTP 200-399 en doctors.autamedica.com"
+      - set_ssl_full_strict: true   # instrucción declarativa para provider
+    output: "generated-docs/audit-dns-ssl.md"
+
+  - id: web_security_headers
+    title: "Headers de seguridad — Cloudflare Pages"
+    actions:
+      - ensure_headers_file:
+          globs: ["apps/patients/_headers","apps/doctors/_headers","apps/auth/_headers"]
+          content: |
+            /*
+              Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+              Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.autamedica.com https://*.supabase.co; frame-ancestors 'none';
+              X-Frame-Options: DENY
+              X-Content-Type-Options: nosniff
+              Referrer-Policy: strict-origin-when-cross-origin
+              Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+      - run: "for d in patients doctors auth; do (cd apps/$d && wrangler pages deploy .vercel/output --project-name=autamedica-$d --branch main || true); done"
+      - run: "curl -sI https://patients.autamedica.com > generated-docs/headers-patients.txt"
+      - run: "curl -sI https://auth.autamedica.com > generated-docs/headers-auth.txt"
+    output: "generated-docs/audit-security-headers.md"
+
+  - id: cors_lockdown
+    title: "CORS — cierre de orígenes"
+    actions:
+      - patch_code:
+          glob: "apps/**/{worker,server,api}.{ts,tsx,js}"
+          replace:
+            - search: "Access-Control-Allow-Origin: *"
+              with: "Access-Control-Allow-Origin: <DYNAMIC_ORIGIN>"
+          inject_snippet_ts: |
+            const allowedOrigins = new Set([
+              'https://patients.autamedica.com',
+              'https://doctors.autamedica.com',
+              'https://auth.autamedica.com',
+            ]);
+            const reqOrigin = req.headers?.get?.('Origin') ?? '';
+            const allowOrigin = allowedOrigins.has(reqOrigin) ? reqOrigin : 'null';
+            // Usar allowOrigin al setear 'Access-Control-Allow-Origin'
+      - run: "pnpm -w build"
+      - run: "curl -sI https://auth.autamedica.com -H 'Origin: https://patients.autamedica.com' | tee generated-docs/cors-check.txt"
+    output: "generated-docs/audit-security-headers.md"
+
+  - id: cve_overrides
+    title: "Dependencias — overrides CVEs"
+    actions:
+      - patch:
+          files:
+            - path: "package.json"
+              json_merge:
+                pnpm:
+                  overrides:
+                    path-to-regexp: "^6.3.0"
+                    cookie: "^0.7.0"
+      - run: "pnpm install"
+      - run: "pnpm audit --prod --json > generated-docs/pnpm-audit.json || true"
+    output: "generated-docs/AUTONOMO_QUICKFIX.md"
+
+  - id: db_patient_care_team_and_triggers
+    title: "DB — patient_care_team + triggers HIPAA"
+    preconditions:
+      - "policy.ignore_credentials_rotation == true"
+    actions:
+      - run: "supabase migration list"
+      - sql:
+          dry_run: true
+          script: |
+            DO $$
+            BEGIN
+              IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname='patient_care_team') THEN
+                CREATE TABLE public.patient_care_team (
+                  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                  doctor_id uuid REFERENCES public.doctors(id) ON DELETE CASCADE,
+                  patient_id uuid REFERENCES public.patients(id) ON DELETE CASCADE,
+                  active boolean DEFAULT true,
+                  assigned_at timestamptz DEFAULT now(),
+                  created_at timestamptz DEFAULT now(),
+                  UNIQUE (doctor_id, patient_id)
+                );
+                ALTER TABLE public.patient_care_team ENABLE ROW LEVEL SECURITY;
+                CREATE INDEX IF NOT EXISTS idx_patient_care_team_lookup
+                  ON public.patient_care_team(doctor_id, patient_id, active);
+              END IF;
+            END $$;
+
+            -- Trigger de auditoría (INSERT/UPDATE/DELETE) en medical_records
+            CREATE OR REPLACE FUNCTION public.log_medical_change()
+            RETURNS TRIGGER AS $$
+            BEGIN
+              PERFORM public.log_medical_access(
+                TG_OP, 'medical_records',
+                COALESCE(NEW.id, OLD.id),
+                (SELECT user_id FROM public.patients p WHERE p.id = COALESCE(NEW.patient_id, OLD.patient_id))
+              );
+              RETURN COALESCE(NEW, OLD);
+            END
+            $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+            DROP TRIGGER IF EXISTS tr_medical_records_audit ON public.medical_records;
+            CREATE TRIGGER tr_medical_records_audit
+              AFTER INSERT OR UPDATE OR DELETE ON public.medical_records
+              FOR EACH ROW EXECUTE FUNCTION public.log_medical_change();
+      - sql:
+          apply: true
+          use_previous_script: true
+      - run: "psql \"$DATABASE_URL\" -c \"SELECT tablename, rowsecurity FROM pg_tables WHERE schemaname='public' AND tablename IN ('profiles','doctors','patients','medical_records','appointments','companies','patient_care_team');\" > generated-docs/db-rls-check.txt || true"
+    output:
+      - "generated-docs/audit-db.md"
+      - "generated-docs/audit-db-rls.md"
+      - "generated-docs/audit-db-performance.md"
+
+  - id: ci_cd_hardening
+    title: "CI/CD — gates y secretos en PR (sin tocar credenciales)"
+    actions:
+      - ensure_workflow:
+          path: ".github/workflows/ci-hardening.yml"
+          content: |
+            name: CI Hardening
+            on:
+              pull_request:
+                branches: [ main, staging ]
+            jobs:
+              validate:
+                runs-on: ubuntu-latest
+                steps:
+                  - uses: actions/checkout@v4
+                  - uses: pnpm/action-setup@v4
+                    with: { version: 9 }
+                  - uses: actions/setup-node@v4
+                    with: { node-version: 20 }
+                  - run: pnpm -w install --frozen-lockfile
+                  - run: pnpm -w turbo run lint typecheck test build --filter=...
+                  - name: Secrets scan
+                    uses: gitleaks/gitleaks-action@v2
+                    with:
+                      args: "--redact"
+      - run: "gh workflow list > generated-docs/gh-workflows.txt || true"
+    output: "generated-docs/AUDIT_CI_HEALTH.md"
+
+  - id: canary_and_observability
+    title: "Canary 10→50→100 + smoke"
+    actions:
+      - smoke:
+          urls:
+            - "https://patients.autamedica.com"
+            - "https://doctors.autamedica.com"
+            - "https://auth.autamedica.com/auth/login/?role=patient"
+          expect_status: [200, 204, 301, 302]
+      - canary_release:
+          project_names: ["autamedica-patients","autamedica-doctors","autamedica-auth"]
+          steps:
+            - percent: 10
+            - percent: 50
+            - percent: 100
+      - run: |
+          echo "TTFB/Headers sample:" > generated-docs/canary-health.txt
+          for d in patients doctors auth; do
+            echo "== $d ==" >> generated-docs/canary-health.txt
+            curl -sI https://$d.autamedica.com | egrep -i 'strict-transport|content-security|x-frame|referrer|permissions' >> generated-docs/canary-health.txt || true
+          done
+    output: "generated-docs/AUTONOMO_SUMMARY.md"
+
+runner:
+  commands:
+    - "echo '[AUTO] Inicio' >> .logs/ai-tools.log"
+    - "pnpm -w turbo run build --filter=apps/* || true"
+    - "ls -1 generated-docs/ || true"
+  deliverables:
+    - "generated-docs/AUTONOMO_SUMMARY.md"
+    - "generated-docs/audit-code-build.md"
+    - "generated-docs/audit-dns-ssl.md"
+    - "generated-docs/audit-security-headers.md"
+    - "generated-docs/AUDIT_CI_HEALTH.md"
+    - "generated-docs/audit-db.md"
+    - "generated-docs/audit-db-rls.md"
+    - "generated-docs/audit-db-performance.md"
+    - "generated-docs/AUTONOMO_QUICKFIX.md"

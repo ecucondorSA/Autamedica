@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   }, [testimonials.length]);
 
   return (
-    <section className="testimonials-section">
+    <section className="testimonials-section" role="region" aria-label="Testimonios y estadísticas">
       <div className="container">
 
         {/* Statistics Section */}
@@ -110,6 +110,7 @@ export default function TestimonialsSection() {
                   key={index}
                   className={`dot ${index === activeTestimonial ? 'active' : ''}`}
                   onClick={() => setActiveTestimonial(index)}
+                  aria-label={`Ir al testimonio ${index + 1}`}
                 />
               ))}
             </div>
@@ -158,7 +159,7 @@ export default function TestimonialsSection() {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
           color: white;
           padding: 5rem 2rem;
-          min-height: clamp(100vh, 100svh, 110vh);
+          min-height: auto;
           display: flex;
           align-items: center;
           width: 100%;
@@ -204,8 +205,8 @@ export default function TestimonialsSection() {
         }
 
         .stat-card {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 16px;
           padding: 2rem;
           text-align: center;
@@ -215,9 +216,9 @@ export default function TestimonialsSection() {
 
         .stat-card:hover {
           transform: translateY(-5px);
-          background: rgba(255, 255, 255, 0.08);
-          border-color: #808080;
-          box-shadow: 0 10px 30px rgba(128, 128, 128, 0.2);
+          background: var(--au-hover);
+          border-color: var(--au-accent);
+          box-shadow: 0 10px 30px rgba(217, 217, 217, 0.2);
         }
 
         .stat-icon {
@@ -228,13 +229,13 @@ export default function TestimonialsSection() {
         .stat-value {
           font-size: clamp(2rem, 3vw, 3rem);
           font-weight: 700;
-          color: #ffffff;
+          color: var(--au-text-primary);
           margin-bottom: 0.5rem;
         }
 
         .stat-label {
           font-size: clamp(1rem, 1.5vw, 1.2rem);
-          opacity: 0.8;
+          color: var(--au-text-secondary);
         }
 
         /* Testimonials Carousel */
@@ -257,8 +258,8 @@ export default function TestimonialsSection() {
         .testimonial-card {
           flex: 0 0 100%;
           padding: 3rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 20px;
           backdrop-filter: blur(10px);
         }
@@ -274,7 +275,8 @@ export default function TestimonialsSection() {
           font-size: 4rem;
           width: 80px;
           height: 80px;
-          background: linear-gradient(135deg, #606060, #909090);
+          background: var(--au-accent)/10;
+          border: 2px solid var(--au-border);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -289,17 +291,18 @@ export default function TestimonialsSection() {
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 0.25rem;
+          color: var(--au-text-primary);
         }
 
         .testimonial-role {
           font-size: 1.1rem;
-          opacity: 0.8;
+          color: var(--au-text-secondary);
           margin-bottom: 0.25rem;
         }
 
         .testimonial-location {
           font-size: 0.9rem;
-          opacity: 0.6;
+          color: var(--au-text-tertiary);
         }
 
         .testimonial-rating {
@@ -310,7 +313,7 @@ export default function TestimonialsSection() {
           font-size: clamp(1.2rem, 2vw, 1.6rem);
           line-height: 1.6;
           font-style: italic;
-          opacity: 0.9;
+          color: var(--au-text-secondary);
           text-align: center;
           max-width: 900px;
           margin: 0 auto;
@@ -327,21 +330,21 @@ export default function TestimonialsSection() {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
+          background: var(--au-border);
           border: none;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .carousel-dots .dot.active {
-          background: #ffffff;
+          background: var(--au-accent);
           transform: scale(1.3);
         }
 
         /* Final CTA */
         .final-cta {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
-          border: 2px solid rgba(255, 255, 255, 0.2);
+          background: var(--au-surface);
+          border: 2px solid var(--au-border);
           border-radius: 30px;
           padding: 4rem;
           text-align: center;
@@ -353,15 +356,12 @@ export default function TestimonialsSection() {
           font-size: clamp(2rem, 3.5vw, 3.5rem);
           font-weight: 700;
           margin-bottom: 1rem;
-          background: linear-gradient(135deg, #ffffff, #e0e0e0);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          color: var(--au-text-primary);
         }
 
         .cta-subtitle {
           font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-          opacity: 0.9;
+          color: var(--au-text-secondary);
           margin-bottom: 2rem;
           max-width: 700px;
           margin-left: auto;
@@ -381,10 +381,11 @@ export default function TestimonialsSection() {
           align-items: center;
           gap: 0.5rem;
           font-size: 1.2rem;
+          color: var(--au-text-secondary);
         }
 
         .cta-icon {
-          color: #b0b0b0;
+          color: var(--au-accent);
           font-size: 1.5rem;
           font-weight: bold;
         }
@@ -412,24 +413,26 @@ export default function TestimonialsSection() {
         }
 
         .btn-primary-large {
-          background: linear-gradient(135deg, #505050, #707070);
-          color: white;
+          background: var(--au-accent);
+          color: var(--au-bg);
+          font-weight: 600;
         }
 
         .btn-primary-large:hover {
           transform: translateY(-3px);
-          box-shadow: 0 15px 40px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 15px 40px rgba(217, 217, 217, 0.3);
+          background: var(--au-text-primary);
         }
 
         .btn-secondary-large {
-          background: transparent;
-          color: white;
-          border: 2px solid rgba(255, 255, 255, 0.3);
+          background: var(--au-hover);
+          color: var(--au-text-primary);
+          border: 2px solid var(--au-border);
         }
 
         .btn-secondary-large:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: #ffffff;
+          background: var(--au-surface);
+          border-color: var(--au-accent);
         }
 
         .btn-arrow,
@@ -439,14 +442,30 @@ export default function TestimonialsSection() {
 
         .cta-disclaimer {
           font-size: 0.9rem;
-          opacity: 0.7;
+          color: var(--au-text-tertiary);
           margin-top: 2rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
           .testimonials-section {
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
+            min-height: auto;
+          }
+
+          .section-title {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: 0.75rem;
+          }
+
+          .section-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+          }
+
+          .statistics-wrapper {
+            margin-bottom: 3rem;
           }
 
           .statistics-grid {
@@ -454,17 +473,76 @@ export default function TestimonialsSection() {
             gap: 1rem;
           }
 
+          .stat-card {
+            padding: 1.5rem 1rem;
+          }
+
+          .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .stat-value {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+          }
+
+          .stat-label {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+          }
+
+          .testimonials-wrapper {
+            margin-bottom: 3rem;
+          }
+
           .testimonial-card {
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
           }
 
           .testimonial-header {
             flex-direction: column;
             text-align: center;
+            gap: 1rem;
+          }
+
+          .testimonial-avatar {
+            font-size: 3rem;
+            width: 60px;
+            height: 60px;
+          }
+
+          .testimonial-name {
+            font-size: 1.25rem;
+          }
+
+          .testimonial-role {
+            font-size: 1rem;
+          }
+
+          .testimonial-location {
+            font-size: 0.85rem;
+          }
+
+          .testimonial-rating {
+            font-size: 1.25rem;
+          }
+
+          .testimonial-text {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.5;
           }
 
           .final-cta {
-            padding: 2rem 1rem;
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+          }
+
+          .cta-title {
+            font-size: clamp(1.5rem, 4.5vw, 2rem);
+          }
+
+          .cta-subtitle {
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            margin-bottom: 1.5rem;
           }
 
           .cta-features {
@@ -472,22 +550,101 @@ export default function TestimonialsSection() {
             gap: 1rem;
           }
 
+          .cta-feature {
+            font-size: 1.1rem;
+          }
+
           .cta-buttons {
             flex-direction: column;
             align-items: center;
+            gap: 1rem;
           }
 
           .btn-primary-large,
           .btn-secondary-large {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             justify-content: center;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
           }
         }
 
         @media (max-width: 480px) {
+          .testimonials-section {
+            padding: 2rem 0.75rem;
+            min-height: auto;
+          }
+
+          .section-title {
+            font-size: clamp(1.5rem, 6vw, 1.75rem);
+          }
+
+          .section-subtitle {
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            padding: 0 0.5rem;
+          }
+
           .statistics-grid {
             grid-template-columns: 1fr;
+            gap: 0.75rem;
+          }
+
+          .stat-card {
+            padding: 1.25rem 1rem;
+          }
+
+          .stat-icon {
+            font-size: 2rem;
+          }
+
+          .testimonial-card {
+            padding: 1.5rem 1rem;
+          }
+
+          .testimonial-avatar {
+            font-size: 2.5rem;
+            width: 50px;
+            height: 50px;
+          }
+
+          .testimonial-name {
+            font-size: 1.1rem;
+          }
+
+          .carousel-dots {
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+          }
+
+          .carousel-dots .dot {
+            width: 10px;
+            height: 10px;
+          }
+
+          .final-cta {
+            padding: 2rem 1rem;
+            border-radius: 20px;
+          }
+
+          .cta-title {
+            font-size: clamp(1.35rem, 5vw, 1.5rem);
+          }
+
+          .cta-feature {
+            font-size: 1rem;
+          }
+
+          .btn-primary-large,
+          .btn-secondary-large {
+            max-width: 280px;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+          }
+
+          .cta-disclaimer {
+            font-size: 0.8rem;
+            padding: 0 0.5rem;
           }
         }
       `}</style>

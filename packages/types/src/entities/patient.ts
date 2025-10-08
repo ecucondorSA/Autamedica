@@ -150,4 +150,99 @@ export const isPrimaryDoctor = (role: PatientCareTeamRole): boolean => {
   return role === "primary";
 };
 
+// ==========================================
+// Mappers: Database (snake_case) → TypeScript (camelCase)
+// ==========================================
+
+/**
+ * Convierte paciente de base de datos a interfaz TypeScript
+ * Mapea snake_case (DB) → camelCase (TS)
+ */
+export function mapDbPatientToPatient(dbPatient: {
+  id: string;
+  user_id: string;
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
+  phone: string | null;
+  date_of_birth: string | null;
+  gender: string | null;
+  address: any | null;
+  emergency_contact: any | null;
+  created_at: string | null;
+  updated_at: string | null;
+}): Patient {
+  return {
+    id: dbPatient.id as PatientId,
+    userId: dbPatient.user_id,
+    firstName: dbPatient.first_name || '',
+    lastName: dbPatient.last_name || '',
+    email: dbPatient.email || '',
+    phone: dbPatient.phone || undefined,
+    dateOfBirth: (dbPatient.date_of_birth as ISODateString) || undefined,
+    gender: dbPatient.gender as Patient['gender'] || undefined,
+    address: dbPatient.address || undefined,
+    emergencyContact: dbPatient.emergency_contact || undefined,
+    createdAt: (dbPatient.created_at || new Date().toISOString()) as ISODateString,
+    updatedAt: (dbPatient.updated_at || new Date().toISOString()) as ISODateString,
+  };
+}
+
+/**
+ * Convierte patient care team de base de datos a interfaz TypeScript
+ */
+export function mapDbPatientCareTeamToPatientCareTeam(dbCareTeam: {
+  id: string;
+  patient_id: string;
+  doctor_id: string;
+  role: string | null;
+  active: boolean | null;
+  assigned_at: string | null;
+  assigned_by: string | null;
+}): PatientCareTeam {
+  return {
+    id: dbCareTeam.id as UUID,
+    patientId: dbCareTeam.patient_id as PatientId,
+    doctorId: dbCareTeam.doctor_id as DoctorId,
+    role: (dbCareTeam.role as PatientCareTeamRole) || 'primary',
+    isActive: dbCareTeam.active ?? true,
+    assignedAt: (dbCareTeam.assigned_at || new Date().toISOString()) as ISODateString,
+    assignedBy: dbCareTeam.assigned_by as DoctorId,
+  };
+}
+
+/**
+ * Convierte Patient de TypeScript a formato de base de datos para INSERT
+ */
+export function mapPatientToDbInsert(patient: Omit<Patient, 'id' | 'createdAt' | 'updatedAt'>) {
+  return {
+    user_id: patient.userId,
+    first_name: patient.firstName,
+    last_name: patient.lastName,
+    email: patient.email,
+    phone: patient.phone || null,
+    date_of_birth: patient.dateOfBirth || null,
+    gender: patient.gender || null,
+    address: patient.address || null,
+    emergency_contact: patient.emergencyContact || null,
+  };
+}
+
+/**
+ * Convierte PatientUpdate de TypeScript a formato de base de datos para UPDATE
+ */
+export function mapPatientUpdateToDb(update: PatientUpdate) {
+  const dbUpdate: Record<string, any> = {};
+
+  if (update.firstName !== undefined) dbUpdate.first_name = update.firstName;
+  if (update.lastName !== undefined) dbUpdate.last_name = update.lastName;
+  if (update.phone !== undefined) dbUpdate.phone = update.phone;
+  if (update.dateOfBirth !== undefined) dbUpdate.date_of_birth = update.dateOfBirth;
+  if (update.gender !== undefined) dbUpdate.gender = update.gender;
+  if (update.address !== undefined) dbUpdate.address = update.address;
+  if (update.emergencyContact !== undefined) dbUpdate.emergency_contact = update.emergencyContact;
+
+  return dbUpdate;
+}
+
 export type { PatientId };

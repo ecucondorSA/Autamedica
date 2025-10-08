@@ -2,12 +2,13 @@
  * Portal routing utilities for role-based redirection
  */
 
-export type UserRole = 'patient' | 'doctor' | 'company' | 'company_admin' | 'organization_admin';
+// Import UserRole from @autamedica/types (source of truth for roles)
+export type { UserRole } from '@autamedica/types';
 
 /**
  * Get the portal URL for a given role
  */
-export function getPortalForRole(role: UserRole | undefined): string {
+export function getPortalForRole(role: import('@autamedica/types').UserRole | undefined): string {
   const isDevelopment = process.env.NODE_ENV === 'development';
 
   // Default to patient if no role
@@ -20,10 +21,10 @@ export function getPortalForRole(role: UserRole | undefined): string {
         return process.env.NEXT_PUBLIC_PORTAL_DOCTORS || 'http://localhost:3001';
       case 'patient':
         return process.env.NEXT_PUBLIC_PORTAL_PATIENTS || 'http://localhost:3002';
-      case 'company':
       case 'company_admin':
         return process.env.NEXT_PUBLIC_PORTAL_COMPANIES || 'http://localhost:3003';
       case 'organization_admin':
+      case 'platform_admin':
         return process.env.NEXT_PUBLIC_PORTAL_ADMIN || 'http://localhost:3004';
       default:
         return process.env.NEXT_PUBLIC_PORTAL_PATIENTS || 'http://localhost:3002';
@@ -36,10 +37,10 @@ export function getPortalForRole(role: UserRole | undefined): string {
       return process.env.NEXT_PUBLIC_BASE_URL_DOCTORS || 'https://autamedica-doctors.pages.dev';
     case 'patient':
       return process.env.NEXT_PUBLIC_BASE_URL_PATIENTS || 'https://autamedica-patients.pages.dev';
-    case 'company':
     case 'company_admin':
       return process.env.NEXT_PUBLIC_BASE_URL_COMPANIES || 'https://autamedica-companies.pages.dev';
     case 'organization_admin':
+    case 'platform_admin':
       return process.env.NEXT_PUBLIC_BASE_URL_ADMIN || 'https://autamedica-admin.pages.dev';
     default:
       return process.env.NEXT_PUBLIC_BASE_URL_PATIENTS || 'https://autamedica-patients.pages.dev';

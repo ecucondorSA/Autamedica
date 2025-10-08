@@ -3,8 +3,9 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getPortalForRole } from '@autamedica/shared/roles';
+import { getPortalForRole } from '@autamedica/shared';
 import type { UserRole } from '@autamedica/types';
+import { logger } from '@autamedica/shared';
 
 /**
  * Server action to set user role
@@ -43,21 +44,21 @@ export async function chooseRole(role: UserRole) {
     const { error } = await supabase.rpc('set_user_role', { p_role: role });
 
     if (error) {
-      console.error('Error setting user role:', error);
+      logger.error('Error setting user role:', error);
       if (error.message === 'role_already_set_or_profile_missing') {
         throw new Error('El rol ya ha sido configurado o el perfil no existe');
       }
       throw new Error(error.message);
     }
 
-    console.log(`Role set successfully for user ${user.email}: ${role}`);
+    // logger.info(`Role set successfully for user ${user.email}: ${role}`);
 
     // Redirect to the correct portal for this role
     const portalUrl = getPortalForRole(role);
     redirect(portalUrl);
 
   } catch (error) {
-    console.error('Failed to choose role:', error);
+    logger.error('Failed to choose role:', error);
     throw error;
   }
 }

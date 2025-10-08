@@ -1,0 +1,2 @@
+# Redirect .pages.dev to custom domain
+https://autamedica-patients.pages.dev/* https://patients.autamedica.com/:splat 301!

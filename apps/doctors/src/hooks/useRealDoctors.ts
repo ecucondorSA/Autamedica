@@ -2,13 +2,49 @@
 
 import { useState, useEffect } from 'react';
 import { DoctorWithProfile } from '@autamedica/types';
-import { supabase } from '@/lib/supabase';
+import { selectActive } from '@autamedica/shared';
+import { logger } from '@autamedica/shared';
+
+/**
+ * Hook migrado al sistema híbrido
+ *
+ * CAMBIOS:
+ * - Usa selectActive() en lugar de supabase directo
+ * - Datos retornados en camelCase automáticamente
+ * - Auto-filtrado de soft-deleted (deleted_at IS NULL)
+ */
 
 interface UseDoctorsResult {
   doctors: DoctorWithProfile[];
   loading: boolean;
   error: string | null;
   refetch: () => void;
+}
+
+// Tipo UI (camelCase) para Doctor
+interface UiDoctor {
+  id: string;
+  userId: string;
+  licenseNumber: string;
+  specialty: string;
+  subspecialty: string | null;
+  yearsExperience: number;
+  education: Record<string, unknown> | null;
+  certifications: Record<string, unknown> | null;
+  schedule: Record<string, unknown> | null;
+  consultationFee: number | null;
+  acceptedInsurance: Record<string, unknown> | null;
+  bio: string | null;
+  languages: string[];
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  profile?: {
+    userId: string;
+    email: string | null;
+    role: string | null;
+  };
 }
 
 export function useRealDoctors(): UseDoctorsResult {
@@ -21,22 +57,21 @@ export function useRealDoctors(): UseDoctorsResult {
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('doctors')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('active', true)
-        .order('created_at', { ascending: false });
+      // Sistema híbrido: selectActive() retorna camelCase automáticamente
+      // y filtra deleted_at IS NULL
+      const data = await selectActive<UiDoctor>('doctors', `
+        *,
+        profile:profiles!inner(*)
+      `, {
+        orderBy: { column: 'created_at', ascending: false }
+      });
 
-      if (fetchError) {
-        throw fetchError;
-      }
+      // Filtrar solo activos (campo active = true)
+      const activeDoctors = data.filter(d => d.active);
 
-      setDoctors(data || []);
+      setDoctors(activeDoctors as unknown as DoctorWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctors:', err);
+      logger.error('Error fetching doctors:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -77,28 +112,26 @@ export function useCurrentDoctor(userId?: string): UseCurrentDoctorResult {
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('doctors')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('user_id', userId)
-        .eq('active', true)
-        .single();
+      // Sistema híbrido: selectActive con filtro adicional
+      const data = await selectActive<UiDoctor>('doctors', `
+        *,
+        profile:profiles!inner(*)
+      `, {
+        // Nota: selectActive no soporta .eq() directamente
+        // Necesitamos filtrar después o usar raw query
+      });
 
-      if (fetchError) {
-        if (fetchError.code === 'PGRST116') {
-          // No doctor profile found
-          setDoctor(null);
-          return;
-        }
-        throw fetchError;
+      // Filtrar por user_id y active manualmente
+      const currentDoctor = data.find(d => d.userId === userId && d.active);
+
+      if (!currentDoctor) {
+        setDoctor(null);
+        return;
       }
 
-      setDoctor(data);
+      setDoctor(currentDoctor as unknown as DoctorWithProfile);
     } catch (err) {
-      console.error('Error fetching current doctor:', err);
+      logger.error('Error fetching current doctor:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -139,23 +172,22 @@ export function useDoctorsBySpecialty(specialty: string): UseDoctorsBySpecialtyR
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from('doctors')
-        .select(`
-          *,
-          profile:profiles!inner(*)
-        `)
-        .eq('specialty', specialty)
-        .eq('active', true)
-        .order('created_at', { ascending: false });
+      // Sistema híbrido: fetch all y filtrar
+      const data = await selectActive<UiDoctor>('doctors', `
+        *,
+        profile:profiles!inner(*)
+      `, {
+        orderBy: { column: 'created_at', ascending: false }
+      });
 
-      if (fetchError) {
-        throw fetchError;
-      }
+      // Filtrar por specialty y active
+      const filtered = data.filter(d =>
+        d.specialty === specialty && d.active
+      );
 
-      setDoctors(data || []);
+      setDoctors(filtered as unknown as DoctorWithProfile[]);
     } catch (err) {
-      console.error('Error fetching doctors by specialty:', err);
+      logger.error('Error fetching doctors by specialty:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);

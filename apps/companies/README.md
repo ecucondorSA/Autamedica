@@ -216,7 +216,7 @@ useWebSocket('/api/crisis-updates', {
 ### **Variables de Entorno**
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://gtyvdircfhmdjiaelqkg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=***REDACTED***
 NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ... # Para mapas de crisis
 NODE_ENV=production
 HUSKY=0

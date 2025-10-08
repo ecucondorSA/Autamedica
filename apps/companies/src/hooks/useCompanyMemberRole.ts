@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createClient } from '@/utils/supabase/client'; // Asumiendo una ruta estandar para el cliente supabase
-import { type MemberRole } from '@repo/shared';
+import { createClient } from '@/utils/supabase/client';
+import { type MemberRole } from '@autamedica/shared';
 
 export const useCompanyMemberRole = (companyId: string | null) => {
   const [memberRole, setMemberRole] = useState<MemberRole | null>(null);
@@ -40,9 +40,13 @@ export const useCompanyMemberRole = (companyId: string | null) => {
           throw queryError;
         }
 
-        setMemberRole(data?.role as MemberRole || null);
-      } catch (e: any) {
-        setError(e);
+        const role = data?.role ?? null;
+        setMemberRole(role === null ? null : (role as MemberRole));
+      } catch (caughtError) {
+        const normalizedError = caughtError instanceof Error
+          ? caughtError
+          : new Error('Error desconocido al recuperar el rol de miembro');
+        setError(normalizedError);
       } finally {
         setLoading(false);
       }

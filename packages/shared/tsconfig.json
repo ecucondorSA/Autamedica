@@ -3,14 +3,16 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
     "declaration": true,
     "declarationMap": true,
-    "composite": false,
-    "incremental": false,
+    "emitDeclarationOnly": false,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "ES2022"
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "**/*.test.ts"]
 }

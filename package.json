@@ -2,6 +2,22 @@
   "name": "autamedica-reboot",
   "private": true,
   "scripts": {
+    "docker:up": "docker-compose --env-file .env.docker up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:ps": "docker-compose ps",
+    "docker:restart": "docker-compose restart",
+    "docker:clean": "docker-compose down -v --remove-orphans",
+    "docker:build": "docker-compose build --no-cache",
+    "docker:rebuild": "pnpm docker:clean && pnpm docker:build && pnpm docker:up",
+    "docker:health": "node scripts/docker-health-check.mjs",
+    "docker:supabase": "docker-compose up -d postgres kong auth rest realtime storage imgproxy meta studio inbucket",
+    "docker:playwright": "docker-compose up -d playwright",
+    "test:docker": "docker-compose exec playwright pnpm test:e2e",
+    "test:docker:ui": "docker-compose exec playwright pnpm test:e2e:ui",
+    "test:docker:chromium": "docker-compose exec playwright pnpm playwright test --project=chromium",
+    "test:docker:firefox": "docker-compose exec playwright pnpm playwright test --project=firefox",
+    "test:docker:webkit": "docker-compose exec playwright pnpm playwright test --project=webkit",
     "test:e2e": "node tests/run-playwright.cjs",
     "test:e2e:ui": "playwright test --ui",
     "test:rls": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/rls_smoke.sql",
@@ -142,5 +158,11 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.15.2"
+  "packageManager": "pnpm@9.15.2",
+  "pnpm": {
+    "overrides": {
+      "path-to-regexp": "^6.3.0",
+      "cookie": "^0.7.0"
+    }
+  }
 }

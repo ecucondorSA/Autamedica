@@ -1,6 +1,6 @@
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://gtyvdircfhmdjiaelqkg.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss: https://ewpsepaieakqbywxnidu.supabase.co wss://autamedica-signaling-server.ecucondor.workers.dev; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

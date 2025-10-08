@@ -36,9 +36,9 @@ https://*.pages.dev
 
 ## ✅ **STEP 2: Authorized Redirect URIs**
 
-**Debe tener configurado** (ya existe):
+**Debe tener configurado** (actualizado 2025-10-08):
 ```
-https://gtyvdircfhmdjiaelqkg.supabase.co/auth/v1/callback
+https://ewpsepaieakqbywxnidu.supabase.co/auth/v1/callback
 ```
 
 ---
@@ -60,7 +60,7 @@ https://*.pages.dev
 
 ### **Authorized redirect URIs:**
 ```
-https://gtyvdircfhmdjiaelqkg.supabase.co/auth/v1/callback
+https://ewpsepaieakqbywxnidu.supabase.co/auth/v1/callback
 ```
 
 ---
@@ -93,9 +93,10 @@ Una vez configurado, podrás hacer OAuth desde:
 
 ## ⚠️ **Importante**
 
-- **NO cambies** los Authorized redirect URIs (solo Supabase callback)
+- **ACTUALIZA** el Authorized redirect URI a `https://ewpsepaieakqbywxnidu.supabase.co/auth/v1/callback`
 - **SÍ agrega** todos los JavaScript origins (donde se inicia el OAuth)
 - **Verifica** que `https://*.pages.dev` esté incluido para previews
+- **REMUEVE** cualquier referencia a `gtyvdircfhmdjiaelqkg` (proyecto antiguo)
 
 ---
 

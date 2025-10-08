@@ -1,0 +1,55 @@
+# 🎭 Dockerfile para Playwright - Tests E2E AltaMedica
+# Basado en imagen oficial de Playwright con navegadores preinstalados
+
+FROM mcr.microsoft.com/playwright:v1.55.0-jammy
+
+# Metadata
+LABEL maintainer="AltaMedica Dev Team"
+LABEL description="Playwright test runner para AltaMedica con navegadores preinstalados"
+LABEL version="1.0"
+
+# Set working directory
+WORKDIR /app
+
+# Instalar pnpm globalmente
+RUN npm install -g pnpm@9.15.2
+
+# Copiar package.json y pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# Copiar packages necesarios para los tests
+COPY packages ./packages
+
+# Copiar playwright configs
+COPY playwright.config.ts playwright.local.config.ts playwright.production.config.ts ./
+
+# Copiar turbo config
+COPY turbo.json ./
+
+# Copiar tsconfig
+COPY tsconfig.json tsconfig.base.json tsconfig.eslint.json ./
+
+# Instalar dependencias completas
+# --frozen-lockfile asegura reproducibilidad
+# --prefer-offline reduce tiempo de instalación
+RUN pnpm install --frozen-lockfile --prefer-offline
+
+# Crear directorios para resultados
+RUN mkdir -p /app/test-results /app/playwright-report /app/test-output
+
+# Configurar permisos para escritura
+RUN chmod -R 777 /app/test-results /app/playwright-report /app/test-output
+
+# Variables de entorno por defecto
+ENV CI=true \
+    PWDEBUG=0 \
+    NODE_ENV=test \
+    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+# Healthcheck - verifica que Playwright está disponible
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD npx playwright --version || exit 1
+
+# Por defecto no ejecuta nada, espera comandos
+# Para ejecutar tests: docker-compose exec playwright pnpm test:e2e
+CMD ["tail", "-f", "/dev/null"]

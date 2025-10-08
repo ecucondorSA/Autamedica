@@ -1,0 +1,37 @@
+AI Review (Claude)	active	193298643
+AI Review (ChatGPT)	active	193298642
+🎯 Auth Tests - Issue/PR Trigger	active	195182606
+🎮 Auth Tests - Manual	active	195182607
+🔐 Auth Tests	active	195181866
+🤖 Auto Commit & Push	active	195182609
+Auto Label	active	194074404
+🔀 Auto Merge PRs	active	195095392
+🔀 Auto PR Creation	active	195095386
+📦 Auto Release	active	195182610
+Binary Block	active	193298648
+Bundle Size Check	active	193298644
+Changelog Automático	active	194074405
+CI/CD Monorepo	active	193745227
+Comentarios Preview (Pages)	active	194074406
+🗃️ DB Glossary	active	193745229
+🗃️ Validación Glosario Base de Datos	active	193745228
+.github/workflows/db-schema.yml	active	193466565
+Deploy Auth	active	194055824
+Deploy Doctors	active	195427963
+Deploy Patients to Vercel	active	195254547
+Deploy Patients	active	195182611
+Deploy Web-App (Static)	active	195182612
+Desplegar Preview (Pages)	active	193288233
+Desplegar Producción (Pages)	active	193288365
+Desplegar Staging (Pages)	active	193288296
+Desplegar Workers	active	193288297
+Docs Links Check	active	193298647
+Environment Guard	active	193438307
+🎯 GitOps Master	active	195182613
+.github/workflows/pr-size-guard.yml	active	193295813
+🔐 Role System Validation	active	193466574
+Secrets Scan	active	193298646
+Security Hardening CI/CD	active	193288234
+Validate Contracts	active	193263405
+.github/workflows/verificacion-basica.yml	active	193288212
+WIP Guard	active	193298645

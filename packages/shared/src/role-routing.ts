@@ -7,8 +7,8 @@
  * automática a los portales correspondientes.
  */
 
-// Importar UserRole desde types para evitar dependencia circular
-import type { UserRole } from '@autamedica/types';
+// Importar UserRole desde auth/portals para evitar dependencia circular
+import type { UserRole } from './auth/portals';
 import { ensureServerEnv } from './env';
 
 // Definir ROLES localmente para evitar dependencia circular con auth
@@ -25,13 +25,30 @@ const ROLES = {
  * CONFIGURACIÓN: URLs de deployment de Cloudflare Pages para producción
  * SEGURIDAD: Cada rol solo tiene acceso a su aplicación específica
  */
-export const BASE_URL_BY_ROLE: Record<UserRole, string> = {
-  'patient': 'https://patients.autamedica.com',
-  'doctor': 'https://doctors.autamedica.com',
-  'company_admin': 'https://companies.autamedica.com',
-  'organization_admin': 'https://admin.autamedica.com',
-  'platform_admin': 'https://www.autamedica.com',
-};
+function getBaseUrlByRole(): Record<UserRole, string> {
+  const isProduction = typeof process !== 'undefined' && process.env.NODE_ENV === 'production';
+
+  if (isProduction) {
+    return {
+      'patient': 'https://patients.autamedica.com',
+      'doctor': 'https://doctors.autamedica.com',
+      'company_admin': 'https://companies.autamedica.com',
+      'organization_admin': 'https://admin.autamedica.com',
+      'platform_admin': 'https://www.autamedica.com',
+    };
+  }
+
+  // Development: localhost con puertos específicos
+  return {
+    'patient': 'http://localhost:3002',
+    'doctor': 'http://localhost:3001',
+    'company_admin': 'http://localhost:3003',
+    'organization_admin': 'http://localhost:3004',
+    'platform_admin': 'http://localhost:3000',
+  };
+}
+
+export const BASE_URL_BY_ROLE: Record<UserRole, string> = getBaseUrlByRole();
 
 /**
  * Rutas home por defecto dentro de cada aplicación
@@ -154,7 +171,7 @@ export function getLoginUrl(returnTo?: string, portal?: string): string {
   try {
     webAppUrl = ensureServerEnv('NEXT_PUBLIC_APP_URL');
   } catch {
-    webAppUrl = BASE_URL_BY_ROLE[ROLES.PLATFORM_ADMIN];
+    webAppUrl = BASE_URL_BY_ROLE[ROLES.PLATFORM_ADMIN]!; // Safe: all roles are defined
   }
   const loginUrl = new URL(AUTH_URLS.LOGIN, webAppUrl);
 

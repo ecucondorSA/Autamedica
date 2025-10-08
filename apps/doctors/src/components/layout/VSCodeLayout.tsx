@@ -1,12 +1,43 @@
-'use client';
+'use client'
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react'
+import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser'
+import { useCurrentDoctor } from '@/hooks/useRealDoctors'
+import { useDoctorStats } from '@/hooks/useDoctorStats'
 
 interface VSCodeLayoutProps {
-  children?: ReactNode;
+  children?: ReactNode
 }
 
 export default function VSCodeLayout({ children }: VSCodeLayoutProps) {
+  const [currentTime, setCurrentTime] = useState<string>('')
+
+  // Production-ready hooks for real data
+  const { user, loading: authLoading } = useAuthenticatedUser()
+  const { doctor, loading: doctorLoading } = useCurrentDoctor(user?.id)
+  const { stats, loading: statsLoading } = useDoctorStats(doctor?.id)
+
+  // Real userName from authenticated user or doctor profile
+  const userName = doctor?.profile?.full_name ||
+                   user?.profile?.full_name ||
+                   `Dr. ${user?.email?.split('@')[0] || 'Médico'}`
+
+  useEffect(() => {
+    const updateClock = () => {
+      setCurrentTime(
+        new Date().toLocaleTimeString('es-ES', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })
+      )
+    }
+
+    updateClock()
+    const interval = setInterval(updateClock, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* VSCode-style title bar */}
@@ -18,7 +49,11 @@ export default function VSCodeLayout({ children }: VSCodeLayoutProps) {
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
           <span className="ml-4 text-gray-200 text-sm">
-            AutaMedica Doctor Portal - Dr. Invitado
+            {authLoading ? (
+              'Cargando...'
+            ) : (
+              `AutaMedica Doctor Portal - ${userName}`
+            )}
           </span>
         </div>
         <div className="flex items-center space-x-4">
@@ -59,13 +94,21 @@ export default function VSCodeLayout({ children }: VSCodeLayoutProps) {
         <div className="flex items-center space-x-4">
           <span>🏥 AutaMedica</span>
           <span>●</span>
-          <span>Consultas activas 8/12</span>
+          <span>
+            {statsLoading ? (
+              'Cargando...'
+            ) : stats?.activeCount ? (
+              `Consultas activas: ${stats.activeCount}/${stats.todayCount}`
+            ) : (
+              'Sin consultas activas'
+            )}
+          </span>
         </div>
         <div className="flex items-center space-x-4">
           <span>● API Online</span>
-          <span>{new Date().toLocaleTimeString()}</span>
+          <span>{currentTime}</span>
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,0 +1,175 @@
+# 🐳 .dockerignore - AltaMedica
+# Archivos y directorios a excluir de los builds de Docker
+
+# ==========================================
+# 📦 NODE MODULES & DEPENDENCIES
+# ==========================================
+node_modules/
+**/node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# ==========================================
+# 🏗️ BUILD OUTPUTS
+# ==========================================
+dist/
+build/
+.next/
+out/
+.open-next/
+.turbo/
+.vercel/
+*.tsbuildinfo
+
+# ==========================================
+# 🧪 TEST OUTPUTS
+# ==========================================
+test-results/
+playwright-report/
+test-output/
+coverage/
+.nyc_output/
+visual-snapshots/
+
+# ==========================================
+# 🗂️ GIT & VERSION CONTROL
+# ==========================================
+.git/
+.gitignore
+.github/
+.gitlab/
+*.patch
+*.diff
+
+# ==========================================
+# 💻 IDE & EDITOR
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ==========================================
+# 🔐 ENV & SECRETS
+# ==========================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.staging
+.env.production
+*.pem
+*.key
+*.cert
+
+# ==========================================
+# 📝 DOCUMENTATION & MARKDOWN
+# ==========================================
+README.md
+CHANGELOG.md
+LICENSE
+*.md
+docs/
+generated-docs/
+
+# ==========================================
+# 🛠️ CONFIG FILES (no necesarios en build)
+# ==========================================
+.eslintrc*
+.prettierrc*
+.editorconfig
+.husky/
+.lintstagedrc*
+.commitlintrc*
+.jscpd.json
+.size-limit.json
+renovate.json
+
+# ==========================================
+# 📊 MONITORING & LOGS
+# ==========================================
+*.log
+logs/
+monitoring-results/
+.logs/
+observability/
+
+# ==========================================
+# 🚀 DEPLOYMENT
+# ==========================================
+wrangler.toml
+vercel.json
+netlify.toml
+
+# ==========================================
+# 🗄️ DATABASE
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+database/
+
+# ==========================================
+# 🎬 MEDIA & ASSETS (temporales)
+# ==========================================
+*.mkv
+*.mp4
+*.avi
+
+# ==========================================
+# 🧹 TEMP & CACHE
+# ==========================================
+tmp/
+temp/
+.cache/
+.parcel-cache/
+*.tmp
+*.temp
+
+# ==========================================
+# 🔄 CI/CD (no necesario en container)
+# ==========================================
+.github/workflows/
+
+# ==========================================
+# 📦 PACKAGE MANAGER
+# ==========================================
+.pnpm-store/
+.npm/
+.yarn/
+
+# ==========================================
+# 🧪 SCRIPTS DE DESARROLLO
+# ==========================================
+scripts/visual-*.js
+scripts/monitor-*.js
+scripts/watch-*.js
+
+# ==========================================
+# 📸 SCREENSHOTS
+# ==========================================
+Capturas de pantalla/
+Screenshot*.png
+
+# ==========================================
+# 🗜️ BACKUPS
+# ==========================================
+*.tar.gz
+*.zip
+*.backup
+*-backup-*
+
+# ==========================================
+# 🔧 OTROS
+# ==========================================
+.claude/
+.codex/
+.cursor/
+.gemini/
