@@ -7,6 +7,10 @@ on:
       - "packages/**"
       - ".github/workflows/deploy-auth.yml"
   workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Deployment reason'
+        required: false
 
 jobs:
   deploy:
