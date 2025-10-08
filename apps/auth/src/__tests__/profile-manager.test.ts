@@ -1,7 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ProfileManager } from '../lib/profile-manager';
-import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from '@autamedica/types';
 
 // Mock Supabase client
 const createMockSupabaseClient = () => ({

@@ -115,7 +115,7 @@ export class AuthService {
     returnTo,
   }: SignUpParams): Promise<AuthServiceResult<{ redirectUrl: string }>> {
     try {
-      const { data, error } = await this.client.auth.signUp({
+      const { data: _data, error } = await this.client.auth.signUp({
         email: email.trim().toLowerCase(),
         password,
         options: {

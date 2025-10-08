@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // 2. Create response (will be modified with headers and cookies)
-  let response = NextResponse.next();
+  const response = NextResponse.next();
 
   // 3. Session validation for protected routes
   if (!isPublicRoute(url.pathname)) {
@@ -76,7 +76,7 @@ export async function middleware(req: NextRequest) {
         loginUrl.searchParams.set('returnTo', url.pathname);
         return NextResponse.redirect(loginUrl);
       }
-    } catch (error) {
+    } catch {
       // Session check failed -> redirect to login
       const loginUrl = new URL('/auth/select-role', req.url);
       loginUrl.searchParams.set('returnTo', url.pathname);

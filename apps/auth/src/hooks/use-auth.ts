@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import type { AuthUser, AuthSession, SupabaseClientType } from '../lib/supabase';
 import { getBrowserSupabaseClient } from '../lib/supabase';
 import type { UserRole } from '@autamedica/types';
-import { logger } from '@autamedica/shared';
 
 export interface AuthState {
   user: AuthUser | null;
