@@ -1,0 +1,23 @@
+meta:
+  name: "AutaMedica - Pipeline de Pruebas con IA"
+  version: "2025-10-08"
+  owner: "AutaMedica"
+
+pipeline:
+  - agent: generate_tests
+  - agent: run_intelligent_tests
+
+agents:
+  - id: generate_tests
+    title: "Generación de Prompts para Pruebas Unitarias con IA"
+    description: "Genera un prompt para un LLM para crear pruebas unitarias para un archivo específico."
+    actions:
+      - run: "node scripts/ai-testing/generate-test-prompt.mjs --file <ruta_del_archivo>"
+    output: "stdout"
+
+  - id: run_intelligent_tests
+    title: "Ejecución Inteligente de Pruebas"
+    description: "Ejecuta solo las pruebas (unitarias y E2E) afectadas por los cambios en el código."
+    actions:
+      - run: "node scripts/ai-testing/run-intelligent-tests.mjs"
+    output: "stdout"

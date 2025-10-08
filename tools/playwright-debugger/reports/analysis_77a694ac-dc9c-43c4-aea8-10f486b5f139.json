@@ -1,0 +1,43 @@
+{
+  "session_id": "77a694ac-dc9c-43c4-aea8-10f486b5f139",
+  "app_name": "auth",
+  "severity": "low",
+  "issues_found": 1,
+  "patterns_detected": [],
+  "console_analysis": {
+    "total_logs": 0,
+    "by_type": {},
+    "warnings_count": 0,
+    "errors_count": 0,
+    "error_messages": []
+  },
+  "network_analysis": {
+    "total_requests": 12,
+    "success_count": 10,
+    "failed_count": 0,
+    "success_rate": 0.8333333333333334,
+    "by_domain": {
+      "localhost:3005": 12
+    },
+    "failed_urls": []
+  },
+  "error_analysis": {
+    "total_errors": 1,
+    "unique_errors": 1,
+    "error_groups": {
+      "Invalid or unexpected token": 1
+    },
+    "most_common": [
+      "Invalid or unexpected token"
+    ]
+  },
+  "performance_issues": [
+    "Load time alto: 8726ms",
+    "TTFB alto: 7252ms"
+  ],
+  "security_concerns": [],
+  "recommendations": [
+    "Optimizar performance: reducir requests, mejorar caching"
+  ],
+  "auto_fix_suggestions": []
+}
