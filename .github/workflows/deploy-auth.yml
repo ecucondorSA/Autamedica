@@ -36,8 +36,8 @@ jobs:
       - name: Build packages
         run: pnpm build:packages:core
 
-      # Build auth with SSR support using OpenNext
-      - name: Build auth (SSR with OpenNext)
+      # Build auth for Cloudflare Pages
+      - name: Build auth for Cloudflare
         working-directory: apps/auth
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -45,15 +45,13 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           AUTH_HUB_SECRET: ${{ secrets.AUTH_HUB_SECRET }}
         run: |
-          # Build Next.js app
-          pnpm build
-          # Build for Cloudflare with OpenNext
-          npx @opennextjs/cloudflare build
+          # Build Next.js app with @cloudflare/next-on-pages
+          npx @cloudflare/next-on-pages@latest
 
       # Deploy to Cloudflare Pages with Wrangler
       - name: Publish to Cloudflare Pages
         run: |
-          npx wrangler pages deploy apps/auth/.open-next/dist \
+          npx wrangler pages deploy apps/auth/.vercel/output/static \
             --project-name "$PAGES_PROJECT_NAME" \
             --branch "${GITHUB_REF_NAME}"
         env:
