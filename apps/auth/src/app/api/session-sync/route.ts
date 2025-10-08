@@ -2,6 +2,9 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies, headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+// Configure for Cloudflare Pages Edge Runtime
+export const runtime = 'edge';
+
 // Get CORS headers based on the request origin
 function getCorsHeaders(origin?: string | null) {
   // In development, allow localhost on any port
