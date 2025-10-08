@@ -22,16 +22,13 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build packages
         run: pnpm build:packages:core
-      - name: Build Next.js app
+      - name: Build for Cloudflare Pages
         working-directory: apps/auth
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-        run: pnpm build
-
-      - name: Convert to Cloudflare Pages format
-        working-directory: apps/auth
-        run: npx --yes @cloudflare/next-on-pages@latest --skip-build
+          SKIP_DEPENDENCY_INSTALL: true
+        run: npx --yes @cloudflare/next-on-pages@latest
       - name: Deploy to Cloudflare Pages
         working-directory: apps/auth
         env:
