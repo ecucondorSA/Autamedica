@@ -34,7 +34,7 @@ jobs:
 
       # Build packages first (auth depends on types and shared)
       - name: Build packages
-        run: pnpm build:packages
+        run: pnpm build:packages:core
 
       # Build auth with SSR support using OpenNext
       - name: Build auth (SSR with OpenNext)
