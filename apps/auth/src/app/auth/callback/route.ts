@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { logger, isProduction } from '@autamedica/shared';
 
+// Configure for Cloudflare Pages (Edge Runtime)
+export const runtime = 'edge';
+
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
