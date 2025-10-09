@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- bd74f40 fix(workflow): remove pnpm version conflict
+- 9b19b05 fix(workflow): remove NODE_ENV from global env, disable husky
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 07:34:44*
+*Generado automáticamente el 2025-10-09 07:37:38*
