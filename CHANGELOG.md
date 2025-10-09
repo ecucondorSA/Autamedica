@@ -5,11 +5,9 @@
 ### 🚀 Nuevas Funcionalidades
 
 ### 🔧 Mejoras y Optimizaciones
-- 9d31faa refactor: apply good changes from PR #15 + fix React hooks rules
-- b03339d refactor: apply good changes from PR #15 (cherry-pick manual)
 
 ### 🐛 Correcciones
-- a6d52ad fix(CRITICAL): force redeploy with correct ANON_KEY from GitHub Secrets
+- 8e58d5c fix: add workflow to deploy auth with correct env vars
 
 ### 🔒 Seguridad
 
@@ -20,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 05:25:44*
+*Generado automáticamente el 2025-10-09 07:29:48*
