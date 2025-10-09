@@ -7,6 +7,10 @@ on:
       - "packages/**"
       - ".github/workflows/deploy-auth.yml"
   workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Deployment reason'
+        required: false
 
 jobs:
   deploy:
@@ -24,7 +28,10 @@ jobs:
         run: pnpm build:packages:core
       - name: Build Next for Cloudflare
         working-directory: apps/auth
-        run: npx @cloudflare/next-on-pages@latest --experimental-minify
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: pnpm dlx @cloudflare/next-on-pages@latest --experimental-minify
       - name: Deploy to Cloudflare Pages
         working-directory: apps/auth
         env:
