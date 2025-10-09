@@ -53,7 +53,7 @@ export default function TestCallPage() {
               <ol className="text-teal-100 text-sm space-y-1">
                 <li>1. Asegúrate de que el doctor ya haya iniciado la consulta</li>
                 <li>2. Usa el mismo Room ID que te proporcionó el doctor</li>
-                <li>3. Click "Unirse a Consulta" para conectar</li>
+                <li>3. Click &ldquo;Unirse a Consulta&rdquo; para conectar</li>
                 <li>4. Permite acceso a cámara y micrófono cuando lo solicite</li>
                 <li>5. La videollamada se conectará automáticamente</li>
               </ol>

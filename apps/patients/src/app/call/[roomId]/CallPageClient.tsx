@@ -25,6 +25,37 @@ function PatientCallContent({ roomId }: { roomId: string }) {
   const { session, loading } = useAuth()
   const [isReady, setIsReady] = useState(false)
 
+  // Handlers and memoized values BEFORE early returns (React hooks rules)
+  const handleCallEnd = () => {
+    router.push('/appointments')
+  }
+
+  const handleCallStart = () => {
+    // logger.info('[UnifiedVideoCall][patient] start')
+  }
+
+  const handleStatusChange = (status: string) => {
+    // logger.info('[UnifiedVideoCall][patient] status:', status)
+  }
+
+  const handleError = (error: unknown) => {
+    logger.error('[UnifiedVideoCall][patient] error:', error)
+  }
+
+  const { userId, userName } = useMemo(() => {
+    if (session) {
+      return {
+        userId: session.user.id,
+        userName: session.user.email || 'Paciente'
+      }
+    }
+
+    return {
+      userId: `dev-patient-${roomId}`,
+      userName: 'Paciente de prueba'
+    }
+  }, [session, roomId])
+
   useEffect(() => {
     if (loading) return
 
@@ -56,36 +87,6 @@ function PatientCallContent({ roomId }: { roomId: string }) {
       </div>
     )
   }
-
-  const handleCallEnd = () => {
-    router.push('/appointments')
-  }
-
-  const handleCallStart = () => {
-    // logger.info('[UnifiedVideoCall][patient] start')
-  }
-
-  const handleStatusChange = (status: string) => {
-    // logger.info('[UnifiedVideoCall][patient] status:', status)
-  }
-
-  const handleError = (error: unknown) => {
-    logger.error('[UnifiedVideoCall][patient] error:', error)
-  }
-
-  const { userId, userName } = useMemo(() => {
-    if (session) {
-      return {
-        userId: session.user.id,
-        userName: session.user.email || 'Paciente'
-      }
-    }
-
-    return {
-      userId: `dev-patient-${roomId}`,
-      userName: 'Paciente de prueba'
-    }
-  }, [session, roomId])
 
   return (
     <div className="min-h-screen bg-[#161b22] overflow-hidden">
