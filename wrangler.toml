@@ -12,9 +12,12 @@ account_id = "" # Add your Cloudflare account ID here
 pages_build_output_dir = "apps/auth/.open-next/dist"
 
 # Workers/Pages shared configuration
+# IMPORTANT: DO NOT hardcode production credentials here
+# Use GitHub Secrets for deployments or .dev.vars for local development
 [vars]
-NEXT_PUBLIC_SUPABASE_URL = "https://gtyvdircfhmdjiaelqkg.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY = "REPLACE_WITH_ROTATED_KEY.7UFMVZsWTWOAynnhzkG76I_lhVCYtd_RmTt9EH3wJD4"
+# These are placeholders - actual values come from GitHub Secrets in CI/CD
+# NEXT_PUBLIC_SUPABASE_URL = "https://YOUR_PROJECT.supabase.co"
+# NEXT_PUBLIC_SUPABASE_ANON_KEY = "YOUR_ANON_KEY"
 
 # Shared bindings for all apps
 [[kv_namespaces]]

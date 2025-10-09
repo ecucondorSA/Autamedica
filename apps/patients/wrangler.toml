@@ -4,8 +4,9 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".open-next"
 
 # Variables de entorno
+# IMPORTANT: Use GitHub Secrets or .dev.vars for actual values
 [vars]
-SUPABASE_URL = "https://gtyvdircfhmdjiaelqkg.supabase.co"
+# SUPABASE_URL = "https://YOUR_PROJECT.supabase.co"
 
 [env.production]
 name = "autamedica-patients"
