@@ -24,6 +24,11 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      - name: Clean build artifacts
+        working-directory: apps/auth
+        run: |
+          rm -rf .next .vercel .open-next node_modules/.cache
+          echo "Build cache cleaned"
       - name: Build packages
         run: pnpm build:packages:core
       - name: Build Next for Cloudflare
@@ -40,7 +45,9 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
+          # Deploy with cache bypass to force fresh build
           npx wrangler pages deploy .vercel/output/static \
             --project-name=autamedica-auth \
             --branch=main \
-            --commit-dirty=true
+            --commit-dirty=true \
+            --skip-caching
