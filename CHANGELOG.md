@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 2bb7533 fix(critical): remove hardcoded old Supabase project fallbacks
+- d70d515 fix(critical): remove hardcoded old Supabase project from wrangler.toml
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 02:35:39*
+*Generado automáticamente el 2025-10-09 03:04:19*
