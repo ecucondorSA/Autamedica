@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 9b19b05 fix(workflow): remove NODE_ENV from global env, disable husky
+- e45cea1 fix(workflow): install all dependencies including dev
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 07:37:38*
+*Generado automáticamente el 2025-10-09 07:52:26*
