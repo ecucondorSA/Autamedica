@@ -5,9 +5,11 @@
 ### 🚀 Nuevas Funcionalidades
 
 ### 🔧 Mejoras y Optimizaciones
+- 9d31faa refactor: apply good changes from PR #15 + fix React hooks rules
+- b03339d refactor: apply good changes from PR #15 (cherry-pick manual)
 
 ### 🐛 Correcciones
-- c418da0 fix(workflow): force clean build and bypass cache to eliminate old Supabase project
+- a6d52ad fix(CRITICAL): force redeploy with correct ANON_KEY from GitHub Secrets
 
 ### 🔒 Seguridad
 
@@ -18,4 +20,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 04:38:39*
+*Generado automáticamente el 2025-10-09 05:25:44*
