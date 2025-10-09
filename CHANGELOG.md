@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- c1b8f1e fix(auth): configure Edge Runtime for Cloudflare Pages compatibility
+- 2bb7533 fix(critical): remove hardcoded old Supabase project fallbacks
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 01:46:41*
+*Generado automáticamente el 2025-10-09 02:35:39*
