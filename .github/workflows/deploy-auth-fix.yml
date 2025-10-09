@@ -38,7 +38,7 @@ jobs:
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
-        run: pnpm -w install --frozen-lockfile
+        run: pnpm -w install --frozen-lockfile --include-workspace-root
 
       - name: 🏗️ Build auth app with env vars
         env:
