@@ -7,7 +7,8 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- bab6e52 fix(critical): pass Supabase env vars to Wrangler deploy step
+- 7e96114 fix(CRITICAL): replace ALL hardcoded old Supabase project refs in CSP and configs
+- e02cb8e fix(CRITICAL): replace ALL hardcoded old Supabase project refs
 
 ### 🔒 Seguridad
 
@@ -18,4 +19,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 03:32:07*
+*Generado automáticamente el 2025-10-09 03:58:20*
