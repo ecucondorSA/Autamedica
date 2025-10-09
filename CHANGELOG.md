@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- d70d515 fix(critical): remove hardcoded old Supabase project from wrangler.toml
+- bab6e52 fix(critical): pass Supabase env vars to Wrangler deploy step
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 03:04:19*
+*Generado automáticamente el 2025-10-09 03:32:07*
