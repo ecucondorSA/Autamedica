@@ -1,4 +1,4 @@
-import { ensureClientEnv } from '@autamedica/shared';
+import { ensureClientEnv, isDevelopment } from '@autamedica/shared';
 import type { SupabaseClientOptions } from '@supabase/supabase-js';
 
 /**
@@ -21,7 +21,7 @@ export const createBrowserAuthConfig = (): SupabaseClientOptions<'public'> => ({
     autoRefreshToken: true,
     detectSessionInUrl: true,
     flowType: 'pkce',
-    debug: process.env.NODE_ENV === 'development',
+    debug: isDevelopment(),
   },
   realtime: {
     params: {
@@ -44,7 +44,7 @@ export const createServerAuthConfig = (): SupabaseClientOptions<'public'> => ({
     autoRefreshToken: false,
     detectSessionInUrl: true,
     flowType: 'pkce',
-    debug: process.env.NODE_ENV === 'development',
+    debug: isDevelopment(),
   },
   realtime: {
     params: {
