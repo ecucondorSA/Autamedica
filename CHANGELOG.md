@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 8e58d5c fix: add workflow to deploy auth with correct env vars
+- bd74f40 fix(workflow): remove pnpm version conflict
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 07:29:48*
+*Generado automáticamente el 2025-10-09 07:34:44*
