@@ -4,7 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
-import { featureFlags } from '@autamedica/shared/config/feature-flags'
+import { featureFlags, logger } from '@autamedica/shared/config/feature-flags'
 import type {
   VitalSigns,
   MedicalRecord,

@@ -5,6 +5,7 @@
 
 import { getAppEnv } from '@autamedica/config'
 
+import { logger } from '@autamedica/shared';
 export class BaseAPIService {
   protected baseURL: string
 

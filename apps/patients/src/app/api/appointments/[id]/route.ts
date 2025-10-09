@@ -10,6 +10,7 @@ import { createRouteHandlerClient } from '@autamedica/auth/server';
 import { cookies } from 'next/headers';
 import type { UpdateAppointmentInput } from '@/types/appointment';
 
+import { logger } from '@autamedica/shared';
 type RouteContext = {
   params: Promise<{ id: string }>;
 };

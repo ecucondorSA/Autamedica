@@ -2,6 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies, headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+import { logger } from '@autamedica/shared';
 // Configure for Cloudflare Pages (Edge Runtime)
 export const runtime = 'edge'
 

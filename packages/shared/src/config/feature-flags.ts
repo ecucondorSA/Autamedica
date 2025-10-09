@@ -11,6 +11,7 @@
  * Feature flags basados en variables de entorno
  * Permite activar/desactivar mocks y servicios por ambiente
  */
+import { logger } from '@autamedica/shared';
 export const featureFlags = {
   // ===================
   // Video/Telemedicine

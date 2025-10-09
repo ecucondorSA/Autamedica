@@ -5,6 +5,7 @@ import { X, Calendar, Clock } from 'lucide-react';
 import type { CreateAppointmentInput, AppointmentType } from '@/types/appointment';
 import { useModalAccessibility } from '@/hooks/useModalAccessibility';
 
+import { logger } from '@autamedica/shared';
 interface CreateAppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;

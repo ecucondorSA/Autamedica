@@ -5,6 +5,7 @@ import { LiveKitRoom, VideoConference, RoomAudioRenderer, ControlBar } from '@li
 import '@livekit/components-styles';
 import { Room } from 'livekit-client';
 
+import { logger } from '@autamedica/shared';
 interface VideoConsultationProps {
   consultationId: string;
   patientId: string;

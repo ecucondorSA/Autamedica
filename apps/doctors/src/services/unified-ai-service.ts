@@ -4,7 +4,7 @@
  * basado en feature flags y disponibilidad
  */
 
-import { getAIProvider } from '@autamedica/shared/config/feature-flags';
+import { getAIProvider, logger } from '@autamedica/shared/config/feature-flags';
 import { getAIAnalysisService, AIAnalysisService } from './ai-analysis-service';
 import { getGeminiAIService, GeminiAIService } from './gemini-ai-service';
 import type { MedicalAnalysis, AnalysisRequest } from './ai-analysis-service';

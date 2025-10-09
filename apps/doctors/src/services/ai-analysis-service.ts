@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { featureFlags } from '@autamedica/shared/config/feature-flags';
+import { logger } from '@autamedica/shared';
 
 /**
  * Tipos para el servicio de AI

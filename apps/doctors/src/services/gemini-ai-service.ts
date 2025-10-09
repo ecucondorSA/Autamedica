@@ -4,7 +4,7 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { featureFlags } from '@autamedica/shared/config/feature-flags';
+import { featureFlags, logger } from '@autamedica/shared/config/feature-flags';
 import type { MedicalAnalysis, AnalysisRequest } from './ai-analysis-service';
 
 /**

@@ -9,6 +9,7 @@ import { createRouteHandlerClient } from '@autamedica/auth/server';
 import { cookies } from 'next/headers';
 import type { CreateAppointmentInput, Appointment } from '@/types/appointment';
 
+import { logger } from '@autamedica/shared';
 /**
  * GET /api/appointments
  * Obtiene todas las citas del paciente autenticado

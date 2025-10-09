@@ -9,6 +9,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { fetchSessionData } from '@/lib/session-sync'
 import { SessionSync } from '@/components/SessionSync'
 
+import { logger } from '@autamedica/shared';
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
   description: 'Portal profesional para médicos AutaMedica con experiencia de videollamadas y herramientas clínicas.',

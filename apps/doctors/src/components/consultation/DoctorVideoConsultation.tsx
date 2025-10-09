@@ -12,6 +12,7 @@ import {
 import '@livekit/components-styles';
 import { Room, Track } from 'livekit-client';
 
+import { logger } from '@autamedica/shared';
 interface DoctorVideoConsultationProps {
   consultationId: string;
   patientId: string;

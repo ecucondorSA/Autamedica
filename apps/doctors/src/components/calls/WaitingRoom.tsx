@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createCallService } from '@autamedica/telemedicine'
 import type { Call } from '@autamedica/telemedicine'
 
+import { logger } from '@autamedica/shared';
 interface WaitingRoomProps {
   callId: string
   doctorId: string
