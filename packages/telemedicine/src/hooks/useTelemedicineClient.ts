@@ -97,7 +97,7 @@ export function useTelemedicineClient(
 
         reconnectTimeoutRef.current = setTimeout(() => {
           setState(prev => ({ ...prev, reconnectAttempts: prev.reconnectAttempts + 1 }))
-          client.connect(roomId).catch(error => {
+          Promise.resolve(client.connect(roomId)).catch(error => {
             logger.error('[useTelemedicineClient] Reconnection failed:', error)
           })
         }, delay)
@@ -144,7 +144,7 @@ export function useTelemedicineClient(
 
     // Auto-connect if enabled
     if (opts.autoConnect) {
-      client.connect(roomId).catch(error => {
+      Promise.resolve(client.connect(roomId)).catch(error => {
         logger.error('[useTelemedicineClient] Auto-connect failed:', error)
         setState(prev => ({ ...prev, error }))
       })

@@ -19,6 +19,7 @@ export const roleToPortal: Record<UserRole, string> = {
   company: 'https://companies.autamedica.com',
   company_admin: 'https://companies.autamedica.com',
   organization_admin: 'https://admin.autamedica.com',
+  admin: 'https://admin.autamedica.com',
   platform_admin: 'https://admin.autamedica.com'
 } as const;
 
@@ -31,6 +32,7 @@ export const roleToPortalDev: Record<UserRole, string> = {
   company: 'http://localhost:3003',
   company_admin: 'http://localhost:3003',
   organization_admin: 'http://localhost:3004',
+  admin: 'http://localhost:3004',
   platform_admin: 'http://localhost:3004'
 } as const;
 
@@ -68,7 +70,7 @@ export function getDefaultRedirectUrl(role: UserRole, isDev?: boolean): string {
  * @returns True if role has admin access
  */
 export function hasAdminAccess(role: UserRole): boolean {
-  return ['organization_admin', 'platform_admin'].includes(role);
+  return ['organization_admin', 'admin', 'platform_admin'].includes(role);
 }
 
 /**
@@ -77,7 +79,7 @@ export function hasAdminAccess(role: UserRole): boolean {
  * @returns True if role can manage organizations
  */
 export function canManageOrganizations(role: UserRole): boolean {
-  return ['organization_admin', 'platform_admin'].includes(role);
+  return ['organization_admin', 'admin', 'platform_admin'].includes(role);
 }
 
 /**
@@ -86,7 +88,7 @@ export function canManageOrganizations(role: UserRole): boolean {
  * @returns True if role can manage company features
  */
 export function canManageCompany(role: UserRole): boolean {
-  return ['company_admin', 'organization_admin', 'platform_admin'].includes(role);
+  return ['company_admin', 'organization_admin', 'admin', 'platform_admin'].includes(role);
 }
 
 /**
@@ -110,6 +112,7 @@ export function getRoleDisplayName(role: UserRole): string {
     company: 'Empresa',
     company_admin: 'Administrador de Empresa',
     organization_admin: 'Administrador de Organización',
+    admin: 'Administrador Global',
     platform_admin: 'Administrador de Plataforma'
   };
 
@@ -128,6 +131,7 @@ export function getRoleDescription(role: UserRole): string {
     company: 'Portal empresarial para gestión de salud ocupacional',
     company_admin: 'Administra empleados de tu empresa y gestiona planes de salud corporativos',
     organization_admin: 'Gestiona múltiples organizaciones y supervisa operaciones',
+    admin: 'Acceso completo al portal administrativo con privilegios globales',
     platform_admin: 'Control total de la plataforma y todas sus funcionalidades'
   };
 
@@ -144,7 +148,15 @@ export function getRoleDescription(role: UserRole): string {
  * @returns True if the string is a valid UserRole
  */
 export function isValidUserRole(role: string): role is UserRole {
-  return ['doctor', 'patient', 'company_admin', 'organization_admin', 'platform_admin'].includes(role);
+  return [
+    'doctor',
+    'patient',
+    'company',
+    'company_admin',
+    'organization_admin',
+    'admin',
+    'platform_admin'
+  ].includes(role);
 }
 
 // ==========================================
@@ -157,8 +169,10 @@ export function isValidUserRole(role: string): role is UserRole {
 export const AVAILABLE_ROLES: readonly UserRole[] = [
   'doctor',
   'patient',
+  'company',
   'company_admin',
   'organization_admin',
+  'admin',
   'platform_admin'
 ] as const;
 
@@ -168,6 +182,7 @@ export const AVAILABLE_ROLES: readonly UserRole[] = [
 export const VERIFIED_ROLES: readonly UserRole[] = [
   'doctor',
   'organization_admin',
+  'admin',
   'platform_admin'
 ] as const;
 

@@ -5,7 +5,7 @@ import type { UserRole } from '@autamedica/types';
 
 // Zod schemas for validation
 export const UserProfileSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string().min(1),
   email: z.string().email(),
   full_name: z.string().optional(),
   role: z.enum(['patient', 'doctor', 'company', 'admin', 'organization_admin', 'platform_admin']),
@@ -438,7 +438,8 @@ export class ProfileManager {
       const { error } = await this.client
         .from('profiles')
         .select('id')
-        .limit(1);
+        .limit(1)
+        .single();
 
       const latency = Date.now() - start;
 

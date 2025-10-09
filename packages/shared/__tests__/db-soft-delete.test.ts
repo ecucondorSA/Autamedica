@@ -9,10 +9,15 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-// Mock de Supabase client
-const mockSupabase = {
-  from: vi.fn()
-};
+const { mockSupabase, mockCreateClient } = vi.hoisted(() => {
+  const supabase = {
+    from: vi.fn()
+  };
+  return {
+    mockSupabase: supabase,
+    mockCreateClient: vi.fn(() => supabase)
+  };
+});
 
 // Mock setup helpers
 function setupMockQuery(returnData: any, returnError: any = null) {
@@ -39,7 +44,7 @@ function setupMockQuery(returnData: any, returnError: any = null) {
 
 // Mock module
 vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => mockSupabase)
+  createClient: mockCreateClient
 }));
 
 // Import después del mock
@@ -48,6 +53,8 @@ import { selectActive, softDelete, insertRecord, updateRecord } from '../src/db'
 describe('DB Wrapper - Soft Delete Safety', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockSupabase.from.mockReset();
+    mockCreateClient.mockReturnValue(mockSupabase);
   });
 
   it('selectActive() should always filter deleted_at IS NULL', async () => {

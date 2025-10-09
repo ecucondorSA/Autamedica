@@ -15,10 +15,58 @@ import { ensureServerEnv } from './env';
 const ROLES = {
   PATIENT: 'patient' as UserRole,
   DOCTOR: 'doctor' as UserRole,
+  COMPANY: 'company' as UserRole,
   COMPANY_ADMIN: 'company_admin' as UserRole,
   ORGANIZATION_ADMIN: 'organization_admin' as UserRole,
+  ADMIN: 'admin' as UserRole,
   PLATFORM_ADMIN: 'platform_admin' as UserRole,
 };
+
+const PRODUCTION_DEFAULT_BASE_URLS: Record<UserRole, string> = {
+  patient: 'https://patients.autamedica.com',
+  doctor: 'https://doctors.autamedica.com',
+  company: 'https://companies.autamedica.com',
+  company_admin: 'https://companies.autamedica.com',
+  organization_admin: 'https://admin.autamedica.com',
+  admin: 'https://admin.autamedica.com',
+  platform_admin: 'https://www.autamedica.com',
+};
+
+const DEVELOPMENT_DEFAULT_BASE_URLS: Record<UserRole, string> = {
+  patient: 'http://localhost:3002',
+  doctor: 'http://localhost:3001',
+  company: 'http://localhost:3003',
+  company_admin: 'http://localhost:3003',
+  organization_admin: 'http://localhost:3004',
+  admin: 'http://localhost:3004',
+  platform_admin: 'http://localhost:3000',
+};
+
+const ENV_BASE_URL_KEYS: Record<UserRole, string[]> = {
+  patient: ['NEXT_PUBLIC_BASE_URL_PATIENTS', 'NEXT_PUBLIC_PORTAL_PATIENTS'],
+  doctor: ['NEXT_PUBLIC_BASE_URL_DOCTORS', 'NEXT_PUBLIC_PORTAL_DOCTORS'],
+  company: ['NEXT_PUBLIC_BASE_URL_COMPANIES', 'NEXT_PUBLIC_PORTAL_COMPANIES'],
+  company_admin: ['NEXT_PUBLIC_BASE_URL_COMPANIES', 'NEXT_PUBLIC_PORTAL_COMPANIES'],
+  organization_admin: ['NEXT_PUBLIC_BASE_URL_ADMIN', 'NEXT_PUBLIC_PORTAL_ADMIN'],
+  admin: ['NEXT_PUBLIC_BASE_URL_ADMIN', 'NEXT_PUBLIC_PORTAL_ADMIN'],
+  platform_admin: ['NEXT_PUBLIC_APP_URL', 'NEXT_PUBLIC_BASE_URL_PLATFORM', 'NEXT_PUBLIC_PORTAL_ADMIN'],
+};
+
+function resolveEnvBaseUrl(role: UserRole): string | undefined {
+  if (typeof process === 'undefined') {
+    return undefined;
+  }
+
+  const keys = ENV_BASE_URL_KEYS[role];
+  for (const key of keys) {
+    const value = process.env?.[key];
+    if (value) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
 
 /**
  * URLs base para cada aplicación por entorno
@@ -26,28 +74,19 @@ const ROLES = {
  * SEGURIDAD: Cada rol solo tiene acceso a su aplicación específica
  */
 function getBaseUrlByRole(): Record<UserRole, string> {
-  const isProduction = typeof process !== 'undefined' && process.env.NODE_ENV === 'production';
+  const hasProcess = typeof process !== 'undefined';
+  const env = hasProcess ? process.env : undefined;
+  const nodeEnv = env?.NODE_ENV;
+  const isProductionLike = nodeEnv === 'production' || nodeEnv === 'test' || env?.VITEST === 'true';
+  const defaults = isProductionLike ? PRODUCTION_DEFAULT_BASE_URLS : DEVELOPMENT_DEFAULT_BASE_URLS;
 
-  if (isProduction) {
-    return {
-      'patient': 'https://patients.autamedica.com',
-      'doctor': 'https://doctors.autamedica.com',
-      'company': 'https://companies.autamedica.com',
-      'company_admin': 'https://companies.autamedica.com',
-      'organization_admin': 'https://admin.autamedica.com',
-      'platform_admin': 'https://www.autamedica.com',
-    };
-  }
+  const entries = Object.entries(defaults).map(([role, defaultUrl]) => {
+    const typedRole = role as UserRole;
+    const override = resolveEnvBaseUrl(typedRole);
+    return [typedRole, override ?? defaultUrl];
+  });
 
-  // Development: localhost con puertos específicos
-  return {
-    'patient': 'http://localhost:3002',
-    'doctor': 'http://localhost:3001',
-    'company': 'http://localhost:3003',
-    'company_admin': 'http://localhost:3003',
-    'organization_admin': 'http://localhost:3004',
-    'platform_admin': 'http://localhost:3000',
-  };
+  return Object.fromEntries(entries) as Record<UserRole, string>;
 }
 
 export const BASE_URL_BY_ROLE: Record<UserRole, string> = getBaseUrlByRole();
@@ -61,6 +100,7 @@ export const HOME_BY_ROLE: Record<UserRole, string> = {
   'company': '/',
   'company_admin': '/',
   'organization_admin': '/',
+  'admin': '/',
   'platform_admin': '/',
 };
 
@@ -123,6 +163,7 @@ export function getPortalForRole(role: UserRole): string {
     'company': 'companies',
     'company_admin': 'companies',
     'organization_admin': 'admin',
+    'admin': 'admin',
     'platform_admin': 'admin',
   };
 
@@ -140,8 +181,9 @@ export function getPortalForRole(role: UserRole): string {
 export const PORTAL_TO_ROLE: Record<string, UserRole> = {
   patients: 'patient',
   doctors: 'doctor',
-  companies: 'company_admin',
-  admin: 'organization_admin',
+  companies: 'organization_admin',
+  'companies-legacy': 'company_admin',
+  admin: 'platform_admin',
 };
 
 /**
