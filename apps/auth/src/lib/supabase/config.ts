@@ -1,19 +1,13 @@
-import { ensureEnv } from '@autamedica/shared';
+import { ensureClientEnv } from '@autamedica/shared';
 import type { SupabaseClientOptions } from '@supabase/supabase-js';
 
 /**
  * Centralized Supabase configuration
- * Uses ensureEnv to follow monorepo rules (only @autamedica/shared can access process.env directly)
+ * Uses ensureClientEnv with static CLIENT_ENV_MAP for Next.js build-time injection
  */
 export const getSupabaseConfig = () => {
-  const url = ensureEnv('NEXT_PUBLIC_SUPABASE_URL', {
-    description: 'Supabase project URL',
-    example: 'https://your-project.supabase.co',
-  });
-
-  const anonKey = ensureEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', {
-    description: 'Supabase anonymous key for client-side auth',
-  });
+  const url = ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL');
+  const anonKey = ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY');
 
   return { url, anonKey };
 };
