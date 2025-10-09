@@ -23,9 +23,14 @@ export interface Session {
  */
 export async function getSession(req: NextRequest): Promise<Session | null> {
   // Check multiple cookie names for compatibility
+  // Extract project ref from NEXT_PUBLIC_SUPABASE_URL if available
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const projectRef = supabaseUrl?.split('//')[1]?.split('.')[0];
+  const legacyCookieName = projectRef ? `sb-${projectRef}-auth-token` : null;
+
   const token =
     req.cookies.get('sb-access-token')?.value ||
-    req.cookies.get('sb-gtyvdircfhmdjiaelqkg-auth-token')?.value ||
+    (legacyCookieName ? req.cookies.get(legacyCookieName)?.value : null) ||
     req.cookies.get('sb-auth-token')?.value;
 
   if (!token) {
