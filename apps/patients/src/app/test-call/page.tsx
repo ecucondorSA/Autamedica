@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { logger } from '@autamedica/shared'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
 
 export default function TestCallPage() {

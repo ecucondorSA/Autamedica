@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { logger } from '@autamedica/shared'
 import { patientsEnv } from '@/lib/env'
 
 interface IncomingCall {
