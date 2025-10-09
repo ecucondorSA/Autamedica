@@ -87,6 +87,9 @@ const ALLOWED_CLIENT_VARS = new Set([
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
 
+  // Auth callback
+  "NEXT_PUBLIC_AUTH_CALLBACK_URL",
+
   // Monitoring (cliente)
   "NEXT_PUBLIC_SENTRY_DSN",
 
@@ -190,11 +193,23 @@ function assertClientEnvAllowed(name: string) {
   }
 }
 
+// Mapa de variables de entorno del cliente para acceso estático
+// Next.js solo puede inyectar variables NEXT_PUBLIC_* con acceso estático
+const CLIENT_ENV_MAP: Record<string, string | undefined> = {
+  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  NEXT_PUBLIC_AUTH_CALLBACK_URL: process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL,
+  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+};
+
 // Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
 export function ensureClientEnv(name: string): string {
   assertClientEnvAllowed(name);
 
-  const value = process.env[name];
+  // Usar mapa estático en lugar de acceso dinámico
+  const value = CLIENT_ENV_MAP[name] ?? process.env[name];
   if (!value) {
     throw new Error(`Missing required client environment variable: ${name}`);
   }
@@ -203,13 +218,13 @@ export function ensureClientEnv(name: string): string {
 
 export function getClientEnvOrDefault(name: string, defaultValue: string): string {
   assertClientEnvAllowed(name);
-  const value = process.env[name];
+  const value = CLIENT_ENV_MAP[name] ?? process.env[name];
   return value ?? defaultValue;
 }
 
 export function getOptionalClientEnv(name: string): string | undefined {
   assertClientEnvAllowed(name);
-  return process.env[name] ?? undefined;
+  return CLIENT_ENV_MAP[name] ?? process.env[name] ?? undefined;
 }
 
 // Utilidad específica para variables de entorno del servidor (sin NEXT_PUBLIC_)
