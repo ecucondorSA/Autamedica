@@ -7,7 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 97b6f54 fix(auth): inject Supabase env vars at build time to use new project
+- c1b8f1e fix(auth): configure Edge Runtime for Cloudflare Pages compatibility
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 01:38:59*
+*Generado automáticamente el 2025-10-09 01:46:41*
