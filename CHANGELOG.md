@@ -5,9 +5,9 @@
 ### 🚀 Nuevas Funcionalidades
 
 ### 🔧 Mejoras y Optimizaciones
-- 16ca2b5 chore: force redeploy auth with all Supabase fixes
 
 ### 🐛 Correcciones
+- c418da0 fix(workflow): force clean build and bypass cache to eliminate old Supabase project
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 04:16:14*
+*Generado automáticamente el 2025-10-09 04:38:39*
