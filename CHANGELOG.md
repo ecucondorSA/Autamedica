@@ -5,10 +5,9 @@
 ### 🚀 Nuevas Funcionalidades
 
 ### 🔧 Mejoras y Optimizaciones
+- 16ca2b5 chore: force redeploy auth with all Supabase fixes
 
 ### 🐛 Correcciones
-- 7e96114 fix(CRITICAL): replace ALL hardcoded old Supabase project refs in CSP and configs
-- e02cb8e fix(CRITICAL): replace ALL hardcoded old Supabase project refs
 
 ### 🔒 Seguridad
 
@@ -19,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-09 03:58:20*
+*Generado automáticamente el 2025-10-09 04:16:14*
