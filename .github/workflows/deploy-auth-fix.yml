@@ -1,0 +1,91 @@
+name: 🔧 Fix Auth Deployment
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/auth/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: auth-deploy-fix
+  cancel-in-progress: false
+
+env:
+  NODE_ENV: production
+  PNPM_HOME: /home/runner/.pnpm
+
+jobs:
+  deploy-auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm -w install --frozen-lockfile
+
+      - name: 🏗️ Build auth app with env vars
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          cd apps/auth
+          pnpm run build
+
+      - name: ✅ Verify build
+        run: |
+          if [ ! -d "apps/auth/.next" ]; then
+            echo "❌ Build failed - .next directory not found"
+            exit 1
+          fi
+          echo "✅ Build directory exists"
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd apps/auth
+
+          # Buscar el nombre correcto del proyecto
+          echo "🔍 Buscando proyecto de auth..."
+
+          # Intentar con diferentes nombres
+          for project_name in "auth" "autamedica-auth" "auth-autamedica-com"; do
+            echo "Intentando: $project_name"
+            if npx wrangler pages deploy .next --project-name="$project_name" --branch=main --commit-dirty=true 2>&1; then
+              echo "✅ Deploy exitoso a proyecto: $project_name"
+              exit 0
+            fi
+          done
+
+          echo "⚠️ No se pudo encontrar el proyecto. Listando proyectos disponibles:"
+          npx wrangler pages project list || true
+
+          echo "📝 Por favor verifica el nombre del proyecto en Cloudflare Dashboard"
+          exit 1
+
+      - name: 📊 Summary
+        if: success()
+        run: |
+          echo "✅ Deployment completado!"
+          echo "🔗 URL: https://auth.autamedica.com"
+          echo "⏳ Espera ~30 segundos para que los cambios se propaguen"
