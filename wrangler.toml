@@ -13,6 +13,9 @@ pages_build_output_dir = "apps/auth/.open-next/dist"
 
 # Workers/Pages shared configuration
 # IMPORTANT: DO NOT hardcode production credentials here
+# IMPORTANT: DO NOT hardcode production credentials here
+# Use GitHub Secrets for deployments or .dev.vars for local development
+# These are placeholders - actual values come from GitHub Secrets in CI/CD
 # Use GitHub Secrets for deployments or .dev.vars for local development
 [vars]
 # These are placeholders - actual values come from GitHub Secrets in CI/CD

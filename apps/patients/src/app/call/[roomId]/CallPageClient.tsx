@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UnifiedVideoCall } from '@autamedica/telemedicine'
 import { AuthProvider, useAuth } from '@autamedica/auth/react'
-import { getClientEnvOrDefault } from '@autamedica/shared'
+import { getClientEnvOrDefault, logger } from '@autamedica/shared'
 
 interface CallPageClientProps {
   roomId: string
