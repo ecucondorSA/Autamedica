@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  NODE_ENV: production
   PNPM_HOME: /home/runner/.pnpm
+  HUSKY: 0
 
 jobs:
   deploy-auth:
@@ -42,6 +42,7 @@ jobs:
 
       - name: 🏗️ Build auth app with env vars
         env:
+          NODE_ENV: production
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
