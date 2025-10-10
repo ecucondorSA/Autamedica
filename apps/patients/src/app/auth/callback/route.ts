@@ -63,7 +63,7 @@ export async function GET(request: Request) {
     if (error) {
       console.error('Error setting session:', error);
       return NextResponse.redirect(
-        new URL(`http://localhost:3005/auth/login?error=${encodeURIComponent(error.message)}&role=patient`, requestUrl.origin)
+        new URL(`${authBaseUrl}/auth/login?error=${encodeURIComponent(error.message)}&role=patient`, requestUrl.origin)
       );
     }
 
@@ -72,7 +72,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error('Callback error:', error);
     return NextResponse.redirect(
-      new URL('http://localhost:3005/auth/login?error=callback_error&role=patient', requestUrl.origin)
+      new URL(`${authBaseUrl}/auth/login?error=callback_error&role=patient`, requestUrl.origin)
     );
   }
 }
