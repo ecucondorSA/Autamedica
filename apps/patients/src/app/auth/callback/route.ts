@@ -8,10 +8,15 @@ export async function GET(request: Request) {
   const access_token = requestUrl.searchParams.get('access_token');
   const refresh_token = requestUrl.searchParams.get('refresh_token');
 
+  // Determinar URL del auth hub según entorno
+  const authBaseUrl = isProduction()
+    ? 'https://auth.autamedica.com'
+    : 'http://localhost:3005';
+
   if (!access_token || !refresh_token) {
     // Si no hay tokens, redirigir al hub de autenticación
     return NextResponse.redirect(
-      new URL('http://localhost:3005/auth/select-role', requestUrl.origin)
+      new URL(`${authBaseUrl}/auth/select-role`, requestUrl.origin)
     );
   }
 
