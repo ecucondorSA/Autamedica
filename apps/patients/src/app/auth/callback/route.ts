@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { isProduction } from '@autamedica/shared';
+import { isProduction, ensureClientEnv } from '@autamedica/shared';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -20,8 +20,8 @@ export async function GET(request: Request) {
 
     // Crear cliente de Supabase con configuración de cookies
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL'),
+      ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
       {
         cookies: {
           get(name: string) {
