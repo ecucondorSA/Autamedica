@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Calculator, User, Calendar, AlertCircle, CheckCircle2, Clock, Info } from 'lucide-react';
+import { Calculator, User, Calendar, AlertCircle, CheckCircle2, Clock, Info, ChevronDown, ChevronUp } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { getRecommendedScreenings, groupScreeningsByCategory, CATEGORY_COLORS, CATEGORY_LABELS } from '@/data/screenings';
 
@@ -19,12 +19,22 @@ export function PersonalizedScreeningCalculator({
   const [age, setAge] = useState<string>(defaultAge?.toString() || '');
   const [gender, setGender] = useState<'male' | 'female' | ''>(defaultGender || '');
   const [hasCalculated, setHasCalculated] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+  const [isFormCollapsed, setIsFormCollapsed] = useState(false);
 
   const handleCalculate = () => {
     if (age && gender) {
       setHasCalculated(true);
+      setIsFormCollapsed(true); // Colapsar formulario al calcular
       onCalculate?.(parseInt(age), gender);
     }
+  };
+
+  const toggleExpanded = (screeningId: string) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [screeningId]: !prev[screeningId]
+    }));
   };
 
   const recommendedScreenings = useMemo(() => {
@@ -47,112 +57,132 @@ export function PersonalizedScreeningCalculator({
 
   return (
     <div className="bg-gradient-to-br from-stone-50 to-white rounded-xl border-2 border-stone-300 p-6 shadow-lg">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <Calculator className="h-6 w-6 text-stone-700" />
-        <div>
-          <h2 className="heading-2">Calculadora Personalizada</h2>
-          <p className="text-sm text-stone-600">Descubrí qué controles te corresponden según tu edad y género</p>
-        </div>
-      </div>
-
-      {/* Form */}
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        {/* Age input */}
-        <div>
-          <label htmlFor="age-input" className="block text-sm font-semibold text-stone-700 mb-2">
-            <Calendar className="inline h-4 w-4 mr-1" />
-            Tu edad
-          </label>
-          <input
-            id="age-input"
-            type="number"
-            min="1"
-            max="120"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            placeholder="Ej: 45"
-            className="w-full px-4 py-3 rounded-lg border-2 border-stone-300 focus:border-stone-800 focus:ring-2 focus:ring-stone-200 transition-colors text-lg font-semibold"
-          />
-        </div>
-
-        {/* Gender selector */}
-        <div>
-          <label className="block text-sm font-semibold text-stone-700 mb-2">
-            <User className="inline h-4 w-4 mr-1" />
-            Género
-          </label>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setGender('male')}
-              className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
-                gender === 'male'
-                  ? 'bg-stone-800 text-white border-stone-900 shadow-md'
-                  : 'bg-white text-stone-700 border-stone-300 hover:border-stone-400'
-              }`}
-            >
-              👨 Masculino
-            </button>
-            <button
-              onClick={() => setGender('female')}
-              className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
-                gender === 'female'
-                  ? 'bg-stone-800 text-white border-stone-900 shadow-md'
-                  : 'bg-white text-stone-700 border-stone-300 hover:border-stone-400'
-              }`}
-            >
-              👩 Femenino
-            </button>
+      {/* Header - Clickeable cuando hay resultados */}
+      <button
+        onClick={() => hasCalculated && setIsFormCollapsed(!isFormCollapsed)}
+        className={`w-full flex items-center justify-between gap-3 mb-6 ${hasCalculated ? 'cursor-pointer hover:opacity-80' : 'cursor-default'} transition-opacity`}
+      >
+        <div className="flex items-center gap-3">
+          <Calculator className="h-6 w-6 text-stone-700" />
+          <div className="text-left">
+            <h2 className="heading-2">Calculadora Personalizada</h2>
+            <p className="text-sm text-stone-600">
+              {hasCalculated
+                ? `${age} años - ${gender === 'male' ? 'Masculino' : 'Femenino'}`
+                : 'Descubrí qué controles te corresponden según tu edad y género'}
+            </p>
           </div>
         </div>
-      </div>
-
-      {/* Calculate button */}
-      <button
-        onClick={handleCalculate}
-        disabled={!age || !gender}
-        className={`w-full py-3 rounded-lg font-bold text-lg transition-all ${
-          !age || !gender
-            ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
-            : 'bg-stone-800 hover:bg-stone-900 text-white shadow-md hover:shadow-lg'
-        }`}
-      >
-        🔍 Ver mis controles recomendados
+        {hasCalculated && (
+          isFormCollapsed ? (
+            <ChevronDown className="h-5 w-5 text-stone-700 flex-shrink-0" />
+          ) : (
+            <ChevronUp className="h-5 w-5 text-stone-700 flex-shrink-0" />
+          )
+        )}
       </button>
+
+      {/* Form - Colapsable */}
+      {!isFormCollapsed && (
+        <div className="transition-all duration-300 ease-in-out">
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            {/* Age input */}
+            <div>
+              <label htmlFor="age-input" className="block text-sm font-semibold text-stone-700 mb-2">
+                <Calendar className="inline h-4 w-4 mr-1" />
+                Tu edad
+              </label>
+              <input
+                id="age-input"
+                type="number"
+                min="1"
+                max="120"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Ej: 45"
+                className="w-full px-4 py-3 rounded-lg border-2 border-stone-300 focus:border-stone-800 focus:ring-2 focus:ring-stone-200 transition-colors text-lg font-semibold"
+              />
+            </div>
+
+            {/* Gender selector */}
+            <div>
+              <label className="block text-sm font-semibold text-stone-700 mb-2">
+                <User className="inline h-4 w-4 mr-1" />
+                Género
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setGender('male')}
+                  className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
+                    gender === 'male'
+                      ? 'bg-stone-800 text-white border-stone-900 shadow-md'
+                      : 'bg-white text-stone-700 border-stone-300 hover:border-stone-400'
+                  }`}
+                >
+                  👨 Masculino
+                </button>
+                <button
+                  onClick={() => setGender('female')}
+                  className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
+                    gender === 'female'
+                      ? 'bg-stone-800 text-white border-stone-900 shadow-md'
+                      : 'bg-white text-stone-700 border-stone-300 hover:border-stone-400'
+                  }`}
+                >
+                  👩 Femenino
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Calculate button */}
+          <button
+            onClick={handleCalculate}
+            disabled={!age || !gender}
+            className={`w-full py-3 rounded-lg font-bold text-lg transition-all ${
+              !age || !gender
+                ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
+                : 'bg-stone-800 hover:bg-stone-900 text-white shadow-md hover:shadow-lg'
+            }`}
+          >
+            🔍 Ver mis controles recomendados
+          </button>
+        </div>
+      )}
 
       {/* Results */}
       {hasCalculated && recommendedScreenings.length > 0 && (
-        <div className="mt-8 space-y-6">
-          {/* Summary cards */}
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
-              <AlertCircle className="h-6 w-6 text-red-600 mb-2" />
-              <p className="text-2xl font-bold text-red-900">{urgentScreenings.length}</p>
-              <p className="text-sm text-red-700 font-semibold">Prioritarios</p>
+        <div className="mt-6 space-y-4">
+          {/* Summary cards - compactas */}
+          <div className="grid md:grid-cols-3 gap-3">
+            <div className="bg-red-50 border-2 border-red-200 rounded-lg p-3">
+              <AlertCircle className="h-5 w-5 text-red-600 mb-1" />
+              <p className="text-xl font-bold text-red-900">{urgentScreenings.length}</p>
+              <p className="text-xs text-red-700 font-semibold">Prioritarios</p>
             </div>
-            <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-4">
-              <Clock className="h-6 w-6 text-amber-600 mb-2" />
-              <p className="text-2xl font-bold text-amber-900">{mediumScreenings.length}</p>
-              <p className="text-sm text-amber-700 font-semibold">Importantes</p>
+            <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-3">
+              <Clock className="h-5 w-5 text-amber-600 mb-1" />
+              <p className="text-xl font-bold text-amber-900">{mediumScreenings.length}</p>
+              <p className="text-xs text-amber-700 font-semibold">Importantes</p>
             </div>
-            <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
-              <CheckCircle2 className="h-6 w-6 text-green-600 mb-2" />
-              <p className="text-2xl font-bold text-green-900">{recommendedScreenings.length}</p>
-              <p className="text-sm text-green-700 font-semibold">Total</p>
+            <div className="bg-green-50 border-2 border-green-200 rounded-lg p-3">
+              <CheckCircle2 className="h-5 w-5 text-green-600 mb-1" />
+              <p className="text-xl font-bold text-green-900">{recommendedScreenings.length}</p>
+              <p className="text-xs text-green-700 font-semibold">Total</p>
             </div>
           </div>
 
-          {/* Alert for important screenings */}
+          {/* Alert for important screenings - compacto */}
           {urgentScreenings.length > 0 && (
-            <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div className="bg-red-50 border-2 border-red-300 rounded-lg p-3">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-red-900 mb-1">
+                  <h4 className="font-bold text-red-900 mb-0.5 text-sm">
                     ¡Tenés {urgentScreenings.length} control{urgentScreenings.length > 1 ? 'es' : ''} prioritario{urgentScreenings.length > 1 ? 's' : ''}!
                   </h4>
-                  <p className="text-sm text-red-800">
-                    Estos estudios son fundamentales para tu salud. Agenda una consulta con tu médico para realizarlos.
+                  <p className="text-xs text-red-800">
+                    Estos estudios son fundamentales para tu salud. Agenda una consulta con tu médico.
                   </p>
                 </div>
               </div>
@@ -161,10 +191,10 @@ export function PersonalizedScreeningCalculator({
 
           {/* Screenings by category */}
           <div>
-            <h3 className="text-xl font-bold text-stone-900 mb-4">
+            <h3 className="text-lg font-bold text-stone-900 mb-3">
               Tus Controles Recomendados
             </h3>
-            <div className="space-y-6">
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-stone-300 scrollbar-track-stone-100">
               {Object.entries(groupedScreenings).map(([category, screenings]) => {
                 if (screenings.length === 0) return null;
                 const colors = CATEGORY_COLORS[category as keyof typeof CATEGORY_COLORS];
@@ -172,95 +202,96 @@ export function PersonalizedScreeningCalculator({
 
                 return (
                   <div key={category}>
-                    <h4 className={`font-bold text-lg mb-3 ${colors.text}`}>
+                    <h4 className={`font-bold text-base mb-2 ${colors.text}`}>
                       {label} ({screenings.length})
                     </h4>
-                    <div className="grid gap-3">
+                    <div className="grid gap-2">
                       {screenings.map(screening => {
                         const Icon = getIconComponent(screening.icon);
+                        const isExpanded = expandedItems[screening.id] || false;
+
                         return (
                           <div
                             key={screening.id}
-                            className={`${colors.bg} border-2 ${colors.border} rounded-xl p-4`}
+                            className={`${colors.bg} border-2 ${colors.border} rounded-lg p-2.5`}
                           >
-                            <div className="flex items-start gap-4">
-                              {/* Icon */}
-                              <div className={`flex-shrink-0 w-12 h-12 rounded-full ${colors.bg} border-2 ${colors.border} flex items-center justify-center`}>
-                                <Icon className={`h-6 w-6 ${colors.text}`} />
+                            <div className="flex items-start gap-2.5">
+                              {/* Icon - más pequeño */}
+                              <div className={`flex-shrink-0 w-8 h-8 rounded-full ${colors.bg} border-2 ${colors.border} flex items-center justify-center`}>
+                                <Icon className={`h-4 w-4 ${colors.text}`} />
                               </div>
 
                               {/* Content */}
-                              <div className="flex-1">
-                                <div className="flex items-start justify-between gap-4 mb-2">
-                                  <h5 className={`font-bold ${colors.text} text-lg`}>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-start justify-between gap-2 mb-0.5">
+                                  <h5 className={`font-bold ${colors.text} text-sm leading-tight`}>
                                     {screening.name}
                                   </h5>
                                   {screening.urgency === 'high' && (
-                                    <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full">
+                                    <span className="px-1.5 py-0.5 bg-red-100 text-red-700 text-[9px] font-bold rounded-full whitespace-nowrap">
                                       PRIORITARIO
                                     </span>
                                   )}
                                 </div>
 
-                                <p className="text-sm text-stone-700 mb-3">
+                                <p className="text-[11px] text-stone-600 mb-1.5 line-clamp-2">
                                   {screening.description}
                                 </p>
 
-                                {/* Details */}
-                                <div className="grid md:grid-cols-2 gap-2 mb-3 text-sm">
-                                  <div className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4 text-stone-600" />
-                                    <span className="text-stone-700">
-                                      <strong>Frecuencia:</strong> {screening.frequency}
-                                    </span>
+                                {/* Detalles compactos */}
+                                <div className="flex flex-wrap gap-x-2.5 gap-y-0.5 mb-1.5 text-[10px] text-stone-600">
+                                  <div className="flex items-center gap-0.5">
+                                    <Clock className="h-2.5 w-2.5" />
+                                    <span>{screening.frequency}</span>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4 text-stone-600" />
-                                    <span className="text-stone-700">
-                                      <strong>Desde:</strong> {screening.startAge} años
-                                      {screening.endAge && ` hasta ${screening.endAge} años`}
-                                    </span>
+                                  <div className="flex items-center gap-0.5">
+                                    <Calendar className="h-2.5 w-2.5" />
+                                    <span>{screening.startAge}+ años</span>
                                   </div>
+                                  {screening.coverage === 'total' && (
+                                    <span className="px-1 py-0.5 bg-green-100 text-green-700 font-semibold rounded text-[9px]">
+                                      ✅ 100%
+                                    </span>
+                                  )}
                                 </div>
 
-                                {/* Benefits */}
-                                <div className="mb-3">
-                                  <p className="text-xs font-semibold text-stone-700 mb-1">Beneficios:</p>
-                                  <ul className="text-xs text-stone-600 space-y-1">
-                                    {screening.benefits.map((benefit, idx) => (
-                                      <li key={idx} className="flex items-start gap-2">
-                                        <CheckCircle2 className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
-                                        <span>{benefit}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
+                                {/* Botón para expandir detalles */}
+                                <button
+                                  onClick={() => toggleExpanded(screening.id)}
+                                  className="text-[10px] text-stone-700 hover:text-stone-900 font-medium underline"
+                                >
+                                  {isExpanded ? '▼ Ver menos' : '▶ Ver más detalles'}
+                                </button>
 
-                                {/* Special cases */}
-                                {screening.specialCases && screening.specialCases.length > 0 && (
-                                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-                                    <div className="flex items-start gap-2">
-                                      <Info className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                                      <div className="text-xs text-blue-800">
-                                        <strong>Nota:</strong> {screening.specialCases.join('. ')}
-                                      </div>
+                                {/* Detalles expandibles */}
+                                {isExpanded && (
+                                  <div className="mt-3 pt-3 border-t border-stone-200 space-y-2">
+                                    {/* Benefits */}
+                                    <div>
+                                      <p className="text-[10px] font-bold text-stone-700 mb-1">BENEFICIOS:</p>
+                                      <ul className="text-[11px] text-stone-600 space-y-0.5">
+                                        {screening.benefits.slice(0, 3).map((benefit, idx) => (
+                                          <li key={idx} className="flex items-start gap-1.5">
+                                            <CheckCircle2 className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
+                                            <span>{benefit}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
                                     </div>
+
+                                    {/* Special cases */}
+                                    {screening.specialCases && screening.specialCases.length > 0 && (
+                                      <div className="bg-blue-50 border border-blue-200 rounded p-1.5">
+                                        <div className="flex items-start gap-1.5">
+                                          <Info className="h-3 w-3 text-blue-600 flex-shrink-0 mt-0.5" />
+                                          <div className="text-[11px] text-blue-800">
+                                            <strong>Nota:</strong> {screening.specialCases[0]}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
                                   </div>
                                 )}
-
-                                {/* Coverage badge */}
-                                <div className="mt-3 flex items-center gap-2">
-                                  {screening.coverage === 'total' && (
-                                    <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                                      ✅ Cobertura 100%
-                                    </span>
-                                  )}
-                                  {screening.coverage === 'partial' && (
-                                    <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded">
-                                      Cobertura parcial
-                                    </span>
-                                  )}
-                                </div>
                               </div>
                             </div>
                           </div>
