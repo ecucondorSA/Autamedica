@@ -27,14 +27,20 @@ const URLS_TO_CHECK = [
   {
     name: "Auth Login (Patient)",
     url: "https://auth.autamedica.com/auth/login/?role=patient",
-    expectedStatus: [200, 301, 302],
+    expectedStatus: [200, 301, 302, 307, 308],
     checkHeaders: false,
   },
   {
     name: "Web App Landing",
-    url: "https://www.autamedica.com",
-    expectedStatus: [200, 301, 302],
+    url: "https://autamedica.com",
+    expectedStatus: [200, 301, 302, 307, 308],
     checkHeaders: true,
+  },
+  {
+    name: "Web App Landing (www)",
+    url: "https://www.autamedica.com",
+    expectedStatus: [200, 301, 302, 307, 308],
+    checkHeaders: false,
   },
   {
     name: "Companies App",

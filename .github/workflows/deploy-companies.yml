@@ -1,11 +1,11 @@
-name: Deploy Doctors
+name: Deploy Companies
 on:
   push:
     branches: [main]
     paths:
-      - "apps/doctors/**"
+      - "apps/companies/**"
       - "packages/**"
-      - ".github/workflows/deploy-doctors.yml"
+      - ".github/workflows/deploy-companies.yml"
   workflow_dispatch:
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
           cd packages/session && pnpm build && cd ../..
 
       - name: Build for Cloudflare (Next.js + OpenNext + Patches)
-        working-directory: apps/doctors
+        working-directory: apps/companies
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
@@ -40,12 +40,12 @@ jobs:
         run: pnpm build:cloudflare
 
       - name: Deploy to Cloudflare Pages
-        working-directory: apps/doctors
+        working-directory: apps/companies
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          wrangler pages deploy .open-next \
-            --project-name=autamedica-doctors \
+          npx wrangler pages deploy .open-next \
+            --project-name=autamedica-companies \
             --branch=main \
             --commit-dirty=true
