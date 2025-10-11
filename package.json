@@ -2,7 +2,7 @@
   "name": "autamedica-reboot",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": ">=20.x"
   },
   "scripts": {
     "test:e2e": "node tests/run-playwright.cjs",
