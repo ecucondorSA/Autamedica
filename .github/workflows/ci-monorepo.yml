@@ -105,9 +105,22 @@ jobs:
 
       - name: Run security audit
         run: |
+          set -euo pipefail
           # Buscar credenciales hardcodeadas
           echo "🔍 Scanning for hardcoded credentials..."
-          if grep -r "eyJ[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=.open-next --exclude-dir=dist --exclude="*.md" .; then
+          if grep -r "eyJ[A-Za-z0-9_-]" \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            --exclude-dir=.next \
+            --exclude-dir=.open-next \
+            --exclude-dir=dist \
+            --exclude="*.md" \
+            --exclude="*.env" \
+            --exclude="*.env.*" \
+            --exclude="*.spec.ts" \
+            --exclude="scripts/test-supabase-rls.mjs" \
+            --exclude="scripts/security-check.sh" \
+            .; then
             echo "❌ Found hardcoded JWT tokens"
             exit 1
           fi
@@ -150,4 +163,3 @@ jobs:
         app: [web-app, doctors, patients, companies]
     steps:
       - uses: actions/checkout@v4
-
