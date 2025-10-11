@@ -3,11 +3,11 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- 2782f2a feat(patients): Optimizar calculadora de salud preventiva con diseño compacto y colapsable
 
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 0bf2be5 fix(health): resolver health check failures y preparar deployments
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-10 22:51:45*
+*Generado automáticamente el 2025-10-11 21:14:52*
