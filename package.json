@@ -113,6 +113,7 @@
     "prepush": "pnpm -s lint:changed && pnpm -s typecheck:fast",
     "ai:review": "bash scripts/ai-pr-review.sh",
     "smoke:all": "bash scripts/smoke-all.sh",
+    "db:apply:ai": "bash scripts/db/apply-ai-personalization.sh",
     "db:probe": "node scripts/db/probe-supabase-schema.mjs",
     "dev:patients+auth": "concurrently -k -n AUTH,PATIENTS \"pnpm -C apps/auth dev\" \"pnpm -C apps/patients dev\"",
     "e2e:patients": "node scripts/e2e/patients-login.mjs"

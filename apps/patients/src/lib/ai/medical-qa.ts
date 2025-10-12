@@ -14,6 +14,17 @@ export interface PatientScreening {
 }
 
 export interface PatientContext {
+  profile?: {
+    name?: string | null;
+    email?: string | null;
+  };
+  demographics?: {
+    birthDate?: string | null;
+    gender?: string | null;
+    bloodType?: string | null;
+    heightCm?: number | null;
+    weightKg?: number | null;
+  };
   medications?: Array<{
     name: string;
     dosage: string;
@@ -65,6 +76,10 @@ export class MedicalQA {
     const { intent, confidence, context: intentContext } = classification;
 
     switch (intent) {
+      case 'demographics':
+        return this.handleDemographicsQuery(context, intentContext, confidence);
+      case 'identity':
+        return this.handleIdentityQuery(context, confidence);
       case 'medications':
         return this.handleMedicationsQuery(context, confidence);
 
@@ -107,6 +122,94 @@ export class MedicalQA {
       default:
         return this.handleUnknown();
     }
+  }
+
+  private handleDemographicsQuery(context: PatientContext, intentContext: string | undefined, confidence: number): MedicalResponse {
+    const d = context.demographics || {};
+
+    // Helper: calcular edad desde birthDate
+    const calcAge = (iso?: string | null): number | null => {
+      if (!iso) return null;
+      const dob = new Date(iso);
+      if (isNaN(dob.getTime())) return null;
+      const now = new Date();
+      let age = now.getFullYear() - dob.getFullYear();
+      const m = now.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) age--;
+      return age >= 0 && age < 140 ? age : null;
+    };
+
+    if (intentContext === 'age') {
+      const age = calcAge(d.birthDate);
+      if (age != null) {
+        return {
+          text: `Tenés **${age}** años.`,
+          confidence,
+          suggestedActions: [{ label: '🎯 Chequeos recomendados', action: '/preventive-health' }]
+        };
+      }
+      return {
+        text: 'No tengo tu fecha de nacimiento cargada. ¿Querés completarla en tu perfil?',
+        confidence,
+        suggestedActions: [{ label: '✏️ Editar perfil', action: '/profile' }]
+      };
+    }
+
+    if (intentContext === 'gender') {
+      if (d.gender) {
+        return { text: `Tu género registrado es **${d.gender}**.`, confidence };
+      }
+      return { text: 'No tengo tu género cargado. Podés completarlo en tu perfil.', confidence, suggestedActions: [{ label: '✏️ Editar perfil', action: '/profile' }] };
+    }
+
+    if (intentContext === 'blood_type') {
+      if (d.bloodType) {
+        return { text: `Tu grupo sanguíneo es **${d.bloodType}**.`, confidence };
+      }
+      return { text: 'No tengo tu grupo sanguíneo cargado. Podés completarlo en tu perfil.', confidence, suggestedActions: [{ label: '✏️ Editar perfil', action: '/profile' }] };
+    }
+
+    if (intentContext === 'height' || intentContext === 'weight') {
+      const height = d.heightCm ?? null;
+      const weight = d.weightKg ?? null;
+      let text = '';
+      if (height != null) text += `Altura: **${height} cm**\n`;
+      if (weight != null) text += `Peso: **${weight} kg**\n`;
+      if (height != null && weight != null) {
+        const h = height / 100;
+        const bmi = weight / (h * h);
+        text += `IMC estimado: **${bmi.toFixed(1)}**`;
+      }
+      if (text) return { text, confidence };
+      return { text: 'No tengo tu altura/peso cargados. Podés completarlos en tu perfil.', confidence, suggestedActions: [{ label: '✏️ Editar perfil', action: '/profile' }] };
+    }
+
+    // Sin subcontexto claro, ofrecer resumen
+    const parts: string[] = [];
+    const age = calcAge(d.birthDate);
+    if (age != null) parts.push(`Edad: **${age}** años`);
+    if (d.gender) parts.push(`Género: **${d.gender}**`);
+    if (d.bloodType) parts.push(`Grupo sanguíneo: **${d.bloodType}**`);
+    if (d.heightCm != null) parts.push(`Altura: **${d.heightCm} cm**`);
+    if (d.weightKg != null) parts.push(`Peso: **${d.weightKg} kg**`);
+    if (parts.length > 0) {
+      return { text: '📇 **Tus datos**\n\n' + parts.join('\n'), confidence };
+    }
+    return { text: 'No tengo datos demográficos cargados. Podés completarlos en tu perfil.', confidence, suggestedActions: [{ label: '✏️ Editar perfil', action: '/profile' }] };
+  }
+
+  private handleIdentityQuery(context: PatientContext, confidence: number): MedicalResponse {
+    const name = context.profile?.name?.trim();
+    const email = context.profile?.email?.trim();
+    const emailLocal = email ? email.split('@')[0] : null;
+
+    if (name) {
+      return { text: `Te llamás **${name}**.`, confidence };
+    }
+    if (emailLocal) {
+      return { text: `No tengo tu nombre, pero tu correo es **${email}**.`, confidence };
+    }
+    return { text: 'No pude obtener tu nombre. ¿Querés completar tu perfil?', confidence, suggestedActions: [ { label: '✏️ Editar perfil', action: '/profile' } ] };
   }
 
   private handleMedicationsQuery(context: PatientContext, confidence: number): MedicalResponse {

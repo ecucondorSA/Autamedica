@@ -48,3 +48,12 @@
   - `apps/patients/src/app/api/profile/ensure/route.ts` (POST): ensure minimal `profiles` row; upsert `patients` if table exists (Service Role).
   - `apps/patients/src/app/api/profile/route.ts` (PATCH): updates `profiles` (snake_case → legacy `full_name` fallback) and `patients` by `user_id`.
 - Helpful scripts: `scripts/e2e/patients-login.mjs` (Playwright login flow) and `scripts/db/probe-supabase-schema.mjs` (schema probe).
+
+## Auta AI Personalization
+- Endpoints (Patients):
+  - `GET/POST /api/ai/patterns` (patrones/FAQs por usuario), `POST /api/ai/telemetry` (logs).
+  - Contexto: `GET /api/ai/context`, resincroniza: `POST /api/ai/context/sync`.
+- Tablas (Supabase migrations): `ai_user_patterns`, `ai_user_faq`, `patient_ai_chats` (ver `supabase/migrations/20251012_ai_user_personalization.sql`).
+- Seed opcional: `supabase/seed_ai_personalization.sql` (inserta una FAQ y un patrón para el último usuario).
+- ONNX en navegador (opcional): colocar modelo en `apps/patients/public/models/intent.onnx` y activar en `.env.local`:
+  - `NEXT_PUBLIC_AUTA_ONNX=1`, `NEXT_PUBLIC_AUTA_ONNX_MODEL=/models/intent.onnx`.

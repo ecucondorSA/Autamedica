@@ -19,6 +19,8 @@ export type MedicalIntent =
   | 'general'           // Información general
   | 'greeting'          // Saludos
   | 'closing'           // Cierre de conversación
+  | 'identity'          // Identidad del paciente (nombre, email)
+  | 'demographics'      // Datos demográficos del paciente (edad, género, grupo sanguíneo, altura, peso)
   | 'unknown';          // No identificado
 
 export interface IntentClassification {
@@ -104,6 +106,21 @@ const INTENT_PATTERNS: Record<MedicalIntent, string[]> = {
     'entendido', 'vale', 'bien', 'chau', 'adios', 'hasta luego',
     'nos vemos', 'bye', 'thank', 'thanks', 'eso es todo'
   ],
+  identity: [
+    'mi nombre', 'cual es mi nombre', 'cuál es mi nombre', 'como me llamo', 'cómo me llamo',
+    'quien soy', 'quién soy', 'mi correo', 'mi mail', 'mi email', 'mi e-mail',
+    'nombre', 'name'
+  ],
+  demographics: [
+    // Edad
+    'mi edad', 'edad', 'cuantos años', 'cuántos años', 'que edad tengo', 'qué edad tengo',
+    // Género
+    'mi genero', 'mi género', 'mi sexo', 'genero', 'género', 'sexo',
+    // Grupo sanguíneo
+    'mi grupo sanguineo', 'mi grupo sanguíneo', 'grupo sanguineo', 'grupo sanguíneo', 'sangre',
+    // Altura/Peso
+    'mi altura', 'altura', 'cuanto mido', 'cuánto mido', 'mido', 'estatura', 'mi peso', 'peso', 'cuanto peso', 'cuánto peso', 'imc'
+  ],
   unknown: []
 };
 
@@ -117,6 +134,7 @@ export class IntentClassifier {
   public classify(text: string): IntentClassification {
     const keywords = medicalTokenizer.extractMedicalKeywords(text);
     const normalizedText = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const words = normalizedText.split(/\s+/).filter(w => w.length > 0);
 
     // Calcular scores por intención
     const scores: Record<MedicalIntent, number> = {
@@ -140,8 +158,15 @@ export class IntentClassifier {
     for (const [intent, patterns] of Object.entries(INTENT_PATTERNS)) {
       for (const pattern of patterns) {
         const normalizedPattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        if (normalizedText.includes(normalizedPattern)) {
-          scores[intent as MedicalIntent] += 1;
+        const isSingleWord = !/\s/.test(normalizedPattern);
+        if ((intent === 'greeting' || intent === 'closing') && isSingleWord) {
+          if (words.includes(normalizedPattern)) {
+            scores[intent as MedicalIntent] += 1;
+          }
+        } else {
+          if (normalizedText.includes(normalizedPattern)) {
+            scores[intent as MedicalIntent] += 1;
+          }
         }
       }
     }
@@ -159,15 +184,25 @@ export class IntentClassifier {
 
     // Si no hay coincidencias claras, verificar patrones especiales
     if (maxScore === 0) {
-      const words = normalizedText.split(' ').filter(w => w.length > 0);
 
-      // Solo saludos muy cortos y comunes
+      // Heurística: si el usuario dice sólo "nombre" o similar, tomar como identidad
+      const identityHints = ['nombre', 'name'] as const;
+      const isIdentity = words.length <= 3 && identityHints.some(h => words.includes(h));
+      if (isIdentity) {
+        return {
+          intent: 'identity',
+          confidence: 0.7,
+          keywords,
+        };
+      }
+
+      // Solo saludos muy cortos y comunes (coincidencia por palabra, no substring)
       const commonGreetings = ['hola', 'hey', 'ola', 'buenas', 'buenos', 'saludos'];
-      const isGreeting = words.length <= 2 && commonGreetings.some(g => normalizedText.includes(g));
+      const isGreeting = words.length <= 2 && commonGreetings.some(g => words.includes(g));
 
-      // Cierre de conversación monosílabo
+      // Cierre de conversación monosílabo (coincidencia por palabra, no substring)
       const commonClosings = ['no', 'nada', 'ok', 'bien', 'listo', 'gracias', 'chau', 'bye'];
-      const isClosing = words.length <= 2 && commonClosings.some(c => normalizedText.includes(c));
+      const isClosing = words.length <= 2 && commonClosings.some(c => words.includes(c));
 
       if (isGreeting) {
         topIntent = 'greeting';
@@ -200,6 +235,14 @@ export class IntentClassifier {
    */
   private extractContext(text: string, intent: MedicalIntent): string | undefined {
     switch (intent) {
+      case 'demographics': {
+        if (text.includes('edad') || text.includes('años')) return 'age';
+        if (text.includes('genero') || text.includes('género') || text.includes('sexo')) return 'gender';
+        if (text.includes('sanguineo') || text.includes('sanguíneo') || text.includes('sangre')) return 'blood_type';
+        if (text.includes('altura') || text.includes('mido') || text.includes('estatura')) return 'height';
+        if (text.includes('peso') || text.includes('imc')) return 'weight';
+        break;
+      }
       case 'screenings':
         // Detectar tipo de screening específico
         if (text.includes('psa')) return 'psa';

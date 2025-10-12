@@ -16,7 +16,9 @@ import {
   TrendingUp
 } from 'lucide-react'
 import { usePatientScreenings } from '@/hooks/usePatientScreenings'
+import { usePatientSession } from '@/hooks/usePatientSession'
 import { useCommunityPosts } from '@/hooks/useCommunity'
+import { computeAgeFromIso, normalizeGender } from '@/lib/demographics'
 import {
   BloodPressureModal,
   MedicationModal,
@@ -173,8 +175,14 @@ function CommunityPanel() {
 }
 
 function ProgressPanel() {
+  // Datos reales para screenings
+  const { profile, patient } = usePatientSession();
+  const birthDate = (patient as any)?.birth_date || (profile as any)?.birthDate || null;
+  const age = computeAgeFromIso(birthDate) ?? 52;
+  const gender: 'male' | 'female' = normalizeGender(((patient as any)?.gender || (profile as any)?.gender) ?? null) ?? 'male';
+
   // Hook con datos de screenings y logros calculados
-  const { achievements, weeklyGoals, stats } = usePatientScreenings(52, 'male');
+  const { achievements, weeklyGoals, stats } = usePatientScreenings(age, gender);
 
   // Calcular racha basada en adherencia
   const streakDays = 15; // En producción vendría de tracking real

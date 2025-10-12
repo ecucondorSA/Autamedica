@@ -5,9 +5,10 @@
 
 import * as ort from 'onnxruntime-web';
 import { medicalTokenizer } from './tokenizer';
-import { intentClassifier, type IntentClassification } from './intent-classifier';
+import { intentClassifier, type MedicalIntent, type IntentClassification } from './intent-classifier';
 import { medicalQA, type PatientContext, type MedicalResponse } from './medical-qa';
-import { logger } from '@autamedica/shared';
+import { logger, getClientEnvOrDefault, getOptionalClientEnv } from '@autamedica/shared';
+import { loadVocab, wordPieceTokenize, type Vocab } from './wordpiece-tokenizer';
 
 /**
  * Configuración del servicio ONNX
@@ -31,6 +32,9 @@ export class ONNXService {
   private session: ort.InferenceSession | null = null;
   private loadingState: ModelLoadingState = 'idle';
   private config: ONNXServiceConfig;
+  private vocab: Vocab | null = null;
+  private labels: string[] | null = null;
+  private maxLen = 128;
 
   constructor(config: ONNXServiceConfig = {}) {
     this.config = {
@@ -102,6 +106,23 @@ export class ONNXService {
       });
 
       this.loadingState = 'ready';
+      // Intentar cargar labels y vocab desde el mismo directorio del modelo
+      try {
+        const base = modelPath.includes('/') ? modelPath.substring(0, modelPath.lastIndexOf('/')) : '.';
+        // labels.json
+        const labelsRes = await fetch(`${base}/labels.json`, { cache: 'force-cache' });
+        if (labelsRes.ok) {
+          this.labels = await labelsRes.json();
+        }
+        // vocab.txt (WordPiece)
+        try {
+          this.vocab = await loadVocab(`${base}/vocab.txt`);
+        } catch {
+          this.vocab = null; // si no existe, fallback a reglas
+        }
+      } catch (e) {
+        logger.warn('No se pudieron cargar labels/vocab para ONNX', (e as any)?.message || e);
+      }
       // logger.info('✅ ONNX model loaded successfully');
     } catch (error) {
       this.loadingState = 'error';
@@ -165,19 +186,42 @@ export class ONNXService {
    * (Híbrido: reglas ahora, ONNX en el futuro)
    */
   private async classifyIntent(query: string): Promise<IntentClassification> {
-    // Por ahora usa clasificación basada en reglas
-    // En el futuro, aquí se puede integrar un modelo ONNX para clasificación
-    const classification = intentClassifier.classify(query);
+    // Si modelo + vocab + labels están listos, usar ONNX
+    if (this.loadingState === 'ready' && this.session && this.vocab && this.labels?.length) {
+      try {
+        const { inputIds, attentionMask, tokenTypeIds } = wordPieceTokenize(query, this.vocab, this.maxLen);
+        const feeds: Record<string, ort.Tensor> = {};
+        // Nombres comunes de entradas; probamos variantes
+        feeds['input_ids'] = new ort.Tensor('int64', BigInt64Array.from(inputIds.map(n => BigInt(n))), [1, this.maxLen]);
+        feeds['attention_mask'] = new ort.Tensor('int64', BigInt64Array.from(attentionMask.map(n => BigInt(n))), [1, this.maxLen]);
+        // Algunos modelos no usan token_type_ids
+        try { feeds['token_type_ids'] = new ort.Tensor('int64', BigInt64Array.from(tokenTypeIds.map(n => BigInt(n))), [1, this.maxLen]); } catch {}
 
-    // Si tenemos un modelo ONNX cargado, podríamos usarlo aquí:
-    // if (this.loadingState === 'ready' && this.session) {
-    //   const features = medicalTokenizer.extractFeatures(query);
-    //   const inputTensor = new ort.Tensor('int64', features.tokens, [1, features.tokens.length]);
-    //   const output = await this.runInference(inputTensor);
-    //   // Procesar output del modelo...
-    // }
-
-    return classification;
+        const results = await this.session.run(feeds);
+        // Tomar el primer output como logits
+        const firstKey = Object.keys(results)[0];
+        const logits = results[firstKey].data as Float32Array | number[];
+        const arr = Array.from(logits as any);
+        // Softmax
+        const max = Math.max(...arr);
+        const exps = arr.map(v => Math.exp(v - max));
+        const sum = exps.reduce((a, b) => a + b, 0);
+        const probs = exps.map(v => v / sum);
+        // Top label
+        let topIdx = 0;
+        let topProb = probs[0] ?? 0;
+        for (let i = 1; i < probs.length; i++) {
+          if (probs[i] > topProb) { topProb = probs[i]; topIdx = i; }
+        }
+        const label = (this.labels[topIdx] || 'unknown') as MedicalIntent;
+        const keywords = medicalTokenizer.extractMedicalKeywords(query);
+        return { intent: label, confidence: topProb, keywords };
+      } catch (e) {
+        logger.warn('Fallo clasificación ONNX. Usando reglas.', (e as any)?.message || e);
+      }
+    }
+    // Fallback a reglas
+    return intentClassifier.classify(query);
   }
 
   /**
@@ -313,6 +357,16 @@ export function getONNXService(config?: ONNXServiceConfig): ONNXService {
  */
 export async function initializeONNX(): Promise<void> {
   await ONNXService.preload();
-  getONNXService(); // Crea instancia
-  // logger.info('🚀 ONNX Service initialized');
+  const svc = getONNXService();
+  // Carga perezosa del modelo si el flag está activo
+  const flag = (getOptionalClientEnv?.('NEXT_PUBLIC_AUTA_ONNX') || '').toLowerCase();
+  if (flag === '1' || flag === 'true' || flag === 'on') {
+    const modelPath = getClientEnvOrDefault?.('NEXT_PUBLIC_AUTA_ONNX_MODEL', '/models/intent.onnx');
+    try {
+      await svc.loadModel(modelPath);
+      logger.info?.('Auta ONNX model loaded', { modelPath });
+    } catch (e) {
+      logger.warn?.('Auta ONNX model failed to load. Falling back to reglas.', (e as any)?.message || e);
+    }
+  }
 }
