@@ -1,20 +1,29 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSupabase } from '@autamedica/auth/react';
-import type {
-  TelemedicineSession,
-  SessionParticipant,
-  SessionEvent,
-  StartSessionRequest,
-  StartSessionResponse,
-  MediaState,
-  ConnectionQuality,
-} from '@autamedica/types';
+import type { MediaState, ConnectionQuality, SessionParticipant, SessionEvent } from '@autamedica/types';
 import { logger } from '@autamedica/shared';
 
+interface ApiSession {
+  session_id: string;
+  room_id: string;
+  status: string;
+  scheduled_at: string | null;
+  started_at: string | null;
+  ended_at: string | null;
+}
+
+interface StartSessionResponse {
+  session: ApiSession;
+  signaling: {
+    room_id: string;
+    server_url: string;
+    ice_servers: Array<{ urls: string | string[]; username?: string; credential?: string }>;
+  };
+}
+
 interface UseTelemedicineReturn {
-  session: TelemedicineSession | null;
+  session: ApiSession | null;
   participants: SessionParticipant[];
   events: SessionEvent[];
   localMediaState: MediaState;
@@ -28,31 +37,29 @@ interface UseTelemedicineReturn {
   toggleScreenShare: () => Promise<boolean>;
   updateConnectionQuality: (quality: ConnectionQuality) => void;
   refreshSession: () => Promise<void>;
+  joinSession: (role?: string, sessionIdOverride?: string) => Promise<boolean>;
+  leaveSession: (sessionIdOverride?: string) => Promise<boolean>;
+  logEvent: (eventType: string, details?: string, sessionIdOverride?: string) => Promise<void>;
 }
 
-/**
- * Hook para gestionar sesiones de telemedicina
- *
- * @example
- * ```tsx
- * const {
- *   session,
- *   participants,
- *   localMediaState,
- *   toggleVideo,
- *   toggleAudio,
- * } = useTelemedicine();
- *
- * const handleToggleVideo = async () => {
- *   await toggleVideo();
- * };
- * ```
- */
+function mapApiSession(data: any): ApiSession {
+  return {
+    session_id: String(data?.session_id ?? data?.id ?? ''),
+    room_id: String(data?.room_id ?? ''),
+    status: String(data?.status ?? 'scheduled'),
+    scheduled_at: data?.scheduled_at ?? null,
+    started_at: data?.started_at ?? null,
+    ended_at: data?.ended_at ?? null,
+  };
+}
+
 export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
-  const supabase = useSupabase();
-  const [session, setSession] = useState<TelemedicineSession | null>(null);
+  const [session, setSession] = useState<ApiSession | null>(null);
   const [participants, setParticipants] = useState<SessionParticipant[]>([]);
   const [events, setEvents] = useState<SessionEvent[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [connectionQuality, setConnectionQuality] = useState<ConnectionQuality>('good');
   const [localMediaState, setLocalMediaState] = useState<MediaState>({
     video_enabled: false,
     audio_enabled: false,
@@ -60,343 +67,208 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
     video_muted_by_user: false,
     audio_muted_by_user: false,
   });
-  const [connectionQuality, setConnectionQuality] = useState<ConnectionQuality>('good');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const localStreamRef = useRef<MediaStream | null>(null);
 
-  // Fetch session data
-  const fetchSession = useCallback(async (sid: string) => {
+  const fetchSession = useCallback(async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
     try {
-      setLoading(true);
-      setError(null);
-
-      const { data: sessionData, error: sessionError } = await supabase
-        .from('telemedicine_sessions')
-        .select('*')
-        .eq('id', sid)
-        .is('deleted_at', null)
-        .single();
-
-      if (sessionError) throw sessionError;
-
-      setSession(sessionData as unknown as TelemedicineSession);
-
-      // Fetch participants
-      const { data: participantsData, error: participantsError } = await supabase
-        .from('session_participants')
-        .select('*')
-        .eq('session_id', sid)
-        .is('left_at', null);
-
-      if (participantsError) throw participantsError;
-
-      setParticipants((participantsData || []) as unknown as SessionParticipant[]);
-
-      // Fetch recent events
-      const { data: eventsData, error: eventsError } = await supabase
-        .from('session_events')
-        .select('*')
-        .eq('session_id', sid)
-        .order('created_at', { ascending: false })
-        .limit(50);
-
-      if (eventsError) throw eventsError;
-
-      setEvents((eventsData || []) as unknown as SessionEvent[]);
+      const query = sessionId ? `/api/telemedicine/session?sessionId=${encodeURIComponent(sessionId)}` : '/api/telemedicine/session';
+      const res = await fetch(query, { credentials: 'include' });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'No se pudo obtener la sesión');
+      }
+      const json = await res.json();
+      if (json?.data) {
+        const payload = json.data;
+        const rawSession = payload.session ?? payload;
+        setSession(mapApiSession(rawSession));
+        setParticipants(payload.participants ?? []);
+        setEvents(payload.events ?? []);
+      } else {
+        setSession(null);
+        setParticipants([]);
+        setEvents([]);
+      }
     } catch (err) {
-      logger.error('Error fetching session:', err);
+      logger.error('[useTelemedicine] fetchSession error', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, [sessionId]);
 
-  // Start new session
-  const startSession = useCallback(async (
-    appointmentId: string,
-    doctorId: string
-  ): Promise<StartSessionResponse | null> => {
-    if (!supabase) return null;
+  const startSession = useCallback(async (appointmentId: string, doctorId: string): Promise<StartSessionResponse | null> => {
+    setLoading(true);
+    setError(null);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setError('Usuario no autenticado');
-        return null;
+      const res = await fetch('/api/telemedicine/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ appointment_id: appointmentId, doctor_id: doctorId }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'No se pudo iniciar la sesión');
       }
-
-      const request: StartSessionRequest = {
-        appointment_id: appointmentId as any,
-        patient_id: user.id as any,
-        doctor_id: doctorId as any,
-        recording_enabled: false,
-      };
-
-      // Create session in database
-      const signalingRoomId = `room_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-      const { data: sessionData, error: sessionError } = await supabase
-        .from('telemedicine_sessions')
-        .insert({
-          appointment_id: appointmentId,
-          patient_id: user.id,
-          doctor_id: doctorId,
-          status: 'scheduled',
-          signaling_room_id: signalingRoomId,
-          scheduled_start: new Date().toISOString(),
-          connection_quality: 'good',
-          recording_enabled: false,
-          recording_consent_patient: false,
-          recording_consent_doctor: false,
-          metadata: {},
-        })
-        .select()
-        .single();
-
-      if (sessionError) throw sessionError;
-
-      const response: StartSessionResponse = {
-        session_id: sessionData.id as any,
-        signaling_room_id: signalingRoomId as any,
-        signaling_server_url: typeof window !== 'undefined' ? (window as any).ENV?.NEXT_PUBLIC_SIGNALING_SERVER_URL || 'ws://localhost:8888' : 'ws://localhost:8888',
-        turn_servers: [],
-        ice_servers: [
-          { urls: ['stun:stun.l.google.com:19302'] },
-        ],
-      };
-
-      await fetchSession(sessionData.id);
-
-      return response;
+      const json = await res.json();
+      const apiSession = mapApiSession(json?.data?.session);
+      setSession(apiSession);
+      setParticipants(json?.data?.participants ?? []);
+      setEvents(json?.data?.events ?? []);
+      return json?.data as StartSessionResponse;
     } catch (err) {
-      logger.error('Error starting session:', err);
+      logger.error('[useTelemedicine] startSession error', err);
       setError(err instanceof Error ? err.message : 'Error al iniciar sesión');
       return null;
+    } finally {
+      setLoading(false);
     }
-  }, [supabase, fetchSession]);
+  }, []);
 
-  // End session
   const endSession = useCallback(async (): Promise<boolean> => {
-    if (!supabase) return false;
+    if (!session) return false;
+    setLoading(true);
+    setError(null);
     try {
-      if (!session) return false;
-
-      // Stop local media
       if (localStreamRef.current) {
         localStreamRef.current.getTracks().forEach(track => track.stop());
         localStreamRef.current = null;
       }
-
-      const { error: updateError } = await supabase
-        .from('telemedicine_sessions')
-        .update({
-          status: 'ended',
-          actual_end: new Date().toISOString(),
-        })
-        .eq('id', session.id);
-
-      if (updateError) throw updateError;
-
-      // Create end event
-      await supabase
-        .from('session_events')
-        .insert({
-          session_id: session.id,
-          event_type: 'session_ended',
-          details: 'Session ended by user',
-        });
-
-      await fetchSession(session.id as string);
-
+      const res = await fetch(`/api/telemedicine/session/${session.session_id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ status: 'completed', ended: true }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'Error al finalizar sesión');
+      }
+      const json = await res.json().catch(() => null);
+      if (json?.data) {
+        setSession(prev => (prev ? { ...prev, status: json.data.status, ended_at: json.data.ended_at } : prev));
+      }
       return true;
     } catch (err) {
-      logger.error('Error ending session:', err);
+      logger.error('[useTelemedicine] endSession error', err);
       setError(err instanceof Error ? err.message : 'Error al finalizar sesión');
       return false;
+    } finally {
+      setLoading(false);
     }
-  }, [session, supabase, fetchSession]);
+  }, [session]);
 
-  // Toggle video
-  const toggleVideo = useCallback(async (): Promise<boolean> => {
-    if (!supabase) return false;
-    try {
-      if (!session) return false;
-
-      const newState = !localMediaState.video_enabled;
-
-      // Toggle local video track
-      if (localStreamRef.current) {
-        const videoTrack = localStreamRef.current.getVideoTracks()[0];
-        if (videoTrack) {
-          videoTrack.enabled = newState;
-        }
-      }
-
-      setLocalMediaState(prev => ({
-        ...prev,
-        video_enabled: newState,
-        video_muted_by_user: !newState,
-      }));
-
-      // Log event
-      await supabase
-        .from('session_events')
-        .insert({
-          session_id: session.id,
-          event_type: 'video_toggled',
-          details: newState ? 'Video enabled' : 'Video disabled',
-        });
-
-      return true;
-    } catch (err) {
-      logger.error('Error toggling video:', err);
-      return false;
+  const toggleVideo = useCallback(async () => {
+    if (!session) return false;
+    const newState = !localMediaState.video_enabled;
+    if (localStreamRef.current) {
+      const track = localStreamRef.current.getVideoTracks()[0];
+      if (track) track.enabled = newState;
     }
-  }, [session, localMediaState, supabase]);
+    setLocalMediaState(prev => ({ ...prev, video_enabled: newState, video_muted_by_user: !newState }));
+    return true;
+  }, [localMediaState, session]);
 
-  // Toggle audio
-  const toggleAudio = useCallback(async (): Promise<boolean> => {
-    if (!supabase) return false;
-    try {
-      if (!session) return false;
-
-      const newState = !localMediaState.audio_enabled;
-
-      // Toggle local audio track
-      if (localStreamRef.current) {
-        const audioTrack = localStreamRef.current.getAudioTracks()[0];
-        if (audioTrack) {
-          audioTrack.enabled = newState;
-        }
-      }
-
-      setLocalMediaState(prev => ({
-        ...prev,
-        audio_enabled: newState,
-        audio_muted_by_user: !newState,
-      }));
-
-      // Log event
-      await supabase
-        .from('session_events')
-        .insert({
-          session_id: session.id,
-          event_type: 'audio_toggled',
-          details: newState ? 'Audio enabled' : 'Audio disabled',
-        });
-
-      return true;
-    } catch (err) {
-      logger.error('Error toggling audio:', err);
-      return false;
+  const toggleAudio = useCallback(async () => {
+    if (!session) return false;
+    const newState = !localMediaState.audio_enabled;
+    if (localStreamRef.current) {
+      const track = localStreamRef.current.getAudioTracks()[0];
+      if (track) track.enabled = newState;
     }
-  }, [session, localMediaState, supabase]);
+    setLocalMediaState(prev => ({ ...prev, audio_enabled: newState, audio_muted_by_user: !newState }));
+    return true;
+  }, [localMediaState, session]);
 
-  // Toggle screen share
-  const toggleScreenShare = useCallback(async (): Promise<boolean> => {
-    if (!supabase) return false;
-    try {
-      if (!session) return false;
+  const toggleScreenShare = useCallback(async () => {
+    if (!session) return false;
+    setLocalMediaState(prev => ({ ...prev, screen_sharing: !prev.screen_sharing }));
+    return true;
+  }, [session]);
 
-      const newState = !localMediaState.screen_sharing;
-
-      setLocalMediaState(prev => ({
-        ...prev,
-        screen_sharing: newState,
-      }));
-
-      // Log event
-      await supabase
-        .from('session_events')
-        .insert({
-          session_id: session.id,
-          event_type: newState ? 'screen_share_started' : 'screen_share_stopped',
-          details: newState ? 'Screen sharing started' : 'Screen sharing stopped',
-        });
-
-      return true;
-    } catch (err) {
-      logger.error('Error toggling screen share:', err);
-      return false;
-    }
-  }, [session, localMediaState, supabase]);
-
-  // Update connection quality
   const updateConnectionQuality = useCallback((quality: ConnectionQuality) => {
     setConnectionQuality(quality);
+  }, []);
 
-    if (session && supabase) {
-      supabase
-        .from('telemedicine_sessions')
-        .update({ connection_quality: quality })
-        .eq('id', session.id)
-        .then(() => {
-          // Log poor connection
-          if (quality === 'poor' || quality === 'disconnected') {
-            return supabase
-              .from('session_events')
-              .insert({
-                session_id: session.id,
-                event_type: 'connection_issue',
-                details: `Connection quality: ${quality}`,
-              });
-          }
-        })
-        .catch(err => logger.error('Error updating connection quality:', err));
-    }
-  }, [session, supabase]);
-
-  // Refresh session data
   const refreshSession = useCallback(async () => {
-    if (sessionId) {
-      await fetchSession(sessionId);
+    await fetchSession();
+  }, [fetchSession]);
+
+  const joinSession = useCallback(async (role = 'patient', sessionIdOverride?: string): Promise<boolean> => {
+    const targetSession = sessionIdOverride ?? session?.session_id;
+    if (!targetSession) return false;
+    try {
+      const res = await fetch(`/api/telemedicine/session/${targetSession}/participants`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'join_failed');
+      }
+      await fetchSession();
+      return true;
+    } catch (err) {
+      logger.error('[useTelemedicine] joinSession error', err);
+      setError(err instanceof Error ? err.message : 'Error al unir a la sesión');
+      return false;
     }
-  }, [sessionId, fetchSession]);
+  }, [session, fetchSession]);
 
-  // Initial fetch
-  useEffect(() => {
-    if (sessionId) {
-      fetchSession(sessionId);
+  const leaveSession = useCallback(async (sessionIdOverride?: string): Promise<boolean> => {
+    const targetSession = sessionIdOverride ?? session?.session_id;
+    if (!targetSession) return false;
+    try {
+      const res = await fetch(`/api/telemedicine/session/${targetSession}/participants`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ left: true }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'leave_failed');
+      }
+      await fetchSession();
+      return true;
+    } catch (err) {
+      logger.error('[useTelemedicine] leaveSession error', err);
+      setError(err instanceof Error ? err.message : 'Error al abandonar la sesión');
+      return false;
     }
-  }, [sessionId, fetchSession]);
+  }, [session, fetchSession]);
 
-  // Setup realtime subscription
+  const logEvent = useCallback(async (eventType: string, details?: string, sessionIdOverride?: string) => {
+    const targetSession = sessionIdOverride ?? session?.session_id;
+    if (!targetSession) return;
+    try {
+      const payload = { event_type: eventType, event_data: details ? { details } : undefined };
+      const res = await fetch(`/api/telemedicine/session/${targetSession}/events`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'event_failed');
+      }
+      await fetchSession();
+    } catch (err) {
+      logger.error('[useTelemedicine] logEvent error', err);
+      setError(err instanceof Error ? err.message : 'Error al registrar evento');
+    }
+  }, [session, fetchSession]);
+
   useEffect(() => {
-    if (!sessionId || !supabase) return;
-
-    const channel = supabase
-      .channel(`session_${sessionId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'session_participants',
-          filter: `session_id=eq.${sessionId}`,
-        },
-        () => {
-          refreshSession();
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'session_events',
-          filter: `session_id=eq.${sessionId}`,
-        },
-        (payload) => {
-          setEvents(prev => [payload.new as SessionEvent, ...prev]);
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [sessionId, supabase, refreshSession]);
+    fetchSession();
+  }, [fetchSession]);
 
   return {
     session,
@@ -413,5 +285,8 @@ export function useTelemedicine(sessionId?: string): UseTelemedicineReturn {
     toggleScreenShare,
     updateConnectionQuality,
     refreshSession,
+    joinSession,
+    leaveSession,
+    logEvent,
   };
 }
