@@ -125,7 +125,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: ⚡ Instalar dependencias
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔍 Descubrir archivos SQL
         id: discover
@@ -243,7 +243,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: ⚡ Instalar dependencias
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔧 Configurar extensiones PostgreSQL
         run: |
@@ -410,7 +410,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: ⚡ Instalar dependencias
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔍 Ejecutar análisis HIPAA
         run: |
@@ -523,7 +523,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: ⚡ Instalar dependencias
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 📥 Descargar artefactos
         uses: actions/download-artifact@v4

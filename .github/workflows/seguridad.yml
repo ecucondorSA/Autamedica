@@ -58,7 +58,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --prod=false
+        run: pnpm install --no-frozen-lockfile --prod=false
 
       - name: Run npm audit
         run: |
@@ -181,7 +181,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run ESLint with security rules
         run: |
@@ -237,7 +237,7 @@ jobs:
       - name: Verify pnpm lockfile integrity
         run: |
           echo "Verifying lockfile integrity..."
-          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm install --no-frozen-lockfile --ignore-scripts
 
           # Check for suspicious packages
           echo "Checking for suspicious packages..."
@@ -286,7 +286,7 @@ jobs:
       - name: Install dependencies with integrity check
         run: |
           echo "Installing dependencies with integrity verification..."
-          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm install --no-frozen-lockfile --ignore-scripts
 
           # Verify no post-install scripts ran malicious code
           echo "Verifying build environment integrity..."

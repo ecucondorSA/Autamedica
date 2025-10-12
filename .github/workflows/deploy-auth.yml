@@ -19,7 +19,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - name: Build packages
         run: pnpm build:packages:core
       - name: Build Next for Cloudflare

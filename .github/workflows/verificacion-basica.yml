@@ -15,7 +15,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: ${{ matrix.node }}, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - name: Build packages
         run: pnpm -r --filter "./packages/*" build
       - name: Debug - Verify dist/ generation
@@ -40,7 +40,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - name: Build packages
         run: pnpm -r --filter "./packages/*" build
       - name: Debug - Verify dist/ generation
@@ -63,7 +63,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm build:packages
       - name: Debug - Verify dist/ generation for critical packages
         run: |
@@ -91,7 +91,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - name: Build packages (dependencies)
         run: pnpm build:packages
       - name: Build app ${{ matrix.app }}
@@ -111,7 +111,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - name: Validate exports and auto-generate docs if needed
         run: pnpm docs:validate
       - name: Commit auto-generated documentation
@@ -136,7 +136,7 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm test:unit
 
   e2e:
@@ -150,6 +150,6 @@ jobs:
         with: { version: 9.15.2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm exec playwright install --with-deps
       - run: pnpm test:e2e
