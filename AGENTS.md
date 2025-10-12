@@ -8,14 +8,11 @@
 - Infra/data: `supabase/` (migrations, seeds), `scripts/`, `docs/`.
 
 ## Build, Test, and Development Commands
-- Dev (all apps): `pnpm dev`
-- Dev (single app): `pnpm dev --filter @autamedica/web-app`
-- Build all: `pnpm build` • Build core packages: `pnpm build:packages`
-- Typecheck/lint: `pnpm typecheck && pnpm lint`
-- Unit/integration (Vitest): `pnpm test:auth` (UI: `pnpm test:auth:ui`)
-- E2E (Playwright): `pnpm test:e2e` or focused doctor flow: `pnpm test:doctor-videocall`
-- Role routing smoke: `node test-role-routing.mjs`
-- Docs/contracts validation: `pnpm docs:validate`
+- Dev (all apps): `pnpm dev`; single app: `pnpm dev --filter @autamedica/web-app`
+- Build: `pnpm build`; core packages: `pnpm build:packages`
+- Quality: `pnpm typecheck && pnpm lint`; contracts: `pnpm docs:validate`
+- Tests: unit/integration `pnpm test:auth`; E2E `pnpm test:e2e` (doctor flow: `pnpm test:doctor-videocall`)
+- Smoke: role routing `node test-role-routing.mjs`
 
 ## Coding Style & Naming Conventions
 - Language: TypeScript (Node 20). Indent 2 spaces; LF; final newline (`.editorconfig`).
@@ -38,3 +35,16 @@
 ## Security & Configuration
 - Do not commit secrets. Use `.env.*` templates and `pnpm env:validate`.
 - Validate DB/types before release: `pnpm db:sync` and `pnpm docs:db:check-diff`.
+
+## Patients Auth & Session (Dev)
+- Auth Hub runs on `:3005`; Patients on `:3002`. Tokens pass via URL/localStorage; `SessionSync` converts them to a Supabase session.
+- Required envs:
+  - `apps/patients/.env.local`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+  - `apps/auth/.env.local`: same `NEXT_PUBLIC_*` values (Auth Hub at `:3005`).
+- Flow: Login at Auth Hub with `returnTo=http://localhost:3002/...` → Patients `/auth/callback` receives `access_token`/`refresh_token` → `SessionSync` sets session and cleans URL.
+- API auth (Patients): accepts Supabase cookies or `Authorization: Bearer <access_token>` in dev.
+- Key files:
+  - `apps/patients/src/components/SessionSync.tsx`: token→session (client only), mounted in `apps/patients/src/app/layout.tsx` and `/auth/callback` page.
+  - `apps/patients/src/app/api/profile/ensure/route.ts` (POST): ensure minimal `profiles` row; upsert `patients` if table exists (Service Role).
+  - `apps/patients/src/app/api/profile/route.ts` (PATCH): updates `profiles` (snake_case → legacy `full_name` fallback) and `patients` by `user_id`.
+- Helpful scripts: `scripts/e2e/patients-login.mjs` (Playwright login flow) and `scripts/db/probe-supabase-schema.mjs` (schema probe).
