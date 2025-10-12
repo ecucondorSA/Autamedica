@@ -105,10 +105,9 @@ jobs:
 
       - name: Run security audit
         run: |
-          set -euo pipefail
           # Buscar credenciales hardcodeadas
           echo "🔍 Scanning for hardcoded credentials..."
-          if grep -r "eyJ[A-Za-z0-9_-]" \
+          matches="$(grep -r "eyJ[A-Za-z0-9_-]" \
             --exclude-dir=node_modules \
             --exclude-dir=.git \
             --exclude-dir=.next \
@@ -120,7 +119,10 @@ jobs:
             --exclude="*.spec.ts" \
             --exclude="test-supabase-rls.mjs" \
             --exclude="security-check.sh" \
-            .; then
+            . || true)"
+          if [ -n "$matches" ]; then
+            echo "❌ Found hardcoded JWT tokens in:"
+            echo "$matches"
             echo "❌ Found hardcoded JWT tokens"
             exit 1
           fi
