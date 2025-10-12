@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Mic, MicOff, Video, VideoOff, Signal, User } from 'lucide-react'
+import { MicOff, VideoOff, Signal, User } from 'lucide-react'
 
 export interface Participant {
   id: string
