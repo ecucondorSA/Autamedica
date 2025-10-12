@@ -189,7 +189,12 @@
     "overrides": {
       "esbuild": "^0.25.4",
       "undici": "^5.28.5",
-      "path-to-regexp": "^6.3.0",
+      "@vercel/express>path-to-regexp": "^6.3.0",
+      "@vercel/node>path-to-regexp": "^6.3.0",
+      "@vercel/fun>path-to-regexp": "^6.3.0",
+      "@vercel/h3>path-to-regexp": "^6.3.0",
+      "@vercel/hono>path-to-regexp": "^6.3.0",
+      "express@4.20.0>path-to-regexp": "npm:path-to-regexp@0.1.12",
       "cookie": "^0.7.0"
     }
   }
