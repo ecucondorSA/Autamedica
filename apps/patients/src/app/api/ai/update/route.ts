@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         if (upd.error) throw upd.error
       } catch (err: any) {
         // Fallback legacy: collapse to full_name if needed
-        const fullName =
+        const fullName = (
           ((profile as any)?.fullName as string | undefined) ??
           [
             (profile as any)?.firstName as string | undefined,
@@ -43,7 +43,8 @@ export async function POST(request: Request) {
           ]
             .filter(Boolean)
             .join(' ')
-            .trim() || null
+            .trim()
+        ) || null
         const legacy = await admin.from('profiles').update({ full_name: fullName }).eq('id', userId).select('*').single()
         if (legacy.error) {
           logger.error('[AI] update profile failed', legacy.error)
@@ -83,4 +84,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: e?.message || 'internal_error' }, { status: 500 })
   }
 }
-

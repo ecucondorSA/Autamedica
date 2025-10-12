@@ -1,25 +1,57 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSupabase } from '@autamedica/auth/react';
-import type {
-  Anamnesis,
-  AnamnesisSection,
-  AnamnesisSectionData,
-  AnamnesisProgressResponse,
-  AnamnesisInsert,
-  AnamnesisUpdate,
-} from '@autamedica/types';
+import type { AnamnesisSection } from '@autamedica/types';
 import { logger } from '@autamedica/shared';
 
+type ApiAnamnesis = {
+  id: string;
+  patient_id: string;
+  status: string;
+  completion_percentage: number;
+  sections_status: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+  completed_at?: string | null;
+};
+
+type ApiSection = {
+  id: string;
+  anamnesis_id: string;
+  section: string;
+  data: Record<string, unknown>;
+  completed: boolean;
+  completed_at?: string | null;
+  updated_at: string;
+};
+
+type ApiProgress = {
+  completion_percentage: number;
+  completed_sections: string[];
+  pending_sections: string[];
+  total_sections: number;
+};
+
+interface ApiResponse {
+  anamnesis: ApiAnamnesis;
+  sections: ApiSection[];
+  progress: ApiProgress;
+}
+
+export interface AnamnesisState {
+  anamnesis: ApiAnamnesis | null;
+  sections: ApiSection[];
+  progress: ApiProgress | null;
+}
+
 interface UseAnamnesisReturn {
-  anamnesis: Anamnesis | null;
-  sections: AnamnesisSectionData[];
-  progress: AnamnesisProgressResponse | null;
+  anamnesis: ApiAnamnesis | null;
+  sections: ApiSection[];
+  progress: ApiProgress | null;
   loading: boolean;
   error: string | null;
-  createAnamnesis: () => Promise<Anamnesis | null>;
-  updateAnamnesis: (update: AnamnesisUpdate) => Promise<boolean>;
+  createAnamnesis: (initial?: Partial<ApiAnamnesis>) => Promise<ApiAnamnesis | null>;
+  updateAnamnesis: (update: Partial<ApiAnamnesis>) => Promise<boolean>;
   updateSection: (section: AnamnesisSection, data: any) => Promise<boolean>;
   refreshAnamnesis: () => Promise<void>;
 }
@@ -37,142 +69,73 @@ interface UseAnamnesisReturn {
  * ```
  */
 export function useAnamnesis(): UseAnamnesisReturn {
-  const supabase = useSupabase();
-  const [anamnesis, setAnamnesis] = useState<Anamnesis | null>(null);
-  const [sections, setSections] = useState<AnamnesisSectionData[]>([]);
-  const [progress, setProgress] = useState<AnamnesisProgressResponse | null>(null);
+  const [anamnesis, setAnamnesis] = useState<ApiAnamnesis | null>(null);
+  const [sections, setSections] = useState<ApiSection[]>([]);
+  const [progress, setProgress] = useState<ApiProgress | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch anamnesis data
-  const fetchAnamnesis = useCallback(async () => {
+  const fetchAnamnesis = useCallback(async (): Promise<ApiResponse | null> => {
     try {
       setLoading(true);
       setError(null);
-
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setError('Usuario no autenticado');
-        return;
+      const res = await fetch('/api/anamnesis', { credentials: 'include' });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'No se pudo cargar la anamnesis');
       }
 
-      // Fetch anamnesis
-      const { data: anamnesisData, error: anamnesisError } = await supabase
-        .from('anamnesis')
-        .select('*')
-        .eq('patient_id', user.id)
-        .is('deleted_at', null)
-        .single();
+      const json = (await res.json()) as { ok: boolean; data: ApiResponse };
+      if (!json?.ok) throw new Error('Respuesta inválida');
 
-      if (anamnesisError && anamnesisError.code !== 'PGRST116') {
-        throw anamnesisError;
-      }
-
-      if (!anamnesisData) {
-        setAnamnesis(null);
-        setSections([]);
-        setProgress(null);
-        return;
-      }
-
-      setAnamnesis(anamnesisData as unknown as Anamnesis);
-
-      // Fetch sections
-      const { data: sectionsData, error: sectionsError } = await supabase
-        .from('anamnesis_sections')
-        .select('*')
-        .eq('anamnesis_id', anamnesisData.id)
-        .order('section');
-
-      if (sectionsError) throw sectionsError;
-
-      setSections((sectionsData || []) as unknown as AnamnesisSectionData[]);
-
-      // Calculate progress
-      const completedSections = (sectionsData || []).filter((s: any) => s.completed);
-      const totalSections = 13; // From SECTION_ORDER
-      const completionPercentage = Math.floor((completedSections.length / totalSections) * 100);
-
-      const allSections: AnamnesisSection[] = [
-        'personal_data',
-        'emergency_contact',
-        'medical_history',
-        'family_history',
-        'allergies',
-        'current_medications',
-        'chronic_conditions',
-        'surgical_history',
-        'hospitalizations',
-        'gynecological_history',
-        'lifestyle',
-        'mental_health',
-        'consent',
-      ];
-
-      const completedSectionNames = new Set(completedSections.map((s: any) => s.section));
-      const pendingSections = allSections.filter(section => !completedSectionNames.has(section));
-
-      setProgress({
-        anamnesis_id: anamnesisData.id,
-        completion_percentage: completionPercentage,
-        completed_sections: completedSections.map((s: any) => s.section),
-        pending_sections: pendingSections,
-        total_sections: totalSections,
-        estimated_time_remaining_minutes: pendingSections.length * 5,
-      });
+      setAnamnesis(json.data.anamnesis);
+      setSections(json.data.sections);
+      setProgress(json.data.progress);
+      return json.data;
     } catch (err) {
       logger.error('Error fetching anamnesis:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
+      return null;
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   // Create new anamnesis
-  const createAnamnesis = useCallback(async (): Promise<Anamnesis | null> => {
+  const createAnamnesis = useCallback(async (initial?: Partial<ApiAnamnesis>): Promise<ApiAnamnesis | null> => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setError('Usuario no autenticado');
-        return null;
+      const current = await fetchAnamnesis();
+      if (initial && Object.keys(initial).length > 0) {
+        await fetch('/api/anamnesis', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(initial),
+          credentials: 'include',
+        });
+        const updated = await fetchAnamnesis();
+        return updated?.anamnesis ?? current?.anamnesis ?? null;
       }
-
-      const newAnamnesis: AnamnesisInsert = {
-        patient_id: user.id as any,
-        status: 'in_progress',
-        completion_percentage: 0,
-        sections_status: {},
-      };
-
-      const { data, error: insertError } = await supabase
-        .from('anamnesis')
-        .insert(newAnamnesis)
-        .select()
-        .single();
-
-      if (insertError) throw insertError;
-
-      await fetchAnamnesis();
-      return data as unknown as Anamnesis;
+      return current?.anamnesis ?? null;
     } catch (err) {
       logger.error('Error creating anamnesis:', err);
       setError(err instanceof Error ? err.message : 'Error al crear anamnesis');
       return null;
     }
-  }, [supabase, fetchAnamnesis]);
+  }, [fetchAnamnesis]);
 
   // Update anamnesis
-  const updateAnamnesis = useCallback(async (update: AnamnesisUpdate): Promise<boolean> => {
+  const updateAnamnesis = useCallback(async (update: Partial<ApiAnamnesis>): Promise<boolean> => {
     try {
-      if (!anamnesis) return false;
-
-      const { error: updateError } = await supabase
-        .from('anamnesis')
-        .update(update)
-        .eq('id', anamnesis.id);
-
-      if (updateError) throw updateError;
-
+      const res = await fetch('/api/anamnesis', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(update),
+        credentials: 'include',
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'Error al actualizar anamnesis');
+      }
       await fetchAnamnesis();
       return true;
     } catch (err) {
@@ -180,7 +143,7 @@ export function useAnamnesis(): UseAnamnesisReturn {
       setError(err instanceof Error ? err.message : 'Error al actualizar anamnesis');
       return false;
     }
-  }, [anamnesis, supabase, fetchAnamnesis]);
+  }, [fetchAnamnesis]);
 
   // Update section
   const updateSection = useCallback(async (
@@ -188,41 +151,28 @@ export function useAnamnesis(): UseAnamnesisReturn {
     data: any
   ): Promise<boolean> => {
     try {
-      if (!anamnesis) return false;
-
-      // Upsert section data
-      const { error: upsertError } = await supabase
-        .from('anamnesis_sections')
-        .upsert({
-          anamnesis_id: anamnesis.id,
-          section,
-          data,
-          completed: true,
-          last_modified: new Date().toISOString(),
-        }, {
-          onConflict: 'anamnesis_id,section'
-        });
-
-      if (upsertError) throw upsertError;
-
-      // Update anamnesis completion
-      const completedCount = sections.filter(s => s.completed).length + 1;
-      const totalSections = 13;
-      const completionPercentage = Math.floor((completedCount / totalSections) * 100);
-
-      await updateAnamnesis({
-        completion_percentage: completionPercentage,
-        last_updated_section: section,
-        status: completionPercentage === 100 ? 'completed' : 'in_progress',
+      const res = await fetch('/api/anamnesis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stepId: section, data, completed: true }),
+        credentials: 'include',
       });
-
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || 'Error al actualizar sección');
+      }
+      const json = await res.json().catch(() => null);
+      if (json?.data?.progress) {
+        setProgress(json.data.progress);
+      }
+      await fetchAnamnesis();
       return true;
     } catch (err) {
       logger.error('Error updating section:', err);
       setError(err instanceof Error ? err.message : 'Error al actualizar sección');
       return false;
     }
-  }, [anamnesis, sections, supabase, updateAnamnesis]);
+  }, [fetchAnamnesis]);
 
   // Refresh data
   const refreshAnamnesis = useCallback(async () => {

@@ -23,6 +23,7 @@ export default function AnamnesisPage() {
     error: _error,
     createAnamnesis,
     updateSection,
+    updateAnamnesis,
     refreshAnamnesis,
   } = useAnamnesis();
 
@@ -135,9 +136,17 @@ export default function AnamnesisPage() {
         await createAnamnesis({
           status: 'completed',
           completion_percentage: 100,
-          locked: false,
           privacy_accepted: privacySetting === 'shared',
           terms_accepted: true,
+          locked: false,
+        });
+        await updateAnamnesis({
+          status: 'completed',
+          completion_percentage: 100,
+          completed_at: new Date().toISOString(),
+          privacy_accepted: privacySetting === 'shared',
+          terms_accepted: true,
+          locked: false,
         });
       } else {
         // Actualizar última sección
@@ -145,7 +154,14 @@ export default function AnamnesisPage() {
         await updateSection(sectionKey, anamnesisData);
 
         // Actualizar anamnesis como completada
-        // TODO: Agregar método updateAnamnesis al hook
+        await updateAnamnesis({
+          status: 'completed',
+          completion_percentage: 100,
+          completed_at: new Date().toISOString(),
+          privacy_accepted: privacySetting === 'shared',
+          terms_accepted: true,
+          locked: false,
+        });
       }
 
       // Guardar final en localStorage como respaldo
