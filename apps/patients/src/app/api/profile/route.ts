@@ -28,7 +28,7 @@ async function getUserIdFromRequest(): Promise<string | null> {
       const adminTmp = createClient(anonUrl, ensureServerEnv('SUPABASE_SERVICE_ROLE_KEY'));
       const { data: userRes } = await adminTmp.auth.getUser(token);
       if (userRes?.user) return userRes.user.id;
-    } catch {}
+    } catch (_) { void 0 }
   }
 
   const { data: userData } = await supabase.auth.getUser();
