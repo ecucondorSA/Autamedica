@@ -20,7 +20,8 @@ export async function GET() {
     const { data: objects, error } = await admin.storage.from(BUCKET).list(prefix, { limit: 100, offset: 0 });
     if (error) throw error;
 
-    return NextResponse.json({ ok: true, data: { files: (objects || []).map(o => ({
+    const list = Array.isArray(objects) ? objects : [];
+    return NextResponse.json({ ok: true, data: { files: list.map(o => ({
       name: o.name,
       path: prefix + o.name,
       size: o.metadata?.size ?? null,
