@@ -3,11 +3,11 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- cfaf71d feat(telemedicine): crear suite completa de componentes React para videoconsulta
 
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
+- 7fa6e67 fix(telemedicine): remover imports sin usar en ParticipantGrid
 
 ### 🔒 Seguridad
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-12 07:06:47*
+*Generado automáticamente el 2025-10-12 07:08:19*
