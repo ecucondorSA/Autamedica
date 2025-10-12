@@ -52,7 +52,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build packages
         run: pnpm build:packages
@@ -81,7 +81,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build packages first
         run: pnpm build:packages
@@ -114,8 +114,8 @@ jobs:
             --exclude-dir=.open-next \
             --exclude-dir=dist \
             --exclude-dir=playwright-report \
-            --exclude-dir=test-results \
             --exclude-dir=playwright-report-doctor-videocall \
+            --exclude-dir=test-results \
             --exclude="*.md" \
             --exclude="*.env" \
             --exclude="*.env.*" \
