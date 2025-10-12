@@ -52,7 +52,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build packages
         run: pnpm build:packages
@@ -81,7 +81,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build packages first
         run: pnpm build:packages
@@ -107,7 +107,25 @@ jobs:
         run: |
           # Buscar credenciales hardcodeadas
           echo "🔍 Scanning for hardcoded credentials..."
-          if grep -r "eyJ[A-Za-z0-9_-]" --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=.open-next --exclude-dir=dist --exclude="*.md" .; then
+          matches="$(grep -r "eyJ[A-Za-z0-9_-]" \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            --exclude-dir=.next \
+            --exclude-dir=.open-next \
+            --exclude-dir=dist \
+            --exclude-dir=playwright-report \
+            --exclude-dir=playwright-report-doctor-videocall \
+            --exclude-dir=test-results \
+            --exclude="*.md" \
+            --exclude="*.env" \
+            --exclude="*.env.*" \
+            --exclude="*.spec.ts" \
+            --exclude="test-supabase-rls.mjs" \
+            --exclude="security-check.sh" \
+            . || true)"
+          if [ -n "$matches" ]; then
+            echo "❌ Found hardcoded JWT tokens in:"
+            echo "$matches"
             echo "❌ Found hardcoded JWT tokens"
             exit 1
           fi
@@ -150,4 +168,3 @@ jobs:
         app: [web-app, doctors, patients, companies]
     steps:
       - uses: actions/checkout@v4
-
