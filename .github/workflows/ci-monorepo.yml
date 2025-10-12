@@ -115,6 +115,7 @@ jobs:
             --exclude-dir=dist \
             --exclude-dir=playwright-report \
             --exclude-dir=test-results \
+            --exclude-dir=playwright-report-doctor-videocall \
             --exclude="*.md" \
             --exclude="*.env" \
             --exclude="*.env.*" \
