@@ -118,8 +118,8 @@ jobs:
             --exclude="*.env" \
             --exclude="*.env.*" \
             --exclude="*.spec.ts" \
-            --exclude="scripts/test-supabase-rls.mjs" \
-            --exclude="scripts/security-check.sh" \
+            --exclude="test-supabase-rls.mjs" \
+            --exclude="security-check.sh" \
             .; then
             echo "❌ Found hardcoded JWT tokens"
             exit 1
