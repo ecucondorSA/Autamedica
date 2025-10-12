@@ -16,5 +16,7 @@
 
 ---
 
+### 🔄 Otros Cambios
+- f67c497 Fix auth callback redirection
 
-*Generado automáticamente el 2025-10-12 00:24:45*
+*Generado automáticamente el 2025-10-12 02:15:44*
