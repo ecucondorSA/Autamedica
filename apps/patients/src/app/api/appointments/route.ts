@@ -7,9 +7,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@autamedica/auth/server';
 import { cookies } from 'next/headers';
-import type { CreateAppointmentInput, Appointment } from '@/types/appointment';
-
+import type { CreateAppointmentInput } from '@/types/appointment';
 import { logger } from '@autamedica/shared';
+import { computeEndTime, mapAppointment, mapTypeToDb, type DbAppointmentRow } from './utils';
 /**
  * GET /api/appointments
  * Obtiene todas las citas del paciente autenticado
@@ -59,10 +59,10 @@ export async function GET(request: NextRequest) {
         )
       `)
       .eq('patient_id', patient.id)
-      .order('scheduled_at', { ascending: false });
+      .order('start_time', { ascending: false });
 
     if (appointmentsError) {
-      console.error('[GET /api/appointments] Error:', appointmentsError);
+      logger.error('[GET /api/appointments] Error:', appointmentsError);
       return NextResponse.json(
         { error: 'Error al obtener citas' },
         { status: 500 }
@@ -71,10 +71,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: appointments || [],
+      data: (appointments || []).map(mapAppointment),
     });
   } catch (error) {
-    console.error('[GET /api/appointments] Unexpected error:', error);
+    logger.error('[GET /api/appointments] Unexpected error:', error);
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }
@@ -128,16 +128,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const startDate = new Date(body.scheduled_at);
+    if (Number.isNaN(startDate.getTime())) {
+      return NextResponse.json(
+        { error: 'scheduled_at no tiene un formato válido' },
+        { status: 400 }
+      );
+    }
+
+    const duration = body.duration_minutes && body.duration_minutes > 0 ? body.duration_minutes : 30;
+    const startIso = startDate.toISOString();
+    const endIso = computeEndTime(startIso, duration);
+
     // Crear la cita
     const appointmentData = {
       patient_id: patient.id,
       doctor_id: body.doctor_id || null,
-      scheduled_at: body.scheduled_at,
-      duration_minutes: body.duration_minutes || 30,
-      type: body.type || 'telemedicine',
+      start_time: startIso,
+      end_time: endIso,
+      duration_minutes: duration,
+      type: mapTypeToDb(body.type || 'telemedicine'),
       status: 'scheduled' as const,
       notes: body.notes || null,
       reason: body.reason || null,
+      meeting_url: body.meeting_url || null,
+      location: body.location || null,
     };
 
     const { data: appointment, error: insertError } = await supabase
@@ -156,7 +171,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (insertError) {
-      console.error('[POST /api/appointments] Insert error:', insertError);
+      logger.error('[POST /api/appointments] Insert error:', insertError);
       return NextResponse.json(
         { error: 'Error al crear la cita', details: insertError.message },
         { status: 500 }
@@ -165,10 +180,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: appointment,
+      data: mapAppointment(appointment as DbAppointmentRow),
     }, { status: 201 });
   } catch (error) {
-    console.error('[POST /api/appointments] Unexpected error:', error);
+    logger.error('[POST /api/appointments] Unexpected error:', error);
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }

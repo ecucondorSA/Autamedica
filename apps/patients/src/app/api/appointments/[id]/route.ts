@@ -9,8 +9,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@autamedica/auth/server';
 import { cookies } from 'next/headers';
 import type { UpdateAppointmentInput } from '@/types/appointment';
-
 import { logger } from '@autamedica/shared';
+import { mapAppointment, mapTypeToDb, computeEndTime } from '../utils';
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
@@ -80,10 +80,10 @@ export async function GET(
 
     return NextResponse.json({
       success: true,
-      data: appointment,
+      data: mapAppointment(appointment as any),
     });
   } catch (error) {
-    console.error('[GET /api/appointments/[id]] Error:', error);
+    logger.error('[GET /api/appointments/[id]] Error:', error);
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }
@@ -133,7 +133,7 @@ export async function PATCH(
     // Verificar que la cita pertenece al paciente
     const { data: existingAppointment, error: checkError } = await supabase
       .from('appointments')
-      .select('id')
+      .select('id, start_time, duration_minutes')
       .eq('id', id)
       .eq('patient_id', patient.id)
       .single();
@@ -149,19 +149,38 @@ export async function PATCH(
     const body: UpdateAppointmentInput = await request.json();
 
     // Actualizar la cita
+    const updates: Record<string, any> = {
+      updated_at: new Date().toISOString(),
+    };
+
+    let effectiveStart = existingAppointment?.start_time || null;
+    let effectiveDuration = existingAppointment?.duration_minutes ?? 30;
+
+    if (body.scheduled_at) {
+      const startIso = new Date(body.scheduled_at).toISOString();
+      updates.start_time = startIso;
+      effectiveStart = startIso;
+    }
+
+    if (body.duration_minutes !== undefined) {
+      updates.duration_minutes = body.duration_minutes;
+      effectiveDuration = body.duration_minutes;
+    }
+
+    if (effectiveStart) {
+      updates.end_time = computeEndTime(effectiveStart, effectiveDuration);
+    }
+
+    if (body.status) updates.status = body.status;
+    if (body.type) updates.type = mapTypeToDb(body.type);
+    if (body.notes !== undefined) updates.notes = body.notes;
+    if (body.reason !== undefined) updates.reason = body.reason;
+    if (body.meeting_url !== undefined) updates.meeting_url = body.meeting_url;
+    if (body.location !== undefined) updates.location = body.location;
+
     const { data: updatedAppointment, error: updateError } = await supabase
       .from('appointments')
-      .update({
-        ...(body.scheduled_at && { scheduled_at: body.scheduled_at }),
-        ...(body.duration_minutes && { duration_minutes: body.duration_minutes }),
-        ...(body.status && { status: body.status }),
-        ...(body.type && { type: body.type }),
-        ...(body.notes !== undefined && { notes: body.notes }),
-        ...(body.reason !== undefined && { reason: body.reason }),
-        ...(body.diagnosis !== undefined && { diagnosis: body.diagnosis }),
-        ...(body.treatment_plan !== undefined && { treatment_plan: body.treatment_plan }),
-        updated_at: new Date().toISOString(),
-      })
+      .update(updates)
       .eq('id', id)
       .select(`
         *,
@@ -176,7 +195,7 @@ export async function PATCH(
       .single();
 
     if (updateError) {
-      console.error('[PATCH /api/appointments/[id]] Error:', updateError);
+      logger.error('[PATCH /api/appointments/[id]] Error:', updateError);
       return NextResponse.json(
         { error: 'Error al actualizar la cita', details: updateError.message },
         { status: 500 }
@@ -185,10 +204,10 @@ export async function PATCH(
 
     return NextResponse.json({
       success: true,
-      data: updatedAppointment,
+      data: mapAppointment(updatedAppointment as any),
     });
   } catch (error) {
-    console.error('[PATCH /api/appointments/[id]] Error:', error);
+    logger.error('[PATCH /api/appointments/[id]] Error:', error);
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }
@@ -257,10 +276,10 @@ export async function DELETE(
     return NextResponse.json({
       success: true,
       message: 'Cita cancelada exitosamente',
-      data: cancelledAppointment,
+      data: mapAppointment(cancelledAppointment as any),
     });
   } catch (error) {
-    console.error('[DELETE /api/appointments/[id]] Error:', error);
+    logger.error('[DELETE /api/appointments/[id]] Error:', error);
     return NextResponse.json(
       { error: 'Error interno del servidor' },
       { status: 500 }
