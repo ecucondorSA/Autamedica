@@ -37,7 +37,7 @@ test.describe('UI Login end-to-end via Auth app', () => {
     // Vincular paciente mínimo
     try {
       await admin.from('patients').insert({ user_id: userId! }).single()
-    } catch (_) {}
+    } catch (_) { void 0 }
   })
 
   test('login de paciente desde Auth → redirige a Patients', async ({ page }) => {

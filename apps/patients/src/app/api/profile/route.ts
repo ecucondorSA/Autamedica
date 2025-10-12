@@ -15,8 +15,8 @@ async function getUserIdFromRequest(): Promise<string | null> {
   const supabase = createServerClient(anonUrl, anonKey, {
     cookies: {
       get(name: string) { return cookieStore.get(name)?.value; },
-      set() {},
-      remove() {},
+      set() { return undefined; },
+      remove() { return undefined; },
     },
   });
 
@@ -55,7 +55,7 @@ export async function PATCH(request: Request) {
       const snake = buildProfileUpdatePayload(profile);
       try {
         // First try modern schema
-        let upd = await admin.from('profiles').update(snake).eq('id', userId).select('*').single();
+        const upd = await admin.from('profiles').update(snake).eq('id', userId).select('*').single();
         if (upd.error) throw upd.error;
         updatedProfile = upd.data;
       } catch (err: any) {
@@ -74,7 +74,7 @@ export async function PATCH(request: Request) {
     if (patient) {
       const snake = buildPatientUpdatePayload(patient) as any;
       try {
-        let upd = await admin.from('patients').update(snake).eq('user_id', userId).select('*').maybeSingle();
+        const upd = await admin.from('patients').update(snake).eq('user_id', userId).select('*').maybeSingle();
         if (upd.error) throw upd.error;
         if (!upd.data) {
           // create if missing
@@ -96,4 +96,3 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ ok: false, error: e?.message || 'internal_error' }, { status: 500 });
   }
 }
-

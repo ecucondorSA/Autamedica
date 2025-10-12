@@ -22,7 +22,7 @@ test.describe('API /api/profile (GET/PATCH)', () => {
       if (signErr || !signRes.user) throw new Error(`No se pudo preparar usuario: ${signErr?.message}`)
       userId = signRes.user.id
     }
-    try { await admin.from('patients').insert({ user_id: userId! }).single() } catch (_) {}
+    try { await admin.from('patients').insert({ user_id: userId! }).single() } catch (_) { void 0 }
   })
 
   test('GET devuelve perfil y PATCH actualiza datos', async ({ page }) => {

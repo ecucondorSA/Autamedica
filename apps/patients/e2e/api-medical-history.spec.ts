@@ -22,7 +22,7 @@ test.describe('API /api/medical-history (GET + POST condition)', () => {
       if (signErr || !signRes.user) throw new Error(`No se pudo preparar usuario: ${signErr?.message}`)
       userId = signRes.user.id
     }
-    try { await admin.from('patients').insert({ user_id: userId! }).single() } catch (_) {}
+    try { await admin.from('patients').insert({ user_id: userId! }).single() } catch (_) { void 0 }
   })
 
   test('GET historial vacío y luego agregar condición (200)', async ({ page }) => {

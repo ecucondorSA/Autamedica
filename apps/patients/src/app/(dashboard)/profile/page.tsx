@@ -18,6 +18,7 @@ import { PatientProfileForm, type PatientProfileFormPayload } from '@/components
 import { usePatientSession } from '@/hooks/usePatientSession';
 import { useSupabase } from '@autamedica/auth/react';
 import { usePatientProfile } from '@/hooks/useProfile';
+import { ensureClientEnv } from '@autamedica/shared';
 
 export default function ProfilePage() {
   const { user, profile, patient, loading, error, refresh } = usePatientSession();
@@ -72,8 +73,8 @@ export default function ProfilePage() {
       // Obtener token actual del cliente para autorizar en backend
       const { createBrowserClient } = await import('@supabase/ssr');
       const supabaseClient = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        ensureClientEnv('NEXT_PUBLIC_SUPABASE_URL'),
+        ensureClientEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
       );
       const { data: sessionData } = await supabaseClient.auth.getSession();
       const accessToken = sessionData.session?.access_token;
@@ -125,7 +126,7 @@ export default function ProfilePage() {
           <AlertCircle className="h-6 w-6 text-amber-500 mt-1" />
           <div>
             <h2 className="text-lg font-semibold text-amber-900">No encontramos tu perfil</h2>
-            <p className="text-amber-700 mt-1">Estamos preparando tu perfil automáticamente. Si persiste, tocá "Actualizar datos".</p>
+            <p className="text-amber-700 mt-1">Estamos preparando tu perfil automáticamente. Si persiste, tocá &quot;Actualizar datos&quot;.</p>
             <div className="mt-4">
               <button
                 onClick={async () => { console.log('[Profile] clicked ensure+edit'); await ensureProfile(); setIsEditing(true); }}
