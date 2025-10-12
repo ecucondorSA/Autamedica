@@ -20,7 +20,7 @@ export async function GET() {
     ]);
 
     const summary = {
-      name: profile?.full_name ?? [profile?.first_name, profile?.last_name].filter(Boolean).join(' ').trim() || null,
+      name: (profile?.full_name ?? [profile?.first_name, profile?.last_name].filter(Boolean).join(' ').trim()) || null,
       email: profile?.email ?? null,
       role: profile?.role ?? 'patient',
       portal: profile?.portal ?? 'patients',
@@ -37,4 +37,3 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: e?.message || 'internal_error' }, { status: 500 });
   }
 }
-

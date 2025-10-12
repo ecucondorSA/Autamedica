@@ -4,14 +4,17 @@ import { useState } from 'react';
 import { Heart, Calculator, Clock, ListChecks } from 'lucide-react';
 import { PersonalizedScreeningCalculator } from '@/components/preventive/PersonalizedScreeningCalculator';
 import { ScreeningTimeline } from '@/components/preventive/ScreeningTimeline';
+import { usePatientSession } from '@/hooks/usePatientSession';
+import { computeAgeFromIso, normalizeGender } from '@/lib/demographics';
 
 type TabId = 'calculator' | 'timeline' | 'education';
 
 export default function PreventiveHealthPage() {
   const [activeTab, setActiveTab] = useState<TabId>('calculator');
-  // Sin autenticación, usar valores por defecto
-  const patientAge = 30;
-  const patientGender: 'male' | 'female' = 'male';
+  const { profile, patient } = usePatientSession();
+  const birthDate = (patient as any)?.birth_date || (profile as any)?.birthDate || null;
+  const age = computeAgeFromIso(birthDate) ?? 30;
+  const gender: 'male' | 'female' = normalizeGender(((patient as any)?.gender || (profile as any)?.gender) ?? null) ?? 'male';
 
   const tabs = [
     { id: 'calculator' as TabId, label: 'Calculadora', icon: Calculator },
@@ -31,6 +34,21 @@ export default function PreventiveHealthPage() {
           <p className="text-stone-600">Cuida tu salud con chequeos preventivos personalizados</p>
         </div>
       </div>
+
+      {/* Guía: completar datos si faltan */}
+      {(!computeAgeFromIso(birthDate) || normalizeGender(((patient as any)?.gender || (profile as any)?.gender) ?? null) == null) && (
+        <div className="rounded-lg border-2 border-amber-300 bg-amber-50 p-4">
+          <p className="text-sm text-amber-900 font-medium">
+            Para personalizar al máximo tus chequeos, completá tu {computeAgeFromIso(birthDate) ? '' : 'fecha de nacimiento'}{(!computeAgeFromIso(birthDate) && normalizeGender(((patient as any)?.gender || (profile as any)?.gender) ?? null) == null) ? ' y ' : ''}{normalizeGender(((patient as any)?.gender || (profile as any)?.gender) ?? null) == null ? 'género' : ''} en tu perfil.
+          </p>
+          <a
+            href="/profile"
+            className="mt-2 inline-block rounded-lg bg-stone-800 px-4 py-2 text-sm font-semibold text-white hover:bg-stone-900"
+          >
+            ✏️ Completar mi perfil
+          </a>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -98,10 +116,10 @@ export default function PreventiveHealthPage() {
         {/* Tab Content */}
         <div className="p-6">
           {activeTab === 'calculator' && (
-            <PersonalizedScreeningCalculator age={patientAge} gender={patientGender} />
+            <PersonalizedScreeningCalculator defaultAge={age} defaultGender={gender} />
           )}
           {activeTab === 'timeline' && (
-            <ScreeningTimeline age={patientAge} gender={patientGender} />
+            <ScreeningTimeline currentAge={age} gender={gender} />
           )}
           {activeTab === 'education' && (
             <div className="text-center py-12">

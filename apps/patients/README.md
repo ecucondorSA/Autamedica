@@ -51,6 +51,30 @@ pnpm build --filter @autamedica/patients
 
 **URL Local**: http://localhost:3002
 
+## 🤖 Auta AI: Personalización y ONNX
+
+- Endpoints (server):
+  - `GET /api/ai/context` y `POST /api/ai/context/sync` → resumen de perfil/paciente y archivos personalizados.
+  - `POST /api/ai/update` → aplica cambios y resincroniza contexto.
+  - `GET/POST /api/ai/patterns` → patrones y FAQs por usuario (sin entrenar modelos).
+  - `POST /api/ai/telemetry` → registra mensaje, intención, confianza y preview.
+
+- Migraciones/Seeds (Supabase):
+  - `supabase/migrations/20251012_ai_user_personalization.sql` crea `ai_user_patterns`, `ai_user_faq`, `patient_ai_chats` (RLS de dueño).
+  - Seed opcional: `supabase/seed_ai_personalization.sql` (FAQ “horario atencion”, patrón “obra social”).
+
+- ONNX en navegador (opcional):
+  - Colocar `intent.onnx` (y opcional `labels.json`, `vocab.txt`) en `apps/patients/public/models/`.
+  - `.env.local`:
+    - `NEXT_PUBLIC_AUTA_ONNX=1`
+    - `NEXT_PUBLIC_AUTA_ONNX_MODEL=/models/intent.onnx`
+  - El chat carga el modelo si está activo; si falla, usa reglas.
+
+- Quick test:
+  - `POST /api/ai/patterns {"type":"pattern","pattern":"obra social","intent":"general"}`
+  - `POST /api/ai/patterns {"type":"faq","question":"horario atencion","answer":"Atendemos de 8 a 20 hs."}`
+  - Abrí el chat y preguntá “obra social” o “horario atencion”.
+
 ## 🏗️ **Arquitectura Modular**
 
 ### **Layout Modular Responsivo**

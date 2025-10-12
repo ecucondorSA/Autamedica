@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { ensureClientEnv, ensureServerEnv, logger } from '@autamedica/shared';
 import { buildProfileUpdatePayload } from '@/lib/zod/profiles';
 import { buildPatientUpdatePayload } from '@/lib/zod/patients';
+import { buildPatientContext, persistPatientContextFiles } from '@/lib/ai/context-builder';
 
 export const runtime = 'nodejs';
 
@@ -88,6 +89,14 @@ export async function PATCH(request: Request) {
         // Ignore if table not present or columns differ
         logger.warn('[API] patients update skipped:', err?.message || err);
       }
+    }
+
+    // Fire-and-forget: resincronizar contexto y archivos personalizados
+    try {
+      const ctx = await buildPatientContext(userId, admin);
+      await persistPatientContextFiles(userId, ctx, admin);
+    } catch (e) {
+      logger.warn('[API] context resync after profile update failed:', (e as any)?.message || e);
     }
 
     return NextResponse.json({ ok: true, data: { profile: updatedProfile, patient: updatedPatient } });
