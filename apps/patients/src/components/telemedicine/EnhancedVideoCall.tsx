@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import React from 'react';
 import { usePatientPortal } from '@/components/layout/PatientPortalShell';
 import { usePatientSession } from '@/hooks/usePatientSession';
@@ -12,6 +12,13 @@ import { VideoLayout, ViewModeSelector } from '@/components/telemedicine/VideoLa
 import { VideoControls } from '@/components/telemedicine/VideoControls';
 import type { EnhancedVideoCallProps, VideoViewMode, PIPPosition } from '@/types/telemedicine';
 import { logger, featureFlags } from '@autamedica/shared';
+import {
+  LiveKitRoom,
+  VideoConference,
+  RoomAudioRenderer,
+  ControlBar,
+} from '@livekit/components-react';
+import '@livekit/components-styles';
 
 /**
  * Componente principal de videollamada refactorizado
@@ -19,10 +26,6 @@ import { logger, featureFlags } from '@autamedica/shared';
  * INTEGRADO con Supabase para registro de sesiones
  */
 export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, className = '' }: EnhancedVideoCallProps & { sessionId?: string }) {
-  // Refs para video streams
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const screenShareRef = useRef<HTMLVideoElement | null>(null);
-
   // Context del portal
   const { isFocusMode, setFocusMode } = usePatientPortal();
 
@@ -35,6 +38,31 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
   // Hook de telemedicina para Supabase
   const telemedicine = useTelemedicine(sessionId);
   const joinedRef = useRef(false);
+  const isLiveKitEnabled = featureFlags.USE_LIVEKIT && !featureFlags.USE_MOCK_VIDEO;
+  const liveKitConfig = isLiveKitEnabled ? telemedicine.livekit : null;
+
+  const handleLiveKitConnected = useCallback(async () => {
+    if (joinedRef.current) return;
+    try {
+      const joined = await telemedicine.joinSession('patient');
+      if (!joined) return;
+      joinedRef.current = true;
+      await telemedicine.logEvent('call_started', 'LiveKit room connected');
+    } catch (error) {
+      logger.error('[EnhancedVideoCall] LiveKit onConnected error', error);
+    }
+  }, [telemedicine]);
+
+  const handleLiveKitDisconnected = useCallback(async () => {
+    if (!joinedRef.current) return;
+    joinedRef.current = false;
+    try {
+      await telemedicine.leaveSession();
+      await telemedicine.logEvent('call_ended', 'Room disconnected');
+    } catch (error) {
+      logger.error('[EnhancedVideoCall] LiveKit onDisconnected error', error);
+    }
+  }, [telemedicine]);
 
   // Estados locales de UI
   const [showControls, setShowControls] = useState(true);
@@ -59,19 +87,6 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
   const remoteStream = featureFlags.USE_MOCK_VIDEO ? mockStream : realStream;
 
   // Calidad de la llamada
-  const callQuality = useMemo(() => {
-    if (videoCall.cameraError) {
-      return { label: 'Sin conexión', color: 'text-red-400' };
-    }
-    if (videoCall.callStatus === 'live') {
-      return { label: 'HD', color: 'text-green-400' };
-    }
-    if (videoCall.callStatus === 'connecting') {
-      return { label: 'Conectando', color: 'text-yellow-400' };
-    }
-    return { label: 'En espera', color: 'text-gray-400' };
-  }, [videoCall.cameraError, videoCall.callStatus]);
-
   // Auto-activar focus mode durante llamadas
   useEffect(() => {
     if (videoCall.callStatus === 'live') {
@@ -86,6 +101,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   // Registrar eventos de sesión en Supabase
   useEffect(() => {
+    if (isLiveKitEnabled) return;
     if (!telemedicine.session) return;
 
     // Registrar cambios de estado de la llamada
@@ -106,7 +122,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
       telemedicine.leaveSession();
       joinedRef.current = false;
     }
-  }, [videoCall.callStatus, telemedicine]);
+  }, [isLiveKitEnabled, telemedicine, videoCall.callStatus]);
 
   useEffect(() => {
     if (!telemedicine.session) {
@@ -116,12 +132,14 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   useEffect(() => {
     return () => {
-      if (joinedRef.current) {
-        telemedicine.leaveSession();
-        joinedRef.current = false;
+      if (!joinedRef.current) return;
+      joinedRef.current = false;
+      void telemedicine.leaveSession();
+      if (isLiveKitEnabled) {
+        void telemedicine.logEvent('call_ended', 'Component unmounted');
       }
     };
-  }, [telemedicine]);
+  }, [isLiveKitEnabled, telemedicine]);
 
   // Auto-ocultar controles en focus mode
   useEffect(() => {
@@ -147,25 +165,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
     }
   }, [isFocusMode, videoCall.callStatus, mouseTimer]);
 
-  // Asignar streams a video elements
-  useEffect(() => {
-    if (videoRef.current && videoCall.localStream) {
-      videoRef.current.srcObject = videoCall.localStream;
-    }
-  }, [videoCall.localStream]);
-
-  useEffect(() => {
-    if (screenShareRef.current && videoCall.screenStream) {
-      screenShareRef.current.srcObject = videoCall.screenStream;
-    }
-  }, [videoCall.screenStream]);
-
   // Handlers de UI
-  const toggleFocusMode = () => {
-    const next = !isFocusMode;
-    setFocusMode(next);
-  };
-
   const handleToggleVideo = async () => {
     await videoCall.toggleVideo();
     const state = !videoCall.isVideoEnabled;
@@ -196,10 +196,87 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
     setViewMode(mode);
   };
 
+  if (isLiveKitEnabled) {
+    return (
+      <div className={`flex min-h-0 flex-1 flex-col text-white ${className}`}>
+        <div className={`call-area ${isFocusMode ? 'gap-3' : 'gap-4'} flex min-h-0 flex-1 flex-col`}>
+          {telemedicine.session && (
+            <div className="mb-2 flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/80">
+              <span>
+                Sesión #{telemedicine.session.session_id.slice(0, 8)} · Estado: <strong>{telemedicine.session.status}</strong>
+              </span>
+              <span>
+                Participantes: {telemedicine.participants.length} · Último evento: {telemedicine.events[0]?.event_type ?? 'ninguno'}
+              </span>
+            </div>
+          )}
+
+          <section className="call-area__videoCard relative flex min-h-0 flex-1 flex-col">
+            <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-lg bg-black">
+              {liveKitConfig ? (
+                <LiveKitRoom
+                  token={liveKitConfig.token}
+                  serverUrl={liveKitConfig.url}
+                  connect
+                  video
+                  audio
+                  onConnected={() => {
+                    void handleLiveKitConnected();
+                  }}
+                  onDisconnected={() => {
+                    void handleLiveKitDisconnected();
+                  }}
+                  className="absolute inset-0 flex flex-col"
+                >
+                  <RoomAudioRenderer />
+                  <VideoConference />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4">
+                    <div className="mx-auto max-w-3xl">
+                      <ControlBar
+                        variation="minimal"
+                        controls={{
+                          microphone: true,
+                          camera: true,
+                          screenShare: false,
+                          chat: true,
+                          leave: true,
+                        }}
+                      />
+                    </div>
+                  </div>
+                </LiveKitRoom>
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
+                  {telemedicine.loading ? (
+                    <div className="text-center">
+                      <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-2 border-t-transparent border-white/60" />
+                      <p className="text-white/80">Preparando tu videoconsulta...</p>
+                    </div>
+                  ) : (
+                    <div className="text-center space-y-4">
+                      <p className="text-white/80">LiveKit activo, esperando token de sesión.</p>
+                      <button
+                        onClick={() => {
+                          void telemedicine.refreshSession();
+                        }}
+                        className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:from-blue-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                      >
+                        Reintentar conexión
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`flex min-h-0 flex-1 flex-col text-white ${className}`}>
       <div className={`call-area ${isFocusMode ? 'gap-3' : 'gap-4'} flex min-h-0 flex-1 flex-col`}>
-        {/* Info strip */}
         {telemedicine.session && (
           <div className="mb-2 flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/80">
             <span>
@@ -212,11 +289,8 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
           </div>
         )}
 
-        {/* Sección principal de video con nuevo layout dual */}
         <section className="call-area__videoCard relative flex min-h-0 flex-1 flex-col">
           <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-lg">
-
-            {/* Nuevo VideoLayout con soporte para dual stream */}
             {videoCall.callStatus === 'live' ? (
               <VideoLayout
                 localStream={videoCall.localStream}
@@ -230,14 +304,13 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
                 className="absolute inset-0"
               />
             ) : (
-              /* Placeholder inicial antes de iniciar llamada */
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
                 <div className="text-center">
-                  <h2 className="text-2xl font-bold mb-2">Videoconsulta Médica</h2>
-                  <p className="text-white/70 mb-6">Presiona el botón para iniciar tu consulta</p>
+                  <h2 className="mb-2 text-2xl font-bold">Videoconsulta Médica</h2>
+                  <p className="mb-6 text-white/70">Presiona el botón para iniciar tu consulta</p>
                   <button
                     onClick={videoCall.startCall}
-                    className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 font-semibold transition-all shadow-lg hover:shadow-xl"
+                    className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold transition-all shadow-lg hover:from-blue-500 hover:to-purple-500 hover:shadow-xl"
                   >
                     Iniciar Videoconsulta
                   </button>
@@ -245,17 +318,12 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
               </div>
             )}
 
-            {/* Selector de modo de vista (top-right) */}
             {videoCall.callStatus === 'live' && (
               <div className="absolute top-4 right-4 z-30">
-                <ViewModeSelector
-                  currentMode={viewMode}
-                  onChange={handleViewModeChange}
-                />
+                <ViewModeSelector currentMode={viewMode} onChange={handleViewModeChange} />
               </div>
             )}
 
-            {/* Controles de video DENTRO del contenedor */}
             {videoCall.callStatus === 'live' && (
               <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center pb-4">
                 <VideoControls

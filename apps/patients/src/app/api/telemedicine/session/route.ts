@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createRouteHandlerClient } from '@autamedica/auth/server'
-import { logger, getOptionalClientEnv } from '@autamedica/shared'
+import { logger, getOptionalClientEnv, ensureServerEnv } from '@autamedica/shared'
 import { randomUUID } from 'node:crypto'
 
 const ICE_SERVERS = [
@@ -72,6 +72,46 @@ function sanitizeUuid(input: unknown): string | null {
   return null
 }
 
+function getSignalingServiceUrl(): string | null {
+  try {
+    return ensureServerEnv('SIGNALING_SERVICE_URL')
+  } catch {
+    return null
+  }
+}
+
+async function requestLiveKitPayload(
+  signalingUrl: string,
+  payload: { consultationId: string; patientId: string; doctorId: string }
+): Promise<{ token: string; url: string; roomName?: string } | null> {
+  try {
+    const response = await fetch(`${signalingUrl.replace(/\/$/, '')}/api/consultations/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => '')
+      throw new Error(`signaling_error_${response.status}: ${text}`)
+    }
+
+    const json = await response.json()
+    const data = json?.data
+    if (data?.patientToken && data?.livekitUrl) {
+      return {
+        token: data.patientToken,
+        url: data.livekitUrl,
+        roomName: data.roomName,
+      }
+    }
+    return null
+  } catch (err) {
+    logger.error('[Telemedicina] LiveKit handshake failed', err)
+    return null
+  }
+}
+
 async function markAppointmentStatus(
   supabase: ReturnType<typeof createRouteHandlerClient>,
   appointmentId: string | null,
@@ -110,6 +150,7 @@ export async function POST(request: Request) {
     }
 
     const patientId = await resolvePatientId(supabase, authSession.user.id)
+    const signalingUrl = getSignalingServiceUrl()
 
     const existing = await supabase
       .from('telemedicine_sessions')
@@ -133,6 +174,14 @@ export async function POST(request: Request) {
         .order('created_at', { ascending: false })
         .limit(50)
 
+      const livekit = signalingUrl
+        ? await requestLiveKitPayload(signalingUrl, {
+            consultationId: existing.data.id,
+            patientId,
+            doctorId,
+          })
+        : null
+
       return NextResponse.json({
         ok: true,
         data: {
@@ -144,6 +193,7 @@ export async function POST(request: Request) {
           },
           participants: participantsRes.data ?? [],
           events: eventsRes.data ?? [],
+          livekit,
         } satisfies StartResponse,
       })
     }
@@ -187,6 +237,14 @@ export async function POST(request: Request) {
 
     await markAppointmentStatus(supabase, appointmentId, 'in_progress')
 
+    const livekit = signalingUrl
+      ? await requestLiveKitPayload(signalingUrl, {
+          consultationId: inserted.data.id,
+          patientId,
+          doctorId,
+        })
+      : null
+
     return NextResponse.json({
       ok: true,
       data: {
@@ -198,6 +256,7 @@ export async function POST(request: Request) {
         },
         participants: [],
         events: [],
+        livekit,
       } satisfies StartResponse,
     })
   } catch (e) {
@@ -258,12 +317,33 @@ export async function GET(request: Request) {
     if (participantsRes.error) throw participantsRes.error
     if (eventsRes.error) throw eventsRes.error
 
+    const signalingUrl = getSignalingServiceUrl()
+    const shouldRequestLivekit =
+      signalingUrl &&
+      sessionRow.status === 'in_progress' &&
+      Boolean(sessionRow.patient_id) &&
+      Boolean(sessionRow.doctor_id)
+
+    const livekit = shouldRequestLivekit
+      ? await requestLiveKitPayload(signalingUrl!, {
+          consultationId: sessionRow.id,
+          patientId: String(sessionRow.patient_id),
+          doctorId: String(sessionRow.doctor_id),
+        })
+      : null
+
     return NextResponse.json({
       ok: true,
       data: {
         session: mapSession(sessionRow),
         participants: participantsRes.data ?? [],
         events: eventsRes.data ?? [],
+        signaling: {
+          room_id: sessionRow.room_id ?? '',
+          server_url: getSignalingUrl(),
+          ice_servers: ICE_SERVERS,
+        },
+        livekit,
       },
     })
   } catch (e) {
