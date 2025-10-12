@@ -138,24 +138,16 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addCondition = async (condition: any) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('No authenticated user')
-
-      const { error: insertError } = await supabase
-        .from('medical_records')
-        .insert([{
-          patient_id: user.id,
-          record_type: 'diagnosis',
-          title: condition.condition,
+      const res = await fetch('/api/medical-history/conditions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          condition: condition.condition,
           icd10_code: condition.icd10_code,
           notes: condition.notes,
-          status: 'active',
-          visibility: 'private'
-        }])
-
-      if (insertError) throw insertError
-
-      // Refresh data
+        }),
+      })
+      if (!res.ok) throw new Error('Failed to add condition')
       await fetchMedicalHistory()
     } catch (error) {
       logger.error('Error adding condition:', error)
@@ -165,26 +157,19 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addMedication = async (medication: any) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('No authenticated user')
-
-      const { error: insertError } = await supabase
-        .from('medical_records')
-        .insert([{
-          patient_id: user.id,
-          record_type: 'prescription',
-          title: medication.medication_name,
+      const res = await fetch('/api/medical-history/medications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          medication_name: medication.medication_name,
           dosage: medication.dosage,
           frequency: medication.frequency,
           route: medication.route,
-          notes: medication.reason,
-          status: 'active',
-          visibility: 'private'
-        }])
-
-      if (insertError) throw insertError
-
-      // Refresh data
+          reason: medication.reason,
+          end_date: medication.end_date ?? null,
+        }),
+      })
+      if (!res.ok) throw new Error('Failed to add medication')
       await fetchMedicalHistory()
     } catch (error) {
       logger.error('Error adding medication:', error)
@@ -194,25 +179,18 @@ export function useMedicalHistory(patientId?: PatientId) {
 
   const addAllergy = async (allergy: any) => {
     try {
-      // Allergies are stored in anamnesis, not medical_records
-      // For now, we'll add a note in medical_records
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('No authenticated user')
-
-      const { error: insertError } = await supabase
-        .from('medical_records')
-        .insert([{
-          patient_id: user.id,
-          record_type: 'note',
-          title: `Alergia: ${allergy.allergen}`,
-          notes: `Tipo: ${allergy.type}, Severidad: ${allergy.severity}, Reacción: ${allergy.reaction}`,
-          status: 'active',
-          visibility: 'shared'
-        }])
-
-      if (insertError) throw insertError
-
-      // Refresh data
+      const res = await fetch('/api/medical-history/allergies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          allergen: allergy.allergen,
+          type: allergy.type,
+          severity: allergy.severity,
+          reaction: allergy.reaction,
+          notes: allergy.notes,
+        }),
+      })
+      if (!res.ok) throw new Error('Failed to add allergy')
       await fetchMedicalHistory()
     } catch (error) {
       logger.error('Error adding allergy:', error)

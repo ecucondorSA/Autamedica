@@ -1,3 +1,7 @@
+import { config as dotenvConfig } from 'dotenv';
+// Load local envs in monorepo to avoid Next.js workspace root inference issues
+dotenvConfig({ path: './.env.local' });
+
 /** @type {import('next').NextConfig} */
 const PUBLIC_ENV_PREFIX = 'NEXT_PUBLIC_';
 

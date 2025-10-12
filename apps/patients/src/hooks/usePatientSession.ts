@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { logger } from '@autamedica/shared';
 import { useSupabase } from '@autamedica/auth/react';
-import { parseProfile, type Profile } from '@/lib/zod/profiles';
+import { parseProfile, safeParseProfile, type Profile } from '@/lib/zod/profiles';
 import { parsePatient, type Patient } from '@/lib/zod/patients';
 
 interface PatientSessionState {
@@ -58,20 +58,39 @@ export function usePatientSession(): UsePatientSessionResult {
 
       const email = ensureEmail(user);
 
-      const { data, error } = await supabase
+      // Intento 1: esquema nuevo (user_id)
+      let { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('user_id', user.id)
         .maybeSingle();
 
+      // Si la columna no existe o no hay fila, intentar esquema legacy (id)
+      if ((error && error.code !== 'PGRST116') || (!data && !error)) {
+        const tryLegacy = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .maybeSingle();
+        data = tryLegacy.data as any;
+        error = tryLegacy.error as any;
+      }
+
       if (error && error.code !== 'PGRST116') {
         throw error;
       }
 
-      let profileRow = data ?? null;
+      let profileRow: any = data ?? null;
+      // Normalizar id -> user_id si fuese legacy
+      if (profileRow && !profileRow.user_id && profileRow.id) {
+        profileRow = { ...profileRow, user_id: profileRow.id };
+      }
 
       if (!profileRow) {
-        const { data: inserted, error: insertError } = await supabase
+        // Intentar insertar con user_id; si falla por columna, probar con id
+        let inserted: any = null;
+        let insertError: any = null;
+        let insert = await supabase
           .from('profiles')
           .insert({
             user_id: user.id,
@@ -81,6 +100,24 @@ export function usePatientSession(): UsePatientSessionResult {
           })
           .select('*')
           .single();
+        inserted = insert.data;
+        insertError = insert.error;
+
+        if (insertError) {
+          // Reintentar esquema legacy
+          const legacy = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              email,
+              role: 'patient',
+              external_id: user.id,
+            })
+            .select('*')
+            .single();
+          inserted = legacy.data;
+          insertError = legacy.error;
+        }
 
         if (insertError) {
           throw insertError;
@@ -94,21 +131,18 @@ export function usePatientSession(): UsePatientSessionResult {
           updates.email = email;
         }
 
-        if (!profileRow.role) {
-          updates.role = 'patient';
-        }
-
-        if (!profileRow.external_id) {
-          updates.external_id = user.id;
-        }
+        // Evitar escribir columnas que podrían no existir en ciertos esquemas (role/external_id)
 
         if (Object.keys(updates).length > 0) {
-          const { data: updated, error: updateError } = await supabase
+          // Update por user_id o por id según exista
+          const updateTry = await supabase
             .from('profiles')
             .update(updates)
-            .eq('user_id', user.id)
+            .eq(profileRow.user_id ? 'user_id' : 'id', user.id)
             .select('*')
             .single();
+          const updated = updateTry.data as any;
+          const updateError = updateTry.error as any;
 
           if (updateError) {
             throw updateError;
@@ -117,8 +151,22 @@ export function usePatientSession(): UsePatientSessionResult {
           profileRow = updated;
         }
       }
-
-      return parseProfile(profileRow);
+      // Parse robusto: intentar zod; si falla, normalizar mínimamente
+      const parsed = safeParseProfile(profileRow);
+      if (parsed) return parsed;
+      return {
+        userId: profileRow.user_id ?? profileRow.id,
+        email: profileRow.email ?? email,
+        role: (profileRow.role as any) ?? 'patient',
+        firstName: (profileRow.first_name as any) ?? null,
+        lastName: (profileRow.last_name as any) ?? null,
+        phone: (profileRow.phone as any) ?? null,
+        avatarUrl: (profileRow.avatar_url as any) ?? null,
+        active: (profileRow.active as any) ?? null,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        deletedAt: null,
+      } as unknown as Profile;
     },
     [supabase],
   );

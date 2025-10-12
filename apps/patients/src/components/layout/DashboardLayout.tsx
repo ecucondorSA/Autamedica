@@ -37,9 +37,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   // Obtener sesión de paciente
   const { user, profile, loading, signOut } = usePatientSession();
 
-  // Datos del usuario con fallbacks
-  const userName = profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
-  const userEmail = user?.email || 'No disponible';
+  // Datos del usuario con fallbacks personalizados
+  const computedName = [profile?.firstName, profile?.lastName]
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+  const metaName = (user?.user_metadata as any)?.full_name as string | undefined;
+  const emailLocal = user?.email?.split('@')[0];
+  const userName = computedName || metaName || emailLocal || 'Paciente';
+  const userEmail = user?.email || '';
 
   const handleSignOut = async () => {
     await signOut();

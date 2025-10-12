@@ -79,22 +79,23 @@ cat ~/.claude/agents/agent_code.md
 
 La configuración de agentes se encuentra en:
 - **Source**: `/root/.claude/agentic-config.json`
-- **Agents Directory**: `~/.claude/agents/`
-- **Registration Script**: `scripts/register-claude-agents.mjs`
+- **Claude Agents**: `~/.claude/agents/` (model: sonnet)
+- **OpenAI/ChatGPT Agents**: `~/.openai/agents/` (model: gpt-5)
+- **Registration Scripts**: `scripts/register-claude-agents.mjs` y `scripts/register-openai-agents.mjs`
 
 ### Modificar Agentes
 
 1. Edita `/root/.claude/agentic-config.json`
 2. Ejecuta `pnpm agents:register`
-3. Los agentes se actualizarán automáticamente
+3. Se generarán agentes para Claude y ChatGPT/OpenAI (mismos prompts, tools, prioridades, timeouts)
 
 ---
 
-## 💡 Uso en Claude Code
+## 💡 Uso en Claude Code / ChatGPT
 
-Una vez registrados, los agentes están disponibles automáticamente:
+Una vez registrados, los agentes están disponibles automáticamente en Claude Code y como perfiles locales para ChatGPT/OpenAI:
 
-### Invocación Automática
+### Invocación Automática (Claude)
 Claude Code detectará automáticamente cuándo usar cada agente basándose en tu solicitud:
 
 ```
@@ -102,7 +103,7 @@ Usuario: "Need to run security checks"
 Claude Code: *Automatically invokes agent_security*
 ```
 
-### Invocación Explícita
+### Invocación Explícita (Claude)
 También puedes solicitar un agente específico:
 
 ```
@@ -218,3 +219,7 @@ Los agentes se sincronizan automáticamente con Git:
 
 **Última actualización**: 2025-10-06
 **Versión**: 2.0.0 (con sincronización automática)
+### Uso con ChatGPT/OpenAI
+- Los agentes equivalentes se guardan en `~/.openai/agents/*.md`.
+- Puedes reutilizar el contenido como System Prompt o como plantilla de “Custom Instructions”.
+- Por defecto usan `model: gpt-5` y establecen `autonomy: high` con una política de decisión: ejecutar lint/typecheck y refactors seguros, pedir aprobación para acciones destructivas.

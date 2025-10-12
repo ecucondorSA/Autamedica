@@ -2,19 +2,8 @@
 
 import { useCallback, useState } from 'react';
 import { logger } from '@autamedica/shared';
-import { useSupabase } from '@autamedica/auth/react';
-import {
-  buildProfileUpdatePayload,
-  type ProfileUpdateInput,
-  parseProfile,
-} from '@/lib/zod/profiles';
-import {
-  buildPatientUpdatePayload,
-  type PatientProfileUpdateInput,
-  parsePatient,
-} from '@/lib/zod/patients';
-import type { Patient } from '@/lib/zod/patients';
-import type { Profile } from '@/lib/zod/profiles';
+import type { ProfileUpdateInput, Profile } from '@/lib/zod/profiles';
+import type { PatientProfileUpdateInput, Patient } from '@/lib/zod/patients';
 
 export interface PatientProfileUpdateResult {
   profile: Profile | null;
@@ -33,7 +22,6 @@ export interface UsePatientProfileReturn {
 }
 
 export function usePatientProfile(userId: string | null): UsePatientProfileReturn {
-  const supabase = useSupabase();
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -50,54 +38,26 @@ export function usePatientProfile(userId: string | null): UsePatientProfileRetur
         setError(null);
         setSuccess(false);
 
-        let nextProfile: Profile | null = null;
-        let nextPatient: Patient | null = null;
-
         if (typeof window === 'undefined') {
           setError('Las actualizaciones solo están disponibles desde el navegador.');
           return null;
         }
 
-        if (profile) {
-          const payload = buildProfileUpdatePayload(profile);
+        // Usar API server-side para respetar RLS y lógica de negocio
+        const res = await fetch('/api/profile', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile, patient }),
+        });
 
-          if (Object.keys(payload).length > 0) {
-            const { data, error: updateError } = await supabase
-              .from('profiles')
-              .update(payload)
-              .eq('user_id', userId)
-              .select('*')
-              .single();
-
-            if (updateError) {
-              throw updateError;
-            }
-
-            nextProfile = parseProfile(data);
-          }
+        if (!res.ok) {
+          const details = await res.json().catch(() => ({}));
+          throw new Error(details?.error || 'No pudimos guardar los cambios');
         }
 
-        if (patient) {
-          const payload = buildPatientUpdatePayload(patient);
-
-          if (Object.keys(payload).length > 0) {
-            const { data, error: updateError } = await supabase
-              .from('patients')
-              .update(payload)
-              .eq('user_id', userId)
-              .select('*')
-              .maybeSingle();
-
-            if (updateError) {
-              throw updateError;
-            }
-
-            nextPatient = data ? parsePatient(data) : null;
-          }
-        }
-
+        const json = await res.json();
         setSuccess(true);
-        return { profile: nextProfile, patient: nextPatient };
+        return { profile: json?.data?.profile ?? null, patient: json?.data?.patient ?? null };
       } catch (updateError) {
         logger.error('[usePatientProfile] update failed', updateError);
         setError('No pudimos guardar los cambios. Intentá nuevamente.');
@@ -106,7 +66,7 @@ export function usePatientProfile(userId: string | null): UsePatientProfileRetur
         setIsSaving(false);
       }
     },
-    [supabase, userId],
+    [userId],
   );
 
   const resetStatus = useCallback(() => {

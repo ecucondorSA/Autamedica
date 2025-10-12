@@ -28,6 +28,15 @@ watch(CONFIG_PATH, (eventType, filename) => {
           cwd: '/root/Autamedica',
           stdio: 'inherit'
         });
+        // Mantener también agentes equivalentes para ChatGPT/OpenAI
+        try {
+          execSync('node scripts/register-openai-agents.mjs', {
+            cwd: '/root/Autamedica',
+            stdio: 'inherit'
+          });
+        } catch (e) {
+          console.error('❌ Error syncing OpenAI agents:', e.message);
+        }
         console.log('✅ Agents synchronized!\n');
         console.log('👀 Watching for more changes...');
       } catch (error) {

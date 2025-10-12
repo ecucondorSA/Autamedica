@@ -23,7 +23,13 @@ export default function DashboardPage() {
 
   // TODO: Implementar lógica para obtener próxima cita desde Supabase
   const nextAppointment = null;
-  const userName = profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
+  const computedName = [profile?.firstName, profile?.lastName]
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+  const metaName = (user?.user_metadata as any)?.full_name as string | undefined;
+  const emailLocal = user?.email?.split('@')[0];
+  const userName = computedName || metaName || emailLocal || 'Paciente';
 
   // Room ID único para esta sesión
   const roomId = `patient-room-${user?.id || 'demo'}`;

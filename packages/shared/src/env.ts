@@ -204,11 +204,52 @@ const CLIENT_ENV_MAP: Record<string, string | undefined> = Array.from(ALLOWED_CL
 );
 
 // Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
+// Helper to read known NEXT_PUBLIC_* keys via direct property access so Next.js can inline them
+function readKnownClientEnv(name: string): string | undefined {
+  // Important: keep direct property access for Next.js compile-time inlining
+  switch (name) {
+    case 'NEXT_PUBLIC_SUPABASE_URL':
+      return process.env.NEXT_PUBLIC_SUPABASE_URL;
+    case 'NEXT_PUBLIC_SUPABASE_ANON_KEY':
+      return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    case 'NEXT_PUBLIC_AUTH_HUB_URL':
+      return process.env.NEXT_PUBLIC_AUTH_HUB_URL;
+    case 'NEXT_PUBLIC_AUTH_HUB_DEV_URL':
+      return process.env.NEXT_PUBLIC_AUTH_HUB_DEV_URL;
+    case 'NEXT_PUBLIC_PATIENTS_DEV_URL':
+      return process.env.NEXT_PUBLIC_PATIENTS_DEV_URL;
+    case 'NEXT_PUBLIC_PATIENTS_URL':
+      return process.env.NEXT_PUBLIC_PATIENTS_URL;
+    case 'NEXT_PUBLIC_DOCTORS_DEV_URL':
+      return process.env.NEXT_PUBLIC_DOCTORS_DEV_URL;
+    case 'NEXT_PUBLIC_DOCTORS_URL':
+      return process.env.NEXT_PUBLIC_DOCTORS_URL;
+    case 'NEXT_PUBLIC_SIGNALING_URL':
+      return process.env.NEXT_PUBLIC_SIGNALING_URL;
+    case 'NEXT_PUBLIC_APP_URL':
+      return process.env.NEXT_PUBLIC_APP_URL;
+    case 'NEXT_PUBLIC_SITE_URL':
+      return process.env.NEXT_PUBLIC_SITE_URL;
+    case 'NEXT_PUBLIC_API_URL':
+      return process.env.NEXT_PUBLIC_API_URL;
+    default:
+      return undefined;
+  }
+}
+
 export function ensureClientEnv(name: string): string {
   assertClientEnvAllowed(name);
 
-  // Usar mapa estático en lugar de acceso dinámico
-  const value = CLIENT_ENV_MAP[name] ?? process.env[name];
+  // Try static map first (server-side and build-time)
+  let value = CLIENT_ENV_MAP[name];
+  // Fallback for client-side: use direct property access to allow Next.js inlining
+  if (!value) {
+    value = readKnownClientEnv(name);
+  }
+  if (!value) {
+    // Last resort (server-side)
+    value = process.env[name];
+  }
   if (!value) {
     throw new Error(`Missing required client environment variable: ${name}`);
   }
@@ -217,8 +258,12 @@ export function ensureClientEnv(name: string): string {
 
 export function getClientEnvOrDefault(name: string, defaultValue: string): string {
   assertClientEnvAllowed(name);
-  const value = CLIENT_ENV_MAP[name] ?? process.env[name];
-  return value ?? defaultValue;
+  return (
+    CLIENT_ENV_MAP[name] ??
+    readKnownClientEnv(name) ??
+    process.env[name] ??
+    defaultValue
+  );
 }
 
 export function getOptionalClientEnv(name: string): string | undefined {

@@ -3,7 +3,7 @@
 // Disable SSG for this page since it uses auth and client-side data fetching
 export const dynamic = 'force-dynamic';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   AlertCircle,
   Calendar,
@@ -16,10 +16,12 @@ import {
 } from 'lucide-react';
 import { PatientProfileForm, type PatientProfileFormPayload } from '@/components/forms/PatientProfileForm';
 import { usePatientSession } from '@/hooks/usePatientSession';
+import { useSupabase } from '@autamedica/auth/react';
 import { usePatientProfile } from '@/hooks/useProfile';
 
 export default function ProfilePage() {
   const { user, profile, patient, loading, error, refresh } = usePatientSession();
+  const supabase = useSupabase();
   const { updateProfile, isSaving, success, error: updateError, resetStatus } = usePatientProfile(user?.id ?? null);
   const [isEditing, setIsEditing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -64,6 +66,33 @@ export default function ProfilePage() {
     }
   };
 
+  // Auto-reparar perfiles inexistentes (esquemas legacy) si el usuario existe
+  const ensureProfile = useCallback(async () => {
+    try {
+      // Obtener token actual del cliente para autorizar en backend
+      const { createBrowserClient } = await import('@supabase/ssr');
+      const supabaseClient = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      );
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+      const accessToken = sessionData.session?.access_token;
+      const res = await fetch('/api/profile/ensure', {
+        method: 'POST',
+        credentials: 'include',
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
+      });
+      console.log('[Profile] ensureProfile status:', res.status);
+      await refresh();
+    } catch (e) {
+      console.error('[Profile] ensureProfile failed', (e as Error)?.message);
+    }
+  }, [refresh]);
+
+  useEffect(() => {
+    void ensureProfile();
+  }, [ensureProfile]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -96,7 +125,16 @@ export default function ProfilePage() {
           <AlertCircle className="h-6 w-6 text-amber-500 mt-1" />
           <div>
             <h2 className="text-lg font-semibold text-amber-900">No encontramos tu perfil</h2>
-            <p className="text-amber-700 mt-1">Contactanos para completar el registro de tu cuenta.</p>
+            <p className="text-amber-700 mt-1">Estamos preparando tu perfil automáticamente. Si persiste, tocá "Actualizar datos".</p>
+            <div className="mt-4">
+              <button
+                onClick={async () => { console.log('[Profile] clicked ensure+edit'); await ensureProfile(); setIsEditing(true); }}
+                className="btn-secondary-ivory px-4 py-2 text-sm"
+              >
+                Crear y editar perfil
+              </button>
+              <button onClick={() => { void refresh(); }} className="btn-secondary-ivory px-4 py-2 text-sm ml-3">Actualizar datos</button>
+            </div>
           </div>
         </div>
       </div>

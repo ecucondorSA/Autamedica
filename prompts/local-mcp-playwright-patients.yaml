@@ -1,0 +1,58 @@
+meta:
+  name: "Local – MCP + Playwright (patients)"
+  version: "2025-10-12"
+  mode: "interactive"
+  mutation: "enabled"
+  outputs_dir: "generated-docs"
+
+targets:
+  web:
+    patients: "http://localhost:3002"
+  db:
+    mcp_endpoint: "${SUPABASE_MCP_ENDPOINT:-}"
+    mcp_token: "${SUPABASE_MCP_TOKEN:-}"
+    url: "${SUPABASE_URL:-}"
+
+env:
+  required:
+    - SUPABASE_URL
+    - SUPABASE_ANON_KEY
+    - SUPABASE_SERVICE_ROLE_KEY
+    - NEXT_PUBLIC_SUPABASE_URL
+    - NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+steps:
+  - id: env_check
+    note: "Validar variables requeridas para auth y DB"
+    run:
+      - "node -v"
+      - "pnpm -v"
+      - "test -n \"$SUPABASE_URL\" && echo SUPABASE_URL=OK || (echo 'Falta SUPABASE_URL' && exit 1)"
+
+  - id: dev_server
+    note: "Levantar patients en :3002 (Next dev)"
+    run:
+      - "cd apps/patients && pnpm dev"
+
+  - id: e2e_auth
+    note: "Ejecutar Playwright E2E sobre localhost"
+    run:
+      - "cd apps/patients && pnpm patients:e2e"
+
+  - id: api_smoke
+    note: "Verificar API protegida responde 404/200 autenticado (no 401)"
+    http:
+      - url: "${targets.web.patients}/api/appointments/00000000-0000-0000-0000-000000000000"
+        expect_any_status: [200, 404]
+
+report:
+  main: "LOCAL_E2E_REPORT.md"
+  include:
+    - "${outputs_dir}/playwright-report.txt"
+
+exit_policy:
+  success_if:
+    - "all_steps_passed"
+  fail_if:
+    - "any_gate_failed"
+

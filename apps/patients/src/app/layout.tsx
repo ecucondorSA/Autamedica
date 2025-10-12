@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import './globals.css'
 import '@livekit/components-styles'
 import { PatientRootLayout } from '@/components/layout/PatientRootLayout'
+import { SessionSync } from '@/components/SessionSync'
 
 export const metadata: Metadata = {
   title: 'AutaMedica Patient Portal',
@@ -24,6 +25,8 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
         >
           Saltar al contenido principal
         </a>
+        {/* Sincroniza sesión cuando tokens llegan por URL desde Auth Hub */}
+        <SessionSync />
         <PatientRootLayout>{children}</PatientRootLayout>
       </body>
     </html>
