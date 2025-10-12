@@ -113,6 +113,8 @@ jobs:
             --exclude-dir=.next \
             --exclude-dir=.open-next \
             --exclude-dir=dist \
+            --exclude-dir=playwright-report \
+            --exclude-dir=test-results \
             --exclude="*.md" \
             --exclude="*.env" \
             --exclude="*.env.*" \
