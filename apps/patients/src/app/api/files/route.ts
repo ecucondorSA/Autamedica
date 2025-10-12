@@ -20,7 +20,7 @@ export async function GET() {
     const { data: objects, error } = await admin.storage.from(BUCKET).list(prefix, { limit: 100, offset: 0 });
     if (error) throw error;
 
-    return NextResponse.json({ ok: true, data: { files: (objects ?? []).map(o => ({
+    return NextResponse.json({ ok: true, data: { files: (objects || []).map(o => ({
       name: o.name,
       path: prefix + o.name,
       size: o.metadata?.size ?? null,
@@ -69,4 +69,3 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ ok: false, error: e?.message || 'internal_error' }, { status: 500 });
   }
 }
-
