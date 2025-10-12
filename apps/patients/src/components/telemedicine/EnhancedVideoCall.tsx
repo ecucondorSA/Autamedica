@@ -34,6 +34,7 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   // Hook de telemedicina para Supabase
   const telemedicine = useTelemedicine(sessionId);
+  const joinedRef = useRef(false);
 
   // Estados locales de UI
   const [showControls, setShowControls] = useState(true);
@@ -96,12 +97,31 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
       }
     };
 
-    if (videoCall.callStatus === 'live') {
+    if (videoCall.callStatus === 'live' && !joinedRef.current) {
+      telemedicine.joinSession('patient');
+      joinedRef.current = true;
       logEvent('call_started', 'Video call initiated successfully');
-    } else if (videoCall.callStatus === 'ended') {
+    } else if (videoCall.callStatus === 'ended' && joinedRef.current) {
       logEvent('call_ended', 'Video call ended by patient');
+      telemedicine.leaveSession();
+      joinedRef.current = false;
     }
   }, [videoCall.callStatus, telemedicine]);
+
+  useEffect(() => {
+    if (!telemedicine.session) {
+      joinedRef.current = false;
+    }
+  }, [telemedicine.session]);
+
+  useEffect(() => {
+    return () => {
+      if (joinedRef.current) {
+        telemedicine.leaveSession();
+        joinedRef.current = false;
+      }
+    };
+  }, [telemedicine]);
 
   // Auto-ocultar controles en focus mode
   useEffect(() => {
@@ -146,6 +166,23 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
     setFocusMode(next);
   };
 
+  const handleToggleVideo = async () => {
+    await videoCall.toggleVideo();
+    const state = !videoCall.isVideoEnabled;
+    telemedicine.logEvent('video_toggled', `enabled:${state}`);
+  };
+
+  const handleToggleAudio = async () => {
+    await videoCall.toggleAudio();
+    const state = !videoCall.isMuted;
+    telemedicine.logEvent('audio_toggled', `enabled:${state}`);
+  };
+
+  const handleToggleScreenShare = async () => {
+    await videoCall.toggleScreenShare();
+    telemedicine.logEvent('screen_share_toggled');
+  };
+
   const handleSwapVideos = () => {
     // Swap será manejado internamente por VideoLayout
     // logger.info('[EnhancedVideoCall] Videos swapped');
@@ -162,6 +199,19 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
   return (
     <div className={`flex min-h-0 flex-1 flex-col text-white ${className}`}>
       <div className={`call-area ${isFocusMode ? 'gap-3' : 'gap-4'} flex min-h-0 flex-1 flex-col`}>
+        {/* Info strip */}
+        {telemedicine.session && (
+          <div className="mb-2 flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/80">
+            <span>
+              Sesión #{telemedicine.session.session_id.slice(0, 8)} · Estado: <strong>{telemedicine.session.status}</strong>
+            </span>
+            <span>
+              Participantes: {telemedicine.participants.length} · Último evento:{' '}
+              {telemedicine.events[0]?.event_type ?? 'ninguno'}
+            </span>
+          </div>
+        )}
+
         {/* Sección principal de video con nuevo layout dual */}
         <section className="call-area__videoCard relative flex min-h-0 flex-1 flex-col">
           <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-lg">
@@ -214,10 +264,14 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
                   isScreenSharing={videoCall.isScreenSharing}
                   showControls={showControls}
                   isFocusMode={isFocusMode}
-                  onToggleAudio={videoCall.toggleAudio}
-                  onToggleVideo={videoCall.toggleVideo}
-                  onToggleScreenShare={videoCall.toggleScreenShare}
-                  onEndCall={videoCall.endCall}
+                  onToggleAudio={handleToggleAudio}
+                  onToggleVideo={handleToggleVideo}
+                  onToggleScreenShare={handleToggleScreenShare}
+                  onEndCall={async () => {
+                    await telemedicine.logEvent('call_ended', 'Video call ended by button');
+                    await telemedicine.leaveSession();
+                    videoCall.endCall();
+                  }}
                 />
               </div>
             )}

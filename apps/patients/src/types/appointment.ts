@@ -4,7 +4,7 @@
 
 export type AppointmentStatus = 'scheduled' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'no_show';
 
-export type AppointmentType = 'telemedicine' | 'in_person' | 'emergency' | 'follow_up';
+export type AppointmentType = 'telemedicine' | 'in_person' | 'emergency' | 'follow_up' | 'consultation';
 
 export interface Appointment {
   id: string;
@@ -16,8 +16,12 @@ export interface Appointment {
   type: AppointmentType;
   notes: string | null;
   reason: string | null;
-  diagnosis: string | null;
-  treatment_plan: string | null;
+  diagnosis?: string | null;
+  treatment_plan?: string | null;
+  meeting_url?: string | null;
+  location?: string | null;
+  end_time?: string | null;
+  start_time?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -29,6 +33,8 @@ export interface CreateAppointmentInput {
   type?: AppointmentType;
   notes?: string;
   reason?: string;
+  meeting_url?: string;
+  location?: string;
 }
 
 export interface UpdateAppointmentInput {
@@ -40,6 +46,8 @@ export interface UpdateAppointmentInput {
   reason?: string;
   diagnosis?: string;
   treatment_plan?: string;
+  meeting_url?: string | null;
+  location?: string | null;
 }
 
 export interface AppointmentWithDoctor extends Appointment {
