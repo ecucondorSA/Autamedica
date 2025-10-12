@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ### 🚀 Nuevas Funcionalidades
-- f9fcd9f feat(telemedicine): integrar LiveKit signaling y mejorar componente VideoCall
+- cfaf71d feat(telemedicine): crear suite completa de componentes React para videoconsulta
 
 ### 🔧 Mejoras y Optimizaciones
 
@@ -18,4 +18,4 @@
 ---
 
 
-*Generado automáticamente el 2025-10-12 07:00:18*
+*Generado automáticamente el 2025-10-12 07:06:47*
