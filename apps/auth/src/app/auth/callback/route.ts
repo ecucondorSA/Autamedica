@@ -1,7 +1,15 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { logger, isProduction } from '@autamedica/shared';
+import {
+  logger,
+  isProduction,
+  isValidRole,
+  getTargetUrlByRole,
+  getRoleForPortal,
+  type UserRole,
+} from '@autamedica/shared';
+import { validateRedirectUrl } from '@/lib/cookies';
 
 // Configure for Cloudflare Pages (Edge Runtime)
 export const runtime = 'edge';
@@ -78,30 +86,46 @@ export async function GET(request: Request) {
     }
 
     // Determine redirect destination
+    const accessToken = data.session?.access_token;
+    const refreshToken = data.session?.refresh_token;
+
+    if (!accessToken || !refreshToken) {
+      logger.error('Missing session tokens after exchange');
+      return NextResponse.redirect(
+        new URL('/auth/login?error=session_tokens_missing', requestUrl.origin)
+      );
+    }
+
+    const safeReturnTo = returnTo && validateRedirectUrl(returnTo) ? new URL(returnTo) : null;
+    const userMetadata = (data.user?.user_metadata ?? {}) as Record<string, unknown>;
+
+    const roleFromQuery = role && isValidRole(role) ? role as UserRole : undefined;
+    const metadataRoleValue = typeof userMetadata.role === 'string' ? userMetadata.role : undefined;
+    const roleFromMetadata = metadataRoleValue && isValidRole(metadataRoleValue)
+      ? metadataRoleValue as UserRole
+      : undefined;
+    const metadataPortalValue = typeof userMetadata.portal === 'string' ? userMetadata.portal : undefined;
+    const roleFromPortal = metadataPortalValue ? getRoleForPortal(metadataPortalValue) : undefined;
+
+    const resolvedRole = roleFromQuery ?? roleFromMetadata ?? roleFromPortal;
+
+    const destinationBase = safeReturnTo
+      ? `${safeReturnTo.protocol}//${safeReturnTo.host}`
+      : resolvedRole
+        ? new URL('/', getTargetUrlByRole(resolvedRole)).origin
+        : undefined;
+
     let destination: string;
 
-    if (returnTo) {
-      // Extract base URL from returnTo
-      const returnToUrl = new URL(returnTo);
-      const baseUrl = `${returnToUrl.protocol}//${returnToUrl.host}`;
-
-      // Redirect to the app's callback route with tokens
-      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
-    } else if (role === 'patient') {
-      const baseUrl = isProduction()
-        ? 'https://patients.autamedica.com'
-        : 'http://localhost:3002';
-      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
-    } else if (role === 'doctor') {
-      const baseUrl = isProduction()
-        ? 'https://doctors.autamedica.com'
-        : 'http://localhost:3001';
-      destination = `${baseUrl}/auth/callback?access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
+    if (destinationBase) {
+      const tokenParams = new URLSearchParams({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      }).toString();
+      destination = `${destinationBase}/auth/callback?${tokenParams}`;
     } else {
       destination = '/auth/select-role';
     }
-
-    // logger.info('Redirecting to:', destination);
 
     return NextResponse.redirect(destination);
   } catch (error) {
