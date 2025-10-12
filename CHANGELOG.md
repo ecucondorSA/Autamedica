@@ -7,8 +7,7 @@
 ### 🔧 Mejoras y Optimizaciones
 
 ### 🐛 Correcciones
-- 986639f patients: fix lint (no-empty in api routes, env access, unescaped quotes)
-- b24d27b patients: lint fixes (env access, empty blocks, prefer-const, unescaped quotes); API cookie handlers return; tests no-empty
+- ca0ae48 patients: fix lint optional-chain in files API
 
 ### 🔒 Seguridad
 
@@ -18,5 +17,7 @@
 
 ---
 
+### 🔄 Otros Cambios
+- 8f69917 patients: add patient files API (list/init/delete) and AUTA AI endpoints (intent/context/chat); shared auth util for server routes
 
-*Generado automáticamente el 2025-10-12 04:00:26*
+*Generado automáticamente el 2025-10-12 04:11:32*
