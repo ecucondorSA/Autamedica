@@ -81,6 +81,8 @@ const ALLOWED_CLIENT_VARS = new Set([
   "NEXT_PUBLIC_PATIENTS_DEV_URL",
   "NEXT_PUBLIC_COMPANIES_URL",
   "NEXT_PUBLIC_SIGNALING_URL",
+  "NEXT_PUBLIC_SIGNALING_SERVER_URL",
+  "NEXT_PUBLIC_SIGNALING_SERVICE_URL",
   "NEXT_PUBLIC_AUTH_DEV_BYPASS",
 
   // Supabase (cliente)
@@ -226,6 +228,10 @@ function readKnownClientEnv(name: string): string | undefined {
       return process.env.NEXT_PUBLIC_DOCTORS_URL;
     case 'NEXT_PUBLIC_SIGNALING_URL':
       return process.env.NEXT_PUBLIC_SIGNALING_URL;
+    case 'NEXT_PUBLIC_SIGNALING_SERVER_URL':
+      return process.env.NEXT_PUBLIC_SIGNALING_SERVER_URL;
+    case 'NEXT_PUBLIC_SIGNALING_SERVICE_URL':
+      return process.env.NEXT_PUBLIC_SIGNALING_SERVICE_URL;
     case 'NEXT_PUBLIC_APP_URL':
       return process.env.NEXT_PUBLIC_APP_URL;
     case 'NEXT_PUBLIC_SITE_URL':

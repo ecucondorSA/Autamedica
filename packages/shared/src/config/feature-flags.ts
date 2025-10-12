@@ -11,31 +11,49 @@
  * Feature flags basados en variables de entorno
  * Permite activar/desactivar mocks y servicios por ambiente
  */
-import { logger } from '@autamedica/shared';
+const TRUTHY_VALUES = new Set(['1', 'true', 'yes', 'on', 'enable', 'enabled']);
+const FALSY_VALUES = new Set(['0', 'false', 'no', 'off', 'disable', 'disabled']);
+
+function readBooleanFlag(...names: Array<string | undefined>): boolean {
+  for (const name of names) {
+    if (!name) continue;
+    const raw = process.env[name];
+    if (typeof raw !== 'string') continue;
+
+    const normalized = raw.trim().toLowerCase();
+    if (!normalized) continue;
+    if (TRUTHY_VALUES.has(normalized)) return true;
+    if (FALSY_VALUES.has(normalized)) return false;
+
+    // Cualquier otro valor no vacío se considera activado para no bloquear configuraciones personalizadas.
+    return true;
+  }
+  return false;
+}
 export const featureFlags = {
   // ===================
   // Video/Telemedicine
   // ===================
 
   /** Usar mock de video stream en lugar de WebRTC real */
-  USE_MOCK_VIDEO: process.env.NEXT_PUBLIC_USE_MOCK_VIDEO === 'true',
+  USE_MOCK_VIDEO: readBooleanFlag('NEXT_PUBLIC_USE_MOCK_VIDEO', 'NEXT_PUBLIC_MOCK_VIDEO'),
 
   /** Usar LiveKit para video calling real */
-  USE_LIVEKIT: process.env.NEXT_PUBLIC_USE_LIVEKIT === 'true',
+  USE_LIVEKIT: readBooleanFlag('NEXT_PUBLIC_USE_LIVEKIT', 'NEXT_PUBLIC_LIVEKIT'),
 
   // ===================
   // Medical Data
   // ===================
 
   /** Usar datos médicos simulados en lugar de Supabase */
-  USE_MOCK_MEDICAL_DATA: process.env.NEXT_PUBLIC_USE_MOCK_MEDICAL_DATA === 'true',
+  USE_MOCK_MEDICAL_DATA: readBooleanFlag('NEXT_PUBLIC_USE_MOCK_MEDICAL_DATA'),
 
   // ===================
   // AI Services
   // ===================
 
   /** Usar análisis de IA simulados */
-  USE_MOCK_AI: process.env.NEXT_PUBLIC_USE_MOCK_AI === 'true',
+  USE_MOCK_AI: readBooleanFlag('NEXT_PUBLIC_USE_MOCK_AI'),
 
   /** Proveedor de AI a usar: 'anthropic' | 'google' | 'auto' */
   AI_PROVIDER: (process.env.NEXT_PUBLIC_AI_PROVIDER || 'auto') as 'anthropic' | 'google' | 'auto',

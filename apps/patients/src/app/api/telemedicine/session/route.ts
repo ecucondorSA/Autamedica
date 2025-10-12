@@ -9,8 +9,13 @@ const ICE_SERVERS = [
 ]
 
 function getSignalingUrl(): string {
-  const clientUrl = getOptionalClientEnv?.('NEXT_PUBLIC_SIGNALING_SERVER_URL') ?? null
-  const serverUrl = getOptionalClientEnv?.('SIGNALING_SERVER_URL') ?? null
+  const clientUrl =
+    getOptionalClientEnv?.('NEXT_PUBLIC_SIGNALING_SERVER_URL') ??
+    getOptionalClientEnv?.('NEXT_PUBLIC_SIGNALING_SERVICE_URL') ??
+    getOptionalClientEnv?.('NEXT_PUBLIC_SIGNALING_URL') ??
+    null
+
+  const serverUrl = process.env.SIGNALING_SERVICE_URL ?? process.env.SIGNALING_SERVER_URL ?? null
   return clientUrl ?? serverUrl ?? 'wss://telemedicina.autamedica.com'
 }
 
