@@ -1,9 +1,10 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import type { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import { getSupabaseConfig, createServerAuthConfig } from './config';
+
+type ServerSupabaseClient = ReturnType<typeof createServerClient<Database>>;
 
 /**
  * Server Supabase client (Server Components, API Routes, Middleware)
@@ -13,7 +14,7 @@ import { getSupabaseConfig, createServerAuthConfig } from './config';
  */
 export const createServerSupabaseClient = async (
   cookieStore?: ReadonlyRequestCookies
-): Promise<SupabaseClient<Database>> => {
+): Promise<ServerSupabaseClient> => {
   const { url, anonKey } = getSupabaseConfig();
   const store = cookieStore ?? await cookies();
 
@@ -42,7 +43,7 @@ export const createServerSupabaseClient = async (
 };
 
 // Type exports
-export type SupabaseServerClientType = SupabaseClient<Database>;
+export type SupabaseServerClientType = ServerSupabaseClient;
 export type ServerAuthUser = NonNullable<
   Awaited<ReturnType<SupabaseServerClientType['auth']['getUser']>>['data']['user']
 >;
@@ -54,7 +55,7 @@ export type ServerAuthSession = NonNullable<
  * Health check utility for server
  */
 export const checkSupabaseServerConnection = async (
-  client: SupabaseClient<Database>
+  client: ServerSupabaseClient
 ): Promise<{ healthy: boolean; latency?: number; error?: string }> => {
   try {
     const start = Date.now();

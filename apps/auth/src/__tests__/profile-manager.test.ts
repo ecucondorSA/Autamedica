@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ProfileManager } from '../lib/profile-manager';
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClientType } from '../lib/supabase';
 
 // Mock Supabase client
 const createMockSupabaseClient = () => ({
@@ -29,7 +29,7 @@ describe('ProfileManager', () => {
 
   beforeEach(() => {
     mockClient = createMockSupabaseClient();
-    profileManager = new ProfileManager(mockClient as unknown as SupabaseClient);
+    profileManager = new ProfileManager(mockClient as unknown as SupabaseClientType);
   });
 
   describe('getCurrentProfile', () => {
@@ -86,8 +86,8 @@ describe('ProfileManager', () => {
       const result = await profileManager.getCurrentProfile();
 
       expect(result.success).toBe(false);
-      if (!result.success) {
-        expect(result.error?.code).toBe('RPC_ERROR');
+      if ('error' in result) {
+        expect(result.error.code).toBe('RPC_ERROR');
       }
     });
   });
@@ -117,9 +117,9 @@ describe('ProfileManager', () => {
       );
 
       expect(result.success).toBe(false);
-      if (!result.success) {
-        expect(result.error?.code).toBe('VALIDATION_ERROR');
-        expect(result.error?.message).toContain('Invalid organization ID');
+      if ('error' in result) {
+        expect(result.error.code).toBe('VALIDATION_ERROR');
+        expect(result.error.message).toContain('Invalid organization ID');
       }
     });
   });
@@ -241,8 +241,8 @@ describe('ProfileManager', () => {
       const result = await profileManager.healthCheck();
 
       expect(result.success).toBe(false);
-      if (!result.success) {
-        expect(result.error?.code).toBe('HEALTH_CHECK_ERROR');
+      if ('error' in result) {
+        expect(result.error.code).toBe('HEALTH_CHECK_ERROR');
       }
     });
   });

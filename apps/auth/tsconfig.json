@@ -33,6 +33,12 @@
       ],
       "@autamedica/auth": [
         "../../packages/auth/dist"
+      ],
+      "@autamedica/tailwind-config": [
+        "../../packages/tailwind-config/index.ts"
+      ],
+      "@autamedica/tailwind-config/*": [
+        "../../packages/tailwind-config/*"
       ]
     },
     "target": "ES2017"

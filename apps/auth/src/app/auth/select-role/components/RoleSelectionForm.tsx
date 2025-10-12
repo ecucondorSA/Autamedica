@@ -7,7 +7,7 @@ import {
   requiresVerification,
   AVAILABLE_ROLES
 } from '@autamedica/shared';
-import type { UserRole } from '@autamedica/types';
+import type { UserRole } from '@autamedica/shared';
 
 interface RoleSelectionFormProps {
   chooseRole: (role: UserRole) => Promise<void>;

@@ -195,14 +195,13 @@ function assertClientEnvAllowed(name: string) {
 
 // Mapa de variables de entorno del cliente para acceso estático
 // Next.js solo puede inyectar variables NEXT_PUBLIC_* con acceso estático
-const CLIENT_ENV_MAP: Record<string, string | undefined> = {
-  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  NEXT_PUBLIC_AUTH_CALLBACK_URL: process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL,
-  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-};
+const CLIENT_ENV_MAP: Record<string, string | undefined> = Array.from(ALLOWED_CLIENT_VARS).reduce(
+  (acc, key) => {
+    acc[key] = process.env[key];
+    return acc;
+  },
+  {} as Record<string, string | undefined>
+);
 
 // Utilidad específica para variables de entorno del cliente (NEXT_PUBLIC_*)
 export function ensureClientEnv(name: string): string {

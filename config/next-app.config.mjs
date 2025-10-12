@@ -13,7 +13,14 @@ const DEFAULT_TRANSPILE_PACKAGES = [
   '@autamedica/supabase-client',
 ];
 
+const PUBLIC_ENV_PREFIX = 'NEXT_PUBLIC_';
+
 const unique = (items) => Array.from(new Set(items.filter(Boolean)));
+
+const collectPublicRuntimeEnv = () => Object.fromEntries(
+  Object.entries(process.env)
+    .filter(([key, value]) => key.startsWith(PUBLIC_ENV_PREFIX) && value !== undefined)
+);
 
 export function createNextAppConfig({
   appDir,
@@ -30,10 +37,16 @@ export function createNextAppConfig({
     throw new Error('createNextAppConfig requires `appDir` to be provided');
   }
 
+  const runtimeEnv = {
+    ...collectPublicRuntimeEnv(),
+    ...(extendConfig.env ?? {}),
+  };
+
   const config = {
     trailingSlash: true,
     output,
     poweredByHeader: false,
+    env: runtimeEnv,
     experimental: {
       externalDir: true,
       ...(extendConfig.experimental ?? {}),
@@ -92,7 +105,7 @@ export function createNextAppConfig({
 
   // Merge remaining config overrides (shallow)
   for (const [key, value] of Object.entries(extendConfig)) {
-    if (['experimental', 'transpilePackages', 'images', 'eslint', 'typescript', 'webpack', 'outputFileTracingRoot'].includes(key)) {
+    if (['experimental', 'transpilePackages', 'images', 'eslint', 'typescript', 'webpack', 'outputFileTracingRoot', 'env'].includes(key)) {
       continue;
     }
     config[key] = value;

@@ -146,7 +146,7 @@ export class ProfileManager {
         };
       }
 
-      const { data: _data, error } = await this.client.rpc('set_portal_and_role', {
+      const { data: _data, error } = await (this.client.rpc as any)('set_portal_and_role', {
         p_portal: portal,
         p_role: role || null,
         p_organization_id: organizationId || null,
@@ -211,7 +211,7 @@ export class ProfileManager {
         };
       }
 
-      const { data, error } = await this.client.rpc('get_user_audit_log', {
+      const { data, error } = await (this.client.rpc as any)('get_user_audit_log', {
         p_user_id: userId || null,
         p_limit: limit,
         p_offset: offset,
@@ -325,8 +325,7 @@ export class ProfileManager {
         };
       }
 
-      const { error } = await this.client
-        .from('profiles')
+      const { error } = await (this.client.from('profiles') as any)
         .update({
           ...validatedUpdates,
           updated_at: new Date().toISOString(),

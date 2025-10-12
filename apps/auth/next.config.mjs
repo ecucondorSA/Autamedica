@@ -1,9 +1,17 @@
 /** @type {import('next').NextConfig} */
+const PUBLIC_ENV_PREFIX = 'NEXT_PUBLIC_';
+
+const publicRuntimeEnv = Object.fromEntries(
+  Object.entries(process.env)
+    .filter(([key, value]) => key.startsWith(PUBLIC_ENV_PREFIX) && value !== undefined)
+);
+
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@autamedica/types', '@autamedica/shared', '@autamedica/auth'],
   output: 'standalone', // Required for OpenNext.js Cloudflare
   trailingSlash: false,
+  env: publicRuntimeEnv,
   experimental: {
     externalDir: true
   },
@@ -47,7 +55,7 @@ const nextConfig = {
         { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
         {
           key: 'Content-Security-Policy',
-          value: "frame-ancestors 'self' https://*.autamedica.com; connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com"
+          value: "frame-ancestors 'self' https://*.autamedica.com; connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com https://*.cloudflare.com https://*.cloudflareinsights.com"
         },
         { key: 'Access-Control-Allow-Origin', value: 'https://autamedica.com' },
         { key: 'Access-Control-Allow-Credentials', value: 'true' },

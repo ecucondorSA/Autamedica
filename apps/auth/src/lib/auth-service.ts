@@ -1,8 +1,7 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import type { UserRole } from '@autamedica/types';
 import { logger, getTargetUrlByRole } from '@autamedica/shared';
-import { getBrowserSupabaseClient } from './supabase';
+import { getBrowserSupabaseClient, type SupabaseClientType } from './supabase';
 
 /**
  * Auth Service - Centralized authentication logic
@@ -41,9 +40,9 @@ export interface AuthServiceResult<T = void> {
 }
 
 export class AuthService {
-  private client: SupabaseClient<Database>;
+  private client: SupabaseClientType;
 
-  constructor(client?: SupabaseClient<Database>) {
+  constructor(client?: SupabaseClientType) {
     this.client = client ?? getBrowserSupabaseClient();
   }
 

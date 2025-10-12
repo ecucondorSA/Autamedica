@@ -1,7 +1,6 @@
 'use client';
 
 import { createBrowserClient } from '@supabase/ssr';
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@autamedica/types';
 import { getSupabaseConfig, createBrowserAuthConfig } from './config';
 
@@ -11,9 +10,11 @@ import { getSupabaseConfig, createBrowserAuthConfig } from './config';
  * - Uses centralized config (no direct process.env access)
  * - Auto session management
  */
-let browserClientInstance: SupabaseClient<Database> | null = null;
+type BrowserSupabaseClient = ReturnType<typeof createBrowserClient<Database>>;
 
-export const getBrowserSupabaseClient = (): SupabaseClient<Database> => {
+let browserClientInstance: BrowserSupabaseClient | null = null;
+
+export const getBrowserSupabaseClient = (): BrowserSupabaseClient => {
   if (typeof window === 'undefined') {
     throw new Error(
       'getBrowserSupabaseClient can only be called in browser environment. ' +
@@ -41,7 +42,7 @@ export const getBrowserSupabaseClient = (): SupabaseClient<Database> => {
 };
 
 // Type exports
-export type SupabaseClientType = SupabaseClient<Database>;
+export type SupabaseClientType = BrowserSupabaseClient;
 export type AuthUser = NonNullable<
   Awaited<ReturnType<SupabaseClientType['auth']['getUser']>>['data']['user']
 >;

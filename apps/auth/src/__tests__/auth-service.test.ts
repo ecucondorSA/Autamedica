@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AuthService } from '../lib/auth-service';
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClientType } from '../lib/supabase';
 
 // Mock Supabase client
 const createMockSupabaseClient = () => ({
@@ -22,7 +22,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     mockClient = createMockSupabaseClient();
-    authService = new AuthService(mockClient as unknown as SupabaseClient);
+    authService = new AuthService(mockClient as unknown as SupabaseClientType);
   });
 
   describe('signIn', () => {

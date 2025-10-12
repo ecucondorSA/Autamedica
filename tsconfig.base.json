@@ -1,21 +1,51 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
-      "@autamedica/types": ["packages/types/dist/index.d.ts"],
-      "@autamedica/types/*": ["packages/types/dist/*"],
-      "@autamedica/shared": ["packages/shared/dist/index.d.ts"],
-      "@autamedica/shared/*": ["packages/shared/dist/*"],
-      "@autamedica/auth": ["packages/auth/dist/index.d.ts"],
-      "@autamedica/auth/*": ["packages/auth/dist/*"],
-      "@autamedica/auth-hooks": ["packages/auth/src/hooks/index.ts"],
-      "@autamedica/auth-hooks/*": ["packages/auth/src/hooks/*"],
-      "@autamedica/hooks": ["packages/hooks/dist/index.d.ts"],
-      "@autamedica/hooks/*": ["packages/hooks/dist/*"]
+      "@autamedica/types": [
+        "packages/types/dist/index.d.ts"
+      ],
+      "@autamedica/types/*": [
+        "packages/types/dist/*"
+      ],
+      "@autamedica/shared": [
+        "packages/shared/dist/index.d.ts"
+      ],
+      "@autamedica/shared/*": [
+        "packages/shared/dist/*"
+      ],
+      "@autamedica/auth": [
+        "packages/auth/dist/index.d.ts"
+      ],
+      "@autamedica/auth/*": [
+        "packages/auth/dist/*"
+      ],
+      "@autamedica/auth-hooks": [
+        "packages/auth/src/hooks/index.ts"
+      ],
+      "@autamedica/auth-hooks/*": [
+        "packages/auth/src/hooks/*"
+      ],
+      "@autamedica/hooks": [
+        "packages/hooks/dist/index.d.ts"
+      ],
+      "@autamedica/hooks/*": [
+        "packages/hooks/dist/*"
+      ],
+      "@autamedica/tailwind-config": [
+        "packages/tailwind-config/index.ts"
+      ],
+      "@autamedica/tailwind-config/*": [
+        "packages/tailwind-config/*"
+      ]
     },
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -33,11 +63,20 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "noFallthroughCasesInSwitch": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "incremental": true
   },
-  "exclude": ["node_modules", ".next", "dist", "build", "coverage", "out"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "coverage",
+    "out"
+  ]
 }

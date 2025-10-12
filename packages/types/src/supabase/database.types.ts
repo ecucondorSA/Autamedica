@@ -1612,6 +1612,20 @@ export type Database = {
         Args: { target_user_id?: string }
         Returns: Database["public"]["Enums"]["user_role"]
       }
+      get_current_profile: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          email: string | null
+          full_name: string | null
+          role: Database["public"]["Enums"]["user_role"] | null
+          portal: string | null
+          metadata: Json | null
+          created_at: string
+          updated_at: string
+          organization_id: string | null
+        } | null
+      }
       log_audit_action: {
         Args: {
           p_action: string
@@ -1621,9 +1635,31 @@ export type Database = {
         }
         Returns: number
       }
+      get_user_audit_log: {
+        Args: {
+          p_user_id?: string | null
+          p_limit?: number | null
+          p_offset?: number | null
+          p_event_filter?: string | null
+        }
+        Returns: {
+          id: number
+          event: string
+          data: Json
+          created_at: string
+        }[]
+      }
       set_user_role: {
         Args: { p_role: Database["public"]["Enums"]["user_role"] }
         Returns: undefined
+      }
+      set_portal_and_role: {
+        Args: {
+          p_portal: string
+          p_role?: Database["public"]["Enums"]["user_role"] | null
+          p_organization_id?: string | null
+        }
+        Returns: boolean
       }
       update_call_status: {
         Args: {

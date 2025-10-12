@@ -9,7 +9,6 @@ export default defineConfig({
     globals: true,
     setupFiles: './vitest.setup.ts',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
-    threads: false,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

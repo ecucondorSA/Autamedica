@@ -101,7 +101,7 @@ export async function middleware(req: NextRequest) {
       'Content-Security-Policy',
       "frame-ancestors 'none'; " + // No framing allowed
       "connect-src 'self' https://*.autamedica.com https://*.supabase.co wss: https:; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.autamedica.com https://*.cloudflare.com https://*.cloudflareinsights.com; " +
       "object-src 'none'; " + // No objects/embeds
       "base-uri 'self'"
     );

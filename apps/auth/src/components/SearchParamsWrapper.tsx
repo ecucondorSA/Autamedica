@@ -25,7 +25,6 @@ export const SearchParamsWrapper: React.FC<SearchParamsWrapperProps> = ({ childr
     </div>
   );
 
-  // @ts-expect-error - React 19 Suspense compatibility workaround
   return (
     <Suspense fallback={loadingFallback}>
       {children}

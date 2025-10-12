@@ -7,7 +7,7 @@ import {
   getRoleDescription,
   AVAILABLE_ROLES
 } from '@autamedica/shared';
-import type { UserRole } from '@autamedica/types';
+import type { UserRole } from '@autamedica/shared';
 import { AuthCard } from '@/components/AuthCard';
 import { AuthButton } from '@/components/AuthButton';
 
