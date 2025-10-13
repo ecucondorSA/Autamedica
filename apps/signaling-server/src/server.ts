@@ -28,11 +28,16 @@ import type { ClientToServerEvents, ServerToClientEvents } from './types.js';
 import { livekitRoutes } from './routes.js';
 
 const PORT = parseInt(process.env.PORT || '8888', 10);
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3003';
+const CORS_ORIGINS = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : ['http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'];
 
 // Express app
 const app = express();
-app.use(cors({ origin: CORS_ORIGIN }));
+app.use(cors({
+  origin: CORS_ORIGINS,
+  credentials: true
+}));
 app.use(express.json()); // Parse JSON bodies
 
 // LiveKit REST API routes
@@ -55,7 +60,7 @@ const httpServer = createServer(app);
 // Socket.io server
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(httpServer, {
   cors: {
-    origin: CORS_ORIGIN,
+    origin: CORS_ORIGINS,
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -272,8 +277,9 @@ io.on('connection', async (socket: Socket) => {
  */
 httpServer.listen(PORT, () => {
   logger.info(`[Signaling] Server running on port ${PORT}`);
-  logger.info(`[Signaling] CORS origin: ${CORS_ORIGIN}`);
+  logger.info(`[Signaling] CORS origins: ${CORS_ORIGINS.join(', ')}`);
   logger.info(`[Signaling] Health check: http://localhost:${PORT}/health`);
+  logger.info(`[Signaling] LiveKit endpoints: /api/token`);
 });
 
 /**
