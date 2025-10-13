@@ -50,9 +50,8 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
       hasLiveKitConfig: !!liveKitConfig,
       liveKitUrl: liveKitConfig?.url,
       hasToken: !!liveKitConfig?.token,
-      SIGNALING_SERVICE_URL: process.env.NEXT_PUBLIC_SIGNALING_SERVICE_URL,
     });
-  }, []);
+  }, [isLiveKitEnabled, liveKitConfig]);
 
   const handleLiveKitConnected = useCallback(async () => {
     if (joinedRef.current) return;
@@ -88,15 +87,11 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
 
   // Remote stream - usa mock en desarrollo, LiveKit en producción
   // Controlado por feature flag NEXT_PUBLIC_USE_MOCK_VIDEO
-  const mockStream = featureFlags.USE_MOCK_VIDEO
-    ? useMockRemoteStream(videoCall.callStatus === 'live')
-    : null;
+  // Llamar ambos hooks siempre (regla de React Hooks)
+  const mockStream = useMockRemoteStream(videoCall.callStatus === 'live');
+  const realStream = useRealRemoteStream(undefined); // Pasar remoteParticipant aquí cuando esté disponible
 
-  // TODO: Pasar remoteParticipant de LiveKit cuando esté disponible
-  const realStream = !featureFlags.USE_MOCK_VIDEO
-    ? useRealRemoteStream(undefined) // Pasar remoteParticipant aquí
-    : null;
-
+  // Seleccionar el stream correcto basado en feature flags
   const remoteStream = featureFlags.USE_MOCK_VIDEO ? mockStream : realStream;
 
   // Calidad de la llamada
