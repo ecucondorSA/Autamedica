@@ -71,8 +71,19 @@ export function useRealDoctors(): UseDoctorsResult {
 
       setDoctors(activeDoctors as unknown as DoctorWithProfile[]);
     } catch (err) {
-      logger.error('Error fetching doctors:', err);
-      setError(err instanceof Error ? err.message : 'Error desconocido');
+      const errorMessage = err instanceof Error
+        ? err.message
+        : typeof err === 'string'
+        ? err
+        : 'Error fetching doctors';
+
+      logger.error('Error fetching doctors:', {
+        error: err,
+        errorType: typeof err,
+        errorConstructor: err?.constructor?.name
+      });
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -131,8 +142,20 @@ export function useCurrentDoctor(userId?: string): UseCurrentDoctorResult {
 
       setDoctor(currentDoctor as unknown as DoctorWithProfile);
     } catch (err) {
-      logger.error('Error fetching current doctor:', err);
-      setError(err instanceof Error ? err.message : 'Error desconocido');
+      const errorMessage = err instanceof Error
+        ? err.message
+        : typeof err === 'string'
+        ? err
+        : 'Error fetching current doctor';
+
+      logger.error('Error fetching current doctor:', {
+        error: err,
+        errorType: typeof err,
+        errorConstructor: err?.constructor?.name,
+        userId
+      });
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -187,8 +210,20 @@ export function useDoctorsBySpecialty(specialty: string): UseDoctorsBySpecialtyR
 
       setDoctors(filtered as unknown as DoctorWithProfile[]);
     } catch (err) {
-      logger.error('Error fetching doctors by specialty:', err);
-      setError(err instanceof Error ? err.message : 'Error desconocido');
+      const errorMessage = err instanceof Error
+        ? err.message
+        : typeof err === 'string'
+        ? err
+        : 'Error fetching doctors by specialty';
+
+      logger.error('Error fetching doctors by specialty:', {
+        error: err,
+        errorType: typeof err,
+        errorConstructor: err?.constructor?.name,
+        specialty
+      });
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
