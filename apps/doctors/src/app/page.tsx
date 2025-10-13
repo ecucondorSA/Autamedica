@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react'
 import type { JSX, ReactNode } from 'react'
+import dynamic from 'next/dynamic'
 import {
   Brain,
   CheckCircle2,
@@ -24,12 +25,52 @@ import {
 } from 'lucide-react'
 import { useActiveSession, usePatientData } from '@/hooks'
 import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser'
-import { TelemedicineSignalingPanel } from '@/components/telemedicine/TelemedicineSignalingPanel'
 import { useDoctorsPortal } from '@/components/layout/DoctorsPortalShell'
 import { useMedicalHistoryStore } from '@/stores/medicalHistoryStore'
-import { QuickNotesModal } from '@/components/medical/QuickNotesModal'
-import { PrescriptionModal } from '@/components/medical/PrescriptionModal'
-import { StartCallButton } from '@/components/calls/StartCallButton'
+import { logger } from '@autamedica/shared'
+
+// 🚀 Lazy load componentes pesados con dynamic imports
+const TelemedicineSignalingPanel = dynamic(
+  () => import('@/components/telemedicine/TelemedicineSignalingPanel').then(mod => ({ default: mod.TelemedicineSignalingPanel })),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 rounded-2xl border border-slate-800/60 bg-[#101d32] p-6">
+        <Loader2 className="h-5 w-5 animate-spin text-blue-400" />
+        <span className="text-sm text-slate-300">Cargando panel de telemedicina...</span>
+      </div>
+    ),
+    ssr: false
+  }
+)
+
+const QuickNotesModal = dynamic(
+  () => import('@/components/medical/QuickNotesModal').then(mod => ({ default: mod.QuickNotesModal })),
+  {
+    loading: () => null,
+    ssr: false
+  }
+)
+
+const PrescriptionModal = dynamic(
+  () => import('@/components/medical/PrescriptionModal').then(mod => ({ default: mod.PrescriptionModal })),
+  {
+    loading: () => null,
+    ssr: false
+  }
+)
+
+const StartCallButton = dynamic(
+  () => import('@/components/calls/StartCallButton').then(mod => ({ default: mod.StartCallButton })),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 rounded-lg bg-gray-600 px-6 py-2 text-sm font-semibold text-white">
+        <Loader2 className="h-4 w-4 animate-spin" />
+        Cargando...
+      </div>
+    ),
+    ssr: false
+  }
+)
 
 type ControlButtonProps = {
   active: boolean

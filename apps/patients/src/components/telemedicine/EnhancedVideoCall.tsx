@@ -41,6 +41,19 @@ export function EnhancedVideoCall({ roomId = 'patient-room', sessionId, classNam
   const isLiveKitEnabled = featureFlags.USE_LIVEKIT && !featureFlags.USE_MOCK_VIDEO;
   const liveKitConfig = isLiveKitEnabled ? telemedicine.livekit : null;
 
+  // 🔍 DEBUGGING: Log configuración LiveKit en montaje
+  useEffect(() => {
+    logger.info('[EnhancedVideoCall] 🔍 DEBUG - Configuración inicial:', {
+      USE_LIVEKIT: featureFlags.USE_LIVEKIT,
+      USE_MOCK_VIDEO: featureFlags.USE_MOCK_VIDEO,
+      isLiveKitEnabled,
+      hasLiveKitConfig: !!liveKitConfig,
+      liveKitUrl: liveKitConfig?.url,
+      hasToken: !!liveKitConfig?.token,
+      SIGNALING_SERVICE_URL: process.env.NEXT_PUBLIC_SIGNALING_SERVICE_URL,
+    });
+  }, []);
+
   const handleLiveKitConnected = useCallback(async () => {
     if (joinedRef.current) return;
     try {
