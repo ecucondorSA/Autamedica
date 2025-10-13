@@ -34,6 +34,8 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
         // 🔓 DEV MODE: Don't redirect in development
         if (process.env.NODE_ENV !== 'development') {
           window.location.href = getLoginUrl()
+        } else {
+          logger.info('[AuthContext] No session in development mode - continuing without auth')
         }
         return
       }
@@ -41,11 +43,12 @@ export function AuthProvider({ children, initialSession = null }: AuthProviderPr
       setSession(sessionData)
 
     } catch (err) {
-      console.error('Auth refresh error:', err)
-      setError(err instanceof Error ? err.message : 'Authentication failed')
-
-      // 🔓 DEV MODE: Don't redirect in development
-      if (process.env.NODE_ENV !== 'development') {
+      // 🔓 DEV MODE: Suppress errors in development
+      if (process.env.NODE_ENV === 'development') {
+        logger.info('[AuthContext] Auth fetch failed in development mode - continuing without auth')
+      } else {
+        console.error('Auth refresh error:', err)
+        setError(err instanceof Error ? err.message : 'Authentication failed')
         setTimeout(() => {
           window.location.href = getLoginUrl()
         }, 1000)

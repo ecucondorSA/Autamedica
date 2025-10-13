@@ -6,10 +6,8 @@ import { DoctorsPortalShell } from '@/components/layout/DoctorsPortalShell'
 // import { MedicalQueryProvider } from '@autamedica/hooks'
 import { ClientWrapper } from '@/components/ClientWrapper'
 import { AuthProvider } from '@/contexts/AuthContext'
-import { fetchSessionData } from '@/lib/session-sync'
 import { SessionSync } from '@/components/SessionSync'
 
-import { logger } from '@autamedica/shared';
 export const metadata: Metadata = {
   title: 'AutaMedica Doctor Portal',
   description: 'Portal profesional para médicos AutaMedica con experiencia de videollamadas y herramientas clínicas.',
@@ -20,16 +18,7 @@ interface RootLayoutProps {
   params?: any;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps): Promise<JSX.Element> {
-  // SSR session sync - Trust the middleware for auth protection
-  // Middleware already handles redirects, so we just fetch session data if available
-  let sessionData = null
-  try {
-    sessionData = await fetchSessionData()
-  } catch (error) {
-    // If session fetch fails, middleware will handle redirect on next navigation
-    console.error('Session sync error:', error)
-  }
+export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
@@ -42,7 +31,7 @@ export default async function RootLayout({ children }: RootLayoutProps): Promise
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased">
         <SessionSync />
-        <AuthProvider initialSession={sessionData}>
+        <AuthProvider>
           <ClientWrapper>
             <DoctorsPortalShell>{children as any}</DoctorsPortalShell>
           </ClientWrapper>

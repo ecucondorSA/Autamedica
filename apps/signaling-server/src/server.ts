@@ -15,6 +15,8 @@
 // Load environment variables FIRST
 import 'dotenv/config';
 
+import './utils/express-compat.js';
+
 import express from 'express';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';

@@ -62,7 +62,10 @@ export async function fetchSessionData(
 
     return sessionData;
   } catch (error) {
-    logger.error('Session sync error:', error);
+    // En desarrollo, solo logear si NODE_ENV no es development
+    if (process.env.NODE_ENV !== 'development') {
+      logger.error('Session sync error:', error);
+    }
     return null;
   }
 }
