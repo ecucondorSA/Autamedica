@@ -6,19 +6,140 @@ import {
   isProduction,
 } from '@autamedica/shared'
 
+type EnvRecord = Record<string, string | undefined>
+
+const DEFAULT_STUN_SERVERS: RTCIceServer[] = [
+  { urls: 'stun:stun.l.google.com:19302' },
+  { urls: 'stun:stun1.l.google.com:19302' },
+  { urls: 'stun:stun2.l.google.com:19302' },
+  { urls: 'stun:stun3.l.google.com:19302' },
+  { urls: 'stun:stun4.l.google.com:19302' },
+]
+
+const TURN_PROTOCOL_PATTERN = /^turns?:/i
+const STUN_PROTOCOL_PATTERN = /^stun:/i
+
+function getProcessEnv(): EnvRecord {
+  return (typeof process !== 'undefined' && process?.env) || {}
+}
+
+function ensureArray(value: unknown): string[] | null {
+  if (Array.isArray(value)) {
+    return value.filter((entry): entry is string => typeof entry === 'string' && entry.length > 0)
+  }
+  if (typeof value === 'string' && value.length > 0) {
+    return [value]
+  }
+  return null
+}
+
+function normalizeIceServer(input: unknown): RTCIceServer | null {
+  if (!input || typeof input !== 'object') {
+    return null
+  }
+
+  const candidate = input as Partial<RTCIceServer>
+  const urls = ensureArray(candidate.urls)
+  if (!urls?.length) {
+    return null
+  }
+
+  const filteredUrls = urls.filter(url => STUN_PROTOCOL_PATTERN.test(url) || TURN_PROTOCOL_PATTERN.test(url))
+  if (!filteredUrls.length) {
+    return null
+  }
+
+  const normalized: RTCIceServer = {
+    urls: filteredUrls.length === 1 ? filteredUrls[0] : filteredUrls,
+  }
+
+  if (candidate.username) {
+    normalized.username = String(candidate.username)
+  }
+  if (candidate.credential) {
+    normalized.credential = String(candidate.credential)
+  }
+
+  return normalized
+}
+
+function parseIceServers(raw: string | undefined): RTCIceServer[] {
+  if (!raw) {
+    return []
+  }
+
+  try {
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) {
+      return []
+    }
+    return parsed.map(normalizeIceServer).filter((server): server is RTCIceServer => Boolean(server))
+  } catch {
+    return []
+  }
+}
+
+function getTurnServerFromEnv(env: EnvRecord): RTCIceServer | null {
+  const urlsRaw = env.TURN_SERVER_URL ?? env.NEXT_PUBLIC_TURN_URL ?? env.NEXT_PUBLIC_TURN_URLS
+  const username = env.TURN_USERNAME ?? env.NEXT_PUBLIC_TURN_USERNAME
+  const credential = env.TURN_PASSWORD ?? env.NEXT_PUBLIC_TURN_CREDENTIAL
+
+  if (!urlsRaw || !username || !credential) {
+    return null
+  }
+
+  const urls = urlsRaw
+    .split(',')
+    .map(url => url.trim())
+    .filter(url => url.length > 0)
+
+  if (!urls.length) {
+    return null
+  }
+
+  return {
+    urls: urls.length === 1 ? urls[0] : urls,
+    username,
+    credential,
+  }
+}
+
+/**
+ * Obtiene la configuración final de ICE servers combinando defaults y overrides
+ */
+export function getIceServersConfig(): RTCIceServer[] {
+  const env = getProcessEnv()
+  const fromClientEnv = getOptionalClientEnv('NEXT_PUBLIC_ICE_SERVERS')
+  const fromServerEnv = getServerEnvOrDefault('ICE_SERVERS_JSON', '[]')
+
+  const parsed = parseIceServers(fromClientEnv ?? fromServerEnv)
+  const turn = getTurnServerFromEnv(env)
+
+  const servers: RTCIceServer[] = []
+  if (turn) {
+    servers.push(turn)
+  }
+  servers.push(...parsed)
+
+  const hasStun = servers.some(server => {
+    const urls = ensureArray(server.urls)
+    return urls?.some(url => STUN_PROTOCOL_PATTERN.test(url)) ?? false
+  })
+
+  if (!hasStun) {
+    servers.push(...DEFAULT_STUN_SERVERS)
+  }
+
+  return servers
+}
+
 /** Lee ICE desde env (cliente o server) */
 export function loadIceServers(): RTCIceServer[] {
-  const raw =
-    getOptionalClientEnv('NEXT_PUBLIC_ICE_SERVERS') ??
-    getServerEnvOrDefault('ICE_SERVERS_JSON', '[]')
-  try { return JSON.parse(raw) } catch { return [] }
+  return getIceServersConfig()
 }
 
 /** STUN-only por defecto (para desarrollo) */
-export const ICE_STUN_ONLY: RTCIceServer[] = [
-  { urls: ['stun:stun.l.google.com:19302'] },
-  { urls: ['stun:stun1.l.google.com:19302'] },
-]
+export const ICE_STUN_ONLY: RTCIceServer[] = [...DEFAULT_STUN_SERVERS]
 
 /**
  * STUN+TURN production-ready configuration
@@ -68,6 +189,71 @@ export function getProductionICEServers(): RTCIceServer[] {
  * NEXT_PUBLIC_TURN_CREDENTIAL=<secure-credential>
  */
 export const ICE_WITH_TURN: RTCIceServer[] = getProductionICEServers()
+
+/**
+ * Valida la configuración de ICE servers y avisa si faltan STUN/TURN
+ */
+export function validateIceServersConfig(servers: unknown): servers is RTCIceServer[] {
+  if (!Array.isArray(servers) || servers.length === 0) {
+    return false
+  }
+
+  let hasStun = false
+  let hasTurn = false
+
+  for (const server of servers) {
+    if (!server || typeof server !== 'object') {
+      return false
+    }
+
+    const urls = ensureArray((server as RTCIceServer).urls)
+    if (!urls?.length) {
+      return false
+    }
+
+    if (urls.some(url => STUN_PROTOCOL_PATTERN.test(url))) {
+      hasStun = true
+    }
+    if (urls.some(url => TURN_PROTOCOL_PATTERN.test(url))) {
+      hasTurn = true
+    }
+  }
+
+  if (!hasStun) {
+    console.warn('No STUN servers configured. Peer-to-peer calls may fail without STUN support.')
+  }
+  if (!hasTurn) {
+    console.warn('No TURN servers configured. Users behind restrictive networks may fail to connect.')
+  }
+
+  return true
+}
+
+/**
+ * Devuelve un ejemplo JSON listo para usar en la UI de configuración
+ */
+export function getExampleIceServersConfig(): string {
+  return JSON.stringify(
+    [
+      {
+        urls: [
+          'stun:stun.l.google.com:19302',
+          'stun:stun1.l.google.com:19302',
+        ],
+      },
+      {
+        urls: [
+          'turn:turn.autamedica.com:3478?transport=udp',
+          'turns:turn.autamedica.com:5349?transport=tcp',
+        ],
+        username: 'your-turn-username',
+        credential: 'your-turn-password',
+      },
+    ],
+    null,
+    2
+  )
+}
 
 /** Señalización URL desde env */
 export function loadSignalingUrl(): string {

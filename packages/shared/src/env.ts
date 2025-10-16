@@ -5,6 +5,13 @@ import { logger } from './services/logger.service';
  */
 const processRef = typeof process !== 'undefined' ? process : null;
 
+function logWarning(message: string): void {
+  logger.warn(message);
+  if (typeof console !== 'undefined' && typeof console.warn === 'function') {
+    console.warn(message);
+  }
+}
+
 /**
  * Check if the current environment is production
  * @returns true if NODE_ENV is 'production'
@@ -182,7 +189,7 @@ export function ensureEnv(name: string): string {
 function assertClientEnvAllowed(name: string) {
   if (!ALLOWED_CLIENT_VARS.has(name)) {
     throw new Error(
-      `Invalid client environment variable: ${name}. Only approved NEXT_PUBLIC_* variables are allowed on client side.`,
+      `Invalid client environment variable: ${name}. Only NEXT_PUBLIC_* variables are allowed on client side.`,
     );
   }
 
@@ -451,11 +458,11 @@ export function validateEnvironmentSecurity(): void {
     process.env.NEXT_PUBLIC_OPENAI_API_KEY &&
     !process.env.ALLOW_CLIENT_OPENAI_KEY
   ) {
-    logger.warn(
+    logWarning(
       "⚠️  WARNING: NEXT_PUBLIC_OPENAI_API_KEY is exposed to client. This may pose security risks.",
     );
-    logger.warn("⚠️  Consider moving OpenAI calls to server-side API routes.");
-    logger.warn(
+    logWarning("⚠️  Consider moving OpenAI calls to server-side API routes.");
+    logWarning(
       "⚠️  Set ALLOW_CLIENT_OPENAI_KEY=true to suppress this warning if intentional.",
     );
   }
@@ -470,7 +477,7 @@ export function validateEnvironmentSecurity(): void {
     const clientVal = process.env[clientVar];
 
     if (serverVal && clientVal && serverVal !== clientVal) {
-      logger.warn(
+      logWarning(
         `Warning: ${serverVar} and ${clientVar} have different values. This may cause confusion.`,
       );
     }

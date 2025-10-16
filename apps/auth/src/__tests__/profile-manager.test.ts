@@ -3,25 +3,29 @@ import { ProfileManager } from '../lib/profile-manager';
 import type { SupabaseClientType } from '../lib/supabase';
 
 // Mock Supabase client
-const createMockSupabaseClient = () => ({
-  rpc: vi.fn(),
-  from: vi.fn(() => ({
-    select: vi.fn(() => ({
-      limit: vi.fn(() => ({
-        single: vi.fn(),
-      })),
-      eq: vi.fn(() => ({
-        single: vi.fn(),
-      })),
+const createMockSupabaseClient = () => {
+  const limitResult = { single: vi.fn() };
+  const selectResult = {
+    limit: vi.fn(() => limitResult),
+    eq: vi.fn(() => ({
+      single: vi.fn(),
     })),
+  };
+  const fromResult = {
+    select: vi.fn(() => selectResult),
     update: vi.fn(() => ({
       eq: vi.fn(),
     })),
-  })),
-  auth: {
-    getUser: vi.fn(),
-  },
-});
+  };
+
+  return {
+    rpc: vi.fn(),
+    from: vi.fn(() => fromResult),
+    auth: {
+      getUser: vi.fn(),
+    },
+  };
+};
 
 describe('ProfileManager', () => {
   let profileManager: ProfileManager;
